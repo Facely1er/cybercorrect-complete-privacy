@@ -1,0 +1,293 @@
+import React, { useState } from 'react';
+import { 
+  Eye, 
+  Download, 
+  FileText, 
+  CheckCircle, 
+  Users,
+  Globe,
+  Lock,
+  Settings,
+  AlertTriangle,
+  Database,
+  Scale
+} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/Card';
+import { Button } from '../../../components/ui/Button';
+import { toast } from '../../../components/ui/Toaster';
+
+const PrivacyNoticeViewer: React.FC = () => {
+  const [activeSection, setActiveSection] = useState<string>('overview');
+  const [noticeType, setNoticeType] = useState<string>('website');
+
+  const downloadTemplate = () => {
+    const templateContent = `
+PRIVACY NOTICE TEMPLATE
+
+EFFECTIVE DATE: [Insert Date]
+
+1. WHO WE ARE
+We are [Organization Name], a [type of organization] located at [address]. You can contact us at [contact information].
+
+2. WHAT PERSONAL INFORMATION WE COLLECT
+We collect the following categories of personal information:
+- Contact Information: Name, email address, phone number, mailing address
+- Account Information: Username, password, account preferences
+- Usage Information: How you interact with our services
+- Device Information: IP address, browser type, device identifiers
+
+3. HOW WE USE YOUR INFORMATION
+We use your personal information for the following purposes:
+- To provide and improve our services
+- To communicate with you about our services
+- To comply with legal obligations
+- To protect our rights and interests
+
+4. LEGAL BASIS FOR PROCESSING (GDPR)
+We process your personal information based on:
+- Your consent (where you have given it)
+- Performance of a contract with you
+- Our legitimate interests
+- Compliance with legal obligations
+
+5. HOW WE SHARE YOUR INFORMATION
+We may share your information with:
+- Service providers who help us operate our business
+- Legal authorities when required by law
+- Business partners with your consent
+
+6. YOUR PRIVACY RIGHTS
+Depending on your location, you may have the following rights:
+- Right to access your personal information
+- Right to correct inaccurate information
+- Right to delete your information
+- Right to restrict processing
+- Right to data portability
+- Right to object to processing
+
+7. DATA RETENTION
+We retain your personal information for as long as necessary to:
+- Provide our services to you
+- Comply with legal obligations
+- Resolve disputes and enforce agreements
+
+8. INTERNATIONAL TRANSFERS
+If we transfer your information outside your country, we ensure appropriate safeguards are in place.
+
+9. SECURITY
+We implement appropriate technical and organizational measures to protect your personal information.
+
+10. CHANGES TO THIS NOTICE
+We may update this privacy notice from time to time. We will notify you of material changes.
+
+11. CONTACT US
+If you have questions about this privacy notice or want to exercise your rights:
+Email: [privacy email]
+Phone: [phone number]
+Address: [mailing address]
+
+This template should be customized for your specific organization and reviewed by legal counsel.
+    `;
+
+    const blob = new Blob([templateContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `privacy-notice-${noticeType}-${new Date().toISOString().split('T')[0]}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    toast.success("Download started", "Privacy notice template downloaded successfully");
+  };
+
+  const sections = [
+    { id: 'overview', title: 'Notice Overview', icon: Eye },
+    { id: 'content', title: 'Content Requirements', icon: FileText },
+    { id: 'rights', title: 'Individual Rights', icon: Users },
+    { id: 'compliance', title: 'Compliance Features', icon: CheckCircle }
+  ];
+
+  const noticeTypes = [
+    { id: 'website', name: 'Website Privacy Notice', description: 'For website visitors and online services' },
+    { id: 'app', name: 'Mobile App Privacy Notice', description: 'For mobile application users' },
+    { id: 'employee', name: 'Employee Privacy Notice', description: 'For employee data processing' },
+    { id: 'customer', name: 'Customer Privacy Notice', description: 'For customer relationship management' }
+  ];
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="mb-6">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold mb-2 text-foreground">Privacy Notice Templates</h1>
+            <p className="text-muted-foreground">GDPR, CCPA, and multi-regulation compliant privacy notice templates</p>
+          </div>
+          <Button onClick={downloadTemplate} className="bg-blue-600 hover:bg-blue-700">
+            <Download className="h-4 w-4 mr-2" />
+            Download Template
+          </Button>
+        </div>
+      </div>
+
+      {/* Notice Type Selection */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle className="flex items-center">
+            <Settings className="h-5 w-5 mr-2 text-blue-600" />
+            Select Notice Type
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {noticeTypes.map(type => (
+              <Card 
+                key={type.id}
+                className={`cursor-pointer transition-all ${
+                  noticeType === type.id ? 'ring-2 ring-primary' : ''
+                }`}
+                onClick={() => setNoticeType(type.id)}
+              >
+                <CardContent className="p-4 text-center">
+                  <h3 className="font-semibold text-foreground mb-1">{type.name}</h3>
+                  <p className="text-xs text-muted-foreground">{type.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Template Overview */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <Card className="border-l-4 border-l-blue-600">
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-3 mb-3">
+              <Globe className="h-8 w-8 text-blue-600" />
+              <div>
+                <h3 className="font-semibold text-foreground">Multi-Regulation</h3>
+                <p className="text-sm text-muted-foreground">GDPR, CCPA, LGPD compliant</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-green-600">
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-3 mb-3">
+              <CheckCircle className="h-8 w-8 text-green-600" />
+              <div>
+                <h3 className="font-semibold text-foreground">11 Sections</h3>
+                <p className="text-sm text-muted-foreground">Complete notice structure</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-purple-600">
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-3 mb-3">
+              <FileText className="h-8 w-8 text-purple-600" />
+              <div>
+                <h3 className="font-semibold text-foreground">Customizable</h3>
+                <p className="text-sm text-muted-foreground">Adapt to your organization</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Navigation Tabs */}
+      <div className="bg-background border-b border-border mb-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
+        <nav className="flex space-x-8">
+          {sections.map(section => (
+            <button
+              key={section.id}
+              onClick={() => setActiveSection(section.id)}
+              className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors flex items-center ${
+                activeSection === section.id
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <section.icon className="w-4 h-4 mr-2" />
+              {section.title}
+            </button>
+          ))}
+        </nav>
+      </div>
+
+      {/* Section Content */}
+      <div className="space-y-6">
+        {activeSection === 'overview' && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Privacy Notice Requirements</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground mb-4">
+                Privacy notices are required under most privacy regulations to inform individuals about how their personal data is processed.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-foreground">GDPR Requirements:</h4>
+                  <ul className="space-y-1 text-sm text-muted-foreground">
+                    <li>• Controller identity and contact details</li>
+                    <li>• Purposes and legal basis for processing</li>
+                    <li>• Categories of personal data</li>
+                    <li>• Recipients or categories of recipients</li>
+                    <li>• International transfer information</li>
+                    <li>• Retention periods</li>
+                    <li>• Individual rights information</li>
+                  </ul>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-foreground">CCPA Requirements:</h4>
+                  <ul className="space-y-1 text-sm text-muted-foreground">
+                    <li>• Categories of personal information collected</li>
+                    <li>• Sources of personal information</li>
+                    <li>• Business purposes for collection</li>
+                    <li>• Categories of third parties with whom information is shared</li>
+                    <li>• Consumer rights under CCPA</li>
+                    <li>• Non-discrimination policy</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {activeSection === 'content' && (
+          <div className="text-center py-12">
+            <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-foreground mb-2">Content Requirements</h3>
+            <p className="text-muted-foreground">
+              Detailed content requirements interface coming soon
+            </p>
+          </div>
+        )}
+
+        {activeSection === 'rights' && (
+          <div className="text-center py-12">
+            <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-foreground mb-2">Individual Rights</h3>
+            <p className="text-muted-foreground">
+              Individual rights documentation interface coming soon
+            </p>
+          </div>
+        )}
+
+        {activeSection === 'compliance' && (
+          <div className="text-center py-12">
+            <CheckCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-foreground mb-2">Compliance Features</h3>
+            <p className="text-muted-foreground">
+              Compliance validation interface coming soon
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default PrivacyNoticeViewer;

@@ -1,0 +1,235 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    
+    --card: 0 0% 98%;
+    --card-foreground: 222.2 84% 4.9%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    
+    --primary: 194 49% 33%; /* #2A6F7F - Deep Teal */
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 191 49% 45%; /* #3A9CA8 - Lighter Teal */
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    
+    --accent: 187 100% 50%; /* #00E5FF - Cyan */
+    --accent-foreground: 222.2 47.4% 11.2%;
+    
+    --muted: 210 20% 92%; /* #E0E5E9 - Soft Gray - Increased contrast */
+    --muted-foreground: 215.4 16.3% 46.9%;
+    
+    --destructive: 0 81% 71%; /* #FF6B6B - Coral */
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 122 53% 40%; /* #4CAF50 - Forest Green */
+    --success-foreground: 210 40% 98%;
+
+    --warning: 0 81% 71%; /* Using alert-coral for warning */
+    --warning-foreground: 210 40% 98%;
+    
+    --border: 210 20% 90%; /* #E0E5E9 - Soft Gray */
+    --input: 210 20% 90%; /* #E0E5E9 - Soft Gray */
+    --ring: 194 49% 33%; /* #2A6F7F - Deep Teal */
+    
+    --radius: 0.5rem;
+  }
+  
+  .dark {
+    --background: 215 22% 8%; /* #0F1419 - Dark Gray */
+    --foreground: 210 40% 98%; /* #E5E7EB - Light Gray */
+    
+    --card: 215 20% 12%; /* #1C2128 - Charcoal - Increased contrast */
+    --card-foreground: 210 40% 98%;
+    
+    --popover: 215 20% 14%;
+    --popover-foreground: 210 40% 98%;
+    
+    --primary: 191 49% 45%; /* #3A9CA8 - Lighter Teal */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 191 49% 45%; /* #3A9CA8 - Lighter Teal */
+    --secondary-foreground: 0 0% 100%;
+    
+    --accent: 187 100% 50%; /* #00E5FF - Cyan */
+    --accent-foreground: 0 0% 0%;
+    
+    --muted: 217 25% 25%; /* #374151 - Dark Support - Increased contrast */
+    --muted-foreground: 215 20.2% 75.1%;
+    
+    --destructive: 0 85% 72%; /* #F87171 - Softer Coral */
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 160 84% 39%; /* #10B981 - Dark Green */
+    --success-foreground: 0 0% 100%;
+
+    --warning: 0 85% 72%; /* Using dark-alert for warning */
+    --warning-foreground: 0 0% 100%;
+    
+    --border: 217 25% 27%; /* #374151 - Dark Support */
+    --input: 217 25% 27%; /* #374151 - Dark Support */
+    --ring: 191 49% 45%; /* #3A9CA8 - Lighter Teal */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+
+  html {
+    @apply transition-colors duration-200;
+    overflow-x: hidden;
+  }
+
+  .dark-mode-transition-disabled {
+    transition: none !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium leading-tight text-foreground;
+  }
+
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+@layer components {
+  /* Enhanced button styles for consistency */
+  .enhanced-button {
+    @apply transform hover:scale-105 hover:shadow-xl transition-all duration-500 hover:brightness-110;
+  }
+  
+  /* Consistent card hover effects */
+  .card-hover-lift {
+    @apply hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 hover:brightness-105;
+  }
+  
+  /* Gradient text utility */
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 dark:from-blue-400 dark:via-purple-400 dark:to-cyan-400 bg-clip-text text-transparent animate-gradient;
+  }
+  
+  /* Animated gradient background */
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 3s ease infinite;
+  }
+  
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* Consistent hero badge styling */
+  .hero-badge {
+    @apply px-6 py-3 rounded-full inline-flex items-center text-sm font-semibold tracking-wide uppercase shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm;
+  }
+  
+  /* Glass morphism effect */
+  .glass-effect {
+    @apply bg-white/20 dark:bg-black/20 backdrop-blur-md border border-white/30 dark:border-white/10;
+  }
+  
+  /* Enhanced glow effect */
+  .glow-effect {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3), 0 0 80px rgba(59, 130, 246, 0.1);
+  }
+  
+  /* Section spacing consistency */
+  .section-padding {
+    @apply py-24;
+  }
+  
+  /* Title spacing consistency */
+  .section-title {
+    @apply text-3xl font-bold text-center mb-12 text-foreground;
+  }
+
+  .dropdown-content {
+    @apply overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md;
+  }
+
+  .animate-in {
+    animation: animateIn 0.5s ease;
+  }
+
+  .animate-out {
+    animation: animateOut 0.5s ease;
+  }
+  
+  .page-transition {
+    @apply transition-all duration-500;
+  }
+
+  .page-enter {
+    @apply opacity-0;
+  }
+
+  .page-enter-active {
+    @apply opacity-100 transition-all duration-500;
+  }
+  
+  /* Styling for navlinks */
+  .nav-link {
+    @apply text-foreground hover:text-primary-teal transition-all duration-300;
+  }
+  
+  .nav-link.active {
+    @apply text-primary-teal dark:text-dark-primary;
+    background-color: rgba(42, 111, 127, 0.1);
+    border-radius: 0.375rem;
+  }
+  
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-2 dark:hover:shadow-none dark:hover:border-primary/50;
+  }
+  
+  /* Button transitions */
+  .btn-transition {
+    @apply transition-all duration-300;
+  }
+  
+  /* Assessment section styling */
+  .assessment-card {
+    @apply border dark:border-muted bg-card shadow-sm dark:shadow-none hover:shadow-lg hover:-translate-y-2 dark:hover:shadow-none transition-all duration-300;
+  }
+}
+
+/* Prevent flash of unstyled content when switching themes */
+.no-fouc {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fouc-ready {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease-in-out;
+}

@@ -1,0 +1,318 @@
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Card, CardContent } from '../components/ui/Card';
+import { Button } from '../components/ui/Button';
+import { 
+  Eye,
+  Shield,
+  Database, 
+  Target,
+  ArrowRight, 
+  CheckCircle, 
+  AlertTriangle,
+  Clock,
+  Bell,
+  FileText,
+  Users
+} from 'lucide-react';
+
+const AssessmentHub = () => {
+  const navigate = useNavigate();
+
+  // Hero Section - moved outside container for full-width styling
+  const heroSection = (
+    <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
+      <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-50"></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center max-w-5xl mx-auto">
+          <div className="inline-block mb-8 animate-fade-in">
+            <span className="bg-blue-100 text-blue-700 dark:bg-dark-primary/10 dark:text-dark-primary px-6 py-3 rounded-full inline-flex items-center text-sm font-semibold tracking-wide uppercase">
+              <Target className="w-4 h-4 mr-2" />
+              Intelligent Assessments
+            </span>
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
+            Assessment <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Hub</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+            Start your compliance journey with intelligent assessments that provide personalized roadmaps and actionable insights
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+
+  // Two main compliance assessment paths
+  const mainPaths = [
+    {
+      id: 'privacy',
+      title: 'Privacy Compliance Assessment',
+      subtitle: 'GDPR, CCPA, LGPD & Global Privacy Laws',
+      description: 'Comprehensive privacy program evaluation with automated impact assessments and personalized implementation roadmaps.',
+      icon: Eye,
+      path: '/assessments/privacy-assessment',
+      timeEstimate: '25 min',
+      complexity: 'Intermediate',
+      color: 'from-blue-600 to-cyan-600',
+      outcomes: [
+        'Compliance score across all privacy regulations',
+        'Personalized action plan with timeline',
+        'Risk-prioritized remediation steps',
+        'Audit-ready compliance documentation'
+      ]
+    },
+    {
+      id: 'security-framework',
+      title: 'Security Framework Assessment',
+      subtitle: 'Enterprise Security Standards & Best Practices',
+      description: 'Complete evaluation of security practices with framework readiness scoring and implementation guidance.',
+      icon: Database,
+      path: '/assessments/security-assessment',
+      timeEstimate: '30 min',
+      complexity: 'Advanced',
+      color: 'from-green-600 to-emerald-600',
+      outcomes: [
+        'Security framework readiness assessment',
+        'Gap analysis with remediation costs',
+        'Implementation timeline and priorities',
+        'Enterprise security compliance roadmap'
+      ]
+    }
+  ];
+
+
+  return (
+    <div>
+      {heroSection}
+      
+      <div className="container mx-auto px-4 py-8">
+
+      {/* Privacy Assessment */}
+      <div className="mb-16">
+        <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Privacy Assessment</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <Card className="relative overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-0 shadow-lg">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600 opacity-5 group-hover:opacity-10 transition-opacity"></div>
+            <CardContent className="relative p-10">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center mr-4">
+                  <Eye className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-foreground">Comprehensive Privacy Assessment</h3>
+                  <p className="text-muted-foreground">NIST Privacy Framework, GDPR, CCPA & Global Regulations</p>
+                </div>
+              </div>
+              
+              <p className="text-muted-foreground mb-6">
+                Evaluate your privacy program against multiple global regulations with intelligent gap analysis and remediation planning.
+              </p>
+              
+              <div className="mb-6">
+                <h4 className="font-semibold mb-3 text-foreground">What You'll Get:</h4>
+                <div className="space-y-2">
+                  {[
+                    'Multi-regulation compliance scoring',
+                    'Privacy gap analysis with priorities',
+                    'Implementation roadmap and timeline',
+                    'Role-based task assignments',
+                    'Evidence requirements mapping',
+                    'Audit-ready documentation'
+                  ].map((outcome, idx) => (
+                    <div key={idx} className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-foreground text-sm">{outcome}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                  <span className="flex items-center">
+                    <Clock className="w-4 h-4 mr-1" />
+                    30-45 minutes
+                  </span>
+                  <span className="flex items-center">
+                    <Target className="w-4 h-4 mr-1" />
+                    Comprehensive
+                  </span>
+                </div>
+              </div>
+              
+              <Link to="/assessments/privacy-assessment">
+                <Button className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:shadow-lg hover:scale-105 transition-all duration-300 py-3 text-lg font-semibold">
+                  Start Privacy Assessment
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          {/* Project Management Option */}
+          <Card className="relative overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-0 shadow-lg">
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-pink-600 opacity-5 group-hover:opacity-10 transition-opacity"></div>
+            <CardContent className="relative p-10">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center mr-4">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-foreground">Privacy Project Management</h3>
+                  <p className="text-muted-foreground">Collaborative Implementation & Evidence Management</p>
+                </div>
+              </div>
+              
+              <p className="text-muted-foreground mb-6">
+                Full project management suite with role-based collaboration, evidence management, and comprehensive project tracking.
+              </p>
+              
+              <div className="mb-6">
+                <h4 className="font-semibold mb-3 text-foreground">Features Include:</h4>
+                <div className="space-y-2">
+                  {[
+                    'Privacy implementation roadmap',
+                    'RACI matrix for role assignments',
+                    'Work breakdown structure (WBS)',
+                    'Evidence vault and audit trail',
+                    'Team collaboration tools',
+                    'Progress tracking dashboard'
+                  ].map((feature, idx) => (
+                    <div key={idx} className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-foreground text-sm">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <Link to="/project">
+                <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:shadow-lg hover:scale-105 transition-all duration-300 py-3 text-lg font-semibold">
+                  Start Privacy Project
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* Quick Tools */}
+      <div className="mb-12">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold mb-4 text-foreground">Quick Privacy Tools</h2>
+          <p className="text-muted-foreground">
+            Fast tools for specific privacy compliance tasks
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <Link to="/toolkit/gdpr-mapper">
+            <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md cursor-pointer">
+              <CardContent className="p-6 text-center">
+                <Database className="h-10 w-10 text-blue-600 mx-auto mb-3" />
+                <h3 className="font-semibold mb-2">Data Mapping</h3>
+                <p className="text-sm text-muted-foreground">Quick GDPR data processing mapping</p>
+              </CardContent>
+            </Card>
+          </Link>
+          
+          <Link to="/toolkit/privacy-policy-generator">
+            <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md cursor-pointer">
+              <CardContent className="p-6 text-center">
+                <FileText className="h-10 w-10 text-green-600 mx-auto mb-3" />
+                <h3 className="font-semibold mb-2">Policy Generator</h3>
+                <p className="text-sm text-muted-foreground">Generate compliant privacy policies</p>
+              </CardContent>
+            </Card>
+          </Link>
+          
+          <Link to="/toolkit/resources/viewers/dpia-template">
+            <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md cursor-pointer">
+              <CardContent className="p-6 text-center">
+                <Shield className="h-10 w-10 text-purple-600 mx-auto mb-3" />
+                <h3 className="font-semibold mb-2">DPIA Template</h3>
+                <p className="text-sm text-muted-foreground">Data protection impact assessments</p>
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
+      </div>
+
+      {/* Quick Stats */}
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Card className="bg-gradient-to-br from-blue-50 to-white dark:from-blue-900/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
+          <CardContent className="p-8 text-center">
+            <Bell className="h-8 w-8 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-foreground">95%</div>
+            <p className="text-sm text-muted-foreground">Faster assessments</p>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-green-50 to-white dark:from-green-900/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
+          <CardContent className="p-8 text-center">
+            <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-foreground">12+</div>
+            <p className="text-sm text-muted-foreground">Frameworks covered</p>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
+          <CardContent className="p-8 text-center">
+            <FileText className="h-8 w-8 text-purple-600 dark:text-purple-400 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-foreground">Auto</div>
+            <p className="text-sm text-muted-foreground">Report generation</p>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gradient-to-br from-orange-50 to-white dark:from-orange-900/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
+          <CardContent className="p-8 text-center">
+            <Shield className="h-8 w-8 text-orange-600 dark:text-orange-400 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-foreground">$0</div>
+            <p className="text-sm text-muted-foreground">Penalties avoided</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Help Section */}
+      <div className="mt-10 p-5 bg-muted/30 dark:bg-muted/10 rounded-lg">
+        <div className="flex flex-col md:flex-row items-center gap-6">
+          <div className="md:w-1/4 flex justify-center">
+            <AlertTriangle className="h-16 w-16 text-warning" />
+          </div>
+          <div className="md:w-3/4">
+            <h3 className="text-lg font-bold mb-2 text-foreground">Need Help Getting Started?</h3>
+            <p className="text-muted-foreground mb-3">
+              Start with the privacy assessment to understand your current posture, then use our project management tools to plan and implement improvements.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link to="/assessments/privacy-assessment" className="no-underline">
+                <Button className="bg-blue-600 text-white hover:bg-blue-700 font-semibold shadow-lg">
+                  Start Assessment
+                  <Eye className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link to="/project" className="no-underline">
+                <Button className="bg-purple-600 text-white hover:bg-purple-700 font-semibold shadow-lg">
+                  Privacy Project Manager
+                  <Users className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link to="/help" className="no-underline">
+                <Button className="bg-gray-700 text-white hover:bg-gray-600 font-semibold shadow-lg">
+                  Get Expert Help
+                  <Users className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  );
+};
+
+export default AssessmentHub;
