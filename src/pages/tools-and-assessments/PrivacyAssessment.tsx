@@ -4,6 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { AlertTriangle, CheckCircle, Circle, Info, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import AssessmentStartScreen, { SectionInfo } from '../../components/assessment/AssessmentStartScreen';
+import { RelatedContent, ContextualCTA } from '../../components/ui/InternalLinkingHelper';
 
 const PrivacyAssessment = () => {
   const navigate = useNavigate();
@@ -459,6 +460,9 @@ const PrivacyAssessment = () => {
           )}
         </div>
       </Card>
+      
+      {/* Add related content suggestions */}
+      <RelatedContent currentPath="/assessments/privacy-assessment" />
     </div>
   );
 };

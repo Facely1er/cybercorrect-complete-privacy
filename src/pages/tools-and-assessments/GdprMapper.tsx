@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { InternalLink, RelatedContent } from '../../components/ui/InternalLinkingHelper';
 import { 
   Eye, 
   ArrowRight, 
@@ -353,26 +354,44 @@ const GdprMapper = () => {
             <p className="text-sm text-muted-foreground mb-4">
               Organizations must maintain records of all personal data processing activities under GDPR Article 30.
             </p>
-            <ul className="text-sm space-y-1">
-              <li className="flex items-center">
-                <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
-                <span>Document purposes of processing for each activity</span>
-              </li>
-              <li className="flex items-center">
-                <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
-                <span>Identify categories of data subjects and personal data</span>
-              </li>
-              <li className="flex items-center">
-                <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
-                <span>Map data recipients and international transfers</span>
-              </li>
-              <li className="flex items-center">
-                <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
-                <span>Define retention periods and security measures</span>
-              </li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <ul className="text-sm space-y-1">
+                <li className="flex items-center">
+                  <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
+                  <span>Document purposes of processing for each activity</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
+                  <span>Identify categories of data subjects and personal data</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
+                  <span>Map data recipients and international transfers</span>
+                </li>
+                <li className="flex items-center">
+                  <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
+                  <span>Define retention periods and security measures</span>
+                </li>
+              </ul>
+              
+              <div className="space-y-2">
+                <p className="text-sm font-medium">Next Steps:</p>
+                <InternalLink href="/toolkit/privacy-rights-manager" className="text-sm block">
+                  → Set up data subject rights management
+                </InternalLink>
+                <InternalLink href="/toolkit/dpia-generator" className="text-sm block">
+                  → Generate DPIAs for high-risk processing
+                </InternalLink>
+                <InternalLink href="/documentation/gdpr-guide" className="text-sm block">
+                  → Read complete GDPR implementation guide
+                </InternalLink>
+              </div>
+            </div>
           </div>
         </div>
+        
+        {/* Add related content */}
+        <RelatedContent currentPath="/toolkit/gdpr-mapper" />
       </div>
     </div>
   );

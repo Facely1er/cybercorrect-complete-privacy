@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
+import { InternalLink, ContextualCTA } from '../components/ui/InternalLinkingHelper';
 import { 
   Eye,
   Shield,
@@ -277,37 +278,49 @@ const AssessmentHub = () => {
       </div>
 
       {/* Help Section */}
-      <div className="mt-10 p-5 bg-muted/30 dark:bg-muted/10 rounded-lg">
-        <div className="flex flex-col md:flex-row items-center gap-6">
-          <div className="md:w-1/4 flex justify-center">
-            <AlertTriangle className="h-16 w-16 text-warning" />
-          </div>
-          <div className="md:w-3/4">
-            <h3 className="text-lg font-bold mb-2 text-foreground">Need Help Getting Started?</h3>
-            <p className="text-muted-foreground mb-3">
-              Start with the privacy assessment to understand your current posture, then use our project management tools to plan and implement improvements.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link to="/assessments/privacy-assessment" className="no-underline">
-                <Button className="bg-blue-600 text-white hover:bg-blue-700 font-semibold shadow-lg">
-                  Start Assessment
-                  <Eye className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link to="/project" className="no-underline">
-                <Button className="bg-purple-600 text-white hover:bg-purple-700 font-semibold shadow-lg">
-                  Privacy Project Manager
-                  <Users className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link to="/help" className="no-underline">
-                <Button className="bg-gray-700 text-white hover:bg-gray-600 font-semibold shadow-lg">
-                  Get Expert Help
-                  <Users className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-            </div>
-          </div>
+      {/* Contextual help and navigation */}
+      <div className="mt-10 bg-muted/30 dark:bg-muted/10 rounded-xl p-8">
+        <div className="text-center mb-6">
+          <AlertTriangle className="h-12 w-12 text-primary mx-auto mb-4" />
+          <h3 className="text-2xl font-bold mb-2 text-foreground">Choose Your Starting Point</h3>
+          <p className="text-muted-foreground max-w-3xl mx-auto">
+            Every privacy journey is unique. Choose the approach that best fits your organization's needs and current privacy maturity.
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="hover:shadow-lg transition-all duration-300 border-0">
+            <CardContent className="p-6 text-center">
+              <Eye className="h-10 w-10 text-blue-600 mx-auto mb-4" />
+              <h4 className="font-semibold mb-2">Assessment First</h4>
+              <p className="text-sm text-muted-foreground mb-4">Start with a comprehensive privacy assessment to understand your current posture</p>
+              <InternalLink href="/assessments/privacy-assessment" variant="button" showIcon>
+                Start Assessment
+              </InternalLink>
+            </CardContent>
+          </Card>
+          
+          <Card className="hover:shadow-lg transition-all duration-300 border-0">
+            <CardContent className="p-6 text-center">
+              <Users className="h-10 w-10 text-purple-600 mx-auto mb-4" />
+              <h4 className="font-semibold mb-2">Team Project</h4>
+              <p className="text-sm text-muted-foreground mb-4">Create a collaborative privacy implementation project with role-based workflows</p>
+              <InternalLink href="/project" variant="button" showIcon>
+                Create Project
+              </InternalLink>
+            </CardContent>
+          </Card>
+          
+          <Card className="hover:shadow-lg transition-all duration-300 border-0">
+            <CardContent className="p-6 text-center">
+              <BookOpen className="h-10 w-10 text-green-600 mx-auto mb-4" />
+              <h4 className="font-semibold mb-2">Learn First</h4>
+              <p className="text-sm text-muted-foreground mb-4">Explore our comprehensive documentation and implementation guides</p>
+              <InternalLink href="/documentation" variant="button" showIcon>
+                Browse Guides
+              </InternalLink>
+            </CardContent>
+          </Card>
         </div>
       </div>
       </div>

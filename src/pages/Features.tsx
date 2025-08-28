@@ -436,13 +436,12 @@ const Features = () => {
                 Privacy Compliance Path
                 <Eye className="ml-2 h-5 w-5" />
               </Button>
-              <Button 
-                className="bg-white text-green-600 hover:bg-gray-100 border-2 border-white font-semibold shadow-lg"
-                onClick={handleStartAssessment}
-              >
-                CUI Protection Path
-                <Database className="ml-2 h-5 w-5" />
-              </Button>
+              <Link to="/assessments/security-assessment">
+                <Button className="bg-white text-green-600 hover:bg-gray-100 border-2 border-white font-semibold shadow-lg">
+                  Security Compliance Path
+                  <Database className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
               <Button 
                 className="bg-gray-900 text-white hover:bg-gray-800 border-2 border-gray-900 font-semibold shadow-lg"
                 onClick={handleGuideMe}

@@ -4,6 +4,7 @@ import { useChatbot } from '../components/chat/ChatbotProvider';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
 import TextCarousel from '../components/ui/TextCarousel';
+import { InternalLink, RelatedContent, ContextualCTA } from '../components/ui/InternalLinkingHelper';
 import { 
   ArrowRight, 
   CheckCircle, 
@@ -143,6 +144,25 @@ const Landing = () => {
                   Start Privacy Project
                 </Button>
               </Link>
+            </div>
+            
+            {/* Quick Links Section */}
+            <div className="mt-12 text-center">
+              <p className="text-lg text-white/80 mb-6">Popular Resources</p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <InternalLink href="/toolkit/gdpr-mapper" variant="button" className="bg-white/10 border border-white/20 hover:bg-white/20">
+                  Data Mapping Tool
+                </InternalLink>
+                <InternalLink href="/toolkit/dpia-generator" variant="button" className="bg-white/10 border border-white/20 hover:bg-white/20">
+                  DPIA Generator  
+                </InternalLink>
+                <InternalLink href="/documentation/gdpr-guide" variant="button" className="bg-white/10 border border-white/20 hover:bg-white/20">
+                  GDPR Guide
+                </InternalLink>
+                <InternalLink href="/pricing" variant="button" className="bg-white/10 border border-white/20 hover:bg-white/20">
+                  View Pricing
+                </InternalLink>
+              </div>
             </div>
           </div>
         </div>

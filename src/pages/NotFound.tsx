@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
+import { InternalLink } from '../components/ui/InternalLinkingHelper';
 import { AlertTriangle, ArrowLeft, Home, Search } from 'lucide-react';
 
 const NotFound = () => {
@@ -44,25 +45,25 @@ const NotFound = () => {
         <div className="text-center">
           <h3 className="font-medium mb-2">Popular Resources</h3>
           <ul className="text-sm space-y-2">
-            <li><a href="/documentation" className="text-primary hover:underline">Documentation</a></li>
-            <li><a href="/guides" className="text-primary hover:underline">Guides</a></li>
-            <li><a href="/support" className="text-primary hover:underline">Support Center</a></li>
+            <li><InternalLink href="/documentation">Documentation</InternalLink></li>
+            <li><InternalLink href="/guides">Implementation Guides</InternalLink></li>
+            <li><InternalLink href="/support">Support Center</InternalLink></li>
           </ul>
         </div>
         <div className="text-center">
           <h3 className="font-medium mb-2">Quick Tools</h3>
           <ul className="text-sm space-y-2">
-            <li><a href="/cmmc-quick-check" className="text-primary hover:underline">CMMC Quick Check</a></li>
-            <li><a href="/cui-assessment" className="text-primary hover:underline">CUI Assessment</a></li>
-            <li><a href="/poam-generator" className="text-primary hover:underline">POA&M Generator</a></li>
+            <li><InternalLink href="/assessments/privacy-assessment">Privacy Assessment</InternalLink></li>
+            <li><InternalLink href="/toolkit/gdpr-mapper">Data Mapping Tool</InternalLink></li>
+            <li><InternalLink href="/toolkit/privacy-policy-generator">Policy Generator</InternalLink></li>
           </ul>
         </div>
         <div className="text-center">
           <h3 className="font-medium mb-2">Need Help?</h3>
           <ul className="text-sm space-y-2">
-            <li><a href="/support" className="text-primary hover:underline">Contact Support</a></li>
-            <li><a href="/documentation/faqs" className="text-primary hover:underline">FAQs</a></li>
-            <li><a href="/about" className="text-primary hover:underline">About CyberCorrect</a></li>
+            <li><InternalLink href="/support">Contact Support</InternalLink></li>
+            <li><InternalLink href="/documentation/faqs">Frequently Asked Questions</InternalLink></li>
+            <li><InternalLink href="/about">About PrivacyCorrect</InternalLink></li>
           </ul>
         </div>
       </div>

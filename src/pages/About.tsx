@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
+import { InternalLink } from '../components/ui/InternalLinkingHelper';
 import { 
   Shield, 
   Target, 
@@ -442,16 +443,18 @@ const About = () => {
           <div className="max-w-4xl mx-auto bg-gradient-to-r from-primary-teal to-secondary-teal dark:from-dark-primary dark:to-dark-primary/70 rounded-xl p-8 text-white text-center">
             <h2 className="text-2xl font-bold mb-4">Ready to Secure Your Compliance Journey?</h2>
             <p className="text-lg mb-6">
-              Schedule a consultation with our compliance experts to learn how CyberCorrect can transform your approach to security and regulatory compliance.
+              Explore our platform with a privacy assessment or start with our comprehensive documentation.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button className="bg-white text-primary-teal hover:bg-gray-100 border-2 border-white font-semibold shadow-lg" onClick={handleScheduleConsultation}>
-                Schedule a Consultation
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button className="bg-gray-900 text-white hover:bg-gray-800 border-2 border-gray-900 font-semibold shadow-lg" onClick={handleExploreSolutions}>
-                Explore Solutions
-              </Button>
+              <InternalLink href="/assessments/privacy-assessment" variant="button" className="bg-white text-primary-teal hover:bg-gray-100 border-2 border-white font-semibold shadow-lg" showIcon>
+                Start Privacy Assessment
+              </InternalLink>
+              <InternalLink href="/features" variant="button" className="bg-gray-900 text-white hover:bg-gray-800 border-2 border-gray-900 font-semibold shadow-lg">
+                Explore Platform Features
+              </InternalLink>
+              <InternalLink href="/documentation" variant="button" className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-semibold shadow-lg">
+                View Documentation  
+              </InternalLink>
             </div>
           </div>
         </div>
@@ -500,6 +503,15 @@ const About = () => {
                       <div>
                         <p className="font-medium">Address</p>
                         <p className="text-muted-foreground">8300 McCullough Lane, Suite 203<br/>Gaithersburg, MD 20877</p>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-6 pt-4 border-t border-border">
+                      <p className="text-sm font-medium mb-2">Quick Links</p>
+                      <div className="space-y-1">
+                        <InternalLink href="/demo" className="text-sm block">Platform Demo</InternalLink>
+                        <InternalLink href="/pricing" className="text-sm block">View Pricing</InternalLink>
+                        <InternalLink href="/assessments/privacy-assessment" className="text-sm block">Start Assessment</InternalLink>
                       </div>
                     </div>
                   </div>

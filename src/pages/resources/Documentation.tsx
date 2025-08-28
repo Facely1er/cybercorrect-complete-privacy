@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Link, useNavigate } from 'react-router-dom';
+import { InternalLink, ContextualCTA } from '../../components/ui/InternalLinkingHelper';
 import { 
   BookOpen, 
   FileText, 
@@ -136,13 +137,18 @@ const Documentation = () => {
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
             If you can't find what you're looking for, our support team is ready to assist you.
           </p>
-          <Link to="/support">
-            <Button size="lg">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <InternalLink href="/support" variant="button" className="px-8 py-3" showIcon>
               Contact Support
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
+            </InternalLink>
+            <InternalLink href="/assessment-hub" variant="button" className="bg-primary/10 text-primary hover:bg-primary hover:text-white px-8 py-3" showIcon>
+              Start Assessment
+            </InternalLink>
+          </div>
         </div>
+        
+        {/* Add contextual CTA */}
+        <ContextualCTA currentPath="/documentation" />
       </div>
     </div>
   );

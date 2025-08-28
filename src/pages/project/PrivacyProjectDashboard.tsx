@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { useProject } from '../../context/ProjectContext';
+import { InternalLink, RelatedContent } from '../../components/ui/InternalLinkingHelper';
 import { 
   Eye, 
   Users, 
@@ -413,20 +414,21 @@ const PrivacyProjectDashboard = () => {
         <p className="mb-4">
           Begin with a privacy assessment to establish your baseline and identify implementation priorities.
         </p>
-        <div className="flex gap-4">
-          <Link to="/assessments/privacy-assessment">
-            <Button className="bg-white text-blue-600 hover:bg-gray-100">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <InternalLink href="/assessments/privacy-assessment" variant="button" className="bg-white text-blue-600 hover:bg-gray-100">
               Start Assessment
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
-          <Link to="/project/roadmap">
-            <Button variant="outline" className="text-white border-white hover:bg-white/10">
+          </InternalLink>
+          <InternalLink href="/project/roadmap" variant="button" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
               View Roadmap
-            </Button>
-          </Link>
+          </InternalLink>
+          <InternalLink href="/documentation/getting-started" variant="button" className="bg-gray-900 text-white hover:bg-gray-800">
+            Implementation Guide
+          </InternalLink>
         </div>
       </div>
+      
+      {/* Add related content */}
+      <RelatedContent currentPath="/project" />
     </div>
   );
 };

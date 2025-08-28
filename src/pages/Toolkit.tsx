@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
+import { InternalLink, RelatedContent, ContextualCTA } from '../components/ui/InternalLinkingHelper';
 import { 
   Shield, 
   FileText, 
@@ -295,26 +296,44 @@ const Toolkit = () => {
       </div>
 
       {/* Help Section */}
-      <div className="mt-16 p-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-4">Need Help Getting Started?</h2>
-          <p className="text-lg text-white/90 mb-6">
-            Our privacy toolkit provides powerful automation for privacy compliance tasks. Start with an assessment or create a collaborative project.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/assessment-hub">
-              <Button className="bg-white text-blue-600 hover:bg-gray-100 enhanced-button px-6 py-3 font-semibold">
-                Start Privacy Assessment
-                <Target className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Link to="/project">
-              <Button variant="outline" className="text-white border-white hover:bg-white/10 px-6 py-3 font-semibold">
-                Start Privacy Project
-                <Users className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-          </div>
+      <ContextualCTA currentPath="/toolkit" />
+      
+      {/* Additional contextual links */}
+      <div className="mt-8 bg-muted/30 rounded-lg p-6">
+        <h3 className="text-lg font-semibold mb-4">Getting Started</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <InternalLink 
+            href="/documentation/getting-started"
+            className="block p-4 bg-background rounded-lg border hover:shadow-md transition-all no-underline"
+          >
+            <div className="flex items-center mb-2">
+              <BookOpen className="h-5 w-5 text-primary mr-2" />
+              <span className="font-medium">Getting Started Guide</span>
+            </div>
+            <p className="text-sm text-muted-foreground">Learn platform basics</p>
+          </InternalLink>
+          
+          <InternalLink 
+            href="/roles/data-protection-officer"
+            className="block p-4 bg-background rounded-lg border hover:shadow-md transition-all no-underline"
+          >
+            <div className="flex items-center mb-2">
+              <Users className="h-5 w-5 text-primary mr-2" />
+              <span className="font-medium">Role-Based Workflows</span>
+            </div>
+            <p className="text-sm text-muted-foreground">Tailored for your role</p>
+          </InternalLink>
+          
+          <InternalLink 
+            href="/support"
+            className="block p-4 bg-background rounded-lg border hover:shadow-md transition-all no-underline"
+          >
+            <div className="flex items-center mb-2">
+              <Shield className="h-5 w-5 text-primary mr-2" />
+              <span className="font-medium">Get Support</span>
+            </div>
+            <p className="text-sm text-muted-foreground">Expert assistance</p>
+          </InternalLink>
         </div>
       </div>
     </div>
