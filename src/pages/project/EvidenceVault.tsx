@@ -10,15 +10,11 @@ import {
   ArrowLeft,
   Plus,
   Search,
-  Filter,
   Eye,
   Edit,
-  Trash2,
   Shield,
   CheckCircle,
-  Calendar,
   Users,
-  Tag,
   Link2
 } from 'lucide-react';
 import { Link } from 'react-router-dom';

@@ -19,7 +19,7 @@ interface SSPSection {
   status: 'not-started' | 'in-progress' | 'complete' | 'review';
   lastModified: string;
   modifiedBy: string;
-  content: any;
+  content: Record<string, unknown>;
   validation?: {
     errors: string[];
     warnings: string[];

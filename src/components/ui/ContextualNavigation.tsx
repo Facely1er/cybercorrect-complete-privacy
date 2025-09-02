@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Card, CardContent } from './Card';
-import { Button } from './Button';
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -10,8 +9,6 @@ import {
   Settings, 
   Target,
   Users,
-  Shield,
-  Database,
   Eye
 } from 'lucide-react';
 

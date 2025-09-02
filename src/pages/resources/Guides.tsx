@@ -4,7 +4,6 @@ import { Button } from '../../components/ui/Button';
 import { Link } from 'react-router-dom';
 import { 
   Shield, 
-  CheckCircle, 
   ArrowRight,
   Eye,
   Database,

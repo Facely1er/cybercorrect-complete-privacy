@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '../ui/Button';
-import { X, Send, Notebook as Robot, User, Loader2, ChevronRight, ExternalLink, FileText } from 'lucide-react';
+import { X, Send, Notebook as Robot, Loader2, ChevronRight, ExternalLink, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useChatbot } from './ChatbotProvider';
 
@@ -336,8 +336,7 @@ const ChatGuideBot = () => {
       id: Date.now().toString(),
       text: inputText,
       sender: 'user' as const,
-      timestamp: new Date(),
-    };
+      timestamp: new Date()};
 
     setMessages([...messages, userMessage]);
     setInputText('');

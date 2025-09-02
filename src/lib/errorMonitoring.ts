@@ -82,8 +82,7 @@ class ErrorMonitoringService {
 
   private getUserId(): string | undefined {
     try {
-      const user = localStorage.getItem('user');
-      return user ? JSON.parse(user).id : undefined;
+      return localStorage.getItem('userId') || undefined;
     } catch {
       return undefined;
     }

@@ -45,7 +45,16 @@ export const getAssets = async () => {
   return { data, error };
 };
 
-export const createAsset = async (asset: any) => {
+interface Asset {
+  id?: string;
+  name: string;
+  type: string;
+  created_at?: string;
+  updated_at?: string;
+  [key: string]: unknown;
+}
+
+export const createAsset = async (asset: Asset) => {
   const { data, error } = await supabase
     .from('assets')
     .insert([asset])
@@ -53,7 +62,7 @@ export const createAsset = async (asset: any) => {
   return { data, error };
 };
 
-export const updateAsset = async (id: string, updates: any) => {
+export const updateAsset = async (id: string, updates: Partial<Asset>) => {
   const { data, error } = await supabase
     .from('assets')
     .update(updates)

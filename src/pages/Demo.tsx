@@ -8,14 +8,9 @@ import {
   CheckCircle,
   Play,
   Pause,
-  Building2,
-  Award,
-  Calculator,
   Eye,
-  Users,
   FileCheck,
   Database,
-  Lock,
   Shield,
   ClipboardCheck,
   HelpCircle,
@@ -282,7 +277,7 @@ const Demo = () => {
                   {currentStep >= 4 && (
                     <div className="absolute top-[150px] left-[200px] w-36 p-3 rounded-lg border-2 bg-green-100 border-green-300 text-green-800 dark:bg-green-900/30 dark:border-green-700 dark:text-green-200 shadow-sm">
                       <div className="flex justify-between items-center text-xs">
-                        <span className="font-medium">Users</span>
+                        <span className="font-medium"></span>
                         <span className="bg-white rounded-full h-5 w-5 flex items-center justify-center text-xs">4</span>
                       </div>
                     </div>

@@ -4,9 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { useProject } from '../../context/ProjectContext';
 import { 
   Users, 
-  CheckCircle, 
   ArrowLeft,
-  Plus,
   Edit,
   Download,
   Eye,

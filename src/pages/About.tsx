@@ -7,26 +7,19 @@ import {
   Target, 
   Award, 
   Users,
-  Smile,
-  Globe,
   Heart,
   Zap,
   CheckCircle,
-  BookOpen,
   Lock,
-  FileCheck,
   Database,
   BarChart2,
   Network,
-  Layers,
   FileText,
-  ArrowRight,
   Fingerprint,
   ClipboardList,
   Settings,
   AlertTriangle,
   RefreshCw,
-  LockKeyhole,
   Workflow,
   ArrowLeft
 } from 'lucide-react';
@@ -179,7 +172,7 @@ const About = () => {
     navigate('/features');
   };
 
-  const handleContactSubmit = (e) => {
+  const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success('Message sent!', 'We\'ll get back to you as soon as possible');
     // In a real app, this would send the form data to a server

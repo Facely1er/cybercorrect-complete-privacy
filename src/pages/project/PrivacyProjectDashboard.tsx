@@ -14,11 +14,9 @@ import {
   Clock, 
   AlertTriangle,
   Plus,
-  ArrowRight,
   Settings,
   FileText,
   Database,
-  Shield,
   Activity
 } from 'lucide-react';
 

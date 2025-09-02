@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { InternalLink, ContextualCTA } from '../components/ui/InternalLinkingHelper';
+import { InternalLink} from '../components/ui/InternalLinkingHelper';
 import { 
   Eye,
   Shield,
