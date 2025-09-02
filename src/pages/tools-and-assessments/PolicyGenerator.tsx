@@ -1,42 +1,21 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { 
-  Shield, 
   CheckCircle, 
   AlertTriangle, 
   XCircle, 
-  FileText, 
   Target, 
   BarChart3, 
   TrendingUp, 
   Download, 
   RefreshCw, 
-  Filter, 
-  Search, 
-  Award, 
-  Calendar, 
-  Users, 
   Building,
-  Settings,
-  Info,
-  Play,
   Eye,
-  Edit,
-  Trash2,
-  Plus,
-  BookOpen,
-  Globe,
-  Database,
-  Lock,
-  Server,
-  Network,
-  Brain,
-  ArrowLeft,
-  AlertCircle
+  Server
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
+import { useLocation } from 'react-router-dom';
 import { toast } from '../../components/ui/Toaster';
 
 // Define interfaces
@@ -51,7 +30,7 @@ interface Framework {
   complexity: string;
   maturityLevels: string[];
   regulatoryMapping: string[];
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
 }
 
 interface Control {
@@ -115,21 +94,20 @@ interface AssessmentHistory {
 }
 
 const ComplianceGapAnalyzer: React.FC = () => {
-  const navigate = useNavigate();
+
   const location = useLocation();
   const { frameworkType, assessmentResults } = location.state || {};
   
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [complianceData, setComplianceData] = useState<Record<string, DomainData>>({});
-  const [selectedFramework, setSelectedFramework] = useState<string>(frameworkType || 'nist_800_171');
+  const [selectedFramework] = useState<string>(frameworkType || 'nist_800_171');
   const [selectedDomain, setSelectedDomain] = useState<string>('all');
   const [gapAnalysis, setGapAnalysis] = useState<GapAnalysisItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [overallScore, setOverallScore] = useState<number>(assessmentResults?.overallScore || 0);
+  const [overallScore] = useState<number>(assessmentResults?.overallScore || 0);
   const [trends, setTrends] = useState<TrendData[]>([]);
   const [assessmentHistory, setAssessmentHistory] = useState<AssessmentHistory[]>([]);
-  const [activeAssessment, setActiveAssessment] = useState<AssessmentHistory | null>(null);
-  const [showNewAssessment, setShowNewAssessment] = useState<boolean>(false);
+
   const [error, setError] = useState<string | null>(null);
 
   // Enhanced compliance frameworks with real standards and current versions
@@ -198,7 +176,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     const compliance: Record<string, DomainData> = {};
 
     // Use assessment results section scores
-    framework.domains.forEach((domain, domainIndex) => {
+    framework.domains.forEach((domain) => {
       const sectionScore = mockAssessmentResults.sectionScores.find(s => 
         s.title.toLowerCase().includes(domain.toLowerCase()) || 
         domain.toLowerCase().includes(s.title.toLowerCase())
@@ -225,7 +203,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
         // Apply not applicable for some controls
         if (Math.random() < 0.07) status = 'not_applicable';
         
-        const priorities: Control['priority'][] = ['critical', 'high', 'medium', 'low'];
+
         let priority: Control['priority'] = 'low';
         const priorityRand = Math.random();
         if (priorityRand < 0.15) priority = 'critical';
@@ -239,7 +217,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
         controls.push({
           id: controlId,
           title: generateControlTitle(domain, i),
-          description: generateControlDescription(domain, i),
+          description: generateControlDescription(domain),
           status: status,
           priority: priority,
           lastAssessed: new Date(Date.now() - Math.random() * 180 * 24 * 60 * 60 * 1000),
@@ -309,7 +287,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     return `${baseTitle} ${Math.floor(index / titles.length) + 1}`.trim();
   };
 
-  const generateControlDescription = (domain: string, index: number): string => {
+  const generateControlDescription = (domain: string): string => {
     const descriptions: Record<string, string> = {
       'governance': 'Establish and maintain governance processes to ensure cybersecurity risk management aligns with organizational objectives.',
       'technical': 'Implement technical controls to protect systems and data from cybersecurity threats.',
@@ -439,7 +417,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     return gaps;
   };
 
-  const calculateComplianceRisk = (priority: Control['priority'], framework: string): string => {
+  const calculateComplianceRisk = (priority: Control['priority']): string => {
     const riskMap: Record<string, string> = {
       'critical': 'Major Non-compliance - Audit Finding Likely',
       'high': 'Significant Deficiency - Regulatory Concern',
@@ -587,7 +565,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     toast.success("Export completed", `Report exported as ${filename}`);
   };
 
-  const generateCSVReport = (data: any): string => {
+  const generateCSVReport = (data: Control[]): string => {
     const headers = [
       'Control ID', 'Title', 'Domain', 'Status', 'Priority', 'Risk Level', 
       'Owner', 'Cost Estimate', 'Timeframe', 'Business Impact'

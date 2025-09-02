@@ -2,9 +2,47 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 
 // Extend jsPDF with autotable plugin
+interface AutoTableData {
+  pageNumber: number;
+  pageCount: number;
+  settings: Record<string, unknown>;
+  doc: jsPDF;
+  table: {
+    body: string[][];
+    head: string[][];
+  };
+  cursor: {
+    x: number;
+    y: number;
+  };
+}
+
+interface AutoTableOptions {
+  head?: string[][];
+  body?: string[][];
+  startY?: number;
+  styles?: Record<string, string | number>;
+  headStyles?: Record<string, string | number>;
+  bodyStyles?: Record<string, string | number>;
+  alternateRowStyles?: Record<string, string | number>;
+  margin?: { top?: number; right?: number; bottom?: number; left?: number };
+  pageBreak?: 'auto' | 'avoid' | 'always';
+  rowPageBreak?: 'auto' | 'avoid';
+  tableWidth?: 'auto' | 'wrap';
+  showHead?: 'everyPage' | 'firstPage' | 'never';
+  showFoot?: 'everyPage' | 'lastPage' | 'never';
+  tableLineColor?: number | number[];
+  tableLineWidth?: number;
+  theme?: 'striped' | 'grid' | 'plain';
+  didDrawPage?: (data: AutoTableData) => void;
+  didParseCell?: (data: AutoTableData) => void;
+  willDrawCell?: (data: AutoTableData) => void;
+  didDrawCell?: (data: AutoTableData) => void;
+}
+
 declare module 'jspdf' {
   interface jsPDF {
-    autoTable: (options: any) => jsPDF;
+    autoTable: (options: AutoTableOptions) => jsPDF;
   }
 }
 
@@ -85,7 +123,7 @@ export const generateResultsPdf = (
     alternateRowStyles: { fillColor: [240, 240, 240] }
   });
   
-  y = (doc as any).lastAutoTable.finalY + 20;
+  y = (doc as jsPDF & { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 20;
 
   // Add summary
   doc.setFontSize(14);

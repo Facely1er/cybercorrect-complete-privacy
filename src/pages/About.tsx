@@ -7,34 +7,27 @@ import {
   Target, 
   Award, 
   Users,
-  Smile,
-  Globe,
   Heart,
   Zap,
   CheckCircle,
-  BookOpen,
   Lock,
-  FileCheck,
   Database,
   BarChart2,
   Network,
-  Layers,
   FileText,
-  ArrowRight,
   Fingerprint,
   ClipboardList,
   Settings,
   AlertTriangle,
   RefreshCw,
-  LockKeyhole,
   Workflow,
   ArrowLeft
 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toast } from '../components/ui/Toaster';
 
 const About = () => {
-  const navigate = useNavigate();
+
 
   const values = [
     {
@@ -170,14 +163,7 @@ const About = () => {
     }
   ];
 
-  const handleScheduleConsultation = () => {
-    toast.success('Consultation request received', 'We\'ll contact you shortly to schedule your consultation');
-    navigate('/demo');
-  };
 
-  const handleExploreSolutions = () => {
-    navigate('/features');
-  };
 
   const handleContactSubmit = (e) => {
     e.preventDefault();
