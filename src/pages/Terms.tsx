@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { FileText, Scale, AlertTriangle, CheckCircle, ArrowLeft } from 'lucide-react';
+import { FileText, Scale, AlertTriangle, ArrowLeft } from 'lucide-react';
 
 const Terms = () => {
   return (

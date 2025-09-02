@@ -2,8 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { CheckCircle, HelpCircle, ArrowRight, Info, Shield, XCircle, Calculator, Check, Users, ChevronDown, ChevronUp, Building, Cloud, Database, FileCheck, ClipboardCheck, Network } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { CheckCircle, ArrowRight, Shield, XCircle, Calculator, Check, ChevronDown, ChevronUp, Building, Cloud, Network } from 'lucide-react';
 
 const Pricing = () => {
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');

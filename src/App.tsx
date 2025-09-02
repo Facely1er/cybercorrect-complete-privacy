@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Suspense } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ProjectProvider } from './context/ProjectContext';
 import { ChatbotProvider } from './components/chat/ChatbotProvider';
@@ -26,27 +26,27 @@ import UserProfile from './pages/UserProfile';
 import NotFound from './pages/NotFound';
 import Integrations from './pages/Integrations';
 
-// Assessment and Tools
-import AssessmentHub from './pages/AssessmentHub';
-import PrivacyAssessment from './pages/tools-and-assessments/PrivacyAssessment';
-import PrivacyResults from './pages/tools-and-assessments/PrivacyResults';
-import PrivacyRecommendations from './pages/tools-and-assessments/PrivacyRecommendations';
-import GdprMapper from './pages/tools-and-assessments/GdprMapper';
-import PrivacyGapAnalyzer from './pages/tools-and-assessments/PrivacyGapAnalyzer';
-import PrivacyPolicyGenerator from './pages/tools-and-assessments/PrivacyPolicyGenerator';
+// Assessment and Tools - Lazy loaded for better performance
+const AssessmentHub = lazy(() => import('./pages/AssessmentHub'));
+const PrivacyAssessment = lazy(() => import('./pages/tools-and-assessments/PrivacyAssessment'));
+const PrivacyResults = lazy(() => import('./pages/tools-and-assessments/PrivacyResults'));
+const PrivacyRecommendations = lazy(() => import('./pages/tools-and-assessments/PrivacyRecommendations'));
+const GdprMapper = lazy(() => import('./pages/tools-and-assessments/GdprMapper'));
+const PrivacyGapAnalyzer = lazy(() => import('./pages/tools-and-assessments/PrivacyGapAnalyzer'));
+const PrivacyPolicyGenerator = lazy(() => import('./pages/tools-and-assessments/PrivacyPolicyGenerator'));
 
-// Project Management
-import PrivacyProjectDashboard from './pages/project/PrivacyProjectDashboard';
-import PrivacyRoadmap from './pages/project/PrivacyRoadmap';
-import PrivacyRaci from './pages/project/PrivacyRaci';
-import PrivacyWbs from './pages/project/PrivacyWbs';
-import EvidenceVault from './pages/project/EvidenceVault';
+// Project Management - Lazy loaded
+const PrivacyProjectDashboard = lazy(() => import('./pages/project/PrivacyProjectDashboard'));
+const PrivacyRoadmap = lazy(() => import('./pages/project/PrivacyRoadmap'));
+const PrivacyRaci = lazy(() => import('./pages/project/PrivacyRaci'));
+const PrivacyWbs = lazy(() => import('./pages/project/PrivacyWbs'));
+const EvidenceVault = lazy(() => import('./pages/project/EvidenceVault'));
 
-// Resources
-import ResourcesLanding from './pages/ResourcesLanding';
-import Documentation from './pages/resources/Documentation';
-import Guides from './pages/resources/Guides';
-import Support from './pages/resources/Support';
+// Resources - Lazy loaded
+const ResourcesLanding = lazy(() => import('./pages/ResourcesLanding'));
+const Documentation = lazy(() => import('./pages/resources/Documentation'));
+const Guides = lazy(() => import('./pages/resources/Guides'));
+const Support = lazy(() => import('./pages/resources/Support'));
 
 // Documentation Pages
 import GdprGuide from './pages/resources/documentation/GdprGuide';
@@ -140,23 +140,59 @@ const App: React.FC = () => {
                     <Route path="cookies" element={<Cookies />} />
                     
                     {/* Assessment Hub */}
-                    <Route path="assessment-hub" element={<AssessmentHub />} />
+                    <Route path="assessment-hub" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <AssessmentHub />
+                      </Suspense>
+                    } />
                     
                     {/* Assessment Routes */}
                     <Route path="assessments" element={<AssessmentLayout />}>
-                      <Route path="privacy-assessment" element={<PrivacyAssessment />} />
+                      <Route path="privacy-assessment" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <PrivacyAssessment />
+                        </Suspense>
+                      } />
                     </Route>
                     
                     {/* Results Pages */}
-                    <Route path="privacy-results" element={<PrivacyResults />} />
-                    <Route path="privacy-recommendations" element={<PrivacyRecommendations />} />
+                    <Route path="privacy-results" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <PrivacyResults />
+                      </Suspense>
+                    } />
+                    <Route path="privacy-recommendations" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <PrivacyRecommendations />
+                      </Suspense>
+                    } />
                     
                     {/* Project Management Routes */}
-                    <Route path="project" element={<PrivacyProjectDashboard />} />
-                    <Route path="project/roadmap" element={<PrivacyRoadmap />} />
-                    <Route path="project/raci" element={<PrivacyRaci />} />
-                    <Route path="project/wbs" element={<PrivacyWbs />} />
-                    <Route path="project/evidence" element={<EvidenceVault />} />
+                    <Route path="project" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <PrivacyProjectDashboard />
+                      </Suspense>
+                    } />
+                    <Route path="project/roadmap" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <PrivacyRoadmap />
+                      </Suspense>
+                    } />
+                    <Route path="project/raci" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <PrivacyRaci />
+                      </Suspense>
+                    } />
+                    <Route path="project/wbs" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <PrivacyWbs />
+                      </Suspense>
+                    } />
+                    <Route path="project/evidence" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <EvidenceVault />
+                      </Suspense>
+                    } />
                     
                     {/* Toolkit Routes */}
                     <Route path="toolkit" element={<ToolkitLayout />}>
@@ -165,9 +201,21 @@ const App: React.FC = () => {
                           <Toolkit />
                         </Suspense>
                       } />
-                      <Route path="privacy-gap-analyzer" element={<PrivacyGapAnalyzer />} />
-                      <Route path="privacy-policy-generator" element={<PrivacyPolicyGenerator />} />
-                      <Route path="gdpr-mapper" element={<GdprMapper />} />
+                      <Route path="privacy-gap-analyzer" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <PrivacyGapAnalyzer />
+                        </Suspense>
+                      } />
+                      <Route path="privacy-policy-generator" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <PrivacyPolicyGenerator />
+                        </Suspense>
+                      } />
+                      <Route path="gdpr-mapper" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <GdprMapper />
+                        </Suspense>
+                      } />
                       <Route path="privacy-rights-manager" element={
                         <Suspense fallback={<LoadingSpinner />}>
                           {React.lazy(() => import('./pages/tools-and-assessments/PrivacyRightsManager'))}
@@ -181,10 +229,26 @@ const App: React.FC = () => {
                     </Route>
                     
                     {/* Resources Routes */}
-                    <Route path="resources-landing" element={<ResourcesLanding />} />
-                    <Route path="documentation" element={<Documentation />} />
-                    <Route path="guides" element={<Guides />} />
-                    <Route path="support" element={<Support />} />
+                    <Route path="resources-landing" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <ResourcesLanding />
+                      </Suspense>
+                    } />
+                    <Route path="documentation" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <Documentation />
+                      </Suspense>
+                    } />
+                    <Route path="guides" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <Guides />
+                      </Suspense>
+                    } />
+                    <Route path="support" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <Support />
+                      </Suspense>
+                    } />
                     <Route path="support/chat" element={<ChatInterface />} />
                     
                     {/* Documentation Routes */}

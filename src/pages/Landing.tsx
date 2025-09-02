@@ -1,92 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useChatbot } from '../components/chat/ChatbotProvider';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
 import TextCarousel from '../components/ui/TextCarousel';
-import { InternalLink, RelatedContent, ContextualCTA } from '../components/ui/InternalLinkingHelper';
+import { InternalLink } from '../components/ui/InternalLinkingHelper';
 import { 
   ArrowRight, 
-  CheckCircle, 
   Shield, 
   Eye,
   Database,
-  FileSearch,
-  Award,
   Target,
-  Clock,
-  DollarSign,
-  BarChart3,
-  Zap,
-  Play,
   Users,
-  Building,
   Scale,
-  Lock,
   FileCheck,
-  Activity,
-  Globe,
-  TrendingUp,
 } from 'lucide-react';
 
 const Landing = () => {
   const navigate = useNavigate();
   const { openChatbot } = useChatbot();
 
-  // Two main compliance paths
-  const compliancePaths = [
-    {
-      id: 'privacy',
-      title: 'Privacy Compliance',
-      subtitle: 'GDPR, CCPA, LGPD & Global Privacy Laws',
-      description: 'Comprehensive privacy program management with automated DPIAs, data mapping, and rights management.',
-      icon: Eye,
-      color: 'from-blue-600 to-cyan-600', 
-      assessmentPath: '/assessments/privacy-assessment',
-      stats: { value: '72hr', label: 'Breach notification ready' },
-      industries: ['All Industries', 'Healthcare', 'Financial Services', 'Technology']
-    },
-    {
-      id: 'security-compliance',
-      title: 'Security Compliance',
-      subtitle: 'Enterprise Security Frameworks & Standards',
-      description: 'Comprehensive security compliance program with risk assessment, controls implementation, and continuous monitoring.',
-      icon: Database,
-      color: 'from-green-600 to-emerald-600',
-      assessmentPath: '/assessments/security-assessment',
-      stats: { value: 'ISO 27001', label: 'Security certification ready' },
-      industries: ['Financial Services', 'Healthcare', 'Technology', 'Government']
-    }
-  ];
 
-  // Platform value propositions
-  const platformBenefits = [
-    {
-      icon: Target,
-      title: 'Intelligent Assessments',
-      description: 'Role-specific assessments that provide actionable insights in 25 minutes or less'
-    },
-    {
-      icon: FileCheck,
-      title: 'Automated Documentation',
-      description: 'Generate audit-ready policies, DPIAs, and compliance documentation instantly'
-    },
-    {
-      icon: Activity,
-      title: 'Continuous Monitoring',
-      description: 'Real-time compliance tracking with automated alerts and remediation guidance'
-    },
-    {
-      icon: Shield,
-      title: 'Auditor-Ready Portal',
-      description: 'Organized evidence vault and reports ready for regulatory review'
-    }
-  ];
 
-  // Success metrics
-  const handleStartAssessment = (path: string) => {
-    navigate(path);
-  };
+
 
   const handleGuideMe = () => {
     openChatbot();

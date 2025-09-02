@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { InternalLink, RelatedContent, ContextualCTA } from '../components/ui/InternalLinkingHelper';
+import { InternalLink, ContextualCTA } from '../components/ui/InternalLinkingHelper';
 import { 
   Shield, 
   FileText, 
@@ -10,17 +10,13 @@ import {
   BarChart3, 
   Network, 
   Eye, 
-  Settings, 
   ArrowRight, 
   CheckCircle, 
-  Target, 
   FileCheck, 
   AlertTriangle,
   Scale,
-  Lock,
   Users,
-  BookOpen,
-  Download
+  BookOpen
 } from 'lucide-react';
 
 const Toolkit = () => {

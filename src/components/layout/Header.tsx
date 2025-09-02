@@ -1,7 +1,7 @@
  import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { SunMoon, Moon, Menu, ChevronDown } from 'lucide-react';
-import { cn } from '../../utils/cn';
+
 import { Button } from '../ui/Button';
 
 interface HeaderProps {

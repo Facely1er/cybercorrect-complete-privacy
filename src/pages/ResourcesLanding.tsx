@@ -4,27 +4,16 @@ import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { 
   BookOpen, 
-  FileText, 
   HelpCircle, 
   ArrowRight, 
   Eye, 
-  Shield, 
   Database,
   Users,
   Search
 } from 'lucide-react';
 
 const ResourcesLanding = () => {
-  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
-
-  // Navigation items for the secondary nav
-  const navItems = [
-    { name: 'All Resources', path: '/resources-landing' },
-    { name: 'Documentation', path: '/documentation' },
-    { name: 'Guides', path: '/guides' },
-    { name: 'Support', path: '/support' }
-  ];
 
   // Essential resource categories aligned with compliance paths
   const resourceCategories = [
