@@ -8,14 +8,9 @@ import {
   CheckCircle,
   Play,
   Pause,
-  Building2,
-  Award,
-  Calculator,
   Eye,
-  Users,
   FileCheck,
   Database,
-  Lock,
   Shield,
   ClipboardCheck,
   HelpCircle,
@@ -26,18 +21,13 @@ import { toast } from '../components/ui/Toaster';
 import { useChatbot } from '../components/chat/ChatbotProvider';
 
 // Import demo components
-import AssessmentDemo from '../components/demo/AssessmentDemo';
-import DashboardDemo from '../components/demo/DashboardDemo';
-import FrameworkDemo from '../components/demo/FrameworkDemo';
-import RecommendationsDemo from '../components/demo/RecommendationsDemo';
-import SensitiveInfoDemo from '../components/demo/SensitiveInfoDemo';
 
 const Demo = () => {
   const { openChatbot } = useChatbot();
   const [demoState, setDemoState] = useState('intro'); // intro, dashboard, assessment, framework, recommendations, sensitive
   const [playing, setPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const [showFeatures, setShowFeatures] = useState(false);
+  const [showFeatures] = useState(false);
   const autoPlayRef = useRef(null);
   
   // Demo step control with auto-play

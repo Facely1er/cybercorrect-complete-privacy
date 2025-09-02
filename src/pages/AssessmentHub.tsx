@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { InternalLink, ContextualCTA } from '../components/ui/InternalLinkingHelper';
+import { InternalLink } from '../components/ui/InternalLinkingHelper';
 import { 
   Eye,
   Shield,
@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 
 const AssessmentHub = () => {
-  const navigate = useNavigate();
+
 
   // Hero Section - moved outside container for full-width styling
   const heroSection = (
@@ -46,43 +46,7 @@ const AssessmentHub = () => {
     </section>
   );
 
-  // Two main compliance assessment paths
-  const mainPaths = [
-    {
-      id: 'privacy',
-      title: 'Privacy Compliance Assessment',
-      subtitle: 'GDPR, CCPA, LGPD & Global Privacy Laws',
-      description: 'Comprehensive privacy program evaluation with automated impact assessments and personalized implementation roadmaps.',
-      icon: Eye,
-      path: '/assessments/privacy-assessment',
-      timeEstimate: '25 min',
-      complexity: 'Intermediate',
-      color: 'from-blue-600 to-cyan-600',
-      outcomes: [
-        'Compliance score across all privacy regulations',
-        'Personalized action plan with timeline',
-        'Risk-prioritized remediation steps',
-        'Audit-ready compliance documentation'
-      ]
-    },
-    {
-      id: 'security-framework',
-      title: 'Security Framework Assessment',
-      subtitle: 'Enterprise Security Standards & Best Practices',
-      description: 'Complete evaluation of security practices with framework readiness scoring and implementation guidance.',
-      icon: Database,
-      path: '/assessments/security-assessment',
-      timeEstimate: '30 min',
-      complexity: 'Advanced',
-      color: 'from-green-600 to-emerald-600',
-      outcomes: [
-        'Security framework readiness assessment',
-        'Gap analysis with remediation costs',
-        'Implementation timeline and priorities',
-        'Enterprise security compliance roadmap'
-      ]
-    }
-  ];
+
 
 
   return (

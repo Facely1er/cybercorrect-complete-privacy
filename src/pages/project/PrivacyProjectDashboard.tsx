@@ -14,29 +14,25 @@ import {
   Clock, 
   AlertTriangle,
   Plus,
-  ArrowRight,
   Settings,
   FileText,
   Database,
-  Shield,
   Activity
 } from 'lucide-react';
 
 const PrivacyProjectDashboard = () => {
   const { 
-    projects, 
-    currentProject, 
     userMode, 
     setUserMode, 
     createProject, 
     getCurrentProject 
   } = useProject();
-  const [showCreateProject, setShowCreateProject] = useState(false);
+  const [showCreateProject] = useState(false);
 
   const project = getCurrentProject();
 
   const handleCreateProject = () => {
-    const projectId = createProject({
+    createProject({
       projectId: '',
       phases: [],
       teamMembers: [],
@@ -242,7 +238,7 @@ const PrivacyProjectDashboard = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {project.phases.map((phase, index) => (
+              {project.phases.map((phase) => (
                 <div key={phase.id} className="border border-border rounded-lg p-4">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-semibold text-foreground">{phase.name}</h3>
