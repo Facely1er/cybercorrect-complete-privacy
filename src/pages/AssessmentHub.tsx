@@ -14,7 +14,8 @@ import {
   Clock,
   Bell,
   FileText,
-  Users
+  Users,
+  BookOpen
 } from 'lucide-react';
 
 const AssessmentHub = () => {
