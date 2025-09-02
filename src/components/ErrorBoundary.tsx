@@ -1,6 +1,7 @@
 import React from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
 import { Button } from './ui/Button';
+import { errorMonitoring } from '../lib/errorMonitoring';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -9,10 +10,10 @@ interface ErrorBoundaryState {
 }
 
 class ErrorBoundary extends React.Component<
-  React.PropsWithChildren<{}>,
+  React.PropsWithChildren<Record<string, never>>,
   ErrorBoundaryState
 > {
-  constructor(props: React.PropsWithChildren<{}>) {
+  constructor(props: React.PropsWithChildren<Record<string, never>>) {
     super(props);
     this.state = { hasError: false };
   }
@@ -27,11 +28,11 @@ class ErrorBoundary extends React.Component<
       errorInfo
     });
     
-    // Log error to monitoring service in production
-    if (process.env.NODE_ENV === 'production') {
-      console.error('ErrorBoundary caught an error:', error, errorInfo);
-      // TODO: Send to error tracking service (Sentry, etc.)
-    }
+    // Send error to monitoring service
+    errorMonitoring.captureException(error, {
+      componentStack: errorInfo.componentStack,
+      errorBoundary: true,
+    });
   }
 
   handleReload = () => {

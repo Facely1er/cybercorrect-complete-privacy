@@ -17,6 +17,7 @@ Before deploying, you must configure these environment variables:
 - `VITE_ANALYTICS_ID` - Analytics tracking ID
 - `VITE_ENABLE_ANALYTICS` - Enable/disable analytics (default: true)
 - `VITE_ENABLE_CHAT_SUPPORT` - Enable/disable chat support (default: true)
+- `VITE_ERROR_MONITORING_ENDPOINT` - Error monitoring service endpoint (e.g., Sentry, LogRocket)
 
 ### 2. Database Setup (Supabase)
 The application requires a Supabase database with the following tables:
@@ -86,13 +87,14 @@ npm run preview
 ## Monitoring & Analytics
 
 ### Built-in Features:
-- Error boundary with development error details
+- Error boundary with automatic error reporting
 - Toast notifications for user feedback
 - Loading states throughout the application
 - Usage analytics framework ready
+- Error monitoring service integration (configurable endpoint)
 
 ### Recommended Additions:
-- Error tracking service (Sentry)
+- Error tracking service (Sentry) - configure via `VITE_ERROR_MONITORING_ENDPOINT`
 - Performance monitoring (Web Vitals)
 - User analytics (Google Analytics)
 

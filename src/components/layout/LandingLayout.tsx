@@ -5,7 +5,7 @@ import {
   X, 
   Puzzle as PuzzlePiece, 
   CircleDollarSign, 
-  Info, 
+ 
   BookOpen, 
   User, 
   SunMoon, 

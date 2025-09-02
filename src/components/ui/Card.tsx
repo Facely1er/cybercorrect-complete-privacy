@@ -1,7 +1,9 @@
 import React from 'react';
 import { cn } from '../../utils/cn';
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  // Card-specific props can be added here
+}
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, ...props }, ref) => (
@@ -17,7 +19,9 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 );
 Card.displayName = "Card";
 
-interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  // CardHeader-specific props can be added here
+}
 
 const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ className, ...props }, ref) => (
@@ -56,7 +60,9 @@ const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionPr
 );
 CardDescription.displayName = "CardDescription";
 
-interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  // CardContent-specific props can be added here
+}
 
 const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
   ({ className, ...props }, ref) => (

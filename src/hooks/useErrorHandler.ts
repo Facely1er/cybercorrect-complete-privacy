@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { toast } from '../components/ui/Toaster';
+import { errorMonitoring } from '../lib/errorMonitoring';
 
 interface ErrorState {
   error: Error | null;
@@ -20,11 +21,6 @@ export const useErrorHandler = () => {
       isError: true
     });
 
-    // Log error in development
-    if (import.meta.env.DEV) {
-      console.error('Error caught by useErrorHandler:', errorObj);
-    }
-
     // Show user-friendly error message
     if (showToast) {
       toast.error(
@@ -33,10 +29,10 @@ export const useErrorHandler = () => {
       );
     }
 
-    // TODO: Send to error monitoring service in production
-    if (import.meta.env.PROD) {
-      // Example: Sentry.captureException(errorObj);
-    }
+    // Send to error monitoring service
+    errorMonitoring.captureException(errorObj, {
+      hook: 'useErrorHandler',
+    });
   }, []);
 
   const clearError = useCallback(() => {
