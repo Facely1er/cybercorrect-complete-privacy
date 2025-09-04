@@ -83,7 +83,7 @@ const CuiMapper = () => {
   ]);
 
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
-  const [showAddNode] = useState(false);
+  const [, setShowAddNode] = useState(false);
 
   const handleExportMap = () => {
     const mapData = {

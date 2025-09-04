@@ -27,7 +27,7 @@ const PrivacyProjectDashboard = () => {
     createProject, 
     getCurrentProject 
   } = useProject();
-  const [showCreateProject] = useState(false);
+  const [, setShowCreateProject] = useState(false);
 
   const project = getCurrentProject();
 

@@ -73,7 +73,7 @@ const PrivacyRightsManager = () => {
   ]);
 
   const [selectedRequest, setSelectedRequest] = useState<string | null>(null);
-  const [showNewRequest] = useState(false);
+  const [, setShowNewRequest] = useState(false);
 
   const getRequestTypeColor = (type: string) => {
     const colors: Record<string, string> = {

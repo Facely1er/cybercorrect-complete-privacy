@@ -7,7 +7,6 @@ import {
   Shield,
   CheckCircle,
   ArrowLeft,
-  FileText,
   Eye
 } from 'lucide-react';
 

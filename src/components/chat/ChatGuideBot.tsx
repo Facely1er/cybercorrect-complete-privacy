@@ -38,7 +38,7 @@ const ChatGuideBot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [currentStep] = useState('welcome');
+  const [, setCurrentStep] = useState('welcome');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Chat flow definition

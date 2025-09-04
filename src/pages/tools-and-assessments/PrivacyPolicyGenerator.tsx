@@ -16,7 +16,7 @@ const PrivacyPolicyGenerator = () => {
   const [selectedRegulation, setSelectedRegulation] = useState('gdpr');
   const [organizationType, setOrganizationType] = useState('business');
   const [policyType, setPolicyType] = useState('comprehensive');
-  const [generateStep] = useState(1);
+  const [, ] = useState(1);
 
   const regulations = [
     {
