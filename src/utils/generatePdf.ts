@@ -23,22 +23,22 @@ interface AutoTableData {
 //   startY?: number;
 //   styles?: Record<string, string | number>;
 //   headStyles?: Record<string, string | number>;
-  bodyStyles?: Record<string, string | number>;
-  alternateRowStyles?: Record<string, string | number>;
-  margin?: { top?: number; right?: number; bottom?: number; left?: number };
-  pageBreak?: 'auto' | 'avoid' | 'always';
-  rowPageBreak?: 'auto' | 'avoid';
-  tableWidth?: 'auto' | 'wrap';
-  showHead?: 'everyPage' | 'firstPage' | 'never';
-  showFoot?: 'everyPage' | 'lastPage' | 'never';
-  tableLineColor?: number | number[];
-  tableLineWidth?: number;
-  theme?: 'striped' | 'grid' | 'plain';
-  didDrawPage?: (data: AutoTableData) => void;
-  didParseCell?: (data: AutoTableData) => void;
-  willDrawCell?: (data: AutoTableData) => void;
-  didDrawCell?: (data: AutoTableData) => void;
-}
+//   bodyStyles?: Record<string, string | number>;
+//   alternateRowStyles?: Record<string, string | number>;
+//   margin?: { top?: number; right?: number; bottom?: number; left?: number };
+//   pageBreak?: 'auto' | 'avoid' | 'always';
+//   rowPageBreak?: 'auto' | 'avoid';
+//   tableWidth?: 'auto' | 'wrap';
+//   showHead?: 'everyPage' | 'firstPage' | 'never';
+//   showFoot?: 'everyPage' | 'lastPage' | 'never';
+//   tableLineColor?: number | number[];
+//   tableLineWidth?: number;
+//   theme?: 'striped' | 'grid' | 'plain';
+//   didDrawPage?: (data: AutoTableData) => void;
+//   didParseCell?: (data: AutoTableData) => void;
+//   willDrawCell?: (data: AutoTableData) => void;
+//   didDrawCell?: (data: AutoTableData) => void;
+// }
 
 declare module 'jspdf' {
   interface jsPDF {
