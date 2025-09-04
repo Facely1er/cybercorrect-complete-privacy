@@ -10,7 +10,7 @@ import {
   BarChart3, Layers, GitBranch, Share2, Archive, Zap, X
 } from 'lucide-react';
 
-import { toast } from '../../components/ui/Toaster';
+// import { toast } from '../../components/ui/Toaster';
 interface SSPSection {
   id: string;
   title: string;
@@ -215,11 +215,11 @@ const SspGenerator = () => {
   const [showTemplates, setShowTemplates] = useState(false);
   const [autoSaveEnabled, setAutoSaveEnabled] = useState(true);
   const [lastSaved, setLastSaved] = useState(new Date().toISOString());
-  const [showEvidence] = useState(false);
-  const [selectedControl] = useState<string | null>(null);
+  const [, setShowEvidence] = useState(false);
+  const [, setSelectedControl] = useState<string | null>(null);
   
   // Sample templates
-  const [templates] = useState<SSPTemplate[]>([
+  const [, ] = useState<SSPTemplate[]>([
     {
       id: 'small-business',
       name: 'Small Business SSP',
@@ -360,20 +360,20 @@ const SspGenerator = () => {
     setEditingControl(null);
   };
   
-  // Add evidence to control
-  const addEvidence = (controlId: string, evidence: Evidence) => {
-    setControls(controls.map(control => 
-      control.id === controlId
-        ? {
-            ...control,
-            implementation: {
-              ...control.implementation,
-              evidence: [...(control.implementation.evidence || []), evidence]
-            }
-          }
-        : control
-    ));
-  };
+  // Add evidence to control - placeholder for future implementation
+  // const addEvidence = (controlId: string, evidence: Evidence) => {
+  //   setControls(controls.map(control => 
+  //     control.id === controlId
+  //       ? {
+  //           ...control,
+  //           implementation: {
+  //             ...control.implementation,
+  //             evidence: [...(control.implementation.evidence || []), evidence]
+  //           }
+  //         }
+  //       : control
+  //   ));
+  // };
   
   // Export SSP
   const exportSSP = async (format: 'pdf' | 'word' | 'json') => {
