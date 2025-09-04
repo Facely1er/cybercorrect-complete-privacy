@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
-import { Shield, FileText, ChevronRight, CheckCircle, Users, Lock, Award, Settings, Database, Layers, Lightbulb, Cloud, RefreshCw, Server, Eye, Scale, FileSearch, Activity, Target, Link2 } from 'lucide-react';
+
+import { Shield, FileText, ChevronRight, CheckCircle, Users, Lock, Award, Settings, Database, Layers, Lightbulb, Cloud, RefreshCw, Server, Eye, Scale, FileSearch, Activity, Target, Link2} from 'lucide-react';
+
 
 const Features = () => {
   const [activeTab, setActiveTab] = useState('platform');

@@ -165,7 +165,7 @@ const About = () => {
 
 
 
-  const handleContactSubmit = (e) => {
+  const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success('Message sent!', 'We\'ll get back to you as soon as possible');
     // In a real app, this would send the form data to a server

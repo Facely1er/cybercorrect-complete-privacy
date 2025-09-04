@@ -252,7 +252,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     });
     
     return compliance;
-  }, [selectedFramework]);
+  }, [selectedFramework, calculateDomainScore, frameworks, implementationStatus]);
 
   // Enhanced control title generation
   const generateControlTitle = (domain: string, index: number): string => {
@@ -498,7 +498,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     } catch (err) {
       setError('Failed to load compliance data. Please check your connection and try again.');
       toast.error("Assessment failed", "Failed to load compliance data");
-      console.error('Error loading compliance data:', err);
+      // Error has been displayed to user via toast
     } finally {
       setLoading(false);
     }
@@ -507,7 +507,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
   // Initialize data on component mount and framework change
   useEffect(() => {
     loadComplianceData();
-  }, [selectedFramework]);
+  }, [selectedFramework, loadComplianceData]);
 
   // Enhanced export functionality
   const exportReport = (format: 'json' | 'csv' = 'json') => {

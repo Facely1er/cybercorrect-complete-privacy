@@ -42,7 +42,14 @@ interface AutoTableOptions {
 
 declare module 'jspdf' {
   interface jsPDF {
-    autoTable: (options: AutoTableOptions) => jsPDF;
+    autoTable: (options: {
+      head?: string[][];
+      body?: Array<Array<string | number>>;
+      startY?: number;
+      headStyles?: Record<string, unknown>;
+      alternateRowStyles?: Record<string, unknown>;
+    }) => jsPDF;
+
   }
 }
 
@@ -123,7 +130,10 @@ export const generateResultsPdf = (
     alternateRowStyles: { fillColor: [240, 240, 240] }
   });
   
+
+  // Get last table Y position
   y = (doc as jsPDF & { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 20;
+
 
   // Add summary
   doc.setFontSize(14);

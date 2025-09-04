@@ -18,7 +18,9 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      await login(email, password);
+      // Note: In production, password should be validated on the backend
+      // For demo purposes, we're only using email
+      await login(email);
       navigate('/app');
       toast.success('Login successful', 'Welcome to CyberCorrect');
     } catch (error) {

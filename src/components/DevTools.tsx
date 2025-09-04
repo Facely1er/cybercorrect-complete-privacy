@@ -48,7 +48,12 @@ const DevTools: React.FC = () => {
               size="sm" 
               variant="outline" 
               className="w-full justify-start"
-              onClick={() => console.log('Environment:', import.meta.env)}
+              onClick={() => {
+                // DevTools only - safe to log in development
+                if (import.meta.env.DEV) {
+                  console.log('Environment:', import.meta.env);
+                }
+              }}
             >
               <Database className="h-4 w-4 mr-2" />
               Log Environment
@@ -78,11 +83,16 @@ const DevTools: React.FC = () => {
               size="sm" 
               variant="outline" 
               className="w-full justify-start"
-              onClick={() => console.log('App State:', { 
-                route: window.location.pathname,
-                storage: { ...localStorage },
-                env: import.meta.env 
-              })}
+              onClick={() => {
+                // DevTools only - safe to log in development
+                if (import.meta.env.DEV) {
+                  console.log('App State:', { 
+                    route: window.location.pathname,
+                    storage: { ...localStorage },
+                    env: import.meta.env 
+                  });
+                }
+              }}
             >
               <BarChart className="h-4 w-4 mr-2" />
               Log App State

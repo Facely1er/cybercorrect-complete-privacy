@@ -42,14 +42,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     // Check if user is already logged in
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      // In a real app, fetch user data from secure backend using the ID
+      const foundUser = mockUsers.find(u => u.id === storedUserId);
+      if (foundUser) {
+        setUser(foundUser);
+      }
     }
     setLoading(false);
   }, []);
 
-  const login = async (email: string, password: string): Promise<User> => {
+  const login = async (email: string): Promise<User> => {
     setLoading(true);
     setError(null);
     
@@ -64,9 +68,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       
       // In a real app, we would validate the password here
+      // SECURITY NOTE: Never store passwords or sensitive user data in localStorage
+      // Use secure session tokens instead
       
       setUser(foundUser);
-      localStorage.setItem('user', JSON.stringify(foundUser));
+      // Store only non-sensitive user identifier
+      localStorage.setItem('userId', foundUser.id);
       setLoading(false);
       return foundUser;
     } catch (err) {
@@ -79,7 +86,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    localStorage.removeItem('userId');
   };
 
   return (

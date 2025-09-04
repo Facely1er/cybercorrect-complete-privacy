@@ -10,12 +10,8 @@ import {
   Eye,
   Users,
   FileText,
-  Shield,
-  Database,
   ArrowLeft,
-  Plus,
   Edit,
-  Filter,
   Activity,
   BarChart3
 } from 'lucide-react';

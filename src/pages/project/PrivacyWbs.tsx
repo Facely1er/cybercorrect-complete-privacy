@@ -8,16 +8,12 @@ import {
   Clock, 
   AlertTriangle,
   ArrowLeft,
-  Plus,
   Edit,
   Download,
-  Filter,
   ChevronRight,
   ChevronDown,
   Eye,
-  Users,
   FileText,
-  Shield,
   Target
 } from 'lucide-react';
 import { Link } from 'react-router-dom';

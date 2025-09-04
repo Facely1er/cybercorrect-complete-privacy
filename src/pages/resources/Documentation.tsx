@@ -4,13 +4,9 @@ import { Button } from '../../components/ui/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { InternalLink, ContextualCTA } from '../../components/ui/InternalLinkingHelper';
 import { 
-  BookOpen, 
-  FileText, 
   Search, 
   ArrowRight, 
-  Shield,
   Eye,
-  Users,
   Database,
   ClipboardCheck,
   FileCheck,

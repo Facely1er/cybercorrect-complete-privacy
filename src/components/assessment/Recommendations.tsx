@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../ui/Card';
+import { Card, CardContent, CardTitle, CardDescription } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { 
   CheckCircle, 
@@ -49,8 +49,7 @@ const Recommendations: React.FC<RecommendationsProps> = ({
   assessmentType,
   recommendations,
   onBack,
-  onExport,
-}) => {
+  onExport}) => {
   const [expandedItems, setExpandedItems] = React.useState<Record<string, boolean>>({});
   const [activeFilter, setActiveFilter] = React.useState<string>('all');
   

@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { useChatSupport } from '../../components/chat/ChatSupportProvider';
 import { useChatbot } from '../../components/chat/ChatbotProvider';
-import { LifeBuoy, MessageSquare, Phone, Mail, BookOpen, Video, Users, FileQuestion, ArrowRight, Shield, FileText, HelpCircle, Notebook as Robot, ArrowLeft, Send, User, Building } from 'lucide-react';
+import { MessageSquare, Phone, Mail, BookOpen, Video, FileQuestion, ArrowRight, Shield, FileText, HelpCircle, Notebook as Robot, ArrowLeft, Send, User, Building } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 
 const Support = () => {
@@ -33,7 +33,7 @@ const Support = () => {
   const handleContactFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Here you would typically send the form data to your backend
-    console.log('Contact form submitted:', contactForm);
+    // Contact form submission handled
     toast.success('Message sent!', 'We\'ll get back to you within 24 hours');
     
     // Reset form
