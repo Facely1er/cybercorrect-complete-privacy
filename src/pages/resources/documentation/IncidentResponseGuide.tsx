@@ -4,14 +4,10 @@ import { Button } from '../../../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { 
   ArrowRight,
-  Shield,
   CheckCircle,
   ArrowLeft,
   AlertTriangle,
-  Phone,
-  Clock,
-  FileText,
-  Users
+  Clock
 } from 'lucide-react';
 
 const IncidentResponseGuide = () => {

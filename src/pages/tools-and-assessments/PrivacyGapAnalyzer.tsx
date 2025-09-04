@@ -4,17 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { 
   Eye, 
   ArrowLeft, 
-  Download, 
-  Target, 
-  BarChart3, 
-  CheckCircle, 
-  AlertTriangle,
-  Scale,
-  Database,
-  Users,
-  Shield,
-  FileText,
-  Layers
+  Download
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';

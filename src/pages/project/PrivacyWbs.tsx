@@ -36,7 +36,7 @@ interface WbsItem {
 }
 
 const PrivacyWbs = () => {
-  const { getCurrentProject, userMode } = useProject();
+  const { getCurrentProject } = useProject();
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set(['1', '2', '3', '4']));
   const [selectedView, setSelectedView] = useState<'tree' | 'table'>('tree');
 

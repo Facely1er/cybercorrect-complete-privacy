@@ -4,11 +4,8 @@ import { Button } from '../../../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { 
   ArrowRight,
-  Shield,
   CheckCircle,
   ArrowLeft,
-  FileText,
-  AlertTriangle,
   Target,
   BarChart3
 } from 'lucide-react';

@@ -40,7 +40,7 @@ interface EvidenceItem {
 }
 
 const EvidenceVault = () => {
-  const { getCurrentProject, userMode } = useProject();
+  const { getCurrentProject } = useProject();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedItem, setSelectedItem] = useState<string | null>(null);

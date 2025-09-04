@@ -21,7 +21,7 @@ class ErrorMonitoringService {
     this.apiEndpoint = import.meta.env.VITE_ERROR_MONITORING_ENDPOINT;
   }
 
-  captureException(error: Error, context?: Record<string, any>) {
+  captureException(error: Error, context?: Record<string, unknown>) {
     if (!this.isEnabled) {
       console.error('Error (development):', error, context);
       return;
@@ -42,7 +42,7 @@ class ErrorMonitoringService {
     this.sendError(errorInfo);
   }
 
-  captureMessage(message: string, level: 'info' | 'warning' | 'error' = 'info', context?: Record<string, any>) {
+  captureMessage(message: string, level: 'info' | 'warning' | 'error' = 'info', context?: Record<string, unknown>) {
     if (!this.isEnabled) {
       console.log(`[${level.toUpperCase()}] ${message}`, context);
       return;
@@ -97,7 +97,7 @@ class ErrorMonitoringService {
     return sessionId;
   }
 
-  setUser(userId: string, userInfo?: Record<string, any>) {
+  setUser(userId: string, userInfo?: Record<string, unknown>) {
     if (this.isEnabled) {
       // Set user context for error tracking
       localStorage.setItem('errorMonitoringUser', JSON.stringify({ userId, ...userInfo }));

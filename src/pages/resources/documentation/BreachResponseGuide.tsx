@@ -5,11 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { 
   ArrowRight,
   AlertTriangle,
-  CheckCircle,
   ArrowLeft,
-  Shield,
   Clock,
-  Phone,
   FileText
 } from 'lucide-react';
 

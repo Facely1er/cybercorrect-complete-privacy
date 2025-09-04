@@ -288,7 +288,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     return `${baseTitle} ${Math.floor(index / titles.length) + 1}`.trim();
   };
 
-  const generateControlDescription = (domain: string): string => {
+  const generateControlDescription = (): string => {
     const descriptions: Record<string, string> = {
       'governance': 'Establish and maintain governance processes to ensure cybersecurity risk management aligns with organizational objectives.',
       'technical': 'Implement technical controls to protect systems and data from cybersecurity threats.',
@@ -495,7 +495,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
       
       toast.success("Assessment completed", "Compliance data loaded successfully");
       
-    } catch (err) {
+    } catch {
       setError('Failed to load compliance data. Please check your connection and try again.');
       toast.error("Assessment failed", "Failed to load compliance data");
       // Error has been displayed to user via toast

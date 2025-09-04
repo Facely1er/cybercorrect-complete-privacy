@@ -5,21 +5,9 @@ import { Button } from '../../components/ui/Button';
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { 
   Eye, 
-  ArrowRight, 
   CheckCircle, 
-  Shield, 
-  FileText, 
-  BarChart3, 
-  Users, 
   Clock, 
-  Target, 
-  Database,
-  Scale,
-  Settings,
-  BookOpen,
-  Fingerprint,
-  AlertTriangle,
-  Download
+  BookOpen
 } from 'lucide-react';
 
 const PrivacyOfficerJourney = () => {

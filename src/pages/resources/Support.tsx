@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useChatSupport } from '../../components/chat/ChatSupportProvider';
 import { useChatbot } from '../../components/chat/ChatbotProvider';
 import { MessageSquare, Phone, Mail, BookOpen, Video, FileQuestion, ArrowRight, Shield, FileText, HelpCircle, Notebook as Robot, ArrowLeft, Send, User, Building } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 
 const Support = () => {
-  const navigate = useNavigate();
   const { openChat } = useChatSupport();
   const { openChatbot } = useChatbot();
   

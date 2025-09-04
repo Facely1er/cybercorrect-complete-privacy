@@ -1,25 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { 
   Database, 
-  ArrowRight, 
   CheckCircle, 
   Plus, 
   Edit, 
-  Trash2, 
   Download, 
-  Save, 
-  RefreshCw,
   ArrowLeft,
   Network,
   Shield,
   Eye,
   Lock,
-  Server,
-  AlertTriangle,
-  Info
+  AlertTriangle
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 
@@ -42,7 +36,7 @@ interface DataFlow {
 }
 
 const CuiMapper = () => {
-  const [nodes, setNodes] = useState<DataNode[]>([
+  const [nodes] = useState<DataNode[]>([
     {
       id: 'source-1',
       label: 'Government Contract Data',
@@ -69,7 +63,7 @@ const CuiMapper = () => {
     }
   ]);
 
-  const [flows, setFlows] = useState<DataFlow[]>([
+  const [flows] = useState<DataFlow[]>([
     {
       id: 'flow-1',
       from: 'source-1',
@@ -89,7 +83,7 @@ const CuiMapper = () => {
   ]);
 
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
-  const [showAddNode, setShowAddNode] = useState(false);
+  const [showAddNode] = useState(false);
 
   const handleExportMap = () => {
     const mapData = {

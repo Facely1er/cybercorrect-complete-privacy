@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom';
 
 const PrivacyRoadmap = () => {
   const { getCurrentProject, userMode } = useProject();
-  const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
+  const [selectedPhase] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'timeline' | 'gantt'>('timeline');
 
   const project = getCurrentProject();

@@ -6,13 +6,6 @@ import {
   Download, 
   ArrowLeft, 
   CheckCircle, 
-  AlertTriangle,
-  Eye,
-  Users,
-  Database,
-  FileText,
-  Scale,
-  Settings,
   Target
 } from 'lucide-react';
 import { Link } from 'react-router-dom';

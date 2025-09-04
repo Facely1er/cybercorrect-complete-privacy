@@ -3,13 +3,9 @@ import { Card, CardContent } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { 
-  ArrowRight,
   ArrowLeft,
   ChevronDown,
   ChevronUp,
-  Shield,
-  Database,
-  Key,
   FileText,
   HelpCircle,
   Search,

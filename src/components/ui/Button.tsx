@@ -45,7 +45,7 @@ interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, rounded, asChild = false, children, ...props }, ref) => {
+  ({ className, variant, size, rounded, children, ...props }, ref) => {
     return (
       <button
         className={cn(buttonVariants({ variant, size, rounded, className }))}

@@ -5,20 +5,13 @@ import { Button } from '../../components/ui/Button';
 import { 
   Users, 
   ArrowLeft, 
-  CheckCircle, 
-  Clock, 
   AlertTriangle,
   Eye,
   Edit,
   Download,
   Plus,
-  Search,
-  Filter,
-  Mail,
-  Phone,
   FileText,
-  Shield,
-  Database
+  Shield
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 
@@ -80,7 +73,7 @@ const PrivacyRightsManager = () => {
   ]);
 
   const [selectedRequest, setSelectedRequest] = useState<string | null>(null);
-  const [showNewRequest, setShowNewRequest] = useState(false);
+  const [showNewRequest] = useState(false);
 
   const getRequestTypeColor = (type: string) => {
     const colors: Record<string, string> = {
@@ -334,7 +327,7 @@ const PrivacyRightsManager = () => {
                                 variant={request.status === status ? 'default' : 'outline'}
                                 size="sm"
                                 className="w-full"
-                                onClick={() => handleStatusUpdate(request.id, status as any)}
+                                onClick={() => handleStatusUpdate(request.id, status as 'pending' | 'in_progress' | 'completed' | 'rejected')}
                               >
                                 {status.replace('_', ' ').toUpperCase()}
                               </Button>

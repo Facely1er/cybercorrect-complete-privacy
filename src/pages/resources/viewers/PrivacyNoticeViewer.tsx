@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 import { 
-  Eye, 
   Download, 
   FileText, 
   CheckCircle, 
   Users,
   Globe,
-  Lock,
-  Settings,
-  AlertTriangle,
-  Database,
-  Scale
+  Settings
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';

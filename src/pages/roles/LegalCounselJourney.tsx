@@ -5,19 +5,10 @@ import { Button } from '../../components/ui/Button';
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { 
   Scale, 
-  ArrowRight, 
   CheckCircle, 
   FileText, 
-  Shield, 
-  Users, 
   Clock, 
-  Target, 
-  Database,
-  Eye,
-  BookOpen,
-  AlertTriangle,
-  Activity,
-  Globe
+  BookOpen
 } from 'lucide-react';
 
 const LegalCounselJourney = () => {

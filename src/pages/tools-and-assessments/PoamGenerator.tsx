@@ -4,20 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Ca
 import { Button } from '../../components/ui/Button';
 import { 
   FileCheck, 
-  ArrowRight, 
   CheckCircle, 
   Plus, 
-  Edit, 
   Download, 
   ArrowLeft,
   AlertTriangle,
-  Calendar,
-  Users,
   Target,
   DollarSign,
-  Clock,
-  Shield,
-  Info
+  Clock
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 
@@ -41,7 +35,7 @@ interface PoamItem {
 }
 
 const PoamGenerator = () => {
-  const [poamItems, setPoamItems] = useState<PoamItem[]>([
+  const [poamItems] = useState<PoamItem[]>([
     {
       id: 'poam-001',
       controlId: 'AC.L2-3.1.3',

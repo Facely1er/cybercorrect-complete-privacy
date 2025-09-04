@@ -48,7 +48,7 @@ const PrivacyResults = () => {
       <h1 className="text-3xl font-bold mb-6 text-foreground">Privacy Framework Assessment Results</h1>
       
       <AssessmentResults 
-        data={mockResults as any}
+        data={mockResults}
         onExport={handleExport}
       />
       

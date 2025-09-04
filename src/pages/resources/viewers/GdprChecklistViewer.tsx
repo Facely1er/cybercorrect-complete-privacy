@@ -5,10 +5,6 @@ import {
   FileText, 
   CheckCircle, 
   Users,
-  Globe,
-  Lock,
-  Eye,
-  Settings,
   AlertTriangle,
   Database,
   UserCheck

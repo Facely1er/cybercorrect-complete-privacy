@@ -6,12 +6,7 @@ import {
   CheckCircle, 
   Users,
   Globe,
-  Lock,
-  Eye,
-  Settings,
-  AlertTriangle,
-  Scale,
-  Calendar
+  Scale
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';

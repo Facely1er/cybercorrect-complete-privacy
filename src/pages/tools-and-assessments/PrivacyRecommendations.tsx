@@ -243,7 +243,7 @@ const PrivacyRecommendations = () => {
   const handleExport = () => {
     generateRecommendationsPdf(
       'Privacy Implementation Recommendations',
-      mockRecommendations as any,
+      mockRecommendations,
       new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
       'privacy-recommendations.pdf'
     );
@@ -255,7 +255,7 @@ const PrivacyRecommendations = () => {
         title="Privacy Implementation Recommendations"
         subtitle="Based on the NIST Privacy Framework and best practices"
         assessmentType="privacy"
-        recommendations={mockRecommendations as any}
+        recommendations={mockRecommendations}
         onBack={() => navigate('/privacy-results')}
         onExport={handleExport}
       />

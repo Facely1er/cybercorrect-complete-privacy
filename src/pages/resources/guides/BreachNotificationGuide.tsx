@@ -4,13 +4,10 @@ import { Button } from '../../../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { 
   ArrowRight,
-  AlertTriangle,
-  CheckCircle,
   ArrowLeft,
   Clock,
   Phone,
-  FileText,
-  Globe
+  FileText
 } from 'lucide-react';
 
 const BreachNotificationGuide = () => {

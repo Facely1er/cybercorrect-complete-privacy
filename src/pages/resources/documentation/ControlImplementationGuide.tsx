@@ -8,11 +8,7 @@ import {
   CheckCircle,
   ArrowLeft,
   FileText,
-  Settings,
-  Lock,
-  Eye,
-  Users,
-  Database
+  Eye
 } from 'lucide-react';
 
 const ControlImplementationGuide = () => {

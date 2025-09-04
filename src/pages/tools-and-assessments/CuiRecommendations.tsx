@@ -236,7 +236,7 @@ const CuiRecommendations = () => {
   const handleExport = () => {
     generateRecommendationsPdf(
       'CUI Protection Recommendations',
-      mockRecommendations as any,
+      mockRecommendations,
       new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
       'cui-recommendations.pdf'
     );
@@ -248,7 +248,7 @@ const CuiRecommendations = () => {
         title="CUI Protection Recommendations"
         subtitle="Based on NIST SP 800-171 requirements for Controlled Unclassified Information"
         assessmentType="cui"
-        recommendations={mockRecommendations as any}
+        recommendations={mockRecommendations}
         onBack={() => navigate('/cui-results')}
         onExport={handleExport}
       />
