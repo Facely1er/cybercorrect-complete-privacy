@@ -57,7 +57,7 @@ const CuiResults = () => {
       <h1 className="text-3xl font-bold mb-6 text-foreground">CUI Compliance Assessment Results</h1>
       
       <AssessmentResults 
-        data={mockResults as any}
+        data={mockResults}
         onExport={handleExport}
       />
       

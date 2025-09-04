@@ -27,7 +27,7 @@ interface RaciEntry {
 }
 
 const PrivacyRaci = () => {
-  const { } = useProject();
+  useProject();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
 

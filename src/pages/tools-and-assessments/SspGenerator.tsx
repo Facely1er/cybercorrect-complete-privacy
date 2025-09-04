@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { 
-  ArrowLeft, Shield, CheckCircle, FileText, Database, Lock, AlertTriangle, 
-  Info, Download, Network, Server, Users, Table, Building, Fingerprint,
-  Plus, Save, Edit3, Trash2, Upload, Eye, EyeOff, Copy, ChevronDown,
-  ChevronRight, Calendar, User, Clock, Settings, Tag, Loader2, Search,
-  FileDown, FileUp, CheckSquare, Square, AlertCircle, TrendingUp,
-  BarChart3, Layers, GitBranch, Share2, History, RefreshCw, Zap,
-  BookOpen, MessageSquare, Star, Archive, Filter, SortAsc, X
+  Shield, CheckCircle, FileText, Database, Lock, AlertTriangle, 
+  Download, Network, Server, Users, Table, Building, Fingerprint,
+  Save, Edit3, Upload, Eye, ChevronDown,
+  Calendar, User, Clock, Settings, Loader2, Search,
+  FileDown, AlertCircle, TrendingUp,
+  BarChart3, Layers, GitBranch, Share2, Archive, Zap, X
 } from 'lucide-react';
 
 import { toast } from '../../components/ui/Toaster';
@@ -169,7 +168,7 @@ const DEFAULT_SECTIONS: SSPSection[] = [
 
 const SspGenerator = () => {
   // Load from localStorage
-  const loadFromStorage = (key: string, defaultValue: any) => {
+  const loadFromStorage = (key: string, defaultValue: unknown) => {
     try {
       const stored = localStorage.getItem(key);
       return stored ? JSON.parse(stored) : defaultValue;
@@ -216,8 +215,8 @@ const SspGenerator = () => {
   const [showTemplates, setShowTemplates] = useState(false);
   const [autoSaveEnabled, setAutoSaveEnabled] = useState(true);
   const [lastSaved, setLastSaved] = useState(new Date().toISOString());
-  const [showEvidence, setShowEvidence] = useState(false);
-  const [selectedControl, setSelectedControl] = useState<string | null>(null);
+  const [showEvidence] = useState(false);
+  const [selectedControl] = useState<string | null>(null);
   
   // Sample templates
   const [templates] = useState<SSPTemplate[]>([
@@ -853,7 +852,7 @@ const SspGenerator = () => {
                             ...systemInfo,
                             categorization: {
                               ...systemInfo.categorization,
-                              confidentiality: e.target.value as any
+                              confidentiality: e.target.value as 'low' | 'moderate' | 'high'
                             }
                           })}
                         >
@@ -872,7 +871,7 @@ const SspGenerator = () => {
                             ...systemInfo,
                             categorization: {
                               ...systemInfo.categorization,
-                              integrity: e.target.value as any
+                              integrity: e.target.value as 'low' | 'moderate' | 'high'
                             }
                           })}
                         >
@@ -891,7 +890,7 @@ const SspGenerator = () => {
                             ...systemInfo,
                             categorization: {
                               ...systemInfo.categorization,
-                              availability: e.target.value as any
+                              availability: e.target.value as 'low' | 'moderate' | 'high'
                             }
                           })}
                         >
@@ -1142,7 +1141,7 @@ const SspGenerator = () => {
                       ...editingControl,
                       implementation: {
                         ...editingControl.implementation,
-                        status: e.target.value as any
+                        status: e.target.value as 'implemented' | 'partially-implemented' | 'planned' | 'not-applicable'
                       }
                     })}
                   >

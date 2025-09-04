@@ -5,20 +5,14 @@ import { Button } from '../../components/ui/Button';
 import { InternalLink, RelatedContent } from '../../components/ui/InternalLinkingHelper';
 import { 
   Eye, 
-  ArrowRight, 
   CheckCircle, 
   Plus, 
   Edit, 
   Download, 
   ArrowLeft,
   Users,
-  Database,
-  Shield,
   Scale,
-  Globe,
-  Lock,
-  AlertTriangle,
-  Info
+  Globe
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 
@@ -35,7 +29,7 @@ interface ProcessingActivity {
 }
 
 const GdprMapper = () => {
-  const [activities, setActivities] = useState<ProcessingActivity[]>([
+  const [activities] = useState<ProcessingActivity[]>([
     {
       id: 'activity-1',
       name: 'Customer Registration',

@@ -3,16 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Ca
 import { Button } from '../../components/ui/Button';
 import { 
   FileText, 
-  Download, 
   ArrowLeft, 
-  CheckCircle, 
   Settings,
-  Globe,
-  Users,
-  Database,
   Shield,
-  Eye,
-  Scale,
   Zap,
   Copy
 } from 'lucide-react';
@@ -23,7 +16,7 @@ const PrivacyPolicyGenerator = () => {
   const [selectedRegulation, setSelectedRegulation] = useState('gdpr');
   const [organizationType, setOrganizationType] = useState('business');
   const [policyType, setPolicyType] = useState('comprehensive');
-  const [generateStep, setGenerateStep] = useState(1);
+  const [generateStep] = useState(1);
 
   const regulations = [
     {

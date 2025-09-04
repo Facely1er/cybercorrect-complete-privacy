@@ -46,7 +46,6 @@ interface RecommendationsProps {
 const Recommendations: React.FC<RecommendationsProps> = ({
   title,
   subtitle,
-  assessmentType,
   recommendations,
   onBack,
   onExport}) => {

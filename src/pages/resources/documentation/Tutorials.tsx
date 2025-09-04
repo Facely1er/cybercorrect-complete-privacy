@@ -7,13 +7,11 @@ import {
   ArrowLeft,
   Play,
   Clock,
-  CheckCircle,
   FileText,
   Video,
   Search,
   BookOpen,
   Shield,
-  Database,
   Lock
 } from 'lucide-react';
 

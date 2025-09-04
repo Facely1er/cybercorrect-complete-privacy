@@ -16,7 +16,7 @@ function validateEnvironment(): EnvironmentConfig {
 
   // Check for missing required environment variables (excluding optional ones)
   const missingVars = Object.entries(requiredVars)
-    .filter(([key, value]) => !value || value === '')
+    .filter(([, value]) => !value || value === '')
     .filter(([key]) => key !== 'VITE_ERROR_MONITORING_ENDPOINT')
     .map(([key]) => key);
 

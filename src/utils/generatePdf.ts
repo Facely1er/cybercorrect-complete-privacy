@@ -17,12 +17,12 @@ interface AutoTableData {
   };
 }
 
-interface AutoTableOptions {
-  head?: string[][];
-  body?: string[][];
-  startY?: number;
-  styles?: Record<string, string | number>;
-  headStyles?: Record<string, string | number>;
+// interface AutoTableOptions {
+//   head?: string[][];
+//   body?: string[][];
+//   startY?: number;
+//   styles?: Record<string, string | number>;
+//   headStyles?: Record<string, string | number>;
   bodyStyles?: Record<string, string | number>;
   alternateRowStyles?: Record<string, string | number>;
   margin?: { top?: number; right?: number; bottom?: number; left?: number };

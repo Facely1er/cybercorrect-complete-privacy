@@ -5,20 +5,9 @@ import { Button } from '../../components/ui/Button';
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { 
   Database, 
-  ArrowRight, 
   CheckCircle, 
   FileText, 
-  Shield, 
-  Users, 
-  Clock, 
-  Target, 
-  Eye,
-  Settings,
-  BookOpen,
-  BarChart3,
-  Activity,
-  Lock,
-  Globe
+  Clock
 } from 'lucide-react';
 
 const DataStewardJourney = () => {

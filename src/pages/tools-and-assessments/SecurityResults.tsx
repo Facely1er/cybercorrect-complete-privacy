@@ -1,10 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { AssessmentResults } from '../../components/assessment/AssessmentResults';
 import { generateResultsPdf } from '../../utils/generatePdf';
 
 const SecurityResults = () => {
-  const navigate = useNavigate();
   
   const mockResults = {
     overallScore: 74,
@@ -37,7 +35,7 @@ const SecurityResults = () => {
       <h1 className="text-3xl font-bold mb-6 text-foreground">Security Framework Assessment Results</h1>
       
       <AssessmentResults 
-        data={mockResults as any}
+        data={mockResults}
         onExport={handleExport}
       />
       

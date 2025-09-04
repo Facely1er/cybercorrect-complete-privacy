@@ -7,20 +7,12 @@ import {
   Shield,
   CheckCircle,
   ArrowLeft,
-  FileText,
-  AlertTriangle,
   Globe,
   UserCheck,
-  DatabaseBackup,
   Lock,
   Eye,
   Fingerprint,
-  Info,
-  FileWarning,
-  UserX,
-  RefreshCw,
-  Search,
-  Scale
+  Search
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

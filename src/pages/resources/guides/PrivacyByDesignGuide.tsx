@@ -7,10 +7,7 @@ import {
   Eye,
   CheckCircle,
   ArrowLeft,
-  Settings,
-  Shield,
-  Target,
-  Users
+  Settings
 } from 'lucide-react';
 
 const PrivacyByDesignGuide = () => {
