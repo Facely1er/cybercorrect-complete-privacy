@@ -27,10 +27,10 @@ interface RaciEntry {
 }
 
 const PrivacyRaci = () => {
-  const { getCurrentProject, userMode } = useProject();
+  const { } = useProject();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  const project = getCurrentProject();
+
 
   // Privacy-specific RACI matrix
   const raciMatrix: RaciEntry[] = [
@@ -230,7 +230,7 @@ const PrivacyRaci = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {Object.entries(raciDefinitions).map(([key, definition]) => (
               <div key={key} className="flex items-center">
-                <span className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${getRaciColor(key as any)}`}>
+                <span className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${getRaciColor(key as 'R' | 'A' | 'C' | 'I')}`}>
                   {key}
                 </span>
                 <span className="text-sm">{definition}</span>
@@ -289,7 +289,7 @@ const PrivacyRaci = () => {
                   {roles.map(role => (
                     <td key={role.key} className="p-3 text-center">
                       <span className={`w-8 h-8 rounded-full flex items-center justify-center mx-auto text-sm ${
-                        getRaciColor(entry[role.key as keyof RaciEntry] as any)
+                        getRaciColor(entry[role.key as keyof RaciEntry] as 'R' | 'A' | 'C' | 'I')
                       }`}>
                         {entry[role.key as keyof RaciEntry]}
                       </span>

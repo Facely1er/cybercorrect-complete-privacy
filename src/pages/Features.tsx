@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
+
 import { Shield, FileText, ChevronRight, CheckCircle, Users, Lock, Award, Settings, Database, Layers, Lightbulb, Cloud, RefreshCw, Server, Eye, Scale, FileSearch, Activity, Target, Link2} from 'lucide-react';
+
 
 const Features = () => {
   const [activeTab, setActiveTab] = useState('platform');
-  const navigate = useNavigate();
+
 
   // Handler functions
   const handleStartAssessment = () => {
-    navigate('/assessments/privacy-assessment');
+    // Navigate to assessment
   };
 
   const handleGuideMe = () => {
-    navigate('/guide');
+    // Navigate to guide
   };
 
   // Platform capabilities organized by function
