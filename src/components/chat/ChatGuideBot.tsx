@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { Button } from '../ui/Button';
 import { X, Send, Notebook as Robot, Loader2, ChevronRight, ExternalLink, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -42,7 +42,7 @@ const ChatGuideBot = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Chat flow definition
-  const chatFlow: ChatFlow = {
+  const chatFlow: ChatFlow = useMemo(() => ({
     welcome: {
       message: "👋 Hello! I'm your CyberCorrect guide. I can help you navigate our platform and understand compliance requirements. What would you like to learn about?",
       options: [
@@ -300,7 +300,7 @@ const ChatGuideBot = () => {
         { id: 'main-menu', text: 'Back to Main Menu', nextStep: 'welcome' }
       ]
     }
-  };
+  }), []);
 
   // Initialize with welcome message
   useEffect(() => {
@@ -318,7 +318,7 @@ const ChatGuideBot = () => {
       
       setMessages([welcomeMessage]);
     }
-  }, [messages.length]);
+  }, [messages.length, chatFlow]);
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {

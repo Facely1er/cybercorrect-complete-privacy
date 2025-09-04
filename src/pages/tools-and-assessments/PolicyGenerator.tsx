@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { 
   CheckCircle, 
   AlertTriangle, 
@@ -111,7 +111,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Enhanced compliance frameworks with real standards and current versions
-  const frameworks: Record<string, Framework> = {
+  const frameworks: Record<string, Framework> = useMemo(() => ({
     'nist_800_171': {
       name: 'NIST SP 800-171',
       version: 'Rev 2',
@@ -138,16 +138,16 @@ const ComplianceGapAnalyzer: React.FC = () => {
       regulatoryMapping: ['GDPR', 'CCPA', 'LGPD', 'PIPEDA'],
       icon: Eye
     }
-  };
+  }), []);
 
   // Control implementation status with enhanced scoring
-  const implementationStatus = {
+  const implementationStatus = useMemo(() => ({
     'fully_implemented': { label: 'Fully Implemented', color: '#22c55e', textColor: 'text-green-700 dark:text-green-300', score: 100, priority: 1 },
     'partially_implemented': { label: 'Partially Implemented', color: '#f59e0b', textColor: 'text-yellow-700 dark:text-yellow-300', score: 60, priority: 2 },
     'planned': { label: 'Planned', color: '#3b82f6', textColor: 'text-blue-700 dark:text-blue-300', score: 30, priority: 3 },
     'not_implemented': { label: 'Not Implemented', color: '#ef4444', textColor: 'text-red-700 dark:text-red-300', score: 0, priority: 4 },
     'not_applicable': { label: 'Not Applicable', color: '#6b7280', textColor: 'text-muted-foreground', score: 100, priority: 0 }
-  };
+  }), []);
 
   // Enhanced priority levels with business impact
   const priorityLevels = {
@@ -251,7 +251,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     });
     
     return compliance;
-  }, [selectedFramework, calculateDomainScore, frameworks, implementationStatus]);
+  }, [selectedFramework, frameworks, implementationStatus, generateControlTitle, generateControlDescription, generateOwner, generateCostEstimate, calculateRiskLevel, generateTags, generateRelatedControls, calculateComplianceRisk, calculateUrgencyScore, calculateDomainRisk, calculateMaturityLevel, priorityLevels]);
 
   // Enhanced control title generation
   const generateControlTitle = (domain: string, index: number): string => {
@@ -389,7 +389,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
   };
 
   // Process enhanced gap analysis
-  const processGapAnalysis = (complianceData: Record<string, DomainData>): GapAnalysisItem[] => {
+  const processGapAnalysis = useCallback((complianceData: Record<string, DomainData>): GapAnalysisItem[] => {
     const gaps: GapAnalysisItem[] = [];
     
     Object.entries(complianceData).forEach(([domain, data]) => {
@@ -415,7 +415,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     gaps.sort((a, b) => b.urgencyScore - a.urgencyScore);
     
     return gaps;
-  };
+  }, [frameworks, priorityLevels, selectedFramework]);
 
   const calculateComplianceRisk = (priority: Control['priority']): string => {
     const riskMap: Record<string, string> = {
@@ -436,7 +436,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
   };
 
   // Generate trend data with realistic patterns
-  const generateTrendData = (): TrendData[] => {
+  const generateTrendData = useCallback((): TrendData[] => {
     const months = 12;
     const trends: TrendData[] = [];
     let baseScore = Math.max(30, overallScore - 25);
@@ -460,7 +460,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     }
     
     return trends;
-  };
+  }, [overallScore]);
 
   // Load compliance data with enhanced error handling
   const loadComplianceData = useCallback(async () => {
@@ -501,7 +501,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [generateComplianceData, overallScore]);
+  }, [generateComplianceData, overallScore, generateTrendData, processGapAnalysis, selectedFramework]);
 
   // Initialize data on component mount and framework change
   useEffect(() => {
