@@ -111,7 +111,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Enhanced compliance frameworks with real standards and current versions
-  const frameworks: Record<string, Framework> = {
+  const frameworks: Record<string, Framework> = useMemo(() => ({
     'nist_800_171': {
       name: 'NIST SP 800-171',
       version: 'Rev 2',
@@ -138,27 +138,46 @@ const ComplianceGapAnalyzer: React.FC = () => {
       regulatoryMapping: ['GDPR', 'CCPA', 'LGPD', 'PIPEDA'],
       icon: Eye
     }
-  };
+  }), []);
 
   // Control implementation status with enhanced scoring
-  const implementationStatus = {
+  const implementationStatus = useMemo(() => ({
     'fully_implemented': { label: 'Fully Implemented', color: '#22c55e', textColor: 'text-green-700 dark:text-green-300', score: 100, priority: 1 },
     'partially_implemented': { label: 'Partially Implemented', color: '#f59e0b', textColor: 'text-yellow-700 dark:text-yellow-300', score: 60, priority: 2 },
     'planned': { label: 'Planned', color: '#3b82f6', textColor: 'text-blue-700 dark:text-blue-300', score: 30, priority: 3 },
     'not_implemented': { label: 'Not Implemented', color: '#ef4444', textColor: 'text-red-700 dark:text-red-300', score: 0, priority: 4 },
     'not_applicable': { label: 'Not Applicable', color: '#6b7280', textColor: 'text-muted-foreground', score: 100, priority: 0 }
-  };
+  }), []);
 
   // Enhanced priority levels with business impact
-  const priorityLevels = {
+  const priorityLevels = useMemo(() => ({
     'critical': { label: 'Critical', color: '#dc2626', weight: 4, businessImpact: 'Severe', timeframe: 'Immediate' },
     'high': { label: 'High', color: '#ea580c', weight: 3, businessImpact: 'High', timeframe: '30 days' },
     'medium': { label: 'Medium', color: '#d97706', weight: 2, businessImpact: 'Medium', timeframe: '90 days' },
     'low': { label: 'Low', color: '#16a34a', weight: 1, businessImpact: 'Low', timeframe: '180 days' }
-  };
+  }), []);
 
   // Generate realistic compliance data with enhanced metrics
   const generateComplianceData = useCallback((): Record<string, DomainData> => {
+    // Calculate domain score function
+    const calculateDomainScore = (controls: Control[]): number => {
+      if (controls.length === 0) return 0;
+      
+      // Weighted scoring based on priority
+      let totalScore = 0;
+      let totalWeight = 0;
+      
+      controls.forEach(control => {
+        if (control.status !== 'not_applicable') {
+          const weight = priorityLevels[control.priority]?.weight || 1;
+          totalScore += implementationStatus[control.status].score * weight;
+          totalWeight += weight;
+        }
+      });
+      
+      return totalWeight > 0 ? Math.round(totalScore / totalWeight) : 0;
+    };
+
     // Use mock data if no assessment results available
     const mockAssessmentResults = {
       overallScore: 75,
@@ -251,7 +270,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     });
     
     return compliance;
-  }, [selectedFramework, calculateDomainScore, frameworks, implementationStatus]);
+  }, [selectedFramework, frameworks, implementationStatus, priorityLevels]);
 
   // Enhanced control title generation
   const generateControlTitle = (domain: string, index: number): string => {
@@ -340,23 +359,6 @@ const ComplianceGapAnalyzer: React.FC = () => {
     return Array.from({ length: count }, (_, i) => `${frameworkName.substring(0, 4).toUpperCase()}-REL-${i + 1}`);
   };
 
-  const calculateDomainScore = (controls: Control[]): number => {
-    if (controls.length === 0) return 0;
-    
-    // Weighted scoring based on priority
-    let totalScore = 0;
-    let totalWeight = 0;
-    
-    controls.forEach(control => {
-      if (control.status !== 'not_applicable') {
-        const weight = priorityLevels[control.priority]?.weight || 1;
-        totalScore += implementationStatus[control.status].score * weight;
-        totalWeight += weight;
-      }
-    });
-    
-    return totalWeight > 0 ? Math.round(totalScore / totalWeight) : 0;
-  };
 
   const calculateDomainRisk = (controls: Control[]): string => {
     const criticalGaps = controls.filter(c => c.status === 'not_implemented' && c.priority === 'critical').length;
@@ -501,7 +503,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [generateComplianceData, overallScore]);
+  }, [generateComplianceData, overallScore, selectedFramework, processGapAnalysis, generateTrendData]);
 
   // Initialize data on component mount and framework change
   useEffect(() => {

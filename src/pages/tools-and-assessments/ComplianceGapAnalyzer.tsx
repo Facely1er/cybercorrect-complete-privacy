@@ -112,7 +112,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Enhanced compliance frameworks with real standards and current versions
-  const frameworks: Record<string, Framework> = {
+  const frameworks: Record<string, Framework> = useMemo(() => ({
     'nist_800_171': {
       name: 'NIST SP 800-171',
       version: 'Rev 2',
@@ -139,27 +139,46 @@ const ComplianceGapAnalyzer: React.FC = () => {
       regulatoryMapping: ['GDPR', 'CCPA', 'LGPD', 'PIPEDA'],
       icon: Eye
     }
-  };
+  }), []);
 
   // Control implementation status with enhanced scoring
-  const implementationStatus = {
+  const implementationStatus = useMemo(() => ({
     'fully_implemented': { label: 'Fully Implemented', color: '#22c55e', textColor: 'text-green-700 dark:text-green-300', score: 100, priority: 1 },
     'partially_implemented': { label: 'Partially Implemented', color: '#f59e0b', textColor: 'text-yellow-700 dark:text-yellow-300', score: 60, priority: 2 },
     'planned': { label: 'Planned', color: '#3b82f6', textColor: 'text-blue-700 dark:text-blue-300', score: 30, priority: 3 },
     'not_implemented': { label: 'Not Implemented', color: '#ef4444', textColor: 'text-red-700 dark:text-red-300', score: 0, priority: 4 },
     'not_applicable': { label: 'Not Applicable', color: '#6b7280', textColor: 'text-muted-foreground', score: 100, priority: 0 }
-  };
+  }), []);
 
   // Enhanced priority levels with business impact
-  const priorityLevels = {
+  const priorityLevels = useMemo(() => ({
     'critical': { label: 'Critical', color: '#dc2626', weight: 4, businessImpact: 'Severe', timeframe: 'Immediate' },
     'high': { label: 'High', color: '#ea580c', weight: 3, businessImpact: 'High', timeframe: '30 days' },
     'medium': { label: 'Medium', color: '#d97706', weight: 2, businessImpact: 'Medium', timeframe: '90 days' },
     'low': { label: 'Low', color: '#16a34a', weight: 1, businessImpact: 'Low', timeframe: '180 days' }
-  };
+  }), []);
 
   // Generate realistic compliance data with enhanced metrics
   const generateComplianceData = useCallback((): Record<string, DomainData> => {
+    // Calculate domain score function
+    const calculateDomainScore = (controls: Control[]): number => {
+      if (controls.length === 0) return 0;
+      
+      // Weighted scoring based on priority
+      let totalScore = 0;
+      let totalWeight = 0;
+      
+      controls.forEach(control => {
+        if (control.status !== 'not_applicable') {
+          const weight = priorityLevels[control.priority]?.weight || 1;
+          totalScore += implementationStatus[control.status].score * weight;
+          totalWeight += weight;
+        }
+      });
+      
+      return totalWeight > 0 ? Math.round(totalScore / totalWeight) : 0;
+    };
+
     // Use mock data if no assessment results available
     const mockAssessmentResults = {
       overallScore: 75,
@@ -252,7 +271,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     });
     
     return compliance;
-  }, [selectedFramework, calculateDomainScore, frameworks, implementationStatus]);
+  }, [selectedFramework, frameworks, implementationStatus, priorityLevels]);
 
   // Enhanced control title generation
   const generateControlTitle = (domain: string, index: number): string => {
@@ -341,23 +360,6 @@ const ComplianceGapAnalyzer: React.FC = () => {
     return Array.from({ length: count }, (_, i) => `${frameworkName.substring(0, 4).toUpperCase()}-REL-${i + 1}`);
   };
 
-  const calculateDomainScore = (controls: Control[]): number => {
-    if (controls.length === 0) return 0;
-    
-    // Weighted scoring based on priority
-    let totalScore = 0;
-    let totalWeight = 0;
-    
-    controls.forEach(control => {
-      if (control.status !== 'not_applicable') {
-        const weight = priorityLevels[control.priority]?.weight || 1;
-        totalScore += implementationStatus[control.status].score * weight;
-        totalWeight += weight;
-      }
-    });
-    
-    return totalWeight > 0 ? Math.round(totalScore / totalWeight) : 0;
-  };
 
   const calculateDomainRisk = (controls: Control[]): string => {
     const criticalGaps = controls.filter(c => c.status === 'not_implemented' && c.priority === 'critical').length;
@@ -389,82 +391,67 @@ const ComplianceGapAnalyzer: React.FC = () => {
     return 'Low';
   };
 
-  // Process enhanced gap analysis
-  const processGapAnalysis = (complianceData: Record<string, DomainData>): GapAnalysisItem[] => {
-    const gaps: GapAnalysisItem[] = [];
-    
-    Object.entries(complianceData).forEach(([domain, data]) => {
-      data.controls.forEach(control => {
-        if (control.status !== 'fully_implemented' && control.status !== 'not_applicable') {
-          gaps.push({
-            ...control,
-            domain: domain,
-            framework: selectedFramework,
-            frameworkName: frameworks[selectedFramework].name,
-            gapType: control.status === 'not_implemented' ? 'missing' : 'incomplete',
-            businessImpact: priorityLevels[control.priority]?.businessImpact || 'Unknown',
-            timeframe: priorityLevels[control.priority]?.timeframe || 'TBD',
-            complianceRisk: calculateComplianceRisk(control.priority, selectedFramework),
-            estimatedCost: control.costEstimate,
-            urgencyScore: calculateUrgencyScore(control)
-          });
-        }
-      });
-    });
-    
-    // Enhanced sorting by urgency score
-    gaps.sort((a, b) => b.urgencyScore - a.urgencyScore);
-    
-    return gaps;
-  };
 
-  const calculateComplianceRisk = (priority: Control['priority']): string => {
-    const riskMap: Record<string, string> = {
-      'critical': 'Major Non-compliance - Audit Finding Likely',
-      'high': 'Significant Deficiency - Regulatory Concern',
-      'medium': 'Control Weakness - Requires Attention',
-      'low': 'Minor Gap - Monitoring Required'
-    };
-    
-    return riskMap[priority] || 'Assessment Required';
-  };
 
-  const calculateUrgencyScore = (control: Control): number => {
-    const priorityScores: Record<string, number> = { critical: 10, high: 7, medium: 4, low: 2 };
-    const statusScores: Record<string, number> = { not_implemented: 10, partially_implemented: 6, planned: 3 };
-    
-    return (priorityScores[control.priority] || 0) + (statusScores[control.status] || 0);
-  };
-
-  // Generate trend data with realistic patterns
-  const generateTrendData = (): TrendData[] => {
-    const months = 12;
-    const trends: TrendData[] = [];
-    let baseScore = Math.max(30, overallScore - 25);
-    
-    for (let i = months - 1; i >= 0; i--) {
-      const date = new Date();
-      date.setMonth(date.getMonth() - i);
-      
-      // Simulate improvement over time with occasional setbacks
-      const variation = Math.random() * 8 - 4; // -4 to +4
-      const improvement = Math.max(0, 2 - i * 0.3); // Gradual improvement
-      baseScore = Math.min(100, Math.max(0, baseScore + improvement + variation));
-      
-      trends.push({
-        month: date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
-        score: Math.round(baseScore),
-        gaps: Math.max(5, Math.floor((100 - baseScore) / 3) + Math.floor(Math.random() * 10)),
-        implemented: Math.floor(baseScore / 5) + Math.floor(Math.random() * 8),
-        assessments: Math.floor(Math.random() * 5) + 1
-      });
-    }
-    
-    return trends;
-  };
 
   // Load compliance data with enhanced error handling
   const loadComplianceData = useCallback(async () => {
+    // Process enhanced gap analysis
+    const processGapAnalysis = (complianceData: Record<string, DomainData>): GapAnalysisItem[] => {
+      const gaps: GapAnalysisItem[] = [];
+      
+      Object.entries(complianceData).forEach(([domain, data]) => {
+        data.controls.forEach(control => {
+          if (control.status !== 'fully_implemented' && control.status !== 'not_applicable') {
+            gaps.push({
+              ...control,
+              domain: domain,
+              framework: selectedFramework,
+              frameworkName: frameworks[selectedFramework].name,
+              riskLevel: calculateRiskLevel(control.status, control.priority),
+              businessImpact: priorityLevels[control.priority]?.businessImpact || 'Unknown',
+              remediationEffort: calculateRemediationEffort(control.status, control.priority),
+              estimatedCost: calculateEstimatedCost(control.status, control.priority),
+              timeframe: priorityLevels[control.priority]?.timeframe || 'Unknown'
+            });
+          }
+        });
+      });
+      
+      return gaps.sort((a, b) => {
+        const priorityOrder = { critical: 4, high: 3, medium: 2, low: 1 };
+        return (priorityOrder[b.priority as keyof typeof priorityOrder] || 0) - 
+               (priorityOrder[a.priority as keyof typeof priorityOrder] || 0);
+      });
+    };
+
+    // Generate trend data with realistic patterns
+    const generateTrendData = (): TrendData[] => {
+      const months = 12;
+      const trends: TrendData[] = [];
+      const baseScore = Math.max(30, overallScore - 25);
+      
+      for (let i = months - 1; i >= 0; i--) {
+        const date = new Date();
+        date.setMonth(date.getMonth() - i);
+        
+        // Simulate improvement over time with occasional setbacks
+        const variation = Math.random() * 8 - 4; // -4 to +4
+        const improvement = Math.max(0, (months - i) * 2); // Gradual improvement
+        const score = Math.min(100, Math.max(0, baseScore + improvement + variation));
+        
+        trends.push({
+          date: date.toISOString().split('T')[0],
+          score: Math.round(score),
+          assessments: Math.floor(Math.random() * 3) + 1,
+          improvements: Math.floor(Math.random() * 5),
+          newGaps: Math.floor(Math.random() * 3)
+        });
+      }
+      
+      return trends;
+    };
+
     setLoading(true);
     setError(null);
     
@@ -502,7 +489,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [generateComplianceData, overallScore]);
+  }, [generateComplianceData, overallScore, selectedFramework, frameworks, priorityLevels]);
 
   // Initialize data on component mount and framework change
   useEffect(() => {

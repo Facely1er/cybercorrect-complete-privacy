@@ -2,20 +2,6 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 
 // Extend jsPDF with autotable plugin
-interface AutoTableData {
-  pageNumber: number;
-  pageCount: number;
-  settings: Record<string, unknown>;
-  doc: jsPDF;
-  table: {
-    body: string[][];
-    head: string[][];
-  };
-  cursor: {
-    x: number;
-    y: number;
-  };
-}
 
 // interface AutoTableOptions {
 //   head?: string[][];

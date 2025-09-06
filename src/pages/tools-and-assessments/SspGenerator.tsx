@@ -255,7 +255,7 @@ const SspGenerator = () => {
     if (controls.length === 0) {
       initializeControls();
     }
-  }, []);
+  }, [controls.length]);
   
   // Initialize all NIST 800-171 controls
   const initializeControls = () => {
