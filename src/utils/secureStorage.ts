@@ -95,7 +95,7 @@ class SecureStorage {
 
     try {
       const item = localStorage.getItem(key);
-      if (!item) {
+      if (!item || item === 'null' || item === 'undefined') {
         return defaultValue || null;
       }
 
