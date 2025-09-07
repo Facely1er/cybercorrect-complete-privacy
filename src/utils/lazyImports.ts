@@ -15,3 +15,16 @@ export const LazyCmmc20Guide = lazy(() => import('../pages/resources/documentati
 export const LazyNistCsfGuide = lazy(() => import('../pages/resources/guides/NistCsfGuide'));
 export const LazyRansomwareGuide = lazy(() => import('../pages/resources/guides/RansomwareGuide'));
 export const LazySupplyChainGuide = lazy(() => import('../pages/resources/guides/SupplyChainGuide'));
+
+// Lazy load heavy PDF generation components
+export const LazyPdfGenerator = lazy(() => import('../utils/generatePdf'));
+export const LazyHtml2Canvas = lazy(() => import('html2canvas'));
+
+// Lazy load chart components (heavy libraries)
+export const LazyChartComponents = lazy(() => import('../components/charts/ChartComponents'));
+export const LazyRecharts = lazy(() => import('recharts'));
+
+// Lazy load assessment components
+export const LazyPrivacyAssessment = lazy(() => import('../pages/tools-and-assessments/PrivacyAssessment'));
+export const LazyPrivacyResults = lazy(() => import('../pages/tools-and-assessments/PrivacyResults'));
+export const LazyPrivacyRecommendations = lazy(() => import('../pages/tools-and-assessments/PrivacyRecommendations'));

@@ -7,7 +7,13 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase environment variables');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true
+  }
+});
 
 // Auth helpers
 export const signUp = async (email: string, password: string) => {
@@ -55,9 +61,22 @@ interface Asset {
 }
 
 export const createAsset = async (asset: Asset) => {
+  // Get current user session for security
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return { data: null, error: new Error('User not authenticated') };
+  }
+
+  // Add user context to asset
+  const assetWithUser = {
+    ...asset,
+    user_id: user.id,
+    session_id: `${user.id}_${Date.now()}`
+  };
+
   const { data, error } = await supabase
     .from('assets')
-    .insert([asset])
+    .insert([assetWithUser])
     .select();
   return { data, error };
 };
