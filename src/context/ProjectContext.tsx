@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { setProjectData, getProjectData, setAppSetting, getAppSetting } from '../utils/secureStorage';
 
 interface ProjectTask {
   id: string;
@@ -73,31 +74,29 @@ export const useProject = () => {
 
 export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [projects, setProjects] = useState<Record<string, ProjectProgress>>(() => {
-    const saved = localStorage.getItem('privacyProjects');
-    return saved ? JSON.parse(saved) : {};
+    return getProjectData('privacyProjects', {});
   });
 
   const [currentProject, setCurrentProject] = useState<string | undefined>(() => {
-    return localStorage.getItem('currentProject') || undefined;
+    return getProjectData('currentProject') || undefined;
   });
 
   const [userMode, setUserModeState] = useState<'solo' | 'team'>(() => {
-    const saved = localStorage.getItem('userMode');
-    return (saved as 'solo' | 'team') || 'solo';
+    return getAppSetting('userMode', 'solo');
   });
 
   useEffect(() => {
-    localStorage.setItem('privacyProjects', JSON.stringify(projects));
+    setProjectData('privacyProjects', projects);
   }, [projects]);
 
   useEffect(() => {
     if (currentProject) {
-      localStorage.setItem('currentProject', currentProject);
+      setProjectData('currentProject', currentProject);
     }
   }, [currentProject]);
 
   useEffect(() => {
-    localStorage.setItem('userMode', userMode);
+    setAppSetting('userMode', userMode);
   }, [userMode]);
 
   const createProject = (projectData: Partial<ProjectProgress>): string => {

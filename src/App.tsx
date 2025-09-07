@@ -11,6 +11,7 @@ import LandingLayout from './components/layout/LandingLayout';
 import DevTools from './components/DevTools';
 import ToolkitLayout from './components/layout/ToolkitLayout';
 import AssessmentLayout from './components/layout/AssessmentLayout';
+import { setAppSetting, getAppSetting } from './utils/secureStorage';
 
 // Pages
 import Landing from './pages/Landing';
@@ -34,6 +35,7 @@ const PrivacyRecommendations = lazy(() => import('./pages/tools-and-assessments/
 const GdprMapper = lazy(() => import('./pages/tools-and-assessments/GdprMapper'));
 const PrivacyGapAnalyzer = lazy(() => import('./pages/tools-and-assessments/PrivacyGapAnalyzer'));
 const PrivacyPolicyGenerator = lazy(() => import('./pages/tools-and-assessments/PrivacyPolicyGenerator'));
+const PrivacyRightsManager = lazy(() => import('./pages/tools-and-assessments/PrivacyRightsManager'));
 
 // Project Management - Lazy loaded
 const PrivacyProjectDashboard = lazy(() => import('./pages/project/PrivacyProjectDashboard'));
@@ -87,14 +89,17 @@ import BreachNotificationViewer from './pages/resources/viewers/BreachNotificati
 import ChatInterface from './pages/support/ChatInterface';
 
 // Lazy load toolkit pages for better performance
-const Toolkit = React.lazy(() => import('./pages/Toolkit'));
-const DpiaGenerator = React.lazy(() => import('./pages/tools-and-assessments/DpiaGenerator'));
+const Toolkit = lazy(() => import('./pages/Toolkit'));
+const DpiaGenerator = lazy(() => import('./pages/tools-and-assessments/DpiaGenerator'));
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('darkMode') === 'true' ||
-             (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      const stored = getAppSetting('darkMode');
+      if (stored !== null) {
+        return stored;
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
     return false;
   });
@@ -102,7 +107,7 @@ const App: React.FC = () => {
   const toggleDarkMode = () => {
     setDarkMode(prev => {
       const newValue = !prev;
-      localStorage.setItem('darkMode', newValue.toString());
+      setAppSetting('darkMode', newValue);
       return newValue;
     });
   };
@@ -218,7 +223,7 @@ const App: React.FC = () => {
                       } />
                       <Route path="privacy-rights-manager" element={
                         <Suspense fallback={<LoadingSpinner />}>
-                          {React.lazy(() => import('./pages/tools-and-assessments/PrivacyRightsManager'))}
+                          <PrivacyRightsManager />
                         </Suspense>
                       } />
                       <Route path="dpia-generator" element={

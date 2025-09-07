@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User } from '../types';
+import { setUserData, getUserData } from '../utils/secureStorage';
 
 interface AuthContextType {
   user: User | null;
@@ -42,7 +43,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     // Check if user is already logged in
-    const storedUserId = localStorage.getItem('userId');
+    const storedUserId = getUserData('id');
     if (storedUserId) {
       // In a real app, fetch user data from secure backend using the ID
       const foundUser = mockUsers.find(u => u.id === storedUserId);
@@ -72,8 +73,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Use secure session tokens instead
       
       setUser(foundUser);
-      // Store only non-sensitive user identifier
-      localStorage.setItem('userId', foundUser.id);
+      // Store only non-sensitive user identifier securely
+      setUserData('id', foundUser.id);
       setLoading(false);
       return foundUser;
     } catch (err) {
@@ -86,7 +87,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('userId');
+    // Clear all user data securely
+    setUserData('id', null);
   };
 
   return (

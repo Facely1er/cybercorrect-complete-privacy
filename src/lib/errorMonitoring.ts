@@ -23,7 +23,10 @@ class ErrorMonitoringService {
 
   captureException(error: Error, context?: Record<string, unknown>) {
     if (!this.isEnabled) {
-      console.error('Error (development):', error, context);
+      // Only log in development
+      if (import.meta.env.DEV) {
+        console.error('Error (development):', error, context);
+      }
       return;
     }
 
@@ -44,7 +47,10 @@ class ErrorMonitoringService {
 
   captureMessage(message: string, level: 'info' | 'warning' | 'error' = 'info', context?: Record<string, unknown>) {
     if (!this.isEnabled) {
-      console.log(`[${level.toUpperCase()}] ${message}`, context);
+      // Only log in development
+      if (import.meta.env.DEV) {
+        console.log(`[${level.toUpperCase()}] ${message}`, context);
+      }
       return;
     }
 
@@ -72,11 +78,16 @@ class ErrorMonitoringService {
           body: JSON.stringify(errorInfo),
         });
       } else {
-        // Fallback: send to console in production
-        console.error('Error captured:', errorInfo);
+        // Fallback: send to console in production (only if no endpoint configured)
+        if (import.meta.env.DEV) {
+          console.error('Error captured:', errorInfo);
+        }
       }
     } catch (sendError) {
-      console.error('Failed to send error to monitoring service:', sendError);
+      // Only log send errors in development
+      if (import.meta.env.DEV) {
+        console.error('Failed to send error to monitoring service:', sendError);
+      }
     }
   }
 
