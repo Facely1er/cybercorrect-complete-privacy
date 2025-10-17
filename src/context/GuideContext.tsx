@@ -16,9 +16,9 @@ interface GuideContextType {
   getSectionProgress: (guideId: string, sectionId: string) => boolean;
 }
 
-const GuideContext = createContext<GuideContextType | undefined>(undefined);
+export const GuideContext = createContext<GuideContextType | undefined>(undefined);
 
-export const useGuide = () => {
+const useGuide = () => {
   const context = useContext(GuideContext);
   if (context === undefined) {
     throw new Error('useGuide must be used within a GuideProvider');
@@ -26,7 +26,7 @@ export const useGuide = () => {
   return context;
 };
 
-export const GuideProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const GuideProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [progress, setProgress] = useState<Record<string, GuideProgress>>(() => {
     const saved = localStorage.getItem('guideProgress');
     return saved ? JSON.parse(saved) : {};
@@ -123,3 +123,5 @@ export const GuideProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     </GuideContext.Provider>
   );
 };
+
+export { useGuide, GuideProvider };
