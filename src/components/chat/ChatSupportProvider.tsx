@@ -7,9 +7,9 @@ interface ChatSupportContextType {
   isOpen: boolean;
 }
 
-const ChatSupportContext = createContext<ChatSupportContextType | undefined>(undefined);
+export const ChatSupportContext = createContext<ChatSupportContextType | undefined>(undefined);
 
-export const useChatSupport = () => {
+const useChatSupport = () => {
   const context = useContext(ChatSupportContext);
   if (context === undefined) {
     throw new Error('useChatSupport must be used within a ChatSupportProvider');
@@ -21,7 +21,7 @@ interface ChatSupportProviderProps {
   children: ReactNode;
 }
 
-export const ChatSupportProvider: React.FC<ChatSupportProviderProps> = ({ children }) => {
+const ChatSupportProvider: React.FC<ChatSupportProviderProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openChat = () => setIsOpen(true);
@@ -34,3 +34,5 @@ export const ChatSupportProvider: React.FC<ChatSupportProviderProps> = ({ childr
     </ChatSupportContext.Provider>
   );
 };
+
+export { useChatSupport, ChatSupportProvider };

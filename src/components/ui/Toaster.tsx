@@ -81,7 +81,7 @@ const notifyListeners = () => {
   listeners.forEach(listener => listener([...toasts]));
 };
 
-export const toast = {
+const toast = {
   show: (data: Omit<ToastData, 'id'>) => {
     const id = `toast-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     const newToast = { id, ...data };
@@ -107,7 +107,7 @@ export const toast = {
   }
 };
 
-export const Toaster: React.FC = () => {
+const Toaster: React.FC = () => {
   const [localToasts, setLocalToasts] = useState<ToastData[]>([]);
 
   useEffect(() => {
@@ -141,3 +141,5 @@ export const Toaster: React.FC = () => {
     </div>
   );
 };
+
+export { toast, Toaster };

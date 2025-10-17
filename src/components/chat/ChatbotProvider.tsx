@@ -7,9 +7,9 @@ interface ChatbotContextType {
   isOpen: boolean;
 }
 
-const ChatbotContext = createContext<ChatbotContextType | undefined>(undefined);
+export const ChatbotContext = createContext<ChatbotContextType | undefined>(undefined);
 
-export const useChatbot = () => {
+const useChatbot = () => {
   const context = useContext(ChatbotContext);
   if (context === undefined) {
     throw new Error('useChatbot must be used within a ChatbotProvider');
@@ -21,7 +21,7 @@ interface ChatbotProviderProps {
   children: ReactNode;
 }
 
-export const ChatbotProvider: React.FC<ChatbotProviderProps> = ({ children }) => {
+const ChatbotProvider: React.FC<ChatbotProviderProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openChatbot = () => setIsOpen(true);
@@ -34,3 +34,5 @@ export const ChatbotProvider: React.FC<ChatbotProviderProps> = ({ children }) =>
     </ChatbotContext.Provider>
   );
 };
+
+export { useChatbot, ChatbotProvider };
