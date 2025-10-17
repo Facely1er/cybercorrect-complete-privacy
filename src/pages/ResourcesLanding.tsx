@@ -210,12 +210,12 @@ const ResourcesLanding = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/assessment-hub">
-                  <Button className="bg-white text-blue-600 hover:bg-gray-100 enhanced-button px-6 py-3 font-semibold">
+                  <Button className="bg-white text-blue-600 hover:bg-gray-100 enhanced-button px-6 py-3">
                     Start Assessment
                   </Button>
                 </Link>
                 <Link to="/support">
-                  <Button variant="outline" className="text-white border-white hover:bg-white/10 px-6 py-3 font-semibold">
+                  <Button variant="outline" className="text-white border-white hover:bg-white/10 px-6 py-3">
                     Contact Support
                   </Button>
                 </Link>

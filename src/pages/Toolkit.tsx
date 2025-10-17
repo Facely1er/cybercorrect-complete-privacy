@@ -246,7 +246,7 @@ const Toolkit = () => {
                     </div>
                     
                     <Link to={tool.path}>
-                      <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg hover:scale-105 transition-all duration-300 py-3 text-lg font-semibold">
+                      <Button size="lg" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg hover:scale-105 transition-all duration-300 py-3">
                         Launch {tool.title}
                         <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>

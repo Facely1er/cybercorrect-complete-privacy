@@ -197,13 +197,13 @@ const Features = () => {
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link to="/assessments/privacy-assessment">
-                <Button size="lg" className="enhanced-button bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold">
+                <Button size="lg" className="enhanced-button bg-blue-600 hover:bg-blue-700 text-white px-8 py-4">
                   Start Assessment
                   <FileSearch className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/toolkit">
-                <Button size="lg" variant="outline" className="hover:-translate-y-1 transition-transform px-8 py-4 text-lg font-semibold">
+                <Button size="lg" variant="outline" className="hover:-translate-y-1 transition-transform px-8 py-4">
                   Explore Tools
                   <Settings className="ml-2 h-5 w-5" />
                 </Button>
@@ -439,7 +439,7 @@ const Features = () => {
                 <Eye className="ml-2 h-5 w-5" />
               </Button>
               <Link to="/assessments/security-assessment">
-                <Button className="bg-white text-green-600 hover:bg-gray-100 border-2 border-white font-semibold shadow-lg">
+                <Button className="bg-white text-green-600 hover:bg-gray-100 border-2 border-white shadow-lg">
                   Security Compliance Path
                   <Database className="ml-2 h-5 w-5" />
                 </Button>

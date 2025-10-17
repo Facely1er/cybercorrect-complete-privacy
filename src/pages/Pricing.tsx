@@ -666,11 +666,11 @@ const Pricing = () => {
           <h3 className="text-xl font-bold mb-3">Ready to achieve CMMC compliance?</h3>
           <p className="mb-5">Start your free 14-day trial or schedule a demo with our compliance experts</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-white text-primary-teal hover:bg-gray-100 border-2 border-white font-semibold shadow-lg">
+            <Button className="bg-white text-primary-teal hover:bg-gray-100 border-2 border-white shadow-lg">
               Start Free Trial
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button className="bg-gray-900 text-white hover:bg-gray-800 border-2 border-gray-900 font-semibold shadow-lg">
+            <Button className="bg-gray-900 text-white hover:bg-gray-800 border-2 border-gray-900 shadow-lg">
               Schedule Demo
             </Button>
           </div>
