@@ -47,7 +47,7 @@ class SecureStorage {
     }
   }
 
-  setItem<T = any>(key: string, value: T, options: StorageOptions = {}): boolean {
+  setItem<T = unknown>(key: string, value: T, options: StorageOptions = {}): boolean {
     if (!this.isAvailable()) {
       errorMonitoring.captureMessage('localStorage not available', 'warning', { key });
       return false;
@@ -88,7 +88,7 @@ class SecureStorage {
     }
   }
 
-  getItem<T = any>(key: string, defaultValue?: T): T | null {
+  getItem<T = unknown>(key: string, defaultValue?: T): T | null {
     if (!this.isAvailable()) {
       return defaultValue || null;
     }
@@ -163,11 +163,11 @@ class SecureStorage {
   }
 
   // Safe wrapper for sensitive data
-  setSecureItem<T = any>(key: string, value: T, ttl?: number): boolean {
+  setSecureItem<T = unknown>(key: string, value: T, ttl?: number): boolean {
     return this.setItem(key, value, { encrypt: true, compress: true, ttl });
   }
 
-  getSecureItem<T = any>(key: string, defaultValue?: T): T | null {
+  getSecureItem<T = unknown>(key: string, defaultValue?: T): T | null {
     return this.getItem(key, defaultValue);
   }
 }
@@ -175,26 +175,26 @@ class SecureStorage {
 export const secureStorage = new SecureStorage();
 
 // Convenience functions for common use cases
-export const setUserData = <T = any>(key: string, value: T): boolean => {
+export const setUserData = <T = unknown>(key: string, value: T): boolean => {
   return secureStorage.setSecureItem(`user_${key}`, value, 7 * 24 * 60 * 60 * 1000); // 7 days
 };
 
-export const getUserData = <T = any>(key: string, defaultValue?: T): T | null => {
+export const getUserData = <T = unknown>(key: string, defaultValue?: T): T | null => {
   return secureStorage.getSecureItem(`user_${key}`, defaultValue);
 };
 
-export const setProjectData = <T = any>(key: string, value: T): boolean => {
+export const setProjectData = <T = unknown>(key: string, value: T): boolean => {
   return secureStorage.setItem(`project_${key}`, value, { compress: true });
 };
 
-export const getProjectData = <T = any>(key: string, defaultValue?: T): T | null => {
+export const getProjectData = <T = unknown>(key: string, defaultValue?: T): T | null => {
   return secureStorage.getItem(`project_${key}`, defaultValue);
 };
 
-export const setAppSetting = <T = any>(key: string, value: T): boolean => {
+export const setAppSetting = <T = unknown>(key: string, value: T): boolean => {
   return secureStorage.setItem(`app_${key}`, value);
 };
 
-export const getAppSetting = <T = any>(key: string, defaultValue?: T): T | null => {
+export const getAppSetting = <T = unknown>(key: string, defaultValue?: T): T | null => {
   return secureStorage.getItem(`app_${key}`, defaultValue);
 };
