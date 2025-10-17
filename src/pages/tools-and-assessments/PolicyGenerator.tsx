@@ -391,7 +391,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
   };
 
   // Process enhanced gap analysis
-  const processGapAnalysis = (complianceData: Record<string, DomainData>): GapAnalysisItem[] => {
+  const processGapAnalysis = useCallback((complianceData: Record<string, DomainData>): GapAnalysisItem[] => {
     const gaps: GapAnalysisItem[] = [];
     
     Object.entries(complianceData).forEach(([domain, data]) => {
@@ -417,7 +417,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     gaps.sort((a, b) => b.urgencyScore - a.urgencyScore);
     
     return gaps;
-  };
+  }, [selectedFramework, frameworks, priorityLevels]);
 
   const calculateComplianceRisk = (priority: Control['priority']): string => {
     const riskMap: Record<string, string> = {
@@ -438,7 +438,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
   };
 
   // Generate trend data with realistic patterns
-  const generateTrendData = (): TrendData[] => {
+  const generateTrendData = useCallback((): TrendData[] => {
     const months = 12;
     const trends: TrendData[] = [];
     let baseScore = Math.max(30, overallScore - 25);
@@ -462,7 +462,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     }
     
     return trends;
-  };
+  }, [overallScore]);
 
   // Load compliance data with enhanced error handling
   const loadComplianceData = useCallback(async () => {
