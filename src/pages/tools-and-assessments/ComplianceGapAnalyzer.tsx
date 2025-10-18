@@ -401,7 +401,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
       const gaps: GapAnalysisItem[] = [];
       
       Object.entries(complianceData).forEach(([domain, data]) => {
-        data.controls.forEach(control => {
+        data?.controls?.forEach(control => {
           if (control.status !== 'fully_implemented' && control.status !== 'not_applicable') {
             gaps.push({
               ...control,
@@ -509,7 +509,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
       executiveSummary: {
         overallScore: overallScore,
         totalControls: frameworks[selectedFramework].totalControls,
-        implementedControls: Object.values(complianceData).reduce((sum, domain) => sum + domain.implementedControls, 0),
+        implementedControls: Object.values(complianceData).reduce((sum, domain) => sum + (domain?.implementedControls || 0), 0),
         totalGaps: gapAnalysis.length,
         criticalGaps: gapAnalysis.filter(gap => gap.priority === 'critical').length,
         estimatedCost: gapAnalysis.reduce((sum, gap) => sum + gap.estimatedCost, 0),
@@ -641,7 +641,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Implemented</p>
                   <p className="text-3xl font-bold text-green-600">
-                    {Object.values(complianceData).reduce((sum, domain) => sum + domain.implementedControls, 0)}
+                    {Object.values(complianceData).reduce((sum, domain) => sum + (domain?.implementedControls || 0), 0)}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">
                     of {frameworks[selectedFramework].totalControls} controls
@@ -703,6 +703,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
         </div>
 
         {/* Compliance charts */}
+        {Object.keys(complianceData).length > 0 && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
@@ -715,9 +716,9 @@ const ComplianceGapAnalyzer: React.FC = () => {
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={Object.entries(complianceData).map(([domain, data]) => ({
                   domain: domain.length > 15 ? domain.substring(0, 15) + '...' : domain,
-                  score: data.domainScore,
-                  gaps: data.gapCount,
-                  implemented: data.implementedControls
+                  score: data?.domainScore || 0,
+                  gaps: data?.gapCount || 0,
+                  implemented: data?.implementedControls || 0
                 }))}>
                   <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                   <XAxis 
@@ -761,7 +762,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
                   <Pie
                     data={Object.entries(implementationStatus).map(([status, config]) => {
                       const count = Object.values(complianceData).reduce((total, domain) => {
-                        return total + domain.controls.filter(control => control.status === status).length;
+                        return total + (domain?.controls?.filter(control => control.status === status).length || 0);
                       }, 0);
                       
                       return {
@@ -786,8 +787,10 @@ const ComplianceGapAnalyzer: React.FC = () => {
             </CardContent>
           </Card>
         </div>
+        )}
 
         {/* Compliance Trends */}
+        {trends.length > 0 && (
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
@@ -816,6 +819,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
             </ResponsiveContainer>
           </CardContent>
         </Card>
+        )}
       </div>
     );
   };
