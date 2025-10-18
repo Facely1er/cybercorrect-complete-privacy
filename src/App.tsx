@@ -12,8 +12,7 @@ import DevTools from './components/DevTools';
 import ToolkitLayout from './components/layout/ToolkitLayout';
 import AssessmentLayout from './components/layout/AssessmentLayout';
 import { setAppSetting, getAppSetting } from './utils/secureStorage';
-import { Analytics } from '@vercel/analytics/react';
-import { env } from './lib/env';
+import AnalyticsWrapper from './components/AnalyticsWrapper';
 
 // Pages
 import Landing from './pages/Landing';
@@ -128,7 +127,8 @@ const App: React.FC = () => {
         <ProjectProvider>
           <ChatbotProvider>
             <ChatSupportProvider>
-              <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
+              <AnalyticsWrapper>
+                <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
                 <Routes>
                   {/* Main Layout Routes */}
                   <Route path="/" element={<LandingLayout toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}>
@@ -300,9 +300,8 @@ const App: React.FC = () => {
                 
                 <Toaster />
                 <DevTools />
-                {/* Analytics - conditionally rendered based on environment */}
-                {env.VITE_ENABLE_ANALYTICS === 'true' && <Analytics />}
-              </div>
+                </div>
+              </AnalyticsWrapper>
             </ChatSupportProvider>
           </ChatbotProvider>
         </ProjectProvider>
