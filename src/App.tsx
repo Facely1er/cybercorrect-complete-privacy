@@ -97,11 +97,16 @@ const DpiaGenerator = lazy(() => import('./pages/tools-and-assessments/DpiaGener
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
-      const stored = getAppSetting('darkMode');
-      if (stored !== null) {
-        return stored;
+      try {
+        const stored = getAppSetting('darkMode');
+        if (stored !== null && stored !== undefined) {
+          return stored;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      } catch (error) {
+        console.warn('Error accessing dark mode setting:', error);
+        return false;
       }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
     return false;
   });

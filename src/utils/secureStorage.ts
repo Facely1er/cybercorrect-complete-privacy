@@ -102,20 +102,20 @@ class SecureStorage {
       // Check if it's a TTL item
       if (item.startsWith('{')) {
         const parsed = JSON.parse(item);
-        if (parsed.expires && Date.now() > parsed.expires) {
+        if (parsed && parsed.expires && Date.now() > parsed.expires) {
           localStorage.removeItem(key);
           return defaultValue || null;
         }
         
-        let data = parsed.data;
-        if (parsed.compressed) {
+        let data = parsed?.data;
+        if (parsed?.compressed && data) {
           data = this.decompress(data);
         }
-        if (parsed.encrypted) {
+        if (parsed?.encrypted && data) {
           data = this.decrypt(data);
         }
         
-        return JSON.parse(data);
+        return data ? JSON.parse(data) : (defaultValue || null);
       }
 
       // Regular item
