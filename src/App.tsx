@@ -2,8 +2,11 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ProjectProvider } from './context/ProjectContext';
+import { WorkflowProvider } from './context/WorkflowContext';
+import { GuideProvider } from './context/GuideContext';
 import { ChatbotProvider } from './components/chat/ChatbotProvider';
 import { ChatSupportProvider } from './components/chat/ChatSupportProvider';
+import AppInitializer from './components/AppInitializer';
 import { Toaster } from './components/ui/Toaster';
 import ErrorBoundary from './components/ErrorBoundary';
 import LoadingSpinner from './components/LoadingSpinner';
@@ -124,9 +127,12 @@ const App: React.FC = () => {
     <ErrorBoundary>
       <AuthProvider>
         <ProjectProvider>
-          <ChatbotProvider>
-            <ChatSupportProvider>
-              <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
+          <WorkflowProvider>
+            <GuideProvider>
+              <ChatbotProvider>
+                <ChatSupportProvider>
+                  <AppInitializer>
+                    <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
                 <Routes>
                   {/* Main Layout Routes */}
                   <Route path="/" element={<LandingLayout toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}>
@@ -296,11 +302,14 @@ const App: React.FC = () => {
                   </Route>
                 </Routes>
                 
-                <Toaster />
-                <DevTools />
-              </div>
-            </ChatSupportProvider>
-          </ChatbotProvider>
+                      <Toaster />
+                      <DevTools />
+                    </div>
+                  </AppInitializer>
+                </ChatSupportProvider>
+              </ChatbotProvider>
+            </GuideProvider>
+          </WorkflowProvider>
         </ProjectProvider>
       </AuthProvider>
     </ErrorBoundary>
