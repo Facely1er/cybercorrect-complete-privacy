@@ -10,10 +10,13 @@ import {
   Edit, 
   Download, 
   ArrowLeft,
+  ArrowRight,
   Users,
   Scale,
   Globe,
-  Shield
+  Shield,
+  AlertTriangle,
+  Info
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 
