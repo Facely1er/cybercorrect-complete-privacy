@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../utils/cn';
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center text-base font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
+  "inline-flex items-center justify-center text-base font-medium leading-tight whitespace-normal break-words text-center min-w-0 max-w-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
   {
     variants: {
       variant: {
@@ -20,8 +20,8 @@ const buttonVariants = cva(
       size: {
         default: "h-10 py-2 px-4 text-base",
         sm: "h-9 px-3 rounded-md text-sm",
-        lg: "h-11 px-8 rounded-md text-lg",
-        xl: "h-12 px-10 rounded-md text-xl",
+        lg: "h-11 px-8 rounded-md text-base",
+        xl: "h-12 px-10 rounded-md text-lg",
         icon: "h-10 w-10 text-base",
       },
       rounded: {

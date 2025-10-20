@@ -64,18 +64,15 @@ class SecureStorage {
         data = this.encrypt(data);
       }
 
-      // Add TTL if specified
-      if (options.ttl) {
-        const item = {
-          data,
-          expires: Date.now() + options.ttl,
-          encrypted: options.encrypt,
-          compressed: options.compress
-        };
-        localStorage.setItem(key, JSON.stringify(item));
-      } else {
-        localStorage.setItem(key, data);
-      }
+      // Always persist with metadata so we can properly decode later
+      const item = {
+        data,
+        // Only set expires when TTL is provided to avoid premature expiration checks
+        ...(options.ttl ? { expires: Date.now() + options.ttl } : {}),
+        encrypted: !!options.encrypt,
+        compressed: !!options.compress
+      };
+      localStorage.setItem(key, JSON.stringify(item));
 
       return true;
     } catch (error) {
@@ -99,26 +96,28 @@ class SecureStorage {
         return defaultValue || null;
       }
 
-      // Check if it's a TTL item
-      if (item.startsWith('{')) {
+      // New format: JSON object with metadata
+      if (item.trim().startsWith('{')) {
         const parsed = JSON.parse(item);
         if (parsed && parsed.expires && Date.now() > parsed.expires) {
           localStorage.removeItem(key);
           return defaultValue || null;
         }
-        
-        let data = parsed?.data;
-        if (parsed?.compressed && data) {
-          data = this.decompress(data);
+
+        let data: string | null = parsed?.data ?? null;
+        if (data) {
+          if (parsed?.encrypted) {
+            data = this.decrypt(data);
+          }
+          if (parsed?.compressed) {
+            data = this.decompress(data);
+          }
         }
-        if (parsed?.encrypted && data) {
-          data = this.decrypt(data);
-        }
-        
+
         return data ? JSON.parse(data) : (defaultValue || null);
       }
 
-      // Regular item
+      // Legacy format: raw JSON string without metadata
       return JSON.parse(item);
     } catch (error) {
       errorMonitoring.captureException(error instanceof Error ? error : new Error('Storage get failed'), {

@@ -240,7 +240,16 @@ describe('generateRecommendationsPdf', () => {
 
   it('should handle empty recommendations list', () => {
     const title = 'Test Recommendations'
-    const recommendations: any[] = []
+    const recommendations: Array<{
+      id: string;
+      title: string;
+      description: string;
+      priority: string;
+      category: string;
+      effort: string;
+      timeframe: string;
+      steps: string[];
+    }> = []
     const date = '2025-01-30'
 
     generateRecommendationsPdf(title, recommendations, date)

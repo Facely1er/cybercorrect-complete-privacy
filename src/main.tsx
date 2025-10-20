@@ -3,6 +3,10 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
+import { initSentry, SentryErrorBoundary } from './lib/sentry';
+
+// Initialize Sentry before anything else
+initSentry();
 
 // Global error handler to catch undefined run errors
 window.addEventListener('error', (event) => {
@@ -24,8 +28,10 @@ window.addEventListener('unhandledrejection', (event) => {
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <SentryErrorBoundary>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </SentryErrorBoundary>
   </React.StrictMode>
 );
