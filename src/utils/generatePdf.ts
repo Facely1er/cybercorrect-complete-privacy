@@ -152,7 +152,7 @@ export const generateResultsPdf = (
   for(let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
     doc.text(`Page ${i} of ${pageCount}`, 105, 290, { align: 'center' });
-    doc.text('CyberCorrect Assessment Report', 20, 290);
+    doc.text('PrivacyCorrect Assessment Report', 20, 290);
     doc.text(`${new Date().toISOString().split('T')[0]}`, 190, 290, { align: 'right' });
   }
 
@@ -273,7 +273,7 @@ export const generateRecommendationsPdf = (
   for(let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
     doc.text(`Page ${i} of ${pageCount}`, 105, 290, { align: 'center' });
-    doc.text('CyberCorrect Recommendations', 20, 290);
+    doc.text('PrivacyCorrect Recommendations', 20, 290);
     doc.text(`${new Date().toISOString().split('T')[0]}`, 190, 290, { align: 'right' });
   }
 

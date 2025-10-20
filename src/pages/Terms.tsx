@@ -28,9 +28,9 @@ const Terms = () => {
                 Introduction
               </h2>
               <p className="text-muted-foreground mb-4">
-                These Terms of Service ("Terms") govern your access to and use of the CyberCorrect platform, 
+                These Terms of Service ("Terms") govern your access to and use of the PrivacyCorrect platform, 
                 including any applications, websites, software, and services (collectively, "Services") 
-                provided by CyberCorrect, Inc. ("CyberCorrect," "we," "us," or "our").
+                provided by PrivacyCorrect, Inc. ("PrivacyCorrect," "we," "us," or "our").
               </p>
               <p className="text-muted-foreground">
                 By accessing or using our Services, you agree to be bound by these Terms. If you do not agree to these 
@@ -71,7 +71,7 @@ const Terms = () => {
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground">
                     <li>In any way that violates any applicable federal, state, local, or international law or regulation</li>
                     <li>To transmit, or procure the sending of, any advertising or promotional material, including any "junk mail," "chain letter," or "spam"</li>
-                    <li>To impersonate or attempt to impersonate CyberCorrect, a CyberCorrect employee, another user, or any other person or entity</li>
+                    <li>To impersonate or attempt to impersonate PrivacyCorrect, a PrivacyCorrect employee, another user, or any other person or entity</li>
                     <li>To engage in any other conduct that restricts or inhibits anyone's use or enjoyment of the Services</li>
                   </ul>
                 </div>
@@ -86,7 +86,7 @@ const Terms = () => {
                 Limitation of Liability
               </h2>
               <p className="text-muted-foreground mb-4">
-                IN NO EVENT WILL CYBERCORRECT, ITS AFFILIATES, OR THEIR LICENSORS, SERVICE PROVIDERS, EMPLOYEES, 
+                IN NO EVENT WILL PRIVACYCORRECT, ITS AFFILIATES, OR THEIR LICENSORS, SERVICE PROVIDERS, EMPLOYEES, 
                 AGENTS, OFFICERS, OR DIRECTORS BE LIABLE FOR DAMAGES OF ANY KIND, UNDER ANY LEGAL THEORY, ARISING 
                 OUT OF OR IN CONNECTION WITH YOUR USE, OR INABILITY TO USE, THE SERVICES, INCLUDING ANY DIRECT, 
                 INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.
@@ -108,7 +108,7 @@ const Terms = () => {
                 <div>
                   <h3 className="text-lg font-medium mb-2">Subscription Terms</h3>
                   <p className="text-muted-foreground">
-                    CyberCorrect offers subscription-based access to our Services. By subscribing to our Services, 
+                    PrivacyCorrect offers subscription-based access to our Services. By subscribing to our Services, 
                     you agree to pay the applicable subscription fees as they become due.
                   </p>
                 </div>

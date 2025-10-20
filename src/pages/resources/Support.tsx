@@ -79,7 +79,7 @@ const Support = () => {
       description: "Send us your questions or issues",
       action: "Send Email",
       availability: "24/7",
-      onClick: () => window.location.href = "mailto:support@cybercorrect.com"
+      onClick: () => window.location.href = "mailto:support@privacycorrect.com"
     }
   ];
 
@@ -118,7 +118,7 @@ const Support = () => {
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4">Support Center</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Get the help you need to succeed with CyberCorrect
+            Get the help you need to succeed with PrivacyCorrect
           </p>
         </div>
 

@@ -16,7 +16,7 @@ const Cookies = () => {
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4 text-foreground">Cookie Policy</h1>
           <p className="text-xl text-muted-foreground">
-            How CyberCorrect uses cookies and similar technologies
+            How PrivacyCorrect uses cookies and similar technologies
           </p>
         </div>
 

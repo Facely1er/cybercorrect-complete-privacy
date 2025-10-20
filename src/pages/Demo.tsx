@@ -91,7 +91,7 @@ const Demo = () => {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold mb-2 text-foreground">Interactive Demo</h1>
-            <p className="text-muted-foreground">Explore CyberCorrect's powerful features for CUI protection and compliance management</p>
+            <p className="text-muted-foreground">Explore PrivacyCorrect's powerful features for privacy compliance and data protection management</p>
           </div>
           <div className="flex gap-2">
             <Link to="/about">
@@ -203,12 +203,12 @@ const Demo = () => {
           <CardContent className="p-6 text-center">
             <div className="max-w-2xl mx-auto">
               <Shield className="h-16 w-16 text-primary mx-auto mb-4" />
-              <h2 className="text-2xl font-bold mb-4">Welcome to CyberCorrect</h2>
+              <h2 className="text-2xl font-bold mb-4">Welcome to PrivacyCorrect</h2>
               <p className="text-lg mb-6">
-                Experience our powerful, integrated platform for CMMC 2.0 compliance and CUI protection
+                Experience our powerful, integrated platform for privacy compliance and personal data protection
               </p>
               <p className="mb-8">
-                This interactive demo will walk you through key features of our platform. Watch as we demonstrate how CyberCorrect can help you visualize CUI data flows, assess CMMC 2.0 compliance, and generate required documentation.
+                This interactive demo will walk you through key features of our platform. Watch as we demonstrate how PrivacyCorrect can help you visualize personal data flows, assess privacy compliance (GDPR, CCPA), and generate required privacy documentation.
               </p>
               <Button size="lg" onClick={startDemo}>
                 <Play className="mr-2 h-4 w-4" />
@@ -485,7 +485,7 @@ const Demo = () => {
       {/* Demo Navigation */}
       <div className="mt-8">
         <div className="flex flex-col space-y-4">
-          <h3 className="text-lg font-medium">Try CyberCorrect Features</h3>
+          <h3 className="text-lg font-medium">Try PrivacyCorrect Features</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link to="/toolkit/gdpr-mapper" className="block">
               <Card className="cursor-pointer hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md">

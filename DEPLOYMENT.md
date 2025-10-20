@@ -1,4 +1,4 @@
-# CyberCorrect Deployment Guide
+# PrivacyCorrect Deployment Guide
 
 ## Production Readiness Status: ✅ READY
 

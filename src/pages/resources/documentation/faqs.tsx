@@ -50,63 +50,63 @@ const Faqs = () => {
 
   const faqs = [
     {
-      question: "What is CyberCorrect?",
-      answer: "CyberCorrect is a comprehensive compliance management platform designed to help organizations achieve and maintain compliance with various cybersecurity frameworks including CMMC 2.0, NIST 800-171, and other regulatory requirements. Our platform simplifies the compliance journey with assessment tools, documentation generators, and continuous monitoring capabilities.",
+      question: "What is PrivacyCorrect?",
+      answer: "PrivacyCorrect is a comprehensive privacy compliance platform designed to help organizations achieve and maintain compliance with global privacy regulations including GDPR, CCPA, LGPD, PIPEDA, and the NIST Privacy Framework. Our platform simplifies the privacy compliance journey with assessment tools, DPIA generators, policy creation, and continuous monitoring capabilities.",
       category: 'general'
     },
     {
-      question: "How does CyberCorrect help with CMMC 2.0 compliance?",
-      answer: "CyberCorrect provides tools for CMMC 2.0 self-assessment, gap analysis, documentation generation (including System Security Plans and POA&Ms), and continuous monitoring. Our platform maps requirements across multiple frameworks, helping you understand exactly what's needed for compliance and how to achieve it efficiently.",
+      question: "How does PrivacyCorrect help with GDPR compliance?",
+      answer: "PrivacyCorrect provides tools for GDPR assessment, gap analysis, Data Protection Impact Assessments (DPIAs), automated data subject rights management, privacy policy generation, and data mapping. Our platform helps you understand GDPR requirements and implement them efficiently with guided workflows and audit-ready documentation.",
       category: 'general'
     },
     {
-      question: "What are the steps to get started with CyberCorrect?",
-      answer: "Getting started is easy: 1) Sign up for a free trial or subscription, 2) Complete a quick initial assessment to identify your compliance needs, 3) Import or create your compliance documentation, 4) Use our tools to identify and address gaps, 5) Generate required documentation, and 6) Implement continuous monitoring.",
+      question: "What are the steps to get started with PrivacyCorrect?",
+      answer: "Getting started is easy: 1) Sign up for your account, 2) Complete the privacy assessment to identify your current privacy posture, 3) Review your personalized privacy roadmap, 4) Use our tools to implement privacy controls and documentation, 5) Generate required privacy policies and notices, and 6) Implement continuous privacy monitoring.",
       category: 'general'
     },
     {
-      question: "Is CyberCorrect suitable for small businesses?",
-      answer: "Yes, CyberCorrect is designed to scale with your business size. Our platform offers tiered plans to accommodate small businesses with limited resources, while still providing the essential tools needed for compliance with frameworks like CMMC 2.0 Level 1 or basic NIST 800-171 requirements.",
+      question: "Is PrivacyCorrect suitable for small businesses?",
+      answer: "Yes, PrivacyCorrect is designed to scale with your business size. Our platform offers tiered plans to accommodate small businesses with limited resources, while still providing the essential tools needed for privacy compliance with regulations like GDPR, CCPA, and other privacy laws applicable to your operations.",
       category: 'general'
     },
     {
-      question: "How secure is my data in CyberCorrect?",
-      answer: "CyberCorrect implements robust security measures including data encryption at rest and in transit, multi-factor authentication, role-based access controls, regular security testing, and compliance with SOC 2 standards. We follow security best practices to ensure your sensitive compliance data remains protected.",
+      question: "How secure is my data in PrivacyCorrect?",
+      answer: "PrivacyCorrect implements robust security measures including data encryption at rest and in transit, multi-factor authentication, role-based access controls, regular security testing, and compliance with SOC 2 standards. We follow security best practices and privacy-by-design principles to ensure your sensitive privacy data remains protected.",
       category: 'security'
     },
     {
-      question: "Can CyberCorrect help with multiple compliance frameworks?",
-      answer: "Yes, CyberCorrect supports multiple compliance frameworks including CMMC 2.0, NIST 800-171, NIST CSF, ISO 27001, HIPAA, and others. Our platform provides control mapping capabilities to help you efficiently manage compliance across overlapping requirements.",
+      question: "Can PrivacyCorrect help with multiple privacy regulations?",
+      answer: "Yes, PrivacyCorrect supports multiple privacy regulations including GDPR (EU), CCPA/CPRA (California), LGPD (Brazil), PIPEDA (Canada), POPIA (South Africa), and the NIST Privacy Framework. Our platform provides control mapping capabilities to help you efficiently manage privacy compliance across overlapping requirements.",
       category: 'security'
     },
     {
-      question: "How does the CUI Mapper tool work?",
-      answer: "The CUI Mapper tool allows you to visually document how Controlled Unclassified Information (CUI) flows through your systems and processes. You can create interactive diagrams showing data flows, identify protection requirements, and generate documentation that helps satisfy NIST 800-171 and CMMC 2.0 requirements for CUI handling.",
+      question: "How does the GDPR Mapper tool work?",
+      answer: "The GDPR Mapper tool allows you to map your data processing activities to GDPR requirements and NIST Privacy Framework controls. You can document data flows, identify lawful bases for processing, assess privacy risks, and generate Records of Processing Activities (Article 30) that satisfy GDPR compliance requirements.",
       category: 'data'
     },
     {
-      question: "What documentation can CyberCorrect generate?",
-      answer: "CyberCorrect can help generate several key compliance documents including System Security Plans (SSPs), Plans of Action & Milestones (POA&Ms), security policies and procedures, risk assessment reports, CUI flow diagrams, and evidence records for audits and assessments.",
+      question: "What documentation can PrivacyCorrect generate?",
+      answer: "PrivacyCorrect can help generate several key privacy documents including Privacy Policies, Privacy Notices, Data Protection Impact Assessments (DPIAs), Records of Processing Activities (ROPA), Data Subject Rights Request procedures, Breach Notification templates, and Data Processing Agreements (DPAs).",
       category: 'documents'
     },
     {
-      question: "How often should I reassess my compliance?",
-      answer: "We recommend reassessing your compliance quarterly or when significant changes occur in your environment. CyberCorrect's continuous monitoring tools help you maintain awareness of your compliance status between formal reassessments, alerting you to potential issues before they impact your compliance status.",
+      question: "How often should I reassess my privacy compliance?",
+      answer: "We recommend reassessing your privacy compliance annually or when significant changes occur in your data processing activities. PrivacyCorrect's continuous monitoring tools help you maintain awareness of your privacy compliance status between formal assessments, alerting you to potential issues before they impact your compliance.",
       category: 'security'
     },
     {
-      question: "How do I manage user access in CyberCorrect?",
-      answer: "CyberCorrect offers comprehensive user management capabilities. Administrators can create user accounts, assign role-based permissions, enforce multi-factor authentication, set password policies, and monitor user activity. User access can be tailored to specific modules or data based on job responsibilities.",
+      question: "How do I manage user access in PrivacyCorrect?",
+      answer: "PrivacyCorrect offers comprehensive user management capabilities. Administrators can create user accounts, assign role-based permissions (Data Protection Officer, Privacy Officer, Legal Counsel, Data Steward), enforce multi-factor authentication, set password policies, and monitor user activity. User access can be tailored to specific modules based on privacy roles.",
       category: 'access'
     },
     {
-      question: "Is training available for CyberCorrect users?",
-      answer: "Yes, CyberCorrect provides multiple training options including on-demand video tutorials, documentation, regular webinars, and personalized training sessions for enterprise customers. Our Support Center also contains a comprehensive knowledge base to help you maximize platform value.",
+      question: "Is training available for PrivacyCorrect users?",
+      answer: "Yes, PrivacyCorrect provides multiple training options including on-demand video tutorials, comprehensive documentation, regular webinars on privacy topics, and personalized training sessions for enterprise customers. Our Support Center contains a comprehensive knowledge base to help you maximize platform value and understand privacy compliance.",
       category: 'general'
     },
     {
-      question: "Can I use CyberCorrect for evidence collection?",
-      answer: "Yes, CyberCorrect includes an evidence management system that allows you to collect, organize, and store evidence of compliance implementation. You can attach files, screenshots, documents, and other artifacts to specific controls, making it easier to demonstrate compliance during assessments or audits.",
+      question: "Can I use PrivacyCorrect for privacy evidence collection?",
+      answer: "Yes, PrivacyCorrect includes an evidence vault system that allows you to collect, organize, and store evidence of privacy compliance implementation. You can attach files, screenshots, documents, and other artifacts to specific privacy controls, making it easier to demonstrate compliance during privacy audits or regulatory investigations.",
       category: 'documents'
     }
   ];
@@ -133,7 +133,7 @@ const Faqs = () => {
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4 text-foreground">Frequently Asked Questions</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Find answers to common questions about CyberCorrect and compliance management
+            Find answers to common questions about PrivacyCorrect and privacy compliance management
           </p>
         </div>
 
@@ -219,7 +219,7 @@ const Faqs = () => {
         <div className="mt-16 max-w-3xl mx-auto text-center">
           <h2 className="text-2xl font-semibold mb-4">Still have questions?</h2>
           <p className="text-muted-foreground mb-6">
-            Our support team is ready to help you with any questions you might have about CyberCorrect.
+            Our support team is ready to help you with any questions you might have about PrivacyCorrect.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button variant="outline" onClick={() => navigate('/support')}>

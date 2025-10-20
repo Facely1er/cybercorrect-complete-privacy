@@ -18,13 +18,13 @@ const Logo: React.FC<LogoProps> = ({ className = '', size = 'medium', showText =
     <div className={`flex items-center ${className}`}>
       <img 
         src="/cybercorrect.png" 
-        alt="CyberCorrect" 
+        alt="PrivacyCorrect" 
         className={`${sizes[size]}`}
       />
       {showText && (
         <div className="ml-2 flex flex-col">
-          <span className="font-bold text-foreground dark:text-dark-text leading-tight">CyberCorrect<sup>™</sup> </span>
-          <span className="text-xs text-muted-foreground leading-tight">Compliance Platform </span>
+          <span className="font-bold text-foreground dark:text-dark-text leading-tight">PrivacyCorrect<sup>™</sup> </span>
+          <span className="text-xs text-muted-foreground leading-tight">Privacy Platform </span>
         </div>
       )}
     </div>

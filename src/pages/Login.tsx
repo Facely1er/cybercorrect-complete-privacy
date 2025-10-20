@@ -22,7 +22,7 @@ const Login = () => {
       // For demo purposes, we're only using email
       await login(email);
       navigate('/app');
-      toast.success('Login successful', 'Welcome to CyberCorrect');
+      toast.success('Login successful', 'Welcome to PrivacyCorrect');
     } catch (error) {
       toast.error('Login failed', error instanceof Error ? error.message : 'Invalid credentials');
     } finally {
@@ -37,9 +37,9 @@ const Login = () => {
           <div className="mx-auto flex justify-center">
             <Logo size="large" />
           </div>
-          <h2 className="mt-6 text-3xl font-bold text-foreground">CyberCorrect</h2>
+          <h2 className="mt-6 text-3xl font-bold text-foreground">PrivacyCorrect</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Enterprise Risk Management Solution
+            Enterprise Privacy Compliance Platform
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>

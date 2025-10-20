@@ -90,7 +90,7 @@ const Integrations = () => {
         </Link>
         <h1 className="text-3xl font-bold mb-4 text-foreground">Integrations</h1>
         <p className="text-xl text-muted-foreground max-w-3xl">
-          Connect CyberCorrect with your existing tools and systems for seamless security and compliance management
+          Connect PrivacyCorrect with your existing tools and systems for seamless privacy and compliance management
         </p>
       </div>
 
@@ -101,7 +101,7 @@ const Integrations = () => {
               <div className="md:w-1/2">
                 <h2 className="text-2xl font-bold mb-4">Powerful Integration Framework</h2>
                 <p className="text-muted-foreground mb-6">
-                  Our flexible API and pre-built connectors make it easy to integrate your existing security and IT tools with CyberCorrect.
+                  Our flexible API and pre-built connectors make it easy to integrate your existing privacy and IT tools with PrivacyCorrect.
                   Import data automatically, synchronize configurations, and maintain a single source of truth for compliance.
                 </p>
                 <div className="space-y-2">
@@ -298,7 +298,7 @@ const Integrations = () => {
                 Request Custom Integration
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <a href="https://docs.cybercorrect.com/api" target="_blank" rel="noopener noreferrer">
+              <a href="https://docs.privacycorrect.com/api" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline">
                   API Documentation
                   <ExternalLink className="ml-2 h-4 w-4" />
@@ -316,8 +316,8 @@ const Integrations = () => {
                   <p className="text-sm text-muted-foreground mb-2">
                     Our technical team is available to help with any integration questions or challenges.
                   </p>
-                  <a href="mailto:integrations@cybercorrect.com" className="text-sm text-primary hover:underline">
-                    integrations@cybercorrect.com
+                  <a href="mailto:integrations@privacycorrect.com" className="text-sm text-primary hover:underline">
+                    integrations@privacycorrect.com
                   </a>
                 </div>
               </div>

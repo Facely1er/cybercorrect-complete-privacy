@@ -182,9 +182,9 @@ const About = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col items-center text-center">
             <Shield className="h-16 w-16 text-primary-teal dark:text-dark-primary mb-6" />
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">About CyberCorrect</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">About PrivacyCorrect</h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-              Empowering organizations to manage risk, protect sensitive information, and ensure regulatory compliance effectively
+              Empowering organizations to manage privacy risk, protect personal data, and ensure global privacy compliance effectively
             </p>
           </div>
         </div>
@@ -198,7 +198,7 @@ const About = () => {
             <div className="bg-muted/30 rounded-lg p-8 text-center">
               <Target className="h-12 w-12 text-primary mx-auto mb-6" />
               <p className="text-lg text-foreground">
-                To simplify cybersecurity compliance through innovative technology and expert guidance, enabling organizations to secure their data and meet regulatory requirements.
+                To simplify privacy compliance through innovative technology and expert guidance, enabling organizations to protect personal data and meet global privacy regulatory requirements including GDPR, CCPA, and beyond.
               </p>
             </div>
           </div>
@@ -311,7 +311,7 @@ const About = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-4 text-foreground">Industry Focus</h2>
           <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-12">
-            CyberCorrect delivers specialized solutions for organizations with complex regulatory requirements and sensitive data protection needs.
+            PrivacyCorrect delivers specialized privacy compliance solutions for organizations with complex regulatory requirements and personal data protection needs.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
