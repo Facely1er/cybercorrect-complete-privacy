@@ -10,7 +10,10 @@ import {
   HelpCircle,
   Search,
   Users,
-  Clock
+  Clock,
+  Shield,
+  Database,
+  Key
 } from 'lucide-react';
 
 const Faqs = () => {
