@@ -46,13 +46,13 @@ const ChatGuideBot = () => {
     welcome: {
       message: "👋 Hello! I'm your CyberCorrect guide. I can help you navigate our platform and understand compliance requirements. What would you like to learn about?",
       options: [
-        { id: 'cmmc', text: 'CMMC 2.0 Compliance', nextStep: 'cmmc' },
+        { id: 'security', text: 'Security Compliance', nextStep: 'security' },
         { id: 'cui', text: 'CUI Protection', nextStep: 'cui' },
         { id: 'getting-started', text: 'Getting Started', nextStep: 'getting-started' },
         { id: 'assessments', text: 'Assessment Tools', nextStep: 'assessments' }
       ]
     },
-    cmmc: {
+    security: {
       message: "Security framework compliance involves implementing comprehensive security controls and best practices. PrivacyCorrect provides assessment tools, documentation generators, and continuous monitoring for enterprise security compliance.",
       options: [
         { id: 'security-frameworks', text: 'Security Frameworks', nextStep: 'security-frameworks' },
@@ -67,14 +67,14 @@ const ChatGuideBot = () => {
     'security-frameworks': {
       message: "Security frameworks provide structured approaches to implementing security controls. Common frameworks include ISO 27001, NIST CSF, and SOC 2, each with specific controls and requirements for different organizational needs.",
       options: [
-        { id: 'back-to-security', text: 'Back to Security', nextStep: 'cmmc' },
+        { id: 'back-to-security', text: 'Back to Security', nextStep: 'security' },
         { id: 'security-tools', text: 'Security Tools', nextStep: 'security-tools' }
       ]
     },
     'security-tools': {
       message: "PrivacyCorrect provides comprehensive tools for security compliance: 1) Security assessment for initial evaluation, 2) Documentation generators for policies and procedures, 3) Gap analysis for remediation planning, and 4) Continuous monitoring dashboards.",
       options: [
-        { id: 'back-to-security', text: 'Back to Security', nextStep: 'cmmc' },
+        { id: 'back-to-security', text: 'Back to Security', nextStep: 'security' },
         { id: 'try-tools', text: 'Try Security Tools', nextStep: 'try-tools' }
       ],
       links: [
@@ -85,7 +85,7 @@ const ChatGuideBot = () => {
     'security-assessment': {
       message: "PrivacyCorrect's security assessment tools help you evaluate your compliance with security frameworks and privacy requirements. Our assessments provide comprehensive evaluations with actionable recommendations.",
       options: [
-        { id: 'back-to-security', text: 'Back to Security', nextStep: 'cmmc' },
+        { id: 'back-to-security', text: 'Back to Security', nextStep: 'security' },
         { id: 'start-assessment', text: 'Start Assessment', nextStep: 'start-assessment' }
       ],
       links: [
@@ -115,7 +115,7 @@ const ChatGuideBot = () => {
       ]
     },
     'cui-mapping': {
-      message: "The CUI Data Flow Mapper helps you visualize and document how CUI flows through your systems and processes. This documentation is required for NIST SP 800-171 and CMMC compliance.",
+      message: "The CUI Data Flow Mapper helps you visualize and document how CUI flows through your systems and processes. This documentation is required for NIST SP 800-171 compliance.",
       options: [
         { id: 'back-to-cui', text: 'Back to CUI', nextStep: 'cui' },
         { id: 'try-cui-mapper', text: 'Try CUI Mapper', nextStep: 'try-cui-mapper' }
@@ -159,13 +159,13 @@ const ChatGuideBot = () => {
       ]
     },
     'first-steps': {
-      message: "For your first steps with CyberCorrect, I recommend: 1) Take the CMMC Quick Check to understand your baseline compliance, 2) Review the results and identify gaps, 3) Generate an initial POA&M, and 4) Explore documentation templates.",
+      message: "For your first steps with CyberCorrect, I recommend: 1) Take the Compliance Quick Check to understand your baseline compliance, 2) Review the results and identify gaps, 3) Generate an initial POA&M, and 4) Explore documentation templates.",
       options: [
         { id: 'back-to-getting-started', text: 'Back to Getting Started', nextStep: 'getting-started' },
         { id: 'start-quick-check', text: 'Start Quick Check', nextStep: 'start-quick-check' }
       ],
       links: [
-        { text: 'CMMC Quick Check', url: '/cmmc-quick-check' },
+        { text: 'Compliance Quick Check', url: '/compliance-quick-check' },
         { text: 'POA&M Generator', url: '/poam-generator' }
       ]
     },
@@ -173,7 +173,7 @@ const ChatGuideBot = () => {
       message: "CyberCorrect provides comprehensive documentation including user guides, framework explanations, implementation instructions, and compliance templates. What specifically would you like to learn about?",
       options: [
         { id: 'nist-docs', text: 'NIST Frameworks', nextStep: 'nist-docs' },
-        { id: 'cmmc-docs', text: 'CMMC 2.0 Guides', nextStep: 'cmmc-docs' },
+        { id: 'security-docs', text: 'Security Guides', nextStep: 'security-docs' },
         { id: 'cui-docs-2', text: 'CUI Documentation', nextStep: 'cui-docs' }
       ],
       links: [
@@ -182,19 +182,19 @@ const ChatGuideBot = () => {
       ]
     },
     'assessments': {
-      message: "CyberCorrect offers several assessment tools: 1) CMMC Quick Check for rapid compliance evaluation, 2) CUI Assessment for NIST SP 800-171 compliance, 3) Privacy Assessment for privacy requirements, and 4) Supply Chain Assessment for vendor risks.",
+      message: "CyberCorrect offers several assessment tools: 1) Compliance Quick Check for rapid compliance evaluation, 2) CUI Assessment for NIST SP 800-171 compliance, 3) Privacy Assessment for privacy requirements, and 4) Supply Chain Assessment for vendor risks.",
       options: [
-        { id: 'cmmc-assessment-2', text: 'CMMC Assessment', nextStep: 'cmmc-assessment' },
+        { id: 'security-assessment-2', text: 'Security Assessment', nextStep: 'security-assessment' },
         { id: 'cui-assessment-2', text: 'CUI Assessment', nextStep: 'cui-assessment' },
         { id: 'other-assessments', text: 'Other Assessments', nextStep: 'other-assessments' }
       ],
       links: [
-        { text: 'CMMC Quick Check', url: '/cmmc-quick-check' },
+        { text: 'Compliance Quick Check', url: '/compliance-quick-check' },
         { text: 'CUI Assessment', url: '/cui-assessment' }
       ]
     },
     'other-assessments': {
-      message: "In addition to CMMC and CUI assessments, CyberCorrect provides specialized assessments for Privacy Framework compliance, Supply Chain Risk Management, and Ransomware Readiness. Each assessment includes detailed recommendations.",
+      message: "In addition to Security and CUI assessments, CyberCorrect provides specialized assessments for Privacy Framework compliance, Supply Chain Risk Management, and Ransomware Readiness. Each assessment includes detailed recommendations.",
       options: [
         { id: 'back-to-assessments', text: 'Back to Assessments', nextStep: 'assessments' },
         { id: 'privacy', text: 'Privacy Assessment', nextStep: 'privacy' }
@@ -216,9 +216,9 @@ const ChatGuideBot = () => {
       ]
     },
     'start-assessment': {
-      message: "Great! Let's start your CMMC assessment. This will help evaluate your compliance with CMMC 2.0 requirements and identify any gaps that need addressing.",
+      message: "Great! Let's start your security assessment. This will help evaluate your compliance with security requirements and identify any gaps that need addressing.",
       links: [
-        { text: 'Begin CMMC Quick Check', url: '/cmmc-quick-check' }
+        { text: 'Begin Compliance Quick Check', url: '/compliance-quick-check' }
       ],
       options: [
         { id: 'main-menu', text: 'Back to Main Menu', nextStep: 'welcome' }
@@ -234,7 +234,7 @@ const ChatGuideBot = () => {
       ]
     },
     'try-cui-mapper': {
-      message: "The CUI Data Flow Mapper is a powerful tool for visualizing how CUI moves through your systems. It helps you document data flows as required by NIST SP 800-171 and CMMC.",
+      message: "The CUI Data Flow Mapper is a powerful tool for visualizing how CUI moves through your systems. It helps you document data flows as required by NIST SP 800-171.",
       links: [
         { text: 'Open CUI Mapper', url: '/cui-mapper' }
       ],
@@ -243,9 +243,9 @@ const ChatGuideBot = () => {
       ]
     },
     'try-tools': {
-      message: "Our CMMC compliance tools work together to simplify your compliance journey. Start with the Quick Check for an initial assessment, then use our documentation generators and monitoring tools.",
+      message: "Our compliance tools work together to simplify your compliance journey. Start with the Quick Check for an initial assessment, then use our documentation generators and monitoring tools.",
       links: [
-        { text: 'CMMC Quick Check', url: '/cmmc-quick-check' },
+        { text: 'Compliance Quick Check', url: '/compliance-quick-check' },
         { text: 'POA&M Generator', url: '/poam-generator' }
       ],
       options: [
@@ -253,9 +253,9 @@ const ChatGuideBot = () => {
       ]
     },
     'start-quick-check': {
-      message: "The CMMC Quick Check will help you quickly evaluate your CMMC 2.0 readiness with a series of straightforward questions. It takes about 5 minutes to complete.",
+      message: "The Compliance Quick Check will help you quickly evaluate your compliance readiness with a series of straightforward questions. It takes about 5 minutes to complete.",
       links: [
-        { text: 'Start CMMC Quick Check', url: '/cmmc-quick-check' }
+        { text: 'Start Compliance Quick Check', url: '/compliance-quick-check' }
       ],
       options: [
         { id: 'main-menu', text: 'Back to Main Menu', nextStep: 'welcome' }
@@ -280,11 +280,11 @@ const ChatGuideBot = () => {
         { id: 'back-to-documentation', text: 'Back to Documentation', nextStep: 'documentation' }
       ]
     },
-    'cmmc-docs': {
-      message: "Our CMMC 2.0 documentation includes implementation guides, assessment preparation resources, and detailed explanations of requirements for each CMMC level.",
+    'security-docs': {
+      message: "Our security documentation includes implementation guides, assessment preparation resources, and detailed explanations of requirements for security compliance.",
       links: [
-        { text: 'CMMC 2.0 Guide', url: '/documentation/cmmc20-guide' },
-        { text: 'CUI & CMMC Guide', url: '/guides/cui-cmmc' }
+        { text: 'Security Guide', url: '/documentation/security-guide' },
+        { text: 'CUI Guide', url: '/guides/cui' }
       ],
       options: [
         { id: 'back-to-documentation', text: 'Back to Documentation', nextStep: 'documentation' }
@@ -354,8 +354,8 @@ const ChatGuideBot = () => {
     const lowerText = text.toLowerCase();
     
     // Simple intent mapping based on keywords
-    if (lowerText.includes('cmmc') || lowerText.includes('certification')) {
-      addBotResponse('cmmc');
+    if (lowerText.includes('security') || lowerText.includes('certification')) {
+      addBotResponse('security');
     } 
     else if (lowerText.includes('cui') || lowerText.includes('controlled')) {
       addBotResponse('cui');

@@ -78,9 +78,6 @@ const Pricing = () => {
       id: "assessment",
       name: "Assessment Tools",
       features: [
-        { name: "CMMC Level 1 Assessment", starter: true, professional: true, enterprise: true },
-        { name: "CMMC Level 2 Assessment", starter: false, professional: true, enterprise: true },
-        { name: "CMMC Level 3 Assessment", starter: false, professional: true, enterprise: true },
         { name: "NIST 800-171 Assessment", starter: "Limited", professional: true, enterprise: true },
         { name: "NIST Privacy Framework Assessment", starter: false, professional: true, enterprise: true },
         { name: "Custom Assessment Templates", starter: false, professional: "Limited", enterprise: true },
@@ -109,7 +106,6 @@ const Pricing = () => {
         { name: "Gap Analysis", starter: "Basic", professional: true, enterprise: true },
         { name: "Compliance Scoring", starter: true, professional: true, enterprise: true },
         { name: "Automated Evidence Collection", starter: false, professional: "Limited", enterprise: true },
-        { name: "CMMC Readiness Reports", starter: "Basic", professional: true, enterprise: true }
       ]
     },
     {
@@ -139,7 +135,7 @@ const Pricing = () => {
       answer: "Yes, you can upgrade, downgrade or cancel your subscription at any time. Upgrades take effect immediately, while downgrades or cancellations take effect at the end of your current billing cycle."
     },
     {
-      question: "How long does CMMC certification take?",
+      question: "How long does compliance certification take?",
       answer: "The timeline varies depending on your organization's size and current privacy posture. With PrivacyCorrect, most small-to-medium businesses can achieve GDPR readiness in 4-6 weeks, and comprehensive multi-regulation privacy compliance in 3-6 months. Our platform accelerates this process by automating privacy documentation and gap analysis."
     },
     {
@@ -208,7 +204,7 @@ const Pricing = () => {
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold mb-4 text-foreground">Simple, Transparent Pricing</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-          Choose the plan that best fits your organization's CMMC compliance needs
+          Choose the plan that best fits your organization's compliance needs
         </p>
         
         {/* Billing toggle */}
@@ -239,7 +235,7 @@ const Pricing = () => {
         </div>
 
         <p className="text-sm text-muted-foreground">
-          Join 500+ defense contractors achieving CMMC compliance faster
+          Join 500+ organizations achieving compliance faster
         </p>
       </div>
 
@@ -304,7 +300,7 @@ const Pricing = () => {
           <Card className="border-none shadow-none bg-transparent">
             <CardContent className="p-4">
               <div className="text-2xl font-bold text-primary-teal dark:text-dark-primary">60%</div>
-              <div className="text-sm text-muted-foreground">Faster CMMC compliance</div>
+              <div className="text-sm text-muted-foreground">Faster compliance</div>
             </CardContent>
           </Card>
           <Card className="border-none shadow-none bg-transparent">
@@ -417,7 +413,7 @@ const Pricing = () => {
               <ul className="space-y-2 mb-6">
                 <li className="flex items-center text-sm">
                   <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
-                  <span>Cost-effective CMMC Level 1 compliance</span>
+                  <span>Cost-effective compliance</span>
                 </li>
                 <li className="flex items-center text-sm">
                   <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
@@ -448,7 +444,7 @@ const Pricing = () => {
               <ul className="space-y-2 mb-6">
                 <li className="flex items-center text-sm">
                   <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
-                  <span>Full CMMC Level 2 readiness</span>
+                  <span>Full compliance readiness</span>
                 </li>
                 <li className="flex items-center text-sm">
                   <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
@@ -663,7 +659,7 @@ const Pricing = () => {
       {/* CTA Section */}
       <div className="mt-12 text-center max-w-5xl mx-auto px-4">
         <div className="bg-gradient-to-r from-primary-teal to-secondary-teal rounded-xl p-6 text-white dark:from-dark-primary dark:to-dark-primary/70">
-          <h3 className="text-xl font-bold mb-3">Ready to achieve CMMC compliance?</h3>
+          <h3 className="text-xl font-bold mb-3">Ready to achieve compliance?</h3>
           <p className="mb-5">Start your free 14-day trial or schedule a demo with our compliance experts</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button className="bg-white text-primary-teal hover:bg-gray-100 border-2 border-white shadow-lg">

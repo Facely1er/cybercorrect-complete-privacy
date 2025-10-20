@@ -20,7 +20,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   // Map path segments to user-friendly names
   const pathNameMap: Record<string, string> = {
     'assessment-hub': 'Assessment Hub',
-    'cmmc-quick-check': 'CMMC Quick Check',
+    'compliance-quick-check': 'Compliance Quick Check',
     'cui-assessment': 'CUI Assessment',
     'cui-results': 'CUI Results',
     'cui-recommendations': 'CUI Recommendations',

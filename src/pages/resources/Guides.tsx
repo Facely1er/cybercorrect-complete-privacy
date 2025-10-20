@@ -30,13 +30,6 @@ const Guides = () => {
       category: 'CUI Protection',
       link: '/documentation/nist800171-guide'
     },
-    {
-      title: 'CMMC 2.0 Readiness',
-      description: 'Prepare for CMMC certification with our comprehensive guide.',
-      icon: Shield,
-      category: 'CUI Protection',
-      link: '/documentation/cmmc20-guide'
-    },
     // Process Guides
     {
       title: 'Incident Response Planning',

@@ -57,10 +57,6 @@ const CuiRecommendations = () => {
           title: "NIST SP 800-171 Rev. 2 - Control 3.5.3",
           url: "https://csrc.nist.gov/publications/detail/sp/800-171/rev-2/final"
         },
-        {
-          title: "CMMC 2.0 Practice IA.L2-3.5.3",
-          url: "https://dodcio.defense.gov/CMMC/"
-        }
       ]
     },
     {

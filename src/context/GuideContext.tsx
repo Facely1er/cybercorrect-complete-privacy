@@ -92,7 +92,7 @@ const GuideProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       'compliance': 12,
       'risk-assessment': 12,
       'privacy-framework': 12,
-      'cui-cmmc': 12
+      'cui': 12
     };
     return guideSections[guideId] || 0;
   };
