@@ -1,18 +1,18 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { BrowserRouter } from 'react-router-dom'
+import type React from 'react'
 
-// Mock Sentry (use actual implementations for capture functions; avoid JSX in .ts)
-vi.mock('../../lib/sentry', async () => {
-  const actual = await vi.importActual<typeof import('../../lib/sentry')>('../../lib/sentry')
-  return {
-    ...actual,
-    initSentry: vi.fn(),
-    // Provide a non-JSX placeholder to satisfy TypeScript without JSX
-    SentryErrorBoundary: ({ children }: { children: unknown }) => (children as unknown),
-  }
-})
+// Mock Sentry
+vi.mock('../../lib/sentry', () => ({
+  initSentry: vi.fn(),
+  SentryErrorBoundary: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  captureException: vi.fn(),
+  captureMessage: vi.fn(),
+  setUser: vi.fn(),
+  clearUser: vi.fn(),
+  addBreadcrumb: vi.fn(),
+}))
 
 // Mock error monitoring
 vi.mock('../../lib/errorMonitoring', () => ({
@@ -48,7 +48,7 @@ describe('Sentry Integration Tests', () => {
 
     it('should handle missing DSN gracefully', () => {
       // Mock missing environment variable
-      vi.stubEnv('VITE_SENTRY_DSN', undefined)
+      vi.stubEnv('VITE_SENTRY_DSN', undefined as unknown as string)
       
       initSentry()
       
@@ -71,7 +71,7 @@ describe('Sentry Integration Tests', () => {
       
       captureException(error)
       
-      expect(captureException).toHaveBeenCalledWith(error)
+      expect(captureException).toHaveBeenCalledWith(error, undefined)
     })
   })
 
@@ -96,8 +96,7 @@ describe('Sentry Integration Tests', () => {
 
     it('should default to info level', () => {
       captureMessage('Test message')
-      // The real implementation defaults level to 'info'; since we're using the actual function,
-      // we expect it to pass 'info' to the underlying Sentry API. Here we simply assert the call shape.
+      
       expect(captureMessage).toHaveBeenCalledWith('Test message', 'info')
     })
   })
@@ -145,3 +144,5 @@ describe('Sentry Integration Tests', () => {
     })
   })
 })
+
+

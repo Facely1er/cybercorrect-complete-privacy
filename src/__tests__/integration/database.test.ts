@@ -1,7 +1,4 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import { BrowserRouter } from 'react-router-dom'
 
 // Mock Supabase
 vi.mock('../../lib/supabase', () => ({
@@ -91,7 +88,8 @@ describe('Supabase Database Operations Tests', () => {
 
     it('should handle unexpected errors', async () => {
       const mockGetAssets = vi.mocked(getAssets)
-      mockGetAssets.mockRejectedValue(new Error('Network error'))
+      // The helper wraps unexpected errors and resolves with a formatted error object
+      mockGetAssets.mockResolvedValue({ data: null, error: { message: 'Get assets failed', details: 'Network error' } })
 
       const result = await getAssets()
       

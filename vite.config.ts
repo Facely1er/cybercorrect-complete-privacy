@@ -4,7 +4,7 @@ import path from 'path'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     // Sentry plugin for source maps and release tracking
@@ -26,7 +26,8 @@ export default defineConfig({
     },
   },
   build: {
-    sourcemap: true, // Enable sourcemaps for Sentry
+    // Disable source maps in production to reduce bundle size and avoid exposing sources
+    sourcemap: mode !== 'production',
     rollupOptions: {
       output: {
         manualChunks: {
@@ -61,4 +62,4 @@ export default defineConfig({
       'Referrer-Policy': 'strict-origin-when-cross-origin'
     }
   }
-})
+}))

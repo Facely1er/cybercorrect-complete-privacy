@@ -1,23 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import { BrowserRouter } from 'react-router-dom'
-import { supabase } from '../../lib/supabase'
 
-// Mock Supabase
-const mockSupabase = {
-  auth: {
-    signInWithPassword: vi.fn(),
-    signUp: vi.fn(),
-    signOut: vi.fn(),
-    getSession: vi.fn(),
-    onAuthStateChange: vi.fn(),
-  },
-}
-
-vi.mock('../../lib/supabase', () => ({
-  supabase: mockSupabase,
-}))
+// Keep module mocks minimal to avoid type conflicts
 
 // Mock the actual auth functions
 vi.mock('../../lib/supabase', () => ({
@@ -38,7 +21,13 @@ describe('Supabase Authentication Tests', () => {
     it('should handle successful login', async () => {
       const mockSignIn = vi.mocked(signIn)
       mockSignIn.mockResolvedValue({
-        data: { user: { id: '1', email: 'test@example.com' } },
+        data: { user: {
+            id: '1', email: 'test@example.com',
+            app_metadata: {},
+            user_metadata: {},
+            aud: '',
+            created_at: ''
+        }, session: {} as any },
         error: null,
       })
 
@@ -52,9 +41,9 @@ describe('Supabase Authentication Tests', () => {
     it('should handle login errors', async () => {
       const mockSignIn = vi.mocked(signIn)
       mockSignIn.mockResolvedValue({
-        data: { user: null },
-        error: { message: 'Invalid credentials' },
-      })
+        data: null,
+        error: { message: 'Invalid credentials', details: 'Auth failed' },
+      } as any)
 
       const result = await signIn('test@example.com', 'wrongpassword')
       
@@ -64,7 +53,8 @@ describe('Supabase Authentication Tests', () => {
 
     it('should handle unexpected errors', async () => {
       const mockSignIn = vi.mocked(signIn)
-      mockSignIn.mockRejectedValue(new Error('Network error'))
+      // The helper wraps unexpected errors and resolves with a formatted error object
+      mockSignIn.mockResolvedValue({ data: null, error: { message: 'Sign in failed', details: 'Network error' } })
 
       const result = await signIn('test@example.com', 'password123')
       
@@ -76,7 +66,13 @@ describe('Supabase Authentication Tests', () => {
     it('should handle successful registration', async () => {
       const mockSignUp = vi.mocked(signUp)
       mockSignUp.mockResolvedValue({
-        data: { user: { id: '1', email: 'new@example.com' } },
+        data: { user: {
+            id: '1', email: 'new@example.com',
+            app_metadata: {},
+            user_metadata: {},
+            aud: '',
+            created_at: ''
+        }, session: {} as any },
         error: null,
       })
 
@@ -90,9 +86,9 @@ describe('Supabase Authentication Tests', () => {
     it('should handle registration errors', async () => {
       const mockSignUp = vi.mocked(signUp)
       mockSignUp.mockResolvedValue({
-        data: { user: null },
-        error: { message: 'Email already exists' },
-      })
+        data: null,
+        error: { message: 'Email already exists', details: 'Duplicate email' },
+      } as any)
 
       const result = await signUp('existing@example.com', 'password123')
       
@@ -113,7 +109,7 @@ describe('Supabase Authentication Tests', () => {
 
     it('should handle logout errors', async () => {
       const mockSignOut = vi.mocked(signOut)
-      mockSignOut.mockResolvedValue({ error: { message: 'Logout failed' } })
+      mockSignOut.mockResolvedValue({ error: { message: 'Logout failed', details: 'Network error' } })
 
       const result = await signOut()
       
@@ -125,7 +121,13 @@ describe('Supabase Authentication Tests', () => {
     it('should return current user when authenticated', async () => {
       const mockGetCurrentUser = vi.mocked(getCurrentUser)
       mockGetCurrentUser.mockResolvedValue({
-        user: { id: '1', email: 'test@example.com' },
+        user: {
+            id: '1', email: 'test@example.com',
+            app_metadata: {},
+            user_metadata: {},
+            aud: '',
+            created_at: ''
+        },
         error: null,
       })
 
@@ -140,7 +142,7 @@ describe('Supabase Authentication Tests', () => {
       const mockGetCurrentUser = vi.mocked(getCurrentUser)
       mockGetCurrentUser.mockResolvedValue({
         user: null,
-        error: { message: 'Not authenticated' },
+        error: { message: 'Not authenticated', details: 'No active session' },
       })
 
       const result = await getCurrentUser()

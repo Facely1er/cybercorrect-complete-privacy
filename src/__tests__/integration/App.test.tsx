@@ -2,10 +2,10 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { BrowserRouter } from 'react-router-dom'
-import App from '../App'
+import App from '../../App'
 
 // Mock all external dependencies
-vi.mock('../lib/supabase', () => ({
+vi.mock('../../lib/supabase', () => ({
   supabase: {
     auth: {
       signInWithPassword: vi.fn(),
@@ -17,12 +17,12 @@ vi.mock('../lib/supabase', () => ({
   },
 }))
 
-vi.mock('../lib/sentry', () => ({
+vi.mock('../../lib/sentry', () => ({
   initSentry: vi.fn(),
   SentryErrorBoundary: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }))
 
-vi.mock('../lib/errorMonitoring', () => ({
+vi.mock('../../lib/errorMonitoring', () => ({
   errorMonitoring: {
     captureException: vi.fn(),
     captureMessage: vi.fn(),
