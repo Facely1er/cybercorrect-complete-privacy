@@ -11,7 +11,8 @@ import {
   Download,
   Plus,
   FileText,
-  Shield
+  Shield,
+  Clock
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 
