@@ -57,6 +57,12 @@ function validateEnvironment(): EnvironmentConfig {
     throw new Error('VITE_ENABLE_CHAT_SUPPORT must be "true" or "false"');
   }
 
+  // Ensure analytics is only enabled if both flag and ID are provided
+  if (requiredVars.VITE_ENABLE_ANALYTICS === 'true' && !requiredVars.VITE_ANALYTICS_ID) {
+    console.warn('Analytics is enabled but no analytics ID provided. Disabling analytics.');
+    requiredVars.VITE_ENABLE_ANALYTICS = 'false';
+  }
+
   return requiredVars as EnvironmentConfig;
 }
 
