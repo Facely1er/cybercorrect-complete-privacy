@@ -7,7 +7,8 @@ import {
   Database, 
   CheckCircle, 
   FileText, 
-  Clock
+  Clock,
+  BarChart3
 } from 'lucide-react';
 
 const DataStewardJourney = () => {

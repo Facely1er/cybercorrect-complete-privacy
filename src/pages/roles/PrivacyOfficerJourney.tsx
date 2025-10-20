@@ -7,7 +7,9 @@ import {
   Eye, 
   CheckCircle, 
   Clock, 
-  BookOpen
+  BookOpen,
+  BarChart3,
+  Scale
 } from 'lucide-react';
 
 const PrivacyOfficerJourney = () => {
