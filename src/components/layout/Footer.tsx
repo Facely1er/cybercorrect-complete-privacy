@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Mail, 
-  Phone,
   FileText,
   ClipboardCheck,
   Fingerprint,
@@ -60,16 +58,6 @@ const Footer: React.FC = () => {
             <p className="mt-4 text-sm text-muted-foreground">
               Comprehensive CUI protection and privacy compliance solutions aligned with NIST 800-171 and the NIST Privacy Framework.
             </p>
-            <div className="mt-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Phone className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">+1 (240) 599-0102</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">contact@ermits.com</span>
-              </div>
-            </div>
           </div>
           
           {/* Navigation Links - Right columns */}
