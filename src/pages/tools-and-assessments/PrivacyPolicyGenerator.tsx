@@ -7,7 +7,8 @@ import {
   Settings,
   Shield,
   Zap,
-  Copy
+  Copy,
+  Eye
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from '../../components/ui/Toaster';
