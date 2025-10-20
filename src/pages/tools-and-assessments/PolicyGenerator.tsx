@@ -395,7 +395,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     const gaps: GapAnalysisItem[] = [];
     
     Object.entries(complianceData).forEach(([domain, data]) => {
-      data.controls.forEach(control => {
+      data?.controls?.forEach(control => {
         if (control.status !== 'fully_implemented' && control.status !== 'not_applicable') {
           gaps.push({
             ...control,
@@ -717,6 +717,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
         </div>
 
         {/* Compliance charts */}
+        {Object.keys(complianceData).length > 0 && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
@@ -729,9 +730,9 @@ const ComplianceGapAnalyzer: React.FC = () => {
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={Object.entries(complianceData).map(([domain, data]) => ({
                   domain: domain.length > 15 ? domain.substring(0, 15) + '...' : domain,
-                  score: data.domainScore,
-                  gaps: data.gapCount,
-                  implemented: data.implementedControls
+                  score: data?.domainScore || 0,
+                  gaps: data?.gapCount || 0,
+                  implemented: data?.implementedControls || 0
                 }))}>
                   <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
                   <XAxis 
@@ -775,7 +776,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
                   <Pie
                     data={Object.entries(implementationStatus).map(([status, config]) => {
                       const count = Object.values(complianceData).reduce((total, domain) => {
-                        return total + domain.controls.filter(control => control.status === status).length;
+                        return total + (domain?.controls?.filter(control => control.status === status).length || 0);
                       }, 0);
                       
                       return {
@@ -800,8 +801,10 @@ const ComplianceGapAnalyzer: React.FC = () => {
             </CardContent>
           </Card>
         </div>
+        )}
 
         {/* Compliance Trends */}
+        {trends.length > 0 && (
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
@@ -830,6 +833,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
             </ResponsiveContainer>
           </CardContent>
         </Card>
+        )}
       </div>
     );
   };
