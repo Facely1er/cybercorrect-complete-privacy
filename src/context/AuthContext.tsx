@@ -43,15 +43,20 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
   useEffect(() => {
     // Check if user is already logged in
-    const storedUserId = getUserData('id');
-    if (storedUserId) {
-      // In a real app, fetch user data from secure backend using the ID
-      const foundUser = mockUsers.find(u => u.id === storedUserId);
-      if (foundUser) {
-        setUser(foundUser);
+    try {
+      const storedUserId = getUserData('id');
+      if (storedUserId) {
+        // In a real app, fetch user data from secure backend using the ID
+        const foundUser = mockUsers.find(u => u.id === storedUserId);
+        if (foundUser) {
+          setUser(foundUser);
+        }
       }
+    } catch (error) {
+      console.warn('Error loading user data:', error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   const login = async (email: string): Promise<User> => {
@@ -74,7 +79,9 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
       
       setUser(foundUser);
       // Store only non-sensitive user identifier securely
-      setUserData('id', foundUser.id);
+      if (foundUser && foundUser.id) {
+        setUserData('id', foundUser.id);
+      }
       setLoading(false);
       return foundUser;
     } catch (err) {
