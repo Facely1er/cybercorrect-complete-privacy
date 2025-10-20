@@ -11,8 +11,8 @@ interface EnvironmentConfig {
 
 function validateEnvironment(): EnvironmentConfig {
   const requiredVars = {
-    VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
-    VITE_SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY,
+    VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL || '',
+    VITE_SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY || '',
     NODE_ENV: import.meta.env.NODE_ENV || 'development',
     VITE_ERROR_MONITORING_ENDPOINT: import.meta.env.VITE_ERROR_MONITORING_ENDPOINT || '',
     VITE_ANALYTICS_ID: import.meta.env.VITE_ANALYTICS_ID || '',
@@ -29,32 +29,29 @@ function validateEnvironment(): EnvironmentConfig {
   if (missingVars.length > 0) {
     const message = `Missing required environment variables: ${missingVars.join(', ')}`;
     
-    // Only log in development
-    if (import.meta.env.DEV) {
-      console.error(message);
-    }
-    
-    if (import.meta.env.NODE_ENV === 'production') {
-      throw new Error(message);
-    }
+    // Log warning in both dev and production, but don't throw
+    console.warn(message);
+    console.warn('The app will continue with limited functionality. Some features may not work correctly.');
   }
 
-  // Validate URL format
+  // Validate URL format if provided
   if (requiredVars.VITE_SUPABASE_URL) {
     try {
       new URL(requiredVars.VITE_SUPABASE_URL);
     } catch {
-      throw new Error('VITE_SUPABASE_URL must be a valid URL');
+      console.warn('VITE_SUPABASE_URL must be a valid URL');
     }
   }
 
   // Validate boolean environment variables
   if (requiredVars.VITE_ENABLE_ANALYTICS && !['true', 'false'].includes(requiredVars.VITE_ENABLE_ANALYTICS)) {
-    throw new Error('VITE_ENABLE_ANALYTICS must be "true" or "false"');
+    console.warn('VITE_ENABLE_ANALYTICS must be "true" or "false", defaulting to false');
+    requiredVars.VITE_ENABLE_ANALYTICS = 'false';
   }
 
   if (requiredVars.VITE_ENABLE_CHAT_SUPPORT && !['true', 'false'].includes(requiredVars.VITE_ENABLE_CHAT_SUPPORT)) {
-    throw new Error('VITE_ENABLE_CHAT_SUPPORT must be "true" or "false"');
+    console.warn('VITE_ENABLE_CHAT_SUPPORT must be "true" or "false", defaulting to false');
+    requiredVars.VITE_ENABLE_CHAT_SUPPORT = 'false';
   }
 
   // Ensure analytics is only enabled if both flag and ID are provided

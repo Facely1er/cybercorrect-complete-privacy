@@ -1,26 +1,56 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { errorMonitoring } from './errorMonitoring';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  const error = new Error('Missing Supabase environment variables');
-  errorMonitoring.captureException(error, { 
-    context: 'supabase_initialization',
-    missingVars: { 
-      url: !!supabaseUrl, 
-      key: !!supabaseAnonKey 
-    }
-  });
-  throw error;
+let supabaseInstance: SupabaseClient | null = null;
+let supabaseError: Error | null = null;
+
+// Lazy initialization of Supabase client
+function getSupabaseClient(): SupabaseClient {
+  if (supabaseInstance) {
+    return supabaseInstance;
+  }
+
+  if (supabaseError) {
+    throw supabaseError;
+  }
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    supabaseError = new Error('Missing Supabase environment variables. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
+    errorMonitoring.captureException(supabaseError, { 
+      context: 'supabase_initialization',
+      missingVars: { 
+        url: !!supabaseUrl, 
+        key: !!supabaseAnonKey 
+      }
+    });
+    throw supabaseError;
+  }
+
+  try {
+    supabaseInstance = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+      },
+    });
+    return supabaseInstance;
+  } catch (error) {
+    supabaseError = error instanceof Error ? error : new Error('Failed to create Supabase client');
+    errorMonitoring.captureException(supabaseError, { context: 'supabase_initialization' });
+    throw supabaseError;
+  }
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-  },
+// Export a proxy that initializes on first access
+export const supabase = new Proxy({} as SupabaseClient, {
+  get(target, prop) {
+    const client = getSupabaseClient();
+    const value = client[prop as keyof SupabaseClient];
+    return typeof value === 'function' ? value.bind(client) : value;
+  }
 });
 
 // Auth helpers with error handling

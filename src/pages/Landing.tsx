@@ -179,7 +179,7 @@ const Landing = () => {
                   
                   <Link to={path.assessmentPath} className="no-underline">
                     <Button 
-                      className={`w-full bg-gradient-to-r ${path.color} text-white hover:shadow-xl hover:scale-110 transition-all duration-500 py-4 text-lg font-semibold relative overflow-hidden group-hover:animate-pulse`}
+                      className={`w-full bg-gradient-to-r ${path.color} text-white hover:shadow-xl hover:scale-110 transition-all duration-500 py-4 text-base font-semibold relative overflow-hidden group-hover:animate-pulse`}
                     >
                       <span className="relative z-10">Start {path.title} Assessment</span>
                       <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
