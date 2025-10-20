@@ -34,12 +34,11 @@ const ResourcesLanding = () => {
       id: 'cui-resources',
       title: 'CUI Protection',
       category: 'CUI',
-      description: 'NIST SP 800-171 and CMMC 2.0 compliance resources',
+      description: 'NIST SP 800-171 compliance resources',
       icon: Database,
       path: '/documentation',
       items: [
         { title: 'NIST 800-171 Guide', path: '/documentation/nist800171-guide' },
-        { title: 'CMMC 2.0 Guide', path: '/documentation/cmmc20-guide' },
         { title: 'CUI Handling Guide', path: '/documentation/cui-handling-guide' }
       ]
     },

@@ -17,7 +17,7 @@ PrivacyCorrect is a comprehensive compliance automation platform designed to sim
 - **DPIA Generator**: Automated Data Protection Impact Assessment creation with risk assessment integration
 
 ### Security & CUI Compliance
-- **CUI Assessment**: NIST SP 800-171 and CMMC 2.0 readiness evaluation (110 controls)
+- **CUI Assessment**: NIST SP 800-171 readiness evaluation (110 controls)
 - **CUI Data Flow Mapper**: Visual mapping and documentation of Controlled Unclassified Information
 - **SSP Generator**: System Security Plan automation for NIST 800-171 compliance
 - **POA&M Generator**: Plans of Action & Milestones with risk-based prioritization
@@ -54,7 +54,6 @@ PrivacyCorrect is a comprehensive compliance automation platform designed to sim
 
 ### Security Frameworks
 - **NIST SP 800-171** - Protecting Controlled Unclassified Information
-- **CMMC 2.0** (Cybersecurity Maturity Model Certification) - DoD requirements
 - **NIST RMF** (Risk Management Framework)
 - **ISO 27001** - Information Security Management
 - **SOC 2** - Service Organization Controls
@@ -194,7 +193,7 @@ cybercorrect-complete-privacy/
 
 1. **CUI Assessment**
    - Complete NIST SP 800-171 assessment
-   - Review CMMC 2.0 maturity level
+   - Review compliance maturity level
    - Identify control gaps
 
 2. **Generate Documentation**

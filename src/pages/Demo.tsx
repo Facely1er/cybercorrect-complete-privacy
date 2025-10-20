@@ -138,7 +138,7 @@ const Demo = () => {
             <div className="text-sm text-muted-foreground">
               {demoState === 'intro' && 'Introduction'}
               {demoState === 'mapper' && 'CUI Data Flow Mapper'}
-              {demoState === 'assessment' && 'CMMC Assessment'}
+              {demoState === 'assessment' && 'Compliance Assessment'}
             </div>
           </div>
         </CardContent>

@@ -117,7 +117,7 @@ const About = () => {
     {
       icon: Shield,
       title: "Defense Contractors",
-      description: "Specialized solutions for CMMC compliance and CUI protection."
+      description: "Specialized solutions for CUI protection and compliance."
     },
     {
       icon: Database,

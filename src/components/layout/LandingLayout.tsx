@@ -39,7 +39,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   const navigate = useNavigate();
   
   const handleStartFreeTrial = () => {
-    navigate('/assessments/cmmc-quick-check');
+    navigate('/assessments/compliance-quick-check');
   };
 
   // Close mobile menu when route changes

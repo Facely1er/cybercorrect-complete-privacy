@@ -35,7 +35,7 @@ const Features = () => {
         {
           icon: Shield,
           title: 'CUI Protection Suite',
-          description: 'Complete NIST SP 800-171 and CMMC 2.0 compliance platform',
+          description: 'Complete NIST SP 800-171 compliance platform',
           benefits: ['CUI data flow mapping', 'SSP generation', 'POA&M automation', 'Continuous monitoring'],
           link: '/assessments/privacy-assessment'
         },
@@ -70,8 +70,8 @@ const Features = () => {
         {
           icon: Shield,
           title: 'CUI Compliance Assessment',
-          description: 'Complete NIST SP 800-171 and CMMC 2.0 readiness evaluation',
-          benefits: ['110 control evaluation', 'CMMC level scoring', 'Gap identification', 'Implementation guidance'],
+          description: 'Complete NIST SP 800-171 readiness evaluation',
+          benefits: ['110 control evaluation', 'Compliance scoring', 'Gap identification', 'Implementation guidance'],
           stats: '30 min average',
           link: '/assessments/privacy-assessment'
         },
@@ -118,7 +118,7 @@ const Features = () => {
           title: 'CUI Data Flow Mapper',
           description: 'Visual mapping and documentation of Controlled Unclassified Information flows',
           benefits: ['Interactive visualization', 'NIST 800-171 alignment', 'Export capabilities', 'Audit documentation'],
-          stats: 'CMMC ready',
+          stats: 'Compliance ready',
           link: '/toolkit/cui-mapper'
         },
         {

@@ -23,7 +23,7 @@ Added detailed documentation for all platform capabilities:
 - DPIA Generator
 
 #### Security & CUI Compliance
-- CUI Assessment (NIST SP 800-171 & CMMC 2.0)
+- CUI Assessment (NIST SP 800-171)
 - CUI Data Flow Mapper
 - SSP Generator
 - POA&M Generator
@@ -173,7 +173,6 @@ All documented features were verified against actual source code:
 
 ### Security
 - NIST SP 800-171
-- CMMC 2.0
 - NIST RMF
 - ISO 27001
 - SOC 2

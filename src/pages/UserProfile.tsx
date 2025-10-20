@@ -330,7 +330,7 @@ const UserProfile = () => {
                       <FileText className="h-4 w-4 text-primary" />
                     </div>
                     <div>
-                      <p className="font-medium">Completed CMMC Quick Check</p>
+                      <p className="font-medium">Completed Compliance Quick Check</p>
                       <p className="text-sm text-muted-foreground">Score: 78%</p>
                     </div>
                   </div>

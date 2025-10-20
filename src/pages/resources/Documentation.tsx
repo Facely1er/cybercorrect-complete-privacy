@@ -31,10 +31,9 @@ const Documentation = () => {
     {
       icon: Database,
       title: "CUI Protection",
-      description: "NIST SP 800-171 and CMMC 2.0 compliance guidance",
+      description: "NIST SP 800-171 compliance guidance",
       articles: [
         { title: "NIST SP 800-171 Implementation Guide", path: "/documentation/nist800171-guide" },
-        { title: "CMMC 2.0 Preparation Guide", path: "/documentation/cmmc20-guide" },
         { title: "CUI Handling Procedures", path: "/documentation/cui-handling-guide" },
         { title: "SSP Template Guide", path: "/documentation/ssp-template-guide" }
       ]

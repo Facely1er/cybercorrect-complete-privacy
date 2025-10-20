@@ -122,7 +122,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
       industry: 'Government Contractors',
       complexity: 'Advanced',
       maturityLevels: ['Basic', 'Derived', 'Tailored'],
-      regulatoryMapping: ['DFARS', 'CMMC', 'FISMA'],
+      regulatoryMapping: ['DFARS', 'FISMA'],
       icon: Server
     },
     'nist_privacy_framework': {

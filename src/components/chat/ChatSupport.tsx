@@ -35,12 +35,12 @@ const ChatSupport = () => {
       response: "Our pricing starts at $49/month for the Starter plan. The Professional plan costs $99/month, and we offer custom Enterprise pricing. You can find more details on our pricing page."
     },
     {
-      keywords: ['cmmc', '800-171', 'compliance', 'assessment'],
-      response: "CyberCorrect offers comprehensive tools for CMMC 2.0 and NIST 800-171 compliance, including assessment tools, documentation generators, and continuous monitoring capabilities. Would you like a demo of these features?"
+      keywords: ['security', '800-171', 'compliance', 'assessment'],
+      response: "CyberCorrect offers comprehensive tools for security and NIST 800-171 compliance, including assessment tools, documentation generators, and continuous monitoring capabilities. Would you like a demo of these features?"
     },
     {
       keywords: ['cui', 'controlled', 'unclassified', 'information'],
-      response: "Our CUI management tools help you identify, mark, and protect Controlled Unclassified Information in accordance with NIST 800-171 and CMMC 2.0 requirements. The CUI Mapper is particularly useful for visualizing data flows."
+      response: "Our CUI management tools help you identify, mark, and protect Controlled Unclassified Information in accordance with NIST 800-171 requirements. The CUI Mapper is particularly useful for visualizing data flows."
     },
     {
       keywords: ['support', 'help', 'contact'],

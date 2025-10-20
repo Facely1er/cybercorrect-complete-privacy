@@ -95,16 +95,6 @@ const Footer: React.FC = () => {
                   <li><Link to="/guides" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><BookOpen className="h-3.5 w-3.5 mr-1.5" />Guides</Link></li>
                   <li><Link to="/documentation/faqs" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><FileQuestion className="h-3.5 w-3.5 mr-1.5" />FAQs</Link></li>
                   <li><Link to="/support" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><HelpCircle className="h-3.5 w-3.5 mr-1.5" />Support</Link></li>
-                  <li>
-                    <a 
-                      href="/assets/CMMC-2.0-Level-2-Checklist.pdf" 
-                      download 
-                      className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"
-                    >
-                      <Download className="h-3.5 w-3.5 mr-1.5" />
-                      CMMC 2.0 Checklist
-                    </a>
-                  </li>
                 </ul>
               </div>
               

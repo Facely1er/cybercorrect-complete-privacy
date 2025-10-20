@@ -49,8 +49,8 @@
 **Correct**: `/toolkit/privacy-gap-analyzer`  
 **Location**: `src/components/ui/InternalLinkingHelper.tsx`
 
-### 6. **Non-existent CMMC Route** (Security, not privacy)
-**Broken**: `/cmmc-quick-check`  
+### 6. **Non-existent Compliance Route** (Security, not privacy)
+**Broken**: `/compliance-quick-check`  
 **Location**: `src/components/chat/ChatGuideBot.tsx`
 
 ### 7. **Non-existent Documentation Routes**
@@ -68,7 +68,7 @@
 3. Remove all CUI-related routes (not privacy-focused)
 4. Create `/documentation/privacy-framework-guide` or redirect to existing guide
 5. Fix compliance gap analyzer path
-6. Remove CMMC references (not privacy-focused)
+6. Remove CMMC references (not privacy-focused) - COMPLETED
 
 ### Files Requiring Updates:
 - [ ] `src/pages/Landing.tsx`
