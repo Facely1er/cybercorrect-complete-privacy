@@ -12,6 +12,8 @@ import DevTools from './components/DevTools';
 import ToolkitLayout from './components/layout/ToolkitLayout';
 import AssessmentLayout from './components/layout/AssessmentLayout';
 import { setAppSetting, getAppSetting } from './utils/secureStorage';
+import { Analytics } from '@vercel/analytics/react';
+import { env } from './lib/env';
 
 // Pages
 import Landing from './pages/Landing';
@@ -298,6 +300,8 @@ const App: React.FC = () => {
                 
                 <Toaster />
                 <DevTools />
+                {/* Analytics - conditionally rendered based on environment */}
+                {env.VITE_ENABLE_ANALYTICS === 'true' && <Analytics />}
               </div>
             </ChatSupportProvider>
           </ChatbotProvider>

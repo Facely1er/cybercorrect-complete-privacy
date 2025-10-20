@@ -77,3 +77,11 @@ global.console = {
   warn: vi.fn(),
   error: vi.fn(),
 }
+
+// Mock error monitoring
+vi.mock('../lib/errorMonitoring', () => ({
+  errorMonitoring: {
+    captureException: vi.fn(),
+    captureMessage: vi.fn(),
+  },
+}))

@@ -62,9 +62,9 @@ interface ProjectContextType {
   updateProject: (projectId: string, updates: Partial<ProjectProgress>) => void;
 }
 
-const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
+export const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
 
-export const useProject = () => {
+const useProject = () => {
   const context = useContext(ProjectContext);
   if (context === undefined) {
     throw new Error('useProject must be used within a ProjectProvider');
@@ -72,7 +72,7 @@ export const useProject = () => {
   return context;
 };
 
-export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [projects, setProjects] = useState<Record<string, ProjectProgress>>(() => {
     return getProjectData('privacyProjects', {});
   });
@@ -277,3 +277,5 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
     </ProjectContext.Provider>
   );
 };
+
+export { useProject, ProjectProvider };

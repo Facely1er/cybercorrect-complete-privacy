@@ -266,7 +266,7 @@ const Landing = () => {
                     Lead privacy programs, conduct DPIAs, manage compliance across global regulations, and oversee privacy governance.
                   </p>
                   <Link to="/roles/data-protection-officer" className="no-underline">
-                    <Button variant="outline" className="w-full py-3 font-semibold hover:bg-primary hover:text-white transition-all duration-300">
+                    <Button variant="outline" className="w-full py-3 hover:bg-primary hover:text-white transition-all duration-300">
                       DPO Workflow
                     </Button>
                   </Link>
@@ -283,7 +283,7 @@ const Landing = () => {
                     Review privacy policies, assess legal risks, and ensure regulatory compliance across jurisdictions.
                   </p>
                   <Link to="/roles/legal-counsel" className="no-underline">
-                    <Button variant="outline" className="w-full py-3 font-semibold hover:bg-primary hover:text-white transition-all duration-300">
+                    <Button variant="outline" className="w-full py-3 hover:bg-primary hover:text-white transition-all duration-300">
                       Legal Workflow
                     </Button>
                   </Link>
@@ -300,7 +300,7 @@ const Landing = () => {
                     Manage data inventories, processing records, and data quality while ensuring privacy controls are maintained.
                   </p>
                   <Link to="/roles/data-steward" className="no-underline">
-                    <Button variant="outline" className="w-full py-3 font-semibold hover:bg-primary hover:text-white transition-all duration-300">
+                    <Button variant="outline" className="w-full py-3 hover:bg-primary hover:text-white transition-all duration-300">
                       Data Steward Workflow
                     </Button>
                   </Link>
