@@ -14,10 +14,10 @@ function validateEnvironment(): EnvironmentConfig {
     VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
     VITE_SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY,
     NODE_ENV: import.meta.env.NODE_ENV || 'development',
-    VITE_ERROR_MONITORING_ENDPOINT: import.meta.env.VITE_ERROR_MONITORING_ENDPOINT,
-    VITE_ANALYTICS_ID: import.meta.env.VITE_ANALYTICS_ID,
-    VITE_ENABLE_ANALYTICS: import.meta.env.VITE_ENABLE_ANALYTICS,
-    VITE_ENABLE_CHAT_SUPPORT: import.meta.env.VITE_ENABLE_CHAT_SUPPORT
+    VITE_ERROR_MONITORING_ENDPOINT: import.meta.env.VITE_ERROR_MONITORING_ENDPOINT || '',
+    VITE_ANALYTICS_ID: import.meta.env.VITE_ANALYTICS_ID || '',
+    VITE_ENABLE_ANALYTICS: import.meta.env.VITE_ENABLE_ANALYTICS || 'false',
+    VITE_ENABLE_CHAT_SUPPORT: import.meta.env.VITE_ENABLE_CHAT_SUPPORT || 'false'
   };
 
   // Check for missing required environment variables (excluding optional ones)
@@ -55,6 +55,12 @@ function validateEnvironment(): EnvironmentConfig {
 
   if (requiredVars.VITE_ENABLE_CHAT_SUPPORT && !['true', 'false'].includes(requiredVars.VITE_ENABLE_CHAT_SUPPORT)) {
     throw new Error('VITE_ENABLE_CHAT_SUPPORT must be "true" or "false"');
+  }
+
+  // Ensure analytics is only enabled if both flag and ID are provided
+  if (requiredVars.VITE_ENABLE_ANALYTICS === 'true' && !requiredVars.VITE_ANALYTICS_ID) {
+    console.warn('Analytics is enabled but no analytics ID provided. Disabling analytics.');
+    requiredVars.VITE_ENABLE_ANALYTICS = 'false';
   }
 
   return requiredVars as EnvironmentConfig;

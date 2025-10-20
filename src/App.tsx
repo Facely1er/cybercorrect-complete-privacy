@@ -15,6 +15,7 @@ import DevTools from './components/DevTools';
 import ToolkitLayout from './components/layout/ToolkitLayout';
 import AssessmentLayout from './components/layout/AssessmentLayout';
 import { setAppSetting, getAppSetting } from './utils/secureStorage';
+import AnalyticsWrapper from './components/AnalyticsWrapper';
 
 // Pages
 import Landing from './pages/Landing';
@@ -98,11 +99,16 @@ const DpiaGenerator = lazy(() => import('./pages/tools-and-assessments/DpiaGener
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
-      const stored = getAppSetting('darkMode');
-      if (stored !== null) {
-        return stored;
+      try {
+        const stored = getAppSetting('darkMode');
+        if (stored !== null && stored !== undefined) {
+          return stored;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      } catch (error) {
+        console.warn('Error accessing dark mode setting:', error);
+        return false;
       }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
     return false;
   });
@@ -133,6 +139,10 @@ const App: React.FC = () => {
                 <ChatSupportProvider>
                   <AppInitializer>
                     <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
+          <ChatbotProvider>
+            <ChatSupportProvider>
+              <AnalyticsWrapper>
+                <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
                 <Routes>
                   {/* Main Layout Routes */}
                   <Route path="/" element={<LandingLayout toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}>
@@ -310,6 +320,12 @@ const App: React.FC = () => {
               </ChatbotProvider>
             </GuideProvider>
           </WorkflowProvider>
+                <Toaster />
+                <DevTools />
+                </div>
+              </AnalyticsWrapper>
+            </ChatSupportProvider>
+          </ChatbotProvider>
         </ProjectProvider>
       </AuthProvider>
     </ErrorBoundary>

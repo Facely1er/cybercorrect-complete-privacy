@@ -74,29 +74,56 @@ const useProject = () => {
 
 const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [projects, setProjects] = useState<Record<string, ProjectProgress>>(() => {
-    return getProjectData('privacyProjects', {});
+    try {
+      return getProjectData('privacyProjects', {}) || {};
+    } catch (error) {
+      console.warn('Error loading project data:', error);
+      return {};
+    }
   });
 
   const [currentProject, setCurrentProject] = useState<string | undefined>(() => {
-    return getProjectData('currentProject') || undefined;
+    try {
+      return getProjectData('currentProject') || undefined;
+    } catch (error) {
+      console.warn('Error loading current project:', error);
+      return undefined;
+    }
   });
 
   const [userMode, setUserModeState] = useState<'solo' | 'team'>(() => {
-    return getAppSetting('userMode', 'solo');
+    try {
+      return getAppSetting('userMode', 'solo') || 'solo';
+    } catch (error) {
+      console.warn('Error loading user mode:', error);
+      return 'solo';
+    }
   });
 
   useEffect(() => {
-    setProjectData('privacyProjects', projects);
+    try {
+      setProjectData('privacyProjects', projects);
+    } catch (error) {
+      console.warn('Error saving project data:', error);
+    }
   }, [projects]);
 
   useEffect(() => {
-    if (currentProject) {
-      setProjectData('currentProject', currentProject);
+    try {
+      if (currentProject) {
+        setProjectData('currentProject', currentProject);
+      }
+    } catch (error) {
+      console.warn('Error saving current project:', error);
     }
   }, [currentProject]);
 
   useEffect(() => {
-    setAppSetting('userMode', userMode);
+    try {
+      setAppSetting('userMode', userMode);
+    } catch (error) {
+      console.warn('Error saving user mode:', error);
+    }
   }, [userMode]);
 
   const createProject = (projectData: Partial<ProjectProgress>): string => {
@@ -241,7 +268,10 @@ const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
   };
 
   const getCurrentProject = (): ProjectProgress | null => {
-    return currentProject ? projects[currentProject] || null : null;
+    if (!currentProject || !projects) {
+      return null;
+    }
+    return projects[currentProject] || null;
   };
 
   const updateProject = (projectId: string, updates: Partial<ProjectProgress>) => {
