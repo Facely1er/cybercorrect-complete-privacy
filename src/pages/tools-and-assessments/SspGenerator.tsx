@@ -762,6 +762,8 @@ const SspGenerator = () => {
                     <label className="block text-sm font-medium mb-1">System Name</label>
                     <input
                       type="text"
+                      id="ssp-system-name"
+                      name="systemName"
                       className="w-full rounded-md border py-2 px-3 text-sm"
                       value={systemInfo.name}
                       onChange={(e) => setSystemInfo({...systemInfo, name: e.target.value})}
@@ -773,6 +775,8 @@ const SspGenerator = () => {
                     <label className="block text-sm font-medium mb-1">System Identifier</label>
                     <input
                       type="text"
+                      id="ssp-system-identifier"
+                      name="systemIdentifier"
                       className="w-full rounded-md border py-2 px-3 text-sm"
                       value={systemInfo.identifier}
                       onChange={(e) => setSystemInfo({...systemInfo, identifier: e.target.value})}

@@ -185,6 +185,8 @@ const Integrations = () => {
                   <label className="block text-sm font-medium mb-1">Your Name</label>
                   <input 
                     type="text"
+                    id="integration-name"
+                    name="name"
                     className="w-full rounded-md border-border bg-background py-2 px-3 text-sm"
                     placeholder="Enter your name"
                     required
@@ -194,6 +196,8 @@ const Integrations = () => {
                   <label className="block text-sm font-medium mb-1">Email</label>
                   <input 
                     type="email"
+                    id="integration-email"
+                    name="email"
                     className="w-full rounded-md border-border bg-background py-2 px-3 text-sm"
                     placeholder="Enter your email"
                     required
@@ -201,7 +205,11 @@ const Integrations = () => {
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium mb-1">Integration Type</label>
-                  <select className="w-full rounded-md border-border bg-background py-2 px-3 text-sm">
+                  <select 
+                    id="integration-type"
+                    name="integrationType"
+                    className="w-full rounded-md border-border bg-background py-2 px-3 text-sm"
+                  >
                     <option value="">Select integration type...</option>
                     <option value="security">Security Tool</option>
                     <option value="cloud">Cloud Platform</option>
@@ -215,6 +223,8 @@ const Integrations = () => {
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium mb-1">Integration Details</label>
                   <textarea
+                    id="integration-details"
+                    name="details"
                     rows={4}
                     className="w-full rounded-md border-border bg-background py-2 px-3 text-sm"
                     placeholder="Describe the integration you need"

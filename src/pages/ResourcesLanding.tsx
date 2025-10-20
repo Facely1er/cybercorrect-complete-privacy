@@ -25,7 +25,7 @@ const ResourcesLanding = () => {
       icon: Eye,
       path: '/documentation',
       items: [
-        { title: 'GDPR Compliance Guide', path: '/documentation/gdpr-guide' },
+        { title: 'GDPR Compliance Guide', path: '/documentation/gdpr-implementation-guide' },
         { title: 'Privacy Assessment Guide', path: '/assessments/privacy-assessment' },
         { title: 'Privacy Framework Guide', path: '/guides/privacy-framework' }
       ]
@@ -116,6 +116,8 @@ const ResourcesLanding = () => {
             </div>
             <input
               type="text"
+              id="resource-search"
+              name="search"
               placeholder="Search documentation and guides..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}

@@ -24,6 +24,8 @@ const NotFound = () => {
           </div>
           <input
             type="text"
+            id="not-found-search"
+            name="search"
             className="w-full pl-10 pr-4 py-2 border rounded-md border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
             placeholder="Search for resources, guides, or documentation..."
           />

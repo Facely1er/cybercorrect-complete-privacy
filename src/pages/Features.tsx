@@ -37,7 +37,7 @@ const Features = () => {
           title: 'CUI Protection Suite',
           description: 'Complete NIST SP 800-171 and CMMC 2.0 compliance platform',
           benefits: ['CUI data flow mapping', 'SSP generation', 'POA&M automation', 'Continuous monitoring'],
-          link: '/cui-assessment'
+          link: '/assessments/privacy-assessment'
         },
         {
           icon: Lightbulb,
@@ -73,7 +73,7 @@ const Features = () => {
           description: 'Complete NIST SP 800-171 and CMMC 2.0 readiness evaluation',
           benefits: ['110 control evaluation', 'CMMC level scoring', 'Gap identification', 'Implementation guidance'],
           stats: '30 min average',
-          link: '/assessments/cui-assessment'
+          link: '/assessments/privacy-assessment'
         },
         {
           icon: Scale,
@@ -438,9 +438,9 @@ const Features = () => {
                 Privacy Compliance Path
                 <Eye className="ml-2 h-5 w-5" />
               </Button>
-              <Link to="/assessments/security-assessment">
+              <Link to="/toolkit/gdpr-mapper">
                 <Button className="bg-white text-green-600 hover:bg-gray-100 border-2 border-white shadow-lg">
-                  Security Compliance Path
+                  Privacy Toolkit
                   <Database className="ml-2 h-5 w-5" />
                 </Button>
               </Link>

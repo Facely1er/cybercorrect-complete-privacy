@@ -79,11 +79,11 @@ const Footer: React.FC = () => {
               <div>
                 <h3 className="text-base font-medium mb-3 text-foreground dark:text-dark-text">Quick Links</h3>
                 <ul className="space-y-2 text-sm">
-                  <li><Link to="/assessments/security-assessment" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Database className="h-3.5 w-3.5 mr-1.5" />Security Assessment</Link></li>
                   <li><Link to="/assessments/privacy-assessment" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><ClipboardCheck className="h-3.5 w-3.5 mr-1.5" />Privacy Assessment</Link></li>
-                  <li><Link to="/assessments/privacy-assessment" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Fingerprint className="h-3.5 w-3.5 mr-1.5" />Privacy Assessment</Link></li>
+                  <li><Link to="/toolkit/gdpr-mapper" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Database className="h-3.5 w-3.5 mr-1.5" />GDPR Mapper</Link></li>
+                  <li><Link to="/toolkit/privacy-rights-manager" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Fingerprint className="h-3.5 w-3.5 mr-1.5" />Rights Manager</Link></li>
                   <li><Link to="/toolkit/dpia-generator" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><FileCheck className="h-3.5 w-3.5 mr-1.5" />DPIA Generator</Link></li>
-                  <li><Link to="/toolkit/gdpr-mapper" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Database className="h-3.5 w-3.5 mr-1.5" />Data Flow Mapper</Link></li>
+                  <li><Link to="/toolkit/privacy-policy-generator" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><FileText className="h-3.5 w-3.5 mr-1.5" />Policy Generator</Link></li>
                 </ul>
               </div>
               

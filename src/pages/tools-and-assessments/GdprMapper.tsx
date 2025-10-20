@@ -376,7 +376,7 @@ const GdprMapper = () => {
                 <InternalLink href="/toolkit/dpia-generator" className="text-sm block">
                   → Generate DPIAs for high-risk processing
                 </InternalLink>
-                <InternalLink href="/documentation/gdpr-guide" className="text-sm block">
+                <InternalLink href="/documentation/gdpr-implementation-guide" className="text-sm block">
                   → Read complete GDPR implementation guide
                 </InternalLink>
               </div>

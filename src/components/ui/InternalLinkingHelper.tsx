@@ -83,15 +83,15 @@ export const RelatedContent: React.FC<RelatedContentProps> = ({
         { title: 'DPIA Generator', href: '/toolkit/dpia-generator', description: 'Generate impact assessments', category: 'Documentation' },
         { title: 'Privacy Policy Generator', href: '/toolkit/privacy-policy-generator', description: 'Create compliant privacy policies', category: 'Documentation' }
       ],
-      '/assessments/security-assessment': [
-        { title: 'Security Gap Analyzer', href: '/toolkit/compliance-gap-analyzer', description: 'Identify security compliance gaps', category: 'Analysis' },
+      '/assessments/privacy-assessment': [
+        { title: 'Privacy Gap Analyzer', href: '/toolkit/privacy-gap-analyzer', description: 'Identify privacy compliance gaps', category: 'Analysis' },
         { title: 'Security Results', href: '/security-results', description: 'View assessment results', category: 'Results' },
         { title: 'Documentation Guide', href: '/documentation', description: 'Implementation documentation', category: 'Resources' }
       ],
       '/toolkit/gdpr-mapper': [
         { title: 'Privacy Assessment', href: '/assessments/privacy-assessment', description: 'Evaluate privacy compliance', category: 'Assessment' },
         { title: 'Data Subject Rights Manager', href: '/toolkit/privacy-rights-manager', description: 'Manage individual rights requests', category: 'Tools' },
-        { title: 'GDPR Implementation Guide', href: '/documentation/gdpr-guide', description: 'Step-by-step GDPR compliance', category: 'Documentation' }
+        { title: 'GDPR Implementation Guide', href: '/documentation/gdpr-implementation-guide', description: 'Step-by-step GDPR compliance', category: 'Documentation' }
       ],
       '/project': [
         { title: 'Privacy Assessment', href: '/assessments/privacy-assessment', description: 'Start with baseline assessment', category: 'Assessment' },

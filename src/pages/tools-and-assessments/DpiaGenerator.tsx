@@ -186,6 +186,8 @@ Generated: ${new Date().toLocaleDateString()}
                     <label className="text-sm font-medium mb-2 block">Project/Processing Name</label>
                     <input
                       type="text"
+                      id="dpia-project-name"
+                      name="projectName"
                       className="w-full p-3 border border-border rounded-md bg-background"
                       placeholder="e.g., Customer Data Analytics Platform"
                       value={formData.projectName}
@@ -197,6 +199,8 @@ Generated: ${new Date().toLocaleDateString()}
                     <label className="text-sm font-medium mb-2 block">Data Controller</label>
                     <input
                       type="text"
+                      id="dpia-data-controller"
+                      name="dataController"
                       className="w-full p-3 border border-border rounded-md bg-background"
                       placeholder="Organization name and contact details"
                       value={formData.dataController}
@@ -207,6 +211,8 @@ Generated: ${new Date().toLocaleDateString()}
                   <div>
                     <label className="text-sm font-medium mb-2 block">Processing Purpose</label>
                     <textarea
+                      id="dpia-processing-purpose"
+                      name="processingPurpose"
                       rows={4}
                       className="w-full p-3 border border-border rounded-md bg-background"
                       placeholder="Describe the purpose and context of the data processing"

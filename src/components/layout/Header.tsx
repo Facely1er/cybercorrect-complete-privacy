@@ -23,7 +23,6 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
   };
 
   const assessmentLinks = [
-    { name: 'Security Assessment', path: '/assessments/security-assessment' },
     { name: 'Privacy Assessment', path: '/assessments/privacy-assessment' },
     { name: 'Data Governance Review', path: '/toolkit/gdpr-mapper' },
   ];

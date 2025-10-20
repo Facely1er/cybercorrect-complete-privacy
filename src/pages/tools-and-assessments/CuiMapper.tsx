@@ -264,6 +264,8 @@ const CuiMapper = () => {
                           <label className="text-sm font-medium">Label</label>
                           <input
                             type="text"
+                            id="cui-node-label"
+                            name="nodeLabel"
                             value={node.label}
                             className="w-full mt-1 px-3 py-2 border border-border rounded-md"
                             readOnly
@@ -272,6 +274,8 @@ const CuiMapper = () => {
                         <div>
                           <label className="text-sm font-medium">Type</label>
                           <select
+                            id="cui-node-type"
+                            name="nodeType"
                             value={node.type}
                             className="w-full mt-1 px-3 py-2 border border-border rounded-md"
                             disabled
@@ -285,6 +289,8 @@ const CuiMapper = () => {
                         <div>
                           <label className="text-sm font-medium">Security Level</label>
                           <select
+                            id="cui-security-level"
+                            name="securityLevel"
                             value={node.securityLevel}
                             className="w-full mt-1 px-3 py-2 border border-border rounded-md"
                             disabled

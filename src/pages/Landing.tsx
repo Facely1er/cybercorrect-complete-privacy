@@ -92,7 +92,7 @@ const Landing = () => {
                 <InternalLink href="/toolkit/dpia-generator" variant="button" className="bg-white/10 border border-white/20 hover:bg-white/20">
                   DPIA Generator  
                 </InternalLink>
-                <InternalLink href="/documentation/gdpr-guide" variant="button" className="bg-white/10 border border-white/20 hover:bg-white/20">
+                <InternalLink href="/documentation/gdpr-implementation-guide" variant="button" className="bg-white/10 border border-white/20 hover:bg-white/20">
                   GDPR Guide
                 </InternalLink>
                 <InternalLink href="/pricing" variant="button" className="bg-white/10 border border-white/20 hover:bg-white/20">

@@ -50,7 +50,7 @@ const PrivacyOfficerJourney = () => {
       description: 'Access comprehensive guides and templates for privacy compliance',
       duration: 'Reference',
       tools: [
-        { name: 'GDPR Guide', path: '/documentation/gdpr-guide', icon: BookOpen },
+        { name: 'GDPR Guide', path: '/documentation/gdpr-implementation-guide', icon: BookOpen },
         { name: 'Privacy Templates', path: '/toolkit/resources/viewers/dpia-template', icon: FileText }
       ],
       outcomes: [
@@ -138,7 +138,7 @@ const PrivacyOfficerJourney = () => {
                   <Eye className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Link to="/documentation/gdpr-guide">
+              <Link to="/documentation/gdpr-implementation-guide">
                 <Button size="lg" variant="outline" className="hover:-translate-y-1 transition-transform">
                   View GDPR Guide
                   <BookOpen className="ml-2 h-5 w-5" />
@@ -277,7 +277,7 @@ const PrivacyOfficerJourney = () => {
                   <Eye className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Link to="/documentation/gdpr-guide" className="no-underline">
+              <Link to="/documentation/gdpr-implementation-guide" className="no-underline">
                 <Button className="bg-gray-900 text-white hover:bg-gray-800 border-2 border-gray-900 shadow-lg">
                   Read Implementation Guide
                   <BookOpen className="ml-2 h-5 w-5" />

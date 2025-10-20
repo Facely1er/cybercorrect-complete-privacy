@@ -512,6 +512,8 @@ const About = () => {
                       <label className="block text-sm font-medium mb-1">Name</label>
                       <input 
                         type="text" 
+                        id="contact-name"
+                        name="name"
                         className="w-full px-3 py-2 border border-support-gray dark:border-dark-support rounded-md bg-surface dark:bg-dark-surface"
                       />
                     </div>
@@ -519,12 +521,16 @@ const About = () => {
                       <label className="block text-sm font-medium mb-1">Email</label>
                       <input 
                         type="email" 
+                        id="contact-email"
+                        name="email"
                         className="w-full px-3 py-2 border border-support-gray dark:border-dark-support rounded-md bg-surface dark:bg-dark-surface"
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-1">Message</label>
                       <textarea 
+                        id="contact-message"
+                        name="message"
                         rows={4}
                         className="w-full px-3 py-2 border border-support-gray dark:border-dark-support rounded-md bg-surface dark:bg-dark-surface"
                       ></textarea>

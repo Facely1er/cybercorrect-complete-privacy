@@ -8,7 +8,12 @@ import {
   CheckCircle, 
   FileText, 
   Clock, 
-  BookOpen
+  BookOpen,
+  Globe,
+  Shield,
+  Database,
+  Activity,
+  AlertTriangle
 } from 'lucide-react';
 
 const LegalCounselJourney = () => {
