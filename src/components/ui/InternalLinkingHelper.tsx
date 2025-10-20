@@ -30,28 +30,38 @@ export const InternalLink: React.FC<InternalLinkProps> = ({
     button: "inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 no-underline hover:no-underline"
   };
 
-  const linkProps = external ? {
-    href,
-    target: "_blank",
-    rel: "noopener noreferrer"
-  } : {
-    to: href
-  };
+  const combinedClassName = cn(baseClasses, variantClasses[variant], className);
 
-  const LinkComponent = external ? 'a' : Link;
+  if (external) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={combinedClassName}
+      >
+        {children}
+        {showIcon && (
+          <span className="ml-1">
+            <ExternalLink className="h-4 w-4 inline" />
+          </span>
+        )}
+      </a>
+    );
+  }
 
   return (
-    <LinkComponent
-      {...linkProps}
-      className={cn(baseClasses, variantClasses[variant], className)}
+    <Link
+      to={href}
+      className={combinedClassName}
     >
       {children}
       {showIcon && (
         <span className="ml-1">
-          {external ? <ExternalLink className="h-4 w-4 inline" /> : <ArrowRight className="h-4 w-4 inline" />}
+          <ArrowRight className="h-4 w-4 inline" />
         </span>
       )}
-    </LinkComponent>
+    </Link>
   );
 };
 
@@ -81,9 +91,7 @@ export const RelatedContent: React.FC<RelatedContentProps> = ({
         { title: 'Privacy Project Manager', href: '/project', description: 'Manage privacy implementation projects', category: 'Project Management' },
         { title: 'GDPR Data Mapper', href: '/toolkit/gdpr-mapper', description: 'Map personal data processing', category: 'Tools' },
         { title: 'DPIA Generator', href: '/toolkit/dpia-generator', description: 'Generate impact assessments', category: 'Documentation' },
-        { title: 'Privacy Policy Generator', href: '/toolkit/privacy-policy-generator', description: 'Create compliant privacy policies', category: 'Documentation' }
-      ],
-      '/assessments/privacy-assessment': [
+        { title: 'Privacy Policy Generator', href: '/toolkit/privacy-policy-generator', description: 'Create compliant privacy policies', category: 'Documentation' },
         { title: 'Privacy Gap Analyzer', href: '/toolkit/privacy-gap-analyzer', description: 'Identify privacy compliance gaps', category: 'Analysis' },
         { title: 'Security Results', href: '/security-results', description: 'View assessment results', category: 'Results' },
         { title: 'Documentation Guide', href: '/documentation', description: 'Implementation documentation', category: 'Resources' }
