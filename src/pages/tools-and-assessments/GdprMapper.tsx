@@ -12,7 +12,8 @@ import {
   ArrowLeft,
   Users,
   Scale,
-  Globe
+  Globe,
+  Shield
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 

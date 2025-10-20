@@ -8,7 +8,10 @@ import {
   Shield,
   Zap,
   Copy,
-  Eye
+  Eye,
+  Users,
+  Globe,
+  Scale
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from '../../components/ui/Toaster';
