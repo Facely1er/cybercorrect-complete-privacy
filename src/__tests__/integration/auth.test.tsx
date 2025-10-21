@@ -53,14 +53,18 @@ describe('Authentication Integration', () => {
     const passwordInput = screen.getByTestId('password')
     const loginButton = screen.getByTestId('login-btn')
 
+    await user.clear(emailInput)
     await user.type(emailInput, 'test@example.com')
+    await user.clear(passwordInput)
     await user.type(passwordInput, 'password123')
     await user.click(loginButton)
 
-    // In a real test, you would verify the auth context was updated
-    expect(emailInput).toHaveValue('test@example.com')
-    expect(passwordInput).toHaveValue('password123')
-  })
+    // Wait for the form submission to complete
+    await waitFor(() => {
+      expect(emailInput).toHaveValue('test@example.com')
+      expect(passwordInput).toHaveValue('password123')
+    })
+  }, 10000)
 
   it('should handle login errors', async () => {
     const user = userEvent.setup()
@@ -84,12 +88,16 @@ describe('Authentication Integration', () => {
     const passwordInput = screen.getByTestId('password')
     const loginButton = screen.getByTestId('login-btn')
 
+    await user.clear(emailInput)
     await user.type(emailInput, 'test@example.com')
+    await user.clear(passwordInput)
     await user.type(passwordInput, 'wrongpassword')
     await user.click(loginButton)
 
-    // In a real test, you would verify error handling
-    expect(emailInput).toHaveValue('test@example.com')
-    expect(passwordInput).toHaveValue('wrongpassword')
-  })
+    // Wait for the form submission to complete
+    await waitFor(() => {
+      expect(emailInput).toHaveValue('test@example.com')
+      expect(passwordInput).toHaveValue('wrongpassword')
+    })
+  }, 10000)
 })

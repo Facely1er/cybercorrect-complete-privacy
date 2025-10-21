@@ -36,7 +36,7 @@ const PrivacyResults = () => {
   };
 
   const handleViewGapAnalysis = () => {
-    navigate('/toolkit/compliance-gap-analyzer', {
+    navigate('/toolkit/privacy-gap-analyzer', {
       state: {
         assessmentResults: mockResults,
         frameworkType: 'nist_privacy_framework'

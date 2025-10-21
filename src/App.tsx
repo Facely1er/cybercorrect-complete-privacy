@@ -65,6 +65,7 @@ import IncidentReporting from './pages/resources/documentation/IncidentReporting
 import BreachResponseGuide from './pages/resources/documentation/BreachResponseGuide';
 import Tutorials from './pages/resources/documentation/Tutorials';
 import Faqs from './pages/resources/documentation/faqs';
+import PrivacyFrameworkGuide from './pages/resources/documentation/PrivacyFrameworkGuide';
 
 // Privacy-specific Guide Pages
 import DataProtectionGuide from './pages/resources/guides/DataProtectionGuide';
@@ -77,6 +78,7 @@ import PrivacyImpactAssessmentGuide from './pages/resources/guides/PrivacyImpact
 import DataProtectionOfficerJourney from './pages/roles/DataProtectionOfficerJourney';
 import LegalCounselJourney from './pages/roles/LegalCounselJourney';
 import DataStewardJourney from './pages/roles/DataStewardJourney';
+import PrivacyOfficerJourney from './pages/roles/PrivacyOfficerJourney';
 
 // Template Viewers
 import DpiaTemplateViewer from './pages/resources/viewers/DpiaTemplateViewer';
@@ -277,6 +279,7 @@ const App: React.FC = () => {
                     <Route path="documentation/breach-response-guide" element={<BreachResponseGuide />} />
                     <Route path="documentation/tutorials" element={<Tutorials />} />
                     <Route path="documentation/faqs" element={<Faqs />} />
+                    <Route path="documentation/privacy-framework-guide" element={<PrivacyFrameworkGuide />} />
                     
                     {/* Guide Routes */}
                     <Route path="guides/data-protection" element={<DataProtectionGuide />} />
@@ -289,6 +292,7 @@ const App: React.FC = () => {
                     <Route path="roles/data-protection-officer" element={<DataProtectionOfficerJourney />} />
                     <Route path="roles/legal-counsel" element={<LegalCounselJourney />} />
                     <Route path="roles/data-steward" element={<DataStewardJourney />} />
+                    <Route path="roles/privacy-officer" element={<PrivacyOfficerJourney />} />
                     
                     {/* Template Viewer Routes */}
                     <Route path="toolkit/resources/viewers/dpia-template" element={<DpiaTemplateViewer />} />

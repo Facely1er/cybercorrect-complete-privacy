@@ -81,7 +81,7 @@ const Features = () => {
           description: 'Single assessment mapped to SOC 2, ISO 27001, NIST, and more',
           benefits: ['12+ frameworks covered', 'Common controls mapping', 'Unified reporting', 'Compliance orchestration'],
           stats: '45 min average',
-          link: '/toolkit/compliance-gap-analyzer'
+          link: '/toolkit/privacy-gap-analyzer'
         },
         {
           icon: Target,
@@ -89,7 +89,7 @@ const Features = () => {
           description: 'Comprehensive compliance gap identification and prioritization',
           benefits: ['Risk-based prioritization', 'Cost-benefit analysis', 'Timeline planning', 'Resource allocation'],
           stats: 'Instant results',
-          link: '/toolkit/compliance-gap-analyzer'
+          link: '/toolkit/privacy-gap-analyzer'
         }
       ]
     },

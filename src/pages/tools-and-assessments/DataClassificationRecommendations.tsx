@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Recommendations from '../../components/assessment/Recommendations';
 import { generateRecommendationsPdf } from '../../utils/generatePdf';
 
-const CuiRecommendations = () => {
+const DataClassificationRecommendations = () => {
   const navigate = useNavigate();
   
   const mockRecommendations = [
@@ -252,4 +252,4 @@ const CuiRecommendations = () => {
   );
 };
 
-export default CuiRecommendations;
+export default DataClassificationRecommendations;

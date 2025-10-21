@@ -35,7 +35,7 @@ interface DataFlow {
   protocol: string;
 }
 
-const CuiMapper = () => {
+const DataFlowMapper = () => {
   const [nodes] = useState<DataNode[]>([
     {
       id: 'source-1',
@@ -397,4 +397,4 @@ const CuiMapper = () => {
   );
 };
 
-export default CuiMapper;
+export default DataFlowMapper;

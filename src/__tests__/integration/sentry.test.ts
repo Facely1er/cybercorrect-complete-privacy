@@ -8,7 +8,7 @@ vi.mock('../../lib/sentry', () => ({
   setUser: vi.fn(),
   clearUser: vi.fn(),
   addBreadcrumb: vi.fn(),
-  SentryErrorBoundary: ({ children }: { children: any }) => children,
+  SentryErrorBoundary: ({ children }: { children: React.ReactNode }) => children,
 }))
 
 // Mock error monitoring

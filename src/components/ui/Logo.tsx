@@ -18,7 +18,7 @@ const Logo: React.FC<LogoProps> = ({ className = '', size = 'medium', showText =
     <div className={`flex items-center ${className}`}>
       <img 
         src="/cybercorrect.png" 
-        alt="PrivacyCorrect" 
+        alt="CyberCorrect Privacy Platform" 
         className={`${sizes[size]}`}
       />
       {showText && (

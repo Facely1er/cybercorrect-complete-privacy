@@ -65,7 +65,7 @@ const NotFound = () => {
           <ul className="text-sm space-y-2">
             <li><InternalLink href="/support">Contact Support</InternalLink></li>
             <li><InternalLink href="/documentation/faqs">Frequently Asked Questions</InternalLink></li>
-            <li><InternalLink href="/about">About PrivacyCorrect</InternalLink></li>
+            <li><InternalLink href="/about">About CyberCorrect Privacy Platform</InternalLink></li>
           </ul>
         </div>
       </div>

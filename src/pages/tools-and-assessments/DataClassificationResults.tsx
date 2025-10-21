@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AssessmentResults } from '../../components/assessment/AssessmentResults';
 import { generateResultsPdf } from '../../utils/generatePdf';
 
-const CuiResults = () => {
+const DataClassificationResults = () => {
   const navigate = useNavigate();
   
   // In a real application, this would be passed through the location state
@@ -45,7 +45,7 @@ const CuiResults = () => {
   };
 
   const handleViewGapAnalysis = () => {
-    navigate('/toolkit/compliance-gap-analyzer', {
+    navigate('/toolkit/privacy-gap-analyzer', {
       state: {
         assessmentResults: mockResults,
         frameworkType: 'nist_800_171'
@@ -117,4 +117,4 @@ const CuiResults = () => {
   );
 };
 
-export default CuiResults;
+export default DataClassificationResults;

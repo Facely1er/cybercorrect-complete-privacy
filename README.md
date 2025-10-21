@@ -1,10 +1,10 @@
-# PrivacyCorrect™ - Complete Privacy & Security Compliance Platform
+# CyberCorrect Privacy Platform™ - Complete Privacy & Security Compliance Platform
 
 ![Privacy & Security Compliance](public/cybercorrect.png)
 
 ## Overview
 
-PrivacyCorrect is a comprehensive compliance automation platform designed to simplify privacy and security compliance across multiple global regulations and frameworks. Built for privacy professionals, security teams, and compliance officers, the platform provides intelligent assessments, automated documentation generation, and collaborative project management tools.
+CyberCorrect Privacy Platform is a comprehensive compliance automation platform designed to simplify privacy and security compliance across multiple global regulations and frameworks. Built for privacy professionals, security teams, and compliance officers, the platform provides intelligent assessments, automated documentation generation, and collaborative project management tools.
 
 ## 🎯 Platform Capabilities
 
@@ -16,13 +16,13 @@ PrivacyCorrect is a comprehensive compliance automation platform designed to sim
 - **Privacy Rights Manager**: Data subject rights request workflow management with identity verification and audit tracking
 - **DPIA Generator**: Automated Data Protection Impact Assessment creation with risk assessment integration
 
-### Security & CUI Compliance
-- **CUI Assessment**: NIST SP 800-171 readiness evaluation (110 controls)
-- **CUI Data Flow Mapper**: Visual mapping and documentation of Controlled Unclassified Information
-- **SSP Generator**: System Security Plan automation for NIST 800-171 compliance
+### Data Classification & Security
+- **Data Classification Assessment**: Privacy-focused data classification and access control evaluation
+- **Data Flow Mapper**: Visual mapping and documentation of personal data flows
+- **SSP Generator**: System Security Plan automation for privacy compliance
 - **POA&M Generator**: Plans of Action & Milestones with risk-based prioritization
 - **Security Assessment**: Enterprise security framework evaluation
-- **Compliance Gap Analyzer**: Multi-framework compliance assessment (SOC 2, ISO 27001, NIST, and more)
+- **Privacy Gap Analyzer**: Multi-framework privacy compliance assessment (GDPR, CCPA, LGPD, PIPEDA, NIST Privacy Framework)
 
 ### Privacy Project Management
 - **Privacy Project Dashboard**: Comprehensive project tracking with compliance metrics and progress visualization
@@ -53,8 +53,7 @@ PrivacyCorrect is a comprehensive compliance automation platform designed to sim
 - **NIST Privacy Framework** - Enterprise privacy risk management
 
 ### Security Frameworks
-- **NIST SP 800-171** - Protecting Controlled Unclassified Information
-- **NIST RMF** (Risk Management Framework)
+- **NIST Privacy Framework** - Enterprise privacy risk management
 - **ISO 27001** - Information Security Management
 - **SOC 2** - Service Organization Controls
 
@@ -119,7 +118,7 @@ npm run dev
 ### Documentation & Export
 - **jsPDF 3.0** - Client-side PDF generation
 - **jsPDF-autotable 5.0** - Table formatting for PDFs
-- **HTML2Canvas** - DOM to canvas conversion
+- **HTML2Canvas 1.4** - DOM to canvas conversion for PDF generation
 
 ### Development & Testing
 - **Vitest 3.2** - Fast unit testing framework
@@ -189,17 +188,17 @@ cybercorrect-complete-privacy/
    - Generate privacy policies
    - Manage data subject rights requests
 
-### For Security Teams (CUI/NIST)
+### For Security Teams (Data Classification)
 
-1. **CUI Assessment**
-   - Complete NIST SP 800-171 assessment
+1. **Data Classification Assessment**
+   - Complete privacy-focused data classification assessment
    - Review compliance maturity level
    - Identify control gaps
 
 2. **Generate Documentation**
    - Use SSP Generator for System Security Plans
    - Create POA&M for remediation tracking
-   - Map CUI data flows
+   - Map personal data flows
 
 3. **Monitor Compliance**
    - Track implementation progress
@@ -221,7 +220,7 @@ npm run test:coverage # Run tests with coverage
 
 ## 🔐 Security & Privacy
 
-PrivacyCorrect is built with privacy by design principles:
+CyberCorrect Privacy Platform is built with privacy by design principles:
 
 - **Client-side encryption** for sensitive data using secure storage utilities
 - **Secure authentication** via Supabase with row-level security
@@ -274,6 +273,7 @@ This project is proprietary software. All rights reserved.
 ## 🆘 Support & Resources
 
 - **Documentation**: Visit `/documentation` for comprehensive guides
+- **Privacy Framework Guide**: Available at `/documentation/privacy-framework-guide`
 - **Live Chat**: Use the in-platform chat support
 - **Email Support**: support@privacycorrect.com
 - **FAQs**: Available at `/documentation/faqs`
@@ -281,12 +281,13 @@ This project is proprietary software. All rights reserved.
 ## 🗺️ Roadmap
 
 ### Current Features (v0.1.0)
-- ✅ Privacy and Security assessments
+- ✅ Privacy and data classification assessments
 - ✅ Multi-regulation compliance mapping
 - ✅ Project management suite
 - ✅ Documentation generation tools
 - ✅ Evidence vault
 - ✅ Role-based workflows
+- ✅ Privacy framework implementation guide
 
 ### Upcoming Features
 - 🔄 Advanced AI-powered policy generation
@@ -314,7 +315,7 @@ This project is proprietary software. All rights reserved.
 - Audit preparation and evidence management
 - Role-based access for large teams
 
-## 🏆 Why PrivacyCorrect?
+## 🏆 Why CyberCorrect Privacy Platform?
 
 - **Comprehensive**: Privacy + Security in one platform
 - **Intelligent**: AI-powered analysis and recommendations
@@ -418,14 +419,15 @@ See `DEPLOYMENT.md` for detailed deployment instructions and best practices.
 ## 🔄 Version History
 
 ### v0.1.0 (Current)
-- Initial release with core privacy and security compliance features
+- Initial release with core privacy and data classification compliance features
 - Multi-regulation privacy assessments (GDPR, CCPA, LGPD, PIPEDA)
-- CUI/NIST SP 800-171 assessments and tools
+- Data classification assessments and tools
 - Privacy project management suite
 - Documentation generators (DPIA, policies, SSP, POA&M)
 - Evidence vault and audit trail
 - Role-based workflows and team collaboration
 - Comprehensive documentation and guides
+- Privacy framework implementation guide
 
 ### Planned Updates
 - Mobile-responsive enhancements
@@ -439,4 +441,4 @@ See `DEPLOYMENT.md` for detailed deployment instructions and best practices.
 
 **Built with ❤️ for privacy and security professionals worldwide**
 
-*PrivacyCorrect™ - Making compliance accessible, efficient, and collaborative*
+*CyberCorrect Privacy Platform™ - Making compliance accessible, efficient, and collaborative*

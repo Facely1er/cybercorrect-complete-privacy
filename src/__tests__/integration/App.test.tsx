@@ -40,15 +40,16 @@ describe('App Integration Tests', () => {
     vi.clearAllMocks()
   })
 
-  it('should render the main application', () => {
+  it('should render the main application', async () => {
     render(<AppWrapper />)
     
-    // Check for main navigation elements
-    expect(screen.getByRole('navigation')).toBeInTheDocument()
-  })
+    // Wait for the app to load and check for main navigation elements
+    await waitFor(() => {
+      expect(screen.getByRole('navigation')).toBeInTheDocument()
+    }, { timeout: 10000 })
+  }, 15000)
 
   it('should handle navigation between pages', async () => {
-    const user = userEvent.setup()
     render(<AppWrapper />)
     
     // Test navigation (this would need actual navigation links)

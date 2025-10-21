@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
+import html2canvas from 'html2canvas';
 
 // Extend jsPDF with autotable plugin
 
@@ -152,7 +153,7 @@ export const generateResultsPdf = (
   for(let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
     doc.text(`Page ${i} of ${pageCount}`, 105, 290, { align: 'center' });
-    doc.text('PrivacyCorrect Assessment Report', 20, 290);
+    doc.text('CyberCorrect Privacy Platform Assessment Report', 20, 290);
     doc.text(`${new Date().toISOString().split('T')[0]}`, 190, 290, { align: 'right' });
   }
 
@@ -273,7 +274,7 @@ export const generateRecommendationsPdf = (
   for(let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
     doc.text(`Page ${i} of ${pageCount}`, 105, 290, { align: 'center' });
-    doc.text('PrivacyCorrect Recommendations', 20, 290);
+    doc.text('CyberCorrect Privacy Platform Recommendations', 20, 290);
     doc.text(`${new Date().toISOString().split('T')[0]}`, 190, 290, { align: 'right' });
   }
 
