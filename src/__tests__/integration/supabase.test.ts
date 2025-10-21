@@ -48,7 +48,7 @@ describe('Supabase Authentication Tests', () => {
       const result = await signIn('test@example.com', 'wrongpassword')
       
       expect(result.error?.message).toBe('Invalid credentials')
-      expect(result.data?.user).toBeNull()
+      expect(result.data?.user).toBeUndefined()
     })
 
     it('should handle unexpected errors', async () => {

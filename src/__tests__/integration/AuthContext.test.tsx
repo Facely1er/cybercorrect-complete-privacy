@@ -1,6 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { render, screen } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 
 // Mock Supabase
@@ -64,7 +63,14 @@ describe('AuthContext Integration Tests', () => {
     const mockGetCurrentUser = vi.mocked(getCurrentUser)
     
     mockGetCurrentUser.mockResolvedValue({
-      user: { id: '1', email: 'test@example.com' },
+      user: { 
+        id: '1', 
+        email: 'test@example.com',
+        app_metadata: {},
+        user_metadata: {},
+        aud: '',
+        created_at: ''
+      },
       error: null,
     })
 
@@ -83,7 +89,7 @@ describe('AuthContext Integration Tests', () => {
     
     mockGetCurrentUser.mockResolvedValue({
       user: null,
-      error: { message: 'Authentication failed' },
+      error: { message: 'Authentication failed', details: 'Auth failed' },
     })
 
     render(
