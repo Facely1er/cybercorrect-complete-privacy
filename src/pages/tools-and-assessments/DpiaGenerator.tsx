@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { 
@@ -18,10 +18,10 @@ const DpiaGenerator = () => {
     dataController: '',
     processingPurpose: '',
     legalBasis: '',
-    dataCategories: [],
-    dataSubjects: [],
+    dataCategories: [] as string[],
+    dataSubjects: [] as string[],
     riskLevel: '',
-    safeguards: []
+    safeguards: [] as string[]
   });
 
   const dpiaSteps = [
@@ -97,7 +97,7 @@ Final Approval: [Approval details]
 Review Date: [Next review date]
 Monitoring Procedures: [Ongoing monitoring approach]
 
-This DPIA was generated using PrivacyCorrect's automated DPIA generator. 
+This DPIA was generated using CyberCorrect Privacy Platform's automated DPIA generator. 
 Please review and customize based on your specific processing activities.
 
 Generated: ${new Date().toLocaleDateString()}
@@ -254,6 +254,7 @@ Generated: ${new Date().toLocaleDateString()}
                           <input
                             type="checkbox"
                             className="mr-2"
+                            checked={formData.dataCategories.includes(category)}
                             onChange={(e) => {
                               if (e.target.checked) {
                                 setFormData(prev => ({
@@ -269,6 +270,38 @@ Generated: ${new Date().toLocaleDateString()}
                             }}
                           />
                           <span className="text-sm">{category}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Categories of Data Subjects</label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        'Employees', 'Customers', 'Prospects', 'Suppliers',
+                        'Website Visitors', 'Minors', 'Vulnerable Adults', 'Public Officials'
+                      ].map(subject => (
+                        <label key={subject} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            className="mr-2"
+                            checked={formData.dataSubjects.includes(subject)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setFormData(prev => ({
+                                  ...prev,
+                                  dataSubjects: [...prev.dataSubjects, subject]
+                                }));
+                              } else {
+                                setFormData(prev => ({
+                                  ...prev,
+                                  dataSubjects: prev.dataSubjects.filter(s => s !== subject)
+                                }));
+                              }
+                            }}
+                          />
+                          <span className="text-sm">{subject}</span>
                         </label>
                       ))}
                     </div>
@@ -304,6 +337,38 @@ Generated: ${new Date().toLocaleDateString()}
                             </div>
                           </CardContent>
                         </Card>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Safeguards and Controls</label>
+                    <div className="space-y-2">
+                      {[
+                        'Data Encryption', 'Access Controls', 'Data Minimization', 'Purpose Limitation',
+                        'Retention Policies', 'Staff Training', 'Privacy by Design', 'Regular Audits'
+                      ].map(safeguard => (
+                        <label key={safeguard} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            className="mr-2"
+                            checked={formData.safeguards.includes(safeguard)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setFormData(prev => ({
+                                  ...prev,
+                                  safeguards: [...prev.safeguards, safeguard]
+                                }));
+                              } else {
+                                setFormData(prev => ({
+                                  ...prev,
+                                  safeguards: prev.safeguards.filter(s => s !== safeguard)
+                                }));
+                              }
+                            }}
+                          />
+                          <span className="text-sm">{safeguard}</span>
+                        </label>
                       ))}
                     </div>
                   </div>

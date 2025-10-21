@@ -16,7 +16,7 @@ const Privacy = () => {
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4 text-foreground">Privacy Policy</h1>
           <p className="text-xl text-muted-foreground">
-            How PrivacyCorrect collects, uses, and protects your personal information
+            How CyberCorrect Privacy Platform collects, uses, and protects your personal information
           </p>
         </div>
 
@@ -28,7 +28,7 @@ const Privacy = () => {
                 Our Commitment to Privacy
               </h2>
               <p className="text-muted-foreground mb-4">
-                At PrivacyCorrect, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, 
+                At CyberCorrect Privacy Platform, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, 
                 and safeguard your information when you use our platform and services. Please read this privacy policy 
                 carefully. If you do not agree with the terms of this privacy policy, please do not access the site.
               </p>

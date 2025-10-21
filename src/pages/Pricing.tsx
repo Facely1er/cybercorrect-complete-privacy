@@ -136,7 +136,7 @@ const Pricing = () => {
     },
     {
       question: "How long does compliance certification take?",
-      answer: "The timeline varies depending on your organization's size and current privacy posture. With PrivacyCorrect, most small-to-medium businesses can achieve GDPR readiness in 4-6 weeks, and comprehensive multi-regulation privacy compliance in 3-6 months. Our platform accelerates this process by automating privacy documentation and gap analysis."
+      answer: "The timeline varies depending on your organization's size and current privacy posture. With CyberCorrect Privacy Platform, most small-to-medium businesses can achieve GDPR readiness in 4-6 weeks, and comprehensive multi-regulation privacy compliance in 3-6 months. Our platform accelerates this process by automating privacy documentation and gap analysis."
     },
     {
       question: "Do you provide implementation support?",
@@ -148,10 +148,10 @@ const Pricing = () => {
     },
     {
       question: "Can I export my data and documentation?",
-      answer: "Yes, all documentation generated in PrivacyCorrect can be exported in standard formats (PDF, Word, Excel) that are accepted by privacy auditors and regulators. Our templates are designed to meet GDPR, CCPA, and other privacy regulation requirements and have been reviewed by privacy professionals."
+      answer: "Yes, all documentation generated in CyberCorrect Privacy Platform can be exported in standard formats (PDF, Word, Excel) that are accepted by privacy auditors and regulators. Our templates are designed to meet GDPR, CCPA, and other privacy regulation requirements and have been reviewed by privacy professionals."
     },
     {
-      question: "Is my data secure with PrivacyCorrect?",
+      question: "Is my data secure with CyberCorrect Privacy Platform?",
       answer: "Absolutely. We maintain SOC 2 Type II compliance and implement comprehensive security controls including encryption in transit and at rest, multi-factor authentication, regular penetration testing, and role-based access control to ensure your security and compliance data remains protected."
     }
   ];
@@ -552,7 +552,7 @@ const Pricing = () => {
                       <p className="text-2xl font-bold text-foreground">${roiResults.consultantCost.toLocaleString()}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">PrivacyCorrect Professional</p>
+                      <p className="text-sm text-muted-foreground">CyberCorrect Privacy Platform Professional</p>
                       <p className="text-2xl font-bold text-primary">${roiResults.platformCost.toLocaleString()}</p>
                     </div>
                   </div>
@@ -576,7 +576,7 @@ const Pricing = () => {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <Shield className="mr-2 h-5 w-5" />
-                Why PrivacyCorrect Is More Cost-Effective
+                Why CyberCorrect Privacy Platform Is More Cost-Effective
               </CardTitle>
             </CardHeader>
             <CardContent>

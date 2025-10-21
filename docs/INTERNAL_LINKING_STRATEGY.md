@@ -1,7 +1,7 @@
-# Internal Linking Strategy - PrivacyCorrect Platform
+# Internal Linking Strategy - CyberCorrect Privacy Platform Platform
 
 ## Overview
-This document outlines the comprehensive internal linking strategy for the PrivacyCorrect platform, designed to improve user experience, SEO performance, and conversion rates.
+This document outlines the comprehensive internal linking strategy for the CyberCorrect Privacy Platform platform, designed to improve user experience, SEO performance, and conversion rates.
 
 ## Key Principles
 

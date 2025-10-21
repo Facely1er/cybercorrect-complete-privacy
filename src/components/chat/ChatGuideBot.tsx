@@ -46,93 +46,93 @@ const ChatGuideBot = () => {
     welcome: {
       message: "👋 Hello! I'm your CyberCorrect guide. I can help you navigate our platform and understand compliance requirements. What would you like to learn about?",
       options: [
-        { id: 'security', text: 'Security Compliance', nextStep: 'security' },
-        { id: 'cui', text: 'CUI Protection', nextStep: 'cui' },
+        { id: 'privacy', text: 'Privacy Compliance', nextStep: 'privacy' },
+        { id: 'data-protection', text: 'Data Protection', nextStep: 'data-protection' },
         { id: 'getting-started', text: 'Getting Started', nextStep: 'getting-started' },
         { id: 'assessments', text: 'Assessment Tools', nextStep: 'assessments' }
       ]
     },
-    security: {
-      message: "Security framework compliance involves implementing comprehensive security controls and best practices. PrivacyCorrect provides assessment tools, documentation generators, and continuous monitoring for enterprise security compliance.",
+    privacy: {
+      message: "Privacy compliance involves implementing comprehensive data protection controls and best practices. CyberCorrect Privacy Platform provides assessment tools, documentation generators, and continuous monitoring for privacy compliance.",
       options: [
-        { id: 'security-frameworks', text: 'Security Frameworks', nextStep: 'security-frameworks' },
-        { id: 'security-tools', text: 'Security Tools', nextStep: 'security-tools' },
-        { id: 'security-assessment', text: 'Security Assessment', nextStep: 'security-assessment' }
+        { id: 'privacy-frameworks', text: 'Privacy Frameworks', nextStep: 'privacy-frameworks' },
+        { id: 'privacy-tools', text: 'Privacy Tools', nextStep: 'privacy-tools' },
+        { id: 'privacy-assessment', text: 'Privacy Assessment', nextStep: 'privacy-assessment' }
       ],
       links: [
-        { text: 'Security Assessment', url: '/assessments/security-assessment' },
-        { text: 'Security Framework Guide', url: '/documentation/security-framework-guide' }
+        { text: 'Privacy Assessment', url: '/assessments/privacy-assessment' },
+        { text: 'Privacy Framework Guide', url: '/documentation/privacy-framework-guide' }
       ]
     },
-    'security-frameworks': {
-      message: "Security frameworks provide structured approaches to implementing security controls. Common frameworks include ISO 27001, NIST CSF, and SOC 2, each with specific controls and requirements for different organizational needs.",
+    'privacy-frameworks': {
+      message: "Privacy frameworks provide structured approaches to implementing data protection controls. Common frameworks include GDPR, CCPA, NIST Privacy Framework, and ISO 27701, each with specific controls and requirements for different privacy needs.",
       options: [
-        { id: 'back-to-security', text: 'Back to Security', nextStep: 'security' },
-        { id: 'security-tools', text: 'Security Tools', nextStep: 'security-tools' }
+        { id: 'back-to-privacy', text: 'Back to Privacy', nextStep: 'privacy' },
+        { id: 'privacy-tools', text: 'Privacy Tools', nextStep: 'privacy-tools' }
       ]
     },
-    'security-tools': {
-      message: "PrivacyCorrect provides comprehensive tools for security compliance: 1) Security assessment for initial evaluation, 2) Documentation generators for policies and procedures, 3) Gap analysis for remediation planning, and 4) Continuous monitoring dashboards.",
+    'privacy-tools': {
+      message: "CyberCorrect Privacy Platform provides comprehensive tools for privacy compliance: 1) Privacy assessment for initial evaluation, 2) Documentation generators for policies and procedures, 3) Gap analysis for remediation planning, and 4) Continuous monitoring dashboards.",
       options: [
-        { id: 'back-to-security', text: 'Back to Security', nextStep: 'security' },
-        { id: 'try-tools', text: 'Try Security Tools', nextStep: 'try-tools' }
+        { id: 'back-to-privacy', text: 'Back to Privacy', nextStep: 'privacy' },
+        { id: 'try-tools', text: 'Try Privacy Tools', nextStep: 'try-tools' }
       ],
       links: [
-        { text: 'Security Assessment', url: '/assessments/security-assessment' },
+        { text: 'Privacy Assessment', url: '/assessments/privacy-assessment' },
         { text: 'DPIA Generator', url: '/toolkit/dpia-generator' }
       ]
     },
-    'security-assessment': {
-      message: "PrivacyCorrect's security assessment tools help you evaluate your compliance with security frameworks and privacy requirements. Our assessments provide comprehensive evaluations with actionable recommendations.",
+    'privacy-assessment': {
+      message: "CyberCorrect Privacy Platform's privacy assessment tools help you evaluate your compliance with privacy frameworks and data protection requirements. Our assessments provide comprehensive evaluations with actionable recommendations.",
       options: [
-        { id: 'back-to-security', text: 'Back to Security', nextStep: 'security' },
+        { id: 'back-to-privacy', text: 'Back to Privacy', nextStep: 'privacy' },
         { id: 'start-assessment', text: 'Start Assessment', nextStep: 'start-assessment' }
       ],
       links: [
         { text: 'Privacy Assessment', url: '/assessments/privacy-assessment' }
       ]
     },
-    cui: {
-      message: "Controlled Unclassified Information (CUI) requires special handling according to law, regulation, or government-wide policy. CyberCorrect helps you identify, mark, and protect CUI in compliance with NIST SP 800-171.",
+    'data-protection': {
+      message: "Data protection involves implementing comprehensive measures to safeguard personal data according to privacy regulations. CyberCorrect helps you identify, map, and protect personal data in compliance with GDPR, CCPA, and other privacy laws.",
       options: [
-        { id: 'cui-assessment', text: 'CUI Assessment', nextStep: 'cui-assessment' },
-        { id: 'cui-mapping', text: 'CUI Data Mapping', nextStep: 'cui-mapping' },
-        { id: 'cui-docs', text: 'CUI Documentation', nextStep: 'cui-docs' }
+        { id: 'data-mapping', text: 'Data Mapping', nextStep: 'data-mapping' },
+        { id: 'data-subject-rights', text: 'Data Subject Rights', nextStep: 'data-subject-rights' },
+        { id: 'data-docs', text: 'Data Protection Documentation', nextStep: 'data-docs' }
       ],
       links: [
-        { text: 'CUI Assessment', url: '/cui-assessment' },
-        { text: 'CUI Handling Guide', url: '/documentation/cui-handling-guide' }
+        { text: 'GDPR Mapper', url: '/toolkit/gdpr-mapper' },
+        { text: 'Privacy Rights Manager', url: '/toolkit/privacy-rights-manager' }
       ]
     },
-    'cui-assessment': {
-      message: "The CUI Assessment evaluates your organization's compliance with NIST SP 800-171 requirements for protecting CUI. It covers all 14 control families with detailed recommendations.",
+    'data-mapping': {
+      message: "Data mapping helps you understand how personal data flows through your organization. This is essential for GDPR compliance and helps identify privacy risks and compliance gaps.",
       options: [
-        { id: 'back-to-cui', text: 'Back to CUI', nextStep: 'cui' },
-        { id: 'start-cui-assessment', text: 'Start CUI Assessment', nextStep: 'start-cui-assessment' }
+        { id: 'back-to-data-protection', text: 'Back to Data Protection', nextStep: 'data-protection' },
+        { id: 'start-data-mapping', text: 'Start Data Mapping', nextStep: 'start-data-mapping' }
       ],
       links: [
-        { text: 'CUI Assessment', url: '/cui-assessment' }
+        { text: 'GDPR Mapper', url: '/toolkit/gdpr-mapper' }
       ]
     },
-    'cui-mapping': {
-      message: "The CUI Data Flow Mapper helps you visualize and document how CUI flows through your systems and processes. This documentation is required for NIST SP 800-171 compliance.",
+    'data-subject-rights': {
+      message: "Data subject rights management helps you handle requests from individuals about their personal data. This includes access, rectification, erasure, and portability requests under GDPR.",
       options: [
-        { id: 'back-to-cui', text: 'Back to CUI', nextStep: 'cui' },
-        { id: 'try-cui-mapper', text: 'Try CUI Mapper', nextStep: 'try-cui-mapper' }
+        { id: 'back-to-data-protection', text: 'Back to Data Protection', nextStep: 'data-protection' },
+        { id: 'try-rights-manager', text: 'Try Rights Manager', nextStep: 'try-rights-manager' }
       ],
       links: [
-        { text: 'CUI Data Flow Mapper', url: '/cui-mapper' }
+        { text: 'Privacy Rights Manager', url: '/toolkit/privacy-rights-manager' }
       ]
     },
-    'cui-docs': {
-      message: "CyberCorrect helps you generate and manage CUI-related documentation, including System Security Plans (SSP), POA&Ms, and handling procedures required for compliance with NIST SP 800-171.",
+    'data-docs': {
+      message: "CyberCorrect helps you generate and manage privacy-related documentation, including Privacy Impact Assessments (PIA), Data Processing Records, and privacy policies required for compliance with GDPR, CCPA, and other privacy regulations.",
       options: [
-        { id: 'back-to-cui', text: 'Back to CUI', nextStep: 'cui' },
+        { id: 'back-to-data-protection', text: 'Back to Data Protection', nextStep: 'data-protection' },
         { id: 'learn-more-docs', text: 'Learn More About Docs', nextStep: 'learn-more-docs' }
       ],
       links: [
-        { text: 'SSP Template Guide', url: '/documentation/ssp-template-guide' },
-        { text: 'CUI Handling Guide', url: '/documentation/cui-handling-guide' }
+        { text: 'DPIA Generator', url: '/toolkit/dpia-generator' },
+        { text: 'Privacy Policy Generator', url: '/toolkit/privacy-policy-generator' }
       ]
     },
     'getting-started': {
@@ -197,14 +197,14 @@ const ChatGuideBot = () => {
       message: "In addition to Security and CUI assessments, CyberCorrect provides specialized assessments for Privacy Framework compliance, Supply Chain Risk Management, and Ransomware Readiness. Each assessment includes detailed recommendations.",
       options: [
         { id: 'back-to-assessments', text: 'Back to Assessments', nextStep: 'assessments' },
-        { id: 'privacy', text: 'Privacy Assessment', nextStep: 'privacy' }
+        { id: 'privacy', text: 'Privacy Assessment', nextStep: 'privacy-assessment-detail' }
       ],
       links: [
         { text: 'Privacy Assessment', url: '/privacy-assessment' },
         { text: 'Assessment Guide', url: '/documentation/assessment-guide' }
       ]
     },
-    'privacy': {
+    'privacy-assessment-detail': {
       message: "The Privacy Assessment evaluates your compliance with the NIST Privacy Framework. It covers Identify, Govern, Control, Communicate, and Protect functions with detailed recommendations tailored to your responses.",
       options: [
         { id: 'back-to-other-assessments', text: 'Back to Assessments', nextStep: 'other-assessments' },

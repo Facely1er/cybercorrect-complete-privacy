@@ -9,6 +9,8 @@ import {
   FileDown, AlertCircle, TrendingUp,
   BarChart3, Layers, GitBranch, Share2, Archive, Zap, X
 } from 'lucide-react';
+import { generateSSPPdf, SSPExportData } from '../../utils/generateSSPPdf';
+import { generateSSPWordDocument } from '../../utils/generateWord';
 
 // import { toast } from '../../components/ui/Toaster';
 interface SSPSection {
@@ -380,7 +382,7 @@ const SspGenerator = () => {
     setIsExporting(true);
     
     try {
-      const exportData = {
+      const exportData: SSPExportData = {
         metadata: {
           exportDate: new Date().toISOString(),
           version: '1.0',
@@ -388,9 +390,15 @@ const SspGenerator = () => {
           systemName: systemInfo.name,
           classification: 'CUI'
         },
-        systemInfo,
+        systemInfo: {
+          name: systemInfo.name,
+          owner: systemInfo.owner,
+          identifier: systemInfo.identifier,
+          description: systemInfo.description,
+          classification: systemInfo.classification
+        },
         sections: sspSections,
-        controls,
+        controls: controls,
         metrics: calculateMetrics()
       };
       
@@ -398,12 +406,13 @@ const SspGenerator = () => {
         const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
         downloadFile(blob, `SSP-${systemInfo.identifier || 'draft'}-${new Date().toISOString().split('T')[0]}.json`);
       } else if (format === 'pdf') {
-        // In production, use a PDF library like jsPDF
-        alert('PDF export would generate a professionally formatted SSP document');
+        generateSSPPdf(exportData);
       } else if (format === 'word') {
-        // In production, use a library to generate DOCX
-        alert('Word export would create an editable SSP document');
+        await generateSSPWordDocument(exportData);
       }
+    } catch (error) {
+      console.error('Export failed:', error);
+      alert('Export failed. Please try again.');
     } finally {
       setIsExporting(false);
     }

@@ -53,33 +53,33 @@ const Faqs = () => {
 
   const faqs = [
     {
-      question: "What is PrivacyCorrect?",
-      answer: "PrivacyCorrect is a comprehensive privacy compliance platform designed to help organizations achieve and maintain compliance with global privacy regulations including GDPR, CCPA, LGPD, PIPEDA, and the NIST Privacy Framework. Our platform simplifies the privacy compliance journey with assessment tools, DPIA generators, policy creation, and continuous monitoring capabilities.",
+      question: "What is CyberCorrect Privacy Platform?",
+      answer: "CyberCorrect Privacy Platform is a comprehensive privacy compliance platform designed to help organizations achieve and maintain compliance with global privacy regulations including GDPR, CCPA, LGPD, PIPEDA, and the NIST Privacy Framework. Our platform simplifies the privacy compliance journey with assessment tools, DPIA generators, policy creation, and continuous monitoring capabilities.",
       category: 'general'
     },
     {
-      question: "How does PrivacyCorrect help with GDPR compliance?",
-      answer: "PrivacyCorrect provides tools for GDPR assessment, gap analysis, Data Protection Impact Assessments (DPIAs), automated data subject rights management, privacy policy generation, and data mapping. Our platform helps you understand GDPR requirements and implement them efficiently with guided workflows and audit-ready documentation.",
+      question: "How does CyberCorrect Privacy Platform help with GDPR compliance?",
+      answer: "CyberCorrect Privacy Platform provides tools for GDPR assessment, gap analysis, Data Protection Impact Assessments (DPIAs), automated data subject rights management, privacy policy generation, and data mapping. Our platform helps you understand GDPR requirements and implement them efficiently with guided workflows and audit-ready documentation.",
       category: 'general'
     },
     {
-      question: "What are the steps to get started with PrivacyCorrect?",
+      question: "What are the steps to get started with CyberCorrect Privacy Platform?",
       answer: "Getting started is easy: 1) Sign up for your account, 2) Complete the privacy assessment to identify your current privacy posture, 3) Review your personalized privacy roadmap, 4) Use our tools to implement privacy controls and documentation, 5) Generate required privacy policies and notices, and 6) Implement continuous privacy monitoring.",
       category: 'general'
     },
     {
-      question: "Is PrivacyCorrect suitable for small businesses?",
-      answer: "Yes, PrivacyCorrect is designed to scale with your business size. Our platform offers tiered plans to accommodate small businesses with limited resources, while still providing the essential tools needed for privacy compliance with regulations like GDPR, CCPA, and other privacy laws applicable to your operations.",
+      question: "Is CyberCorrect Privacy Platform suitable for small businesses?",
+      answer: "Yes, CyberCorrect Privacy Platform is designed to scale with your business size. Our platform offers tiered plans to accommodate small businesses with limited resources, while still providing the essential tools needed for privacy compliance with regulations like GDPR, CCPA, and other privacy laws applicable to your operations.",
       category: 'general'
     },
     {
-      question: "How secure is my data in PrivacyCorrect?",
-      answer: "PrivacyCorrect implements robust security measures including data encryption at rest and in transit, multi-factor authentication, role-based access controls, regular security testing, and compliance with SOC 2 standards. We follow security best practices and privacy-by-design principles to ensure your sensitive privacy data remains protected.",
+      question: "How secure is my data in CyberCorrect Privacy Platform?",
+      answer: "CyberCorrect Privacy Platform implements robust security measures including data encryption at rest and in transit, multi-factor authentication, role-based access controls, regular security testing, and compliance with SOC 2 standards. We follow security best practices and privacy-by-design principles to ensure your sensitive privacy data remains protected.",
       category: 'security'
     },
     {
-      question: "Can PrivacyCorrect help with multiple privacy regulations?",
-      answer: "Yes, PrivacyCorrect supports multiple privacy regulations including GDPR (EU), CCPA/CPRA (California), LGPD (Brazil), PIPEDA (Canada), POPIA (South Africa), and the NIST Privacy Framework. Our platform provides control mapping capabilities to help you efficiently manage privacy compliance across overlapping requirements.",
+      question: "Can CyberCorrect Privacy Platform help with multiple privacy regulations?",
+      answer: "Yes, CyberCorrect Privacy Platform supports multiple privacy regulations including GDPR (EU), CCPA/CPRA (California), LGPD (Brazil), PIPEDA (Canada), POPIA (South Africa), and the NIST Privacy Framework. Our platform provides control mapping capabilities to help you efficiently manage privacy compliance across overlapping requirements.",
       category: 'security'
     },
     {
@@ -88,28 +88,28 @@ const Faqs = () => {
       category: 'data'
     },
     {
-      question: "What documentation can PrivacyCorrect generate?",
-      answer: "PrivacyCorrect can help generate several key privacy documents including Privacy Policies, Privacy Notices, Data Protection Impact Assessments (DPIAs), Records of Processing Activities (ROPA), Data Subject Rights Request procedures, Breach Notification templates, and Data Processing Agreements (DPAs).",
+      question: "What documentation can CyberCorrect Privacy Platform generate?",
+      answer: "CyberCorrect Privacy Platform can help generate several key privacy documents including Privacy Policies, Privacy Notices, Data Protection Impact Assessments (DPIAs), Records of Processing Activities (ROPA), Data Subject Rights Request procedures, Breach Notification templates, and Data Processing Agreements (DPAs).",
       category: 'documents'
     },
     {
       question: "How often should I reassess my privacy compliance?",
-      answer: "We recommend reassessing your privacy compliance annually or when significant changes occur in your data processing activities. PrivacyCorrect's continuous monitoring tools help you maintain awareness of your privacy compliance status between formal assessments, alerting you to potential issues before they impact your compliance.",
+      answer: "We recommend reassessing your privacy compliance annually or when significant changes occur in your data processing activities. CyberCorrect Privacy Platform's continuous monitoring tools help you maintain awareness of your privacy compliance status between formal assessments, alerting you to potential issues before they impact your compliance.",
       category: 'security'
     },
     {
-      question: "How do I manage user access in PrivacyCorrect?",
-      answer: "PrivacyCorrect offers comprehensive user management capabilities. Administrators can create user accounts, assign role-based permissions (Data Protection Officer, Privacy Officer, Legal Counsel, Data Steward), enforce multi-factor authentication, set password policies, and monitor user activity. User access can be tailored to specific modules based on privacy roles.",
+      question: "How do I manage user access in CyberCorrect Privacy Platform?",
+      answer: "CyberCorrect Privacy Platform offers comprehensive user management capabilities. Administrators can create user accounts, assign role-based permissions (Data Protection Officer, Privacy Officer, Legal Counsel, Data Steward), enforce multi-factor authentication, set password policies, and monitor user activity. User access can be tailored to specific modules based on privacy roles.",
       category: 'access'
     },
     {
-      question: "Is training available for PrivacyCorrect users?",
-      answer: "Yes, PrivacyCorrect provides multiple training options including on-demand video tutorials, comprehensive documentation, regular webinars on privacy topics, and personalized training sessions for enterprise customers. Our Support Center contains a comprehensive knowledge base to help you maximize platform value and understand privacy compliance.",
+      question: "Is training available for CyberCorrect Privacy Platform users?",
+      answer: "Yes, CyberCorrect Privacy Platform provides multiple training options including on-demand video tutorials, comprehensive documentation, regular webinars on privacy topics, and personalized training sessions for enterprise customers. Our Support Center contains a comprehensive knowledge base to help you maximize platform value and understand privacy compliance.",
       category: 'general'
     },
     {
-      question: "Can I use PrivacyCorrect for privacy evidence collection?",
-      answer: "Yes, PrivacyCorrect includes an evidence vault system that allows you to collect, organize, and store evidence of privacy compliance implementation. You can attach files, screenshots, documents, and other artifacts to specific privacy controls, making it easier to demonstrate compliance during privacy audits or regulatory investigations.",
+      question: "Can I use CyberCorrect Privacy Platform for privacy evidence collection?",
+      answer: "Yes, CyberCorrect Privacy Platform includes an evidence vault system that allows you to collect, organize, and store evidence of privacy compliance implementation. You can attach files, screenshots, documents, and other artifacts to specific privacy controls, making it easier to demonstrate compliance during privacy audits or regulatory investigations.",
       category: 'documents'
     }
   ];
@@ -136,7 +136,7 @@ const Faqs = () => {
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4 text-foreground">Frequently Asked Questions</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Find answers to common questions about PrivacyCorrect and privacy compliance management
+            Find answers to common questions about CyberCorrect Privacy Platform and privacy compliance management
           </p>
         </div>
 
@@ -222,7 +222,7 @@ const Faqs = () => {
         <div className="mt-16 max-w-3xl mx-auto text-center">
           <h2 className="text-2xl font-semibold mb-4">Still have questions?</h2>
           <p className="text-muted-foreground mb-6">
-            Our support team is ready to help you with any questions you might have about PrivacyCorrect.
+            Our support team is ready to help you with any questions you might have about CyberCorrect Privacy Platform.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button variant="outline" onClick={() => navigate('/support')}>

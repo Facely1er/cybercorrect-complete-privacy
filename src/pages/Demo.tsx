@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
@@ -28,7 +28,7 @@ const Demo = () => {
   const [playing, setPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [showFeatures] = useState(false);
-  const autoPlayRef = useRef(null);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
   
   // Demo step control with auto-play
   useEffect(() => {
@@ -71,7 +71,7 @@ const Demo = () => {
     setPlaying(false);
   };
   
-  const handleStepChange = (step) => {
+  const handleStepChange = (step: number) => {
     setPlaying(false);
     setCurrentStep(step);
   };
@@ -91,7 +91,7 @@ const Demo = () => {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold mb-2 text-foreground">Interactive Demo</h1>
-            <p className="text-muted-foreground">Explore PrivacyCorrect's powerful features for privacy compliance and data protection management</p>
+            <p className="text-muted-foreground">Explore CyberCorrect Privacy Platform's powerful features for privacy compliance and data protection management</p>
           </div>
           <div className="flex gap-2">
             <Link to="/about">
@@ -203,12 +203,12 @@ const Demo = () => {
           <CardContent className="p-6 text-center">
             <div className="max-w-2xl mx-auto">
               <Shield className="h-16 w-16 text-primary mx-auto mb-4" />
-              <h2 className="text-2xl font-bold mb-4">Welcome to PrivacyCorrect</h2>
+              <h2 className="text-2xl font-bold mb-4">Welcome to CyberCorrect Privacy Platform</h2>
               <p className="text-lg mb-6">
                 Experience our powerful, integrated platform for privacy compliance and personal data protection
               </p>
               <p className="mb-8">
-                This interactive demo will walk you through key features of our platform. Watch as we demonstrate how PrivacyCorrect can help you visualize personal data flows, assess privacy compliance (GDPR, CCPA), and generate required privacy documentation.
+                This interactive demo will walk you through key features of our platform. Watch as we demonstrate how CyberCorrect Privacy Platform can help you visualize personal data flows, assess privacy compliance (GDPR, CCPA), and generate required privacy documentation.
               </p>
               <Button size="lg" onClick={startDemo}>
                 <Play className="mr-2 h-4 w-4" />
@@ -485,7 +485,7 @@ const Demo = () => {
       {/* Demo Navigation */}
       <div className="mt-8">
         <div className="flex flex-col space-y-4">
-          <h3 className="text-lg font-medium">Try PrivacyCorrect Features</h3>
+          <h3 className="text-lg font-medium">Try CyberCorrect Privacy Platform Features</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link to="/toolkit/gdpr-mapper" className="block">
               <Card className="cursor-pointer hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md">
@@ -541,7 +541,7 @@ const Demo = () => {
       {/* Call to Action */}
       <div className="mt-8 p-6 bg-primary/5 rounded-lg text-center">
         <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Ready to streamline your compliance journey?</h3>
-        <p className="mb-6 text-lg text-muted-foreground">Experience the full power of PrivacyCorrect with a personalized demo or comprehensive assessment.</p>
+        <p className="mb-6 text-lg text-muted-foreground">Experience the full power of CyberCorrect Privacy Platform with a personalized demo or comprehensive assessment.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-xl transform hover:scale-105 transition-all duration-300">
             Schedule a Live Demo

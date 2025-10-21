@@ -1,4 +1,4 @@
-# PrivacyCorrect Deployment Guide
+# CyberCorrect Privacy Platform Deployment Guide
 
 ## Production Readiness Status: ✅ READY
 

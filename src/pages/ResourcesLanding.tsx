@@ -70,14 +70,14 @@ const ResourcesLanding = () => {
       category: 'Privacy'
     },
     {
-      id: 'cui-assessment',
-      title: 'CUI Assessment', 
-      description: 'Evaluate your CUI protection practices',
+      id: 'privacy-assessment',
+      title: 'Privacy Assessment', 
+      description: 'Evaluate your privacy protection practices',
       type: 'Assessment',
       icon: Database,
-      path: '/assessments/cui-assessment',
+      path: '/assessments/privacy-assessment',
       featured: true,
-      category: 'CUI'
+      category: 'Privacy'
     }
   ];
 

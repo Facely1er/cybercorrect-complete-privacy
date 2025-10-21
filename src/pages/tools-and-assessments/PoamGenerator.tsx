@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -11,7 +11,12 @@ import {
   AlertTriangle,
   Target,
   DollarSign,
-  Clock
+  Clock,
+  Edit,
+  Shield,
+  ArrowRight,
+  Calendar,
+  Info
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 
@@ -452,7 +457,7 @@ const PoamGenerator = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <Link to="/assessments/cui-assessment">
+                <Link to="/assessments/privacy-assessment">
                   <Button variant="outline" size="sm" className="w-full">
                     Import from Assessment
                     <ArrowRight className="ml-2 h-4 w-4" />

@@ -275,7 +275,7 @@ This project is proprietary software. All rights reserved.
 - **Documentation**: Visit `/documentation` for comprehensive guides
 - **Privacy Framework Guide**: Available at `/documentation/privacy-framework-guide`
 - **Live Chat**: Use the in-platform chat support
-- **Email Support**: support@privacycorrect.com
+- **Email Support**: support@cybercorrect.com
 - **FAQs**: Available at `/documentation/faqs`
 
 ## 🗺️ Roadmap
@@ -411,10 +411,10 @@ See `DEPLOYMENT.md` for detailed deployment instructions and best practices.
 
 ## 📞 Contact & Support
 
-- **Website**: https://privacycorrect.com
-- **Support Email**: support@privacycorrect.com
-- **Sales Inquiries**: sales@privacycorrect.com
-- **Security Issues**: security@privacycorrect.com
+- **Website**: https://cybercorrect.com
+- **Support Email**: support@cybercorrect.com
+- **Sales Inquiries**: sales@cybercorrect.com
+- **Security Issues**: security@cybercorrect.com
 
 ## 🔄 Version History
 

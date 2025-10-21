@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
@@ -30,13 +30,13 @@ const Features = () => {
           title: 'Privacy-First Architecture',
           description: 'Built from the ground up for GDPR, CCPA, and global privacy regulations',
           benefits: ['Privacy by design', 'Multi-regulation support', 'Data minimization', 'Consent management'],
-          link: '/assessments/cui-assessment'
+          link: '/toolkit/gdpr-mapper'
         },
         {
           icon: Shield,
-          title: 'CUI Protection Suite',
-          description: 'Complete NIST SP 800-171 compliance platform',
-          benefits: ['CUI data flow mapping', 'SSP generation', 'POA&M automation', 'Continuous monitoring'],
+          title: 'Privacy Compliance Suite',
+          description: 'Complete GDPR, CCPA, and global privacy compliance platform',
+          benefits: ['Privacy impact assessments', 'Data subject rights management', 'Privacy policy generation', 'Continuous monitoring'],
           link: '/assessments/privacy-assessment'
         },
         {

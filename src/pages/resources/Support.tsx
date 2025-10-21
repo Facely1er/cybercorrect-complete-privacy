@@ -79,7 +79,7 @@ const Support = () => {
       description: "Send us your questions or issues",
       action: "Send Email",
       availability: "24/7",
-      onClick: () => window.location.href = "mailto:support@privacycorrect.com"
+      onClick: () => window.location.href = "mailto:support@cybercorrect.com"
     }
   ];
 
@@ -118,7 +118,7 @@ const Support = () => {
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4">Support Center</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Get the help you need to succeed with PrivacyCorrect
+            Get the help you need to succeed with CyberCorrect Privacy Platform
           </p>
         </div>
 
@@ -189,9 +189,9 @@ const Support = () => {
               <Card>
                 <CardContent className="p-4">
                   <Shield className="h-8 w-8 text-primary mx-auto mb-2" />
-                  <h3 className="font-medium">Security Assessment</h3>
-                  <p className="text-sm text-muted-foreground mb-3">Schedule a comprehensive security assessment</p>
-                  <Link to="/cui-assessment">
+                  <h3 className="font-medium">Privacy Assessment</h3>
+                  <p className="text-sm text-muted-foreground mb-3">Schedule a comprehensive privacy assessment</p>
+                  <Link to="/assessments/privacy-assessment">
                     <Button variant="outline" size="sm" className="w-full">Learn More</Button>
                   </Link>
                 </CardContent>
