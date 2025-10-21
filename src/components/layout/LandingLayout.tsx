@@ -5,7 +5,7 @@ import {
   X, 
   Puzzle as PuzzlePiece, 
   CircleDollarSign, 
- 
+  Info,
   BookOpen, 
   User, 
   SunMoon, 
@@ -129,12 +129,12 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       name: 'Demo',
       path: '/demo',
       icon: Eye
-    }
- /*   {
+    },
+    {
       name: 'About', 
       path: '/about',
       icon: Info
-    }*/
+    }
   ];
 
   // Helper function for page descriptions (for better title attributes)

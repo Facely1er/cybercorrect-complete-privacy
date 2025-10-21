@@ -30,13 +30,11 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
   const toolLinks = [
     { name: 'Data Flow Mapper', path: '/toolkit/gdpr-mapper' },
     { name: 'DPIA Generator', path: '/toolkit/dpia-generator' },
-    { name: 'GDPR Mapper', path: '/gdpr-mapper' },
+    { name: 'GDPR Mapper', path: '/toolkit/gdpr-mapper' },
     { name: 'Policy Generator', path: '/toolkit/privacy-policy-generator' },
   ];
 
   const resultLinks = [
-    { name: 'Security Results', path: '/security-results' },
-    { name: 'Security Recommendations', path: '/security-recommendations' },
     { name: 'Privacy Results', path: '/privacy-results' },
     { name: 'Privacy Recommendations', path: '/privacy-recommendations' },
   ];
