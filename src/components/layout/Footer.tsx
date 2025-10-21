@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-xs text-muted-foreground">
-              &copy; {currentYear} CyberCorrect. All rights reserved.
+              &copy; {currentYear} ERMITS LLC. All rights reserved.
             </p>
             <div className="flex mt-2 md:mt-0 space-x-4">
               <Link to="/documentation" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Documentation</Link>
@@ -104,7 +104,7 @@ const Footer: React.FC = () => {
         {/* Footer Bottom - Copyright & Legal */}
         <div className="py-4 border-t border-support-gray dark:border-dark-support flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
           <p className="text-muted-foreground">
-            &copy; {currentYear} CyberCorrect. All rights reserved.
+            &copy; {currentYear} ERMITS LLC. All rights reserved.
           </p>
         </div>
       </div>

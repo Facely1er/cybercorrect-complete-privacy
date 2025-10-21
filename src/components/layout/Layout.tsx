@@ -23,7 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ toggleDarkMode, darkMode }) => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-xs text-muted-foreground">
-              &copy; {new Date().getFullYear()} CyberCorrect Privacy Platform Platform. All rights reserved.
+              &copy; {new Date().getFullYear()} ERMITS LLC. All rights reserved.
             </p>
             <div className="flex mt-2 md:mt-0 space-x-4">
               <a href="https://cybercorrect.com" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Main Website</a>
