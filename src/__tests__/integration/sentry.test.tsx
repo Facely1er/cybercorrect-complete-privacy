@@ -1,11 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import type React from 'react'
+import React from 'react'
 
 // Mock Sentry
 vi.mock('../../lib/sentry', () => {
-  const React = require('react');
   return {
     initSentry: vi.fn(),
     captureException: vi.fn(),

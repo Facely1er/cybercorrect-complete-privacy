@@ -1,6 +1,5 @@
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
-import html2canvas from 'html2canvas';
 
 // Extend jsPDF with autotable plugin
 
@@ -147,7 +146,7 @@ export const generateResultsPdf = (
   doc.text(splitSummary, 20, y);
 
   // Add footer
-  const pageCount = doc.internal.getNumberOfPages();
+  const pageCount = doc.getNumberOfPages ? doc.getNumberOfPages() : 1;
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 150);
   for(let i = 1; i <= pageCount; i++) {
@@ -268,7 +267,7 @@ export const generateRecommendationsPdf = (
   }
 
   // Add footer
-  const pageCount = doc.internal.getNumberOfPages();
+  const pageCount = doc.getNumberOfPages ? doc.getNumberOfPages() : 1;
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 150);
   for(let i = 1; i <= pageCount; i++) {

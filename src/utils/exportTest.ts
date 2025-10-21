@@ -92,7 +92,7 @@ export const testWordExport = async () => {
 // Run tests if this file is executed directly
 if (typeof window !== 'undefined') {
   // Browser environment - add test buttons to window for manual testing
-  (window as any).testPDFExport = testPDFExport;
-  (window as any).testWordExport = testWordExport;
+  (window as Window & { testPDFExport: () => boolean; testWordExport: () => Promise<boolean> }).testPDFExport = testPDFExport;
+  (window as Window & { testPDFExport: () => boolean; testWordExport: () => Promise<boolean> }).testWordExport = testWordExport;
   console.log('Export test functions available: window.testPDFExport() and window.testWordExport()');
 }

@@ -27,7 +27,7 @@ describe('Supabase Authentication Tests', () => {
             user_metadata: {},
             aud: '',
             created_at: ''
-        }, session: {} as any },
+        }, session: null },
         error: null,
       })
 
@@ -43,7 +43,7 @@ describe('Supabase Authentication Tests', () => {
       mockSignIn.mockResolvedValue({
         data: null,
         error: { message: 'Invalid credentials', details: 'Auth failed' },
-      } as any)
+      })
 
       const result = await signIn('test@example.com', 'wrongpassword')
       
@@ -72,7 +72,7 @@ describe('Supabase Authentication Tests', () => {
             user_metadata: {},
             aud: '',
             created_at: ''
-        }, session: {} as any },
+        }, session: null },
         error: null,
       })
 
@@ -88,7 +88,7 @@ describe('Supabase Authentication Tests', () => {
       mockSignUp.mockResolvedValue({
         data: null,
         error: { message: 'Email already exists', details: 'Duplicate email' },
-      } as any)
+      })
 
       const result = await signUp('existing@example.com', 'password123')
       

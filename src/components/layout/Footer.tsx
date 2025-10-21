@@ -12,8 +12,7 @@ import {
   FileQuestion,
   CircleDollarSign,
   Shield,
-  Lock,
-  Download
+  Lock
 } from 'lucide-react';
 import Logo from '../ui/Logo';
 import { useLocation } from 'react-router-dom';

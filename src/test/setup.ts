@@ -10,8 +10,8 @@ const localStorageMock = {
   key: vi.fn(),
 }
 
-// Store original localStorage
-const originalLocalStorage = window.localStorage
+// Store original localStorage (for potential restoration if needed)
+// const originalLocalStorage = window.localStorage
 
 Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,

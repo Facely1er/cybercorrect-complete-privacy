@@ -14,8 +14,7 @@ import {
   Fingerprint,
   Search,
   FileText,
-  Settings,
-  AlertTriangle
+  Settings
 } from 'lucide-react';
 
 const PrivacyFrameworkGuide = () => {

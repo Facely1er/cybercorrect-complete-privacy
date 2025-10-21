@@ -167,7 +167,7 @@ export const generateSSPPdf = (data: SSPExportData): void => {
   });
 
   // Footer
-  const pageCount = doc.getNumberOfPages ? doc.getNumberOfPages() : (doc.internal && (doc.internal as any).getNumberOfPages) ? (doc.internal as any).getNumberOfPages() : 1;
+  const pageCount = doc.getNumberOfPages ? doc.getNumberOfPages() : 1;
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 150);
   for(let i = 1; i <= pageCount; i++) {
