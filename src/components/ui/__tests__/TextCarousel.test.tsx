@@ -21,15 +21,15 @@ describe('TextCarousel Component', () => {
 
   it('should render with single item', () => {
     const items = ['Single item']
-    render(<TextCarousel items={items} data-testid="carousel" />)
+    render(<TextCarousel items={items} />)
     
     expect(screen.getByText('Single item')).toBeInTheDocument()
-    expect(screen.getByTestId('carousel')).toBeInTheDocument()
+    expect(screen.getByTestId('animate-presence')).toBeInTheDocument()
   })
 
   it('should render with multiple items', () => {
     const items = ['First item', 'Second item', 'Third item']
-    render(<TextCarousel items={items} data-testid="carousel" />)
+    render(<TextCarousel items={items} />)
     
     // Should show the first item initially
     expect(screen.getByText('First item')).toBeInTheDocument()
@@ -39,15 +39,15 @@ describe('TextCarousel Component', () => {
 
   it('should apply custom className', () => {
     const items = ['Test item']
-    render(<TextCarousel items={items} className="custom-class" data-testid="carousel" />)
+    render(<TextCarousel items={items} className="custom-class" />)
     
-    const carousel = screen.getByTestId('carousel')
-    expect(carousel).toHaveClass('custom-class')
+    const container = screen.getByText('Test item').closest('div')
+    expect(container).toHaveClass('custom-class')
   })
 
   it('should cycle through items with default interval', () => {
     const items = ['First item', 'Second item', 'Third item']
-    render(<TextCarousel items={items} data-testid="carousel" />)
+    render(<TextCarousel items={items} />)
     
     // Initially shows first item
     expect(screen.getByText('First item')).toBeInTheDocument()
@@ -64,7 +64,7 @@ describe('TextCarousel Component', () => {
 
   it('should cycle through items with custom interval', () => {
     const items = ['First item', 'Second item']
-    render(<TextCarousel items={items} interval={2000} data-testid="carousel" />)
+    render(<TextCarousel items={items} interval={2000} />)
     
     // Initially shows first item
     expect(screen.getByText('First item')).toBeInTheDocument()
@@ -81,7 +81,7 @@ describe('TextCarousel Component', () => {
 
   it('should loop back to first item after last item', () => {
     const items = ['First item', 'Second item']
-    render(<TextCarousel items={items} interval={1000} data-testid="carousel" />)
+    render(<TextCarousel items={items} interval={1000} />)
     
     // Start with first item
     expect(screen.getByText('First item')).toBeInTheDocument()
@@ -103,7 +103,7 @@ describe('TextCarousel Component', () => {
     const items = ['Single item']
     const setIntervalSpy = vi.spyOn(global, 'setInterval')
     
-    render(<TextCarousel items={items} data-testid="carousel" />)
+    render(<TextCarousel items={items} />)
     
     expect(screen.getByText('Single item')).toBeInTheDocument()
     expect(setIntervalSpy).not.toHaveBeenCalled()
@@ -115,7 +115,7 @@ describe('TextCarousel Component', () => {
     const items = ['First item', 'Second item']
     const clearIntervalSpy = vi.spyOn(global, 'clearInterval')
     
-    const { unmount } = render(<TextCarousel items={items} data-testid="carousel" />)
+    const { unmount } = render(<TextCarousel items={items} />)
     
     unmount()
     
@@ -126,10 +126,10 @@ describe('TextCarousel Component', () => {
 
   it('should handle empty items array', () => {
     const items: string[] = []
-    render(<TextCarousel items={items} data-testid="carousel" />)
+    render(<TextCarousel items={items} />)
     
-    const carousel = screen.getByTestId('carousel')
-    expect(carousel).toBeInTheDocument()
+    const container = screen.getByTestId('animate-presence')
+    expect(container).toBeInTheDocument()
     
     // Should not crash and should not set up interval
     const setIntervalSpy = vi.spyOn(global, 'setInterval')
@@ -142,10 +142,10 @@ describe('TextCarousel Component', () => {
     const items = ['First item', 'Second item']
     const clearIntervalSpy = vi.spyOn(global, 'clearInterval')
     
-    const { rerender } = render(<TextCarousel items={items} interval={1000} data-testid="carousel" />)
+    const { rerender } = render(<TextCarousel items={items} interval={1000} />)
     
     // Change interval
-    rerender(<TextCarousel items={items} interval={2000} data-testid="carousel" />)
+    rerender(<TextCarousel items={items} interval={2000} />)
     
     // Should have cleared the previous interval
     expect(clearIntervalSpy).toHaveBeenCalled()
@@ -155,27 +155,27 @@ describe('TextCarousel Component', () => {
 
   it('should have proper container classes', () => {
     const items = ['Test item']
-    render(<TextCarousel items={items} data-testid="carousel" />)
+    render(<TextCarousel items={items} />)
     
-    const carousel = screen.getByTestId('carousel')
-    expect(carousel).toHaveClass('relative', 'min-h-[4em]', 'overflow-hidden')
+    const container = screen.getByText('Test item').closest('div')?.parentElement
+    expect(container).toHaveClass('relative', 'min-h-[4em]', 'overflow-hidden')
   })
 
   it('should render AnimatePresence wrapper', () => {
     const items = ['Test item']
-    render(<TextCarousel items={items} data-testid="carousel" />)
+    render(<TextCarousel items={items} />)
     
     expect(screen.getByTestId('animate-presence')).toBeInTheDocument()
   })
 
   it('should handle rapid interval changes', () => {
     const items = ['First item', 'Second item']
-    const { rerender } = render(<TextCarousel items={items} interval={1000} data-testid="carousel" />)
+    const { rerender } = render(<TextCarousel items={items} interval={1000} />)
     
     // Rapidly change interval multiple times
-    rerender(<TextCarousel items={items} interval={500} data-testid="carousel" />)
-    rerender(<TextCarousel items={items} interval={2000} data-testid="carousel" />)
-    rerender(<TextCarousel items={items} interval={1000} data-testid="carousel" />)
+    rerender(<TextCarousel items={items} interval={500} />)
+    rerender(<TextCarousel items={items} interval={2000} />)
+    rerender(<TextCarousel items={items} interval={1000} />)
     
     // Should not crash and should still be functional
     expect(screen.getByText('First item')).toBeInTheDocument()

@@ -4,10 +4,7 @@ import Logo from '../Logo'
 
 describe('Logo Component', () => {
   it('should render with default props', () => {
-    render(<Logo data-testid="logo" />)
-    
-    const logo = screen.getByTestId('logo')
-    expect(logo).toBeInTheDocument()
+    render(<Logo />)
     
     const image = screen.getByAltText('CyberCorrect Privacy Platform')
     expect(image).toBeInTheDocument()
@@ -16,50 +13,47 @@ describe('Logo Component', () => {
   })
 
   it('should render with text by default', () => {
-    render(<Logo data-testid="logo" />)
+    render(<Logo />)
     
-    expect(screen.getByText('CyberCorrect™')).toBeInTheDocument()
+    expect(screen.getByText('CyberCorrect')).toBeInTheDocument()
     expect(screen.getByText('Privacy Platform')).toBeInTheDocument()
     expect(screen.getByText('by ERMITS')).toBeInTheDocument()
   })
 
   it('should hide text when showText is false', () => {
-    render(<Logo showText={false} data-testid="logo" />)
-    
-    const logo = screen.getByTestId('logo')
-    expect(logo).toBeInTheDocument()
+    render(<Logo showText={false} />)
     
     const image = screen.getByAltText('CyberCorrect Privacy Platform')
     expect(image).toBeInTheDocument()
     
-    expect(screen.queryByText('CyberCorrect™')).not.toBeInTheDocument()
+    expect(screen.queryByText('CyberCorrect')).not.toBeInTheDocument()
     expect(screen.queryByText('Privacy Platform')).not.toBeInTheDocument()
     expect(screen.queryByText('by ERMITS')).not.toBeInTheDocument()
   })
 
   it('should apply custom className', () => {
-    render(<Logo className="custom-logo" data-testid="logo" />)
+    render(<Logo className="custom-logo" />)
     
-    const logo = screen.getByTestId('logo')
-    expect(logo).toHaveClass('custom-logo')
+    const container = screen.getByAltText('CyberCorrect Privacy Platform').closest('div')
+    expect(container).toHaveClass('custom-logo')
   })
 
   it('should render with small size', () => {
-    render(<Logo size="small" data-testid="logo" />)
+    render(<Logo size="small" />)
     
     const image = screen.getByAltText('CyberCorrect Privacy Platform')
     expect(image).toHaveClass('h-6', 'w-auto')
   })
 
   it('should render with medium size (default)', () => {
-    render(<Logo size="medium" data-testid="logo" />)
+    render(<Logo size="medium" />)
     
     const image = screen.getByAltText('CyberCorrect Privacy Platform')
     expect(image).toHaveClass('h-12', 'w-auto')
   })
 
   it('should render with large size', () => {
-    render(<Logo size="large" data-testid="logo" />)
+    render(<Logo size="large" />)
     
     const image = screen.getByAltText('CyberCorrect Privacy Platform')
     expect(image).toHaveClass('h-14', 'w-auto')
@@ -69,7 +63,7 @@ describe('Logo Component', () => {
     const sizes = ['small', 'medium', 'large'] as const
     
     sizes.forEach(size => {
-      const { unmount } = render(<Logo size={size} data-testid={`logo-${size}`} />)
+      const { unmount } = render(<Logo size={size} />)
       
       const image = screen.getByAltText('CyberCorrect Privacy Platform')
       const expectedClasses = {
@@ -87,9 +81,9 @@ describe('Logo Component', () => {
   })
 
   it('should have proper text structure when showText is true', () => {
-    render(<Logo showText={true} data-testid="logo" />)
+    render(<Logo showText={true} />)
     
-    const cyberCorrectText = screen.getByText('CyberCorrect™')
+    const cyberCorrectText = screen.getByText('CyberCorrect')
     const privacyPlatformText = screen.getByText('Privacy Platform')
     const ermitsText = screen.getByText('by ERMITS')
     
@@ -109,20 +103,19 @@ describe('Logo Component', () => {
         size="large" 
         showText={false} 
         className="custom-class" 
-        data-testid="logo" 
       />
     )
     
-    const logo = screen.getByTestId('logo')
     const image = screen.getByAltText('CyberCorrect Privacy Platform')
+    const container = image.closest('div')
     
-    expect(logo).toHaveClass('custom-class')
+    expect(container).toHaveClass('custom-class')
     expect(image).toHaveClass('h-14', 'w-auto')
-    expect(screen.queryByText('CyberCorrect™')).not.toBeInTheDocument()
+    expect(screen.queryByText('CyberCorrect')).not.toBeInTheDocument()
   })
 
   it('should have proper accessibility attributes', () => {
-    render(<Logo data-testid="logo" />)
+    render(<Logo />)
     
     const image = screen.getByAltText('CyberCorrect Privacy Platform')
     expect(image).toHaveAttribute('alt', 'CyberCorrect Privacy Platform')

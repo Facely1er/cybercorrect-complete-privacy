@@ -9,7 +9,13 @@ vi.mock('../../utils/cn', () => ({
 
 // Mock class-variance-authority
 vi.mock('class-variance-authority', () => ({
-  cva: vi.fn(() => vi.fn(() => 'button-classes'))
+  cva: vi.fn(() => vi.fn((options) => {
+    const classes = ['button-classes']
+    if (options?.className) {
+      classes.push(options.className)
+    }
+    return classes.join(' ')
+  }))
 }))
 
 describe('Button Component', () => {

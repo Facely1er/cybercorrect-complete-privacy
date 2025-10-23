@@ -3,7 +3,21 @@ import { cn } from '../cn'
 
 // Mock clsx and tailwind-merge
 vi.mock('clsx', () => ({
-  default: vi.fn((...inputs) => inputs.filter(Boolean).join(' '))
+  default: vi.fn((...inputs) => {
+    const result: string[] = []
+    inputs.forEach(input => {
+      if (Array.isArray(input)) {
+        result.push(...input.filter(Boolean))
+      } else if (typeof input === 'object' && input !== null) {
+        Object.entries(input).forEach(([key, value]) => {
+          if (value) result.push(key)
+        })
+      } else if (input) {
+        result.push(String(input))
+      }
+    })
+    return result.join(' ')
+  })
 }))
 
 vi.mock('tailwind-merge', () => ({
@@ -79,8 +93,8 @@ describe('cn utility function', () => {
   })
 
   it('should handle complex conditional logic', () => {
-    const variant = 'primary'
-    const size = 'large'
+    const variant: 'primary' | 'secondary' = 'primary'
+    const size: 'large' | 'small' = 'large'
     const disabled = false
     
     const result = cn(
@@ -130,7 +144,7 @@ describe('cn utility function', () => {
     expect(result).toBe('class1 class2')
   })
 
-  it('should be called with clsx and twMerge', () => {
+  it('should be called with clsx and twMerge', async () => {
     const clsx = vi.mocked(await import('clsx')).default
     const twMerge = vi.mocked(await import('tailwind-merge')).twMerge
     
