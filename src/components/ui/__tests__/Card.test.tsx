@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../Ca
 
 // Mock cn utility
 vi.mock('../../utils/cn', () => ({
-  cn: (...classes: any[]) => classes.filter(Boolean).join(' ')
+  cn: (...classes: unknown[]) => classes.filter(Boolean).join(' ')
 }))
 
 describe('Card Components', () => {

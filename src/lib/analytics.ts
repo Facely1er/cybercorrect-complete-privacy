@@ -27,7 +27,7 @@ export const initAnalytics = () => {
 
 // Analytics utility functions
 export const analytics = {
-  trackEvent: (event: string, properties?: Record<string, any>) => {
+  trackEvent: (event: string, properties?: Record<string, unknown>) => {
     try {
       track(event, properties);
     } catch (error) {
@@ -35,7 +35,7 @@ export const analytics = {
     }
   },
 
-  trackPageView: (pageName: string, properties?: Record<string, any>) => {
+  trackPageView: (pageName: string, properties?: Record<string, unknown>) => {
     try {
       page(pageName, properties);
     } catch (error) {
@@ -43,7 +43,7 @@ export const analytics = {
     }
   },
 
-  identifyUser: (userId: string | null, traits?: Record<string, any>) => {
+  identifyUser: (userId: string | null, traits?: Record<string, unknown>) => {
     try {
       identify(userId, traits);
     } catch (error) {
@@ -51,7 +51,7 @@ export const analytics = {
     }
   },
 
-  trackConversion: (event: string, properties?: Record<string, any>) => {
+  trackConversion: (event: string, properties?: Record<string, unknown>) => {
     try {
       track(event, { ...properties, event_type: 'conversion' });
     } catch (error) {
@@ -59,7 +59,7 @@ export const analytics = {
     }
   },
 
-  trackError: (errorEvent: string, properties?: Record<string, any>) => {
+  trackError: (errorEvent: string, properties?: Record<string, unknown>) => {
     try {
       track(errorEvent, { ...properties, event_type: 'error' });
     } catch (error) {
@@ -67,7 +67,7 @@ export const analytics = {
     }
   },
 
-  trackPerformance: (metric: string, properties?: Record<string, any>) => {
+  trackPerformance: (metric: string, properties?: Record<string, unknown>) => {
     try {
       track(metric, { ...properties, event_type: 'performance' });
     } catch (error) {
@@ -75,7 +75,7 @@ export const analytics = {
     }
   },
 
-  trackFeatureUsage: (feature: string, properties?: Record<string, any>) => {
+  trackFeatureUsage: (feature: string, properties?: Record<string, unknown>) => {
     try {
       track(feature, { ...properties, event_type: 'feature_usage' });
     } catch (error) {

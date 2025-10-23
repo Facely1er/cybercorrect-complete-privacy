@@ -106,7 +106,7 @@ describe('Error Monitoring Service', () => {
     const { errorMonitoring } = await import('../errorMonitoring')
     const notAnError = 'This is not an Error object'
     
-    errorMonitoring.captureException(notAnError as any)
+    errorMonitoring.captureException(notAnError as unknown)
     
     expect(consoleSpy).toHaveBeenCalledWith('Error (development):', notAnError, undefined)
     

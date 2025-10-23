@@ -4,7 +4,7 @@ import { Button } from '../Button'
 
 // Mock cn utility
 vi.mock('../../utils/cn', () => ({
-  cn: (...classes: any[]) => classes.filter(Boolean).join(' ')
+  cn: (...classes: unknown[]) => classes.filter(Boolean).join(' ')
 }))
 
 // Mock class-variance-authority
@@ -71,7 +71,7 @@ describe('Button Component', () => {
     
     variants.forEach(variant => {
       const { unmount } = render(
-        <Button variant={variant as any} data-testid={`button-${variant}`}>
+        <Button variant={variant as 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | 'success' | 'warning' | 'premium'} data-testid={`button-${variant}`}>
           {variant} button
         </Button>
       )
@@ -89,7 +89,7 @@ describe('Button Component', () => {
     
     sizes.forEach(size => {
       const { unmount } = render(
-        <Button size={size as any} data-testid={`button-${size}`}>
+        <Button size={size as 'default' | 'sm' | 'lg' | 'xl' | 'icon'} data-testid={`button-${size}`}>
           {size} button
         </Button>
       )
@@ -107,7 +107,7 @@ describe('Button Component', () => {
     
     roundedVariants.forEach(rounded => {
       const { unmount } = render(
-        <Button rounded={rounded as any} data-testid={`button-${rounded}`}>
+        <Button rounded={rounded as 'default' | 'full' | 'none'} data-testid={`button-${rounded}`}>
           {rounded} button
         </Button>
       )

@@ -4,7 +4,8 @@ import { createClient } from '@supabase/supabase-js'
 // Mock @supabase/supabase-js
 const mockSupabaseClient = {
   auth: {
-    signIn: vi.fn(),
+    signInWithPassword: vi.fn(),
+    signUp: vi.fn(),
     signOut: vi.fn(),
     getUser: vi.fn(),
     onAuthStateChange: vi.fn(),
@@ -24,29 +25,23 @@ vi.mock('../errorMonitoring', () => ({
   },
 }))
 
-// Mock environment variables
-const originalEnv = import.meta.env
+// Mock environment variables using vi.stubEnv
 
 describe('Supabase Client', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    // Reset environment
-    Object.defineProperty(import.meta, 'env', {
-      value: {
-        ...originalEnv,
-        VITE_SUPABASE_URL: 'https://test.supabase.co',
-        VITE_SUPABASE_ANON_KEY: 'test-anon-key',
-      },
-      writable: true,
-    })
+    // Clear module cache to ensure fresh imports
+    vi.resetModules()
+    // Reset createClient mock to default behavior
+    vi.mocked(createClient).mockImplementation(() => mockSupabaseClient as unknown as ReturnType<typeof createClient>)
+    // Set environment variables using vi.stubEnv
+    vi.stubEnv('VITE_SUPABASE_URL', 'https://test.supabase.co')
+    vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'test-anon-key')
   })
 
   afterEach(() => {
-    // Reset to original environment
-    Object.defineProperty(import.meta, 'env', {
-      value: originalEnv,
-      writable: true,
-    })
+    // Restore original environment
+    vi.unstubAllEnvs()
   })
 
   it('should create Supabase client with valid environment variables', async () => {
@@ -67,42 +62,24 @@ describe('Supabase Client', () => {
   })
 
   it('should throw error when Supabase URL is missing', async () => {
-    Object.defineProperty(import.meta, 'env', {
-      value: {
-        ...originalEnv,
-        VITE_SUPABASE_URL: '',
-        VITE_SUPABASE_ANON_KEY: 'test-anon-key',
-      },
-      writable: true,
-    })
-
-    // Clear module cache to force re-import
-    vi.resetModules()
+    vi.stubEnv('VITE_SUPABASE_URL', '')
+    vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'test-anon-key')
 
     const { supabase } = await import('../supabase')
     
     expect(() => {
-      supabase.auth
+      void supabase.auth
     }).toThrow('Missing Supabase environment variables')
   })
 
   it('should throw error when Supabase anon key is missing', async () => {
-    Object.defineProperty(import.meta, 'env', {
-      value: {
-        ...originalEnv,
-        VITE_SUPABASE_URL: 'https://test.supabase.co',
-        VITE_SUPABASE_ANON_KEY: '',
-      },
-      writable: true,
-    })
-
-    // Clear module cache to force re-import
-    vi.resetModules()
+    vi.stubEnv('VITE_SUPABASE_URL', 'https://test.supabase.co')
+    vi.stubEnv('VITE_SUPABASE_ANON_KEY', '')
 
     const { supabase } = await import('../supabase')
     
     expect(() => {
-      supabase.auth
+      void supabase.auth
     }).toThrow('Missing Supabase environment variables')
   })
 
@@ -112,13 +89,10 @@ describe('Supabase Client', () => {
       throw mockError
     })
 
-    // Clear module cache to force re-import
-    vi.resetModules()
-
     const { supabase } = await import('../supabase')
     
     expect(() => {
-      supabase.auth
+      void supabase.auth
     }).toThrow('Failed to create client')
   })
 
@@ -137,7 +111,8 @@ describe('Supabase Client', () => {
     
     // Test auth methods
     expect(supabase.auth).toBeDefined()
-    expect(supabase.auth.signIn).toBeDefined()
+    expect(supabase.auth.signInWithPassword).toBeDefined()
+    expect(supabase.auth.signUp).toBeDefined()
     expect(supabase.auth.signOut).toBeDefined()
     expect(supabase.auth.getUser).toBeDefined()
     
@@ -160,6 +135,7 @@ describe('Supabase Client', () => {
     
     const mockQuery = supabase.from('test_table')
     expect(mockSupabaseClient.from).toHaveBeenCalledWith('test_table')
+    void mockQuery
   })
 
   it('should handle RPC calls', async () => {

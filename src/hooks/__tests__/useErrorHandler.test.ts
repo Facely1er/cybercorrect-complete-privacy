@@ -75,7 +75,6 @@ describe('useErrorHandler', () => {
     
     const stringError = 'String error message'
     const objectError = new Error('Object error')
-    const nullError = null
 
     // Test string error
     handleError(stringError)

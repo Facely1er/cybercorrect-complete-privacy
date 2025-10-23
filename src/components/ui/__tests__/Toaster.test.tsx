@@ -9,7 +9,7 @@ vi.mock('lucide-react', () => ({
 
 // Mock cn utility
 vi.mock('../../utils/cn', () => ({
-  cn: (...classes: any[]) => classes.filter(Boolean).join(' ')
+  cn: (...classes: unknown[]) => classes.filter(Boolean).join(' ')
 }))
 
 describe('Toaster Component', () => {
