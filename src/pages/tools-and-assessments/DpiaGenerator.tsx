@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { 
@@ -10,19 +10,28 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from '../../components/ui/Toaster';
+import { secureStorage } from '../../utils/secureStorage';
 
 const DpiaGenerator = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState({
-    projectName: '',
-    dataController: '',
-    processingPurpose: '',
-    legalBasis: '',
-    dataCategories: [] as string[],
-    dataSubjects: [] as string[],
-    riskLevel: '',
-    safeguards: [] as string[]
+  const [formData, setFormData] = useState(() => {
+    const savedData = secureStorage.getItem('dpia_form_data');
+    return savedData || {
+      projectName: '',
+      dataController: '',
+      processingPurpose: '',
+      legalBasis: '',
+      dataCategories: [] as string[],
+      dataSubjects: [] as string[],
+      riskLevel: '',
+      safeguards: [] as string[]
+    };
   });
+
+  // Auto-save form data to localStorage
+  useEffect(() => {
+    secureStorage.setItem('dpia_form_data', formData);
+  }, [formData]);
 
   const dpiaSteps = [
     {
@@ -54,6 +63,23 @@ const DpiaGenerator = () => {
   const handleGenerate = () => {
     const dpiaContent = generateDpiaContent();
     downloadDpia(dpiaContent);
+    toast.success('DPIA generated', 'Data Protection Impact Assessment has been generated and downloaded');
+  };
+
+  const handleClearForm = () => {
+    setFormData({
+      projectName: '',
+      dataController: '',
+      processingPurpose: '',
+      legalBasis: '',
+      dataCategories: [],
+      dataSubjects: [],
+      riskLevel: '',
+      safeguards: []
+    });
+    secureStorage.removeItem('dpia_form_data');
+    setCurrentStep(1);
+    toast.success('Form cleared', 'DPIA form has been reset');
   };
 
   const generateDpiaContent = () => {
@@ -112,8 +138,6 @@ Generated: ${new Date().toLocaleDateString()}
     a.download = `dpia-${formData.projectName.replace(/\s+/g, '-').toLowerCase() || 'generated'}-${new Date().toISOString().split('T')[0]}.txt`;
     a.click();
     URL.revokeObjectURL(url);
-    
-    toast.success('DPIA generated', 'Data Protection Impact Assessment has been generated and downloaded');
   };
 
   return (
@@ -399,10 +423,15 @@ Generated: ${new Date().toLocaleDateString()}
                     </div>
                   </div>
                   
-                  <Button className="w-full" onClick={handleGenerate}>
-                    <Download className="h-4 w-4 mr-2" />
-                    Generate DPIA
-                  </Button>
+                  <div className="space-y-3">
+                    <Button className="w-full" onClick={handleGenerate}>
+                      <Download className="h-4 w-4 mr-2" />
+                      Generate DPIA
+                    </Button>
+                    <Button variant="outline" className="w-full" onClick={handleClearForm}>
+                      Clear Form
+                    </Button>
+                  </div>
                 </div>
               )}
 

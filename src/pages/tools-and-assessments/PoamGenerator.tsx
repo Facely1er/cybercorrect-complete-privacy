@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -19,6 +19,7 @@ import {
   Info
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
+import { secureStorage } from '../../utils/secureStorage';
 
 interface PoamItem {
   id: string;
@@ -148,7 +149,27 @@ const PoamGenerator = () => {
     }
   ]);
 
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(() => 
+    secureStorage.getItem('poam_selected', null)
+  );
+  
+  // Auto-save POAM items
+  useEffect(() => {
+    secureStorage.setItem('poam_items', poamItems);
+  }, [poamItems]);
+
+  useEffect(() => {
+    if (selectedItem) {
+      secureStorage.setItem('poam_selected', selectedItem);
+    }
+  }, [selectedItem]);
+  
+  const updatePoamStatus = (poamId: string, newStatus: PoamItem['status']) => {
+    setPoamItems(prev => prev.map(item => 
+      item.id === poamId ? { ...item, status: newStatus } : item
+    ));
+    toast.success('Status updated', `POAM ${poamId} status changed to ${newStatus}`);
+  };
 
   const handleExportPoam = () => {
     const poamData = {

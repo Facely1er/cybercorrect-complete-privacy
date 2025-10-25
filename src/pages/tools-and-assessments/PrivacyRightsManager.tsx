@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -12,9 +12,12 @@ import {
   Plus,
   FileText,
   Shield,
-  Clock
+  Clock,
+  CheckCircle,
+  Mail
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
+import { secureStorage } from '../../utils/secureStorage';
 
 interface DataSubjectRequest {
   id: string;
@@ -32,49 +35,65 @@ interface DataSubjectRequest {
 }
 
 const PrivacyRightsManager = () => {
-  const [requests, setRequests] = useState<DataSubjectRequest[]>([
-    {
-      id: 'DSR-001',
-      type: 'access',
-      status: 'pending',
-      submittedDate: '2024-01-15',
-      dueDate: '2024-02-14',
-      requesterName: 'John Smith',
-      requesterEmail: 'john.smith@email.com',
-      description: 'Request for access to all personal data held by the organization',
-      priority: 'medium',
-      assignedTo: 'Data Protection Officer'
-    },
-    {
-      id: 'DSR-002',
-      type: 'erasure',
-      status: 'in_progress',
-      submittedDate: '2024-01-10',
-      dueDate: '2024-02-09',
-      requesterName: 'Jane Doe',
-      requesterEmail: 'jane.doe@email.com',
-      description: 'Request for deletion of account and all associated personal data',
-      priority: 'high',
-      assignedTo: 'Data Steward'
-    },
-    {
-      id: 'DSR-003',
-      type: 'portability',
-      status: 'completed',
-      submittedDate: '2024-01-05',
-      dueDate: '2024-02-04',
-      requesterName: 'Bob Johnson',
-      requesterEmail: 'bob.johnson@email.com',
-      description: 'Request for data export in machine-readable format',
-      priority: 'low',
-      assignedTo: 'IT Administrator',
-      completedDate: '2024-01-20',
-      responseNotes: 'Data export provided via secure email'
-    }
-  ]);
+  const [requests, setRequests] = useState<DataSubjectRequest[]>(() => {
+    const saved = secureStorage.getItem<DataSubjectRequest[]>('privacy_rights_requests');
+    return saved || [
+      {
+        id: 'DSR-001',
+        type: 'access',
+        status: 'pending',
+        submittedDate: '2024-01-15',
+        dueDate: '2024-02-14',
+        requesterName: 'John Smith',
+        requesterEmail: 'john.smith@email.com',
+        description: 'Request for access to all personal data held by the organization',
+        priority: 'medium',
+        assignedTo: 'Data Protection Officer'
+      },
+      {
+        id: 'DSR-002',
+        type: 'erasure',
+        status: 'in_progress',
+        submittedDate: '2024-01-10',
+        dueDate: '2024-02-09',
+        requesterName: 'Jane Doe',
+        requesterEmail: 'jane.doe@email.com',
+        description: 'Request for deletion of account and all associated personal data',
+        priority: 'high',
+        assignedTo: 'Data Steward'
+      },
+      {
+        id: 'DSR-003',
+        type: 'portability',
+        status: 'completed',
+        submittedDate: '2024-01-05',
+        dueDate: '2024-02-04',
+        requesterName: 'Bob Johnson',
+        requesterEmail: 'bob.johnson@email.com',
+        description: 'Request for data export in machine-readable format',
+        priority: 'low',
+        assignedTo: 'IT Administrator',
+        completedDate: '2024-01-20',
+        responseNotes: 'Data export provided via secure email'
+      }
+    ];
+  });
 
-  const [selectedRequest, setSelectedRequest] = useState<string | null>(null);
+  const [selectedRequest, setSelectedRequest] = useState<string | null>(() => 
+    secureStorage.getItem('privacy_rights_selected_request', null)
+  );
   const [, setShowNewRequest] = useState(false);
+
+  // Auto-save requests and selection
+  useEffect(() => {
+    secureStorage.setItem('privacy_rights_requests', requests);
+  }, [requests]);
+
+  useEffect(() => {
+    if (selectedRequest) {
+      secureStorage.setItem('privacy_rights_selected_request', selectedRequest);
+    }
+  }, [selectedRequest]);
 
   const getRequestTypeColor = (type: string) => {
     const colors: Record<string, string> = {

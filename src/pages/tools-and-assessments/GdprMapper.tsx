@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -19,6 +19,7 @@ import {
   Info
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
+import { secureStorage } from '../../utils/secureStorage';
 
 interface ProcessingActivity {
   id: string;
@@ -33,43 +34,60 @@ interface ProcessingActivity {
 }
 
 const GdprMapper = () => {
-  const [activities] = useState<ProcessingActivity[]>([
-    {
-      id: 'activity-1',
-      name: 'Customer Registration',
-      purpose: 'User account creation and management',
-      legalBasis: 'Contract',
-      dataTypes: ['Name', 'Email', 'Phone'],
-      dataSubjects: ['Customers', 'Prospects'],
-      recipients: ['Internal Staff', 'Payment Processor'],
-      retentionPeriod: '7 years',
-      riskLevel: 'medium'
-    },
-    {
-      id: 'activity-2',
-      name: 'Marketing Communications',
-      purpose: 'Direct marketing and promotional activities',
-      legalBasis: 'Consent',
-      dataTypes: ['Email', 'Preferences', 'Behavior Data'],
-      dataSubjects: ['Customers', 'Newsletter Subscribers'],
-      recipients: ['Marketing Team', 'Email Service Provider'],
-      retentionPeriod: '2 years or until consent withdrawn',
-      riskLevel: 'low'
-    },
-    {
-      id: 'activity-3',
-      name: 'Employee HR Management',
-      purpose: 'Human resources administration',
-      legalBasis: 'Legal Obligation',
-      dataTypes: ['Personal Details', 'Employment History', 'Performance Data'],
-      dataSubjects: ['Employees', 'Job Applicants'],
-      recipients: ['HR Department', 'Payroll Provider'],
-      retentionPeriod: '6 years after employment ends',
-      riskLevel: 'high'
-    }
-  ]);
+  const [activities] = useState<ProcessingActivity[]>(() => {
+    const saved = secureStorage.getItem<ProcessingActivity[]>('gdpr_activities');
+    return saved || [
+      {
+        id: 'activity-1',
+        name: 'Customer Registration',
+        purpose: 'User account creation and management',
+        legalBasis: 'Contract',
+        dataTypes: ['Name', 'Email', 'Phone'],
+        dataSubjects: ['Customers', 'Prospects'],
+        recipients: ['Internal Staff', 'Payment Processor'],
+        retentionPeriod: '7 years',
+        riskLevel: 'medium'
+      },
+      {
+        id: 'activity-2',
+        name: 'Marketing Communications',
+        purpose: 'Direct marketing and promotional activities',
+        legalBasis: 'Consent',
+        dataTypes: ['Email', 'Preferences', 'Behavior Data'],
+        dataSubjects: ['Customers', 'Newsletter Subscribers'],
+        recipients: ['Marketing Team', 'Email Service Provider'],
+        retentionPeriod: '2 years or until consent withdrawn',
+        riskLevel: 'low'
+      },
+      {
+        id: 'activity-3',
+        name: 'Employee HR Management',
+        purpose: 'Human resources administration',
+        legalBasis: 'Legal Obligation',
+        dataTypes: ['Personal Details', 'Employment History', 'Performance Data'],
+        dataSubjects: ['Employees', 'Job Applicants'],
+        recipients: ['HR Department', 'Payroll Provider'],
+        retentionPeriod: '6 years after employment ends',
+        riskLevel: 'high'
+      }
+    ];
+  });
 
-  const [selectedActivity, setSelectedActivity] = useState<string | null>(null);
+  const [selectedActivity, setSelectedActivity] = useState<string | null>(() => 
+    secureStorage.getItem('gdpr_selected_activity', null)
+  );
+
+  // Save selected activity
+  useEffect(() => {
+    if (selectedActivity) {
+      secureStorage.setItem('gdpr_selected_activity', selectedActivity);
+    }
+  }, [selectedActivity]);
+
+  // Save activities whenever they change
+  useEffect(() => {
+    secureStorage.setItem('gdpr_activities', activities);
+  }, [activities]);
 
   const handleExportMapping = () => {
     const mappingData = {

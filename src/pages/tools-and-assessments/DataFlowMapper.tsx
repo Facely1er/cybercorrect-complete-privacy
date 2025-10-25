@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -16,6 +16,7 @@ import {
   AlertTriangle
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
+import { secureStorage } from '../../utils/secureStorage';
 
 interface DataNode {
   id: string;
@@ -36,54 +37,77 @@ interface DataFlow {
 }
 
 const DataFlowMapper = () => {
-  const [nodes] = useState<DataNode[]>([
-    {
-      id: 'source-1',
-      label: 'Government Contract Data',
-      type: 'source',
-      cuiTypes: ['CRAD', 'NNPI'],
-      securityLevel: 'high',
-      position: { x: 100, y: 100 }
-    },
-    {
-      id: 'processing-1',
-      label: 'Document Management System',
-      type: 'processing',
-      cuiTypes: ['CRAD'],
-      securityLevel: 'high',
-      position: { x: 300, y: 100 }
-    },
-    {
-      id: 'storage-1',
-      label: 'Secure Database',
-      type: 'storage',
-      cuiTypes: ['CRAD', 'NNPI'],
-      securityLevel: 'high',
-      position: { x: 500, y: 100 }
-    }
-  ]);
+  const [nodes] = useState<DataNode[]>(() => {
+    const saved = secureStorage.getItem<DataNode[]>('dataflow_nodes');
+    return saved || [
+      {
+        id: 'source-1',
+        label: 'Government Contract Data',
+        type: 'source',
+        cuiTypes: ['CRAD', 'NNPI'],
+        securityLevel: 'high',
+        position: { x: 100, y: 100 }
+      },
+      {
+        id: 'processing-1',
+        label: 'Document Management System',
+        type: 'processing',
+        cuiTypes: ['CRAD'],
+        securityLevel: 'high',
+        position: { x: 300, y: 100 }
+      },
+      {
+        id: 'storage-1',
+        label: 'Secure Database',
+        type: 'storage',
+        cuiTypes: ['CRAD', 'NNPI'],
+        securityLevel: 'high',
+        position: { x: 500, y: 100 }
+      }
+    ];
+  });
 
-  const [flows] = useState<DataFlow[]>([
-    {
-      id: 'flow-1',
-      from: 'source-1',
-      to: 'processing-1',
-      label: 'HTTPS/TLS',
-      encryption: true,
-      protocol: 'HTTPS'
-    },
-    {
-      id: 'flow-2',
-      from: 'processing-1',
-      to: 'storage-1',
-      label: 'TLS 1.3',
-      encryption: true,
-      protocol: 'TLS'
-    }
-  ]);
+  const [flows] = useState<DataFlow[]>(() => {
+    const saved = secureStorage.getItem<DataFlow[]>('dataflow_flows');
+    return saved || [
+      {
+        id: 'flow-1',
+        from: 'source-1',
+        to: 'processing-1',
+        label: 'HTTPS/TLS',
+        encryption: true,
+        protocol: 'HTTPS'
+      },
+      {
+        id: 'flow-2',
+        from: 'processing-1',
+        to: 'storage-1',
+        label: 'TLS 1.3',
+        encryption: true,
+        protocol: 'TLS'
+      }
+    ];
+  });
 
-  const [selectedNode, setSelectedNode] = useState<string | null>(null);
+  const [selectedNode, setSelectedNode] = useState<string | null>(() => 
+    secureStorage.getItem('dataflow_selected_node', null)
+  );
   const [, setShowAddNode] = useState(false);
+
+  // Auto-save nodes and flows
+  useEffect(() => {
+    secureStorage.setItem('dataflow_nodes', nodes);
+  }, [nodes]);
+
+  useEffect(() => {
+    secureStorage.setItem('dataflow_flows', flows);
+  }, [flows]);
+
+  useEffect(() => {
+    if (selectedNode) {
+      secureStorage.setItem('dataflow_selected_node', selectedNode);
+    }
+  }, [selectedNode]);
 
   const handleExportMap = () => {
     const mapData = {
