@@ -538,8 +538,8 @@ const Pricing = () => {
                     onChange={(e) => setCalculator({...calculator, complexity: e.target.value})}
                     className="w-full rounded-md border-border bg-background py-2 px-3 text-sm"
                   >
-                    <option value="low">Low - Limited CUI handling</option>
-                    <option value="medium">Medium - Standard CUI workflow</option>
+                    <option value="low">Low - Limited data processing</option>
+                    <option value="medium">Medium - Standard privacy workflow</option>
                     <option value="high">High - Complex environment with multiple systems</option>
                   </select>
                 </div>

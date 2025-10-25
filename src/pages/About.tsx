@@ -182,7 +182,7 @@ const About = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col items-center text-center">
             <Shield className="h-16 w-16 text-primary-teal dark:text-dark-primary mb-6" />
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">About CyberCorrect Privacy Platform</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">About CyberCorrect Privacy Platform™</h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
               Empowering organizations to manage privacy risk, protect personal data, and ensure global privacy compliance effectively
             </p>

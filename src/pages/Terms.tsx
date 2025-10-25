@@ -28,7 +28,7 @@ const Terms = () => {
                 Introduction
               </h2>
               <p className="text-muted-foreground mb-4">
-                These Terms of Service ("Terms") govern your access to and use of the CyberCorrect Privacy Platform platform, 
+                These Terms of Service ("Terms") govern your access to and use of the CyberCorrect Privacy Platform™, 
                 including any applications, websites, software, and services (collectively, "Services") 
                 provided by CyberCorrect Privacy Platform, Inc. ("CyberCorrect Privacy Platform," "we," "us," or "our").
               </p>

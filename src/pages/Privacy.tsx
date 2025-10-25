@@ -16,7 +16,7 @@ const Privacy = () => {
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4 text-foreground">Privacy Policy</h1>
           <p className="text-xl text-muted-foreground">
-            How CyberCorrect Privacy Platform collects, uses, and protects your personal information
+            How CyberCorrect Privacy Platform™ collects, uses, and protects your personal information
           </p>
         </div>
 
