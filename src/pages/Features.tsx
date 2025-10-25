@@ -69,9 +69,9 @@ const Features = () => {
         },
         {
           icon: Shield,
-          title: 'CUI Compliance Assessment',
-          description: 'Complete NIST SP 800-171 readiness evaluation',
-          benefits: ['110 control evaluation', 'Compliance scoring', 'Gap identification', 'Implementation guidance'],
+          title: 'Data Classification Assessment',
+          description: 'Complete data classification and privacy risk evaluation',
+          benefits: ['Privacy risk evaluation', 'Compliance scoring', 'Gap identification', 'Implementation guidance'],
           stats: '30 min average',
           link: '/assessments/privacy-assessment'
         },

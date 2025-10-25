@@ -12,7 +12,13 @@ import {
   Lock,
   Eye,
   Fingerprint,
-  Search
+  Search,
+  DatabaseBackup,
+  FileWarning,
+  Scale,
+  RefreshCw,
+  UserX,
+  Info
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

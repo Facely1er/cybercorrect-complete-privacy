@@ -67,7 +67,7 @@ const Toolkit = () => {
       tools: [
         {
           title: "GDPR Data Mapper",
-          description: "Map personal data processing for GDPR compliance",
+          description: "Map personal data processing for privacy compliance",
           icon: Database,
           path: "/toolkit/gdpr-mapper",
           timeEstimate: "25 mins",
@@ -109,7 +109,7 @@ const Toolkit = () => {
     },
     {
       title: "GDPR Checklist",
-      description: "Comprehensive GDPR compliance checklist",
+      description: "Comprehensive privacy compliance checklist",
       icon: CheckCircle,
       path: "/toolkit/resources/viewers/gdpr-checklist"
     },

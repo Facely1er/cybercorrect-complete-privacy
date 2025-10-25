@@ -8,7 +8,12 @@ import {
   CheckCircle, 
   Clock, 
   Target,
-  BarChart3
+  BarChart3,
+  Users,
+  FileText,
+  Shield,
+  Database,
+  Activity
 } from 'lucide-react';
 
 const DataProtectionOfficerJourney = () => {

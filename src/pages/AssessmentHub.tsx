@@ -182,7 +182,7 @@ const AssessmentHub = () => {
               <CardContent className="p-6 text-center">
                 <Database className="h-10 w-10 text-blue-600 mx-auto mb-3" />
                 <h3 className="font-semibold mb-2">Data Mapping</h3>
-                <p className="text-sm text-muted-foreground">Quick GDPR data processing mapping</p>
+                <p className="text-sm text-muted-foreground">Quick privacy data processing mapping</p>
               </CardContent>
             </Card>
           </Link>
