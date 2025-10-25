@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { 
@@ -15,12 +15,32 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from '../../components/ui/Toaster';
+import { secureStorage } from '../../utils/secureStorage';
 
 const PrivacyPolicyGenerator = () => {
-  const [selectedRegulation, setSelectedRegulation] = useState('gdpr');
-  const [organizationType, setOrganizationType] = useState('business');
-  const [policyType, setPolicyType] = useState('comprehensive');
+  const [selectedRegulation, setSelectedRegulation] = useState(() => 
+    secureStorage.getItem('policy_selected_regulation', 'gdpr')
+  );
+  const [organizationType, setOrganizationType] = useState(() => 
+    secureStorage.getItem('policy_organization_type', 'business')
+  );
+  const [policyType, setPolicyType] = useState(() => 
+    secureStorage.getItem('policy_type', 'comprehensive')
+  );
   const [, ] = useState(1);
+
+  // Auto-save selections
+  useEffect(() => {
+    secureStorage.setItem('policy_selected_regulation', selectedRegulation);
+  }, [selectedRegulation]);
+
+  useEffect(() => {
+    secureStorage.setItem('policy_organization_type', organizationType);
+  }, [organizationType]);
+
+  useEffect(() => {
+    secureStorage.setItem('policy_type', policyType);
+  }, [policyType]);
 
   const regulations = [
     {
