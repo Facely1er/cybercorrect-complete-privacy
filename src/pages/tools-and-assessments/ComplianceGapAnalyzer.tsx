@@ -1067,7 +1067,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
             <Building className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">Domain Details</h3>
             <p className="text-muted-foreground">
-              Detailed domain analysis interface coming soon
+              In-depth analysis of compliance gaps by control domain, providing focused remediation strategies for each area of your compliance program
             </p>
           </div>
         )}
@@ -1077,7 +1077,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
             <TrendingUp className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">Advanced Trends</h3>
             <p className="text-muted-foreground">
-              Historical trend analysis interface coming soon
+              Historical trend analysis showing compliance improvements over time, helping you track remediation progress and demonstrate continuous improvement
             </p>
           </div>
         )}
@@ -1087,7 +1087,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
             <Target className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">Remediation Recommendations</h3>
             <p className="text-muted-foreground">
-              AI-powered remediation planning interface coming soon
+              AI-powered recommendations provide actionable steps, implementation timelines, and best practices for addressing identified compliance gaps
             </p>
           </div>
         )}

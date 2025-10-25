@@ -234,7 +234,7 @@ const PrivacyGapAnalyzer = () => {
           <Target className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
           <h3 className="text-lg font-medium text-foreground mb-2">Privacy Recommendations</h3>
           <p className="text-muted-foreground mb-4">
-            Detailed remediation recommendations interface coming soon
+            Access your personalized privacy remediation recommendations based on your gap analysis results
           </p>
           <Link to="/privacy-recommendations">
             <Button>
