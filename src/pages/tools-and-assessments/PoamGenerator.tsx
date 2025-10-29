@@ -163,13 +163,6 @@ const PoamGenerator = () => {
       secureStorage.setItem('poam_selected', selectedItem);
     }
   }, [selectedItem]);
-  
-  const updatePoamStatus = (poamId: string, newStatus: PoamItem['status']) => {
-    setPoamItems(prev => prev.map(item => 
-      item.id === poamId ? { ...item, status: newStatus } : item
-    ));
-    toast.success('Status updated', `POAM ${poamId} status changed to ${newStatus}`);
-  };
 
   const handleExportPoam = () => {
     const poamData = {

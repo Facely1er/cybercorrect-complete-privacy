@@ -12,8 +12,7 @@ import {
   Users,
   FileText,
   Shield,
-  Database,
-  Activity
+  Database
 } from 'lucide-react';
 
 const DataProtectionOfficerJourney = () => {

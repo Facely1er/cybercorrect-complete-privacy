@@ -7,15 +7,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-primary-teal to-secondary-teal text-white hover:from-secondary-teal hover:to-primary-teal hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/25 transform transition-all duration-300 dark:from-dark-primary dark:to-dark-primary/80",
-        destructive: "bg-gradient-to-r from-alert-coral to-red-500 text-white hover:from-red-500 hover:to-alert-coral hover:-translate-y-1 hover:shadow-2xl hover:shadow-red-500/25 transform transition-all duration-300",
-        outline: "border-2 border-primary-teal/30 bg-transparent hover:bg-primary-teal hover:text-white hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/25 hover:border-primary-teal transform transition-all duration-300",
-        secondary: "bg-gradient-to-r from-secondary-teal to-accent-cyan text-white hover:from-accent-cyan hover:to-secondary-teal hover:-translate-y-1 hover:shadow-2xl hover:shadow-secondary/25 transform transition-all duration-300",
-        ghost: "hover:bg-gradient-to-r hover:from-primary-teal/10 hover:to-secondary-teal/10 hover:text-primary-teal hover:-translate-y-1 hover:shadow-lg transform transition-all duration-300",
-        link: "underline-offset-4 hover:underline text-primary-teal dark:text-dark-primary",
-        success: "bg-gradient-to-r from-success-green to-green-500 text-white hover:from-green-500 hover:to-success-green hover:-translate-y-1 hover:shadow-2xl hover:shadow-green-500/25 transform transition-all duration-300",
-        warning: "bg-gradient-to-r from-premium-gold to-yellow-500 text-gray-900 hover:from-yellow-500 hover:to-premium-gold hover:-translate-y-1 hover:shadow-2xl hover:shadow-yellow-500/25 transform transition-all duration-300",
-        premium: "bg-gradient-to-r from-premium-gold via-yellow-400 to-premium-gold text-gray-900 hover:shadow-2xl hover:shadow-yellow-500/25 hover:-translate-y-1 transform transition-all duration-300 hover:scale-105"
+        default: "bg-gradient-to-r from-primary-teal to-secondary-teal text-white hover:shadow-lg hover:brightness-110 dark:from-dark-primary dark:to-dark-primary/80",
+        destructive: "bg-gradient-to-r from-alert-coral to-red-500 text-white hover:shadow-lg hover:brightness-110",
+        outline: "border-2 border-primary/30 bg-transparent text-foreground hover:bg-primary hover:text-white hover:border-primary dark:border-dark-primary/30 dark:hover:bg-dark-primary",
+        secondary: "bg-gradient-to-r from-secondary-teal to-accent-cyan text-white hover:shadow-lg hover:brightness-110",
+        ghost: "hover:bg-primary/10 hover:text-primary dark:hover:bg-dark-primary/10 dark:hover:text-dark-primary",
+        link: "underline-offset-4 hover:underline text-primary dark:text-dark-primary",
+        success: "bg-gradient-to-r from-success-green to-green-500 text-white hover:shadow-lg hover:brightness-110",
+        warning: "bg-gradient-to-r from-premium-gold to-yellow-500 text-gray-900 hover:shadow-lg hover:brightness-110",
+        premium: "bg-gradient-to-r from-premium-gold via-yellow-400 to-premium-gold text-gray-900 hover:shadow-lg hover:brightness-110"
       },
       size: {
         default: "h-10 py-2.5 px-5 text-base",

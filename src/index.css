@@ -23,12 +23,12 @@
     --accent-foreground: 222.2 47.4% 11.2%;
     
     --muted: 210 20% 92%; /* #E0E5E9 - Soft Gray - Increased contrast */
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted-foreground: 215.4 16.3% 40%; /* Improved contrast */
     
-    --destructive: 0 81% 71%; /* #FF6B6B - Coral */
+    --destructive: 355 70% 56%; /* #E63946 - Darker coral for better contrast */
     --destructive-foreground: 210 40% 98%;
 
-    --success: 122 53% 40%; /* #4CAF50 - Forest Green */
+    --success: 158 64% 29%; /* #2D6A4F - Darker green for better contrast */
     --success-foreground: 210 40% 98%;
 
     --warning: 0 81% 71%; /* Using alert-coral for warning */
@@ -102,15 +102,27 @@
   }
 
   h1 {
-    @apply text-3xl;
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
   }
 
   h2 {
-    @apply text-2xl;
+    @apply text-2xl sm:text-3xl md:text-4xl;
   }
 
   h3 {
-    @apply text-xl;
+    @apply text-xl sm:text-2xl;
+  }
+  
+  h4 {
+    @apply text-lg sm:text-xl;
+  }
+  
+  h5 {
+    @apply text-base sm:text-lg;
+  }
+  
+  h6 {
+    @apply text-sm sm:text-base;
   }
 
   p {
@@ -121,12 +133,12 @@
 @layer components {
   /* Enhanced button styles for consistency */
   .enhanced-button {
-    @apply transform hover:scale-105 hover:shadow-xl transition-all duration-500 hover:brightness-110;
+    @apply transition-all duration-300 hover:shadow-lg;
   }
   
   /* Consistent card hover effects */
   .card-hover-lift {
-    @apply hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 hover:brightness-105;
+    @apply hover:shadow-2xl hover:-translate-y-2 transition-all duration-300;
   }
   
   /* Gradient text utility */
@@ -163,12 +175,17 @@
   
   /* Section spacing consistency */
   .section-padding {
-    @apply py-24;
+    @apply py-16 md:py-24 lg:py-32;
   }
   
   /* Title spacing consistency */
   .section-title {
-    @apply text-3xl font-bold text-center mb-12 text-foreground;
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 text-foreground dark:text-dark-text;
+  }
+  
+  /* Subtitle consistency */
+  .section-subtitle {
+    @apply text-lg sm:text-xl md:text-2xl text-muted-foreground text-center max-w-3xl mx-auto;
   }
 
   .dropdown-content {
@@ -208,7 +225,17 @@
   
   /* Card hover effects */
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-2 dark:hover:shadow-none dark:hover:border-primary/50;
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1 dark:hover:shadow-none dark:hover:border-primary/50;
+  }
+  
+  /* Icon container consistency */
+  .icon-container {
+    @apply w-16 h-16 rounded-full flex items-center justify-center bg-primary/10 dark:bg-dark-primary/20;
+  }
+  
+  /* Icon styling */
+  .icon-primary {
+    @apply w-8 h-8 text-primary dark:text-dark-primary;
   }
   
   /* Button transitions */
