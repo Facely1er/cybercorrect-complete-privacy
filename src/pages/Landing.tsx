@@ -36,19 +36,19 @@ const Landing = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-5xl mx-auto">
             {/* Platform Badge */}
-            <div className="inline-block mb-8 animate-fade-in">
-              <span className="bg-blue-100 text-blue-700 dark:bg-dark-primary/10 dark:text-dark-primary px-6 py-3 rounded-full inline-flex items-center text-sm font-semibold tracking-wide uppercase">
+            <div className="inline-block mb-8">
+              <span className="hero-badge bg-primary/10 text-primary border border-primary/20">
                 <Eye className="w-4 h-4 mr-2" />
                 Privacy Compliance Platform
               </span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Privacy by <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-dark-primary dark:to-dark-primary bg-clip-text text-transparent">Design</span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
+              Privacy by <span className="gradient-text">Design</span>
             </h1>
             
-            <div className="text-xl md:text-2xl text-muted-foreground dark:text-gray-400 mb-16 max-w-3xl mx-auto">
+            <div className="text-xl md:text-2xl text-muted-foreground mb-16 max-w-3xl mx-auto">
               <TextCarousel 
                 items={[
                   "Global privacy compliance made simple: GDPR, CCPA, NIST Privacy Framework, and more. Collaborative project management for teams or streamlined workflows for solo users.",
@@ -61,11 +61,11 @@ const Landing = () => {
             </div>
 
             {/* Quick CTA */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/assessments/privacy-assessment" className="no-underline">
                 <Button 
                   size="lg"
-                  className="enhanced-button bg-blue-600 hover:bg-blue-700 px-8 py-4 text-lg font-semibold text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                  className="enhanced-button"
                 >
                   <Eye className="mr-2 h-5 w-5" />
                   Start Privacy Assessment
@@ -74,7 +74,8 @@ const Landing = () => {
               <Link to="/project" className="no-underline">
                 <Button 
                   size="lg"
-                  className="bg-white text-gray-900 dark:bg-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 border-2 border-white dark:border-gray-800 px-6 py-3 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                  variant="outline"
+                  className="enhanced-button"
                 >
                   <Users className="mr-2 h-5 w-5" />
                   Start Privacy Project
@@ -105,10 +106,10 @@ const Landing = () => {
       </section>
 
       {/* Privacy Focus Areas */}
-      <section className="py-24 bg-white dark:bg-dark-surface">
+      <section className="section-padding bg-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-dark-text">
+          <div className="text-center mb-16">
+            <h2 className="section-title">
               Privacy Compliance Areas
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -149,15 +150,14 @@ const Landing = () => {
                 stats: { value: '5 Functions', label: 'Framework coverage' }
               }
             ].map((path) => (
-              <Card key={path.id} className="relative overflow-hidden hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 group border-0 shadow-lg hover:shadow-blue-500/25">
-                <div className={`absolute inset-0 bg-gradient-to-br ${path.color} opacity-5 group-hover:opacity-10 transition-opacity`}></div>
-                <CardContent className="relative p-10">
+              <Card key={path.id} className="card-hover-lift group">
+                <CardContent className="p-8">
                   <div className="flex items-center mb-6">
-                    <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${path.color} flex items-center justify-center mr-4`}>
-                      <path.icon className="w-6 h-6 text-white" />
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
+                      <path.icon className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-foreground dark:text-dark-text">{path.title}</h3>
+                      <h3 className="text-2xl font-bold text-foreground">{path.title}</h3>
                       <p className="text-muted-foreground">{path.subtitle}</p>
                     </div>
                   </div>
@@ -165,13 +165,13 @@ const Landing = () => {
                   <p className="text-muted-foreground mb-6">{path.description}</p>
                   
                   <div className="flex items-center justify-between mb-6">
-                    <div className="bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-gray-800/80 dark:to-gray-900/80 p-4 rounded-xl shadow-inner">
-                      <div className="text-lg font-bold text-foreground dark:text-dark-text">Key Outcome</div>
+                    <div className="bg-muted/50 p-4 rounded-lg">
+                      <div className="text-lg font-bold text-foreground">Key Outcome</div>
                       <div className="text-sm text-muted-foreground">Personalized Roadmap</div>
                     </div>
                     <div className="text-right">
                       <div className="text-sm text-muted-foreground">Key Stat:</div>
-                      <div className="text-sm font-medium text-foreground dark:text-dark-text">
+                      <div className="text-sm font-medium text-foreground">
                         {path.stats.value} {path.stats.label}
                       </div>
                     </div>
@@ -179,10 +179,10 @@ const Landing = () => {
                   
                   <Link to={path.assessmentPath} className="no-underline">
                     <Button 
-                      className={`w-full bg-gradient-to-r ${path.color} text-white hover:shadow-xl hover:scale-110 transition-all duration-500 py-4 text-base font-semibold relative overflow-hidden group-hover:animate-pulse`}
+                      size="lg"
+                      className="w-full"
                     >
-                      <span className="relative z-10">Start {path.title} Assessment</span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      Start {path.title} Assessment
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
@@ -228,12 +228,12 @@ const Landing = () => {
                 description: 'Ongoing privacy program monitoring with automated alerts and compliance dashboards'
               }
             ].map((benefit, index) => (
-              <Card key={index} className="text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md">
+              <Card key={index} className="text-center card-hover-lift">
                 <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <benefit.icon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <benefit.icon className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold mb-4 text-foreground dark:text-dark-text">{benefit.title}</h3>
+                  <h3 className="text-xl font-bold mb-4 text-foreground">{benefit.title}</h3>
                   <p className="text-muted-foreground">{benefit.description}</p>
                 </CardContent>
               </Card>
@@ -243,11 +243,11 @@ const Landing = () => {
       </section>
 
       {/* Privacy Roles */}
-      <section className="py-24 bg-white dark:bg-dark-surface">
+      <section className="section-padding bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-20">
-              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+            <div className="text-center mb-16">
+              <h2 className="section-title">
                 Privacy Team Roles
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -256,51 +256,51 @@ const Landing = () => {
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <Card className="text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-lg">
-                <CardContent className="p-10">
-                  <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Eye className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <Card className="text-center card-hover-lift">
+                <CardContent className="p-8">
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Eye className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold mb-4 text-foreground dark:text-dark-text">Data Protection Officers</h3>
+                  <h3 className="text-xl font-bold mb-4 text-foreground">Data Protection Officers</h3>
                   <p className="text-muted-foreground mb-4">
                     Lead privacy programs, conduct DPIAs, manage compliance across global regulations, and oversee privacy governance.
                   </p>
                   <Link to="/roles/data-protection-officer" className="no-underline">
-                    <Button variant="outline" className="w-full py-3 hover:bg-primary hover:text-white transition-all duration-300">
+                    <Button variant="outline" className="w-full">
                       DPO Workflow
                     </Button>
                   </Link>
                 </CardContent>
               </Card>
 
-              <Card className="text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-lg">
-                <CardContent className="p-10">
-                  <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Scale className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <Card className="text-center card-hover-lift">
+                <CardContent className="p-8">
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Scale className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold mb-4 text-foreground dark:text-dark-text">Legal Counsel</h3>
+                  <h3 className="text-xl font-bold mb-4 text-foreground">Legal Counsel</h3>
                   <p className="text-muted-foreground mb-4">
                     Review privacy policies, assess legal risks, and ensure regulatory compliance across jurisdictions.
                   </p>
                   <Link to="/roles/legal-counsel" className="no-underline">
-                    <Button variant="outline" className="w-full py-3 hover:bg-primary hover:text-white transition-all duration-300">
+                    <Button variant="outline" className="w-full">
                       Legal Workflow
                     </Button>
                   </Link>
                 </CardContent>
               </Card>
 
-              <Card className="text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-lg">
-                <CardContent className="p-10">
-                  <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Database className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <Card className="text-center card-hover-lift">
+                <CardContent className="p-8">
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Database className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold mb-4 text-foreground dark:text-dark-text">Data Stewards</h3>
+                  <h3 className="text-xl font-bold mb-4 text-foreground">Data Stewards</h3>
                   <p className="text-muted-foreground mb-4">
                     Manage data inventories, processing records, and data quality while ensuring privacy controls are maintained.
                   </p>
                   <Link to="/roles/data-steward" className="no-underline">
-                    <Button variant="outline" className="w-full py-3 hover:bg-primary hover:text-white transition-all duration-300">
+                    <Button variant="outline" className="w-full">
                       Data Steward Workflow
                     </Button>
                   </Link>
@@ -312,7 +312,7 @@ const Landing = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-dark-primary dark:to-dark-primary">
+      <section className="py-16 bg-gradient-to-r from-primary to-secondary">
         <div className="container mx-auto px-4">
           <div className="text-center text-white max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -325,7 +325,8 @@ const Landing = () => {
               <Link to="/assessments/privacy-assessment" className="no-underline">
                 <Button 
                   size="lg" 
-                  className="bg-white text-gray-900 dark:bg-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 border-2 border-white dark:border-gray-800 px-6 py-3 font-semibold shadow-lg"
+                  variant="secondary"
+                  className="enhanced-button"
                 >
                   Start Privacy Assessment
                   <Eye className="ml-2 h-5 w-5" />
@@ -334,7 +335,8 @@ const Landing = () => {
               <Link to="/project" className="no-underline">
                 <Button 
                   size="lg" 
-                  className="bg-white text-gray-900 dark:bg-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 border-2 border-white dark:border-gray-800 px-6 py-3 font-semibold shadow-lg"
+                  variant="secondary"
+                  className="enhanced-button"
                 >
                   Privacy Project Manager
                   <Target className="ml-2 h-5 w-5" />
@@ -342,7 +344,8 @@ const Landing = () => {
               </Link>
               <Button 
                 size="lg" 
-                className="bg-gray-900 text-white hover:bg-gray-800 border-2 border-gray-900 px-6 py-3 font-semibold shadow-lg"
+                variant="outline"
+                className="enhanced-button border-white text-white hover:bg-white hover:text-primary"
                 onClick={handleGuideMe}
               >
                 Get Guided Help

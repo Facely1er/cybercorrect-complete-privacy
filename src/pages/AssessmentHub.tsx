@@ -25,20 +25,18 @@ const AssessmentHub = () => {
 
   // Hero Section - moved outside container for full-width styling
   const heroSection = (
-    <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
-      <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-50"></div>
-      
+    <section className="relative section-padding overflow-hidden bg-gradient-to-br from-muted/30 via-background to-muted/30">
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-5xl mx-auto">
-          <div className="inline-block mb-8 animate-fade-in">
-            <span className="bg-blue-100 text-blue-700 dark:bg-dark-primary/10 dark:text-dark-primary px-6 py-3 rounded-full inline-flex items-center text-sm font-semibold tracking-wide uppercase">
+          <div className="inline-block mb-8">
+            <span className="hero-badge bg-primary/10 text-primary border border-primary/20">
               <Target className="w-4 h-4 mr-2" />
               Intelligent Assessments
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-            Assessment <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Hub</span>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
+            Assessment <span className="gradient-text">Hub</span>
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
             Start your compliance journey with intelligent assessments that provide personalized roadmaps and actionable insights
@@ -59,14 +57,13 @@ const AssessmentHub = () => {
 
       {/* Privacy Assessment */}
       <div className="mb-16">
-        <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Privacy Assessment</h2>
+        <h2 className="section-title">Privacy Assessment</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          <Card className="relative overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-0 shadow-lg">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600 opacity-5 group-hover:opacity-10 transition-opacity"></div>
-            <CardContent className="relative p-10">
+          <Card className="card-hover-lift">
+            <CardContent className="p-8">
               <div className="flex items-center mb-6">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center mr-4">
-                  <Eye className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
+                  <Eye className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-foreground">Comprehensive Privacy Assessment</h3>
@@ -111,7 +108,7 @@ const AssessmentHub = () => {
               </div>
               
               <Link to="/assessments/privacy-assessment">
-                <Button size="lg" className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:shadow-lg hover:scale-105 transition-all duration-300 py-3">
+                <Button size="lg" className="w-full">
                   Start Privacy Assessment
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -120,12 +117,11 @@ const AssessmentHub = () => {
           </Card>
 
           {/* Project Management Option */}
-          <Card className="relative overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-0 shadow-lg">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-pink-600 opacity-5 group-hover:opacity-10 transition-opacity"></div>
-            <CardContent className="relative p-10">
+          <Card className="card-hover-lift">
+            <CardContent className="p-8">
               <div className="flex items-center mb-6">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center mr-4">
-                  <Users className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center mr-4">
+                  <Users className="w-6 h-6 text-secondary" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-foreground">Privacy Project Management</h3>
@@ -157,7 +153,7 @@ const AssessmentHub = () => {
               </div>
               
               <Link to="/project">
-                <Button size="lg" className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:shadow-lg hover:scale-105 transition-all duration-300 py-3">
+                <Button size="lg" variant="secondary" className="w-full">
                   Start Privacy Project
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -170,7 +166,7 @@ const AssessmentHub = () => {
       {/* Quick Tools */}
       <div className="mb-12">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-4 text-foreground">Quick Privacy Tools</h2>
+          <h2 className="section-title">Quick Privacy Tools</h2>
           <p className="text-muted-foreground">
             Fast tools for specific privacy compliance tasks
           </p>
@@ -178,9 +174,9 @@ const AssessmentHub = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           <Link to="/toolkit/gdpr-mapper">
-            <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md cursor-pointer">
+            <Card className="card-hover-lift cursor-pointer">
               <CardContent className="p-6 text-center">
-                <Database className="h-10 w-10 text-blue-600 mx-auto mb-3" />
+                <Database className="h-10 w-10 text-primary mx-auto mb-3" />
                 <h3 className="font-semibold mb-2">Data Mapping</h3>
                 <p className="text-sm text-muted-foreground">Quick privacy data processing mapping</p>
               </CardContent>
@@ -188,9 +184,9 @@ const AssessmentHub = () => {
           </Link>
           
           <Link to="/toolkit/privacy-policy-generator">
-            <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md cursor-pointer">
+            <Card className="card-hover-lift cursor-pointer">
               <CardContent className="p-6 text-center">
-                <FileText className="h-10 w-10 text-green-600 mx-auto mb-3" />
+                <FileText className="h-10 w-10 text-success mx-auto mb-3" />
                 <h3 className="font-semibold mb-2">Policy Generator</h3>
                 <p className="text-sm text-muted-foreground">Generate compliant privacy policies</p>
               </CardContent>
@@ -198,9 +194,9 @@ const AssessmentHub = () => {
           </Link>
           
           <Link to="/toolkit/resources/viewers/dpia-template">
-            <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md cursor-pointer">
+            <Card className="card-hover-lift cursor-pointer">
               <CardContent className="p-6 text-center">
-                <Shield className="h-10 w-10 text-purple-600 mx-auto mb-3" />
+                <Shield className="h-10 w-10 text-warning mx-auto mb-3" />
                 <h3 className="font-semibold mb-2">DPIA Template</h3>
                 <p className="text-sm text-muted-foreground">Data protection impact assessments</p>
               </CardContent>
@@ -211,33 +207,33 @@ const AssessmentHub = () => {
 
       {/* Quick Stats */}
       <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-gradient-to-br from-blue-50 to-white dark:from-blue-900/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
-          <CardContent className="p-8 text-center">
-            <Bell className="h-8 w-8 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
+        <Card className="bg-primary/5 border-primary/20 hover:shadow-md transition-shadow">
+          <CardContent className="p-6 text-center">
+            <Bell className="h-8 w-8 text-primary mx-auto mb-2" />
             <div className="text-2xl font-bold text-foreground">95%</div>
             <p className="text-sm text-muted-foreground">Faster assessments</p>
           </CardContent>
         </Card>
         
-        <Card className="bg-gradient-to-br from-green-50 to-white dark:from-green-900/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
-          <CardContent className="p-8 text-center">
-            <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400 mx-auto mb-2" />
+        <Card className="bg-success/5 border-success/20 hover:shadow-md transition-shadow">
+          <CardContent className="p-6 text-center">
+            <CheckCircle className="h-8 w-8 text-success mx-auto mb-2" />
             <div className="text-2xl font-bold text-foreground">12+</div>
             <p className="text-sm text-muted-foreground">Frameworks covered</p>
           </CardContent>
         </Card>
         
-        <Card className="bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
-          <CardContent className="p-8 text-center">
-            <FileText className="h-8 w-8 text-purple-600 dark:text-purple-400 mx-auto mb-2" />
+        <Card className="bg-secondary/5 border-secondary/20 hover:shadow-md transition-shadow">
+          <CardContent className="p-6 text-center">
+            <FileText className="h-8 w-8 text-secondary mx-auto mb-2" />
             <div className="text-2xl font-bold text-foreground">Auto</div>
             <p className="text-sm text-muted-foreground">Report generation</p>
           </CardContent>
         </Card>
         
-        <Card className="bg-gradient-to-br from-orange-50 to-white dark:from-orange-900/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
-          <CardContent className="p-8 text-center">
-            <Shield className="h-8 w-8 text-orange-600 dark:text-orange-400 mx-auto mb-2" />
+        <Card className="bg-warning/5 border-warning/20 hover:shadow-md transition-shadow">
+          <CardContent className="p-6 text-center">
+            <Shield className="h-8 w-8 text-warning mx-auto mb-2" />
             <div className="text-2xl font-bold text-foreground">$0</div>
             <p className="text-sm text-muted-foreground">Penalties avoided</p>
           </CardContent>
@@ -246,7 +242,7 @@ const AssessmentHub = () => {
 
       {/* Help Section */}
       {/* Contextual help and navigation */}
-      <div className="mt-10 bg-muted/30 dark:bg-muted/10 rounded-xl p-8">
+      <div className="mt-10 bg-muted/30 rounded-xl p-8">
         <div className="text-center mb-6">
           <AlertTriangle className="h-12 w-12 text-primary mx-auto mb-4" />
           <h3 className="text-2xl font-bold mb-2 text-foreground">Choose Your Starting Point</h3>
@@ -256,9 +252,9 @@ const AssessmentHub = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="hover:shadow-lg transition-all duration-300 border-0">
+          <Card className="card-hover-lift">
             <CardContent className="p-6 text-center">
-              <Eye className="h-10 w-10 text-blue-600 mx-auto mb-4" />
+              <Eye className="h-10 w-10 text-primary mx-auto mb-4" />
               <h4 className="font-semibold mb-2">Assessment First</h4>
               <p className="text-sm text-muted-foreground mb-4">Start with a comprehensive privacy assessment to understand your current posture</p>
               <InternalLink href="/assessments/privacy-assessment" variant="button" showIcon>
@@ -267,9 +263,9 @@ const AssessmentHub = () => {
             </CardContent>
           </Card>
           
-          <Card className="hover:shadow-lg transition-all duration-300 border-0">
+          <Card className="card-hover-lift">
             <CardContent className="p-6 text-center">
-              <Users className="h-10 w-10 text-purple-600 mx-auto mb-4" />
+              <Users className="h-10 w-10 text-secondary mx-auto mb-4" />
               <h4 className="font-semibold mb-2">Team Project</h4>
               <p className="text-sm text-muted-foreground mb-4">Create a collaborative privacy implementation project with role-based workflows</p>
               <InternalLink href="/project" variant="button" showIcon>
@@ -278,9 +274,9 @@ const AssessmentHub = () => {
             </CardContent>
           </Card>
           
-          <Card className="hover:shadow-lg transition-all duration-300 border-0">
+          <Card className="card-hover-lift">
             <CardContent className="p-6 text-center">
-              <BookOpen className="h-10 w-10 text-green-600 mx-auto mb-4" />
+              <BookOpen className="h-10 w-10 text-success mx-auto mb-4" />
               <h4 className="font-semibold mb-2">Learn First</h4>
               <p className="text-sm text-muted-foreground mb-4">Explore our comprehensive documentation and implementation guides</p>
               <InternalLink href="/documentation" variant="button" showIcon>

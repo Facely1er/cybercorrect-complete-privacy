@@ -151,24 +151,24 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   };
   return (
     <div className={`min-h-screen flex flex-col ${darkMode ? 'dark' : ''} bg-surface dark:bg-dark-bg`}>
-      <nav className={`fixed top-0 left-0 right-0 z-20 bg-surface/90 dark:bg-dark-surface/90 backdrop-blur-md transition-all duration-300 ${isScrolled ? 'py-1' : 'py-1'}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-20 bg-background/95 backdrop-blur-md transition-all duration-300 ${isScrolled ? 'shadow-sm' : ''}`}>
         <div className="container mx-auto px-4">
-          <div className="flex justify-between h-14 gap-x-8">
+          <div className="flex justify-between items-center h-16 gap-x-4">
             {/* Column 1: Logo (left) */}
-            <div className="flex items-center inline">
+            <div className="flex items-center">
               <Link to="/" className="flex items-center">
                 <Logo size="medium" />
               </Link>
             </div>
             
             {/* Column 2: Navigation (center) */}
-            <div className="hidden lg:flex items-center flex-1 justify-center">
+            <div className="hidden lg:flex items-center flex-1 justify-center max-w-2xl">
                 {mainNavItems.map(item => {
                   if (item.dropdown) {
                     return (
                       <div key={item.name} className="relative">
                         <button 
-                          className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
+                          className={`nav-link flex items-center text-foreground hover:text-primary transition-colors duration-200 px-3 py-2 text-sm font-medium rounded-md ${location.pathname === item.path ? 'text-primary bg-primary/10' : 'hover:bg-muted'}`}
                           onClick={() => toggleDropdown(item.name)}
                         >
                           <item.icon className="mr-2 h-4 w-4" />
@@ -177,16 +177,16 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                         </button>
                         
                         {activeDropdown === item.name && (
-                          <div className="absolute left-0 mt-1 w-56 bg-white dark:bg-dark-surface rounded-md shadow-lg border border-support-gray dark:border-dark-support z-50">
+                          <div className="absolute left-0 mt-1 w-56 bg-popover rounded-md shadow-lg border z-50">
                             <div className="py-1">
                               {item.dropdownItems?.map(dropdownItem => (
                                 <Link
                                   key={dropdownItem.name}
                                   to={dropdownItem.path}
-                                  className={`flex items-center px-4 py-2 text-sm ${
+                                  className={`flex items-center px-4 py-2 text-sm rounded-sm ${
                                     location.pathname === dropdownItem.path 
-                                      ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' 
-                                      : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'
+                                      ? 'text-primary bg-primary/10' 
+                                      : 'text-foreground hover:bg-muted'
                                   }`}
                                   onClick={() => setActiveDropdown(null)}
                                 >
@@ -203,7 +203,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                       <Link 
                         key={item.name}
                         to={item.path}
-                        className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
+                        className={`nav-link flex items-center text-foreground hover:text-primary transition-colors duration-200 px-3 py-2 text-sm font-medium rounded-md ${location.pathname === item.path ? 'text-primary bg-primary/10' : 'hover:bg-muted'}`}
                       >
                         <item.icon className="mr-2 h-4 w-4" />
                         {item.name}
@@ -218,7 +218,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                 {/* Sticky CTA that appears on scroll */}
                 {showStickyCta && (
                   <Button 
-                    className="hidden md:flex enhanced-button rounded-full shadow-glow animate-in slide-in-from-right" 
+                    className="hidden md:flex enhanced-button" 
                     size="sm"
                     onClick={handleStartFreeTrial}
                   >
@@ -229,7 +229,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                 
                 <button
                   onClick={toggleDarkMode}
-                  className="p-2 rounded-md text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200"
+                  className="p-2 rounded-md text-foreground hover:text-primary transition-colors duration-200"
                   aria-label="Toggle dark mode"
                 >
                   {darkMode ? (
@@ -249,16 +249,17 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                 </Button>
                 <Link to={user ? "/profile" : "/login"}>
                   <Button 
-                    variant="ghost" 
+                    variant="default" 
                     size="icon" 
-                    className="flex items-center bg-primary-teal hover:bg-secondary-teal text-white dark:bg-dark-primary dark:hover:bg-dark-primary/90 rounded-full shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+                    className="rounded-full">
                     <User className="h-5 w-5" />
                   </Button>
                 </Link>
-                {/* Column 3: Action buttons (right) */}
+                {/* Mobile menu button */}
                 <button
                   type="button"
-                  className="lg:hidden ml-2 inline-flex items-center justify-center p-2 rounded-md text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary"
+                  className="lg:hidden ml-2 inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary"
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 >
                   <span className="sr-only">Open main menu</span>
                   {mobileMenuOpen ? (
@@ -273,15 +274,14 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
         
         {/* Mobile menu */}
         <div
-          className={`lg:hidden absolute top-16 left-0 right-0 bg-surface dark:bg-dark-surface border-b border-support-gray dark:border-dark-support transition-all duration-300 ease-in-out overflow-hidden ${mobileMenuOpen ? 'max-h-[80vh]' : 'max-h-0'}`}
+          className={`lg:hidden absolute top-16 left-0 right-0 bg-background border-b transition-all duration-300 ease-in-out overflow-hidden ${mobileMenuOpen ? 'max-h-[80vh]' : 'max-h-0'}`}
         >
           <div className="px-4 py-2 space-y-1 overflow-y-auto max-h-[calc(80vh-4rem)]">
             {mainNavItems.map(item => {
               if (item.dropdown) {
                 return (
                   <div key={item.name}>
-                      title={`${item.name} - ${getPageDescription(item.path)}`}
-                    <div className="px-3 py-2 text-sm font-medium text-foreground dark:text-dark-text">
+                    <div className="px-3 py-2 text-sm font-medium text-foreground">
                       <item.icon className="mr-3 h-5 w-5 inline" />
                       {item.name}
                     </div>
@@ -289,7 +289,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                       <Link
                         key={dropdownItem.name}
                         to={dropdownItem.path}
-                        className={`flex items-center px-6 py-2 text-base font-medium rounded-md ${location.pathname === dropdownItem.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
+                        className={`flex items-center px-6 py-2 text-base font-medium rounded-md ${location.pathname === dropdownItem.path ? 'text-primary bg-primary/10' : 'text-foreground hover:bg-muted'}`}
                       >
                         {dropdownItem.name}
                       </Link>
@@ -301,7 +301,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                   <Link
                     key={item.name}
                     to={item.path}
-                    className={`flex items-center px-3 py-2 text-base font-medium rounded-md ${location.pathname === item.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
+                    className={`flex items-center px-3 py-2 text-base font-medium rounded-md ${location.pathname === item.path ? 'text-primary bg-primary/10' : 'text-foreground hover:bg-muted'}`}
                   >
                     <item.icon className="mr-3 h-5 w-5" />
                     {item.name}
@@ -313,7 +313,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
         </div>
       </nav>
       
-      <main className="flex-1 mx-auto w-full max-w-screen-2xl pt-14">
+      <main className="flex-1 mx-auto w-full max-w-screen-2xl pt-16">
         <Outlet />
       </main>
       
@@ -322,7 +322,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       {/* Chat widget for conversion */}
       <div className="fixed bottom-5 right-5 z-40">
         <Button 
-          className="rounded-full shadow-enhanced hover:shadow-glow transition-all hover:-translate-y-1 bg-gradient-primary"
+          className="enhanced-button rounded-full"
           size="lg"
           onClick={() => openChatbot()}
         >

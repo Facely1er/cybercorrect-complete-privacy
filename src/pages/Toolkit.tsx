@@ -144,7 +144,7 @@ const Toolkit = () => {
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4 text-foreground">Compliance Toolkit</h1>
+        <h1 className="section-title text-left">Compliance Toolkit</h1>
         <p className="text-xl text-muted-foreground max-w-3xl">
           Comprehensive tools for assessment, documentation, and compliance management across multiple frameworks
         </p>
@@ -152,50 +152,50 @@ const Toolkit = () => {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-        <Card className="border-l-4 border-l-blue-600">
+        <Card className="border-l-4 border-l-primary bg-primary/5">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Assessment Tools</p>
-                <p className="text-2xl font-bold text-blue-600">1</p>
+                <p className="text-2xl font-bold text-primary">1</p>
               </div>
-              <BarChart3 className="h-8 w-8 text-blue-600" />
+              <BarChart3 className="h-8 w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-600">
+        <Card className="border-l-4 border-l-success bg-success/5">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Documentation Tools</p>
-                <p className="text-2xl font-bold text-green-600">3</p>
+                <p className="text-2xl font-bold text-success">3</p>
               </div>
-              <FileText className="h-8 w-8 text-green-600" />
+              <FileText className="h-8 w-8 text-success" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-purple-600">
+        <Card className="border-l-4 border-l-secondary bg-secondary/5">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Mapping Tools</p>
-                <p className="text-2xl font-bold text-purple-600">2</p>
+                <p className="text-2xl font-bold text-secondary">2</p>
               </div>
-              <Network className="h-8 w-8 text-purple-600" />
+              <Network className="h-8 w-8 text-secondary" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-600">
+        <Card className="border-l-4 border-l-warning bg-warning/5">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Templates</p>
-                <p className="text-2xl font-bold text-orange-600">6</p>
+                <p className="text-2xl font-bold text-warning">6</p>
               </div>
-              <BookOpen className="h-8 w-8 text-orange-600" />
+              <BookOpen className="h-8 w-8 text-warning" />
             </div>
           </CardContent>
         </Card>
@@ -212,11 +212,11 @@ const Toolkit = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {category.tools.map((tool, toolIndex) => (
-                <Card key={toolIndex} className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-lg">
+                <Card key={toolIndex} className="card-hover-lift">
                   <CardContent className="p-8">
                     <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center mr-4">
-                        <tool.icon className="h-6 w-6 text-white" />
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
+                        <tool.icon className="h-6 w-6 text-primary" />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-foreground mb-1">{tool.title}</h3>
@@ -246,7 +246,7 @@ const Toolkit = () => {
                     </div>
                     
                     <Link to={tool.path}>
-                      <Button size="lg" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg hover:scale-105 transition-all duration-300 py-3">
+                      <Button size="lg" className="w-full">
                         Launch {tool.title}
                         <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
@@ -268,7 +268,7 @@ const Toolkit = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {resourceTools.map((resource, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow">
+            <Card key={index} className="card-hover-lift">
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
@@ -280,7 +280,7 @@ const Toolkit = () => {
                 <p className="text-muted-foreground mb-4 text-sm">{resource.description}</p>
                 
                 <Link to={resource.path}>
-                  <Button variant="outline" className="w-full hover:-translate-y-1 hover:bg-primary hover:text-white transition-all duration-300">
+                  <Button variant="outline" className="w-full">
                     View Template
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
