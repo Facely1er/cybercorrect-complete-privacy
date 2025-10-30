@@ -36,11 +36,11 @@ const DataClassificationResults = () => {
 
   const handleExport = () => {
     generateResultsPdf(
-      'CUI Compliance Assessment Results',
+      'Privacy Assessment Results',
       mockResults.overallScore,
       mockResults.sectionScores,
       mockResults.completedDate,
-      'cui-assessment-results.pdf'
+      'privacy-assessment-results.pdf'
     );
   };
 
@@ -54,7 +54,7 @@ const DataClassificationResults = () => {
   };
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 text-foreground">CUI Compliance Assessment Results</h1>
+      <h1 className="text-3xl font-bold mb-6 text-foreground">Privacy Assessment Results</h1>
       
       <AssessmentResults 
         data={mockResults}
@@ -104,7 +104,7 @@ const DataClassificationResults = () => {
           >
             View Gap Analysis
           </button>
-          <Link to="/cui-recommendations">
+          <Link to="/privacy-recommendations">
             <button
               className="px-4 py-2 bg-secondary text-white rounded hover:bg-secondary/90 transition-colors"
             >

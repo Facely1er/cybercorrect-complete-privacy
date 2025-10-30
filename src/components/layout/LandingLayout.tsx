@@ -40,7 +40,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   const navigate = useNavigate();
   
   const handleStartFreeTrial = () => {
-    navigate('/assessments/compliance-quick-check');
+    navigate('/assessments/privacy-assessment');
   };
 
   // Close mobile menu when route changes

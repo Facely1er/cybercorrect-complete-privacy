@@ -30,12 +30,12 @@ const Documentation = () => {
     },
     {
       icon: Database,
-      title: "CUI Protection",
-      description: "NIST SP 800-171 compliance guidance",
+      title: "Platform & Frameworks",
+      description: "Core platform docs and framework overviews",
       articles: [
-        { title: "NIST SP 800-171 Implementation Guide", path: "/documentation/nist800171-guide" },
-        { title: "CUI Handling Procedures", path: "/documentation/cui-handling-guide" },
-        { title: "SSP Template Guide", path: "/documentation/ssp-template-guide" }
+        { title: "Platform Overview", path: "/documentation/platform-overview" },
+        { title: "Incident Response Guide", path: "/documentation/incident-response-guide" },
+        { title: "Tutorials", path: "/documentation/tutorials" }
       ]
     },
     {
@@ -45,7 +45,7 @@ const Documentation = () => {
       articles: [
         { title: "Assessment Guide", path: "/documentation/assessment-guide" },
         { title: "Reading Assessment Results", path: "/documentation/assessment-guide" },
-        { title: "Creating Action Plans", path: "/toolkit/poam-generator" },
+        { title: "Creating Action Plans", path: "/toolkit/privacy-gap-analyzer" },
         { title: "Quick Start Guide", path: "/documentation/quick-start" }
       ]
     },
@@ -54,9 +54,9 @@ const Documentation = () => {
       title: "Documentation Templates",
       description: "Templates for policies, procedures, and compliance documents",
       articles: [
-        { title: "Policy Development Guide", path: "/documentation/policy-guide" },
-        { title: "System Security Plan Guide", path: "/documentation/ssp-template-guide" },
-        { title: "POA&M Creation Guide", path: "/toolkit/poam-generator" },
+        { title: "Control Implementation Guide", path: "/documentation/control-implementation-guide" },
+        { title: "Breach Response Guide", path: "/documentation/breach-response-guide" },
+        { title: "Policy Generator", path: "/toolkit/privacy-policy-generator" },
         { title: "Incident Response Guide", path: "/documentation/incident-response-guide" }
       ]
     }

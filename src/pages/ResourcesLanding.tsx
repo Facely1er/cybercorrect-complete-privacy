@@ -26,20 +26,21 @@ const ResourcesLanding = () => {
       path: '/documentation',
       items: [
         { title: 'GDPR Compliance Guide', path: '/documentation/gdpr-implementation-guide' },
-        { title: 'Privacy Assessment Guide', path: '/assessments/privacy-assessment' },
-        { title: 'Privacy Framework Guide', path: '/guides/privacy-framework' }
+        { title: 'Privacy Assessment', path: '/assessments/privacy-assessment' },
+        { title: 'Privacy Framework Guide', path: '/documentation/privacy-framework-guide' }
       ]
     },
     {
-      id: 'cui-resources',
-      title: 'CUI Protection',
-      category: 'CUI',
-      description: 'NIST SP 800-171 compliance resources',
+      id: 'platform-docs',
+      title: 'Platform & Frameworks',
+      category: 'Documentation',
+      description: 'Core platform docs and framework overviews',
       icon: Database,
       path: '/documentation',
       items: [
-        { title: 'NIST 800-171 Guide', path: '/documentation/nist800171-guide' },
-        { title: 'CUI Handling Guide', path: '/documentation/cui-handling-guide' }
+        { title: 'Platform Overview', path: '/documentation/platform-overview' },
+        { title: 'Incident Response Guide', path: '/documentation/incident-response-guide' },
+        { title: 'Tutorials', path: '/documentation/tutorials' }
       ]
     },
     {

@@ -136,7 +136,7 @@ const ChatGuideBot = () => {
       ]
     },
     'getting-started': {
-      message: "Welcome to CyberCorrect! To get started: 1) Begin with a Quick Check assessment, 2) Generate your System Security Plan, 3) Create a POA&M for any gaps, and 4) Implement continuous monitoring.",
+      message: "Welcome to CyberCorrect Privacy Platform! To get started: 1) Take the Privacy Assessment, 2) Review results and recommendations, 3) Use our tools to close gaps, and 4) Explore documentation.",
       options: [
         { id: 'platform-tour', text: 'Platform Tour', nextStep: 'platform-tour' },
         { id: 'first-steps', text: 'First Steps', nextStep: 'first-steps' },
@@ -159,22 +159,21 @@ const ChatGuideBot = () => {
       ]
     },
     'first-steps': {
-      message: "For your first steps with CyberCorrect, I recommend: 1) Take the Compliance Quick Check to understand your baseline compliance, 2) Review the results and identify gaps, 3) Generate an initial POA&M, and 4) Explore documentation templates.",
+      message: "For your first steps: 1) Take the Privacy Assessment to understand your baseline, 2) Review results and identify gaps, 3) Use the Privacy Gap Analyzer to plan fixes, and 4) Explore documentation templates.",
       options: [
         { id: 'back-to-getting-started', text: 'Back to Getting Started', nextStep: 'getting-started' },
         { id: 'start-quick-check', text: 'Start Quick Check', nextStep: 'start-quick-check' }
       ],
       links: [
-        { text: 'Compliance Quick Check', url: '/compliance-quick-check' },
-        { text: 'POA&M Generator', url: '/poam-generator' }
+        { text: 'Start Privacy Assessment', url: '/assessments/privacy-assessment' },
+        { text: 'Privacy Gap Analyzer', url: '/toolkit/privacy-gap-analyzer' }
       ]
     },
     'documentation': {
       message: "CyberCorrect provides comprehensive documentation including user guides, framework explanations, implementation instructions, and compliance templates. What specifically would you like to learn about?",
       options: [
-        { id: 'nist-docs', text: 'NIST Frameworks', nextStep: 'nist-docs' },
-        { id: 'security-docs', text: 'Security Guides', nextStep: 'security-docs' },
-        { id: 'cui-docs-2', text: 'CUI Documentation', nextStep: 'cui-docs' }
+        { id: 'privacy-docs', text: 'Privacy Framework', nextStep: 'privacy-docs' },
+        { id: 'assessment-docs', text: 'Assessment Guide', nextStep: 'assessment-docs' }
       ],
       links: [
         { text: 'Documentation Home', url: '/documentation' },
@@ -182,25 +181,22 @@ const ChatGuideBot = () => {
       ]
     },
     'assessments': {
-      message: "CyberCorrect offers several assessment tools: 1) Compliance Quick Check for rapid compliance evaluation, 2) CUI Assessment for NIST SP 800-171 compliance, 3) Privacy Assessment for privacy requirements, and 4) Supply Chain Assessment for vendor risks.",
+      message: "CyberCorrect provides privacy-focused assessment tools: a Privacy Assessment with tailored recommendations and planning tools to close gaps.",
       options: [
-        { id: 'security-assessment-2', text: 'Security Assessment', nextStep: 'security-assessment' },
-        { id: 'cui-assessment-2', text: 'CUI Assessment', nextStep: 'cui-assessment' },
-        { id: 'other-assessments', text: 'Other Assessments', nextStep: 'other-assessments' }
+        { id: 'privacy-assessment-2', text: 'Privacy Assessment', nextStep: 'privacy-assessment' }
       ],
       links: [
-        { text: 'Compliance Quick Check', url: '/compliance-quick-check' },
-        { text: 'CUI Assessment', url: '/cui-assessment' }
+        { text: 'Start Privacy Assessment', url: '/assessments/privacy-assessment' }
       ]
     },
     'other-assessments': {
-      message: "In addition to Security and CUI assessments, CyberCorrect provides specialized assessments for Privacy Framework compliance, Supply Chain Risk Management, and Ransomware Readiness. Each assessment includes detailed recommendations.",
+      message: "Explore our Privacy Assessment with detailed recommendations and implementation guidance.",
       options: [
         { id: 'back-to-assessments', text: 'Back to Assessments', nextStep: 'assessments' },
         { id: 'privacy', text: 'Privacy Assessment', nextStep: 'privacy-assessment-detail' }
       ],
       links: [
-        { text: 'Privacy Assessment', url: '/privacy-assessment' },
+        { text: 'Privacy Assessment', url: '/assessments/privacy-assessment' },
         { text: 'Assessment Guide', url: '/documentation/assessment-guide' }
       ]
     },
@@ -211,51 +207,24 @@ const ChatGuideBot = () => {
         { id: 'start-privacy-assessment', text: 'Start Privacy Assessment', nextStep: 'start-privacy-assessment' }
       ],
       links: [
-        { text: 'Privacy Assessment', url: '/privacy-assessment' },
-        { text: 'GDPR Mapper', url: '/gdpr-mapper' }
+        { text: 'Privacy Assessment', url: '/assessments/privacy-assessment' },
+        { text: 'GDPR Mapper', url: '/toolkit/gdpr-mapper' }
       ]
     },
     'start-assessment': {
-      message: "Great! Let's start your security assessment. This will help evaluate your compliance with security requirements and identify any gaps that need addressing.",
+      message: "Great! Let's start your Privacy Assessment to evaluate your practices and identify gaps to fix.",
       links: [
-        { text: 'Begin Compliance Quick Check', url: '/compliance-quick-check' }
-      ],
-      options: [
-        { id: 'main-menu', text: 'Back to Main Menu', nextStep: 'welcome' }
-      ]
-    },
-    'start-cui-assessment': {
-      message: "Let's begin your CUI Assessment. This comprehensive evaluation will check your compliance with NIST SP 800-171 requirements for protecting Controlled Unclassified Information.",
-      links: [
-        { text: 'Begin CUI Assessment', url: '/cui-assessment' }
-      ],
-      options: [
-        { id: 'main-menu', text: 'Back to Main Menu', nextStep: 'welcome' }
-      ]
-    },
-    'try-cui-mapper': {
-      message: "The CUI Data Flow Mapper is a powerful tool for visualizing how CUI moves through your systems. It helps you document data flows as required by NIST SP 800-171.",
-      links: [
-        { text: 'Open CUI Mapper', url: '/cui-mapper' }
+        { text: 'Begin Privacy Assessment', url: '/assessments/privacy-assessment' }
       ],
       options: [
         { id: 'main-menu', text: 'Back to Main Menu', nextStep: 'welcome' }
       ]
     },
     'try-tools': {
-      message: "Our compliance tools work together to simplify your compliance journey. Start with the Quick Check for an initial assessment, then use our documentation generators and monitoring tools.",
+      message: "Our privacy tools work together to simplify your journey: run the assessment, analyze gaps, and generate documentation.",
       links: [
-        { text: 'Compliance Quick Check', url: '/compliance-quick-check' },
-        { text: 'POA&M Generator', url: '/poam-generator' }
-      ],
-      options: [
-        { id: 'main-menu', text: 'Back to Main Menu', nextStep: 'welcome' }
-      ]
-    },
-    'start-quick-check': {
-      message: "The Compliance Quick Check will help you quickly evaluate your compliance readiness with a series of straightforward questions. It takes about 5 minutes to complete.",
-      links: [
-        { text: 'Start Compliance Quick Check', url: '/compliance-quick-check' }
+        { text: 'Privacy Gap Analyzer', url: '/toolkit/privacy-gap-analyzer' },
+        { text: 'Privacy Policy Generator', url: '/toolkit/privacy-policy-generator' }
       ],
       options: [
         { id: 'main-menu', text: 'Back to Main Menu', nextStep: 'welcome' }
@@ -270,34 +239,24 @@ const ChatGuideBot = () => {
         { id: 'main-menu', text: 'Back to Main Menu', nextStep: 'welcome' }
       ]
     },
-    'nist-docs': {
-      message: "CyberCorrect provides detailed documentation on NIST frameworks including SP 800-171 for CUI protection, the Cybersecurity Framework (CSF), and the Risk Management Framework (RMF).",
+    'privacy-docs': {
+      message: "Learn about the NIST Privacy Framework and how to implement privacy controls with our guides.",
       links: [
-        { text: 'NIST 800-171 Guide', url: '/documentation/nist800171-guide' },
+        { text: 'Privacy Framework Guide', url: '/documentation/privacy-framework-guide' },
         { text: 'Understanding RMF', url: '/documentation/understanding-rmf' }
       ],
       options: [
         { id: 'back-to-documentation', text: 'Back to Documentation', nextStep: 'documentation' }
       ]
     },
-    'security-docs': {
-      message: "Our security documentation includes implementation guides, assessment preparation resources, and detailed explanations of requirements for security compliance.",
+    'assessment-docs': {
+      message: "Read how our assessments work and how to interpret results to plan remediation.",
       links: [
-        { text: 'Security Guide', url: '/documentation/security-guide' },
-        { text: 'CUI Guide', url: '/guides/cui' }
+        { text: 'Assessment Guide', url: '/documentation/assessment-guide' },
+        { text: 'Platform Overview', url: '/documentation/platform-overview' }
       ],
       options: [
         { id: 'back-to-documentation', text: 'Back to Documentation', nextStep: 'documentation' }
-      ]
-    },
-    'learn-more-docs': {
-      message: "CyberCorrect provides templates and guides for all required NIST SP 800-171 documentation, including System Security Plans, POA&Ms, and incident response procedures.",
-      links: [
-        { text: 'SSP Template Guide', url: '/documentation/ssp-template-guide' },
-        { text: 'Documentation Home', url: '/documentation' }
-      ],
-      options: [
-        { id: 'main-menu', text: 'Back to Main Menu', nextStep: 'welcome' }
       ]
     }
   }), []);
@@ -355,10 +314,10 @@ const ChatGuideBot = () => {
     
     // Simple intent mapping based on keywords
     if (lowerText.includes('security') || lowerText.includes('certification')) {
-      addBotResponse('security');
+      addBotResponse('privacy');
     } 
     else if (lowerText.includes('cui') || lowerText.includes('controlled')) {
-      addBotResponse('cui');
+      addBotResponse('privacy');
     }
     else if (lowerText.includes('start') || lowerText.includes('begin') || lowerText.includes('new')) {
       addBotResponse('getting-started');

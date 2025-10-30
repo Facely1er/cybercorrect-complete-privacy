@@ -22,11 +22,11 @@ const Guides = () => {
     },
     // CUI Protection Guides
     {
-      title: 'NIST SP 800-171 Implementation',
-      description: 'Step-by-step guide to implementing CUI protection controls.',
+      title: 'Privacy Framework Guide',
+      description: 'Step-by-step guidance to implement privacy controls and best practices.',
       icon: Database,
-      category: 'CUI Protection',
-      link: '/documentation/nist800171-guide'
+      category: 'Privacy Compliance',
+      link: '/documentation/privacy-framework-guide'
     },
     // Process Guides
     {

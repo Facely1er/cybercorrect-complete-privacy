@@ -231,21 +231,21 @@ const DataClassificationRecommendations = () => {
 
   const handleExport = () => {
     generateRecommendationsPdf(
-      'CUI Protection Recommendations',
+      'Privacy Recommendations',
       mockRecommendations,
       new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-      'cui-recommendations.pdf'
+      'privacy-recommendations.pdf'
     );
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
       <Recommendations
-        title="CUI Protection Recommendations"
-        subtitle="Based on NIST SP 800-171 requirements for Controlled Unclassified Information"
-        assessmentType="cui"
+        title="Privacy Recommendations"
+        subtitle="Based on privacy best practices and the NIST Privacy Framework"
+        assessmentType="privacy"
         recommendations={mockRecommendations}
-        onBack={() => navigate('/cui-results')}
+        onBack={() => navigate('/privacy-results')}
         onExport={handleExport}
       />
     </div>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
 
-import { Shield, FileText, ChevronRight, CheckCircle, Users, Lock, Award, Settings, Database, Layers, Lightbulb, Cloud, RefreshCw, Server, Eye, Scale, FileSearch, Activity, Target, Link2} from 'lucide-react';
+import { Shield, FileText, ChevronRight, CheckCircle, Users, Lock, Settings, Database, Layers, Lightbulb, Cloud, RefreshCw, Server, Eye, Scale, FileSearch, Activity, Target, Link2} from 'lucide-react';
 
 
 const Features = () => {
@@ -111,15 +111,15 @@ const Features = () => {
           description: 'Automated policy and procedure generation for multiple frameworks',
           benefits: ['Industry-specific templates', 'Regulatory compliance', 'Version control', 'Approval workflows'],
           stats: '80% time savings',
-          link: '/toolkit/policy-generator'
+          link: '/toolkit/privacy-policy-generator'
         },
         {
           icon: Database,
-          title: 'CUI Data Flow Mapper',
-          description: 'Visual mapping and documentation of Controlled Unclassified Information flows',
-          benefits: ['Interactive visualization', 'NIST 800-171 alignment', 'Export capabilities', 'Audit documentation'],
+          title: 'Data Mapping Tool',
+          description: 'Visual mapping and documentation of personal data flows for privacy compliance',
+          benefits: ['Interactive visualization', 'GDPR alignment', 'Export capabilities', 'Audit documentation'],
           stats: 'Compliance ready',
-          link: '/toolkit/cui-mapper'
+          link: '/toolkit/gdpr-mapper'
         },
         {
           icon: FileSearch,

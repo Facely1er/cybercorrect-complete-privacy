@@ -578,7 +578,7 @@ const DataClassificationAssessment = () => {
   const handleViewResults = () => {
     // In a real application, you would save the assessment results
     // before navigating to the results page
-    navigate('/cui-results');
+    navigate('/privacy-results');
   };
 
   // Create a list of section info for the start screen
