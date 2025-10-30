@@ -100,9 +100,9 @@ describe('ErrorBoundary', () => {
     const user = userEvent.setup();
     // Mock window.location.href
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    delete (window as Record<string, unknown>).location;
+    delete (window as unknown as Record<string, unknown>).location;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as Record<string, unknown>).location = { href: '' };
+    (window as unknown as Record<string, unknown>).location = { href: '' };
 
     render(
       <ErrorBoundary>

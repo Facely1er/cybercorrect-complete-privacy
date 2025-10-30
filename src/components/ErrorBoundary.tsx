@@ -10,10 +10,10 @@ interface ErrorBoundaryState {
 }
 
 class ErrorBoundary extends React.Component<
-  React.PropsWithChildren<Record<string, never>>,
+  React.PropsWithChildren<Record<string, unknown>>,
   ErrorBoundaryState
 > {
-  constructor(props: React.PropsWithChildren<Record<string, never>>) {
+  constructor(props: React.PropsWithChildren<Record<string, unknown>>) {
     super(props);
     this.state = { hasError: false };
   }
