@@ -20,7 +20,8 @@ import {
   Settings,
   AlertTriangle,
   RefreshCw,
-  Workflow
+  Workflow,
+  ArrowLeft
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from '../components/ui/Toaster';
@@ -172,13 +173,19 @@ const About = () => {
 
   return (
     <div>
-      {/* Compact Page Header */}
-      <section className="py-8 border-b border-border bg-surface dark:bg-dark-bg">
-        <div className="container mx-auto px-4">
-          
-          <div className="text-center mt-2">
-            <h1 className="text-3xl md:text-4xl font-semibold text-foreground">About CyberCorrect Privacy Platform</h1>
-            <p className="text-muted-foreground mt-2">Empowering organizations to manage privacy risk and ensure global compliance</p>
+      {/* Hero Section */}
+      <section className="relative py-20 bg-gradient-to-b from-primary-teal/5 to-transparent dark:from-dark-primary/10">
+        <Link to="/" className="absolute top-8 left-8 inline-flex items-center text-foreground hover:text-primary transition-colors mb-4">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to Home
+        </Link>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col items-center text-center">
+            <Shield className="h-16 w-16 text-primary-teal dark:text-dark-primary mb-6" />
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">About CyberCorrect Privacy Platform™</h1>
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
+              Empowering organizations to manage privacy risk, protect personal data, and ensure global privacy compliance effectively
+            </p>
           </div>
         </div>
       </section>

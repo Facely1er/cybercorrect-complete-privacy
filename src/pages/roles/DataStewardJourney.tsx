@@ -7,7 +7,11 @@ import {
   CheckCircle, 
   FileText, 
   Clock,
-  BarChart3
+  BarChart3,
+  Eye,
+  Lock,
+  Shield,
+  Activity
 } from 'lucide-react';
 
 const DataStewardJourney = () => {
@@ -236,7 +240,7 @@ const DataStewardJourney = () => {
               {stewardCapabilities.map((capability, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
-                    <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounde-lg flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
                       <capability.icon className="w-6 h-6 text-green-600 dark:text-green-400" />
                     </div>
                     <h3 className="text-xl font-semibold mb-3 text-foreground">{capability.title}</h3>
