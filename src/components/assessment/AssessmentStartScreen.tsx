@@ -27,23 +27,38 @@ const AssessmentStartScreen: React.FC<AssessmentStartScreenProps> = ({
   onStart
 }) => {
   const getTotalTime = () => {
-    // Simple method to sum up time estimates
+    // Edge case: no sections
+    if (sections.length === 0) {
+      return '0 minutes';
+    }
+
+    // Normalize and attempt to sum minutes when possible
     const timeStrings = sections.map(s => s.estimatedTime);
-    
-    // If all are in minutes format, we can sum them
-    if (timeStrings.every(t => t.endsWith('min'))) {
-      const totalMinutes = timeStrings.reduce((sum, time) => {
-        return sum + parseInt(time.replace('min', '').trim());
-      }, 0);
-      
-      if (totalMinutes >= 60) {
-        return `${Math.floor(totalMinutes / 60)}h ${totalMinutes % 60}min`;
+    const minuteValues: number[] = [];
+    let allParsable = true;
+
+    for (const t of timeStrings) {
+      const match = t.match(/(\d+)\s*(?:min|minutes)\b/i);
+      if (match) {
+        minuteValues.push(parseInt(match[1], 10));
       } else {
-        return `${totalMinutes}min`;
+        allParsable = false;
+        break;
       }
     }
-    
-    // Otherwise just return a range
+
+    if (allParsable) {
+      const totalMinutes = minuteValues.reduce((sum, m) => sum + m, 0);
+      if (totalMinutes >= 60) {
+        return `${Math.floor(totalMinutes / 60)}h ${totalMinutes % 60}min`;
+      }
+      return `${totalMinutes} minutes`;
+    }
+
+    // If a single section and not parsable, show its value; else show range
+    if (timeStrings.length === 1) {
+      return timeStrings[0];
+    }
     return `${timeStrings[0]} - ${timeStrings[timeStrings.length - 1]}`;
   };
   

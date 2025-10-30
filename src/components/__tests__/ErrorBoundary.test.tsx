@@ -74,7 +74,12 @@ describe('ErrorBoundary', () => {
 
   it('should reload page when reload button is clicked', async () => {
     const user = userEvent.setup();
-    const reloadSpy = vi.spyOn(window.location, 'reload').mockImplementation(() => {});
+    const originalLocation = window.location;
+    // Redefine location with a configurable reload spy
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    delete (window as any).location;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).location = { ...originalLocation, reload: vi.fn() } as Location;
 
     render(
       <ErrorBoundary>
@@ -85,9 +90,10 @@ describe('ErrorBoundary', () => {
     const reloadButton = screen.getByText('Reload Page');
     await user.click(reloadButton);
 
-    expect(reloadSpy).toHaveBeenCalled();
-
-    reloadSpy.mockRestore();
+    expect(window.location.reload).toHaveBeenCalled();
+    // Restore original location
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).location = originalLocation as unknown as Location;
   });
 
   it('should navigate to home when home button is clicked', async () => {

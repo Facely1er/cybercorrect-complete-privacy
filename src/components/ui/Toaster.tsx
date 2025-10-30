@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { X } from 'lucide-react';
 import { cn } from '../../utils/cn';
 
@@ -86,7 +86,8 @@ const toast = {
     const id = `toast-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     const newToast = { id, ...data };
     toasts.push(newToast);
-    notifyListeners();
+    // Defer notifying to next tick so subscribers mounted in the same tick receive updates
+    setTimeout(() => notifyListeners(), 0);
     return id;
   },
   dismiss: (id: string) => {
@@ -110,12 +111,14 @@ const toast = {
 const Toaster: React.FC = () => {
   const [localToasts, setLocalToasts] = useState<ToastData[]>([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const listener = (updatedToasts: ToastData[]) => {
       setLocalToasts(updatedToasts);
     };
     
     listeners.push(listener);
+    // Sync initial toasts so a Toaster mounted after toasts were queued still displays them
+    listener([...toasts]);
     return () => {
       listeners = listeners.filter(l => l !== listener);
     };

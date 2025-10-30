@@ -6,6 +6,7 @@ const originalEnv = import.meta.env
 describe('Error Monitoring Service', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    vi.unmock('../errorMonitoring')
     // Reset environment
     Object.defineProperty(import.meta, 'env', {
       value: {
@@ -37,6 +38,7 @@ describe('Error Monitoring Service', () => {
   it('should log errors in development mode', async () => {
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
     
+    vi.resetModules()
     const { errorMonitoring } = await import('../errorMonitoring')
     const testError = new Error('Test error')
     const context = { component: 'TestComponent' }
@@ -74,15 +76,16 @@ describe('Error Monitoring Service', () => {
   })
 
   it('should capture messages with proper format', async () => {
-    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+    const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
     
+    vi.resetModules()
     const { errorMonitoring } = await import('../errorMonitoring')
     const message = 'Test message'
     const context = { level: 'info' }
     
     errorMonitoring.captureMessage(message, context)
     
-    expect(consoleSpy).toHaveBeenCalledWith('Message (development):', message, context)
+    expect(consoleSpy).toHaveBeenCalledWith('[INFO] Test message', context)
     
     consoleSpy.mockRestore()
   })
@@ -90,6 +93,7 @@ describe('Error Monitoring Service', () => {
   it('should handle errors without context', async () => {
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
     
+    vi.resetModules()
     const { errorMonitoring } = await import('../errorMonitoring')
     const testError = new Error('Test error')
     
@@ -103,6 +107,7 @@ describe('Error Monitoring Service', () => {
   it('should handle non-Error objects', async () => {
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
     
+    vi.resetModules()
     const { errorMonitoring } = await import('../errorMonitoring')
     const notAnError = 'This is not an Error object'
     

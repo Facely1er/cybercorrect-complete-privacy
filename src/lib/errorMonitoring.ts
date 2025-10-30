@@ -21,10 +21,25 @@ class ErrorMonitoringService {
     this.apiEndpoint = import.meta.env.VITE_ERROR_MONITORING_ENDPOINT;
   }
 
+  private isDev(): boolean {
+    try {
+      // Prefer Vite env if available, fallback to NODE_ENV
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const viteDev = (import.meta as any)?.env?.DEV;
+      if (typeof viteDev === 'boolean') return viteDev;
+    } catch {
+      // ignore
+    }
+    // Fallback to Node env
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const nodeEnv = (globalThis as any)?.process?.env?.NODE_ENV;
+    return nodeEnv !== 'production';
+  }
+
   captureException(error: Error, context?: Record<string, unknown>) {
     if (!this.isEnabled) {
       // Only log in development
-      if (import.meta.env.DEV) {
+      if (this.isDev()) {
         console.error('Error (development):', error, context);
       }
       return;
@@ -48,7 +63,7 @@ class ErrorMonitoringService {
   captureMessage(message: string, level: 'info' | 'warning' | 'error' = 'info', context?: Record<string, unknown>) {
     if (!this.isEnabled) {
       // Only log in development
-      if (import.meta.env.DEV) {
+      if (this.isDev()) {
         console.log(`[${level.toUpperCase()}] ${message}`, context);
       }
       return;
@@ -78,14 +93,14 @@ class ErrorMonitoringService {
           body: JSON.stringify(errorInfo),
         });
       } else {
-        // Fallback: send to console in production (only if no endpoint configured)
-        if (import.meta.env.DEV) {
+        // Fallback: send to console in development (only if no endpoint configured)
+        if (this.isDev()) {
           console.error('Error captured:', errorInfo);
         }
       }
     } catch (sendError) {
       // Only log send errors in development
-      if (import.meta.env.DEV) {
+      if (this.isDev()) {
         console.error('Failed to send error to monitoring service:', sendError);
       }
     }

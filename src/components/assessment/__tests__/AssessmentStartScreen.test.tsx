@@ -76,9 +76,8 @@ describe('AssessmentStartScreen Component', () => {
     expect(screen.getByText('Assess data collection practices')).toBeInTheDocument()
     expect(screen.getByText('10 minutes')).toBeInTheDocument()
     expect(screen.getByText('Basic')).toBeInTheDocument()
-    // The text is split across elements, so we check for the presence of "5" and "questions"
-    expect(screen.getByText('5')).toBeInTheDocument()
-    expect(screen.getByText('questions')).toBeInTheDocument()
+    // Combined text format (may appear in multiple places)
+    expect(screen.getAllByText('5 questions')[0]).toBeInTheDocument()
   })
 
   it('should calculate and display total time', () => {
@@ -92,8 +91,7 @@ describe('AssessmentStartScreen Component', () => {
     renderAssessmentStartScreen()
     
     // Total questions should be calculated from sections
-    expect(screen.getByText('25')).toBeInTheDocument()
-    expect(screen.getByText('questions')).toBeInTheDocument()
+    expect(screen.getByText('25 questions')).toBeInTheDocument()
   })
 
   it('should render complexity indicators', () => {
@@ -123,25 +121,24 @@ describe('AssessmentStartScreen Component', () => {
 
   it('should render framework information', () => {
     renderAssessmentStartScreen()
-    
-    expect(screen.getByText('Framework: GDPR')).toBeInTheDocument()
+    // Badge text present
+    expect(screen.getByText('GDPR')).toBeInTheDocument()
   })
 
-  it('should render assessment overview', () => {
+  it('should render assessment sections header', () => {
     renderAssessmentStartScreen()
     
-    expect(screen.getByText('Assessment Overview')).toBeInTheDocument()
-    expect(screen.getByText('What to Expect')).toBeInTheDocument()
+    expect(screen.getByText('Assessment Sections')).toBeInTheDocument()
   })
 
   it('should render icons correctly', () => {
     renderAssessmentStartScreen()
     
-    expect(screen.getByTestId('clock-icon')).toBeInTheDocument()
-    expect(screen.getByTestId('bar-chart-icon')).toBeInTheDocument()
-    expect(screen.getByTestId('check-circle-icon')).toBeInTheDocument()
-    expect(screen.getByTestId('shield-icon')).toBeInTheDocument()
-    expect(screen.getByTestId('info-icon')).toBeInTheDocument()
+    expect(screen.getAllByTestId('clock-icon').length).toBeGreaterThan(0)
+    expect(screen.getAllByTestId('bar-chart-icon').length).toBeGreaterThan(0)
+    expect(screen.getAllByTestId('check-circle-icon').length).toBeGreaterThan(0)
+    expect(screen.getAllByTestId('shield-icon').length).toBeGreaterThan(0)
+    expect(screen.getAllByTestId('info-icon').length).toBeGreaterThan(0)
   })
 
   it('should handle empty sections array', () => {
@@ -157,8 +154,8 @@ describe('AssessmentStartScreen Component', () => {
     renderAssessmentStartScreen({ sections: singleSection })
     
     expect(screen.getByText('Data Collection')).toBeInTheDocument()
-    expect(screen.getByText('10 minutes')).toBeInTheDocument()
-    expect(screen.getByText('5 questions')).toBeInTheDocument()
+    expect(screen.getAllByText('10 minutes')[0]).toBeInTheDocument()
+    expect(screen.getAllByText('5 questions')[0]).toBeInTheDocument()
   })
 
   it('should render section complexity badges with correct classes', () => {

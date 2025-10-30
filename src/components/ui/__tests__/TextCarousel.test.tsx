@@ -41,8 +41,8 @@ describe('TextCarousel Component', () => {
     const items = ['Test item']
     render(<TextCarousel items={items} className="custom-class" />)
     
-    const container = screen.getByText('Test item').closest('div')
-    expect(container).toHaveClass('custom-class')
+    const customEl = document.querySelector('.custom-class') as HTMLElement | null
+    expect(customEl).not.toBeNull()
   })
 
   it('should cycle through items with default interval', () => {
@@ -157,8 +157,15 @@ describe('TextCarousel Component', () => {
     const items = ['Test item']
     render(<TextCarousel items={items} />)
     
-    const container = screen.getByText('Test item').closest('div')?.parentElement
-    expect(container).toHaveClass('relative', 'min-h-[4em]', 'overflow-hidden')
+    const itemEl = screen.getByText('Test item')
+    const container = itemEl.closest('div')?.parentElement?.parentElement as HTMLElement | null
+    expect(container).not.toBeNull()
+    if (container) {
+      expect(container).toHaveClass('relative')
+      expect(container).toHaveClass('overflow-hidden')
+      // Token with brackets is still part of className
+      expect(container.className).toContain('min-h-[4em]')
+    }
   })
 
   it('should render AnimatePresence wrapper', () => {

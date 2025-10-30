@@ -28,6 +28,8 @@ describe('Toaster Component', () => {
   describe('Toast Component', () => {
     it('should render with default props', async () => {
       render(<Toaster />)
+      // ensure effect subscription is mounted
+      await Promise.resolve()
       
       const toastId = toast.show({
         title: 'Test Toast'
@@ -38,11 +40,15 @@ describe('Toaster Component', () => {
       await waitFor(() => {
         expect(screen.getByText('Test Toast')).toBeInTheDocument()
       })
+      act(() => {
+        vi.runOnlyPendingTimers()
+      })
       expect(screen.getByTestId('close-icon')).toBeInTheDocument()
     })
 
     it('should render with description', async () => {
       render(<Toaster />)
+      await Promise.resolve()
       
       const toastId = toast.show({
         title: 'Test Toast',
@@ -55,10 +61,14 @@ describe('Toaster Component', () => {
         expect(screen.getByText('Test Toast')).toBeInTheDocument()
         expect(screen.getByText('Test description')).toBeInTheDocument()
       })
+      act(() => {
+        vi.runOnlyPendingTimers()
+      })
     })
 
     it('should handle close button click', async () => {
       render(<Toaster />)
+      await Promise.resolve()
       
       const toastId = toast.show({
         title: 'Test Toast'
@@ -68,6 +78,9 @@ describe('Toaster Component', () => {
       
       await waitFor(() => {
         expect(screen.getByText('Test Toast')).toBeInTheDocument()
+      })
+      act(() => {
+        vi.runOnlyPendingTimers()
       })
       
       const closeButton = screen.getByRole('button')

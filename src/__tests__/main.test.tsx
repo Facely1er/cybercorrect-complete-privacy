@@ -1,4 +1,13 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import React from 'react';
+
+// Mock heavy modules to make main.tsx import fast and deterministic in tests
+vi.mock('../App', () => ({ default: () => null }));
+vi.mock('../index.css', () => ({}));
+vi.mock('../lib/sentry', () => ({
+  initSentry: vi.fn(),
+  SentryErrorBoundary: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}));
 
 // We need to test the side effects and handlers in main.tsx
 // Since main.tsx executes immediately on import, we'll test the behavior
@@ -39,6 +48,7 @@ describe('main.tsx initialization', () => {
   });
 
   it('should set up global error handler for undefined run errors', async () => {
+    vi.resetModules();
     // Dynamic import to load main.tsx and trigger side effects
     await import('../main');
 
@@ -75,6 +85,7 @@ describe('main.tsx initialization', () => {
   });
 
   it('should set up unhandled rejection handler for undefined run errors', async () => {
+    vi.resetModules();
     await import('../main');
 
     // Verify rejection listener was added
@@ -84,7 +95,7 @@ describe('main.tsx initialization', () => {
     const reason = new Error("Cannot read properties of undefined (reading 'run')");
     const rejectionEvent = {
       type: 'unhandledrejection',
-      promise: Promise.reject(reason),
+      promise: Promise.resolve(),
       reason,
       preventDefault: vi.fn(),
       cancelBubble: false,
@@ -107,6 +118,7 @@ describe('main.tsx initialization', () => {
   });
 
   it('should not handle non-undefined-run errors', async () => {
+    vi.resetModules();
     await import('../main');
 
     if (errorListeners.length > 0) {

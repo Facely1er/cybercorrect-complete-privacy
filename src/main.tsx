@@ -26,12 +26,15 @@ window.addEventListener('unhandledrejection', (event) => {
   }
 });
 
-createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <SentryErrorBoundary>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </SentryErrorBoundary>
-  </React.StrictMode>
-);
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  createRoot(rootElement).render(
+    <React.StrictMode>
+      <SentryErrorBoundary>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </SentryErrorBoundary>
+    </React.StrictMode>
+  );
+}
