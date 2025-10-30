@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
+import Breadcrumbs from '../ui/Breadcrumbs';
 import { Button } from '../ui/Button';
 import { useChatbot } from '../chat/ChatbotProvider';
 import Logo from '../ui/Logo';
@@ -314,7 +315,20 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       </nav>
       
       <main className="flex-1 mx-auto w-full max-w-screen-2xl pt-14">
-        <Outlet />
+        {(() => {
+          const path = location.pathname;
+          const isRoot = path === '/';
+          const handledByNestedLayout = path.startsWith('/assessments') || path.startsWith('/toolkit');
+          if (!isRoot && !handledByNestedLayout) {
+            return (
+              <div className="container mx-auto px-4 py-6">
+                <Breadcrumbs className="mb-6" />
+                <Outlet />
+              </div>
+            );
+          }
+          return <Outlet />;
+        })()}
       </main>
       
       <Footer />

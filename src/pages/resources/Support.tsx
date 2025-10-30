@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { Link } from 'react-router-dom';
 import { useChatSupport } from '../../components/chat/ChatSupportProvider';
 import { useChatbot } from '../../components/chat/ChatbotProvider';
-import { MessageSquare, Phone, Mail, BookOpen, Video, FileQuestion, ArrowRight, Shield, FileText, HelpCircle, Notebook as Robot, ArrowLeft, Send, User, Building } from 'lucide-react';
+import { MessageSquare, Mail, BookOpen, Video, FileQuestion, ArrowRight, Shield, FileText, HelpCircle, Notebook as Robot, Send, User, Building } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 
 const Support = () => {
@@ -66,14 +66,6 @@ const Support = () => {
       onClick: () => openChatbot()
     },
     {
-      icon: Phone,
-      title: "Phone Support",
-      description: "Speak directly with a support representative",
-      action: "Call Now",
-      availability: "Business Hours",
-      onClick: () => window.location.href = "tel:+18886186160"
-    },
-    {
       icon: Mail,
       title: "Email Support",
       description: "Send us your questions or issues",
@@ -110,10 +102,7 @@ const Support = () => {
   return (
     <div className="py-20">
       <div className="max-w-7xl mx-auto px-4">
-        <Link to="/resources-landing" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-8">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Resources
-        </Link>
+        
         
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4">Support Center</h1>
@@ -252,19 +241,7 @@ const Support = () => {
                     />
                   </div>
                   
-                  <div>
-                    <label className="block text-sm font-medium mb-2">
-                      <Phone className="h-4 w-4 inline mr-1" />
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      value={contactForm.phone}
-                      onChange={(e) => handleContactFormChange('phone', e.target.value)}
-                      className="w-full px-4 py-3 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                      placeholder="+1 (555) 123-4567"
-                    />
-                  </div>
+                  
                   
                   <div>
                     <label className="block text-sm font-medium mb-2">Department</label>

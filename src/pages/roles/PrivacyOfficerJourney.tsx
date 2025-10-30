@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { 
   Eye, 
   CheckCircle, 
@@ -114,9 +113,6 @@ const PrivacyOfficerJourney = () => {
         <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-50"></div>
         
         <div className="container mx-auto px-4 relative z-10">
-          <div className="mb-8">
-            <Breadcrumbs />
-          </div>
           
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-block mb-6">

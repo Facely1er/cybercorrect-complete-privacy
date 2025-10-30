@@ -176,11 +176,48 @@
   }
 
   .animate-in {
-    animation: animateIn 0.5s ease;
+    animation: animateIn 0.3s ease-out;
   }
 
   .animate-out {
-    animation: animateOut 0.5s ease;
+    animation: animateOut 0.3s ease-in;
+  }
+
+  @keyframes animateIn {
+    from {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes animateOut {
+    from {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.95);
+    }
+  }
+
+  .slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   .page-transition {
@@ -208,7 +245,27 @@
   
   /* Card hover effects */
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-2 dark:hover:shadow-none dark:hover:border-primary/50;
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-2 dark:hover:shadow-xl dark:hover:border-primary/50;
+  }
+
+  /* Improved focus states for accessibility */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Improved text selection */
+  ::selection {
+    @apply bg-primary/20 text-foreground;
+  }
+
+  /* Loading spinner polish */
+  .loading-pulse {
+    @apply animate-pulse;
   }
   
   /* Button transitions */

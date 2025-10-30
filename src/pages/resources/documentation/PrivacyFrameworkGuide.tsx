@@ -1,12 +1,10 @@
 import React from 'react';
 import { Card, CardContent } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
-import { useNavigate } from 'react-router-dom';
 import { 
   ArrowRight,
   Shield,
   CheckCircle,
-  ArrowLeft,
   Globe,
   UserCheck,
   Lock,
@@ -18,19 +16,12 @@ import {
 } from 'lucide-react';
 
 const PrivacyFrameworkGuide = () => {
-  const navigate = useNavigate();
+  
 
   return (
     <div className="py-20">
       <div className="max-w-7xl mx-auto px-6">
-        <Button 
-          variant="outline" 
-          className="mb-8"
-          onClick={() => navigate('/documentation')}
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Documentation
-        </Button>
+        
         
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4 text-foreground">NIST Privacy Framework Guide</h1>

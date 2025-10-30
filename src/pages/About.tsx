@@ -20,8 +20,7 @@ import {
   Settings,
   AlertTriangle,
   RefreshCw,
-  Workflow,
-  ArrowLeft
+  Workflow
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from '../components/ui/Toaster';
@@ -173,19 +172,13 @@ const About = () => {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-b from-primary-teal/5 to-transparent dark:from-dark-primary/10">
-        <Link to="/" className="absolute top-8 left-8 inline-flex items-center text-foreground hover:text-primary transition-colors mb-4">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Home
-        </Link>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col items-center text-center">
-            <Shield className="h-16 w-16 text-primary-teal dark:text-dark-primary mb-6" />
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">About CyberCorrect Privacy Platform</h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-              Empowering organizations to manage privacy risk, protect personal data, and ensure global privacy compliance effectively
-            </p>
+      {/* Compact Page Header */}
+      <section className="py-8 border-b border-border bg-surface dark:bg-dark-bg">
+        <div className="container mx-auto px-4">
+          
+          <div className="text-center mt-2">
+            <h1 className="text-3xl md:text-4xl font-semibold text-foreground">About CyberCorrect Privacy Platform</h1>
+            <p className="text-muted-foreground mt-2">Empowering organizations to manage privacy risk and ensure global compliance</p>
           </div>
         </div>
       </section>
@@ -456,30 +449,6 @@ const About = () => {
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-6">Contact Information</h3>
                   <div className="space-y-4">
-                    <div className="flex items-start">
-                      <div className="bg-primary-teal/10 dark:bg-dark-primary/20 p-2 rounded mr-3 mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-primary-teal dark:text-dark-primary">
-                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="font-medium">Phone</p>
-                        <p className="text-muted-foreground">+1 (888) 618-6160</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start">
-                      <div className="bg-primary-teal/10 dark:bg-dark-primary/20 p-2 rounded mr-3 mt-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-primary-teal dark:text-dark-primary">
-                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                          <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="font-medium">Address</p>
-                        <p className="text-muted-foreground">8300 McCullough Lane, Suite 203<br/>Gaithersburg, MD 20877</p>
-                      </div>
-                    </div>
-                    
                     <div className="mt-6 pt-4 border-t border-border">
                       <p className="text-sm font-medium mb-2">Quick Links</p>
                       <div className="space-y-1">

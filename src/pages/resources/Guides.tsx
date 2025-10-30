@@ -7,8 +7,7 @@ import {
   Eye,
   Database,
   FileCheck,
-  Users,
-  ArrowLeft
+  Users
 } from 'lucide-react';
 
 const Guides = () => {
@@ -51,10 +50,6 @@ const Guides = () => {
   return (
     <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
-          <Link to="/resources-landing" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-4">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Resources
-          </Link>
           <h1 className="text-3xl font-bold mb-2 text-foreground">Implementation Guides</h1>
           <p className="text-muted-foreground mb-6">Step-by-step guides for implementing compliance requirements</p>
         </div>

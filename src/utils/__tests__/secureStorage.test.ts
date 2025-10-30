@@ -118,7 +118,7 @@ describe('SecureStorage', () => {
   })
 
   describe('Error handling', () => {
-    it('should handle localStorage errors gracefully', () => {
+    it('should handle localStorage errors gracefully on setItem', () => {
       // Mock localStorage to throw an error
       const originalSetItem = localStorage.setItem
       localStorage.setItem = vi.fn(() => {
@@ -130,6 +130,150 @@ describe('SecureStorage', () => {
       
       // Restore original method
       localStorage.setItem = originalSetItem
+    })
+
+    it('should handle localStorage errors gracefully on getItem', () => {
+      const originalGetItem = localStorage.getItem
+      localStorage.getItem = vi.fn(() => {
+        throw new Error('Storage error')
+      })
+      
+      const value = secureStorage.getItem('error-key')
+      expect(value).toBe(null)
+      
+      localStorage.getItem = originalGetItem
+    })
+
+    it('should handle parse errors gracefully', () => {
+      localStorage.setItem('invalid-key', 'invalid-json-{')
+      const value = secureStorage.getItem('invalid-key', 'default')
+      expect(value).toBe('default')
+    })
+
+    it('should handle legacy format items', () => {
+      // Set a legacy format item (raw JSON string)
+      localStorage.setItem('legacy-key', JSON.stringify('legacy-value'))
+      const value = secureStorage.getItem('legacy-key')
+      expect(value).toBe('legacy-value')
+    })
+
+    it('should handle items with null/undefined values', () => {
+      localStorage.setItem('null-key', 'null')
+      const value = secureStorage.getItem('null-key')
+      expect(value).toBe(null)
+    })
+
+    it('should handle unavailable localStorage', () => {
+      const originalLocalStorage = window.localStorage
+      // TypeScript workaround for deleting window.localStorage in tests
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      delete (window as any).localStorage
+      
+      const result = secureStorage.setItem('test-key', 'test-value')
+      expect(result).toBe(false)
+      
+      const value = secureStorage.getItem('test-key', 'default')
+      expect(value).toBe('default')
+      
+      window.localStorage = originalLocalStorage
+    })
+
+    it('should handle errors on removeItem', () => {
+      const originalRemoveItem = localStorage.removeItem
+      localStorage.removeItem = vi.fn(() => {
+        throw new Error('Remove error')
+      })
+      
+      const result = secureStorage.removeItem('error-key')
+      expect(result).toBe(false)
+      
+      localStorage.removeItem = originalRemoveItem
+    })
+
+    it('should handle errors on clear', () => {
+      const originalClear = localStorage.clear
+      localStorage.clear = vi.fn(() => {
+        throw new Error('Clear error')
+      })
+      
+      const result = secureStorage.clear()
+      expect(result).toBe(false)
+      
+      localStorage.clear = originalClear
+    })
+
+    it('should handle decryption errors gracefully', () => {
+      // Set an invalid encrypted item
+      localStorage.setItem('bad-encrypted-key', JSON.stringify({
+        data: 'invalid-base64-!@#$',
+        encrypted: true,
+      }))
+      
+      const value = secureStorage.getItem('bad-encrypted-key', 'default')
+      expect(value).toBe('default')
+    })
+
+    it('should handle decompression errors gracefully', () => {
+      // Set an invalid compressed item
+      localStorage.setItem('bad-compressed-key', JSON.stringify({
+        data: 'invalid-base64-!@#$',
+        compressed: true,
+      }))
+      
+      const value = secureStorage.getItem('bad-compressed-key', 'default')
+      expect(value).toBe('default')
+    })
+
+    it('should handle item with missing data field', () => {
+      localStorage.setItem('missing-data-key', JSON.stringify({
+        encrypted: false,
+        compressed: false,
+      }))
+      
+      const value = secureStorage.getItem('missing-data-key', 'default')
+      expect(value).toBe('default')
+    })
+  })
+
+  describe('Edge cases', () => {
+    it('should handle empty strings', () => {
+      secureStorage.setItem('empty-key', '')
+      const value = secureStorage.getItem('empty-key')
+      expect(value).toBe('')
+    })
+
+    it('should handle zero value', () => {
+      secureStorage.setItem('zero-key', 0)
+      const value = secureStorage.getItem('zero-key')
+      expect(value).toBe(0)
+    })
+
+    it('should handle false value', () => {
+      secureStorage.setItem('false-key', false)
+      const value = secureStorage.getItem('false-key')
+      expect(value).toBe(false)
+    })
+
+    it('should handle array values', () => {
+      const arrayValue = [1, 2, 3, 'test']
+      secureStorage.setItem('array-key', arrayValue)
+      const value = secureStorage.getItem('array-key')
+      expect(value).toEqual(arrayValue)
+    })
+
+    it('should handle nested objects with multiple levels', () => {
+      const nestedObject = {
+        level1: {
+          level2: {
+            level3: {
+              value: 'deep'
+            }
+          }
+        }
+      }
+      secureStorage.setItem('nested-key', nestedObject)
+      const value = secureStorage.getItem('nested-key')
+      expect(value).toEqual(nestedObject)
     })
   })
 })

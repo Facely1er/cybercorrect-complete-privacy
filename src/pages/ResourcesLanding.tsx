@@ -83,25 +83,12 @@ const ResourcesLanding = () => {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
-        <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-50"></div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-block mb-8 animate-fade-in">
-              <span className="bg-blue-100 text-blue-700 dark:bg-dark-primary/10 dark:text-dark-primary px-6 py-3 rounded-full inline-flex items-center text-sm font-semibold tracking-wide uppercase">
-                <BookOpen className="w-4 h-4 mr-2" />
-                Knowledge Center
-              </span>
-            </div>
-            
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Resources <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Center</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Essential documentation, guides, and support resources for your compliance journey
-            </p>
+      {/* Compact Page Header */}
+      <section className="py-8 border-b border-border bg-surface dark:bg-dark-bg">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <h1 className="text-3xl md:text-4xl font-semibold text-foreground">Resources Center</h1>
+            <p className="text-muted-foreground mt-2">Essential documentation, guides, and support resources for your compliance journey</p>
           </div>
         </div>
       </section>

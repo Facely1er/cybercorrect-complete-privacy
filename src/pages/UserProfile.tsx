@@ -26,7 +26,6 @@ const UserProfile = () => {
     jobTitle: 'Security Analyst',
     department: 'Cybersecurity',
     company: 'ACME Defense Systems',
-    phone: '+1 (555) 123-4567',
     joinDate: '2023-05-15',
   });
 
@@ -221,23 +220,7 @@ const UserProfile = () => {
                     )}
                   </div>
                   
-                  <div>
-                    <label className="text-sm font-medium block mb-1">Phone</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        name="phone"
-                        value={profileData.phone}
-                        onChange={handleInputChange}
-                        className="w-full rounded-md border-border bg-background py-2 px-3 text-sm"
-                      />
-                    ) : (
-                      <div className="flex items-center">
-                        <Phone className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary" />
-                        <span>{profileData.phone}</span>
-                      </div>
-                    )}
-                  </div>
+                  
                   
                   <div>
                     <label className="text-sm font-medium block mb-1">Join Date</label>

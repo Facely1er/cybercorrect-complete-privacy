@@ -175,40 +175,12 @@ const Features = () => {
 
   return (
     <div className="min-h-screen bg-surface dark:bg-dark-bg">
-      {/* Hero Section */}
-      <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
-        <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-50"></div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-block mb-8">
-              <span className="bg-blue-100 text-blue-700 dark:bg-dark-primary/10 dark:text-dark-primary px-6 py-3 rounded-full inline-flex items-center text-sm font-semibold tracking-wide uppercase animate-fade-in">
-                <Award className="w-4 h-4 mr-2" />
-                Complete Compliance Platform
-              </span>
-            </div>
-            
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Platform <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Capabilities</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Explore the comprehensive features and tools that make compliance automation possible
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link to="/assessments/privacy-assessment">
-                <Button size="lg" className="enhanced-button bg-blue-600 hover:bg-blue-700 text-white px-8 py-4">
-                  Start Assessment
-                  <FileSearch className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <Link to="/toolkit">
-                <Button size="lg" variant="outline" className="hover:-translate-y-1 transition-transform px-8 py-4">
-                  Explore Tools
-                  <Settings className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-            </div>
+      {/* Compact Page Header */}
+      <section className="py-8 border-b border-border bg-surface dark:bg-dark-bg">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <h1 className="text-3xl md:text-4xl font-semibold text-foreground">Platform Capabilities</h1>
+            <p className="text-muted-foreground mt-2">Explore the features and tools that make compliance automation possible</p>
           </div>
         </div>
       </section>
