@@ -12,7 +12,8 @@ import {
   FileQuestion,
   CircleDollarSign,
   Shield,
-  Lock
+  Lock,
+  AlertTriangle
 } from 'lucide-react';
 import Logo from '../ui/Logo';
 import { useLocation } from 'react-router-dom';
@@ -36,6 +37,7 @@ const Footer: React.FC = () => {
               <Link to="/support" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Support</Link>
               <Link to="/privacy" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Privacy</Link>
               <Link to="/terms" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Terms</Link>
+              <Link to="/acceptable-use" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">AUP</Link>
             </div>
           </div>
         </div>
@@ -94,6 +96,7 @@ const Footer: React.FC = () => {
                   <li><Link to="/privacy" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Shield className="h-3.5 w-3.5 mr-1.5" />Privacy Policy</Link></li>
                   <li><Link to="/terms" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Lock className="h-3.5 w-3.5 mr-1.5" />Terms of Service</Link></li>
                   <li><Link to="/cookies" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><FileText className="h-3.5 w-3.5 mr-1.5" />Cookie Policy</Link></li>
+                  <li><Link to="/acceptable-use" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><AlertTriangle className="h-3.5 w-3.5 mr-1.5" />Acceptable Use Policy</Link></li>
                 </ul>
               </div>
             </div>
