@@ -160,7 +160,7 @@ This template ensures comprehensive documentation of privacy breaches and compli
             <h1 className="text-3xl font-bold mb-2 text-foreground">Breach Notification Template</h1>
             <p className="text-muted-foreground">Comprehensive template for privacy breach notification procedures</p>
           </div>
-          <Button onClick={downloadTemplate} className="bg-red-600 hover:bg-red-700">
+          <Button onClick={downloadTemplate} variant="destructive">
             <Download className="h-4 w-4 mr-2" />
             Download Template
           </Button>
@@ -178,28 +178,28 @@ This template ensures comprehensive documentation of privacy breaches and compli
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-lg inline-block mb-2">
+              <div className="bg-destructive/10 dark:bg-destructive/20 p-3 rounded-lg inline-block mb-2">
                 <Clock className="h-6 w-6 text-red-600" />
               </div>
               <h3 className="font-semibold text-foreground">72-Hour Rule</h3>
               <p className="text-sm text-muted-foreground">GDPR notification deadline</p>
             </div>
             <div className="text-center">
-              <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg inline-block mb-2">
+              <div className="bg-primary/10 dark:bg-primary/20 p-3 rounded-lg inline-block mb-2">
                 <Phone className="h-6 w-6 text-blue-600" />
               </div>
               <h3 className="font-semibold text-foreground">Authority Notification</h3>
               <p className="text-sm text-muted-foreground">Regulatory reporting</p>
             </div>
             <div className="text-center">
-              <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-lg inline-block mb-2">
+              <div className="bg-success/10 dark:bg-success/20 p-3 rounded-lg inline-block mb-2">
                 <Users className="h-6 w-6 text-green-600" />
               </div>
               <h3 className="font-semibold text-foreground">Individual Notice</h3>
               <p className="text-sm text-muted-foreground">Data subject notification</p>
             </div>
             <div className="text-center">
-              <div className="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-lg inline-block mb-2">
+              <div className="bg-accent/10 dark:bg-accent/20 p-3 rounded-lg inline-block mb-2">
                 <FileText className="h-6 w-6 text-purple-600" />
               </div>
               <h3 className="font-semibold text-foreground">Documentation</h3>

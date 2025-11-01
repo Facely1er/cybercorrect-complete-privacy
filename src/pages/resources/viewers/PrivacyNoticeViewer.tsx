@@ -117,7 +117,7 @@ This template should be customized for your specific organization and reviewed b
             <h1 className="text-3xl font-bold mb-2 text-foreground">Privacy Notice Templates</h1>
             <p className="text-muted-foreground">GDPR, CCPA, and multi-regulation compliant privacy notice templates</p>
           </div>
-          <Button onClick={downloadTemplate} className="bg-blue-600 hover:bg-blue-700">
+          <Button onClick={downloadTemplate} variant="default">
             <Download className="h-4 w-4 mr-2" />
             Download Template
           </Button>

@@ -128,11 +128,11 @@ const Tutorials = () => {
   const getLevelBadge = (level: string) => {
     switch (level) {
       case 'Beginner':
-        return <span className="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200">Beginner</span>;
+        return <span className="px-2 py-1 text-xs rounded-full bg-success/10 text-success">Beginner</span>;
       case 'Intermediate':
-        return <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200">Intermediate</span>;
+        return <span className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary">Intermediate</span>;
       case 'Advanced':
-        return <span className="px-2 py-1 text-xs rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200">Advanced</span>;
+        return <span className="px-2 py-1 text-xs rounded-full bg-accent/10 text-accent">Advanced</span>;
       default:
         return null;
     }

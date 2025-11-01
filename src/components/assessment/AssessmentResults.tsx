@@ -76,7 +76,7 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
                 <p className="text-muted-foreground">{data.frameworkName} • {data.completedDate}</p>
               </div>
             </div>
-            <Button onClick={onExport} className="bg-primary-teal hover:bg-secondary-teal text-white dark:bg-dark-primary dark:hover:bg-dark-primary/90">
+            <Button onClick={onExport} variant="default">
               <Download className="h-4 w-4 mr-2" />
               Export to PDF
             </Button>

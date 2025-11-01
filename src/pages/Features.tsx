@@ -229,8 +229,8 @@ const Features = () => {
                 <div key={index} className="relative">
                   <Card className="text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md">
                     <CardContent className="p-8">
-                      <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <step.icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                      <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <step.icon className="w-6 h-6 text-primary" />
                       </div>
                       <h3 className="text-lg font-bold mb-2">{step.title}</h3>
                       <p className="text-sm text-muted-foreground">{step.description}</p>
@@ -290,8 +290,8 @@ const Features = () => {
                         {/* Feature Details */}
                         <div className="lg:col-span-2 p-10">
                           <div className="flex items-start gap-4 mb-6">
-                            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
-                              <feature.icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                            <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                              <feature.icon className="w-6 h-6 text-primary" />
                             </div>
                             <div>
                               <h4 className="text-xl font-semibold mb-2 text-foreground dark:text-dark-text">
@@ -305,7 +305,7 @@ const Features = () => {
                           <ul className="space-y-3 mb-6">
                             {feature.benefits.map((benefit, idx) => (
                               <li key={idx} className="flex items-start text-sm">
-                                <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                                <CheckCircle className="w-5 h-5 text-success mr-3 mt-0.5 flex-shrink-0" />
                                 <span className="text-muted-foreground">{benefit}</span>
                               </li>
                             ))}
@@ -328,7 +328,7 @@ const Features = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <span className="inline-block px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full text-sm font-semibold mb-4">
+              <span className="inline-block px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-semibold mb-4">
                 🤖 AI-Powered Innovation
               </span>
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
@@ -350,15 +350,15 @@ const Features = () => {
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center text-muted-foreground">
-                    <CheckCircle className="w-4 h-4 text-purple-600 mr-2" />
+                    <CheckCircle className="w-4 h-4 text-accent mr-2" />
                     Understands technical context
                   </li>
                   <li className="flex items-center text-muted-foreground">
-                    <CheckCircle className="w-4 h-4 text-purple-600 mr-2" />
+                    <CheckCircle className="w-4 h-4 text-accent mr-2" />
                     Maps existing controls automatically
                   </li>
                   <li className="flex items-center text-muted-foreground">
-                    <CheckCircle className="w-4 h-4 text-purple-600 mr-2" />
+                    <CheckCircle className="w-4 h-4 text-accent mr-2" />
                     Identifies gaps and suggests content
                   </li>
                 </ul>
@@ -374,15 +374,15 @@ const Features = () => {
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center text-muted-foreground">
-                    <CheckCircle className="w-4 h-4 text-blue-600 mr-2" />
+                    <CheckCircle className="w-4 h-4 text-primary mr-2" />
                     Risk-based prioritization
                   </li>
                   <li className="flex items-center text-muted-foreground">
-                    <CheckCircle className="w-4 h-4 text-blue-600 mr-2" />
+                    <CheckCircle className="w-4 h-4 text-primary mr-2" />
                     Resource allocation suggestions
                   </li>
                   <li className="flex items-center text-muted-foreground">
-                    <CheckCircle className="w-4 h-4 text-blue-600 mr-2" />
+                    <CheckCircle className="w-4 h-4 text-primary mr-2" />
                     Milestone dependency tracking
                   </li>
                 </ul>
@@ -404,14 +404,14 @@ const Features = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
-                className="bg-white text-blue-600 hover:bg-gray-100 border-2 border-white font-semibold shadow-lg"
+                className="bg-white text-primary hover:bg-gray-100 border-2 border-white font-semibold shadow-lg"
                 onClick={handleStartAssessment}
               >
                 Privacy Compliance Path
                 <Eye className="ml-2 h-5 w-5" />
               </Button>
               <Link to="/toolkit/gdpr-mapper">
-                <Button className="bg-white text-green-600 hover:bg-gray-100 border-2 border-white shadow-lg">
+                <Button variant="outline" className="bg-white text-success hover:bg-gray-100 border-2 border-white shadow-lg">
                   Privacy Toolkit
                   <Database className="ml-2 h-5 w-5" />
                 </Button>

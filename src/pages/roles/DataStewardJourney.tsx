@@ -119,14 +119,14 @@ const DataStewardJourney = () => {
           
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-block mb-6">
-              <span className="bg-green-100 text-green-700 dark:bg-dark-primary/10 dark:text-dark-primary px-4 py-2 rounded-full inline-flex items-center text-sm font-medium">
+              <span className="bg-success/10 text-success dark:bg-dark-primary/10 dark:text-dark-primary px-4 py-2 rounded-full inline-flex items-center text-sm font-medium">
                 <Database className="w-4 h-4 mr-2" />
                 Data Steward Journey
               </span>
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Data <span className="bg-gradient-to-r from-green-600 to-teal-600 dark:from-green-400 dark:to-teal-400 bg-clip-text text-transparent">Stewardship</span> Excellence
+              Data <span className="bg-gradient-to-r from-success to-primary dark:from-success dark:to-primary bg-clip-text text-transparent">Stewardship</span> Excellence
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
               Master data management for privacy compliance with comprehensive data stewardship tools
@@ -134,7 +134,7 @@ const DataStewardJourney = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/toolkit/gdpr-mapper">
-                <Button size="lg" className="enhanced-button bg-green-600 hover:bg-green-700">
+                <Button size="lg" variant="default" className="enhanced-button">
                   Start Data Mapping
                   <Database className="ml-2 h-5 w-5" />
                 </Button>
@@ -169,10 +169,10 @@ const DataStewardJourney = () => {
                   <div className="flex flex-col lg:flex-row gap-8 items-start">
                     <div className="lg:w-1/3">
                       <div className="flex items-center mb-4">
-                        <div className="w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center mr-3 font-bold">
+                        <div className="w-8 h-8 rounded-full bg-success text-white flex items-center justify-center mr-3 font-bold">
                           {index + 1}
                         </div>
-                        <span className="text-sm text-green-600 font-medium">{step.phase}</span>
+                        <span className="text-sm text-success font-medium">{step.phase}</span>
                       </div>
                       <h3 className="text-2xl font-bold mb-2 text-foreground">{step.title}</h3>
                       <p className="text-muted-foreground mb-4">{step.description}</p>
@@ -190,7 +190,7 @@ const DataStewardJourney = () => {
                             {step.tools.map((tool, toolIndex) => (
                               <Link key={toolIndex} to={tool.path} className="block">
                                 <div className="flex items-center p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors">
-                                  <tool.icon className="w-5 h-5 text-green-600 mr-3" />
+                                  <tool.icon className="w-5 h-5 text-success mr-3" />
                                   <span className="font-medium">{tool.name}</span>
                                 </div>
                               </Link>
@@ -201,7 +201,7 @@ const DataStewardJourney = () => {
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                             {step.outcomes.map((outcome, outcomeIndex) => (
                               <div key={outcomeIndex} className="flex items-start">
-                                <CheckCircle className="w-4 h-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                                <CheckCircle className="w-4 h-4 text-success mr-2 mt-0.5 flex-shrink-0" />
                                 <span className="text-sm">{outcome}</span>
                               </div>
                             ))}
@@ -240,8 +240,8 @@ const DataStewardJourney = () => {
               {stewardCapabilities.map((capability, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
-                    <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
-                      <capability.icon className="w-6 h-6 text-green-600 dark:text-green-400" />
+                    <div className="w-12 h-12 bg-success/10 dark:bg-success/20 rounded-lg flex items-center justify-center mb-4">
+                      <capability.icon className="w-6 h-6 text-success" />
                     </div>
                     <h3 className="text-xl font-semibold mb-3 text-foreground">{capability.title}</h3>
                     <p className="text-muted-foreground mb-4">{capability.description}</p>
@@ -262,7 +262,7 @@ const DataStewardJourney = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-green-600 to-teal-600 dark:from-dark-primary dark:to-dark-primary">
+      <section className="py-16 bg-gradient-to-r from-success to-primary dark:from-dark-primary dark:to-dark-primary">
         <div className="container mx-auto px-4">
           <div className="text-center text-white max-w-4xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
@@ -273,7 +273,7 @@ const DataStewardJourney = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/toolkit/gdpr-mapper" className="no-underline">
-                <Button className="bg-white text-green-600 hover:bg-gray-100 border-2 border-white shadow-lg">
+                <Button variant="outline" className="bg-white text-success hover:bg-gray-100 border-2 border-white shadow-lg">
                   Start Data Mapping
                   <Database className="ml-2 h-5 w-5" />
                 </Button>

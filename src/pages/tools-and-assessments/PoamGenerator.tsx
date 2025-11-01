@@ -41,7 +41,7 @@ interface PoamItem {
 }
 
 const PoamGenerator = () => {
-  const [poamItems] = useState<PoamItem[]>([
+  const [poamItems, setPoamItems] = useState<PoamItem[]>([
     {
       id: 'poam-001',
       controlId: 'AC.L2-3.1.3',
@@ -207,17 +207,17 @@ const PoamGenerator = () => {
       case 'critical': return 'text-red-600 bg-red-100 dark:bg-red-900/30 dark:text-red-200';
       case 'high': return 'text-orange-600 bg-orange-100 dark:bg-orange-900/30 dark:text-orange-200';
       case 'medium': return 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30 dark:text-yellow-200';
-      case 'low': return 'text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-200';
+      case 'low': return 'text-success bg-success/10';
       default: return 'text-muted-foreground bg-muted';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-200';
-      case 'in_progress': return 'text-blue-600 bg-blue-100 dark:bg-blue-900/30 dark:text-blue-200';
+      case 'completed': return 'text-success bg-success/10';
+      case 'in_progress': return 'text-primary bg-primary/10';
       case 'open': return 'text-red-600 bg-red-100 dark:bg-red-900/30 dark:text-red-200';
-      case 'risk_accepted': return 'text-purple-600 bg-purple-100 dark:bg-purple-900/30 dark:text-purple-200';
+      case 'risk_accepted': return 'text-accent bg-accent/10';
       default: return 'text-muted-foreground bg-muted';
     }
   };
@@ -445,6 +445,20 @@ const PoamGenerator = () => {
                             <span className="text-xs text-muted-foreground">Est. Cost</span>
                             <div className="font-medium">${item.estimatedCost.toLocaleString()}</div>
                           </div>
+                        </div>
+                        
+                        <div className="pt-4 border-t border-border">
+                          <label className="block text-sm font-medium mb-2">Status</label>
+                          <select
+                            value={item.status}
+                            onChange={(e) => updatePoamStatus(item.id, e.target.value as PoamItem['status'])}
+                            className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                          >
+                            <option value="open">Open</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="risk_accepted">Risk Accepted</option>
+                          </select>
                         </div>
                         
                         <div className="pt-4">

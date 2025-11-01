@@ -113,21 +113,21 @@ const LegalCounselJourney = () => {
   return (
     <div className="min-h-screen bg-surface dark:bg-dark-bg">
       {/* Hero Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
+      <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-br from-accent/10 via-background to-secondary/10 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
         <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-50"></div>
         
         <div className="container mx-auto px-4 relative z-10">
           
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-block mb-6">
-              <span className="bg-purple-100 text-purple-700 dark:bg-dark-primary/10 dark:text-dark-primary px-4 py-2 rounded-full inline-flex items-center text-sm font-medium">
+              <span className="bg-accent/10 text-accent dark:bg-dark-primary/10 dark:text-dark-primary px-4 py-2 rounded-full inline-flex items-center text-sm font-medium">
                 <Scale className="w-4 h-4 mr-2" />
                 Legal Counsel Journey
               </span>
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Privacy <span className="bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">Legal</span> Excellence
+              Privacy <span className="bg-gradient-to-r from-accent to-secondary dark:from-accent dark:to-secondary bg-clip-text text-transparent">Legal</span> Excellence
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
               Navigate complex privacy laws with comprehensive legal tools and frameworks
@@ -135,7 +135,7 @@ const LegalCounselJourney = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/toolkit/privacy-gap-analyzer">
-                <Button size="lg" className="enhanced-button bg-purple-600 hover:bg-purple-700">
+                <Button size="lg" variant="secondary" className="enhanced-button">
                   Legal Compliance Review
                   <Scale className="ml-2 h-5 w-5" />
                 </Button>
@@ -170,10 +170,10 @@ const LegalCounselJourney = () => {
                   <div className="flex flex-col lg:flex-row gap-8 items-start">
                     <div className="lg:w-1/3">
                       <div className="flex items-center mb-4">
-                        <div className="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center mr-3 font-bold">
+                        <div className="w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center mr-3 font-bold">
                           {index + 1}
                         </div>
-                        <span className="text-sm text-purple-600 font-medium">{step.phase}</span>
+                        <span className="text-sm text-accent font-medium">{step.phase}</span>
                       </div>
                       <h3 className="text-2xl font-bold mb-2 text-foreground">{step.title}</h3>
                       <p className="text-muted-foreground mb-4">{step.description}</p>
@@ -191,7 +191,7 @@ const LegalCounselJourney = () => {
                             {step.tools.map((tool, toolIndex) => (
                               <Link key={toolIndex} to={tool.path} className="block">
                                 <div className="flex items-center p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors">
-                                  <tool.icon className="w-5 h-5 text-purple-600 mr-3" />
+                                  <tool.icon className="w-5 h-5 text-accent mr-3" />
                                   <span className="font-medium">{tool.name}</span>
                                 </div>
                               </Link>
@@ -241,8 +241,8 @@ const LegalCounselJourney = () => {
               {legalCapabilities.map((capability, index) => (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
-                    <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4">
-                      <capability.icon className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                    <div className="w-12 h-12 bg-accent/10 dark:bg-accent/20 rounded-lg flex items-center justify-center mb-4">
+                      <capability.icon className="w-6 h-6 text-accent" />
                     </div>
                     <h3 className="text-xl font-semibold mb-3 text-foreground">{capability.title}</h3>
                     <p className="text-muted-foreground mb-4">{capability.description}</p>
@@ -263,7 +263,7 @@ const LegalCounselJourney = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-purple-600 to-pink-600 dark:from-dark-primary dark:to-dark-primary">
+      <section className="py-16 bg-gradient-to-r from-accent to-secondary dark:from-dark-primary dark:to-dark-primary">
         <div className="container mx-auto px-4">
           <div className="text-center text-white max-w-4xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
@@ -274,7 +274,7 @@ const LegalCounselJourney = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/toolkit/privacy-gap-analyzer" className="no-underline">
-                <Button className="bg-white text-purple-600 hover:bg-gray-100 border-2 border-white shadow-lg">
+                <Button variant="outline" className="bg-white text-accent hover:bg-gray-100 border-2 border-white shadow-lg">
                   Legal Compliance Review
                   <Scale className="ml-2 h-5 w-5" />
                 </Button>

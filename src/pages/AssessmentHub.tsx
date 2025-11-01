@@ -76,7 +76,7 @@ const AssessmentHub = () => {
                     'Audit-ready documentation'
                   ].map((outcome, idx) => (
                     <div key={idx} className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                      <CheckCircle className="w-5 h-5 text-success mr-3 mt-0.5 flex-shrink-0" />
                       <span className="text-foreground text-sm">{outcome}</span>
                     </div>
                   ))}
@@ -97,7 +97,7 @@ const AssessmentHub = () => {
               </div>
               
               <Link to="/assessments/privacy-assessment">
-                <Button size="lg" className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:shadow-lg hover:scale-105 transition-all duration-300 py-3">
+                <Button size="lg" variant="default" className="w-full">
                   Start Privacy Assessment
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -107,10 +107,10 @@ const AssessmentHub = () => {
 
           {/* Project Management Option */}
           <Card className="relative overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-0 shadow-lg">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-pink-600 opacity-5 group-hover:opacity-10 transition-opacity"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-accent to-secondary opacity-5 group-hover:opacity-10 transition-opacity"></div>
             <CardContent className="relative p-10">
               <div className="flex items-center mb-6">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center mr-4">
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-accent to-secondary flex items-center justify-center mr-4">
                   <Users className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -135,7 +135,7 @@ const AssessmentHub = () => {
                     'Progress tracking dashboard'
                   ].map((feature, idx) => (
                     <div key={idx} className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                      <CheckCircle className="w-5 h-5 text-success mr-3 mt-0.5 flex-shrink-0" />
                       <span className="text-foreground text-sm">{feature}</span>
                     </div>
                   ))}
@@ -143,7 +143,7 @@ const AssessmentHub = () => {
               </div>
               
               <Link to="/project">
-                <Button size="lg" className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:shadow-lg hover:scale-105 transition-all duration-300 py-3">
+                <Button size="lg" variant="secondary" className="w-full">
                   Start Privacy Project
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -166,7 +166,7 @@ const AssessmentHub = () => {
           <Link to="/toolkit/gdpr-mapper">
             <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md cursor-pointer">
               <CardContent className="p-6 text-center">
-                <Database className="h-10 w-10 text-blue-600 mx-auto mb-3" />
+                <Database className="h-10 w-10 text-primary mx-auto mb-3" />
                 <h3 className="font-semibold mb-2">Data Mapping</h3>
                 <p className="text-sm text-muted-foreground">Quick privacy data processing mapping</p>
               </CardContent>
@@ -176,7 +176,7 @@ const AssessmentHub = () => {
           <Link to="/toolkit/privacy-policy-generator">
             <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md cursor-pointer">
               <CardContent className="p-6 text-center">
-                <FileText className="h-10 w-10 text-green-600 mx-auto mb-3" />
+                <FileText className="h-10 w-10 text-success mx-auto mb-3" />
                 <h3 className="font-semibold mb-2">Policy Generator</h3>
                 <p className="text-sm text-muted-foreground">Generate compliant privacy policies</p>
               </CardContent>
@@ -186,7 +186,7 @@ const AssessmentHub = () => {
           <Link to="/toolkit/resources/viewers/dpia-template">
             <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md cursor-pointer">
               <CardContent className="p-6 text-center">
-                <Shield className="h-10 w-10 text-purple-600 mx-auto mb-3" />
+                <Shield className="h-10 w-10 text-accent mx-auto mb-3" />
                 <h3 className="font-semibold mb-2">DPIA Template</h3>
                 <p className="text-sm text-muted-foreground">Data protection impact assessments</p>
               </CardContent>
@@ -197,33 +197,33 @@ const AssessmentHub = () => {
 
       {/* Quick Stats */}
       <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-gradient-to-br from-blue-50 to-white dark:from-blue-900/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
+        <Card className="bg-gradient-to-br from-primary/10 to-background dark:from-primary/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
           <CardContent className="p-8 text-center">
-            <Bell className="h-8 w-8 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
+            <Bell className="h-8 w-8 text-primary mx-auto mb-2" />
             <div className="text-2xl font-bold text-foreground">95%</div>
             <p className="text-sm text-muted-foreground">Faster assessments</p>
           </CardContent>
         </Card>
         
-        <Card className="bg-gradient-to-br from-green-50 to-white dark:from-green-900/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
+        <Card className="bg-gradient-to-br from-success/10 to-background dark:from-success/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
           <CardContent className="p-8 text-center">
-            <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400 mx-auto mb-2" />
+            <CheckCircle className="h-8 w-8 text-success mx-auto mb-2" />
             <div className="text-2xl font-bold text-foreground">12+</div>
             <p className="text-sm text-muted-foreground">Frameworks covered</p>
           </CardContent>
         </Card>
         
-        <Card className="bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
+        <Card className="bg-gradient-to-br from-accent/10 to-background dark:from-accent/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
           <CardContent className="p-8 text-center">
-            <FileText className="h-8 w-8 text-purple-600 dark:text-purple-400 mx-auto mb-2" />
+            <FileText className="h-8 w-8 text-accent mx-auto mb-2" />
             <div className="text-2xl font-bold text-foreground">Auto</div>
             <p className="text-sm text-muted-foreground">Report generation</p>
           </CardContent>
         </Card>
         
-        <Card className="bg-gradient-to-br from-orange-50 to-white dark:from-orange-900/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
+        <Card className="bg-gradient-to-br from-warning/10 to-background dark:from-warning/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
           <CardContent className="p-8 text-center">
-            <Shield className="h-8 w-8 text-orange-600 dark:text-orange-400 mx-auto mb-2" />
+            <Shield className="h-8 w-8 text-warning mx-auto mb-2" />
             <div className="text-2xl font-bold text-foreground">$0</div>
             <p className="text-sm text-muted-foreground">Penalties avoided</p>
           </CardContent>
@@ -244,7 +244,7 @@ const AssessmentHub = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="hover:shadow-lg transition-all duration-300 border-0">
             <CardContent className="p-6 text-center">
-              <Eye className="h-10 w-10 text-blue-600 mx-auto mb-4" />
+              <Eye className="h-10 w-10 text-primary mx-auto mb-4" />
               <h4 className="font-semibold mb-2">Assessment First</h4>
               <p className="text-sm text-muted-foreground mb-4">Start with a comprehensive privacy assessment to understand your current posture</p>
               <InternalLink href="/assessments/privacy-assessment" variant="button" showIcon>
@@ -255,7 +255,7 @@ const AssessmentHub = () => {
           
           <Card className="hover:shadow-lg transition-all duration-300 border-0">
             <CardContent className="p-6 text-center">
-              <Users className="h-10 w-10 text-purple-600 mx-auto mb-4" />
+              <Users className="h-10 w-10 text-accent mx-auto mb-4" />
               <h4 className="font-semibold mb-2">Team Project</h4>
               <p className="text-sm text-muted-foreground mb-4">Create a collaborative privacy implementation project with role-based workflows</p>
               <InternalLink href="/project" variant="button" showIcon>
@@ -266,7 +266,7 @@ const AssessmentHub = () => {
           
           <Card className="hover:shadow-lg transition-all duration-300 border-0">
             <CardContent className="p-6 text-center">
-              <BookOpen className="h-10 w-10 text-green-600 mx-auto mb-4" />
+              <BookOpen className="h-10 w-10 text-success mx-auto mb-4" />
               <h4 className="font-semibold mb-2">Learn First</h4>
               <p className="text-sm text-muted-foreground mb-4">Explore our comprehensive documentation and implementation guides</p>
               <InternalLink href="/documentation" variant="button" showIcon>

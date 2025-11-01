@@ -111,7 +111,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
             <h1 className="text-3xl font-bold mb-2 text-foreground">CCPA Compliance Policy</h1>
             <p className="text-muted-foreground">California Consumer Privacy Act compliance framework and procedures</p>
           </div>
-          <Button onClick={downloadTemplate} className="bg-blue-600 hover:bg-blue-700">
+          <Button onClick={downloadTemplate} variant="default">
             <Download className="h-4 w-4 mr-2" />
             Download Template
           </Button>
@@ -122,36 +122,36 @@ This template provides a foundation for CCPA compliance. Customize according to 
       <Card className="mb-6">
         <CardHeader>
           <CardTitle className="flex items-center">
-            <Shield className="h-5 w-5 mr-2 text-blue-600" />
+            <Shield className="h-5 w-5 mr-2 text-primary" />
             CCPA Compliance Framework
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg inline-block mb-2">
-                <Users className="h-6 w-6 text-blue-600" />
+              <div className="bg-primary/10 dark:bg-primary/20 p-3 rounded-lg inline-block mb-2">
+                <Users className="h-6 w-6 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground">Consumer Rights</h3>
               <p className="text-sm text-muted-foreground">4 Core Rights</p>
             </div>
             <div className="text-center">
-              <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-lg inline-block mb-2">
-                <Globe className="h-6 w-6 text-green-600" />
+              <div className="bg-success/10 dark:bg-success/20 p-3 rounded-lg inline-block mb-2">
+                <Globe className="h-6 w-6 text-success" />
               </div>
               <h3 className="font-semibold text-foreground">Data Categories</h3>
               <p className="text-sm text-muted-foreground">9 PI Categories</p>
             </div>
             <div className="text-center">
-              <div className="bg-orange-100 dark:bg-orange-900/30 p-3 rounded-lg inline-block mb-2">
-                <Lock className="h-6 w-6 text-orange-600" />
+              <div className="bg-warning/10 dark:bg-warning/20 p-3 rounded-lg inline-block mb-2">
+                <Lock className="h-6 w-6 text-warning" />
               </div>
               <h3 className="font-semibold text-foreground">Response Time</h3>
               <p className="text-sm text-muted-foreground">45-90 Days</p>
             </div>
             <div className="text-center">
-              <div className="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-lg inline-block mb-2">
-                <FileText className="h-6 w-6 text-purple-600" />
+              <div className="bg-accent/10 dark:bg-accent/20 p-3 rounded-lg inline-block mb-2">
+                <FileText className="h-6 w-6 text-accent" />
               </div>
               <h3 className="font-semibold text-foreground">Documentation</h3>
               <p className="text-sm text-muted-foreground">Required Records</p>

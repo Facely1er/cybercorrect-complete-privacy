@@ -119,15 +119,15 @@ const ResourcesLanding = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {featuredResources.map((resource) => (
               <Card key={resource.id} className="relative overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-0 shadow-lg">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-cyan-600/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <CardContent className="p-8">
                   <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center mr-3">
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center mr-3">
                       <resource.icon className="h-6 w-6 text-white" />
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-foreground mb-2">{resource.title}</h3>
-                      <span className="text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-0.5 rounded-full">
+                      <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
                         Featured
                       </span>
                     </div>
@@ -136,7 +136,7 @@ const ResourcesLanding = () => {
                   <p className="text-muted-foreground mb-4 text-sm">{resource.description}</p>
                   
                   <Link to={resource.path}>
-                    <Button className="w-full enhanced-button py-3 font-semibold hover:scale-105 transition-all duration-300">
+                    <Button variant="default" className="w-full enhanced-button">
                       Start {resource.type}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
@@ -155,8 +155,8 @@ const ResourcesLanding = () => {
               <Card key={category.id} className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md">
                 <CardContent className="p-8">
                   <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mr-3">
-                      <category.icon className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mr-3">
+                      <category.icon className="h-6 w-6 text-primary" />
                     </div>
                     <h3 className="text-xl font-bold text-foreground">{category.title}</h3>
                   </div>
