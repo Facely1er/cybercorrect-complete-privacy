@@ -978,14 +978,15 @@ const ComplianceGapAnalyzer: React.FC = () => {
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center space-x-3">
-                        <span className="font-mono text-blue-600 text-sm font-semibold">
+                        <span className="font-mono text-primary dark:text-primary text-sm font-semibold">
                           {gap.id}
                         </span>
                         <span 
                           className={`px-3 py-1 rounded-full text-xs font-medium text-white ${
-                            priorityLevels[gap.priority]?.color === '#dc2626' ? 'bg-red-600' :
-                            priorityLevels[gap.priority]?.color === '#ea580c' ? 'bg-orange-600' :
-                            priorityLevels[gap.priority]?.color === '#d97706' ? 'bg-yellow-600' : 'bg-green-600'
+                            gap.priority === 'critical' ? 'bg-destructive' :
+                            gap.priority === 'high' ? 'bg-destructive/80' :
+                            gap.priority === 'medium' ? 'bg-warning' :
+                            'bg-success'
                           }`}
                         >
                           {priorityLevels[gap.priority]?.label}
@@ -997,7 +998,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
                         >
                           {implementationStatus[gap.status]?.label}
                         </span>
-                        <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded text-xs font-medium">
+                        <span className="px-2 py-1 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary rounded text-xs font-medium">
                           {gap.domain}
                         </span>
                       </div>

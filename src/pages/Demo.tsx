@@ -540,10 +540,10 @@ const Demo = () => {
       
       {/* Call to Action */}
       <div className="mt-8 p-6 bg-primary/5 rounded-lg text-center">
-        <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Ready to streamline your compliance journey?</h3>
+        <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Ready to streamline your compliance journey?</h3>
         <p className="mb-6 text-lg text-muted-foreground">Experience the full power of CyberCorrect Privacy Platform with a personalized demo or comprehensive assessment.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+          <Button size="lg" variant="default" className="hover:shadow-xl transform hover:scale-105 transition-all duration-300">
             Schedule a Live Demo
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>

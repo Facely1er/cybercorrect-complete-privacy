@@ -48,10 +48,10 @@ const AssessmentHub = () => {
         <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Privacy Assessment</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           <Card className="relative overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-0 shadow-lg">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600 opacity-5 group-hover:opacity-10 transition-opacity"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent opacity-5 group-hover:opacity-10 transition-opacity"></div>
             <CardContent className="relative p-10">
               <div className="flex items-center mb-6">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center mr-4">
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mr-4">
                   <Eye className="w-6 h-6 text-white" />
                 </div>
                 <div>

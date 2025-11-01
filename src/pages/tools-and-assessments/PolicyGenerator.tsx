@@ -142,10 +142,10 @@ const ComplianceGapAnalyzer: React.FC = () => {
 
   // Control implementation status with enhanced scoring
   const implementationStatus = useMemo(() => ({
-    'fully_implemented': { label: 'Fully Implemented', color: '#22c55e', textColor: 'text-green-700 dark:text-green-300', score: 100, priority: 1 },
-    'partially_implemented': { label: 'Partially Implemented', color: '#f59e0b', textColor: 'text-yellow-700 dark:text-yellow-300', score: 60, priority: 2 },
-    'planned': { label: 'Planned', color: '#3b82f6', textColor: 'text-blue-700 dark:text-blue-300', score: 30, priority: 3 },
-    'not_implemented': { label: 'Not Implemented', color: '#ef4444', textColor: 'text-red-700 dark:text-red-300', score: 0, priority: 4 },
+    'fully_implemented': { label: 'Fully Implemented', color: '#22c55e', textColor: 'text-success dark:text-success', score: 100, priority: 1 },
+    'partially_implemented': { label: 'Partially Implemented', color: '#f59e0b', textColor: 'text-warning dark:text-warning', score: 60, priority: 2 },
+    'planned': { label: 'Planned', color: '#3b82f6', textColor: 'text-primary dark:text-primary', score: 30, priority: 3 },
+    'not_implemented': { label: 'Not Implemented', color: '#ef4444', textColor: 'text-destructive dark:text-destructive', score: 0, priority: 4 },
     'not_applicable': { label: 'Not Applicable', color: '#6b7280', textColor: 'text-muted-foreground', score: 100, priority: 0 }
   }), []);
 
@@ -637,7 +637,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-4xl font-bold text-blue-600">{overallScore}%</div>
+                <div className="text-4xl font-bold text-primary dark:text-primary">{overallScore}%</div>
                 <div className="text-sm text-muted-foreground">Overall Compliance</div>
                 <div className="text-xs text-muted-foreground mt-1">
                   Industry Average: 68%
@@ -722,7 +722,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
-                <BarChart3 className="h-5 w-5 mr-2 text-blue-600" />
+                <BarChart3 className="h-5 w-5 mr-2 text-primary dark:text-primary" />
                 Domain Compliance Scores
               </CardTitle>
             </CardHeader>
@@ -843,7 +843,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
-            <RefreshCw className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
+            <RefreshCw className="h-8 w-8 animate-spin text-primary dark:text-primary mx-auto mb-4" />
             <p className="text-muted-foreground">Loading compliance assessment...</p>
           </div>
         </div>
@@ -905,7 +905,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
           <Button
             variant="outline"
             onClick={() => exportReport('csv')}
-            className="border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20"
+            className="border-success text-success hover:bg-success/10 dark:hover:bg-success/20"
           >
             <Download className="h-4 w-4 mr-2" />
             Export CSV
@@ -992,14 +992,15 @@ const ComplianceGapAnalyzer: React.FC = () => {
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center space-x-3">
-                        <span className="font-mono text-blue-600 text-sm font-semibold">
+                        <span className="font-mono text-primary dark:text-primary text-sm font-semibold">
                           {gap.id}
                         </span>
                         <span 
                           className={`px-3 py-1 rounded-full text-xs font-medium text-white ${
-                            priorityLevels[gap.priority]?.color === '#dc2626' ? 'bg-red-600' :
-                            priorityLevels[gap.priority]?.color === '#ea580c' ? 'bg-orange-600' :
-                            priorityLevels[gap.priority]?.color === '#d97706' ? 'bg-yellow-600' : 'bg-green-600'
+                            gap.priority === 'critical' ? 'bg-destructive' :
+                            gap.priority === 'high' ? 'bg-destructive/80' :
+                            gap.priority === 'medium' ? 'bg-warning' :
+                            'bg-success'
                           }`}
                         >
                           {priorityLevels[gap.priority]?.label}
@@ -1011,7 +1012,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
                         >
                           {implementationStatus[gap.status]?.label}
                         </span>
-                        <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded text-xs font-medium">
+                        <span className="px-2 py-1 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary rounded text-xs font-medium">
                           {gap.domain}
                         </span>
                       </div>

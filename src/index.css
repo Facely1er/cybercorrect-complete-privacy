@@ -131,7 +131,7 @@
   
   /* Gradient text utility */
   .gradient-text {
-    @apply bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 dark:from-blue-400 dark:via-purple-400 dark:to-cyan-400 bg-clip-text text-transparent animate-gradient;
+    @apply bg-gradient-to-r from-primary via-secondary to-accent dark:from-primary dark:via-secondary dark:to-accent bg-clip-text text-transparent animate-gradient;
   }
   
   /* Animated gradient background */
@@ -159,6 +159,23 @@
   /* Enhanced glow effect */
   .glow-effect {
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3), 0 0 80px rgba(59, 130, 246, 0.1);
+  }
+
+  /* Score gradient utilities using design tokens */
+  .gradient-score-excellent {
+    @apply bg-gradient-to-r from-success to-success/80;
+  }
+
+  .gradient-score-good {
+    @apply bg-gradient-to-r from-primary to-secondary;
+  }
+
+  .gradient-score-fair {
+    @apply bg-gradient-to-r from-warning to-warning/80;
+  }
+
+  .gradient-score-poor {
+    @apply bg-gradient-to-r from-destructive to-destructive/80;
   }
   
   /* Section spacing consistency */

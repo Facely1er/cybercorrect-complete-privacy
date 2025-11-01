@@ -148,7 +148,7 @@ const Landing = () => {
                 subtitle: 'European General Data Protection Regulation',
                 description: 'Comprehensive privacy compliance program with automated DPIAs, consent management, and multi-regulation support.',
                 icon: Eye,
-                color: 'from-blue-600 to-indigo-600',
+                color: 'from-primary to-secondary',
                 assessmentPath: '/assessments/privacy-assessment',
                 stats: { value: '5 Regs', label: 'Multi-regulation support' }
               },
@@ -158,7 +158,7 @@ const Landing = () => {
                 subtitle: 'Enterprise Data Management & Protection',
                 description: 'Complete data governance framework with data mapping, quality controls, and lifecycle management.',
                 icon: Users,
-                color: 'from-purple-600 to-pink-600',
+                color: 'from-secondary to-accent',
                 assessmentPath: '/toolkit/gdpr-mapper',
                 stats: { value: 'Auto', label: 'Data subject rights automation' }
               },
@@ -168,7 +168,7 @@ const Landing = () => {
                 subtitle: 'Enterprise Security Risk Management',
                 description: 'Implement the NIST Privacy Framework with structured governance, risk assessment, and continuous monitoring.',
                 icon: Shield,
-                color: 'from-green-600 to-teal-600',
+                color: 'from-success to-primary',
                 assessmentPath: '/assessments/privacy-assessment',
                 stats: { value: '5 Functions', label: 'Framework coverage' }
               }

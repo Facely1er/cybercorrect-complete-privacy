@@ -33,10 +33,10 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
   };
 
   const getScoreBackground = (score: number) => {
-    if (score >= 80) return 'bg-success-green/10 dark:bg-dark-success/10';
-    if (score >= 60) return 'bg-primary-teal/10 dark:bg-dark-primary/10';
-    if (score >= 40) return 'bg-premium-gold/10 dark:bg-dark-premium/10';
-    return 'bg-alert-coral/10 dark:bg-dark-alert/10';
+    if (score >= 80) return 'gradient-score-excellent';
+    if (score >= 60) return 'gradient-score-good';
+    if (score >= 40) return 'gradient-score-fair';
+    return 'gradient-score-poor';
   };
 
   const getSeverityText = (score: number) => {
@@ -116,18 +116,11 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
                   <div className="text-sm font-medium text-foreground dark:text-dark-text">Overall Compliance Score</div>
                 </div>
                 
-                <div className="w-full bg-support-gray dark:bg-dark-support h-2 rounded-full overflow-hidden">
+                <div className="w-full bg-muted dark:bg-dark-support h-2 rounded-full overflow-hidden">
                   <div 
                     className={`h-2 rounded-full ${getScoreBackground(data.overallScore)}`} 
                     style={{ 
-                      width: `${data.overallScore}%`,
-                      background: data.overallScore >= 80 
-                        ? 'linear-gradient(90deg, #4CAF50 0%, #66BB6A 100%)' 
-                        : data.overallScore >= 60 
-                        ? 'linear-gradient(90deg, #2A6F7F 0%, #3A9CA8 100%)' 
-                        : data.overallScore >= 40 
-                        ? 'linear-gradient(90deg, #FFD166 0%, #FFDD95 100%)' 
-                        : 'linear-gradient(90deg, #FF6B6B 0%, #FF9B9B 100%)'
+                      width: `${data.overallScore}%`
                     }}>
                   </div>
                 </div>
@@ -144,7 +137,7 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
 
               <div className="mt-4">
                 <Link to={`/${data.assessmentType}-recommendations`}>
-                  <Button className="w-full bg-primary-teal hover:bg-secondary-teal text-white dark:bg-dark-primary dark:hover:bg-dark-primary/90">
+                  <Button variant="default" className="w-full">
                     View Recommendations
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -161,18 +154,11 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
                       <div className="text-sm font-medium text-foreground dark:text-dark-text">{section.title}</div>
                       <div className={`text-sm font-medium ${getScoreColor(section.percentage)}`}>{section.percentage}%</div>
                     </div>
-                    <div className="w-full bg-support-gray dark:bg-dark-support h-2 rounded-full overflow-hidden">
+                    <div className="w-full bg-muted dark:bg-dark-support h-2 rounded-full overflow-hidden">
                       <div 
                         className={`h-2 rounded-full ${getScoreBackground(section.percentage)}`} 
                         style={{ 
-                          width: `${section.percentage}%`,
-                          background: section.percentage >= 80 
-                            ? 'linear-gradient(90deg, #4CAF50 0%, #66BB6A 100%)' 
-                            : section.percentage >= 60 
-                            ? 'linear-gradient(90deg, #2A6F7F 0%, #3A9CA8 100%)' 
-                            : section.percentage >= 40 
-                            ? 'linear-gradient(90deg, #FFD166 0%, #FFDD95 100%)' 
-                            : 'linear-gradient(90deg, #FF6B6B 0%, #FF9B9B 100%)'
+                          width: `${section.percentage}%`
                         }}>
                       </div>
                     </div>

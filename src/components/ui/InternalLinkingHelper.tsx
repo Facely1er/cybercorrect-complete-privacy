@@ -188,7 +188,7 @@ export const ContextualCTA: React.FC<ContextualCTAProps> = ({ currentPath, class
           <InternalLink
             href={cta.primaryAction.href}
             variant="button"
-            className="bg-white text-primary hover:bg-gray-100"
+            className="bg-background text-primary hover:bg-muted"
             showIcon
           >
             {cta.primaryAction.text}
