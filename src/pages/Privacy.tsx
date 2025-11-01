@@ -2,18 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { Shield, Lock, FileText, CheckCircle, ArrowLeft, Database, Eye, Globe, Users, Mail } from 'lucide-react';
+import { Shield, Lock, FileText, CheckCircle, Database, Eye, Globe, Users, Mail } from 'lucide-react';
 
 const Privacy = () => {
   return (
-    <div className="py-20">
-      <div className="max-w-4xl mx-auto px-6">
-        <Link to="/" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-8">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Home
-        </Link>
-
-        <div className="text-center mb-16">
+    <div className="py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4 text-foreground">Master Privacy Policy</h1>
           <p className="text-xl text-muted-foreground mb-2">
             ERMITS LLC is committed to protecting your privacy through a Privacy-First Architecture

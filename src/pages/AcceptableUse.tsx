@@ -2,18 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { Shield, AlertTriangle, Lock, FileText, CheckCircle, XCircle, ArrowLeft, Mail } from 'lucide-react';
+import { Shield, AlertTriangle, Lock, FileText, CheckCircle, XCircle, Mail } from 'lucide-react';
 
 const AcceptableUse = () => {
   return (
-    <div className="py-20">
-      <div className="max-w-4xl mx-auto px-6">
-        <Link to="/" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-8">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Home
-        </Link>
-
-        <div className="text-center mb-16">
+    <div className="py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4 text-foreground">Acceptable Use Policy</h1>
           <p className="text-xl text-muted-foreground mb-2">
             ERMITS LLC Acceptable Use Policy governs your use of Services

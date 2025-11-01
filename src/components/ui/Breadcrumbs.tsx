@@ -39,7 +39,11 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     'gdpr-checklist': 'GDPR Checklist',
     'privacy-notice': 'Privacy Notice',
     'data-processing-record': 'Processing Records',
-    'breach-notification': 'Breach Notification'
+    'breach-notification': 'Breach Notification',
+    'privacy': 'Privacy Policy',
+    'terms': 'Terms of Service',
+    'cookies': 'Cookie Policy',
+    'acceptable-use': 'Acceptable Use Policy'
   };
 
   const getBreadcrumbName = (segment: string) => {
