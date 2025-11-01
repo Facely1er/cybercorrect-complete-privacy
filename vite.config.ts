@@ -4,8 +4,10 @@ import path from 'path'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 
 // https://vitejs.dev/config/
+import type { Plugin } from 'vite';
+
 export default defineConfig(({ mode }) => {
-  const plugins: any[] = [
+  const plugins: Plugin[] = [
     react(),
   ];
 

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { 
-  BookOpen, 
   HelpCircle, 
   ArrowRight, 
   Eye, 
@@ -115,7 +114,7 @@ const ResourcesLanding = () => {
 
         {/* Featured Resources */}
         <div className="mb-12">
-          <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Start Here</h2>
+          <h2 className="section-title">Start Here</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {featuredResources.map((resource) => (
               <Card key={resource.id} className="relative overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-0 shadow-lg">
@@ -149,7 +148,7 @@ const ResourcesLanding = () => {
 
         {/* Resource Categories */}
         <div className="mb-12">
-          <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Essential Resources</h2>
+          <h2 className="section-title">Essential Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {resourceCategories.map((category) => (
               <Card key={category.id} className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md">

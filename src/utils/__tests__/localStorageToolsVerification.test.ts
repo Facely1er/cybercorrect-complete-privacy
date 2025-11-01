@@ -237,7 +237,7 @@ describe('localStorage Tools Verification', () => {
         }
       }
 
-      const saveGuideProgress = (progress: Record<string, any>) => {
+      const saveGuideProgress = (progress: Record<string, unknown>) => {
         try {
           localStorage.setItem('guideProgress', JSON.stringify(progress))
           return true

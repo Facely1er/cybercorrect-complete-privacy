@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { Shield, Lock, FileText, CheckCircle, Database, Eye, Globe, Users, Mail } from 'lucide-react';
+import { Shield, Lock, FileText, CheckCircle, Database, Users, Mail } from 'lucide-react';
 
 const Privacy = () => {
   return (

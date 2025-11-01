@@ -78,7 +78,7 @@ describe('localStorage Integration Tests', () => {
         }
       }
 
-      const saveGuideProgress = (progress: Record<string, any>) => {
+      const saveGuideProgress = (progress: Record<string, unknown>) => {
         try {
           localStorage.setItem('guideProgress', JSON.stringify(progress))
           return true

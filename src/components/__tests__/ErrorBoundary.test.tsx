@@ -99,9 +99,7 @@ describe('ErrorBoundary', () => {
   it('should navigate to home when home button is clicked', async () => {
     const user = userEvent.setup();
     // Mock window.location.href
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     delete (window as unknown as Record<string, unknown>).location;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as unknown as Record<string, unknown>).location = { href: '' };
 
     render(
