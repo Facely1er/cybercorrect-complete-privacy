@@ -362,7 +362,7 @@ const SspGenerator = () => {
     setEditingControl(null);
   };
   
-  // Add evidence to control - placeholder for future implementation
+  // Evidence management functions for future enhancement
   // const addEvidence = (controlId: string, evidence: Evidence) => {
   //   setControls(controls.map(control => 
   //     control.id === controlId

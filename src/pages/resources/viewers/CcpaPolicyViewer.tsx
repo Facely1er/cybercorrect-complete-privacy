@@ -277,7 +277,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
             <Settings className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">Implementation Procedures</h3>
             <p className="text-muted-foreground">
-              Detailed procedures interface coming soon
+              Detailed guidance on implementing CCPA consumer rights procedures, including verification processes, request handling workflows, and response timelines
             </p>
           </div>
         )}
@@ -287,7 +287,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
             <Eye className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">Compliance Monitoring</h3>
             <p className="text-muted-foreground">
-              Compliance tracking interface coming soon
+              Tools and metrics for monitoring CCPA compliance, including request tracking, disclosure audits, and policy update management
             </p>
           </div>
         )}

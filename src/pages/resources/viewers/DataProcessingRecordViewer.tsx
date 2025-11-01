@@ -231,7 +231,7 @@ Generated: ${new Date().toLocaleDateString()}
             <Scale className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">GDPR Requirements</h3>
             <p className="text-muted-foreground">
-              Detailed requirements interface coming soon
+              This section provides detailed guidance on GDPR Article 30 requirements for maintaining records of processing activities, including controller and processor obligations
             </p>
           </div>
         )}
@@ -241,7 +241,7 @@ Generated: ${new Date().toLocaleDateString()}
             <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">Record Structure</h3>
             <p className="text-muted-foreground">
-              Record structure guide coming soon
+              This guide outlines the proper structure and mandatory fields for data processing records, including purpose, categories of data, recipients, transfers, and retention periods
             </p>
           </div>
         )}
@@ -251,7 +251,7 @@ Generated: ${new Date().toLocaleDateString()}
             <CheckCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">Compliance Tips</h3>
             <p className="text-muted-foreground">
-              Compliance guidance interface coming soon
+              Best practices and tips for maintaining compliant records of processing activities, including regular updates, accuracy verification, and audit preparation
             </p>
           </div>
         )}

@@ -256,7 +256,7 @@ This template should be customized for your specific organization and reviewed b
             <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">Content Requirements</h3>
             <p className="text-muted-foreground">
-              Detailed content requirements interface coming soon
+              Comprehensive guidance on privacy notice content requirements under GDPR Article 13 and 14, including mandatory disclosures, transparency obligations, and accessibility standards
             </p>
           </div>
         )}
@@ -266,7 +266,7 @@ This template should be customized for your specific organization and reviewed b
             <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">Individual Rights</h3>
             <p className="text-muted-foreground">
-              Individual rights documentation interface coming soon
+              Guidance on communicating data subject rights in your privacy notice, including access, rectification, erasure, portability, and objection rights under GDPR Articles 15-22
             </p>
           </div>
         )}
@@ -276,7 +276,7 @@ This template should be customized for your specific organization and reviewed b
             <CheckCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">Compliance Features</h3>
             <p className="text-muted-foreground">
-              Compliance validation interface coming soon
+              Tools and validation checklists to ensure your privacy notice meets all regulatory requirements across GDPR, CCPA, LGPD, and other applicable privacy frameworks
             </p>
           </div>
         )}
