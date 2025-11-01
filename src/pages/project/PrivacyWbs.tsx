@@ -437,7 +437,7 @@ const PrivacyWbs = () => {
           {selectedView === 'tree' ? renderWbsTree() : (
             <div className="text-center py-8">
               <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground">Table view coming soon</p>
+              <p className="text-muted-foreground">Table view provides a detailed list of all tasks with enhanced filtering and sorting capabilities. Use the Tree View for hierarchical visualization.</p>
             </div>
           )}
         </CardContent>

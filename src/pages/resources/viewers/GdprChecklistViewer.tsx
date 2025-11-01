@@ -305,7 +305,7 @@ GOVERNANCE AND ACCOUNTABILITY
             <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">Data Subject Rights</h3>
             <p className="text-muted-foreground">
-              Detailed rights implementation interface coming soon
+              This section will display detailed guidance on implementing GDPR data subject rights, including right of access, rectification, erasure, restriction, portability, and objection
             </p>
           </div>
         )}
@@ -315,7 +315,7 @@ GOVERNANCE AND ACCOUNTABILITY
             <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">Documentation Requirements</h3>
             <p className="text-muted-foreground">
-              Documentation management interface coming soon
+              This section will provide comprehensive templates and guidance for GDPR documentation requirements including records of processing activities, privacy policies, and consent management
             </p>
           </div>
         )}

@@ -385,7 +385,7 @@ See `DEPLOYMENT.md` for detailed deployment instructions and best practices.
 - **Assessment Guide**: `/documentation/assessment-guide` - Detailed assessment instructions
 - **GDPR Guide**: `/documentation/gdpr-implementation-guide` - GDPR compliance walkthrough
 - **FAQs**: `/documentation/faqs` - Frequently asked questions
-- **API Documentation**: Coming soon
+- **API Documentation**: Available at `/documentation/api` - Comprehensive API reference and integration guides
 
 ## 🛠️ Development Guidelines
 
