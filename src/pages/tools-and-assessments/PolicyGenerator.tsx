@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { 
   CheckCircle, 
   AlertTriangle, 
@@ -10,7 +10,8 @@ import {
   RefreshCw, 
   Building,
   Eye,
-  Server
+  Server,
+  Import
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -236,7 +237,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
         controls.push({
           id: controlId,
           title: generateControlTitle(domain, i),
-          description: generateControlDescription(domain),
+          description: generateControlDescription(),
           status: status,
           priority: priority,
           lastAssessed: new Date(Date.now() - Math.random() * 180 * 24 * 60 * 60 * 1000),
@@ -353,7 +354,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     return domainTags.slice(0, Math.floor(Math.random() * 3) + 1);
   };
 
-  const generateRelatedControls = (controlId: string, frameworkName: string): string[] => {
+  const generateRelatedControls = (_controlId: string, frameworkName: string): string[] => {
     // Simulate control relationships
     const count = Math.floor(Math.random() * 4);
     return Array.from({ length: count }, (_, i) => `${frameworkName.substring(0, 4).toUpperCase()}-REL-${i + 1}`);
@@ -405,7 +406,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
             gapType: control.status === 'not_implemented' ? 'missing' : 'incomplete',
             businessImpact: priorityLevels[control.priority]?.businessImpact || 'Unknown',
             timeframe: priorityLevels[control.priority]?.timeframe || 'TBD',
-            complianceRisk: calculateComplianceRisk(control.priority, selectedFramework),
+            complianceRisk: calculateComplianceRisk(control.priority),
             estimatedCost: control.costEstimate,
             urgencyScore: calculateUrgencyScore(control)
           });
@@ -567,7 +568,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
     toast.success("Export completed", `Report exported as ${filename}`);
   };
 
-  const generateCSVReport = (data: Control[]): string => {
+  const generateCSVReport = (data: { detailedResults: { gapAnalysis: GapAnalysisItem[] } }): string => {
     const headers = [
       'Control ID', 'Title', 'Domain', 'Status', 'Priority', 'Risk Level', 
       'Owner', 'Cost Estimate', 'Timeframe', 'Business Impact'
@@ -779,21 +780,23 @@ const ComplianceGapAnalyzer: React.FC = () => {
                         return total + (domain?.controls?.filter(control => control.status === status).length || 0);
                       }, 0);
                       
+                      const configData = config as { label: string; color: string };
                       return {
-                        name: config.label,
+                        name: configData.label,
                         value: count,
-                        color: config.color
+                        color: configData.color
                       };
                     }).filter(item => item.value > 0)}
                     cx="50%"
                     cy="50%"
                     outerRadius={80}
                     dataKey="value"
-                    label={({ name, value, percent }) => `${name}: ${value} (${(percent * 100).toFixed(0)}%)`}
+                    label={({ name, value, percent }) => `${name}: ${value} (${((percent ?? 0) * 100).toFixed(0)}%)`}
                   >
-                    {Object.entries(implementationStatus).map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry[1].color} />
-                    ))}
+                    {Object.entries(implementationStatus).map((entry, index) => {
+                      const configData = entry[1] as { color: string };
+                      return <Cell key={`cell-${index}`} fill={configData.color} />;
+                    })}
                   </Pie>
                   <Tooltip />
                 </PieChart>
