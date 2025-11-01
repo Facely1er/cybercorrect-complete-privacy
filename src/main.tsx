@@ -26,6 +26,13 @@ window.addEventListener('unhandledrejection', (event) => {
   }
 });
 
+// Handle GitHub Pages redirects (for direct URL access)
+const urlParams = new URLSearchParams(window.location.search);
+const redirect = urlParams.get('redirect');
+if (redirect && redirect !== '/') {
+  window.history.replaceState({}, '', redirect);
+}
+
 const rootElement = document.getElementById('root');
 if (rootElement) {
   createRoot(rootElement).render(
