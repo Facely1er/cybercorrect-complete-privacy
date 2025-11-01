@@ -654,14 +654,14 @@ const ComplianceGapAnalyzer: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Implemented</p>
-                  <p className="text-3xl font-bold text-green-600">
+                  <p className="text-3xl font-bold text-success">
                     {Object.values(complianceData).reduce((sum, domain) => sum + domain.implementedControls, 0)}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">
                     of {frameworks[selectedFramework].totalControls} controls
                   </p>
                 </div>
-                <CheckCircle className="h-8 w-8 text-green-600" />
+                <CheckCircle className="h-8 w-8 text-success" />
               </div>
             </CardContent>
           </Card>
@@ -671,14 +671,14 @@ const ComplianceGapAnalyzer: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Critical Gaps</p>
-                  <p className="text-3xl font-bold text-red-600">
+                  <p className="text-3xl font-bold text-destructive">
                     {gapAnalysis.filter(gap => gap.priority === 'critical').length}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">
                     Require immediate attention
                   </p>
                 </div>
-                <AlertTriangle className="h-8 w-8 text-red-600" />
+                <AlertTriangle className="h-8 w-8 text-destructive" />
               </div>
             </CardContent>
           </Card>
@@ -688,12 +688,12 @@ const ComplianceGapAnalyzer: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Total Gaps</p>
-                  <p className="text-3xl font-bold text-yellow-600">{gapAnalysis.length}</p>
+                  <p className="text-3xl font-bold text-warning">{gapAnalysis.length}</p>
                   <p className="text-xs text-muted-foreground mt-1">
                     Remediation required
                   </p>
                 </div>
-                <XCircle className="h-8 w-8 text-yellow-600" />
+                <XCircle className="h-8 w-8 text-warning" />
               </div>
             </CardContent>
           </Card>
@@ -703,14 +703,14 @@ const ComplianceGapAnalyzer: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Est. Cost</p>
-                  <p className="text-3xl font-bold text-purple-600">
+                  <p className="text-3xl font-bold text-accent">
                     ${(gapAnalysis.reduce((sum, gap) => sum + gap.estimatedCost, 0) / 1000000).toFixed(1)}M
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">
                     Total remediation cost
                   </p>
                 </div>
-                <Target className="h-8 w-8 text-purple-600" />
+                <Target className="h-8 w-8 text-accent" />
               </div>
             </CardContent>
           </Card>
@@ -808,7 +808,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
-              <TrendingUp className="h-5 w-5 mr-2 text-green-600" />
+              <TrendingUp className="h-5 w-5 mr-2 text-success" />
               Compliance Trends (12 Months)
             </CardTitle>
           </CardHeader>
@@ -856,7 +856,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
-            <AlertTriangle className="h-8 w-8 text-red-600 mx-auto mb-4" />
+            <AlertTriangle className="h-8 w-8 text-destructive mx-auto mb-4" />
             <p className="text-foreground font-medium mb-2">Assessment Error</p>
             <p className="text-muted-foreground mb-4">{error}</p>
             <Button onClick={loadComplianceData}>
@@ -965,7 +965,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center">
-                    <AlertTriangle className="h-5 w-5 mr-2 text-red-600" />
+                    <AlertTriangle className="h-5 w-5 mr-2 text-destructive" />
                     Compliance Gaps ({filteredGaps.length})
                   </CardTitle>
                   

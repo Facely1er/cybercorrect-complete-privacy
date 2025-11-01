@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -14,7 +14,9 @@ import {
   Shield,
   Clock,
   CheckCircle,
-  Mail
+  Mail,
+  X,
+  Loader2
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/secureStorage';
@@ -82,7 +84,19 @@ const PrivacyRightsManager = () => {
   const [selectedRequest, setSelectedRequest] = useState<string | null>(() => 
     secureStorage.getItem('privacy_rights_selected_request', null)
   );
-  const [, setShowNewRequest] = useState(false);
+  const [showNewRequest, setShowNewRequest] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+  const newRequestFormRef = useRef<HTMLDivElement>(null);
+  
+  // New request form state
+  const [newRequest, setNewRequest] = useState<Partial<DataSubjectRequest>>({
+    type: 'access',
+    requesterName: '',
+    requesterEmail: '',
+    description: '',
+    priority: 'medium',
+    assignedTo: 'Data Protection Officer'
+  });
 
   // Auto-save requests and selection
   useEffect(() => {
@@ -97,24 +111,24 @@ const PrivacyRightsManager = () => {
 
   const getRequestTypeColor = (type: string) => {
     const colors: Record<string, string> = {
-      'access': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200',
-      'rectification': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200',
-      'erasure': 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200',
-      'portability': 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200',
-      'restriction': 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-200',
-      'objection': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200'
+      'access': 'bg-primary/10 text-primary',
+      'rectification': 'bg-success/10 text-success',
+      'erasure': 'bg-destructive/10 text-destructive',
+      'portability': 'bg-accent/10 text-accent',
+      'restriction': 'bg-warning/10 text-warning',
+      'objection': 'bg-warning/10 text-warning'
     };
-    return colors[type] || 'bg-gray-100 text-gray-800';
+    return colors[type] || 'bg-muted text-muted-foreground';
   };
 
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
-      'pending': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200',
-      'in_progress': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200',
-      'completed': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200',
-      'rejected': 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200'
+      'pending': 'bg-warning/10 text-warning',
+      'in_progress': 'bg-primary/10 text-primary',
+      'completed': 'bg-success/10 text-success',
+      'rejected': 'bg-destructive/10 text-destructive'
     };
-    return colors[status] || 'bg-gray-100 text-gray-800';
+    return colors[status] || 'bg-muted text-muted-foreground';
   };
 
   const getRequestTypeIcon = (type: string) => {
@@ -136,6 +150,86 @@ const PrivacyRightsManager = () => {
     toast.success('Status updated', `Request ${requestId} status changed to ${newStatus}`);
   };
 
+  const handleCreateRequest = () => {
+    if (!newRequest.requesterName || !newRequest.requesterEmail || !newRequest.description) {
+      toast.error('Validation Error', 'Please fill in all required fields');
+      return;
+    }
+
+    const newId = `DSR-${String(requests.length + 1).padStart(3, '0')}`;
+    const today = new Date();
+    const dueDate = new Date(today);
+    dueDate.setDate(today.getDate() + 30); // 30 days from now
+
+    const newRequestItem: DataSubjectRequest = {
+      id: newId,
+      type: newRequest.type!,
+      status: 'pending',
+      submittedDate: today.toISOString().split('T')[0],
+      dueDate: dueDate.toISOString().split('T')[0],
+      requesterName: newRequest.requesterName!,
+      requesterEmail: newRequest.requesterEmail!,
+      description: newRequest.description!,
+      priority: newRequest.priority!,
+      assignedTo: newRequest.assignedTo || 'Data Protection Officer'
+    };
+
+    setRequests(prev => [...prev, newRequestItem]);
+    setShowNewRequest(false);
+    setNewRequest({
+      type: 'access',
+      requesterName: '',
+      requesterEmail: '',
+      description: '',
+      priority: 'medium',
+      assignedTo: 'Data Protection Officer'
+    });
+    toast.success('Request Created', `New data subject request ${newId} has been created`);
+  };
+
+  const handleExportReport = async () => {
+    setIsExporting(true);
+    try {
+      // Simulate export delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const exportData = {
+        metadata: {
+          title: 'Data Subject Rights Requests Report',
+          created: new Date().toISOString(),
+          version: '1.0',
+          totalRequests: requests.length,
+          pending: requests.filter(r => r.status === 'pending').length,
+          inProgress: requests.filter(r => r.status === 'in_progress').length,
+          completed: requests.filter(r => r.status === 'completed').length
+        },
+        requests: requests
+      };
+
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `privacy-rights-report-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+
+      toast.success('Report Exported', 'Data subject rights report has been exported successfully');
+    } catch (error) {
+      toast.error('Export Failed', error instanceof Error ? error.message : 'Failed to export report');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  // Handle keyboard navigation for cards
+  const handleCardKeyDown = (e: React.KeyboardEvent, requestId: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setSelectedRequest(requestId);
+    }
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
@@ -155,9 +249,18 @@ const PrivacyRightsManager = () => {
               <Plus className="h-4 w-4 mr-2" />
               New Request
             </Button>
-            <Button>
-              <Download className="h-4 w-4 mr-2" />
-              Export Report
+            <Button onClick={handleExportReport} disabled={isExporting}>
+              {isExporting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Exporting...
+                </>
+              ) : (
+                <>
+                  <Download className="h-4 w-4 mr-2" />
+                  Export Report
+                </>
+              )}
             </Button>
           </div>
         </div>
@@ -165,57 +268,57 @@ const PrivacyRightsManager = () => {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <Card className="border-l-4 border-l-yellow-500">
+        <Card className="border-l-4 border-l-warning">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Pending</p>
-                <p className="text-3xl font-bold text-yellow-600">
+                <p className="text-3xl font-bold text-warning">
                   {requests.filter(req => req.status === 'pending').length}
                 </p>
               </div>
-              <Clock className="h-8 w-8 text-yellow-600" />
+              <Clock className="h-8 w-8 text-warning" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="border-l-4 border-l-primary">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">In Progress</p>
-                <p className="text-3xl font-bold text-blue-600">
+                <p className="text-3xl font-bold text-primary">
                   {requests.filter(req => req.status === 'in_progress').length}
                 </p>
               </div>
-              <Users className="h-8 w-8 text-blue-600" />
+              <Users className="h-8 w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-500">
+        <Card className="border-l-4 border-l-success">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Completed</p>
-                <p className="text-3xl font-bold text-green-600">
+                <p className="text-3xl font-bold text-success">
                   {requests.filter(req => req.status === 'completed').length}
                 </p>
               </div>
-              <CheckCircle className="h-8 w-8 text-green-600" />
+              <CheckCircle className="h-8 w-8 text-success" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-purple-500">
+        <Card className="border-l-4 border-l-accent">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Average Response</p>
-                <p className="text-3xl font-bold text-purple-600">18</p>
+                <p className="text-3xl font-bold text-accent">18</p>
                 <p className="text-xs text-muted-foreground">days</p>
               </div>
-              <Clock className="h-8 w-8 text-purple-600" />
+              <Clock className="h-8 w-8 text-accent" />
             </div>
           </CardContent>
         </Card>
@@ -232,15 +335,32 @@ const PrivacyRightsManager = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {requests.map((request) => (
-                  <Card 
-                    key={request.id} 
-                    className={`cursor-pointer transition-all hover:shadow-md ${
-                      selectedRequest === request.id ? 'ring-2 ring-primary' : ''
-                    }`}
-                    onClick={() => setSelectedRequest(request.id)}
-                  >
+              {requests.length === 0 ? (
+                <Card className="text-center py-12">
+                  <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">No Requests Yet</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Get started by creating your first data subject rights request
+                  </p>
+                  <Button onClick={() => setShowNewRequest(true)}>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Create First Request
+                  </Button>
+                </Card>
+              ) : (
+                <div className="space-y-4">
+                  {requests.map((request) => (
+                    <Card 
+                      key={request.id} 
+                      className={`cursor-pointer transition-all hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary ${
+                        selectedRequest === request.id ? 'ring-2 ring-primary' : ''
+                      }`}
+                      onClick={() => setSelectedRequest(request.id)}
+                      onKeyDown={(e) => handleCardKeyDown(e, request.id)}
+                      tabIndex={0}
+                      role="button"
+                      aria-label={`Select request ${request.id} from ${request.requesterName}`}
+                    >
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center gap-3">
@@ -275,9 +395,10 @@ const PrivacyRightsManager = () => {
                         </div>
                       </div>
                     </CardContent>
-                  </Card>
-                ))}
-              </div>
+                    </Card>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -370,6 +491,129 @@ const PrivacyRightsManager = () => {
           </Card>
         </div>
       </div>
+
+      {/* New Request Modal */}
+      {showNewRequest && (
+        <div 
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          onClick={() => setShowNewRequest(false)}
+        >
+          <Card 
+            ref={newRequestFormRef}
+            className="w-full max-w-2xl max-h-[90vh] overflow-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Create New Data Subject Request</span>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => setShowNewRequest(false)}
+                  aria-label="Close new request dialog"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    Request Type <span className="text-destructive">*</span>
+                  </label>
+                  <select
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={newRequest.type}
+                    onChange={(e) => setNewRequest({ ...newRequest, type: e.target.value as DataSubjectRequest['type'] })}
+                  >
+                    <option value="access">Access</option>
+                    <option value="rectification">Rectification</option>
+                    <option value="erasure">Erasure</option>
+                    <option value="portability">Portability</option>
+                    <option value="restriction">Restriction</option>
+                    <option value="objection">Objection</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    Requester Name <span className="text-destructive">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={newRequest.requesterName}
+                    onChange={(e) => setNewRequest({ ...newRequest, requesterName: e.target.value })}
+                    placeholder="Enter requester's name"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    Requester Email <span className="text-destructive">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={newRequest.requesterEmail}
+                    onChange={(e) => setNewRequest({ ...newRequest, requesterEmail: e.target.value })}
+                    placeholder="Enter requester's email"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    Description <span className="text-destructive">*</span>
+                  </label>
+                  <textarea
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary min-h-[100px]"
+                    value={newRequest.description}
+                    onChange={(e) => setNewRequest({ ...newRequest, description: e.target.value })}
+                    placeholder="Describe the data subject request..."
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Priority</label>
+                    <select
+                      className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                      value={newRequest.priority}
+                      onChange={(e) => setNewRequest({ ...newRequest, priority: e.target.value as DataSubjectRequest['priority'] })}
+                    >
+                      <option value="low">Low</option>
+                      <option value="medium">Medium</option>
+                      <option value="high">High</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Assigned To</label>
+                    <input
+                      type="text"
+                      className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                      value={newRequest.assignedTo}
+                      onChange={(e) => setNewRequest({ ...newRequest, assignedTo: e.target.value })}
+                      placeholder="Data Protection Officer"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex justify-end gap-2 pt-4">
+                  <Button variant="outline" onClick={() => setShowNewRequest(false)}>
+                    Cancel
+                  </Button>
+                  <Button onClick={handleCreateRequest}>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Create Request
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       {/* Rights Information */}
       <div className="mt-8 p-6 bg-muted/30 rounded-lg">
