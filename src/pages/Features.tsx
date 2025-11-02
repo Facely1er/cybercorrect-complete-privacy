@@ -190,7 +190,7 @@ const Features = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-20">
-              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+              <h2 className="section-title">
                 How It All Works Together
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -331,7 +331,7 @@ const Features = () => {
               <span className="inline-block px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-semibold mb-4">
                 🤖 AI-Powered Innovation
               </span>
-              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+              <h2 className="section-title">
                 Artificial Intelligence That Works for You
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">

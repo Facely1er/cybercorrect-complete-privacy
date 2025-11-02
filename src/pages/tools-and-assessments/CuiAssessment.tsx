@@ -654,7 +654,7 @@ const DataClassificationAssessment = () => {
           {sections[currentSection].questions.map((question) => (
             <div key={question.id} className="border-b border-border pb-4 last:border-b-0">
               <div className="flex items-start gap-2 mb-2">
-                <div className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded text-sm font-mono">
+                <div className="bg-primary/10 dark:bg-primary/20 text-primary px-2 py-1 rounded text-sm font-mono">
                   {question.id}
                 </div>
                 <p className="font-medium text-foreground flex-1">{question.question}</p>

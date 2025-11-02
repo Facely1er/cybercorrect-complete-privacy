@@ -120,7 +120,7 @@ const GdprMapper = () => {
     switch (risk) {
       case 'high': return 'text-red-600 bg-red-100 dark:bg-red-900/30 dark:text-red-200';
       case 'medium': return 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30 dark:text-yellow-200';
-      case 'low': return 'text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-200';
+      case 'low': return 'text-success bg-success/10';
       default: return 'text-muted-foreground bg-muted';
     }
   };
