@@ -1,63 +1,74 @@
 ---
-description: Specifications for privacy framework mapping logic, cross-regulation correlations, and automated compliance recommendations
+description: Specification for implementing privacy framework mapping logic and cross-framework compliance correlation
 ---
 
 
 # privacy-framework-mappings
 
 ## Framework Correlation Engine
-Importance Score: 95/100
 
-Maps requirements and controls across major privacy frameworks:
-- GDPR to CCPA/CPRA mapping
-- LGPD correlation matrix 
-- PIPEDA compliance mapping
-- NIST Privacy Framework integration
+Core mapping logic that correlates controls and requirements across major privacy frameworks:
 
-Key mapping components:
-- Control equivalency determination based on requirement scope
-- Jurisdiction-specific obligation tracking
-- Cross-framework gap analysis
-- Automated control recommendations
+1. Framework Control Mapping
+- Bidirectional mapping between GDPR Articles ↔ CCPA Sections ↔ LGPD Chapters
+- Control equivalency scoring based on requirement overlap
+- Automated gap identification for framework-specific requirements
+- Inheritance rules for shared control implementations
 
-## Privacy Assessment Logic
-Importance Score: 90/100
+2. Cross-Framework Assessment Logic
+```typescript
+calculateFrameworkAlignment(source: Framework, target: Framework): number {
+  // Weighted scoring of control mapping coverage
+  // Control inheritance validation
+  // Framework-specific requirement validation
+}
+```
 
-Implements multi-framework assessment capabilities:
-- Framework-specific question banks and scoring
-- Control maturity calculations
-- Risk-weighted gap analysis
-- Automated remediation recommendations based on framework requirements
+3. Automated Recommendation Engine
+- Control implementation suggestions based on framework correlations
+- Priority scoring using framework-specific weighting
+- Implementation effort estimation based on control complexity
+- Resource requirement calculations per framework
 
-Domain-specific mapping logic includes:
-- Data processing activity correlation
+## Key Framework Mappings
+
+1. GDPR → CCPA
+- Article 15 (Right of Access) → §1798.100 (Right to Know)
+- Article 17 (Right to Erasure) → §1798.105 (Right to Delete) 
+- Article 20 (Data Portability) → §1798.100(d) (Portability Requirements)
+
+2. GDPR → LGPD
+- Article 6 (Lawfulness) → Article 7 (Legal Bases)
+- Article 37 (DPO) → Article 41 (DPO Requirements)
+- Article 33 (Breach Notification) → Article 48 (Security Incident)
+
+3. Control Implementation Requirements
+- Documentation standards per framework
+- Evidence collection requirements
+- Validation criteria mapping
+- Audit trail specifications
+
+## Framework-Specific Logic
+
+1. GDPR Processing Activities
+- Legal basis validation
 - Cross-border transfer requirements
-- Data subject rights mapping
-- Breach notification obligations
+- Special category data handling
+- Representative requirements
 
-## Recommendation Generation
+2. CCPA Consumer Rights 
+- Notice requirements
+- Opt-out implementation
+- Service provider obligations
+- Financial incentive rules
+
+3. LGPD Data Subject Rights
+- Confirmation of processing
+- Access requirements
+- Correction procedures
+- Anonymization rules
+
 Importance Score: 85/100
-
-Generates compliance recommendations through:
-- Framework-specific control analysis
-- Risk-based prioritization
-- Implementation complexity scoring
-- Resource requirement estimation
-
-Recommendation engine considers:
-- Organization size and type
-- Data processing scope
-- Geographic presence
-- Industry-specific requirements
-
-## Evidence Classification System 
-Importance Score: 80/100
-
-Manages compliance evidence across frameworks:
-- Control-specific documentation requirements
-- Cross-framework evidence mapping
-- Documentation expiration tracking
-- Automated renewal notifications
 
 $END$
 

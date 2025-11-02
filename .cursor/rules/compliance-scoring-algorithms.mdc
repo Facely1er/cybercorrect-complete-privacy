@@ -1,61 +1,68 @@
 ---
-description: Technical specifications for privacy and security compliance scoring algorithms and risk assessment calculations
+description: Specifies scoring algorithms and calculations for privacy/security compliance assessments and gap analysis
 ---
 
 
 # compliance-scoring-algorithms
 
-Importance Score: 90/100
+Importance Score: 85/100
 
-Core compliance scoring algorithms implemented across multiple framework-specific calculators:
+Core Scoring Components:
 
-## Risk-Weighted Control Scoring
-- Priority-based scoring weights (Critical=1.0, High=0.75, Medium=0.5, Low=0.25)
-- Control implementation status multipliers (Implemented=1.0, Partial=0.5, Planned=0.25, None=0)
-- Domain maturity calculation based on weighted implementation rates
-- Urgency scoring using priority * (1 - implementation status)
+1. Compliance Gap Analysis Scoring
+Path: src/pages/tools-and-assessments/ComplianceGapAnalyzer.tsx
 
-File: src/pages/tools-and-assessments/ComplianceGapAnalyzer.tsx
+Implements weighted domain scoring:
+```typescript
+calculateDomainScore(): Weighted control evaluation incorporating:
+- Control priority levels (Critical/High/Medium/Low)
+- Implementation status (0-100%)
+- Domain context multipliers
+- Aggregate maturity calculation
+```
 
-## Multi-Framework Gap Analysis
-- Cross-framework control mapping between NIST, ISO, GDPR requirements
-- Framework-specific scoring thresholds and weightings
-- Gap prioritization using:
-  - Business impact rating (1-5)
-  - Implementation difficulty (1-3) 
-  - Regulatory requirement status (Required/Recommended)
-- Composite risk score = Impact * (1 + Difficulty) * Regulatory Multiplier
+Urgency scoring formula:
+```typescript
+calculateUrgencyScore(): Risk-based prioritization using:
+- Priority/status scoring matrix
+- Time-to-implement estimates
+- Risk exposure calculations
+- Regulatory deadline factors
+```
 
-## Control Maturity Assessment
-Maturity levels calculated per domain:
-1. Initial (0-20%)
-2. Managed (21-40%) 
-3. Defined (41-60%)
-4. Measured (61-80%)
-5. Optimized (81-100%)
+Maturity level progression:
+```typescript
+calculateMaturityLevel(): Progressive assessment using:
+- Implementation rate thresholds
+- Domain-specific minimums
+- Cross-domain requirements
+- Capability maturity indicators
+```
 
-Implementation scoring factors:
-- Documentation completeness
-- Process formalization
-- Control effectiveness testing
-- Continuous monitoring
-- Regular review cycles
+2. POA&M Risk Scoring 
+Path: src/pages/tools-and-assessments/PoamGenerator.tsx
 
-## Risk Assessment Algorithms
-Business impact calculations using:
-- Data sensitivity classification (Public=1, Internal=2, Restricted=3, Critical=4)
-- Process criticality rating (1-5)
-- Regulatory exposure score (Local=1, National=2, International=3)
-- Financial impact estimation
+Risk-weighted calculations:
+- Milestone completion percentage with priority weights
+- Cost estimation scaled by control priority
+- Business impact assessment scores
+- Dependencies tracking multipliers
 
-Risk Level = (Sensitivity + Criticality + Regulatory) * Implementation Gap
+3. GDPR Data Processing Risk Scores
+Path: src/pages/tools-and-assessments/GdprMapper.tsx
 
-Key scoring patterns:
-- All scores normalized to 0-100 scale
-- Risk-weighted averages for domain aggregation
-- Framework-specific minimum thresholds
-- Compensating control adjustments
-- Time-based degradation factors
+Processing activity scoring:
+- Data category sensitivity weights
+- Processing purpose risk factors
+- Cross-border transfer multipliers
+- Special category data handling scores
+
+Key Business Rules:
+- Critical controls weighted 3x higher than low priority
+- Maturity level progression requires minimum 80% in critical domains
+- Risk scores factor both status and priority using 3x3 matrix
+- Cost estimates use complexity-based multipliers
+- Automated status determined by weighted control averages
 
 $END$
 

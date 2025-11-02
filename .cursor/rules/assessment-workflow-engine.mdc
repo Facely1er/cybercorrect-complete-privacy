@@ -1,70 +1,71 @@
 ---
-description: Technical documentation for privacy assessment workflow engine including DPIA generation, compliance gap analysis, and framework mapping
+description: Specification for assessment workflow engine implementation including DPIA generation, privacy frameworks, and compliance gap analysis
 ---
 
 
 # assessment-workflow-engine
 
-## Core Assessment Components 
-Importance Score: 90/100
+The assessment workflow engine implements sophisticated privacy and compliance assessment logic across multiple regulatory frameworks.
+
+## Core Assessment Components
 
 ### Compliance Gap Analysis Engine
 `src/pages/tools-and-assessments/ComplianceGapAnalyzer.tsx`
-- Risk-weighted compliance scoring using priority levels and control status
-- Domain-specific maturity calculations based on implementation rates
-- Urgency scoring for gaps using weighted priority factors
-- Business impact assessments for control gaps
-- NIST framework control mapping algorithms
 
-### DPIA Generator
+- Weighted control scoring system based on priority levels and implementation status
+- Domain-specific maturity calculations using customized thresholds 
+- Risk scoring algorithm incorporating control status and domain context
+- Urgency scoring using priority/status matrices
+- Compliance trend analysis with improvement rate tracking
+
+### DPIA Generation System
 `src/pages/tools-and-assessments/DpiaGenerator.tsx`
-- GDPR Article 35 DPIA requirement implementation
-- Risk assessment calculations for data processing 
-- Mitigation recommendation generation based on risk levels
-- Legal basis mapping for processing activities
-- Data protection measure tracking
+
+- Automated risk threshold determination
+- Processing activity categorization engine
+- Privacy risk scoring matrix implementation
+- GDPR Article 35 compliance validation rules
+- Impact level calculations based on data types and processing purposes
 
 ### Privacy Assessment Framework
 `src/pages/tools-and-assessments/PrivacyAssessment.tsx`
-- NIST Privacy Framework implementation with 5 core functions
-- Custom scoring algorithm with weighted questions
-- Domain-specific validation rules
-- 50% minimum section completion requirements
 
-## Supporting Assessment Components
-Importance Score: 85/100
+- NIST Privacy Framework evaluation across 5 core functions
+- Section-specific scoring algorithms with custom weighting
+- Minimum 50% section completion validation
+- Cross-framework control mapping capabilities
 
 ### Privacy Gap Analysis
 `src/pages/tools-and-assessments/PrivacyGapAnalyzer.tsx`
-- Multi-framework analysis (GDPR, CCPA, LGPD, PIPEDA)
-- Gap identification algorithms
-- Risk-based prioritization
-- Framework-specific remediation generation
 
-### GDPR Data Processing Mapping
-`src/pages/tools-and-assessments/GdprMapper.tsx`
-- Article 30 record keeping implementation
-- Data flow mapping between activities
-- Risk level calculations by data category
-- Cross-border transfer tracking
-- Legal basis compliance status
+- Multi-framework compliance gap identification
+- Framework-specific risk scoring
+- Automated compliance recommendations
+- Regulatory requirement mapping across frameworks
 
-## Assessment Workflows
-Importance Score: 80/100
+## Key Business Rules
 
-### Project Management 
-`src/pages/project/PrivacyRoadmap.tsx`
-- Four-phase compliance roadmap implementation
-- Phase-specific deliverable tracking
-- Milestone management
-- Regulatory alignment validation
+1. Assessment Scoring
+- Critical controls weighted more heavily than low-priority ones
+- Maturity levels require minimum thresholds across domains
+- Risk calculations factor both implementation status and priority
 
-### Evidence Management
-`src/pages/project/EvidenceVault.tsx`
-- Compliance evidence categorization
-- Documentation lifecycle tracking
-- Audit trail implementation
-- Policy and procedure management
+2. Framework Validation
+- Section completion requirements vary by framework
+- Control mapping rules between different standards
+- Evidence requirements based on control criticality
+
+3. Recommendation Generation
+- Priority classification based on risk levels
+- Effort estimation for remediation activities
+- Implementation timeframe calculations
+
+4. DPIA Requirements
+- Automated threshold evaluation for DPIA necessity
+- Risk-based processing activity categorization
+- Impact level determination rules
+
+Importance Score: 85/100
 
 $END$
 

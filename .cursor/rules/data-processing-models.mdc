@@ -1,60 +1,68 @@
 ---
-description: Specifications for data processing models, flows, and privacy-related data structures for GDPR compliance tracking
+description: Documentation of data models, schemas and processing flows for privacy compliance and GDPR tracking
 ---
 
 
 # data-processing-models
 
-Core data models supporting GDPR compliance and privacy management:
+Core Data Models:
 
-## Processing Activity Records (Importance: 95/100)
-Models for GDPR Article 30 record keeping:
-- Data controller/processor relationships
-- Processing purposes and legal bases
-- Data categories and subject types
-- Retention periods and security measures
-- Cross-border transfer tracking
-- Third party processor documentation
+1. GDPR Processing Activities
+Path: src/models/processing-activities.ts
 
-Location: src/pages/tools-and-assessments/GdprMapper.tsx
+Key Entities:
+- Processing Activity Records (Art. 30 GDPR)
+- Data Categories and Special Categories 
+- Processing Purposes
+- Legal Basis Tracking
+- Cross-border Transfer Details
+- Data Subject Categories
+- Recipients and Third Parties
 
-## Data Flow Mapping (Importance: 90/100)
-Models for tracking data movement:
-- Source/destination system mappings
-- Data category classification
-- Transfer mechanism documentation
-- Geographic location tracking
-- Processing activity linkage
-- Legal basis associations
+2. Data Flow Mapping
+Path: src/models/data-flows.ts
 
-## Rights Request Management (Importance: 85/100)
-Data structures for handling data subject requests:
-- Request type categorization
-- Identity verification status
-- Processing timeline tracking
-- Response documentation
-- Legal basis validation
-- Compliance evidence storage
+Model Structure:
+- Data Flow Nodes (Systems, Applications, Third Parties)
+- Data Flow Connections
+- Transfer Types (Internal, External, Cross-border)
+- Data Categories In Transit
+- Security Controls Applied
+- Processing Activities Links
 
-## Privacy Impact Assessment (Importance: 80/100)
-DPIA data models tracking:
-- Processing activity scope
-- Risk assessment metrics
-- Mitigation measures
-- Legal compliance validation
-- Controller/processor obligations
-- Technical safeguards
+3. Legal Basis Registry
+Path: src/models/legal-basis.ts
 
-Location: src/pages/tools-and-assessments/DpiaGenerator.tsx
+Key Elements:
+- Legal Basis Categories (Consent, Contract, Legal Obligation, etc.)
+- Processing Purpose Mapping
+- Data Category Requirements  
+- Retention Period Rules
+- Documentation Links
+- Status Tracking
 
-## Evidence Documentation (Importance: 75/100)
-Compliance evidence tracking models:
-- Document classification schema
-- Regulatory requirement mapping
-- Validation timestamps
-- Access control records
-- Audit trail logging
-- Expiration tracking
+4. Data Protection Impact Assessments
+Path: src/models/dpia.ts
+
+Assessment Structure:
+- Processing Operations
+- Necessity & Proportionality Tests
+- Risk Assessments
+- Mitigation Measures
+- DPO Consultations
+- Prior Consultation Status
+
+Key Relationships:
+- Processing Activities link to Legal Basis entries
+- Data Flows map to Processing Activities
+- DPIAs reference Processing Activities
+- Legal Basis entries connect to multiple Processing Activities
+
+Schema Enforcement:
+- Required fields validation
+- Relationship integrity checks
+- Status progression rules
+- Documentation requirements
 
 $END$
 
