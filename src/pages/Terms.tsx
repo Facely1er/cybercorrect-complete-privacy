@@ -73,7 +73,7 @@ const Terms = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Shield className="h-6 w-6 text-primary mr-2" />
-                1.4 Privacy-First Architecture and Data Handling
+                1.2 Privacy-First Architecture and Data Handling
               </h2>
               <p className="text-muted-foreground mb-4">
                 ERMITS implements a Privacy-First Architecture across all products, built on the following principles:
@@ -81,7 +81,7 @@ const Terms = () => {
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.4.1 Client-Side Processing</h3>
+                  <h3 className="text-lg font-medium mb-2">1.2.1 Client-Side Processing</h3>
                   <p className="text-muted-foreground">
                     All core computational functions (assessments, SBOM analysis, risk scoring, compliance evaluations) 
                     are performed locally within your browser or self-managed environment whenever technically feasible.
@@ -89,7 +89,7 @@ const Terms = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.4.2 Data Sovereignty Options</h3>
+                  <h3 className="text-lg font-medium mb-2">1.2.2 Data Sovereignty Options</h3>
                   <p className="text-muted-foreground mb-2">You have multiple deployment and storage options:</p>
                   <div className="space-y-2">
                     <div className="flex items-start">
@@ -110,7 +110,7 @@ const Terms = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.4.4 Zero-Knowledge Principles</h3>
+                  <h3 className="text-lg font-medium mb-2">1.2.3 Zero-Knowledge Principles</h3>
                   <p className="text-muted-foreground">
                     When using ERMITS-managed cloud services with encryption enabled: Data is encrypted client-side using 
                     AES-256-GCM via WebCrypto. Encryption keys are derived from your credentials and never transmitted to ERMITS. 
@@ -119,7 +119,7 @@ const Terms = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.4.5 Data Minimization</h3>
+                  <h3 className="text-lg font-medium mb-2">1.2.4 Data Minimization</h3>
                   <p className="text-muted-foreground mb-2">ERMITS collects only the minimum data necessary for service functionality:</p>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground">
                     <li><strong>Never Collected:</strong> Raw SBOM files, assessment content, CUI, FCI, proprietary business data, or detailed vulnerability findings</li>
@@ -136,12 +136,12 @@ const Terms = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Database className="h-6 w-6 text-primary mr-2" />
-                1.6 User Data Ownership and Responsibilities
+                1.3 User Data Ownership and Responsibilities
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.6.1 User Data Ownership</h3>
+                  <h3 className="text-lg font-medium mb-2">1.3.1 User Data Ownership</h3>
                   <p className="text-muted-foreground">
                     You retain all ownership rights in your User Data. ERMITS does not claim any ownership or intellectual 
                     property rights in your User Data.
@@ -149,7 +149,7 @@ const Terms = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.6.3 User Data Responsibilities</h3>
+                  <h3 className="text-lg font-medium mb-2">1.3.2 User Data Responsibilities</h3>
                   <p className="text-muted-foreground mb-2">You are solely responsible for:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -183,7 +183,7 @@ const Terms = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Lock className="h-6 w-6 text-primary mr-2" />
-                1.11 Acceptable Use
+                1.4 Acceptable Use
               </h2>
               <p className="text-muted-foreground mb-4">
                 You agree to use the Services only for lawful purposes and in accordance with these Terms. Prohibited uses include:
@@ -191,7 +191,7 @@ const Terms = () => {
               
               <div className="space-y-3">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.11.1 Illegal Activities</h3>
+                  <h3 className="text-lg font-medium mb-2">1.4.1 Illegal Activities</h3>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground">
                     <li>Violating any applicable laws, regulations, or third-party rights</li>
                     <li>Engaging in fraud, money laundering, or other criminal activities</li>
@@ -200,7 +200,7 @@ const Terms = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.11.2 Security Violations</h3>
+                  <h3 className="text-lg font-medium mb-2">1.4.2 Security Violations</h3>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground">
                     <li>Attempting to gain unauthorized access to Services or user accounts</li>
                     <li>Interfering with or disrupting Services or servers</li>
@@ -222,7 +222,7 @@ const Terms = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <AlertTriangle className="h-6 w-6 text-primary mr-2" />
-                1.15 Limitation of Liability
+                1.5 Limitation of Liability
               </h2>
               <p className="text-muted-foreground mb-4">
                 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL ERMITS LLC, ITS AFFILIATES, OFFICERS, 
@@ -239,7 +239,7 @@ const Terms = () => {
               </ul>
               
               <div className="mt-4">
-                <h3 className="text-lg font-medium mb-2">1.15.2 Cap on Liability</h3>
+                <h3 className="text-lg font-medium mb-2">1.5.1 Cap on Liability</h3>
                 <p className="text-muted-foreground">
                   ERMITS' TOTAL AGGREGATE LIABILITY ARISING OUT OF OR RELATED TO THESE TERMS OR USE OF THE SERVICES SHALL 
                   NOT EXCEED THE GREATER OF: $100 USD, or The total amount paid by you to ERMITS in the 12 months preceding the claim.
@@ -253,12 +253,12 @@ const Terms = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Scale className="h-6 w-6 text-primary mr-2" />
-                1.14 Warranties and Disclaimers
+                1.6 Warranties and Disclaimers
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.14.1 Limited Warranty</h3>
+                  <h3 className="text-lg font-medium mb-2">1.6.1 Limited Warranty</h3>
                   <p className="text-muted-foreground">
                     ERMITS warrants that the Services will perform substantially in accordance with published documentation 
                     under normal use. This warranty does not apply to Beta Products, free tiers, issues caused by user error, 
@@ -267,7 +267,7 @@ const Terms = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.14.3 Compliance Disclaimer</h3>
+                  <h3 className="text-lg font-medium mb-2">1.6.2 Compliance Disclaimer</h3>
                   <p className="text-muted-foreground mb-2">
                     ERMITS products are tools to assist with security and compliance efforts but:
                   </p>
@@ -288,12 +288,12 @@ const Terms = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Shield className="h-6 w-6 text-primary mr-2" />
-                1.10 Federal Contractor Specific Terms
+                1.7 Federal Contractor Specific Terms
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.10.1 Applicability</h3>
+                  <h3 className="text-lg font-medium mb-2">1.7.1 Applicability</h3>
                   <p className="text-muted-foreground">
                     This section applies to users who are U.S. federal contractors or subcontractors handling Federal 
                     Contract Information (FCI) or Controlled Unclassified Information (CUI).
@@ -301,7 +301,7 @@ const Terms = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.10.3 CUI and FCI Handling</h3>
+                  <h3 className="text-lg font-medium mb-2">1.7.2 CUI and FCI Handling</h3>
                   <p className="text-muted-foreground mb-2">When using ERMITS Services to process CUI or FCI:</p>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground">
                     <li>You must use encryption features and self-managed deployment options</li>
@@ -319,12 +319,12 @@ const Terms = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Globe className="h-6 w-6 text-primary mr-2" />
-                1.20 Governing Law and Dispute Resolution
+                1.8 Governing Law and Dispute Resolution
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.20.1 Governing Law</h3>
+                  <h3 className="text-lg font-medium mb-2">1.8.1 Governing Law</h3>
                   <p className="text-muted-foreground">
                     These Terms are governed by and construed in accordance with the laws of the District of Columbia, 
                     United States, without regard to conflict of law principles.
@@ -332,7 +332,7 @@ const Terms = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">1.20.3 Binding Arbitration</h3>
+                  <h3 className="text-lg font-medium mb-2">1.8.2 Binding Arbitration</h3>
                   <p className="text-muted-foreground">
                     Any dispute, controversy, or claim arising out of or relating to these Terms shall be resolved by 
                     binding arbitration administered by the American Arbitration Association (AAA) under its Commercial Arbitration Rules.
@@ -347,7 +347,7 @@ const Terms = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Mail className="h-6 w-6 text-primary mr-2" />
-                1.22 Contact Information
+                1.9 Contact Information
               </h2>
               
               <div className="space-y-3 text-muted-foreground">

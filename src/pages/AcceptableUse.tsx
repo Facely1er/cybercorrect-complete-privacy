@@ -24,7 +24,7 @@ const AcceptableUse = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <FileText className="h-6 w-6 text-primary mr-2" />
-                3.1 Purpose and Scope
+                1.1 Purpose and Scope
               </h2>
               <p className="text-muted-foreground mb-4">
                 This Acceptable Use Policy ("AUP") governs your use of ERMITS LLC ("ERMITS") Services and supplements 
@@ -42,12 +42,12 @@ const AcceptableUse = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <XCircle className="h-6 w-6 text-red-500 mr-2" />
-                3.2 Prohibited Activities
+                1.2 Prohibited Activities
               </h2>
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">3.2.1 Illegal Activities</h3>
+                  <h3 className="text-lg font-medium mb-3">1.2.1 Illegal Activities</h3>
                   <p className="text-muted-foreground mb-2">You may not use the Services to:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -78,7 +78,7 @@ const AcceptableUse = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">3.2.2 Security Violations</h3>
+                  <h3 className="text-lg font-medium mb-3">1.2.2 Security Violations</h3>
                   <p className="text-muted-foreground mb-2">You may not:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -113,7 +113,7 @@ const AcceptableUse = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">3.2.3 Data and Privacy Violations</h3>
+                  <h3 className="text-lg font-medium mb-3">1.2.3 Data and Privacy Violations</h3>
                   <p className="text-muted-foreground mb-2">You may not:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -140,7 +140,7 @@ const AcceptableUse = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">3.2.4 Abusive Behavior</h3>
+                  <h3 className="text-lg font-medium mb-3">1.2.4 Abusive Behavior</h3>
                   <p className="text-muted-foreground mb-2">You may not:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -163,7 +163,7 @@ const AcceptableUse = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">3.2.5 System Abuse</h3>
+                  <h3 className="text-lg font-medium mb-3">1.2.5 System Abuse</h3>
                   <p className="text-muted-foreground mb-2">You may not:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -193,12 +193,12 @@ const AcceptableUse = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Shield className="h-6 w-6 text-primary mr-2" />
-                3.3 Acceptable Security Research
+                1.3 Acceptable Security Research
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.3.1 Bug Bounty and Responsible Disclosure</h3>
+                  <h3 className="text-lg font-medium mb-2">1.3.1 Bug Bounty and Responsible Disclosure</h3>
                   <p className="text-muted-foreground mb-4">
                     ERMITS encourages responsible security research. If you discover a security vulnerability:
                   </p>
@@ -243,12 +243,12 @@ const AcceptableUse = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Shield className="h-6 w-6 text-primary mr-2" />
-                3.4 Federal Contractor and CUI/FCI Handling
+                1.4 Federal Contractor and CUI/FCI Handling
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.4.1 CUI Marking and Handling</h3>
+                  <h3 className="text-lg font-medium mb-2">1.4.1 CUI Marking and Handling</h3>
                   <p className="text-muted-foreground mb-2">
                     Users processing CUI or FCI must:
                   </p>
@@ -277,7 +277,7 @@ const AcceptableUse = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.4.2 Prohibited CUI Activities</h3>
+                  <h3 className="text-lg font-medium mb-2">1.4.2 Prohibited CUI Activities</h3>
                   <p className="text-muted-foreground mb-2">You may not:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -307,12 +307,12 @@ const AcceptableUse = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <AlertTriangle className="h-6 w-6 text-primary mr-2" />
-                3.7 Enforcement and Consequences
+                1.5 Enforcement and Consequences
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.7.2 Enforcement Actions</h3>
+                  <h3 className="text-lg font-medium mb-2">1.5.1 Enforcement Actions</h3>
                   <p className="text-muted-foreground mb-3">
                     Depending on violation severity, ERMITS may:
                   </p>
@@ -349,7 +349,7 @@ const AcceptableUse = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.7.3 Appeals</h3>
+                  <h3 className="text-lg font-medium mb-2">1.5.2 Appeals</h3>
                   <p className="text-muted-foreground">
                     If you believe an enforcement action was made in error, contact contact@ermits.com (Subject: "AUP Enforcement Appeal"). 
                     Provide detailed explanation and evidence. ERMITS will review and respond within 10 business days. 
@@ -365,7 +365,7 @@ const AcceptableUse = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Mail className="h-6 w-6 text-primary mr-2" />
-                3.11 Contact Information
+                1.6 Contact Information
               </h2>
               
               <div className="space-y-3 text-muted-foreground">

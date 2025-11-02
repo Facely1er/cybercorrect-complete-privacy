@@ -24,12 +24,12 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Shield className="h-6 w-6 text-primary mr-2" />
-                2.1 Privacy-First Architecture Overview
+                1.1 Privacy-First Architecture Overview
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">2.1.1 Core Principles</h3>
+                  <h3 className="text-lg font-medium mb-3">1.1.1 Core Principles</h3>
                   <p className="text-muted-foreground mb-4">
                     ERMITS implements Privacy-First Architecture built on five fundamental principles:
                   </p>
@@ -99,12 +99,12 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <FileText className="h-6 w-6 text-primary mr-2" />
-                2.2 Information We Collect
+                1.2 Information We Collect
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">2.2.1 Information You Provide Directly</h3>
+                  <h3 className="text-lg font-medium mb-2">1.2.1 Information You Provide Directly</h3>
                   <p className="text-muted-foreground mb-2">When you create an account or subscribe to paid features, we collect:</p>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground">
                     <li>Name</li>
@@ -116,7 +116,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">2.2.2 Information We Do NOT Collect</h3>
+                  <h3 className="text-lg font-medium mb-2">1.2.2 Information We Do NOT Collect</h3>
                   <p className="text-muted-foreground mb-2 font-semibold">
                     ERMITS explicitly does NOT collect, access, store, or transmit:
                   </p>
@@ -132,7 +132,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">2.2.3 Automatically Collected Information</h3>
+                  <h3 className="text-lg font-medium mb-2">1.2.3 Automatically Collected Information</h3>
                   <p className="text-muted-foreground mb-2">
                     <strong>Pseudonymized Telemetry (Optional):</strong> With your consent, we collect anonymous, aggregated performance data:
                   </p>
@@ -156,12 +156,12 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Database className="h-6 w-6 text-primary mr-2" />
-                2.3 How We Use Information
+                1.3 How We Use Information
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">2.3.1 Service Delivery and Operation</h3>
+                  <h3 className="text-lg font-medium mb-2">1.3.1 Service Delivery and Operation</h3>
                   <ul className="space-y-2">
                     <li className="flex items-start">
                       <CheckCircle className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
@@ -187,7 +187,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">2.3.6 What We Do NOT Do</h3>
+                  <h3 className="text-lg font-medium mb-2">1.3.2 What We Do NOT Do</h3>
                   <p className="text-muted-foreground mb-2">ERMITS does NOT:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -221,12 +221,12 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Users className="h-6 w-6 text-primary mr-2" />
-                2.4 Information Sharing and Disclosure
+                1.4 Information Sharing and Disclosure
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">2.4.1 Service Providers (Sub-Processors)</h3>
+                  <h3 className="text-lg font-medium mb-2">1.4.1 Service Providers (Sub-Processors)</h3>
                   <p className="text-muted-foreground mb-3">
                     We share limited data with trusted third-party service providers:
                   </p>
@@ -273,12 +273,12 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Lock className="h-6 w-6 text-primary mr-2" />
-                2.7 Your Privacy Rights
+                1.5 Your Privacy Rights
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">2.7.1 Universal Rights</h3>
+                  <h3 className="text-lg font-medium mb-2">1.5.1 Universal Rights</h3>
                   <p className="text-muted-foreground mb-3">All users have the following rights regardless of location:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -320,7 +320,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">2.7.2 Additional Rights for EU/UK/Swiss Users (GDPR/UK GDPR/Swiss DPA)</h3>
+                  <h3 className="text-lg font-medium mb-2">1.5.2 Additional Rights for EU/UK/Swiss Users (GDPR/UK GDPR/Swiss DPA)</h3>
                   <p className="text-muted-foreground mb-2">
                     If you are located in the European Economic Area, United Kingdom, or Switzerland, you have additional rights 
                     under GDPR, UK GDPR, and Swiss DPA.
@@ -328,7 +328,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">2.7.3 Additional Rights for California Residents (CCPA/CPRA)</h3>
+                  <h3 className="text-lg font-medium mb-2">1.5.3 Additional Rights for California Residents (CCPA/CPRA)</h3>
                   <p className="text-muted-foreground mb-2">
                     California residents have additional rights under CCPA and CPRA, including the right to know, right to delete, 
                     and right to opt-out of sale (ERMITS does not sell personal information).
@@ -336,7 +336,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">2.7.4 Exercising Your Rights</h3>
+                  <h3 className="text-lg font-medium mb-2">1.5.4 Exercising Your Rights</h3>
                   <p className="text-muted-foreground">
                     Submit requests via email: <Mail className="inline h-4 w-4" /> <strong>contact@ermits.com</strong> (Subject: "Privacy Rights Request")
                   </p>
@@ -353,7 +353,7 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Shield className="h-6 w-6 text-primary mr-2" />
-                2.5 Data Security Measures
+                1.6 Data Security Measures
               </h2>
               
               <div className="space-y-4">
@@ -401,7 +401,7 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Mail className="h-6 w-6 text-primary mr-2" />
-                2.12 Contact Information
+                1.7 Contact Information
               </h2>
               
               <div className="space-y-3 text-muted-foreground">

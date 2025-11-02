@@ -23,11 +23,11 @@ const Cookies = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Cookie className="h-6 w-6 text-primary mr-2" />
-                4.1 What Are Cookies?
+                1.1 What Are Cookies?
               </h2>
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">4.1.1 Definition</h3>
+                  <h3 className="text-lg font-medium mb-2">1.1.1 Definition</h3>
                   <p className="text-muted-foreground">
                     Cookies are small text files stored on your device (computer, tablet, smartphone) when you visit websites 
                     or use applications. Cookies enable websites to remember your actions and preferences over time.
@@ -35,7 +35,7 @@ const Cookies = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">4.1.2 Similar Technologies</h3>
+                  <h3 className="text-lg font-medium mb-2">1.1.2 Similar Technologies</h3>
                   <p className="text-muted-foreground mb-2">This policy also covers similar technologies including:</p>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground">
                     <li>Local Storage: Browser-based storage (localStorage, IndexedDB)</li>
@@ -54,11 +54,11 @@ const Cookies = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Settings className="h-6 w-6 text-primary mr-2" />
-                4.2 How We Use Cookies
+                1.2 How We Use Cookies
               </h2>
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">4.2.1 Cookie Categories</h3>
+                  <h3 className="text-lg font-medium mb-2">1.2.1 Cookie Categories</h3>
                   
                   <div className="space-y-4">
                     <div>
@@ -134,7 +134,7 @@ const Cookies = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <FileText className="h-6 w-6 text-primary mr-2" />
-                4.3 Specific Cookies We Use
+                1.3 Specific Cookies We Use
               </h2>
               <div className="overflow-x-auto">
                 <table className="min-w-full text-sm">
@@ -211,12 +211,12 @@ const Cookies = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Shield className="h-6 w-6 text-primary mr-2" />
-                4.5 Cookies and Privacy-First Architecture
+                1.4 Cookies and Privacy-First Architecture
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">4.5.1 Minimal Cookie Use</h3>
+                  <h3 className="text-lg font-medium mb-2">1.4.1 Minimal Cookie Use</h3>
                   <p className="text-muted-foreground mb-2">
                     Due to Privacy-First Architecture:
                   </p>
@@ -245,7 +245,7 @@ const Cookies = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">4.5.2 Data Minimization</h3>
+                  <h3 className="text-lg font-medium mb-2">1.4.2 Data Minimization</h3>
                   <p className="text-muted-foreground mb-2">
                     Cookies are designed to collect minimum data necessary:
                   </p>
@@ -277,12 +277,12 @@ const Cookies = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Settings className="h-6 w-6 text-primary mr-2" />
-                4.6 Your Cookie Choices
+                1.5 Your Cookie Choices
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">4.6.1 Cookie Consent</h3>
+                  <h3 className="text-lg font-medium mb-2">1.5.1 Cookie Consent</h3>
                   <p className="text-muted-foreground mb-2">
                     When you first visit ERMITS Services:
                   </p>
@@ -307,9 +307,9 @@ const Cookies = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">4.6.2 Managing Cookie Preferences</h3>
+                  <h3 className="text-lg font-medium mb-2">1.5.2 Managing Cookie Preferences</h3>
                   <p className="text-muted-foreground mb-2">
-                    Within ERMITS Services: Navigate to Account Settings → Privacy → Cookie Preferences
+                    Within ERMITS Services: Navigate to Account Settings ? Privacy ? Cookie Preferences
                   </p>
                   <p className="text-muted-foreground text-sm">
                     Most browsers also allow cookie management through browser settings (Chrome, Firefox, Safari, Edge).
@@ -324,12 +324,12 @@ const Cookies = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <FileText className="h-6 w-6 text-primary mr-2" />
-                4.11 Local Storage and IndexedDB
+                1.6 Local Storage and IndexedDB
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">4.11.1 Privacy-First Local Storage</h3>
+                  <h3 className="text-lg font-medium mb-2">1.6.1 Privacy-First Local Storage</h3>
                   <p className="text-muted-foreground mb-2">
                     ERMITS products extensively use browser local storage (localStorage, IndexedDB) for Privacy-First Architecture:
                   </p>
@@ -344,7 +344,7 @@ const Cookies = () => {
                     </li>
                     <li className="flex items-start">
                       <CheckCircle className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground"><strong>User Control:</strong> You can clear local storage anytime via Account Settings → Data → Clear Local Data</span>
+                      <span className="text-muted-foreground"><strong>User Control:</strong> You can clear local storage anytime via Account Settings ? Data ? Clear Local Data</span>
                     </li>
                   </ul>
                 </div>
@@ -357,14 +357,14 @@ const Cookies = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Mail className="h-6 w-6 text-primary mr-2" />
-                4.13 Contact Information
+                1.7 Contact Information
               </h2>
               
               <div className="space-y-3 text-muted-foreground">
                 <p><strong>Cookie Policy Questions:</strong></p>
                 <p>Email: <Mail className="inline h-4 w-4" /> contact@ermits.com (Subject: "Cookie Policy Inquiry")</p>
                 <p className="mt-4"><strong>Cookie Preferences:</strong></p>
-                <p>Account Settings → Privacy → Cookie Preferences</p>
+                <p>Account Settings ? Privacy ? Cookie Preferences</p>
                 <p className="mt-4"><strong>Data Protection Officer (EU/UK/Swiss):</strong></p>
                 <p>Email: <Mail className="inline h-4 w-4" /> contact@ermits.com (Subject: "Cookie GDPR Inquiry")</p>
               </div>
