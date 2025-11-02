@@ -24,7 +24,7 @@ const AcceptableUse = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <FileText className="h-6 w-6 text-primary mr-2" />
-                3.1 Purpose and Scope
+                1. Purpose and Scope
               </h2>
               <p className="text-muted-foreground mb-4">
                 This Acceptable Use Policy ("AUP") governs your use of ERMITS LLC ("ERMITS") Services and supplements 
@@ -42,12 +42,12 @@ const AcceptableUse = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <XCircle className="h-6 w-6 text-red-500 mr-2" />
-                3.2 Prohibited Activities
+                2. Prohibited Activities
               </h2>
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">3.2.1 Illegal Activities</h3>
+                  <h3 className="text-lg font-medium mb-3">2.1 Illegal Activities</h3>
                   <p className="text-muted-foreground mb-2">You may not use the Services to:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -78,7 +78,7 @@ const AcceptableUse = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">3.2.2 Security Violations</h3>
+                  <h3 className="text-lg font-medium mb-3">2.2 Security Violations</h3>
                   <p className="text-muted-foreground mb-2">You may not:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -109,11 +109,19 @@ const AcceptableUse = () => {
                       <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
                       <span className="text-muted-foreground">Engage in password cracking, network sniffing, or packet manipulation</span>
                     </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Exploit security vulnerabilities for any purpose</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Use automated tools to bypass rate limits or access restrictions</span>
+                    </li>
                   </ul>
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">3.2.3 Data and Privacy Violations</h3>
+                  <h3 className="text-lg font-medium mb-3">2.3 Data and Privacy Violations</h3>
                   <p className="text-muted-foreground mb-2">You may not:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -136,11 +144,27 @@ const AcceptableUse = () => {
                       <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
                       <span className="text-muted-foreground">Transmit unsolicited communications (spam, phishing, etc.)</span>
                     </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Use Services to process data you do not have the right to process</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Process special categories of personal data (health, biometric, genetic, racial/ethnic origin, religious beliefs, etc.) without appropriate legal basis</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Violate data subject rights or ignore data deletion requests</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Engage in identity theft, impersonation, or social engineering attacks</span>
+                    </li>
                   </ul>
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">3.2.4 Abusive Behavior</h3>
+                  <h3 className="text-lg font-medium mb-3">2.4 Abusive Behavior</h3>
                   <p className="text-muted-foreground mb-2">You may not:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -159,11 +183,19 @@ const AcceptableUse = () => {
                       <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
                       <span className="text-muted-foreground">Engage in cyberbullying or coordinated harassment campaigns</span>
                     </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Stalk or otherwise harass individuals</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Post or transmit sexually explicit, violent, or disturbing content (unless specifically authorized for security research purposes)</span>
+                    </li>
                   </ul>
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">3.2.5 System Abuse</h3>
+                  <h3 className="text-lg font-medium mb-3">2.5 System Abuse</h3>
                   <p className="text-muted-foreground mb-2">You may not:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -182,6 +214,72 @@ const AcceptableUse = () => {
                       <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
                       <span className="text-muted-foreground">Create or use multiple accounts to circumvent restrictions or abuse free trials</span>
                     </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Interfere with other users' use of Services</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Attempt to reverse engineer, decompile, or disassemble Services (except as permitted by law)</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Share accounts or credentials with unauthorized users</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Resell, rent, or lease Services without authorization</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">2.6 Content Violations</h3>
+                  <p className="text-muted-foreground mb-2">You may not upload, transmit, or distribute:</p>
+                  <ul className="space-y-2">
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Pirated software, copyrighted materials, or illegally obtained content</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Malware, exploit code, or hacking tools (except for authorized security research)</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Content that violates export control laws</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Misleading, deceptive, or fraudulent content</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Content promoting dangerous or illegal activities</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">2.7 Competitive Activities</h3>
+                  <p className="text-muted-foreground mb-2">You may not:</p>
+                  <ul className="space-y-2">
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Use Services to develop competing products or services</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Conduct competitive benchmarking or analysis without consent</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Copy, reproduce, or reverse engineer Services for competitive purposes</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Publicly disclose performance or benchmark data without authorization</span>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -193,12 +291,12 @@ const AcceptableUse = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Shield className="h-6 w-6 text-primary mr-2" />
-                3.3 Acceptable Security Research
+                3. Acceptable Security Research
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.3.1 Bug Bounty and Responsible Disclosure</h3>
+                  <h3 className="text-lg font-medium mb-2">3.1 Bug Bounty and Responsible Disclosure</h3>
                   <p className="text-muted-foreground mb-4">
                     ERMITS encourages responsible security research. If you discover a security vulnerability:
                   </p>
@@ -234,6 +332,17 @@ const AcceptableUse = () => {
                     </div>
                   </div>
                 </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-2">3.2 Security Tool Use</h3>
+                  <p className="text-muted-foreground mb-2">Authorized use of security tools and malware samples:</p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Security professionals may use Services to analyze malware samples and vulnerabilities</li>
+                    <li>Analysis must be conducted in isolated environments</li>
+                    <li>Malicious code must not be executed against ERMITS infrastructure or other users</li>
+                    <li>Results of security research may not be used for illegal purposes</li>
+                  </ul>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -243,12 +352,12 @@ const AcceptableUse = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Shield className="h-6 w-6 text-primary mr-2" />
-                3.4 Federal Contractor and CUI/FCI Handling
+                4. Federal Contractor and CUI/FCI Handling
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.4.1 CUI Marking and Handling</h3>
+                  <h3 className="text-lg font-medium mb-2">4.1 CUI Marking and Handling</h3>
                   <p className="text-muted-foreground mb-2">
                     Users processing CUI or FCI must:
                   </p>
@@ -277,7 +386,7 @@ const AcceptableUse = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.4.2 Prohibited CUI Activities</h3>
+                  <h3 className="text-lg font-medium mb-2">4.2 Prohibited CUI Activities</h3>
                   <p className="text-muted-foreground mb-2">You may not:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -296,6 +405,114 @@ const AcceptableUse = () => {
                       <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
                       <span className="text-muted-foreground">Fail to report cyber incidents involving CUI within required timeframes (72 hours to DoD)</span>
                     </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Store CUI on unauthorized systems or in unauthorized locations</span>
+                    </li>
+                    <li className="flex items-start">
+                      <XCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">Transmit CUI over unsecured channels without encryption</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Resource Limits and Fair Use */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-2xl font-semibold mb-4 flex items-center">
+                <AlertTriangle className="h-6 w-6 text-primary mr-2" />
+                5. Resource Limits and Fair Use
+              </h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-medium mb-2">5.1 Resource Quotas</h3>
+                  <p className="text-muted-foreground mb-2 text-sm">
+                    Services include resource limits based on your subscription tier:
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li><strong>API Rate Limits:</strong> Requests per minute/hour/day</li>
+                    <li><strong>Storage Limits:</strong> Total data storage allocation</li>
+                    <li><strong>Concurrent Users:</strong> Maximum simultaneous users</li>
+                    <li><strong>File Upload Limits:</strong> Maximum file size and quantity</li>
+                    <li><strong>Bandwidth Limits:</strong> Data transfer quotas</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-2">5.2 Fair Use</h3>
+                  <p className="text-muted-foreground mb-2 text-sm">
+                    You agree to use resources reasonably and not to:
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Significantly exceed your allocated resource quotas</li>
+                    <li>Use automated tools to generate excessive requests</li>
+                    <li>Store unnecessary or redundant data</li>
+                    <li>Hoard resources to the detriment of other users</li>
+                    <li>Circumvent usage tracking or metering</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-2">5.3 Consequences of Excessive Use</h3>
+                  <p className="text-muted-foreground mb-2 text-sm">ERMITS may, at its discretion:</p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Throttle or rate-limit excessive usage</li>
+                    <li>Suspend access until usage returns to normal levels</li>
+                    <li>Request upgrade to higher-tier subscription</li>
+                    <li>Charge overage fees for excessive usage (with prior notice)</li>
+                    <li>Terminate accounts engaging in persistent abuse</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Reporting Violations */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-2xl font-semibold mb-4 flex items-center">
+                <FileText className="h-6 w-6 text-primary mr-2" />
+                6. Reporting Violations
+              </h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-medium mb-2">6.1 How to Report</h3>
+                  <p className="text-muted-foreground mb-2 text-sm">
+                    If you become aware of violations of this AUP:
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li><strong>Email:</strong> contact@ermits.com (Subject: "AUP Violation Report")</li>
+                    <li><strong>Include:</strong> Detailed description, evidence, affected accounts/systems</li>
+                    <li><strong>Confidential:</strong> Reports are treated confidentially</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-2">6.2 Good Faith Reporting</h3>
+                  <p className="text-muted-foreground mb-2 text-sm">
+                    ERMITS will not take adverse action against users who:
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Report violations in good faith</li>
+                    <li>Discover violations in the course of authorized security research</li>
+                    <li>Report their own accidental violations and take corrective action</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-2">6.3 False Reports</h3>
+                  <p className="text-muted-foreground mb-2 text-sm">
+                    Making false or malicious reports is prohibited and may result in:
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Account suspension or termination</li>
+                    <li>Legal action for damages</li>
+                    <li>Reporting to law enforcement if appropriate</li>
                   </ul>
                 </div>
               </div>
@@ -307,12 +524,26 @@ const AcceptableUse = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <AlertTriangle className="h-6 w-6 text-primary mr-2" />
-                3.7 Enforcement and Consequences
+                7. Enforcement and Consequences
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.7.2 Enforcement Actions</h3>
+                  <h3 className="text-lg font-medium mb-2">7.1 Investigation</h3>
+                  <p className="text-muted-foreground mb-2 text-sm">ERMITS may investigate suspected violations by:</p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Reviewing account activity and usage patterns</li>
+                    <li>Examining audit logs and system logs (pseudonymized)</li>
+                    <li>Requesting information from the user</li>
+                    <li>Cooperating with law enforcement or regulatory authorities</li>
+                  </ul>
+                  <p className="text-muted-foreground text-sm mt-3 italic">
+                    <strong>Privacy Note:</strong> Due to Privacy-First Architecture, ERMITS cannot access encrypted User Data. Investigations rely on metadata, logs, and user cooperation.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-2">7.2 Enforcement Actions</h3>
                   <p className="text-muted-foreground mb-3">
                     Depending on violation severity, ERMITS may:
                   </p>
@@ -345,11 +576,20 @@ const AcceptableUse = () => {
                         <li>Reporting to authorities if required</li>
                       </ul>
                     </div>
+                    
+                    <div>
+                      <strong className="text-foreground">Legal Action:</strong>
+                      <ul className="list-disc ml-6 mt-1 space-y-1 text-muted-foreground">
+                        <li>Pursuit of damages for harm caused</li>
+                        <li>Injunctive relief to prevent ongoing violations</li>
+                        <li>Cooperation with law enforcement investigations</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.7.3 Appeals</h3>
+                  <h3 className="text-lg font-medium mb-2">7.3 Appeals</h3>
                   <p className="text-muted-foreground">
                     If you believe an enforcement action was made in error, contact contact@ermits.com (Subject: "AUP Enforcement Appeal"). 
                     Provide detailed explanation and evidence. ERMITS will review and respond within 10 business days. 
@@ -360,12 +600,99 @@ const AcceptableUse = () => {
             </CardContent>
           </Card>
 
+          {/* Cooperation with Law Enforcement */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-2xl font-semibold mb-4 flex items-center">
+                <Shield className="h-6 w-6 text-primary mr-2" />
+                8. Cooperation with Law Enforcement
+              </h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-medium mb-2">8.1 Legal Requests</h3>
+                  <p className="text-muted-foreground mb-2 text-sm">ERMITS will cooperate with lawful requests from:</p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Law enforcement agencies</li>
+                    <li>Regulatory authorities</li>
+                    <li>Court orders and subpoenas</li>
+                    <li>National security investigations</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-2">8.2 User Notification</h3>
+                  <p className="text-muted-foreground mb-2 text-sm">When legally permitted, ERMITS will:</p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Notify affected users of legal requests</li>
+                    <li>Provide reasonable time to challenge requests</li>
+                    <li>Disclose only information required by law</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-2">8.3 Emergency Situations</h3>
+                  <p className="text-muted-foreground mb-2 text-sm">
+                    In emergencies involving imminent threat to life or serious bodily harm:
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>ERMITS may disclose information without prior notice</li>
+                    <li>Users will be notified after emergency resolution</li>
+                    <li>Disclosure limited to minimum necessary</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Third-Party Services and Integrations */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-2xl font-semibold mb-4 flex items-center">
+                <FileText className="h-6 w-6 text-primary mr-2" />
+                9. Third-Party Services and Integrations
+              </h2>
+              <p className="text-muted-foreground mb-3 text-sm">When using third-party integrations through ERMITS Services:</p>
+              <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                <li>You are subject to third-party acceptable use policies</li>
+                <li>ERMITS is not responsible for third-party service violations</li>
+                <li>Violations of third-party policies may result in integration termination</li>
+                <li>You must comply with all applicable third-party terms</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          {/* Updates to This Policy */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-2xl font-semibold mb-4 flex items-center">
+                <FileText className="h-6 w-6 text-primary mr-2" />
+                10. Updates to This Policy
+              </h2>
+              <p className="text-muted-foreground mb-3 text-sm">ERMITS may update this AUP to reflect:</p>
+              <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                <li>Evolving security threats and abuse patterns</li>
+                <li>Legal and regulatory changes</li>
+                <li>New Services or features</li>
+                <li>Industry best practices</li>
+              </ul>
+              <div className="mt-4">
+                <strong className="text-foreground text-sm">Notification:</strong>
+                <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-2">
+                  <li>Material changes: 30 days' advance notice</li>
+                  <li>Non-material changes: Effective immediately upon posting</li>
+                  <li>Continued use constitutes acceptance</li>
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Contact Information */}
           <Card>
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Mail className="h-6 w-6 text-primary mr-2" />
-                3.11 Contact Information
+                11. Contact Information
               </h2>
               
               <div className="space-y-3 text-muted-foreground">
