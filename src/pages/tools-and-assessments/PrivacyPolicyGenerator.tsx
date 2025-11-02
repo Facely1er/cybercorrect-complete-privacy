@@ -27,7 +27,6 @@ const PrivacyPolicyGenerator = () => {
   const [policyType, setPolicyType] = useState(() => 
     secureStorage.getItem('policy_type', 'comprehensive')
   );
-  const [, ] = useState(1);
 
   // Auto-save selections
   useEffect(() => {
@@ -281,7 +280,7 @@ Last updated: ${new Date().toLocaleDateString()}
                 <div>
                   <label className="text-sm font-medium mb-2 block">Organization Type</label>
                   <select
-                    value={organizationType}
+                    value={organizationType || 'business'}
                     onChange={(e) => setOrganizationType(e.target.value)}
                     className="w-full p-2 border border-border rounded-md bg-background"
                   >
