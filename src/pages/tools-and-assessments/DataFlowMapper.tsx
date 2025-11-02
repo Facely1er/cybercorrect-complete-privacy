@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -13,7 +13,8 @@ import {
   Shield,
   Eye,
   Lock,
-  AlertTriangle
+  AlertTriangle,
+  Info
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/secureStorage';
@@ -37,7 +38,7 @@ interface DataFlow {
 }
 
 const DataFlowMapper = () => {
-  const [nodes] = useState<DataNode[]>(() => {
+  const [nodes, setNodes] = useState<DataNode[]>(() => {
     const saved = secureStorage.getItem<DataNode[]>('dataflow_nodes');
     return saved || [
       {
@@ -92,7 +93,6 @@ const DataFlowMapper = () => {
   const [selectedNode, setSelectedNode] = useState<string | null>(() => 
     secureStorage.getItem('dataflow_selected_node', null)
   );
-  const [, setShowAddNode] = useState(false);
 
   // Auto-save nodes and flows
   useEffect(() => {
@@ -108,6 +108,20 @@ const DataFlowMapper = () => {
       secureStorage.setItem('dataflow_selected_node', selectedNode);
     }
   }, [selectedNode]);
+
+  const handleAddNode = () => {
+    const newNode: DataNode = {
+      id: `node-${Date.now()}`,
+      label: 'New Node',
+      type: 'processing',
+      cuiTypes: [],
+      securityLevel: 'medium',
+      position: { x: Math.random() * 400 + 50, y: Math.random() * 300 + 50 }
+    };
+    setNodes(prev => [...prev, newNode]);
+    setSelectedNode(newNode.id);
+    toast.success('Node Added', 'New data flow node has been added');
+  };
 
   const handleExportMap = () => {
     const mapData = {
@@ -167,7 +181,7 @@ const DataFlowMapper = () => {
             <p className="text-muted-foreground">Visualize and document Controlled Unclassified Information flows for NIST SP 800-171 compliance</p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={() => setShowAddNode(true)}>
+            <Button variant="outline" onClick={handleAddNode}>
               <Plus className="h-4 w-4 mr-2" />
               Add Node
             </Button>

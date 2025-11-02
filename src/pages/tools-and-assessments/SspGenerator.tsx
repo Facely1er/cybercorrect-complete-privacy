@@ -220,28 +220,6 @@ const SspGenerator = () => {
   const [, setShowEvidence] = useState(false);
   const [, setSelectedControl] = useState<string | null>(null);
   
-  // Sample templates
-  const [, ] = useState<SSPTemplate[]>([
-    {
-      id: 'small-business',
-      name: 'Small Business SSP',
-      description: 'Template for small businesses with basic IT infrastructure',
-      industry: 'General',
-      size: 'small',
-      sections: [],
-      controls: []
-    },
-    {
-      id: 'defense-contractor',
-      name: 'Defense Contractor SSP',
-      description: 'Comprehensive template for defense contractors',
-      industry: 'Defense',
-      size: 'large',
-      sections: [],
-      controls: []
-    }
-  ]);
-  
   // Save to localStorage
   useEffect(() => {
     if (autoSaveEnabled) {

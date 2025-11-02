@@ -4,10 +4,14 @@ import { Button } from '../../components/ui/Button';
 import { 
   Eye, 
   ArrowLeft, 
-  Download
+  Download,
+  BarChart3,
+  AlertTriangle,
+  Target
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { toast } from '../../components/ui/Toaster';
 
 const PrivacyGapAnalyzer = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -90,6 +94,34 @@ const PrivacyGapAnalyzer = () => {
     }
   };
 
+  const handleExportAnalysis = () => {
+    const exportData = {
+      metadata: {
+        title: 'Privacy Gap Analysis Report',
+        created: new Date().toISOString(),
+        version: '1.0'
+      },
+      complianceData: complianceData,
+      privacyGaps: privacyGaps,
+      summary: {
+        overallCompliance: 68,
+        totalGaps: privacyGaps.length,
+        criticalGaps: privacyGaps.filter(gap => gap.priority === 'critical').length,
+        frameworksAssessed: complianceData.length
+      }
+    };
+
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `privacy-gap-analysis-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    toast.success('Analysis Exported', 'Privacy gap analysis has been exported successfully');
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
@@ -104,7 +136,7 @@ const PrivacyGapAnalyzer = () => {
               Multi-framework privacy compliance assessment and gap identification
             </p>
           </div>
-          <Button>
+          <Button onClick={handleExportAnalysis}>
             <Download className="h-4 w-4 mr-2" />
             Export Analysis
           </Button>

@@ -34,7 +34,7 @@ interface ProcessingActivity {
 }
 
 const GdprMapper = () => {
-  const [activities] = useState<ProcessingActivity[]>(() => {
+  const [activities, setActivities] = useState<ProcessingActivity[]>(() => {
     const saved = secureStorage.getItem<ProcessingActivity[]>('gdpr_activities');
     return saved || [
       {
@@ -88,6 +88,23 @@ const GdprMapper = () => {
   useEffect(() => {
     secureStorage.setItem('gdpr_activities', activities);
   }, [activities]);
+
+  const handleAddActivity = () => {
+    const newActivity: ProcessingActivity = {
+      id: `activity-${Date.now()}`,
+      name: 'New Processing Activity',
+      purpose: '',
+      legalBasis: 'Consent',
+      dataTypes: [],
+      dataSubjects: [],
+      recipients: [],
+      retentionPeriod: '',
+      riskLevel: 'medium'
+    };
+    setActivities(prev => [...prev, newActivity]);
+    setSelectedActivity(newActivity.id);
+    toast.success('Activity Added', 'New processing activity has been added');
+  };
 
   const handleExportMapping = () => {
     const mappingData = {
@@ -148,7 +165,7 @@ const GdprMapper = () => {
             <p className="text-muted-foreground">Map and document personal data processing activities for GDPR compliance</p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline">
+            <Button variant="outline" onClick={handleAddActivity}>
               <Plus className="h-4 w-4 mr-2" />
               Add Activity
             </Button>
