@@ -65,6 +65,7 @@ const Terms = () => {
                   <ul className="list-disc ml-6 mt-1 space-y-1 text-muted-foreground">
                     <li>Privacy Portal (Workplace privacy compliance)</li>
                     <li>Privacy Platform (Multi-regulation privacy compliance automation)</li>
+                    <li>Compliance Toolkit (Privacy assessment, documentation, and data management tools)</li>
                   </ul>
                 </div>
                 <div>
