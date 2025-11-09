@@ -88,26 +88,54 @@ class ErrorMonitoringService {
       const sentryDsn = import.meta.env.VITE_SENTRY_DSN;
       if (sentryDsn) {
         try {
-          const { captureException: sentryCaptureException, captureMessage: sentryCaptureMessage } = await import('./sentry');
-          if (errorInfo.stack) {
-            // It's an exception
-            const error = new Error(errorInfo.message);
-            error.stack = errorInfo.stack;
-            // Convert ErrorInfo to Record<string, unknown> for Sentry
-            const context: Record<string, unknown> = {
-              url: errorInfo.url,
-              userAgent: errorInfo.userAgent,
-              timestamp: errorInfo.timestamp,
-              userId: errorInfo.userId,
-              sessionId: errorInfo.sessionId,
-              componentStack: errorInfo.componentStack,
-            };
-            sentryCaptureException(error, context);
+          // Dynamic import with timeout to prevent blocking
+          const sentryModule = await Promise.race([
+            import('./sentry'),
+            new Promise<null>((_, reject) => 
+              setTimeout(() => reject(new Error('Sentry import timeout')), 2000)
+            )
+          ]).catch(() => null);
+
+          if (sentryModule) {
+            const { captureException: sentryCaptureException, captureMessage: sentryCaptureMessage } = sentryModule;
+            
+            // Verify Sentry functions exist before calling
+            if (typeof sentryCaptureException === 'function' && typeof sentryCaptureMessage === 'function') {
+              try {
+                if (errorInfo.stack) {
+                  // It's an exception
+                  const error = new Error(errorInfo.message);
+                  error.stack = errorInfo.stack;
+                  // Convert ErrorInfo to Record<string, unknown> for Sentry
+                  const context: Record<string, unknown> = {
+                    url: errorInfo.url,
+                    userAgent: errorInfo.userAgent,
+                    timestamp: errorInfo.timestamp,
+                    userId: errorInfo.userId,
+                    sessionId: errorInfo.sessionId,
+                    componentStack: errorInfo.componentStack,
+                  };
+                  sentryCaptureException(error, context);
+                } else {
+                  // It's a message
+                  sentryCaptureMessage(errorInfo.message, 'error');
+                }
+                return; // Sentry handled it successfully
+              } catch (sentryCallError) {
+                // Sentry functions failed - fall through to other methods (never throw)
+                console.warn('Sentry capture failed:', sentryCallError);
+                // Continue to fallback methods
+              }
+            } else {
+              // Sentry functions not available - fall through to other methods
+              console.warn('Sentry functions not available');
+              // Continue to fallback methods
+            }
           } else {
-            // It's a message
-            sentryCaptureMessage(errorInfo.message, 'error');
+            // Sentry import failed or timed out - fall through to other methods
+            console.warn('Sentry import failed or timed out');
+            // Continue to fallback methods
           }
-          return; // Sentry handled it
         } catch (sentryError) {
           // Sentry not available or failed - fall through to other methods (never throw)
           console.warn('Sentry not available or failed:', sentryError);

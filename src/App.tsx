@@ -42,6 +42,7 @@ const GdprMapper = lazy(() => import('./pages/tools-and-assessments/GdprMapper')
 const PrivacyGapAnalyzer = lazy(() => import('./pages/tools-and-assessments/PrivacyGapAnalyzer'));
 const PrivacyPolicyGenerator = lazy(() => import('./pages/tools-and-assessments/PrivacyPolicyGenerator'));
 const PrivacyRightsManager = lazy(() => import('./pages/tools-and-assessments/PrivacyRightsManager'));
+const PiiDataFlowMapper = lazy(() => import('./pages/tools-and-assessments/PiiDataFlowMapper'));
 
 // Project Management - Lazy loaded
 const PrivacyProjectDashboard = lazy(() => import('./pages/project/PrivacyProjectDashboard'));
@@ -278,6 +279,11 @@ const App: React.FC = () => {
                       <Route path="gdpr-mapper" element={
                         <Suspense fallback={<LoadingSpinner />}>
                           <GdprMapper />
+                        </Suspense>
+                      } />
+                      <Route path="pii-data-flow-mapper" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <PiiDataFlowMapper />
                         </Suspense>
                       } />
                       <Route path="privacy-rights-manager" element={

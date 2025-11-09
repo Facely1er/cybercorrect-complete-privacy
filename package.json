@@ -14,11 +14,13 @@
     "test:coverage": "vitest run --coverage",
     "supabase:verify": "tsx scripts/verify-supabase-setup.ts",
     "supabase:test": "tsx scripts/test-supabase-connection.ts",
+    "supabase:configure": "tsx scripts/configure-secrets-and-test.ts",
     "supabase:deploy": "supabase functions deploy",
     "setup:check": "tsx scripts/verify-supabase-setup.ts",
     "setup:complete": "tsx scripts/setup-complete.ts",
     "migrate:apply": "supabase db push",
-    "migrate:verify": "tsx scripts/verify-supabase-setup.ts"
+    "migrate:verify": "tsx scripts/verify-supabase-setup.ts",
+    "verify:production": "tsx scripts/verify-production-ready.ts"
   },
   "dependencies": {
     "@sentry/react": "^10.20.0",

@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/react';
+import React from 'react';
 
 // Track Sentry initialization status
 let sentryInitialized = false;
@@ -108,16 +109,138 @@ export function isSentryAvailable(): boolean {
   return sentryAvailable && sentryInitialized;
 }
 
-// Error boundary component with fallback handling
+// Fallback Error Boundary component (works without Sentry)
+interface FallbackErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+  errorInfo: React.ErrorInfo | null;
+}
+
+class FallbackErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  FallbackErrorBoundaryState
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = {
+      hasError: false,
+      error: null,
+      errorInfo: null,
+    };
+  }
+
+  static getDerivedStateFromError(error: Error): Partial<FallbackErrorBoundaryState> {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // Log error to console as fallback
+    console.error('Error caught by fallback error boundary:', error, errorInfo);
+    
+    // Try to capture with Sentry if available
+    if (sentryAvailable && sentryInitialized) {
+      try {
+        Sentry.captureException(error, {
+          tags: { errorBoundary: true },
+          contexts: {
+            react: {
+              componentStack: errorInfo.componentStack,
+            },
+          },
+        });
+      } catch (sentryError) {
+        console.warn('Failed to capture error in Sentry:', sentryError);
+      }
+    }
+    
+    this.setState({ errorInfo });
+  }
+
+  handleReset = () => {
+    this.setState({
+      hasError: false,
+      error: null,
+      errorInfo: null,
+    });
+  };
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-background">
+          <div className="max-w-md w-full mx-4">
+            <div className="bg-card border border-border rounded-lg p-6 text-center">
+              <div className="mb-4">
+                <div className="w-16 h-16 mx-auto mb-4 bg-destructive/10 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-destructive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 19.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </svg>
+                </div>
+                <h2 className="text-xl font-semibold text-foreground mb-2">
+                  Something went wrong
+                </h2>
+                <p className="text-muted-foreground mb-4">
+                  {sentryAvailable && sentryInitialized
+                    ? "We're sorry, but something unexpected happened. Our team has been notified."
+                    : "We're sorry, but something unexpected happened. Please try again or contact support."}
+                </p>
+              </div>
+              
+              <div className="space-y-3">
+                <button
+                  onClick={this.handleReset}
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md font-medium transition-colors"
+                >
+                  Try Again
+                </button>
+                <button
+                  onClick={() => (window.location.href = '/')}
+                  className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/80 px-4 py-2 rounded-md font-medium transition-colors"
+                >
+                  Go Home
+                </button>
+              </div>
+              
+              {import.meta.env.DEV && this.state.error && (
+                <details className="mt-4 text-left">
+                  <summary className="cursor-pointer text-sm text-muted-foreground">
+                    Error Details (Development Only)
+                  </summary>
+                  <pre className="mt-2 text-xs bg-muted p-2 rounded overflow-auto">
+                    {this.state.error.toString()}
+                    {this.state.errorInfo?.componentStack && (
+                      <>
+                        {'\n\nComponent Stack:\n'}
+                        {this.state.errorInfo.componentStack}
+                      </>
+                    )}
+                  </pre>
+                </details>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+// Error boundary component with Sentry integration and fallback
 let SentryErrorBoundaryComponent: React.ComponentType<{ children: React.ReactNode }>;
 
 try {
-  if (sentryAvailable) {
+  // Try to create Sentry error boundary if available
+  if (typeof Sentry !== 'undefined' && Sentry.withErrorBoundary) {
     SentryErrorBoundaryComponent = Sentry.withErrorBoundary(
       ({ children }: { children: React.ReactNode }) => <>{children}</>,
       {
         fallback: ({ error, resetError }) => {
           try {
+            // Log to console as fallback
+            console.error('Error caught by Sentry error boundary:', error);
+            
             return (
               <div className="min-h-screen flex items-center justify-center bg-background">
                 <div className="max-w-md w-full mx-4">
@@ -144,7 +267,7 @@ try {
                         Try Again
                       </button>
                       <button
-                        onClick={() => window.location.href = '/'}
+                        onClick={() => (window.location.href = '/')}
                         className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/80 px-4 py-2 rounded-md font-medium transition-colors"
                       >
                         Go Home
@@ -167,7 +290,7 @@ try {
             );
           } catch (fallbackError) {
             // If Sentry error boundary fails, use simple fallback
-            console.error('Sentry error boundary failed:', fallbackError);
+            console.error('Sentry error boundary render failed:', fallbackError);
             return (
               <div className="min-h-screen flex items-center justify-center bg-background">
                 <div className="text-center">
@@ -185,11 +308,13 @@ try {
         },
         beforeCapture: (scope, _error, errorInfo) => {
           try {
-            scope.setTag('errorBoundary', true);
-            if (errorInfo && typeof errorInfo === 'object') {
-              scope.setContext('errorInfo', errorInfo as Record<string, unknown>);
-            } else if (errorInfo) {
-              scope.setContext('errorInfo', { message: String(errorInfo) });
+            if (sentryAvailable && sentryInitialized) {
+              scope.setTag('errorBoundary', true);
+              if (errorInfo && typeof errorInfo === 'object') {
+                scope.setContext('errorInfo', errorInfo as Record<string, unknown>);
+              } else if (errorInfo) {
+                scope.setContext('errorInfo', { message: String(errorInfo) });
+              }
             }
           } catch (beforeCaptureError) {
             // If beforeCapture fails, continue anyway
@@ -199,15 +324,16 @@ try {
       }
     );
   } else {
-    // Fallback: Use regular React ErrorBoundary if Sentry not available
-    SentryErrorBoundaryComponent = ({ children }: { children: React.ReactNode }) => <>{children}</>;
+    // Fallback: Use React ErrorBoundary if Sentry not available
+    SentryErrorBoundaryComponent = FallbackErrorBoundary;
   }
 } catch (error) {
-  // If Sentry error boundary setup fails, use simple pass-through component
+  // If Sentry error boundary setup fails, use fallback React ErrorBoundary
   console.warn('Sentry error boundary setup failed, using fallback:', error);
-  SentryErrorBoundaryComponent = ({ children }: { children: React.ReactNode }) => <>{children}</>;
+  SentryErrorBoundaryComponent = FallbackErrorBoundary;
 }
 
+// Export error boundary that works with or without Sentry
 export const SentryErrorBoundary = SentryErrorBoundaryComponent;
 
 // Utility functions for manual error reporting with fallback handling

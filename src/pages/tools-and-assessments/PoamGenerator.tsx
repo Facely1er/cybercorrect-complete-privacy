@@ -16,7 +16,8 @@ import {
   Shield,
   ArrowRight,
   Calendar,
-  Info
+  Info,
+  Loader2
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/secureStorage';
@@ -152,6 +153,7 @@ const PoamGenerator = () => {
   const [selectedItem, setSelectedItem] = useState<string | null>(() => 
     secureStorage.getItem('poam_selected', null)
   );
+  const [isExporting, setIsExporting] = useState(false);
   
   // Auto-save POAM items
   useEffect(() => {
@@ -171,42 +173,52 @@ const PoamGenerator = () => {
     toast.success('Status updated', `POAM ${poamId} status changed to ${newStatus}`);
   };
 
-  const handleExportPoam = () => {
-    const poamData = {
-      metadata: {
-        title: 'Plan of Action and Milestones (POA&M)',
-        created: new Date().toISOString(),
-        version: '1.0',
-        organization: 'Sample Organization',
-        framework: 'NIST SP 800-171',
-        totalItems: poamItems.length,
-        totalCost: poamItems.reduce((sum, item) => sum + item.estimatedCost, 0)
-      },
-      executiveSummary: {
-        criticalItems: poamItems.filter(item => item.priority === 'critical').length,
-        highItems: poamItems.filter(item => item.priority === 'high').length,
-        inProgress: poamItems.filter(item => item.status === 'in_progress').length,
-        estimatedTotalCost: poamItems.reduce((sum, item) => sum + item.estimatedCost, 0)
-      },
-      poamItems: poamItems
-    };
+  const handleExportPoam = async () => {
+    setIsExporting(true);
+    try {
+      // Simulate export delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const poamData = {
+        metadata: {
+          title: 'Plan of Action and Milestones (POA&M)',
+          created: new Date().toISOString(),
+          version: '1.0',
+          organization: 'Sample Organization',
+          framework: 'NIST SP 800-171',
+          totalItems: poamItems.length,
+          totalCost: poamItems.reduce((sum, item) => sum + item.estimatedCost, 0)
+        },
+        executiveSummary: {
+          criticalItems: poamItems.filter(item => item.priority === 'critical').length,
+          highItems: poamItems.filter(item => item.priority === 'high').length,
+          inProgress: poamItems.filter(item => item.status === 'in_progress').length,
+          estimatedTotalCost: poamItems.reduce((sum, item) => sum + item.estimatedCost, 0)
+        },
+        poamItems: poamItems
+      };
 
-    const blob = new Blob([JSON.stringify(poamData, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `poam-${new Date().toISOString().split('T')[0]}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+      const blob = new Blob([JSON.stringify(poamData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `poam-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
 
-    toast.success("POA&M exported", "Plan of Action and Milestones has been exported successfully");
+      toast.success("POA&M exported", "Plan of Action and Milestones has been exported successfully");
+    } catch (error) {
+      toast.error('Export Failed', error instanceof Error ? error.message : 'Failed to export POA&M');
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return 'text-red-600 bg-red-100 dark:bg-red-900/30 dark:text-red-200';
-      case 'high': return 'text-orange-600 bg-orange-100 dark:bg-orange-900/30 dark:text-orange-200';
-      case 'medium': return 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30 dark:text-yellow-200';
+      case 'critical': return 'text-destructive bg-destructive/10';
+      case 'high': return 'text-warning bg-warning/10';
+      case 'medium': return 'text-warning bg-warning/10';
       case 'low': return 'text-success bg-success/10';
       default: return 'text-muted-foreground bg-muted';
     }
@@ -216,9 +228,17 @@ const PoamGenerator = () => {
     switch (status) {
       case 'completed': return 'text-success bg-success/10';
       case 'in_progress': return 'text-primary bg-primary/10';
-      case 'open': return 'text-red-600 bg-red-100 dark:bg-red-900/30 dark:text-red-200';
+      case 'open': return 'text-destructive bg-destructive/10';
       case 'risk_accepted': return 'text-accent bg-accent/10';
       default: return 'text-muted-foreground bg-muted';
+    }
+  };
+
+  // Handle keyboard navigation for cards
+  const handleCardKeyDown = (e: React.KeyboardEvent, itemId: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setSelectedItem(itemId);
     }
   };
 
@@ -239,9 +259,18 @@ const PoamGenerator = () => {
               <Plus className="h-4 w-4 mr-2" />
               Add Item
             </Button>
-            <Button onClick={handleExportPoam}>
-              <Download className="h-4 w-4 mr-2" />
-              Export POA&M
+            <Button onClick={handleExportPoam} disabled={isExporting}>
+              {isExporting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Exporting...
+                </>
+              ) : (
+                <>
+                  <Download className="h-4 w-4 mr-2" />
+                  Export POA&M
+                </>
+              )}
             </Button>
           </div>
         </div>
@@ -249,58 +278,58 @@ const PoamGenerator = () => {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        <Card className="border-l-4 border-l-red-500">
+        <Card className="border-l-4 border-l-destructive">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Critical Items</p>
-                <p className="text-2xl font-bold text-red-600">
+                <p className="text-2xl font-bold text-destructive">
                   {poamItems.filter(item => item.priority === 'critical').length}
                 </p>
               </div>
-              <AlertTriangle className="h-6 w-6 text-red-600" />
+              <AlertTriangle className="h-6 w-6 text-destructive" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="border-l-4 border-l-primary">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">In Progress</p>
-                <p className="text-2xl font-bold text-blue-600">
+                <p className="text-2xl font-bold text-primary">
                   {poamItems.filter(item => item.status === 'in_progress').length}
                 </p>
               </div>
-              <Clock className="h-6 w-6 text-blue-600" />
+              <Clock className="h-6 w-6 text-primary" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-500">
+        <Card className="border-l-4 border-l-success">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Completed</p>
-                <p className="text-2xl font-bold text-green-600">
+                <p className="text-2xl font-bold text-success">
                   {poamItems.filter(item => item.status === 'completed').length}
                 </p>
               </div>
-              <CheckCircle className="h-6 w-6 text-green-600" />
+              <CheckCircle className="h-6 w-6 text-success" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-purple-500">
+        <Card className="border-l-4 border-l-accent">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Total Cost</p>
-                <p className="text-2xl font-bold text-purple-600">
+                <p className="text-2xl font-bold text-accent">
                   ${(poamItems.reduce((sum, item) => sum + item.estimatedCost, 0) / 1000).toFixed(0)}K
                 </p>
               </div>
-              <DollarSign className="h-6 w-6 text-purple-600" />
+              <DollarSign className="h-6 w-6 text-accent" />
             </div>
           </CardContent>
         </Card>
@@ -317,15 +346,32 @@ const PoamGenerator = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {poamItems.map((item) => (
-                  <Card 
-                    key={item.id} 
-                    className={`cursor-pointer transition-all hover:shadow-md ${
-                      selectedItem === item.id ? 'ring-2 ring-primary' : ''
-                    }`}
-                    onClick={() => setSelectedItem(item.id)}
-                  >
+              {poamItems.length === 0 ? (
+                <Card className="text-center py-12">
+                  <FileCheck className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">No POA&M Items Yet</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Get started by creating your first Plan of Action and Milestones item
+                  </p>
+                  <Button onClick={() => toast.info('Feature Coming Soon', 'Add Item functionality will be available soon')}>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Create First Item
+                  </Button>
+                </Card>
+              ) : (
+                <div className="space-y-4">
+                  {poamItems.map((item) => (
+                    <Card 
+                      key={item.id} 
+                      className={`cursor-pointer transition-all hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary ${
+                        selectedItem === item.id ? 'ring-2 ring-primary' : ''
+                      }`}
+                      onClick={() => setSelectedItem(item.id)}
+                      onKeyDown={(e) => handleCardKeyDown(e, item.id)}
+                      tabIndex={0}
+                      role="button"
+                      aria-label={`Select POA&M item ${item.id}: ${item.weakness}`}
+                    >
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center gap-3">
@@ -377,7 +423,8 @@ const PoamGenerator = () => {
                     </CardContent>
                   </Card>
                 ))}
-              </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -423,9 +470,9 @@ const PoamGenerator = () => {
                             {item.milestones.map((milestone, idx) => (
                               <div key={idx} className="flex items-start text-sm">
                                 {milestone.status === 'complete' ? (
-                                  <CheckCircle className="h-4 w-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                                  <CheckCircle className="h-4 w-4 text-success mr-2 mt-0.5 flex-shrink-0" />
                                 ) : (
-                                  <Clock className="h-4 w-4 text-yellow-600 mr-2 mt-0.5 flex-shrink-0" />
+                                  <Clock className="h-4 w-4 text-warning mr-2 mt-0.5 flex-shrink-0" />
                                 )}
                                 <div>
                                   <div>{milestone.description}</div>

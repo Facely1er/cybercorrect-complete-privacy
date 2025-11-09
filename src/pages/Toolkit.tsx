@@ -116,6 +116,15 @@ const Toolkit = () => {
           features: ["Data processing mapping", "Legal basis tracking", "Rights management", "Article 30 compliance"]
         },
         {
+          title: "PII Data Flow Mapper",
+          description: "Visualize and document Personal Identifiable Information flows for GDPR, CCPA, and PIPEDA compliance",
+          icon: Network,
+          path: "/toolkit/pii-data-flow-mapper",
+          timeEstimate: "30 mins",
+          complexity: "Intermediate",
+          features: ["PII flow visualization", "Legal basis validation", "Data subject rights mapping", "Cross-border transfer tracking", "Third-party processor documentation"]
+        },
+        {
           title: "Privacy Rights Manager",
           description: "Manage data subject rights requests and responses",
           icon: Users,
@@ -297,7 +306,7 @@ const Toolkit = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Mapping Tools</p>
-                <p className="text-2xl font-bold text-purple-600">2</p>
+                <p className="text-2xl font-bold text-purple-600">3</p>
               </div>
               <Network className="h-8 w-8 text-purple-600" />
             </div>
