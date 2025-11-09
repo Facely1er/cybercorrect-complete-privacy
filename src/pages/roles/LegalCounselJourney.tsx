@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -12,7 +11,8 @@ import {
   Shield,
   Database,
   Activity,
-  AlertTriangle
+  AlertTriangle,
+  Building
 } from 'lucide-react';
 
 const LegalCounselJourney = () => {
