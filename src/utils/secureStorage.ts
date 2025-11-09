@@ -1,4 +1,21 @@
-// Secure storage utility with error handling and encryption
+/**
+ * Secure Storage Utility - Privacy by Design Implementation
+ * 
+ * This utility is MANDATORY for Privacy by Design compliance.
+ * LocalStorage is not just a convenience feature - it's a core privacy principle.
+ * 
+ * Privacy by Design Principles:
+ * 1. Proactive: Data stays on device, preventing exposure
+ * 2. Privacy as Default: Local storage is default, cloud is optional
+ * 3. Embedded in Design: Local storage is architectural foundation
+ * 4. Full Functionality: Complete offline functionality
+ * 5. End-to-End Security: Data lifecycle protection on user's device
+ * 6. Visibility: Users can inspect and control their data
+ * 7. User-Centric: User maintains sovereignty over their data
+ * 
+ * All tools MUST use this utility for local storage.
+ * Cloud sync is OPTIONAL, not required.
+ */
 import { errorMonitoring } from '../lib/errorMonitoring';
 
 interface StorageOptions {
