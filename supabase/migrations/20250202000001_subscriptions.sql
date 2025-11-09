@@ -16,8 +16,7 @@ CREATE TABLE IF NOT EXISTS cc_privacy_subscriptions (
   stripe_customer_id TEXT,
   stripe_price_id TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW(),
-  CONSTRAINT unique_active_subscription UNIQUE (user_id, status) WHERE status = 'active'
+  updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Subscription history table (audit trail)
@@ -70,6 +69,11 @@ CREATE TABLE IF NOT EXISTS cc_privacy_invoices (
 CREATE INDEX IF NOT EXISTS idx_subscriptions_user_id ON cc_privacy_subscriptions(user_id);
 CREATE INDEX IF NOT EXISTS idx_subscriptions_status ON cc_privacy_subscriptions(status);
 CREATE INDEX IF NOT EXISTS idx_subscriptions_stripe_subscription_id ON cc_privacy_subscriptions(stripe_subscription_id);
+
+-- Unique index to ensure only one active subscription per user
+CREATE UNIQUE INDEX IF NOT EXISTS idx_subscriptions_unique_active 
+  ON cc_privacy_subscriptions(user_id, status) 
+  WHERE status = 'active';
 CREATE INDEX IF NOT EXISTS idx_subscription_history_subscription_id ON cc_privacy_subscription_history(subscription_id);
 CREATE INDEX IF NOT EXISTS idx_subscription_history_user_id ON cc_privacy_subscription_history(user_id);
 CREATE INDEX IF NOT EXISTS idx_payment_methods_user_id ON cc_privacy_payment_methods(user_id);
