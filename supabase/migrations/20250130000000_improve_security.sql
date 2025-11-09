@@ -264,26 +264,47 @@ GRANT EXECUTE ON FUNCTION anonymize_user_data(uuid) TO authenticated;
 -- Drop view if it exists
 DROP VIEW IF EXISTS admin_data_overview;
 
-CREATE VIEW admin_data_overview AS
-SELECT 
-  'policy_generators' as table_name,
-  COUNT(*) as total_records,
-  COUNT(created_by) as authenticated_records,
-  COUNT(*) - COUNT(created_by) as anonymous_records,
-  MIN(created_at) as oldest_record,
-  MAX(created_at) as newest_record
-FROM policy_generators
-WHERE EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'policy_generators')
-UNION ALL
-SELECT 
-  'toolkit_analytics' as table_name,
-  COUNT(*) as total_records,
-  COUNT(created_by) as authenticated_records,
-  COUNT(*) - COUNT(created_by) as anonymous_records,
-  MIN(created_at) as oldest_record,
-  MAX(created_at) as newest_record
-FROM toolkit_analytics
-WHERE EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'toolkit_analytics');
+-- Create view only if at least one table exists
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'policy_generators') 
+     OR EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'toolkit_analytics') THEN
+    
+    EXECUTE format('
+      CREATE VIEW admin_data_overview AS
+      %s
+      %s
+    ',
+      CASE 
+        WHEN EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'policy_generators') THEN
+          'SELECT 
+            ''policy_generators'' as table_name,
+            COUNT(*) as total_records,
+            COUNT(created_by) as authenticated_records,
+            COUNT(*) - COUNT(created_by) as anonymous_records,
+            MIN(created_at) as oldest_record,
+            MAX(created_at) as newest_record
+          FROM policy_generators'
+        ELSE ''
+      END,
+      CASE 
+        WHEN EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'toolkit_analytics') THEN
+          CASE 
+            WHEN EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'policy_generators') THEN ' UNION ALL ' ELSE ''
+          END ||
+          'SELECT 
+            ''toolkit_analytics'' as table_name,
+            COUNT(*) as total_records,
+            COUNT(created_by) as authenticated_records,
+            COUNT(*) - COUNT(created_by) as anonymous_records,
+            MIN(created_at) as oldest_record,
+            MAX(created_at) as newest_record
+          FROM toolkit_analytics'
+        ELSE ''
+      END
+    );
+  END IF;
+END $$;
 
 -- Only allow service role to access admin view
 REVOKE ALL ON admin_data_overview FROM PUBLIC;
