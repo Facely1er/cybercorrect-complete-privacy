@@ -125,7 +125,7 @@ BEGIN
   
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = '';
 
 -- Create triggers for audit fields (only if tables exist)
 DO $$
@@ -213,19 +213,19 @@ RETURNS void AS $$
 BEGIN
   -- Delete policy generators older than 30 days with no user association (only if table exists)
   IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'policy_generators') THEN
-    DELETE FROM policy_generators 
+    DELETE FROM public.policy_generators 
     WHERE created_by IS NULL 
       AND created_at < NOW() - INTERVAL '30 days';
   END IF;
   
   -- Delete analytics older than 90 days with no user association (only if table exists)
   IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'toolkit_analytics') THEN
-    DELETE FROM toolkit_analytics 
+    DELETE FROM public.toolkit_analytics 
     WHERE created_by IS NULL 
       AND created_at < NOW() - INTERVAL '90 days';
   END IF;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = '';
 
 -- Create function to anonymize user data (for GDPR right to be forgotten)
 CREATE OR REPLACE FUNCTION anonymize_user_data(user_id uuid)
@@ -233,7 +233,7 @@ RETURNS void AS $$
 BEGIN
   -- Anonymize policy generators (only if table exists)
   IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'policy_generators') THEN
-    UPDATE policy_generators 
+    UPDATE public.policy_generators 
     SET 
       organization_info = '{}'::jsonb,
       created_by = NULL,
@@ -245,7 +245,7 @@ BEGIN
   
   -- Anonymize analytics (only if table exists)
   IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'toolkit_analytics') THEN
-    UPDATE toolkit_analytics 
+    UPDATE public.toolkit_analytics 
     SET 
       data = '{}'::jsonb,
       created_by = NULL,
@@ -254,7 +254,7 @@ BEGIN
     WHERE created_by = user_id;
   END IF;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = '';
 
 -- Grant necessary permissions
 GRANT EXECUTE ON FUNCTION cleanup_anonymous_data() TO authenticated;

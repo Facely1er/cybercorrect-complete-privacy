@@ -92,7 +92,7 @@ BEGIN
     NEW.updated_at = now();
     RETURN NEW;
 END;
-$$ language 'plpgsql';
+$$ language 'plpgsql' SET search_path = '';
 
 CREATE TRIGGER update_policy_generators_updated_at
     BEFORE UPDATE ON policy_generators

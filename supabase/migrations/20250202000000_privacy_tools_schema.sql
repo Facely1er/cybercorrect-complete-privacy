@@ -564,7 +564,7 @@ BEGIN
   NEW.updated_at = now();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SET search_path = '';
 
 -- Create triggers for all tables
 CREATE TRIGGER update_cc_privacy_consent_records_updated_at

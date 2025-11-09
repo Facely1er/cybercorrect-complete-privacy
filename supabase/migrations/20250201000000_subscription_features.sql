@@ -301,7 +301,7 @@ BEGIN
   NEW.updated_at = now();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SET search_path = '';
 
 -- Create triggers for updated_at
 CREATE TRIGGER update_automated_reports_updated_at
@@ -328,10 +328,10 @@ CREATE TRIGGER update_notification_preferences_updated_at
 CREATE OR REPLACE FUNCTION cleanup_expired_notifications()
 RETURNS void AS $$
 BEGIN
-  DELETE FROM notifications
+  DELETE FROM public.notifications
   WHERE expires_at IS NOT NULL
     AND expires_at < now()
     AND read = true;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = '';
 

@@ -135,7 +135,7 @@ BEGIN
   NEW.updated_at = NOW();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SET search_path = '';
 
 CREATE TRIGGER update_subscriptions_updated_at
   BEFORE UPDATE ON cc_privacy_subscriptions
@@ -157,7 +157,7 @@ CREATE OR REPLACE FUNCTION create_subscription_history()
 RETURNS TRIGGER AS $$
 BEGIN
   IF TG_OP = 'INSERT' THEN
-    INSERT INTO cc_privacy_subscription_history (
+    INSERT INTO public.cc_privacy_subscription_history (
       subscription_id,
       user_id,
       action,
@@ -172,7 +172,7 @@ BEGIN
     );
     RETURN NEW;
   ELSIF TG_OP = 'UPDATE' THEN
-    INSERT INTO cc_privacy_subscription_history (
+    INSERT INTO public.cc_privacy_subscription_history (
       subscription_id,
       user_id,
       action,
@@ -198,7 +198,7 @@ BEGIN
   END IF;
   RETURN NULL;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SET search_path = '';
 
 CREATE TRIGGER subscription_history_trigger
   AFTER INSERT OR UPDATE ON cc_privacy_subscriptions
