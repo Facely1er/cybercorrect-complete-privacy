@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { 
   Menu, 
@@ -341,7 +341,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
           onClick={() => openChatbot()}
         >
           <MessageSquare className="h-5 w-5 mr-2" />
-          Speak to a Compliance Expert
+          Speak to a Privacy Advisor
         </Button>
       </div>
     </div>
