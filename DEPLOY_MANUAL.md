@@ -2,6 +2,8 @@
 
 ## 🚀 Quick Deploy Commands
 
+**Note**: Docker is NOT required for cloud deployments. Just use `npx supabase` directly.
+
 If the script doesn't work, use these manual commands:
 
 ### Step 1: Use Supabase CLI with npx (No Installation Required)
