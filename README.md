@@ -103,13 +103,20 @@ npm install
 # Required environment variables:
 VITE_SUPABASE_URL=https://achowlksgmwuvfbvjfrt.supabase.co
 VITE_SUPABASE_ANON_KEY=your_anon_key_here
-
-# Configure your Supabase credentials
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-4. Run the development server:
+4. Apply database migrations:
+```bash
+# See APPLY_MIGRATIONS.md for detailed instructions
+# Or use Supabase Dashboard → SQL Editor
+```
+
+5. Verify setup:
+```bash
+npm run setup:complete
+```
+
+6. Run the development server:
 ```bash
 npm run dev
 ```
