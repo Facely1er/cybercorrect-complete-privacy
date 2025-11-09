@@ -16,17 +16,24 @@
  * - Graceful degradation (works even if Supabase is not configured)
  */
 import { secureStorage } from './secureStorage';
-import { supabase } from '../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { errorMonitoring } from '../lib/errorMonitoring';
 
 /**
  * Check if Supabase is available and user is authenticated
+ * Returns false if Supabase is not configured (graceful degradation)
  */
 async function isSupabaseAvailable(): Promise<boolean> {
   try {
+    // Check if Supabase is configured first
+    if (!isSupabaseConfigured()) {
+      return false;
+    }
+    
     const { data: { user } } = await supabase.auth.getUser();
     return !!user;
   } catch {
+    // Silently fail - localStorage is primary, Supabase is optional
     return false;
   }
 }

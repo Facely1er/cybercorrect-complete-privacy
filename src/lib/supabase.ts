@@ -7,26 +7,34 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 let supabaseInstance: SupabaseClient | null = null;
 let supabaseError: Error | null = null;
 
+// Check if Supabase is configured
+export const isSupabaseConfigured = (): boolean => {
+  return !!(supabaseUrl && supabaseAnonKey);
+};
+
 // Lazy initialization of Supabase client
-function getSupabaseClient(): SupabaseClient {
+// Returns null if not configured (graceful degradation for Privacy by Design)
+function getSupabaseClient(): SupabaseClient | null {
+  // If not configured, return null (don't throw - Privacy by Design requirement)
+  if (!supabaseUrl || !supabaseAnonKey) {
+    if (import.meta.env.DEV) {
+      console.warn('Supabase not configured. App will work with localStorage only (Privacy by Design).');
+      console.warn('To enable cloud sync, configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY');
+    }
+    return null;
+  }
+
   if (supabaseInstance) {
     return supabaseInstance;
   }
 
   if (supabaseError) {
-    throw supabaseError;
-  }
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    supabaseError = new Error('Missing Supabase environment variables. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
-    errorMonitoring.captureException(supabaseError, { 
-      context: 'supabase_initialization',
-      missingVars: { 
-        url: !!supabaseUrl, 
-        key: !!supabaseAnonKey 
-      }
-    });
-    throw supabaseError;
+    // Log error but don't throw - allow app to continue with localStorage
+    if (import.meta.env.DEV) {
+      console.warn('Supabase initialization error:', supabaseError.message);
+      console.warn('App will continue with localStorage only (Privacy by Design).');
+    }
+    return null;
   }
 
   try {
@@ -40,14 +48,44 @@ function getSupabaseClient(): SupabaseClient {
   } catch (error) {
     supabaseError = error instanceof Error ? error : new Error('Failed to create Supabase client');
     errorMonitoring.captureException(supabaseError, { context: 'supabase_initialization' });
-    throw supabaseError;
+    // Don't throw - allow app to continue with localStorage
+    if (import.meta.env.DEV) {
+      console.warn('Supabase client creation failed:', supabaseError.message);
+      console.warn('App will continue with localStorage only (Privacy by Design).');
+    }
+    return null;
   }
 }
 
+// Create a mock Supabase client for when Supabase is not configured
+const createMockSupabaseClient = (): SupabaseClient => {
+  return {
+    auth: {
+      getUser: async () => ({ data: { user: null }, error: null }),
+      signUp: async () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      signInWithPassword: async () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      signOut: async () => ({ error: null }),
+    },
+    from: () => ({
+      select: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      insert: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      update: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      delete: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+    }),
+  } as unknown as SupabaseClient;
+};
+
 // Export a proxy that initializes on first access
+// Returns mock client if Supabase is not configured (graceful degradation)
 export const supabase = new Proxy({} as SupabaseClient, {
   get(target, prop) {
     const client = getSupabaseClient();
+    if (!client) {
+      // Return mock client that returns errors (but doesn't crash)
+      const mockClient = createMockSupabaseClient();
+      const value = mockClient[prop as keyof SupabaseClient];
+      return typeof value === 'function' ? value.bind(mockClient) : value;
+    }
     const value = client[prop as keyof SupabaseClient];
     return typeof value === 'function' ? value.bind(client) : value;
   }
