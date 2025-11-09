@@ -91,42 +91,44 @@ ALTER TABLE cc_privacy_invoices ENABLE ROW LEVEL SECURITY;
 -- RLS Policies for subscriptions
 CREATE POLICY "Users can view their own subscriptions"
   ON cc_privacy_subscriptions FOR SELECT
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own subscriptions"
   ON cc_privacy_subscriptions FOR INSERT
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own subscriptions"
   ON cc_privacy_subscriptions FOR UPDATE
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 -- RLS Policies for subscription history
 CREATE POLICY "Users can view their own subscription history"
   ON cc_privacy_subscription_history FOR SELECT
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- RLS Policies for payment methods
 CREATE POLICY "Users can view their own payment methods"
   ON cc_privacy_payment_methods FOR SELECT
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own payment methods"
   ON cc_privacy_payment_methods FOR INSERT
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own payment methods"
   ON cc_privacy_payment_methods FOR UPDATE
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete their own payment methods"
   ON cc_privacy_payment_methods FOR DELETE
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- RLS Policies for invoices
 CREATE POLICY "Users can view their own invoices"
   ON cc_privacy_invoices FOR SELECT
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- Triggers for updated_at
 CREATE OR REPLACE FUNCTION update_updated_at_column()
