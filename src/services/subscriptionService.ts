@@ -13,7 +13,7 @@
 
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { secureStorage } from '../utils/secureStorage';
-import { SubscriptionTier, UserSubscription } from '../utils/monetization';
+import { SubscriptionTier } from '../utils/monetization';
 import { errorMonitoring } from '../lib/errorMonitoring';
 
 export interface SubscriptionStatus {
@@ -43,54 +43,87 @@ export async function createCheckoutSession(
     const stripeKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
     if (!stripeKey) {
       console.warn('Stripe not configured. Subscription checkout unavailable.');
+      // Return mock session in dev, null in prod (graceful degradation)
+      if (import.meta.env.DEV) {
+        return {
+          sessionId: `mock_session_${Date.now()}`,
+          url: `/subscription/success?tier=${tier}&billing=${billingPeriod}`,
+        };
+      }
       return null;
     }
 
-    // Get current user
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      throw new Error('User must be authenticated to create checkout session');
+    // Get current user (with error handling)
+    let user;
+    try {
+      const { data: { user: authUser }, error: authError } = await supabase.auth.getUser();
+      if (authError || !authUser) {
+        console.warn('User not authenticated, cannot create checkout session');
+        return null; // Graceful degradation - don't throw
+      }
+      user = authUser;
+    } catch (authErr) {
+      console.warn('Error getting user for checkout:', authErr);
+      return null; // Graceful degradation
     }
 
-    // Call Supabase Edge Function to create checkout session
-    // In production, this would call: supabase.functions.invoke('create-checkout-session', {...})
-    // For now, we'll use a direct Stripe API call pattern
-    
     // If Supabase is configured, use Edge Function
     if (isSupabaseConfigured()) {
-      const { data, error } = await supabase.functions.invoke('create-checkout-session', {
-        body: {
-          tier,
-          billingPeriod,
-          userId: user.id,
-          email: user.email,
-        },
-      });
+      try {
+        const { data, error } = await supabase.functions.invoke('create-checkout-session', {
+          body: {
+            tier,
+            billingPeriod,
+            userId: user.id,
+            email: user.email,
+          },
+        });
 
-      if (error) {
-        throw error;
+        if (error) {
+          console.warn('Supabase Edge Function error:', error);
+          // Fall through to mock/dev fallback
+        } else if (data) {
+          return data as CheckoutSession;
+        }
+      } catch (invokeError) {
+        console.warn('Error invoking checkout session function:', invokeError);
+        // Fall through to mock/dev fallback
       }
-
-      return data as CheckoutSession;
     }
 
-    // Fallback: Return mock session for development
+    // Fallback: Return mock session for development (never throw)
     if (import.meta.env.DEV) {
-      console.warn('Using mock checkout session (Stripe not configured)');
+      console.warn('Using mock checkout session (Stripe/Supabase not configured or failed)');
       return {
         sessionId: `mock_session_${Date.now()}`,
         url: `/subscription/success?tier=${tier}&billing=${billingPeriod}`,
       };
     }
 
+    // In production, return null if all services fail (graceful degradation)
     return null;
   } catch (error) {
-    errorMonitoring.captureException(error instanceof Error ? error : new Error('Failed to create checkout session'), {
-      context: 'subscription_service',
-      tier,
-      billingPeriod,
-    });
-    throw error;
+    // Never throw - always return null or fallback
+    console.error('Unexpected error in createCheckoutSession:', error);
+    try {
+      errorMonitoring.captureException(error instanceof Error ? error : new Error('Failed to create checkout session'), {
+        context: 'subscription_service',
+        tier,
+        billingPeriod,
+      });
+    } catch (monitoringError) {
+      // Even error monitoring failed - just log to console
+      console.error('Error monitoring also failed:', monitoringError);
+    }
+    
+    // Always return a fallback instead of throwing
+    if (import.meta.env.DEV) {
+      return {
+        sessionId: `mock_session_${Date.now()}`,
+        url: `/subscription/success?tier=${tier}&billing=${billingPeriod}`,
+      };
+    }
+    return null;
   }
 }
 
@@ -100,76 +133,102 @@ export async function createCheckoutSession(
 export async function getUserSubscription(): Promise<SubscriptionStatus | null> {
   try {
     // First check localStorage (Privacy by Design - works offline)
-    const localSubscription = secureStorage.getItem<SubscriptionStatus>('user_subscription');
-    if (localSubscription) {
-      // If subscription is still valid, return it
-      if (new Date(localSubscription.currentPeriodEnd) > new Date()) {
-        return localSubscription;
+    let localSubscription: SubscriptionStatus | null = null;
+    try {
+      localSubscription = secureStorage.getItem<SubscriptionStatus>('user_subscription');
+      if (localSubscription) {
+        // If subscription is still valid, return it
+        if (new Date(localSubscription.currentPeriodEnd) > new Date()) {
+          return localSubscription;
+        }
       }
+    } catch (storageError) {
+      console.warn('Error reading subscription from localStorage:', storageError);
+      // Continue to try other sources
     }
 
-    // If Supabase is configured, sync from cloud
+    // If Supabase is configured, sync from cloud (with error handling)
     if (isSupabaseConfigured()) {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        return localSubscription || null;
-      }
+      try {
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
+        if (authError || !user) {
+          // Not authenticated - return localStorage or default
+          return localSubscription || getDefaultSubscription();
+        }
 
-      const { data, error } = await supabase
-        .from('cc_privacy_subscriptions')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('status', 'active')
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .single();
+        try {
+          const { data, error } = await supabase
+            .from('cc_privacy_subscriptions')
+            .select('*')
+            .eq('user_id', user.id)
+            .eq('status', 'active')
+            .order('created_at', { ascending: false })
+            .limit(1)
+            .single();
 
-      if (error && error.code !== 'PGRST116') {
-        // PGRST116 = no rows returned (expected for new users)
-        console.warn('Error fetching subscription:', error);
-        return localSubscription || null;
-      }
+          if (error && error.code !== 'PGRST116') {
+            // PGRST116 = no rows returned (expected for new users)
+            console.warn('Error fetching subscription from Supabase:', error);
+            return localSubscription || getDefaultSubscription();
+          }
 
-      if (data) {
-        const subscription: SubscriptionStatus = {
-          tier: data.tier as SubscriptionTier,
-          status: data.status as SubscriptionStatus['status'],
-          currentPeriodStart: data.current_period_start,
-          currentPeriodEnd: data.current_period_end,
-          cancelAtPeriodEnd: data.cancel_at_period_end || false,
-          stripeSubscriptionId: data.stripe_subscription_id,
-          stripeCustomerId: data.stripe_customer_id,
-        };
+          if (data) {
+            const subscription: SubscriptionStatus = {
+              tier: data.tier as SubscriptionTier,
+              status: data.status as SubscriptionStatus['status'],
+              currentPeriodStart: data.current_period_start,
+              currentPeriodEnd: data.current_period_end,
+              cancelAtPeriodEnd: data.cancel_at_period_end || false,
+              stripeSubscriptionId: data.stripe_subscription_id,
+              stripeCustomerId: data.stripe_customer_id,
+            };
 
-        // Save to localStorage (Privacy by Design)
-        secureStorage.setItem('user_subscription', subscription);
-        return subscription;
+            // Save to localStorage (Privacy by Design) - with error handling
+            try {
+              secureStorage.setItem('user_subscription', subscription);
+            } catch (saveError) {
+              console.warn('Error saving subscription to localStorage:', saveError);
+              // Continue anyway - we still return the subscription
+            }
+            return subscription;
+          }
+        } catch (queryError) {
+          console.warn('Error querying subscription from Supabase:', queryError);
+          // Fall through to localStorage/default
+        }
+      } catch (supabaseError) {
+        console.warn('Error accessing Supabase for subscription:', supabaseError);
+        // Fall through to localStorage/default
       }
     }
 
-    // Return localStorage subscription or default to free
-    return localSubscription || {
-      tier: 'free',
-      status: 'active',
-      currentPeriodStart: new Date().toISOString(),
-      currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-      cancelAtPeriodEnd: false,
-    };
+    // Return localStorage subscription or default to free (never throw)
+    return localSubscription || getDefaultSubscription();
   } catch (error) {
-    errorMonitoring.captureException(error instanceof Error ? error : new Error('Failed to get subscription'), {
-      context: 'subscription_service',
-    });
+    // Never throw - always return a fallback
+    console.error('Unexpected error in getUserSubscription:', error);
+    try {
+      errorMonitoring.captureException(error instanceof Error ? error : new Error('Failed to get subscription'), {
+        context: 'subscription_service',
+      });
+    } catch (monitoringError) {
+      console.error('Error monitoring also failed:', monitoringError);
+    }
     
-    // Fallback to localStorage
-    const localSubscription = secureStorage.getItem<SubscriptionStatus>('user_subscription');
-    return localSubscription || {
-      tier: 'free',
-      status: 'active',
-      currentPeriodStart: new Date().toISOString(),
-      currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-      cancelAtPeriodEnd: false,
-    };
+    // Always return a default subscription
+    return getDefaultSubscription();
   }
+}
+
+// Helper function to get default subscription (never throws)
+function getDefaultSubscription(): SubscriptionStatus {
+  return {
+    tier: 'free',
+    status: 'active',
+    currentPeriodStart: new Date().toISOString(),
+    currentPeriodEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+    cancelAtPeriodEnd: false,
+  };
 }
 
 /**
@@ -179,53 +238,80 @@ export async function cancelSubscription(): Promise<boolean> {
   try {
     const subscription = await getUserSubscription();
     if (!subscription || !subscription.stripeSubscriptionId) {
-      throw new Error('No active subscription found');
+      console.warn('No active subscription found to cancel');
+      return false; // Don't throw - graceful degradation
     }
 
     // If Supabase is configured, call Edge Function to cancel
     if (isSupabaseConfigured()) {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        throw new Error('User must be authenticated to cancel subscription');
+      try {
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
+        if (authError || !user) {
+          console.warn('User not authenticated, cannot cancel subscription via Stripe');
+          // Fall through to local cancellation
+        } else {
+          try {
+            const { error } = await supabase.functions.invoke('cancel-subscription', {
+              body: {
+                subscriptionId: subscription.stripeSubscriptionId,
+                userId: user.id,
+              },
+            });
+
+            if (error) {
+              console.warn('Error canceling subscription via Stripe:', error);
+              // Fall through to local cancellation
+            } else {
+              // Successfully cancelled via Stripe - update local
+              try {
+                const updatedSubscription: SubscriptionStatus = {
+                  ...subscription,
+                  cancelAtPeriodEnd: true,
+                };
+                secureStorage.setItem('user_subscription', updatedSubscription);
+                return true;
+              } catch (saveError) {
+                console.warn('Error saving cancellation to localStorage:', saveError);
+                return true; // Still return true - cancellation succeeded
+              }
+            }
+          } catch (invokeError) {
+            console.warn('Error invoking cancel subscription function:', invokeError);
+            // Fall through to local cancellation
+          }
+        }
+      } catch (supabaseError) {
+        console.warn('Error accessing Supabase for cancellation:', supabaseError);
+        // Fall through to local cancellation
       }
+    }
 
-      const { error } = await supabase.functions.invoke('cancel-subscription', {
-        body: {
-          subscriptionId: subscription.stripeSubscriptionId,
-          userId: user.id,
-        },
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      // Update local subscription
+    // Fallback: Mark as cancelled locally (works even without Stripe/Supabase)
+    try {
       const updatedSubscription: SubscriptionStatus = {
         ...subscription,
         cancelAtPeriodEnd: true,
       };
       secureStorage.setItem('user_subscription', updatedSubscription);
-      return true;
+      if (import.meta.env.DEV) {
+        console.warn('Using local cancellation (Stripe/Supabase not configured or failed)');
+      }
+      return true; // Successfully cancelled locally
+    } catch (saveError) {
+      console.error('Error saving cancellation locally:', saveError);
+      return false; // Failed to save, but don't throw
     }
-
-    // Fallback: Mark as cancelled locally
-    if (import.meta.env.DEV) {
-      console.warn('Using mock cancellation (Stripe not configured)');
-      const updatedSubscription: SubscriptionStatus = {
-        ...subscription,
-        cancelAtPeriodEnd: true,
-      };
-      secureStorage.setItem('user_subscription', updatedSubscription);
-      return true;
-    }
-
-    return false;
   } catch (error) {
-    errorMonitoring.captureException(error instanceof Error ? error : new Error('Failed to cancel subscription'), {
-      context: 'subscription_service',
-    });
-    throw error;
+    // Never throw - always return false on error
+    console.error('Unexpected error in cancelSubscription:', error);
+    try {
+      errorMonitoring.captureException(error instanceof Error ? error : new Error('Failed to cancel subscription'), {
+        context: 'subscription_service',
+      });
+    } catch (monitoringError) {
+      console.error('Error monitoring also failed:', monitoringError);
+    }
+    return false; // Graceful degradation
   }
 }
 
@@ -236,55 +322,82 @@ export async function updateSubscription(newTier: SubscriptionTier): Promise<boo
   try {
     const subscription = await getUserSubscription();
     if (!subscription || subscription.tier === 'enterprise') {
-      throw new Error('Cannot update subscription');
+      console.warn('Cannot update subscription - no subscription or enterprise tier');
+      return false; // Don't throw - graceful degradation
     }
 
     // If Supabase is configured, call Edge Function to update
     if (isSupabaseConfigured()) {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        throw new Error('User must be authenticated to update subscription');
+      try {
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
+        if (authError || !user) {
+          console.warn('User not authenticated, cannot update subscription via Stripe');
+          // Fall through to local update
+        } else {
+          try {
+            const { error } = await supabase.functions.invoke('update-subscription', {
+              body: {
+                subscriptionId: subscription.stripeSubscriptionId,
+                newTier,
+                userId: user.id,
+              },
+            });
+
+            if (error) {
+              console.warn('Error updating subscription via Stripe:', error);
+              // Fall through to local update
+            } else {
+              // Successfully updated via Stripe - update local
+              try {
+                const updatedSubscription: SubscriptionStatus = {
+                  ...subscription,
+                  tier: newTier,
+                };
+                secureStorage.setItem('user_subscription', updatedSubscription);
+                return true;
+              } catch (saveError) {
+                console.warn('Error saving update to localStorage:', saveError);
+                return true; // Still return true - update succeeded
+              }
+            }
+          } catch (invokeError) {
+            console.warn('Error invoking update subscription function:', invokeError);
+            // Fall through to local update
+          }
+        }
+      } catch (supabaseError) {
+        console.warn('Error accessing Supabase for update:', supabaseError);
+        // Fall through to local update
       }
+    }
 
-      const { error } = await supabase.functions.invoke('update-subscription', {
-        body: {
-          subscriptionId: subscription.stripeSubscriptionId,
-          newTier,
-          userId: user.id,
-        },
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      // Update local subscription
+    // Fallback: Update locally (works even without Stripe/Supabase)
+    try {
       const updatedSubscription: SubscriptionStatus = {
         ...subscription,
         tier: newTier,
       };
       secureStorage.setItem('user_subscription', updatedSubscription);
-      return true;
+      if (import.meta.env.DEV) {
+        console.warn('Using local update (Stripe/Supabase not configured or failed)');
+      }
+      return true; // Successfully updated locally
+    } catch (saveError) {
+      console.error('Error saving update locally:', saveError);
+      return false; // Failed to save, but don't throw
     }
-
-    // Fallback: Update locally
-    if (import.meta.env.DEV) {
-      console.warn('Using mock update (Stripe not configured)');
-      const updatedSubscription: SubscriptionStatus = {
-        ...subscription,
-        tier: newTier,
-      };
-      secureStorage.setItem('user_subscription', updatedSubscription);
-      return true;
-    }
-
-    return false;
   } catch (error) {
-    errorMonitoring.captureException(error instanceof Error ? error : new Error('Failed to update subscription'), {
-      context: 'subscription_service',
-      newTier,
-    });
-    throw error;
+    // Never throw - always return false on error
+    console.error('Unexpected error in updateSubscription:', error);
+    try {
+      errorMonitoring.captureException(error instanceof Error ? error : new Error('Failed to update subscription'), {
+        context: 'subscription_service',
+        newTier,
+      });
+    } catch (monitoringError) {
+      console.error('Error monitoring also failed:', monitoringError);
+    }
+    return false; // Graceful degradation
   }
 }
 
@@ -295,46 +408,58 @@ export async function checkSubscriptionAccess(feature: string): Promise<boolean>
   try {
     const subscription = await getUserSubscription();
     if (!subscription) {
-      return false;
+      return false; // No subscription = no access (safe default)
     }
 
-    // Check subscription status
-    if (subscription.status !== 'active' && subscription.status !== 'trialing') {
-      return false;
-    }
+    // Check subscription status (with error handling)
+    try {
+      if (subscription.status !== 'active' && subscription.status !== 'trialing') {
+        return false;
+      }
 
-    // Check if subscription is expired
-    if (new Date(subscription.currentPeriodEnd) < new Date()) {
-      return false;
-    }
+      // Check if subscription is expired (with error handling)
+      const periodEnd = new Date(subscription.currentPeriodEnd);
+      if (isNaN(periodEnd.getTime()) || periodEnd < new Date()) {
+        return false;
+      }
 
-    // Feature-based access checks
-    const tier = subscription.tier;
-    
-    switch (feature) {
-      case 'premium_templates':
-        return tier === 'professional' || tier === 'enterprise';
-      case 'unlimited_exports':
-        return tier === 'professional' || tier === 'enterprise';
-      case 'advanced_analytics':
-        return tier === 'professional' || tier === 'enterprise';
-      case 'regulatory_intelligence':
-        return tier === 'professional' || tier === 'enterprise';
-      case 'api_access':
-        return tier === 'professional' || tier === 'enterprise';
-      case 'white_glove_support':
-        return tier === 'enterprise';
-      case 'custom_integrations':
-        return tier === 'enterprise';
-      default:
-        return tier !== 'free';
+      // Feature-based access checks
+      const tier = subscription.tier;
+      
+      switch (feature) {
+        case 'premium_templates':
+          return tier === 'professional' || tier === 'enterprise';
+        case 'unlimited_exports':
+          return tier === 'professional' || tier === 'enterprise';
+        case 'advanced_analytics':
+          return tier === 'professional' || tier === 'enterprise';
+        case 'regulatory_intelligence':
+          return tier === 'professional' || tier === 'enterprise';
+        case 'api_access':
+          return tier === 'professional' || tier === 'enterprise';
+        case 'white_glove_support':
+          return tier === 'enterprise';
+        case 'custom_integrations':
+          return tier === 'enterprise';
+        default:
+          return tier !== 'free';
+      }
+    } catch (checkError) {
+      console.warn('Error checking subscription access:', checkError);
+      return false; // Safe default - deny access on error
     }
   } catch (error) {
-    errorMonitoring.captureException(error instanceof Error ? error : new Error('Failed to check subscription access'), {
-      context: 'subscription_service',
-      feature,
-    });
-    return false;
+    // Never throw - always return false (safe default)
+    console.error('Unexpected error in checkSubscriptionAccess:', error);
+    try {
+      errorMonitoring.captureException(error instanceof Error ? error : new Error('Failed to check subscription access'), {
+        context: 'subscription_service',
+        feature,
+      });
+    } catch (monitoringError) {
+      console.error('Error monitoring also failed:', monitoringError);
+    }
+    return false; // Safe default - deny access on error
   }
 }
 

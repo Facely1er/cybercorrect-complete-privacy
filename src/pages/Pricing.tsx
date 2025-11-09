@@ -325,16 +325,21 @@ const Pricing = () => {
                   try {
                     const { createCheckoutSession } = await import('../services/subscriptionService');
                     const tier = plan.name.toLowerCase() as 'starter' | 'professional';
+                    
+                    // createCheckoutSession never throws - always returns null or session
                     const session = await createCheckoutSession(tier, billingPeriod);
                     
                     if (session?.url) {
                       window.location.href = session.url;
                     } else {
-                      // Fallback: redirect to subscription page
+                      // Fallback: redirect to subscription page (service not configured or failed)
+                      console.warn('Checkout session not available, redirecting to subscription page');
                       window.location.href = '/account/subscription';
                     }
                   } catch (error) {
-                    console.error('Error creating checkout session:', error);
+                    // This should never happen since createCheckoutSession never throws,
+                    // but handle it gracefully just in case
+                    console.error('Unexpected error creating checkout session:', error);
                     // Fallback: redirect to subscription page
                     window.location.href = '/account/subscription';
                   }

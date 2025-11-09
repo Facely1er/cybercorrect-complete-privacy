@@ -93,38 +93,60 @@ class ErrorMonitoringService {
             // It's an exception
             const error = new Error(errorInfo.message);
             error.stack = errorInfo.stack;
-            sentryCaptureException(error, errorInfo);
+            // Convert ErrorInfo to Record<string, unknown> for Sentry
+            const context: Record<string, unknown> = {
+              url: errorInfo.url,
+              userAgent: errorInfo.userAgent,
+              timestamp: errorInfo.timestamp,
+              userId: errorInfo.userId,
+              sessionId: errorInfo.sessionId,
+              componentStack: errorInfo.componentStack,
+            };
+            sentryCaptureException(error, context);
           } else {
             // It's a message
             sentryCaptureMessage(errorInfo.message, 'error');
           }
           return; // Sentry handled it
         } catch (sentryError) {
-          // Sentry not available, fall through to other methods
-          console.warn('Sentry not available:', sentryError);
+          // Sentry not available or failed - fall through to other methods (never throw)
+          console.warn('Sentry not available or failed:', sentryError);
+          // Continue to fallback methods
         }
       }
 
       // Fallback: Use API endpoint if configured
       if (this.apiEndpoint) {
-        await fetch(this.apiEndpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(errorInfo),
-        });
-      } else {
-        // Fallback: send to console in development (only if no endpoint configured)
-        if (this.isDev()) {
-          console.error('Error captured:', errorInfo);
+        try {
+          const response = await fetch(this.apiEndpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(errorInfo),
+          });
+          
+          if (!response.ok) {
+            console.warn('Error monitoring API returned non-OK status:', response.status);
+          }
+        } catch (fetchError) {
+          // API endpoint failed - fall through to console (never throw)
+          console.warn('Error monitoring API endpoint failed:', fetchError);
+          // Continue to console fallback
         }
       }
-    } catch (sendError) {
-      // Only log send errors in development
+      
+      // Final fallback: send to console in development (never throw)
       if (this.isDev()) {
-        console.error('Failed to send error to monitoring service:', sendError);
+        console.error('Error captured (no monitoring service available):', errorInfo);
       }
+    } catch (sendError) {
+      // Never throw - always log to console as final fallback
+      if (this.isDev()) {
+        console.error('Failed to send error to monitoring service (all methods failed):', sendError);
+        console.error('Original error:', errorInfo);
+      }
+      // In production, silently fail (don't crash the app)
     }
   }
 

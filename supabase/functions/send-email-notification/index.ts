@@ -103,6 +103,8 @@ serve(async (req) => {
       </html>
     `;
 
+    let emailSent = false;
+
     // Try SendGrid first if configured
     if (sendGridApiKey) {
       try {
@@ -128,45 +130,52 @@ serve(async (req) => {
           }),
         });
 
-        if (!sendGridResponse.ok) {
+        if (sendGridResponse.ok) {
+          console.log('Email sent via SendGrid:', user.user.email);
+          emailSent = true;
+        } else {
           const errorText = await sendGridResponse.text();
-          console.error('SendGrid error:', errorText);
-          throw new Error(`SendGrid API error: ${sendGridResponse.status}`);
+          console.warn('SendGrid API error:', sendGridResponse.status, errorText);
+          // Fall through to other methods (don't throw)
         }
-
-        console.log('Email sent via SendGrid:', user.user.email);
       } catch (sendGridError) {
-        console.error('SendGrid error, falling back to Supabase email:', sendGridError);
-        // Fall through to Supabase email service
+        console.warn('SendGrid error, trying fallback:', sendGridError);
+        // Fall through to Supabase email service (don't throw)
       }
     }
 
-    // Fallback: Use Supabase email service (if available)
-    // Note: Supabase email service requires configuration in Supabase dashboard
-    try {
-      const { error: emailError } = await supabase.functions.invoke('send-email', {
-        body: {
-          to: user.user.email,
-          subject: emailSubject,
-          html: emailBody,
-        },
-      });
-
-      if (emailError) {
-        console.warn('Supabase email service error:', emailError);
-      } else {
-        console.log('Email sent via Supabase:', user.user.email);
-      }
-    } catch (supabaseEmailError) {
-      console.error('Supabase email service not available:', supabaseEmailError);
-      // Log for manual sending in development
-      if (!sendGridApiKey) {
-        console.log('Email notification (no provider configured):', {
-          to: user.user.email,
-          subject: emailSubject,
-          body: emailBody,
+    // Fallback: Use Supabase email service (if available and SendGrid failed)
+    if (!emailSent) {
+      try {
+        const { error: emailError } = await supabase.functions.invoke('send-email', {
+          body: {
+            to: user.user.email,
+            subject: emailSubject,
+            html: emailBody,
+          },
         });
+
+        if (!emailError) {
+          console.log('Email sent via Supabase:', user.user.email);
+          emailSent = true;
+        } else {
+          console.warn('Supabase email service error:', emailError);
+          // Continue - don't throw
+        }
+      } catch (supabaseEmailError) {
+        console.warn('Supabase email service not available:', supabaseEmailError);
+        // Continue - don't throw
       }
+    }
+
+    // Final fallback: Log for manual sending (never throw)
+    if (!emailSent) {
+      console.log('Email notification (no provider configured or all failed):', {
+        to: user.user.email,
+        subject: emailSubject,
+        // Don't log full body in production for privacy
+        bodyLength: emailBody.length,
+      });
     }
 
     // Mark notification as sent (if you have a sent_at field)
