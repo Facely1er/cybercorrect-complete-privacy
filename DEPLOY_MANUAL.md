@@ -4,16 +4,19 @@
 
 If the script doesn't work, use these manual commands:
 
-### Step 1: Install Supabase CLI
+### Step 1: Use Supabase CLI with npx (No Installation Required)
+
+**Note**: Supabase CLI doesn't support global npm installation. Use `npx` instead.
 
 ```bash
-npm install -g supabase
+# No installation needed - npx will download and run it
+# Just use 'npx supabase' instead of 'supabase'
 ```
 
 ### Step 2: Login to Supabase
 
 ```bash
-supabase login
+npx supabase login
 ```
 
 This will open your browser for authentication.
@@ -21,7 +24,7 @@ This will open your browser for authentication.
 ### Step 3: Link Your Project
 
 ```bash
-supabase link --project-ref achowlksgmwuvfbvjfrt
+npx supabase link --project-ref achowlksgmwuvfbvjfrt
 ```
 
 You may need to provide your database password if prompted.
@@ -31,27 +34,27 @@ You may need to provide your database password if prompted.
 Run these commands one by one:
 
 ```bash
-supabase functions deploy send-email-notification
+npx supabase functions deploy send-email-notification
 ```
 
 ```bash
-supabase functions deploy stripe-webhook
+npx supabase functions deploy stripe-webhook
 ```
 
 ```bash
-supabase functions deploy generate-automated-reports
+npx supabase functions deploy generate-automated-reports
 ```
 
 ```bash
-supabase functions deploy run-scheduled-assessments
+npx supabase functions deploy run-scheduled-assessments
 ```
 
 ```bash
-supabase functions deploy track-compliance-health
+npx supabase functions deploy track-compliance-health
 ```
 
 ```bash
-supabase functions deploy check-regulatory-updates
+npx supabase functions deploy check-regulatory-updates
 ```
 
 ## 🔍 Verify Deployment
@@ -66,22 +69,20 @@ supabase functions deploy check-regulatory-updates
 Copy and paste this entire block:
 
 ```bash
-# Install Supabase CLI
-npm install -g supabase
-
+# Use npx (no installation needed)
 # Login
-supabase login
+npx supabase login
 
 # Link project
-supabase link --project-ref achowlksgmwuvfbvjfrt
+npx supabase link --project-ref achowlksgmwuvfbvjfrt
 
 # Deploy all functions
-supabase functions deploy send-email-notification
-supabase functions deploy stripe-webhook
-supabase functions deploy generate-automated-reports
-supabase functions deploy run-scheduled-assessments
-supabase functions deploy track-compliance-health
-supabase functions deploy check-regulatory-updates
+npx supabase functions deploy send-email-notification
+npx supabase functions deploy stripe-webhook
+npx supabase functions deploy generate-automated-reports
+npx supabase functions deploy run-scheduled-assessments
+npx supabase functions deploy track-compliance-health
+npx supabase functions deploy check-regulatory-updates
 ```
 
 ## 🐛 Troubleshooting
@@ -102,12 +103,14 @@ cd ~/Downloads/GitHub/cybercorrect-complete-privacy/cybercorrect-complete-privac
 
 ### Supabase CLI Not Found?
 
-```bash
-# Install globally
-npm install -g supabase
+**Note**: Supabase CLI doesn't support global npm installation. Use `npx` instead:
 
-# Verify installation
-supabase --version
+```bash
+# Use npx (no installation needed)
+npx supabase --version
+
+# Or install via Scoop (Windows)
+# See INSTALL_SUPABASE_CLI.md for details
 ```
 
 ### Project Link Issues?
