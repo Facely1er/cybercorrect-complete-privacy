@@ -68,23 +68,106 @@ serve(async (req) => {
       );
     }
 
-    // Send email using Supabase email service or external provider
-    // For now, we'll use a simple email template
+    // Send email using SendGrid or fallback to Supabase email service
+    const sendGridApiKey = Deno.env.get('SENDGRID_API_KEY');
     const emailSubject = notification.title;
     const emailBody = `
-      <h2>${notification.title}</h2>
-      <p>${notification.message}</p>
-      ${notification.action_url ? `<p><a href="${notification.action_url}">${notification.action_label || 'View'}</a></p>` : ''}
-      <p><small>This is an automated notification from CyberCorrect Privacy Platform</small></p>
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>${notification.title}</title>
+        </head>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%); padding: 20px; border-radius: 8px 8px 0 0;">
+            <h1 style="color: white; margin: 0;">CyberCorrect Privacy Platform</h1>
+          </div>
+          <div style="background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; border: 1px solid #e5e7eb;">
+            <h2 style="color: #111827; margin-top: 0;">${notification.title}</h2>
+            <p style="color: #4b5563; font-size: 16px;">${notification.message}</p>
+            ${notification.action_url ? `
+              <div style="margin: 30px 0;">
+                <a href="${notification.action_url}" style="display: inline-block; background: #0d9488; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600;">
+                  ${notification.action_label || 'View Details'}
+                </a>
+              </div>
+            ` : ''}
+            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+            <p style="color: #6b7280; font-size: 12px; margin: 0;">
+              This is an automated notification from CyberCorrect Privacy Platform.<br>
+              You can manage your notification preferences in your account settings.
+            </p>
+          </div>
+        </body>
+      </html>
     `;
 
-    // In a real implementation, use Supabase email service or external provider (SendGrid, Mailgun, etc.)
-    // For now, we'll just log it
-    console.log('Email notification:', {
-      to: user.user.email,
-      subject: emailSubject,
-      body: emailBody,
-    });
+    // Try SendGrid first if configured
+    if (sendGridApiKey) {
+      try {
+        const sendGridResponse = await fetch('https://api.sendgrid.com/v3/mail/send', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${sendGridApiKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            personalizations: [{
+              to: [{ email: user.user.email }],
+              subject: emailSubject,
+            }],
+            from: {
+              email: Deno.env.get('SENDGRID_FROM_EMAIL') || 'noreply@cybercorrect.com',
+              name: 'CyberCorrect Privacy Platform',
+            },
+            content: [{
+              type: 'text/html',
+              value: emailBody,
+            }],
+          }),
+        });
+
+        if (!sendGridResponse.ok) {
+          const errorText = await sendGridResponse.text();
+          console.error('SendGrid error:', errorText);
+          throw new Error(`SendGrid API error: ${sendGridResponse.status}`);
+        }
+
+        console.log('Email sent via SendGrid:', user.user.email);
+      } catch (sendGridError) {
+        console.error('SendGrid error, falling back to Supabase email:', sendGridError);
+        // Fall through to Supabase email service
+      }
+    }
+
+    // Fallback: Use Supabase email service (if available)
+    // Note: Supabase email service requires configuration in Supabase dashboard
+    try {
+      const { error: emailError } = await supabase.functions.invoke('send-email', {
+        body: {
+          to: user.user.email,
+          subject: emailSubject,
+          html: emailBody,
+        },
+      });
+
+      if (emailError) {
+        console.warn('Supabase email service error:', emailError);
+      } else {
+        console.log('Email sent via Supabase:', user.user.email);
+      }
+    } catch (supabaseEmailError) {
+      console.error('Supabase email service not available:', supabaseEmailError);
+      // Log for manual sending in development
+      if (!sendGridApiKey) {
+        console.log('Email notification (no provider configured):', {
+          to: user.user.email,
+          subject: emailSubject,
+          body: emailBody,
+        });
+      }
+    }
 
     // Mark notification as sent (if you have a sent_at field)
     // await supabase

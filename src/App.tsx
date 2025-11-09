@@ -27,6 +27,9 @@ import Features from './pages/Features';
 import Demo from './pages/Demo';
 import Login from './pages/Login';
 import UserProfile from './pages/UserProfile';
+const Profile = lazy(() => import('./pages/account/Profile'));
+const Settings = lazy(() => import('./pages/account/Settings'));
+const Subscription = lazy(() => import('./pages/account/Subscription'));
 import NotFound from './pages/NotFound';
 import Integrations from './pages/Integrations';
 
@@ -176,6 +179,23 @@ const App: React.FC = () => {
                     <Route path="integrations" element={<Integrations />} />
                     <Route path="login" element={<Login />} />
                     <Route path="profile" element={<UserProfile />} />
+                    
+                    {/* Account Routes */}
+                    <Route path="account/profile" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <Profile />
+                      </Suspense>
+                    } />
+                    <Route path="account/settings" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <Settings />
+                      </Suspense>
+                    } />
+                    <Route path="account/subscription" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <Subscription />
+                      </Suspense>
+                    } />
                     
                     {/* Legal Pages */}
                     <Route path="privacy" element={<Privacy />} />

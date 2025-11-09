@@ -316,8 +316,31 @@ const Pricing = () => {
               <Button 
                 className="w-full" 
                 variant={plan.popular ? "default" : "outline"}
+                onClick={async () => {
+                  if (plan.price === "Contact us") {
+                    window.location.href = "mailto:sales@cybercorrect.com?subject=Enterprise Plan Inquiry";
+                    return;
+                  }
+                  
+                  try {
+                    const { createCheckoutSession } = await import('../services/subscriptionService');
+                    const tier = plan.name.toLowerCase() as 'starter' | 'professional';
+                    const session = await createCheckoutSession(tier, billingPeriod);
+                    
+                    if (session?.url) {
+                      window.location.href = session.url;
+                    } else {
+                      // Fallback: redirect to subscription page
+                      window.location.href = '/account/subscription';
+                    }
+                  } catch (error) {
+                    console.error('Error creating checkout session:', error);
+                    // Fallback: redirect to subscription page
+                    window.location.href = '/account/subscription';
+                  }
+                }}
               >
-                {plan.price === "Contact us" ? "Contact Sales" : "Get Started"}
+                {plan.price === "Contact us" ? "Contact Sales" : "Subscribe Now"}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </CardContent>

@@ -1,5 +1,5 @@
 // Error monitoring service
-// This can be easily replaced with Sentry, LogRocket, or other monitoring services
+// Integrates with Sentry if configured, otherwise uses fallback logging
 
 interface ErrorInfo {
   message: string;
@@ -84,6 +84,28 @@ class ErrorMonitoringService {
 
   private async sendError(errorInfo: ErrorInfo) {
     try {
+      // Try Sentry first if available
+      const sentryDsn = import.meta.env.VITE_SENTRY_DSN;
+      if (sentryDsn) {
+        try {
+          const { captureException: sentryCaptureException, captureMessage: sentryCaptureMessage } = await import('./sentry');
+          if (errorInfo.stack) {
+            // It's an exception
+            const error = new Error(errorInfo.message);
+            error.stack = errorInfo.stack;
+            sentryCaptureException(error, errorInfo);
+          } else {
+            // It's a message
+            sentryCaptureMessage(errorInfo.message, 'error');
+          }
+          return; // Sentry handled it
+        } catch (sentryError) {
+          // Sentry not available, fall through to other methods
+          console.warn('Sentry not available:', sentryError);
+        }
+      }
+
+      // Fallback: Use API endpoint if configured
       if (this.apiEndpoint) {
         await fetch(this.apiEndpoint, {
           method: 'POST',
