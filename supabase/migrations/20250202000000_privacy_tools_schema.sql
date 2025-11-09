@@ -275,26 +275,26 @@ CREATE POLICY "Users can view their own consent records"
   ON cc_privacy_consent_records
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own consent records"
   ON cc_privacy_consent_records
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own consent records"
   ON cc_privacy_consent_records
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete their own consent records"
   ON cc_privacy_consent_records
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- ============================================================================
 -- RLS Policies for cc_privacy_vendor_assessments
@@ -304,26 +304,26 @@ CREATE POLICY "Users can view their own vendor assessments"
   ON cc_privacy_vendor_assessments
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own vendor assessments"
   ON cc_privacy_vendor_assessments
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own vendor assessments"
   ON cc_privacy_vendor_assessments
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete their own vendor assessments"
   ON cc_privacy_vendor_assessments
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- ============================================================================
 -- RLS Policies for cc_privacy_retention_policies
@@ -333,26 +333,26 @@ CREATE POLICY "Users can view their own retention policies"
   ON cc_privacy_retention_policies
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own retention policies"
   ON cc_privacy_retention_policies
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own retention policies"
   ON cc_privacy_retention_policies
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete their own retention policies"
   ON cc_privacy_retention_policies
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- ============================================================================
 -- RLS Policies for cc_privacy_data_records
@@ -362,26 +362,26 @@ CREATE POLICY "Users can view their own data records"
   ON cc_privacy_data_records
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own data records"
   ON cc_privacy_data_records
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own data records"
   ON cc_privacy_data_records
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete their own data records"
   ON cc_privacy_data_records
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- ============================================================================
 -- RLS Policies for cc_privacy_dpias
@@ -391,26 +391,26 @@ CREATE POLICY "Users can view their own DPIAs"
   ON cc_privacy_dpias
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own DPIAs"
   ON cc_privacy_dpias
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own DPIAs"
   ON cc_privacy_dpias
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete their own DPIAs"
   ON cc_privacy_dpias
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- ============================================================================
 -- RLS Policies for cc_privacy_privacy_by_design_assessments
@@ -420,26 +420,26 @@ CREATE POLICY "Users can view their own privacy by design assessments"
   ON cc_privacy_privacy_by_design_assessments
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own privacy by design assessments"
   ON cc_privacy_privacy_by_design_assessments
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own privacy by design assessments"
   ON cc_privacy_privacy_by_design_assessments
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete their own privacy by design assessments"
   ON cc_privacy_privacy_by_design_assessments
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- ============================================================================
 -- RLS Policies for cc_privacy_service_providers
@@ -449,26 +449,26 @@ CREATE POLICY "Users can view their own service providers"
   ON cc_privacy_service_providers
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own service providers"
   ON cc_privacy_service_providers
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own service providers"
   ON cc_privacy_service_providers
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete their own service providers"
   ON cc_privacy_service_providers
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- ============================================================================
 -- RLS Policies for cc_privacy_privacy_incidents
@@ -478,26 +478,26 @@ CREATE POLICY "Users can view their own privacy incidents"
   ON cc_privacy_privacy_incidents
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own privacy incidents"
   ON cc_privacy_privacy_incidents
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own privacy incidents"
   ON cc_privacy_privacy_incidents
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete their own privacy incidents"
   ON cc_privacy_privacy_incidents
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- ============================================================================
 -- Indexes for Performance

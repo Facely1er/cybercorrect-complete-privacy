@@ -55,7 +55,7 @@ BEGIN
       ON policy_generators
       FOR SELECT
       TO authenticated
-      USING (auth.uid() = created_by OR created_by IS NULL);
+      USING ((select auth.uid()) = created_by OR created_by IS NULL);
 
     DROP POLICY IF EXISTS "Users can insert their own policy generators" ON policy_generators;
     CREATE POLICY "Users can insert their own policy generators"
@@ -63,7 +63,7 @@ BEGIN
       FOR INSERT
       TO authenticated
       WITH CHECK (
-        auth.uid() = created_by OR 
+        (select auth.uid()) = created_by OR 
         (created_by IS NULL AND session_id IS NOT NULL)
       );
 
@@ -72,15 +72,15 @@ BEGIN
       ON policy_generators
       FOR UPDATE
       TO authenticated
-      USING (auth.uid() = created_by OR created_by IS NULL)
-      WITH CHECK (auth.uid() = created_by OR created_by IS NULL);
+      USING ((select auth.uid()) = created_by OR created_by IS NULL)
+      WITH CHECK ((select auth.uid()) = created_by OR created_by IS NULL);
 
     DROP POLICY IF EXISTS "Users can delete their own policy generators" ON policy_generators;
     CREATE POLICY "Users can delete their own policy generators"
       ON policy_generators
       FOR DELETE
       TO authenticated
-      USING (auth.uid() = created_by OR created_by IS NULL);
+      USING ((select auth.uid()) = created_by OR created_by IS NULL);
   END IF;
 END $$;
 
@@ -94,7 +94,7 @@ BEGIN
       FOR INSERT
       TO authenticated
       WITH CHECK (
-        auth.uid() = created_by OR 
+        (select auth.uid()) = created_by OR 
         (created_by IS NULL AND session_id IS NOT NULL)
       );
 
@@ -103,7 +103,7 @@ BEGIN
       ON toolkit_analytics
       FOR SELECT
       TO authenticated
-      USING (auth.uid() = created_by OR created_by IS NULL);
+      USING ((select auth.uid()) = created_by OR created_by IS NULL);
   END IF;
 END $$;
 

@@ -122,123 +122,120 @@ CREATE POLICY "Users can view their own notifications"
   ON notifications
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own notifications"
   ON notifications
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own notifications"
   ON notifications
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete their own notifications"
   ON notifications
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- RLS Policies for automated_reports
 CREATE POLICY "Users can view their own reports"
   ON automated_reports
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own reports"
   ON automated_reports
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own reports"
   ON automated_reports
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete their own reports"
   ON automated_reports
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- RLS Policies for compliance_health_scores
-CREATE POLICY "Users can view their own scores"
+-- Combined policy to avoid multiple permissive policies (performance optimization)
+CREATE POLICY "Users can view scores"
   ON compliance_health_scores
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING (
+    (select auth.uid()) = user_id OR true
+  );
 
 CREATE POLICY "Users can insert their own scores"
   ON compliance_health_scores
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
-
-CREATE POLICY "Users can view aggregated scores"
-  ON compliance_health_scores
-  FOR SELECT
-  TO authenticated
-  USING (true); -- Allow viewing aggregated data for benchmarking
+  WITH CHECK ((select auth.uid()) = user_id);
 
 -- RLS Policies for scheduled_assessments
 CREATE POLICY "Users can view their own assessments"
   ON scheduled_assessments
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own assessments"
   ON scheduled_assessments
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own assessments"
   ON scheduled_assessments
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete their own assessments"
   ON scheduled_assessments
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- RLS Policies for alert_rules
 CREATE POLICY "Users can view their own alert rules"
   ON alert_rules
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own alert rules"
   ON alert_rules
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own alert rules"
   ON alert_rules
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can delete their own alert rules"
   ON alert_rules
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 -- RLS Policies for regulatory_updates
 CREATE POLICY "All authenticated users can view regulatory updates"
@@ -252,20 +249,20 @@ CREATE POLICY "Users can view their own preferences"
   ON notification_preferences
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can insert their own preferences"
   ON notification_preferences
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK ((select auth.uid()) = user_id);
 
 CREATE POLICY "Users can update their own preferences"
   ON notification_preferences
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING ((select auth.uid()) = user_id)
+  WITH CHECK ((select auth.uid()) = user_id);
 
 -- Create indexes for better query performance
 CREATE INDEX IF NOT EXISTS idx_notifications_user_id ON notifications(user_id);
