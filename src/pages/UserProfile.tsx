@@ -13,7 +13,11 @@ import {
   LogOut, 
   UserCircle,
   Building,
-  Briefcase
+  Briefcase,
+  CheckCircle,
+  FileText,
+  Database,
+  FileCheck
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

@@ -82,6 +82,15 @@ const Toolkit = () => {
           timeEstimate: "30 mins",
           complexity: "Intermediate",
           features: ['Request workflow management', 'Identity verification', 'Response automation', 'Comprehensive audit tracking']
+        },
+        {
+          title: "Employee Digital Footprint Assessment",
+          description: "Assess employee digital footprint exposure for security awareness and compliance training",
+          icon: Shield,
+          path: "/toolkit/employee-digital-footprint",
+          timeEstimate: "20 mins",
+          complexity: "Intermediate",
+          features: ['Employee data inventory', 'Risk assessment', 'Compliance tracking', 'Export reports']
         }
       ]
     }
@@ -288,6 +297,54 @@ const Toolkit = () => {
               </CardContent>
             </Card>
           ))}
+        </div>
+      </div>
+
+      {/* Monetization Section */}
+      <div className="mt-12 mb-8">
+        <h2 className="text-2xl font-bold mb-4 text-foreground">Premium Features & Templates</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="border-primary/20 hover:border-primary transition-colors">
+            <CardContent className="p-6">
+              <div className="flex items-center mb-4">
+                <FileText className="h-8 w-8 text-primary mr-3" />
+                <div>
+                  <h3 className="text-lg font-semibold">Template Store</h3>
+                  <p className="text-sm text-muted-foreground">Purchase premium compliance templates</p>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                Access industry-specific templates, premium documentation packs, and custom compliance templates.
+              </p>
+              <Link to="/monetization/templates">
+                <Button className="w-full">
+                  Browse Templates
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card className="border-primary/20 hover:border-primary transition-colors">
+            <CardContent className="p-6">
+              <div className="flex items-center mb-4">
+                <Shield className="h-8 w-8 text-primary mr-3" />
+                <div>
+                  <h3 className="text-lg font-semibold">Export Credits</h3>
+                  <p className="text-sm text-muted-foreground">Manage your export credits</p>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                Track usage, purchase additional credits, and manage your export limits.
+              </p>
+              <Link to="/monetization/credits">
+                <Button className="w-full">
+                  Manage Credits
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
         </div>
       </div>
 

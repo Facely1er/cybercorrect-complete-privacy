@@ -497,7 +497,28 @@ const ComplianceGapAnalyzer: React.FC = () => {
   }, [selectedFramework, loadComplianceData]);
 
   // Enhanced export functionality
-  const exportReport = (format: 'json' | 'csv' = 'json') => {
+  const exportReport = async (format: 'json' | 'csv' = 'json') => {
+    // Check export credits
+    const { monetization } = await import('../../utils/monetization');
+    const canExport = monetization.canExport(format);
+    
+    if (!canExport.allowed) {
+      toast.error('Export not available', canExport.reason || 'You do not have permission to export in this format');
+      if (canExport.creditsNeeded) {
+        setTimeout(() => {
+          window.location.href = '/monetization/credits';
+        }, 2000);
+      }
+      return;
+    }
+
+    // Use export credits
+    const creditsUsed = monetization.useExportCredits(format, 'Compliance Gap Analyzer');
+    if (!creditsUsed && format !== 'json') {
+      toast.error('Insufficient credits', 'Please purchase more export credits');
+      return;
+    }
+
     const reportData = {
       metadata: {
         timestamp: new Date().toISOString(),

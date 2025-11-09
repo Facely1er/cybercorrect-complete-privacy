@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { useProject } from '../../context/ProjectContext';
 import { InternalLink, RelatedContent } from '../../components/ui/InternalLinkingHelper';
+import { complianceHealthMonitor } from '../../utils/complianceHealthMonitor';
+import { notificationService } from '../../utils/notificationService';
 import { 
   Eye, 
   Users, 
@@ -17,7 +19,10 @@ import {
   Settings,
   FileText,
   Database,
-  Activity
+  Activity,
+  Bell,
+  ClipboardList,
+  FileBarChart
 } from 'lucide-react';
 
 const PrivacyProjectDashboard = () => {
@@ -28,8 +33,30 @@ const PrivacyProjectDashboard = () => {
     getCurrentProject 
   } = useProject();
   const [, setShowCreateProject] = useState(false);
+  const [complianceScore, setComplianceScore] = useState<number | null>(null);
+  const [recentNotifications, setRecentNotifications] = useState<any[]>([]);
 
   const project = getCurrentProject();
+
+  useEffect(() => {
+    loadDashboardData();
+  }, []);
+
+  const loadDashboardData = async () => {
+    try {
+      // Load compliance health score
+      const currentScore = await complianceHealthMonitor.getCurrentScore();
+      if (currentScore) {
+        setComplianceScore(currentScore.score);
+      }
+
+      // Load recent notifications
+      const notifications = await notificationService.getNotifications({ limit: 5, unreadOnly: false });
+      setRecentNotifications(notifications);
+    } catch (error) {
+      console.error('Failed to load dashboard data:', error);
+    }
+  };
 
   const handleCreateProject = () => {
     createProject({
@@ -355,6 +382,100 @@ const PrivacyProjectDashboard = () => {
                   <p className="text-xs text-muted-foreground">3 days ago</p>
                 </div>
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Compliance Health Score */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Activity className="h-5 w-5 mr-2 text-primary" />
+              Compliance Health
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-primary mb-2">
+                  {complianceScore !== null ? complianceScore.toFixed(1) : '--'}
+                </div>
+                <p className="text-sm text-muted-foreground">Current Score</p>
+              </div>
+              <Link to="/dashboard/compliance-health">
+                <Button variant="outline" className="w-full">
+                  View Health Dashboard
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Recent Notifications */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Bell className="h-5 w-5 mr-2 text-primary" />
+              Recent Notifications
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              {recentNotifications.length === 0 ? (
+                <p className="text-sm text-muted-foreground">No recent notifications</p>
+              ) : (
+                <div className="space-y-2">
+                  {recentNotifications.slice(0, 3).map((notification) => (
+                    <div key={notification.id} className="text-sm">
+                      <p className="font-medium truncate">{notification.title}</p>
+                      <p className="text-xs text-muted-foreground truncate">{notification.message}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <Link to="/notifications">
+                <Button variant="outline" size="sm" className="w-full mt-2">
+                  View All Notifications
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Quick Links */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <FileText className="h-5 w-5 mr-2 text-primary" />
+              Quick Links
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <Link to="/reports/automated">
+                <Button variant="outline" size="sm" className="w-full justify-start">
+                  <FileBarChart className="h-4 w-4 mr-2" />
+                  Automated Reports
+                </Button>
+              </Link>
+              <Link to="/assessments/scheduled">
+                <Button variant="outline" size="sm" className="w-full justify-start">
+                  <ClipboardList className="h-4 w-4 mr-2" />
+                  Scheduled Assessments
+                </Button>
+              </Link>
+              <Link to="/alerts">
+                <Button variant="outline" size="sm" className="w-full justify-start">
+                  <AlertTriangle className="h-4 w-4 mr-2" />
+                  Alert Management
+                </Button>
+              </Link>
+              <Link to="/dashboard/progress">
+                <Button variant="outline" size="sm" className="w-full justify-start">
+                  <Target className="h-4 w-4 mr-2" />
+                  Progress Tracking
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>

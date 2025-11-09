@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ProjectProvider } from './context/ProjectContext';
+import { NotificationProvider } from './context/NotificationContext';
 import { ChatbotProvider } from './components/chat/ChatbotProvider';
 import { ChatSupportProvider } from './components/chat/ChatSupportProvider';
 import { Toaster } from './components/ui/Toaster';
@@ -95,6 +96,20 @@ import ChatInterface from './pages/support/ChatInterface';
 // Lazy load toolkit pages for better performance
 const Toolkit = lazy(() => import('./pages/Toolkit'));
 const DpiaGenerator = lazy(() => import('./pages/tools-and-assessments/DpiaGenerator'));
+const EmployeeDigitalFootprintAssessment = lazy(() => import('./pages/tools-and-assessments/EmployeeDigitalFootprintAssessment'));
+
+// Monetization pages
+const TemplateStore = lazy(() => import('./pages/monetization/TemplateStore'));
+const CreditsManager = lazy(() => import('./pages/monetization/CreditsManager'));
+
+// Subscription enhancement pages
+const NotificationCenter = lazy(() => import('./components/notifications/NotificationCenter'));
+const ComplianceHealthDashboard = lazy(() => import('./pages/dashboard/ComplianceHealthDashboard'));
+const AutomatedReports = lazy(() => import('./pages/reports/AutomatedReports'));
+const ScheduledAssessments = lazy(() => import('./pages/assessments/ScheduledAssessments'));
+const AlertManagement = lazy(() => import('./pages/alerts/AlertManagement'));
+const RegulatoryIntelligence = lazy(() => import('./pages/regulatory/RegulatoryIntelligence'));
+const ProgressTracking = lazy(() => import('./pages/dashboard/ProgressTracking'));
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -133,8 +148,9 @@ const App: React.FC = () => {
     <ErrorBoundary>
       <AuthProvider>
         <ProjectProvider>
-          <ChatbotProvider>
-            <ChatSupportProvider>
+          <NotificationProvider>
+            <ChatbotProvider>
+              <ChatSupportProvider>
               <AnalyticsWrapper>
                 <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
                 <Routes>
@@ -242,7 +258,61 @@ const App: React.FC = () => {
                           <DpiaGenerator />
                         </Suspense>
                       } />
+                      <Route path="employee-digital-footprint" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <EmployeeDigitalFootprintAssessment />
+                        </Suspense>
+                      } />
                     </Route>
+                    
+                    {/* Monetization Routes */}
+                    <Route path="monetization/templates" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <TemplateStore />
+                      </Suspense>
+                    } />
+                    <Route path="monetization/credits" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <CreditsManager />
+                      </Suspense>
+                    } />
+                    
+                    {/* Subscription Enhancement Routes */}
+                    <Route path="notifications" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <NotificationCenter />
+                      </Suspense>
+                    } />
+                    <Route path="dashboard/compliance-health" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <ComplianceHealthDashboard />
+                      </Suspense>
+                    } />
+                    <Route path="reports/automated" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <AutomatedReports />
+                      </Suspense>
+                    } />
+                    <Route path="assessments/scheduled" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <ScheduledAssessments />
+                      </Suspense>
+                    } />
+                    <Route path="alerts" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <AlertManagement />
+                      </Suspense>
+                    } />
+                    <Route path="regulatory" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <RegulatoryIntelligence />
+                      </Suspense>
+                    } />
+                    <Route path="dashboard/progress" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <ProgressTracking />
+                      </Suspense>
+                    } />
                     
                     {/* Resources Routes */}
                     <Route path="resources-landing" element={
@@ -313,8 +383,9 @@ const App: React.FC = () => {
                 <DevTools />
                 </div>
               </AnalyticsWrapper>
-            </ChatSupportProvider>
-          </ChatbotProvider>
+              </ChatSupportProvider>
+            </ChatbotProvider>
+          </NotificationProvider>
         </ProjectProvider>
       </AuthProvider>
     </ErrorBoundary>

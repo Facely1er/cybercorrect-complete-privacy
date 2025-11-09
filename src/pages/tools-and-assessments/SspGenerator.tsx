@@ -11,8 +11,7 @@ import {
 } from 'lucide-react';
 import { generateSSPPdf, SSPExportData } from '../../utils/generateSSPPdf';
 import { generateSSPWordDocument } from '../../utils/generateWord';
-
-// import { toast } from '../../components/ui/Toaster';
+import { toast } from '../../components/ui/Toaster';
 interface SSPSection {
   id: string;
   title: string;
@@ -357,6 +356,21 @@ const SspGenerator = () => {
   
   // Export SSP
   const exportSSP = async (format: 'pdf' | 'word' | 'json') => {
+    // Check export credits
+    const { monetization } = await import('../../utils/monetization');
+    const canExport = monetization.canExport(format);
+    
+    if (!canExport.allowed) {
+      toast.error('Export not available', canExport.reason || 'You do not have permission to export in this format');
+      // Optionally redirect to credits page
+      if (canExport.creditsNeeded) {
+        setTimeout(() => {
+          window.location.href = '/monetization/credits';
+        }, 2000);
+      }
+      return;
+    }
+
     setIsExporting(true);
     
     try {
@@ -380,17 +394,28 @@ const SspGenerator = () => {
         metrics: calculateMetrics()
       };
       
+      // Use export credits
+      const creditsUsed = monetization.useExportCredits(format, 'SSP Generator');
+      if (!creditsUsed && format !== 'json') {
+        toast.error('Insufficient credits', 'Please purchase more export credits');
+        setIsExporting(false);
+        return;
+      }
+      
       if (format === 'json') {
         const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
         downloadFile(blob, `SSP-${systemInfo.identifier || 'draft'}-${new Date().toISOString().split('T')[0]}.json`);
+        toast.success('Export successful', 'SSP exported as JSON');
       } else if (format === 'pdf') {
         generateSSPPdf(exportData);
+        toast.success('Export successful', 'SSP exported as PDF');
       } else if (format === 'word') {
         await generateSSPWordDocument(exportData);
+        toast.success('Export successful', 'SSP exported as Word document');
       }
     } catch (error) {
       console.error('Export failed:', error);
-      alert('Export failed. Please try again.');
+      toast.error('Export failed', 'Please try again');
     } finally {
       setIsExporting(false);
     }

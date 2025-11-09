@@ -1,71 +1,74 @@
 ---
-description: Specification for assessment workflow engine implementation including DPIA generation, privacy frameworks, and compliance gap analysis
+description: Technical specification for privacy assessment and workflow engine, including DPIA generation and compliance gap analysis
 ---
 
 
 # assessment-workflow-engine
 
-The assessment workflow engine implements sophisticated privacy and compliance assessment logic across multiple regulatory frameworks.
+## Core Assessment Workflows
 
-## Core Assessment Components
+### Compliance Gap Analyzer
+Location: src/pages/tools-and-assessments/ComplianceGapAnalyzer.tsx
+Importance Score: 85
 
-### Compliance Gap Analysis Engine
-`src/pages/tools-and-assessments/ComplianceGapAnalyzer.tsx`
+Implements specialized compliance gap analysis workflows:
+- Domain-specific compliance scoring using weighted priority levels
+- Control status evaluation with risk-based scoring algorithm
+- Maturity level calculation based on implementation rates
+- Custom urgency scoring for gap prioritization
 
-- Weighted control scoring system based on priority levels and implementation status
-- Domain-specific maturity calculations using customized thresholds 
-- Risk scoring algorithm incorporating control status and domain context
-- Urgency scoring using priority/status matrices
-- Compliance trend analysis with improvement rate tracking
+### DPIA Generator
+Location: src/pages/tools-and-assessments/DpiaGenerator.tsx
+Importance Score: 70
 
-### DPIA Generation System
-`src/pages/tools-and-assessments/DpiaGenerator.tsx`
-
-- Automated risk threshold determination
-- Processing activity categorization engine
-- Privacy risk scoring matrix implementation
-- GDPR Article 35 compliance validation rules
-- Impact level calculations based on data types and processing purposes
+Orchestrates Data Protection Impact Assessment workflows:
+- Structured assessment progression with domain validation
+- Risk level determination for data processing activities 
+- GDPR requirement compliance status tracking
 
 ### Privacy Assessment Framework
-`src/pages/tools-and-assessments/PrivacyAssessment.tsx`
+Location: src/pages/tools-and-assessments/PrivacyAssessment.tsx
+Importance Score: 85
 
-- NIST Privacy Framework evaluation across 5 core functions
-- Section-specific scoring algorithms with custom weighting
-- Minimum 50% section completion validation
-- Cross-framework control mapping capabilities
+Implements NIST Privacy Framework methodology:
+- Custom scoring algorithm across 5 core privacy functions
+- Section-based evaluation with weighted scoring
+- Adaptive assessment flow based on completion status
 
-### Privacy Gap Analysis
-`src/pages/tools-and-assessments/PrivacyGapAnalyzer.tsx`
+## Assessment Business Rules
 
-- Multi-framework compliance gap identification
-- Framework-specific risk scoring
-- Automated compliance recommendations
-- Regulatory requirement mapping across frameworks
+1. Control Scoring Logic
+```typescript
+calculateDomainScore(controls) {
+  // Weighted scoring using control priority and status
+  // Returns normalized domain compliance score
+}
+```
 
-## Key Business Rules
+2. Risk Assessment Algorithm
+```typescript
+calculateRiskLevel(status, priority) {
+  // Risk level based on implementation status and priority
+  // Maps to business risk categories
+}
+```
 
-1. Assessment Scoring
-- Critical controls weighted more heavily than low-priority ones
-- Maturity levels require minimum thresholds across domains
-- Risk calculations factor both implementation status and priority
+3. Assessment Requirements
+- Minimum 50% section completion for validity
+- Weighted scoring system (Yes=2, Partial=1, No=0)
+- 30-day regulatory compliance window
+- Framework-specific control mappings
 
-2. Framework Validation
-- Section completion requirements vary by framework
-- Control mapping rules between different standards
-- Evidence requirements based on control criticality
+## Integration Points
 
-3. Recommendation Generation
-- Priority classification based on risk levels
-- Effort estimation for remediation activities
-- Implementation timeframe calculations
+Privacy Rights Management
+Location: src/pages/tools-and-assessments/PrivacyRightsManager.tsx
+Importance Score: 90
 
-4. DPIA Requirements
-- Automated threshold evaluation for DPIA necessity
-- Risk-based processing activity categorization
-- Impact level determination rules
-
-Importance Score: 85/100
+- GDPR-compliant data subject rights workflow
+- Automated due date calculation
+- Request prioritization system
+- Multi-regulation rights management
 
 $END$
 

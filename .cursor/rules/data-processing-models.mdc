@@ -1,68 +1,65 @@
 ---
-description: Documentation of data models, schemas and processing flows for privacy compliance and GDPR tracking
+description: Defines data models and structures for GDPR processing activities, data flows, and compliance tracking
 ---
 
 
 # data-processing-models
 
-Core Data Models:
+## Core Data Models
 
-1. GDPR Processing Activities
-Path: src/models/processing-activities.ts
+### Processing Activities Registry
+- Structured data model for GDPR Article 30 records
+- Maps processing purposes, categories, legal bases
+- Links to data flows and cross-border transfers
+- Tracks processor and controller relationships
 
-Key Entities:
-- Processing Activity Records (Art. 30 GDPR)
-- Data Categories and Special Categories 
-- Processing Purposes
-- Legal Basis Tracking
-- Cross-border Transfer Details
-- Data Subject Categories
-- Recipients and Third Parties
+Key model relationships:
+```typescript
+ProcessingActivity {
+  id: string
+  purpose: ProcessingPurpose
+  dataCategories: DataCategory[]
+  legalBasis: LegalBasis
+  crossBorderTransfers: Transfer[]
+  processors: Processor[]
+  retentionPeriod: RetentionRule
+}
+```
 
-2. Data Flow Mapping
-Path: src/models/data-flows.ts
+### Data Flow Mapping
+- Models data movement between systems/entities
+- Captures processing locations and transfer mechanisms
+- Links to processing activities and legal bases
+- Documents security measures and safeguards
 
-Model Structure:
-- Data Flow Nodes (Systems, Applications, Third Parties)
-- Data Flow Connections
-- Transfer Types (Internal, External, Cross-border)
-- Data Categories In Transit
-- Security Controls Applied
-- Processing Activities Links
+### Rights Request Tracking
+- Structured model for data subject requests
+- Maps request types to affected processing activities
+- Tracks request status, deadlines, and responses
+- Links to data categories and processing purposes
 
-3. Legal Basis Registry
-Path: src/models/legal-basis.ts
+### Legal Basis Register
+- Central registry of legal bases for processing
+- Maps bases to specific processing activities
+- Tracks consent records and legitimate interests
+- Documents basis assessment outcomes
 
-Key Elements:
-- Legal Basis Categories (Consent, Contract, Legal Obligation, etc.)
-- Processing Purpose Mapping
-- Data Category Requirements  
-- Retention Period Rules
-- Documentation Links
-- Status Tracking
+### Cross-Border Transfer Records
+- Documents international data transfers
+- Maps transfer mechanisms and safeguards
+- Links to SCCs and adequacy decisions
+- Tracks transfer impact assessments
 
-4. Data Protection Impact Assessments
-Path: src/models/dpia.ts
+## Data Structure Relationships
 
-Assessment Structure:
-- Processing Operations
-- Necessity & Proportionality Tests
-- Risk Assessments
-- Mitigation Measures
-- DPO Consultations
-- Prior Consultation Status
+Key entity relationships:
+- Processing Activities <-> Data Categories
+- Processing Activities <-> Legal Bases  
+- Data Flows <-> Processing Activities
+- Rights Requests <-> Processing Activities
+- Legal Bases <-> Processing Purposes
 
-Key Relationships:
-- Processing Activities link to Legal Basis entries
-- Data Flows map to Processing Activities
-- DPIAs reference Processing Activities
-- Legal Basis entries connect to multiple Processing Activities
-
-Schema Enforcement:
-- Required fields validation
-- Relationship integrity checks
-- Status progression rules
-- Documentation requirements
+Importance Score: 95/100
 
 $END$
 

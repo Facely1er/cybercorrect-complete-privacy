@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { SunMoon, Moon, Menu, ChevronDown } from 'lucide-react';
 
 import { Button } from '../ui/Button';
+import { NotificationBell } from '../notifications/NotificationBell';
 
 interface HeaderProps {
   toggleDarkMode: () => void;
@@ -163,6 +164,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
         </div>
         
         <div className="flex items-center md:ml-6 space-x-3">
+          <NotificationBell />
           <Button
             variant="ghost"
             size="icon"

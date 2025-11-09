@@ -128,6 +128,13 @@ npm run dev
 - **PostCSS** - CSS transformations
 - **Autoprefixer** - CSS vendor prefixing
 
+### AI Context Engineering
+- **GigaMind.dev** - AI-powered context engineering for enhanced code generation and context awareness
+  - Integrates with Cursor IDE for improved AI assistance
+  - Enhances code generation accuracy through project-specific context
+  - Configuration stored in `.giga/` directory
+  - Specifications defined in `.giga/specifications.json` for project understanding
+
 ## 📁 Project Structure
 
 ```
@@ -232,6 +239,8 @@ CyberCorrect Privacy Platform is built with privacy by design principles:
 - **Input validation** and XSS protection
 - **Error boundaries** for graceful failure handling
 
+For security vulnerability reporting, please see our [Security Policy](SECURITY.md).
+
 ## 📊 Key Features in Detail
 
 ### Intelligent Assessments
@@ -260,11 +269,12 @@ CyberCorrect Privacy Platform is built with privacy by design principles:
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our contributing guidelines for details on:
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details on:
 - Code standards and style guide
 - Pull request process
 - Issue reporting
 - Testing requirements
+- Development setup and workflow
 
 ## 📝 License
 
@@ -380,12 +390,20 @@ See `DEPLOYMENT.md` for detailed deployment instructions and best practices.
 
 ## 📄 Documentation
 
+### Platform Documentation
 - **Getting Started**: `/documentation/getting-started` - Platform introduction
 - **Quick Start**: `/documentation/quick-start` - Fast track to your first assessment
 - **Assessment Guide**: `/documentation/assessment-guide` - Detailed assessment instructions
 - **GDPR Guide**: `/documentation/gdpr-implementation-guide` - GDPR compliance walkthrough
 - **FAQs**: `/documentation/faqs` - Frequently asked questions
 - **API Documentation**: Available at `/documentation/api` - Comprehensive API reference and integration guides
+
+### Project Documentation
+- **[Contributing Guidelines](CONTRIBUTING.md)** - How to contribute to the project
+- **[Security Policy](SECURITY.md)** - Security vulnerability reporting and best practices
+- **[Changelog](CHANGELOG.md)** - Version history and release notes
+- **[Environment Setup](ENV_SETUP_GUIDE.md)** - Environment variable configuration
+- **[Deployment Guide](DEPLOYMENT.md)** - Deployment instructions and best practices
 
 ## 🛠️ Development Guidelines
 
@@ -414,9 +432,11 @@ See `DEPLOYMENT.md` for detailed deployment instructions and best practices.
 - **Website**: https://cybercorrect.com
 - **Support Email**: support@cybercorrect.com
 - **Sales Inquiries**: sales@cybercorrect.com
-- **Security Issues**: security@cybercorrect.com
+- **Security Issues**: security@cybercorrect.com (See [Security Policy](SECURITY.md) for reporting guidelines)
 
 ## 🔄 Version History
+
+For detailed version history and changelog, see [CHANGELOG.md](CHANGELOG.md).
 
 ### v0.1.0 (Current)
 - Initial release with core privacy and data classification compliance features
@@ -428,6 +448,7 @@ See `DEPLOYMENT.md` for detailed deployment instructions and best practices.
 - Role-based workflows and team collaboration
 - Comprehensive documentation and guides
 - Privacy framework implementation guide
+- GigaMind.dev integration for AI-powered context engineering
 
 ### Planned Updates
 - Mobile-responsive enhancements
