@@ -99,7 +99,11 @@ const PrivacyRoadmap = () => {
         'Privacy Controls Implementation',
         'Data Subject Rights Procedures',
         'Privacy Notice Framework',
-        'Consent Management System'
+        'Consent Management System',
+        'Vendor Risk Assessments',
+        'Service Provider Agreements',
+        'Retention Policies',
+        'Privacy by Design Assessments'
       ],
       keyActivities: [
         'Implement data protection by design',
@@ -122,7 +126,10 @@ const PrivacyRoadmap = () => {
         'Control Validation Report',
         'Evidence Package',
         'Monitoring Dashboard',
-        'Compliance Certificate'
+        'Compliance Certificate',
+        'Incident Response Plan',
+        'DPIA Management System',
+        'Service Provider Monitoring'
       ],
       keyActivities: [
         'Test privacy control effectiveness',

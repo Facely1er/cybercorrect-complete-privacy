@@ -82,6 +82,19 @@ const QuickStart = () => {
       icon: Settings,
       status: "optional",
       path: "/app/settings"
+    },
+    {
+      title: "Subscription Features Setup",
+      description: "Configure automated notifications, reports, and compliance monitoring",
+      tasks: [
+        "Set up notification preferences",
+        "Configure automated reports",
+        "Schedule compliance assessments",
+        "Enable compliance health tracking"
+      ],
+      icon: Settings,
+      status: "recommended",
+      path: "/notifications"
     }
   ];
 

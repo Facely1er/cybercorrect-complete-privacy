@@ -183,6 +183,83 @@ const PlatformOverview = () => {
           </div>
         </div>
 
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold mb-8 text-foreground">Subscription & Engagement Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Card className="dark:border-muted">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center">
+                    <Clock className="h-5 w-5 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Automated Notifications</h3>
+                </div>
+                <p className="text-muted-foreground mb-4">
+                  Multi-channel notification system with email, in-app, and browser notifications. Configure preferences and role-based routing.
+                </p>
+                <Button variant="outline" onClick={() => navigate('/notifications')}>
+                  Configure Notifications
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="dark:border-muted">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center">
+                    <BarChart2 className="h-5 w-5 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Automated Reports</h3>
+                </div>
+                <p className="text-muted-foreground mb-4">
+                  Monthly, quarterly, and custom compliance reports with executive summaries and board-ready presentations.
+                </p>
+                <Button variant="outline" onClick={() => navigate('/reports/automated')}>
+                  Set Up Reports
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="dark:border-muted">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center">
+                    <CheckCircle className="h-5 w-5 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Compliance Health</h3>
+                </div>
+                <p className="text-muted-foreground mb-4">
+                  Real-time compliance score tracking with trend analysis, predictive analytics, and health dashboards.
+                </p>
+                <Button variant="outline" onClick={() => navigate('/dashboard/compliance-health')}>
+                  View Health Dashboard
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="dark:border-muted">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center">
+                    <AlertTriangle className="h-5 w-5 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Alert Management</h3>
+                </div>
+                <p className="text-muted-foreground mb-4">
+                  Proactive deadline alerts, compliance reminders, and custom alert rules with priority-based routing.
+                </p>
+                <Button variant="outline" onClick={() => navigate('/alerts')}>
+                  Manage Alerts
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
         <div className="bg-muted/30 dark:bg-muted/20 rounded-lg p-6">
           <div className="flex items-start space-x-4">
             <div className="p-2 bg-primary/10 dark:bg-primary/20 rounded-lg">

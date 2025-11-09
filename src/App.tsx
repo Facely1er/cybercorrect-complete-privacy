@@ -97,6 +97,18 @@ import ChatInterface from './pages/support/ChatInterface';
 const Toolkit = lazy(() => import('./pages/Toolkit'));
 const DpiaGenerator = lazy(() => import('./pages/tools-and-assessments/DpiaGenerator'));
 const EmployeeDigitalFootprintAssessment = lazy(() => import('./pages/tools-and-assessments/EmployeeDigitalFootprintAssessment'));
+const DataBrokerRemovalManager = lazy(() => import('./pages/tools-and-assessments/DataBrokerRemovalManager'));
+const PrivacySettingsAudit = lazy(() => import('./pages/tools-and-assessments/PrivacySettingsAudit'));
+const PrivacyMaintenanceScheduler = lazy(() => import('./pages/tools-and-assessments/PrivacyMaintenanceScheduler'));
+
+// Privacy Portal Tools - Lazy loaded
+const ConsentManagement = lazy(() => import('./pages/tools-and-assessments/ConsentManagement'));
+const VendorRiskAssessment = lazy(() => import('./pages/tools-and-assessments/VendorRiskAssessment'));
+const RetentionPolicyGenerator = lazy(() => import('./pages/tools-and-assessments/RetentionPolicyGenerator'));
+const DpiaManager = lazy(() => import('./pages/tools-and-assessments/DpiaManager'));
+const PrivacyByDesignAssessment = lazy(() => import('./pages/tools-and-assessments/PrivacyByDesignAssessment'));
+const ServiceProviderManager = lazy(() => import('./pages/tools-and-assessments/ServiceProviderManager'));
+const IncidentResponseManager = lazy(() => import('./pages/tools-and-assessments/IncidentResponseManager'));
 
 // Monetization pages
 const TemplateStore = lazy(() => import('./pages/monetization/TemplateStore'));
@@ -261,6 +273,56 @@ const App: React.FC = () => {
                       <Route path="employee-digital-footprint" element={
                         <Suspense fallback={<LoadingSpinner />}>
                           <EmployeeDigitalFootprintAssessment />
+                        </Suspense>
+                      } />
+                      <Route path="data-broker-removal" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <DataBrokerRemovalManager />
+                        </Suspense>
+                      } />
+                      <Route path="privacy-settings-audit" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <PrivacySettingsAudit />
+                        </Suspense>
+                      } />
+                      <Route path="privacy-maintenance-scheduler" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <PrivacyMaintenanceScheduler />
+                        </Suspense>
+                      } />
+                      <Route path="consent-management" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <ConsentManagement />
+                        </Suspense>
+                      } />
+                      <Route path="vendor-risk-assessment" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <VendorRiskAssessment />
+                        </Suspense>
+                      } />
+                      <Route path="retention-policy-generator" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <RetentionPolicyGenerator />
+                        </Suspense>
+                      } />
+                      <Route path="dpia-manager" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <DpiaManager />
+                        </Suspense>
+                      } />
+                      <Route path="privacy-by-design-assessment" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <PrivacyByDesignAssessment />
+                        </Suspense>
+                      } />
+                      <Route path="service-provider-manager" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <ServiceProviderManager />
+                        </Suspense>
+                      } />
+                      <Route path="incident-response-manager" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <IncidentResponseManager />
                         </Suspense>
                       } />
                     </Route>

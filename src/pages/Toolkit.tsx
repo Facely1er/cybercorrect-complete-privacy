@@ -16,7 +16,12 @@ import {
   AlertTriangle,
   Scale,
   Users,
-  BookOpen
+  BookOpen,
+  Settings,
+  Calendar,
+  Building,
+  Target,
+  RefreshCw
 } from 'lucide-react';
 
 const Toolkit = () => {
@@ -34,6 +39,24 @@ const Toolkit = () => {
           timeEstimate: "30 mins",
           complexity: "Advanced",
           features: ["Multi-regulation mapping", "Gap prioritization", "Risk assessment", "Remediation planning"]
+        },
+        {
+          title: "Vendor Risk Assessment",
+          description: "Evaluate and monitor third-party vendors for privacy compliance and data protection",
+          icon: Building,
+          path: "/toolkit/vendor-risk-assessment",
+          timeEstimate: "25 mins",
+          complexity: "Intermediate",
+          features: ["Risk categorization", "Compliance tracking", "Assessment scoring", "DPA status tracking"]
+        },
+        {
+          title: "Privacy by Design Assessment",
+          description: "Evaluate systems and processes against the 7 Privacy by Design principles",
+          icon: Target,
+          path: "/toolkit/privacy-by-design-assessment",
+          timeEstimate: "30 mins",
+          complexity: "Intermediate",
+          features: ["7 principles assessment", "Scoring system", "Implementation guidance", "Compliance tracking"]
         }
       ]
     },
@@ -58,6 +81,24 @@ const Toolkit = () => {
           timeEstimate: "20 mins",
           complexity: "Intermediate",
           features: ["Risk-based assessment", "Template library", "Stakeholder consultation", "Compliance validation"]
+        },
+        {
+          title: "DPIA Manager",
+          description: "Enhanced Data Protection Impact Assessment management with lifecycle tracking",
+          icon: FileCheck,
+          path: "/toolkit/dpia-manager",
+          timeEstimate: "25 mins",
+          complexity: "Intermediate",
+          features: ["DPIA lifecycle management", "Risk matrix visualization", "Multiple templates", "Checklist guidance"]
+        },
+        {
+          title: "Retention Policy Generator",
+          description: "Manage data retention policies and ensure compliance with legal requirements",
+          icon: FileText,
+          path: "/toolkit/retention-policy-generator",
+          timeEstimate: "20 mins",
+          complexity: "Intermediate",
+          features: ["Policy creation", "Retention schedules", "Compliance tracking", "Review cycles"]
         }
       ]
     },
@@ -91,6 +132,72 @@ const Toolkit = () => {
           timeEstimate: "20 mins",
           complexity: "Intermediate",
           features: ['Employee data inventory', 'Risk assessment', 'Compliance tracking', 'Export reports']
+        },
+        {
+          title: "Data Broker Removal Manager",
+          description: "Track and manage organizational data removal requests from data brokers and vendors",
+          icon: Database,
+          path: "/toolkit/data-broker-removal",
+          timeEstimate: "25 mins",
+          complexity: "Intermediate",
+          features: ['Removal tracking', 'Opt-out templates', 'Status monitoring', 'Export reports']
+        },
+        {
+          title: "Privacy Settings Audit",
+          description: "Audit and configure organizational privacy settings across platforms and services",
+          icon: Settings,
+          path: "/toolkit/privacy-settings-audit",
+          timeEstimate: "30 mins",
+          complexity: "Intermediate",
+          features: ['Platform auditing', 'Privacy checklists', 'Configuration tracking', 'Compliance scoring']
+        },
+        {
+          title: "Privacy Maintenance Scheduler",
+          description: "Schedule and manage automated privacy compliance maintenance tasks and reminders",
+          icon: Calendar,
+          path: "/toolkit/privacy-maintenance-scheduler",
+          timeEstimate: "15 mins",
+          complexity: "Basic",
+          features: ['Task scheduling', 'Automated reminders', 'Recurring tasks', 'Progress tracking']
+        },
+        {
+          title: "Consent Management",
+          description: "Track and manage employee consent and privacy preferences for GDPR and CCPA compliance",
+          icon: Users,
+          path: "/toolkit/consent-management",
+          timeEstimate: "20 mins",
+          complexity: "Intermediate",
+          features: ['Consent tracking', 'Renewal management', 'Form templates', 'Multi-regulation support']
+        }
+      ]
+    },
+    {
+      title: "Vendor Management",
+      description: "Manage third-party vendors, processors, and service providers",
+      tools: [
+        {
+          title: "Service Provider Manager",
+          description: "Comprehensive processor and service provider management with agreement tracking",
+          icon: Building,
+          path: "/toolkit/service-provider-manager",
+          timeEstimate: "30 mins",
+          complexity: "Intermediate",
+          features: ['Provider management', 'Agreement tracking', 'Compliance monitoring', 'Risk assessment']
+        }
+      ]
+    },
+    {
+      title: "Incident Management",
+      description: "Track and manage privacy incidents, breaches, and compliance violations",
+      tools: [
+        {
+          title: "Incident Response Manager",
+          description: "Track and manage privacy incidents, data breaches, and compliance violations",
+          icon: AlertTriangle,
+          path: "/toolkit/incident-response-manager",
+          timeEstimate: "25 mins",
+          complexity: "Intermediate",
+          features: ['Incident tracking', 'Regulatory notifications', 'Response workflow', 'Documentation']
         }
       ]
     }

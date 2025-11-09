@@ -8,7 +8,14 @@ import {
   Clock, 
   BookOpen,
   BarChart3,
-  Scale
+  Scale,
+  FileText,
+  Shield,
+  Settings,
+  Users,
+  Target,
+  Building,
+  AlertTriangle
 } from 'lucide-react';
 
 const PrivacyOfficerJourney = () => {
@@ -67,8 +74,10 @@ const PrivacyOfficerJourney = () => {
       description: 'Automate privacy processes with intelligent tools',
       duration: 'As needed',
       tools: [
-        { name: 'DPIA Generator', path: '/toolkit/resources/viewers/dpia-template', icon: Shield },
-        { name: 'Policy Generator', path: '/toolkit/policy-generator', icon: Settings }
+        { name: 'DPIA Manager', path: '/toolkit/dpia-manager', icon: Shield },
+        { name: 'Policy Generator', path: '/toolkit/privacy-policy-generator', icon: Settings },
+        { name: 'Privacy by Design Assessment', path: '/toolkit/privacy-by-design-assessment', icon: Target },
+        { name: 'Consent Management', path: '/toolkit/consent-management', icon: Users }
       ],
       outcomes: [
         'Automated DPIA creation',

@@ -128,6 +128,62 @@ const Features = () => {
           benefits: ['Organized storage', 'Audit-ready reports', 'Version tracking', 'Secure sharing'],
           stats: 'Audit ready',
           link: '/app/document-vault'
+        },
+        {
+          icon: Users,
+          title: 'Consent Management',
+          description: 'Track and manage employee consent and privacy preferences for GDPR and CCPA compliance',
+          benefits: ['Consent tracking', 'Renewal management', 'Form templates', 'Multi-regulation support'],
+          stats: 'Compliance ready',
+          link: '/toolkit/consent-management'
+        },
+        {
+          icon: Shield,
+          title: 'DPIA Manager',
+          description: 'Enhanced Data Protection Impact Assessment management with lifecycle tracking',
+          benefits: ['DPIA lifecycle management', 'Risk matrix visualization', 'Multiple templates', 'Checklist guidance'],
+          stats: 'Enhanced workflow',
+          link: '/toolkit/dpia-manager'
+        },
+        {
+          icon: FileText,
+          title: 'Retention Policy Generator',
+          description: 'Manage data retention policies and ensure compliance with legal requirements',
+          benefits: ['Policy creation', 'Retention schedules', 'Compliance tracking', 'Review cycles'],
+          stats: 'Automated compliance',
+          link: '/toolkit/retention-policy-generator'
+        },
+        {
+          icon: Target,
+          title: 'Privacy by Design Assessment',
+          description: 'Evaluate systems and processes against the 7 Privacy by Design principles',
+          benefits: ['7 principles assessment', 'Scoring system', 'Implementation guidance', 'Compliance tracking'],
+          stats: 'Comprehensive evaluation',
+          link: '/toolkit/privacy-by-design-assessment'
+        },
+        {
+          icon: Database,
+          title: 'Vendor Risk Assessment',
+          description: 'Evaluate and monitor third-party vendors for privacy compliance and data protection',
+          benefits: ['Risk categorization', 'Compliance tracking', 'Assessment scoring', 'DPA status tracking'],
+          stats: 'Risk management',
+          link: '/toolkit/vendor-risk-assessment'
+        },
+        {
+          icon: Settings,
+          title: 'Service Provider Manager',
+          description: 'Comprehensive processor and service provider management with agreement tracking',
+          benefits: ['Provider management', 'Agreement tracking', 'Compliance monitoring', 'Risk assessment'],
+          stats: 'Centralized management',
+          link: '/toolkit/service-provider-manager'
+        },
+        {
+          icon: Activity,
+          title: 'Incident Response Manager',
+          description: 'Track and manage privacy incidents, data breaches, and compliance violations',
+          benefits: ['Incident tracking', 'Regulatory notifications', 'Response workflow', 'Documentation'],
+          stats: 'Rapid response',
+          link: '/toolkit/incident-response-manager'
         }
       ]
     },
@@ -166,6 +222,68 @@ const Features = () => {
           benefits: ['REST API', 'Webhook support', 'Custom workflows', 'Developer resources'],
           stats: 'Full API access',
           link: '/integrations#api'
+        }
+      ]
+    },
+    subscription: {
+      title: 'Subscription & Engagement',
+      description: 'Automated features that keep you compliant and engaged long-term',
+      features: [
+        {
+          icon: Activity,
+          title: 'Automated Notifications',
+          description: 'Multi-channel notification system with email, in-app, and browser notifications',
+          benefits: ['Email notifications', 'In-app notifications', 'Browser alerts', 'Customizable preferences'],
+          stats: 'Real-time alerts',
+          link: '/notifications'
+        },
+        {
+          icon: FileText,
+          title: 'Periodic Reports',
+          description: 'Automated monthly, quarterly, and custom compliance reports with executive summaries',
+          benefits: ['Monthly reports', 'Quarterly summaries', 'Executive dashboards', 'Board-ready presentations'],
+          stats: 'Automated delivery',
+          link: '/reports/automated'
+        },
+        {
+          icon: RefreshCw,
+          title: 'Scheduled Assessments',
+          description: 'Automated compliance assessments with configurable schedules and reminders',
+          benefits: ['Quarterly assessments', 'Monthly checks', 'Custom schedules', 'Automated execution'],
+          stats: 'Always current',
+          link: '/assessments/scheduled'
+        },
+        {
+          icon: Target,
+          title: 'Compliance Health',
+          description: 'Real-time compliance score tracking with predictive analytics and trend analysis',
+          benefits: ['Health score tracking', 'Trend analysis', 'Predictive analytics', 'Risk forecasting'],
+          stats: 'Real-time monitoring',
+          link: '/dashboard/compliance-health'
+        },
+        {
+          icon: Shield,
+          title: 'Alert Management',
+          description: 'Proactive deadline alerts, compliance reminders, and custom alert rules',
+          benefits: ['Deadline alerts', 'Compliance reminders', 'Custom rules', 'Priority-based routing'],
+          stats: 'Never miss deadlines',
+          link: '/alerts'
+        },
+        {
+          icon: Users,
+          title: 'Progress Tracking',
+          description: 'Advanced dashboards with milestone tracking, goal achievement, and analytics',
+          benefits: ['Milestone tracking', 'Goal achievement', 'Performance analytics', 'Progress visualization'],
+          stats: 'Stay on track',
+          link: '/dashboard/progress'
+        },
+        {
+          icon: Eye,
+          title: 'Regulatory Intelligence',
+          description: 'Automated regulatory update monitoring with impact analysis and recommendations',
+          benefits: ['Regulatory updates', 'Impact analysis', 'Compliance recommendations', 'Change dashboard'],
+          stats: 'Stay informed',
+          link: '/regulatory'
         }
       ]
     }
@@ -266,6 +384,7 @@ const Features = () => {
                   {key === 'assessments' && <FileSearch className="w-4 h-4" />}
                   {key === 'tools' && <Settings className="w-4 h-4" />}
                   {key === 'integration' && <Link2 className="w-4 h-4" />}
+                  {key === 'subscription' && <Activity className="w-4 h-4" />}
                   {tab.title}
                 </button>
               ))}

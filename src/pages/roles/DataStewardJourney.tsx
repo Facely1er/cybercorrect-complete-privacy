@@ -11,7 +11,8 @@ import {
   Eye,
   Lock,
   Shield,
-  Activity
+  Activity,
+  Users
 } from 'lucide-react';
 
 const DataStewardJourney = () => {
@@ -39,7 +40,9 @@ const DataStewardJourney = () => {
       duration: '2-4 weeks',
       tools: [
         { name: 'Processing Records Template', path: '/toolkit/resources/viewers/data-processing-record', icon: FileText },
-        { name: 'GDPR Mapper', path: '/toolkit/gdpr-mapper', icon: Database }
+        { name: 'GDPR Mapper', path: '/toolkit/gdpr-mapper', icon: Database },
+        { name: 'Retention Policy Generator', path: '/toolkit/retention-policy-generator', icon: FileText },
+        { name: 'Consent Management', path: '/toolkit/consent-management', icon: Users }
       ],
       outcomes: [
         'Article 30 compliant records',

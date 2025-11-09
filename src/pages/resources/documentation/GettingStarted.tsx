@@ -10,7 +10,9 @@ import {
   Settings,
   BarChart3,
   Users,
-  Lock
+  Lock,
+  Activity,
+  Bell
 } from 'lucide-react';
 
 const GettingStarted = () => {
@@ -93,6 +95,19 @@ const GettingStarted = () => {
       time: "35 mins",
       icon: Settings,
       path: "/documentation/platform-overview"
+    },
+    {
+      title: "Subscription Features",
+      description: "Set up automated notifications, reports, and compliance monitoring",
+      steps: [
+        "Configure notification preferences",
+        "Set up automated reports",
+        "Schedule compliance assessments",
+        "Enable compliance health monitoring"
+      ],
+      time: "20 mins",
+      icon: BarChart3,
+      path: "/notifications"
     }
   ];
 

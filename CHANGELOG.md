@@ -16,6 +16,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Privacy Policy Generator**: Automated privacy policy creation for multiple regulations with customization options
 - **Privacy Rights Manager**: Data subject rights request workflow management with identity verification and audit tracking
 - **DPIA Generator**: Automated Data Protection Impact Assessment creation with risk assessment integration
+- **DPIA Manager**: Enhanced Data Protection Impact Assessment management with lifecycle tracking, risk matrix visualization, and multiple templates
+- **Consent Management**: Track and manage employee consent and privacy preferences for GDPR and CCPA compliance with renewal management and form templates
+- **Vendor Risk Assessment**: Evaluate and monitor third-party vendors for privacy compliance and data protection with risk categorization and DPA status tracking
+- **Retention Policy Generator**: Manage data retention policies and ensure compliance with legal requirements with retention schedules and review cycles
+- **Privacy by Design Assessment**: Evaluate systems and processes against the 7 Privacy by Design principles with scoring system and implementation guidance
+- **Service Provider Manager**: Comprehensive processor and service provider management with agreement tracking, compliance monitoring, and risk assessment
+- **Incident Response Manager**: Track and manage privacy incidents, data breaches, and compliance violations with regulatory notifications and response workflow
 
 #### Data Classification & Security
 - **Data Classification Assessment**: Privacy-focused data classification and access control evaluation
@@ -43,6 +50,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Smart Documentation**: Intelligent document generation based on organizational context
 - **Continuous Monitoring**: Real-time compliance tracking with automated alerts
 
+#### Subscription & Engagement Features
+- **Automated Notification System**: Multi-channel notification system (email, in-app) with customizable preferences, role-based routing, and notification center
+- **Periodic Automated Reports**: Monthly, quarterly, and custom compliance reports with executive summaries, board-ready presentations, and ROI calculations
+- **Scheduled Assessments**: Automated compliance assessments with configurable schedules, reminders, and automated execution via Supabase cron jobs
+- **Compliance Health Monitoring**: Real-time compliance score tracking with trend analysis, predictive analytics, and health dashboards
+- **Alert & Reminder System**: Proactive deadline alerts (7, 3, 1 days before), compliance reminders, custom alert rules, and browser notifications
+- **Progress Tracking & Insights**: Advanced dashboards with milestone tracking, goal achievement, performance analytics, and progress visualization
+- **Regulatory Intelligence**: Automated regulatory update monitoring with impact analysis, compliance recommendations, and regulatory change dashboard
+
 #### Development Tools & Infrastructure
 - **GigaMind.dev Integration**: AI-powered context engineering for enhanced code generation and context awareness
   - Configuration stored in `.giga/` directory
@@ -61,11 +77,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Frontend**: React 18.3, TypeScript 5.5, Vite 5.4, React Router 6, Tailwind CSS 3.4
 - **Data Visualization**: Chart.js 4.4, React Chart.js 2, Recharts 3.1
-- **Backend**: Supabase for authentication, PostgreSQL database, and secure storage
+- **Backend**: Supabase for authentication, PostgreSQL database, secure storage, Edge Functions, and Cron Jobs
 - **Analytics**: Vercel Analytics (privacy-focused)
 - **Documentation & Export**: jsPDF 3.0, jsPDF-autotable 5.0, HTML2Canvas 1.4
 - **Development & Testing**: Vitest 3.2, Testing Library, ESLint 9, TypeScript ESLint
 - **Error Monitoring**: Sentry integration for production error tracking
+- **Automation**: Supabase Edge Functions for email notifications, report generation, compliance health tracking, and regulatory updates
+- **Scheduling**: Supabase Cron Jobs for automated report generation, assessment scheduling, and compliance health monitoring
 
 ### Security Features
 
@@ -99,7 +117,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Multi-language support
 - Enhanced AI capabilities
 - Real-time collaboration features
-- Advanced reporting and analytics
 
 ---
 

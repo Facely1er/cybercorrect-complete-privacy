@@ -11,7 +11,8 @@ import {
   Users,
   FileText,
   Shield,
-  Database
+  Database,
+  Building
 } from 'lucide-react';
 
 const DataProtectionOfficerJourney = () => {
@@ -55,8 +56,10 @@ const DataProtectionOfficerJourney = () => {
       duration: '8-12 weeks',
       tools: [
         { name: 'Privacy Policy Generator', path: '/toolkit/privacy-policy-generator', icon: FileText },
-        { name: 'DPIA Generator', path: '/toolkit/dpia-generator', icon: Shield },
-        { name: 'Data Mapping Tool', path: '/toolkit/gdpr-mapper', icon: Database }
+        { name: 'DPIA Manager', path: '/toolkit/dpia-manager', icon: Shield },
+        { name: 'Data Mapping Tool', path: '/toolkit/gdpr-mapper', icon: Database },
+        { name: 'Vendor Risk Assessment', path: '/toolkit/vendor-risk-assessment', icon: Building },
+        { name: 'Service Provider Manager', path: '/toolkit/service-provider-manager', icon: Building }
       ],
       outcomes: [
         'Privacy governance framework',
@@ -72,7 +75,9 @@ const DataProtectionOfficerJourney = () => {
       duration: 'Ongoing',
       tools: [
         { name: 'Evidence Vault', path: '/project/evidence', icon: Database },
-        { name: 'Privacy Dashboard', path: '/project', icon: BarChart3 }
+        { name: 'Privacy Dashboard', path: '/project', icon: BarChart3 },
+        { name: 'Service Provider Manager', path: '/toolkit/service-provider-manager', icon: Building },
+        { name: 'Vendor Risk Assessment', path: '/toolkit/vendor-risk-assessment', icon: Building }
       ],
       outcomes: [
         'Real-time compliance monitoring',

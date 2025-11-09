@@ -22,7 +22,8 @@ import {
   Activity,
   Bell,
   ClipboardList,
-  FileBarChart
+  FileBarChart,
+  Building
 } from 'lucide-react';
 
 const PrivacyProjectDashboard = () => {
@@ -474,6 +475,24 @@ const PrivacyProjectDashboard = () => {
                 <Button variant="outline" size="sm" className="w-full justify-start">
                   <Target className="h-4 w-4 mr-2" />
                   Progress Tracking
+                </Button>
+              </Link>
+              <Link to="/toolkit/vendor-risk-assessment">
+                <Button variant="outline" size="sm" className="w-full justify-start">
+                  <Building className="h-4 w-4 mr-2" />
+                  Vendor Risk Assessment
+                </Button>
+              </Link>
+              <Link to="/toolkit/consent-management">
+                <Button variant="outline" size="sm" className="w-full justify-start">
+                  <Users className="h-4 w-4 mr-2" />
+                  Consent Management
+                </Button>
+              </Link>
+              <Link to="/toolkit/incident-response-manager">
+                <Button variant="outline" size="sm" className="w-full justify-start">
+                  <AlertTriangle className="h-4 w-4 mr-2" />
+                  Incident Response
                 </Button>
               </Link>
             </div>

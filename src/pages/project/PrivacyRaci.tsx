@@ -157,6 +157,77 @@ const PrivacyRaci = () => {
       itAdmin: 'I',
       businessAnalyst: 'I',
       projectManager: 'R'
+    },
+    // Vendor Management Activities
+    {
+      activity: 'Vendor Risk Assessment',
+      category: 'Assessment',
+      dpo: 'A',
+      legal: 'R',
+      dataSteward: 'C',
+      itAdmin: 'C',
+      businessAnalyst: 'I',
+      projectManager: 'I'
+    },
+    {
+      activity: 'Service Provider Management',
+      category: 'Implementation',
+      dpo: 'A',
+      legal: 'R',
+      dataSteward: 'C',
+      itAdmin: 'C',
+      businessAnalyst: 'I',
+      projectManager: 'I'
+    },
+    {
+      activity: 'Consent Management Implementation',
+      category: 'Implementation',
+      dpo: 'A',
+      legal: 'R',
+      dataSteward: 'R',
+      itAdmin: 'C',
+      businessAnalyst: 'C',
+      projectManager: 'I'
+    },
+    {
+      activity: 'Retention Policy Development',
+      category: 'Documentation',
+      dpo: 'A',
+      legal: 'R',
+      dataSteward: 'R',
+      itAdmin: 'I',
+      businessAnalyst: 'I',
+      projectManager: 'C'
+    },
+    {
+      activity: 'DPIA Management',
+      category: 'Documentation',
+      dpo: 'R',
+      legal: 'C',
+      dataSteward: 'C',
+      itAdmin: 'I',
+      businessAnalyst: 'I',
+      projectManager: 'I'
+    },
+    {
+      activity: 'Privacy by Design Assessment',
+      category: 'Assessment',
+      dpo: 'A',
+      legal: 'I',
+      dataSteward: 'C',
+      itAdmin: 'R',
+      businessAnalyst: 'C',
+      projectManager: 'I'
+    },
+    {
+      activity: 'Incident Response Management',
+      category: 'Implementation',
+      dpo: 'A',
+      legal: 'R',
+      dataSteward: 'I',
+      itAdmin: 'R',
+      businessAnalyst: 'I',
+      projectManager: 'C'
     }
   ];
 
@@ -172,7 +243,7 @@ const PrivacyRaci = () => {
     roles.push({ key: 'projectManager', name: 'Project Manager', icon: FileText, color: 'text-indigo-600' });
   }
 
-  const categories = ['all', 'Assessment', 'Governance', 'Implementation', 'Documentation'];
+  const categories = ['all', 'Assessment', 'Governance', 'Implementation', 'Documentation', 'Vendor Management'];
 
   const filteredMatrix = selectedCategory === 'all' 
     ? raciMatrix 

@@ -55,8 +55,11 @@ const LegalCounselJourney = () => {
       description: 'Provide legal guidance during privacy program implementation',
       duration: '4-6 weeks',
       tools: [
-        { name: 'DPIA Legal Review', path: '/toolkit/dpia-generator', icon: Shield },
-        { name: 'Evidence Review', path: '/project/evidence', icon: Database }
+        { name: 'DPIA Manager', path: '/toolkit/dpia-manager', icon: Shield },
+        { name: 'Evidence Review', path: '/project/evidence', icon: Database },
+        { name: 'Vendor Risk Assessment', path: '/toolkit/vendor-risk-assessment', icon: Building },
+        { name: 'Service Provider Manager', path: '/toolkit/service-provider-manager', icon: Building },
+        { name: 'Incident Response Manager', path: '/toolkit/incident-response-manager', icon: AlertTriangle }
       ],
       outcomes: [
         'Legal implementation guidance',
@@ -72,7 +75,9 @@ const LegalCounselJourney = () => {
       duration: 'Ongoing',
       tools: [
         { name: 'Compliance Dashboard', path: '/project', icon: Activity },
-        { name: 'Legal Documentation', path: '/project/evidence', icon: FileText }
+        { name: 'Legal Documentation', path: '/project/evidence', icon: FileText },
+        { name: 'Retention Policy Generator', path: '/toolkit/retention-policy-generator', icon: FileText },
+        { name: 'Incident Response Manager', path: '/toolkit/incident-response-manager', icon: AlertTriangle }
       ],
       outcomes: [
         'Regulatory change monitoring',
