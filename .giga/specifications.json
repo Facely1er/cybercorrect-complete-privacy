@@ -1,0 +1,22 @@
+[
+  {
+    "fileName": "main-overview.mdc",
+    "description": "Complete system overview detailing the privacy compliance platform architecture, key components, and their interactions"
+  },
+  {
+    "fileName": "compliance-scoring-algorithms.mdc",
+    "description": "Detailed documentation of risk-weighted compliance scoring algorithms, maturity level calculations, and urgency scoring implementations across different assessment types"
+  },
+  {
+    "fileName": "privacy-assessment-models.mdc",
+    "description": "Comprehensive documentation of data models for DPIA, CUI Assessment, Privacy Framework evaluations, and their relationships with scoring systems"
+  },
+  {
+    "fileName": "compliance-data-flow.mdc",
+    "description": "Documentation of data flow patterns between assessment components, evidence management, and documentation generation systems"
+  },
+  {
+    "fileName": "privacy-framework-mappings.mdc",
+    "description": "Technical documentation of cross-framework compliance mappings, including GDPR, CCPA, NIST Privacy Framework integration points and correlation logic"
+  }
+]
