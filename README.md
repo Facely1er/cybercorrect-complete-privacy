@@ -85,9 +85,11 @@ npm or yarn
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/cybercorrect-complete-privacy.git
+git clone https://github.com/cybercorrect/cybercorrect-complete-privacy.git
 cd cybercorrect-complete-privacy
 ```
+
+**Note**: If you're using a fork or different repository, replace the URL with your repository URL.
 
 2. Install dependencies:
 ```bash

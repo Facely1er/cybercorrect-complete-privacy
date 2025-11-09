@@ -22,6 +22,8 @@ VITE_SUPABASE_ANON_KEY=your-anon-key-here
    - **Project URL** → Use for `VITE_SUPABASE_URL`
    - **anon/public key** → Use for `VITE_SUPABASE_ANON_KEY`
 
+**Note**: For production deployment, see `ENV_PRODUCTION_TEMPLATE.md` for detailed instructions on configuring environment variables on your hosting platform.
+
 ## Optional Environment Variables
 
 ```bash

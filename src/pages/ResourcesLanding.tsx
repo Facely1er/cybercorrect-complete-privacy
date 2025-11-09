@@ -70,8 +70,8 @@ const ResourcesLanding = () => {
       category: 'Privacy'
     },
     {
-      id: 'privacy-assessment',
-      title: 'Privacy Assessment', 
+      id: 'privacy-evaluation',
+      title: 'Privacy Evaluation', 
       description: 'Evaluate your privacy protection practices',
       type: 'Assessment',
       icon: Database,

@@ -34,12 +34,13 @@ Before you begin, ensure you have:
 1. Fork the repository on GitHub
 2. Clone your fork locally:
    ```bash
-   git clone https://github.com/yourusername/cybercorrect-complete-privacy.git
+   git clone https://github.com/YOUR_USERNAME/cybercorrect-complete-privacy.git
    cd cybercorrect-complete-privacy
    ```
+   **Note**: Replace `YOUR_USERNAME` with your GitHub username
 3. Add the upstream repository:
    ```bash
-   git remote add upstream https://github.com/Facely1er/cybercorrect-complete-privacy.git
+   git remote add upstream https://github.com/cybercorrect/cybercorrect-complete-privacy.git
    ```
 
 ## Development Setup
