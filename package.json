@@ -11,7 +11,13 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "supabase:verify": "tsx scripts/verify-supabase-setup.ts",
+    "supabase:test": "tsx scripts/test-supabase-connection.ts",
+    "supabase:deploy": "supabase functions deploy",
+    "setup:check": "tsx scripts/verify-supabase-setup.ts",
+    "migrate:apply": "supabase db push",
+    "migrate:verify": "tsx scripts/verify-supabase-setup.ts"
   },
   "dependencies": {
     "@sentry/react": "^10.20.0",
@@ -52,6 +58,7 @@
     "jsdom": "^27.0.0",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.20.6",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",
     "vite": "^5.4.8",
