@@ -16,6 +16,7 @@
     "supabase:test": "tsx scripts/test-supabase-connection.ts",
     "supabase:deploy": "supabase functions deploy",
     "setup:check": "tsx scripts/verify-supabase-setup.ts",
+    "setup:complete": "tsx scripts/setup-complete.ts",
     "migrate:apply": "supabase db push",
     "migrate:verify": "tsx scripts/verify-supabase-setup.ts"
   },
