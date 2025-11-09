@@ -303,9 +303,11 @@ BEGIN
         ELSE ''
       END
     );
+    
+    -- Only allow service role to access admin view (only if view was created)
+    IF EXISTS (SELECT 1 FROM information_schema.views WHERE table_name = 'admin_data_overview') THEN
+      REVOKE ALL ON admin_data_overview FROM PUBLIC;
+      GRANT SELECT ON admin_data_overview TO service_role;
+    END IF;
   END IF;
 END $$;
-
--- Only allow service role to access admin view
-REVOKE ALL ON admin_data_overview FROM PUBLIC;
-GRANT SELECT ON admin_data_overview TO service_role;
