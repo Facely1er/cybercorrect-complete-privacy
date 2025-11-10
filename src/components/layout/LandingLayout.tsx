@@ -65,9 +65,17 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   }, []);
 
   // Add sticky header CTA that changes based on scroll position
+  // Only show on landing page to avoid erroneous display
   const [showStickyCta, setShowStickyCta] = useState(false);
+  const isLandingPage = location.pathname === '/';
   
   useEffect(() => {
+    // Reset sticky CTA when navigating away from landing page
+    if (!isLandingPage) {
+      setShowStickyCta(false);
+      return;
+    }
+
     const handleScrollCta = () => {
       if (window.scrollY > 600) {
         setShowStickyCta(true);
@@ -76,9 +84,12 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       }
     };
     
+    // Initial check
+    handleScrollCta();
+    
     window.addEventListener('scroll', handleScrollCta);
     return () => window.removeEventListener('scroll', handleScrollCta);
-  }, []);
+  }, [isLandingPage]);
 
   const toggleDropdown = (name: string) => {
     if (activeDropdown === name) {
@@ -204,8 +215,8 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
               
               {/* Action Buttons */}
               <div className="flex items-center gap-2">
-                {/* Sticky CTA that appears on scroll */}
-                {showStickyCta && (
+                {/* Sticky CTA that appears on scroll - only on landing page */}
+                {isLandingPage && showStickyCta && (
                   <Button 
                     className="hidden md:flex enhanced-button rounded-full shadow-glow animate-in slide-in-from-right" 
                     size="sm"
@@ -247,7 +258,10 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                 {/* Column 3: Action buttons (right) */}
                 <button
                   type="button"
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   className="lg:hidden ml-2 inline-flex items-center justify-center p-2 rounded-md text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary"
+                  aria-expanded={mobileMenuOpen}
+                  aria-label={mobileMenuOpen ? "Close main menu" : "Open main menu"}
                 >
                   <span className="sr-only">Open main menu</span>
                   {mobileMenuOpen ? (
