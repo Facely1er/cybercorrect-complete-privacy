@@ -6,7 +6,6 @@ import { toast } from '../components/ui/Toaster';
 import { 
   User, 
   Mail, 
-  Shield, 
   Calendar, 
   Save, 
   Pencil, 
@@ -20,6 +19,7 @@ import {
   FileCheck
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Logo from '../components/ui/Logo';
 
 const UserProfile = () => {
   const { user, logout } = useAuth();
@@ -66,36 +66,36 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <h1 className="text-3xl font-bold mb-6 text-foreground">User Profile</h1>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 max-w-4xl">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-foreground">User Profile</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
         {/* Profile Overview Card */}
         <div className="md:col-span-1">
           <Card className="border border-support-gray dark:border-dark-support">
-            <CardContent className="p-6 flex flex-col items-center text-center">
-              <div className="w-32 h-32 rounded-full bg-muted flex items-center justify-center mb-4">
-                <UserCircle className="h-20 w-20 text-muted-foreground" />
+            <CardContent className="p-4 sm:p-6 flex flex-col items-center text-center">
+              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-muted flex items-center justify-center mb-3 sm:mb-4">
+                <UserCircle className="h-16 w-16 sm:h-20 sm:w-20 text-muted-foreground" />
               </div>
               
-              <h2 className="text-xl font-bold text-foreground">{user.name}</h2>
-              <p className="text-muted-foreground mb-2">{profileData.jobTitle}</p>
-              <p className="text-primary-teal dark:text-dark-primary text-sm">{user.role.replace('_', ' ').toUpperCase()}</p>
+              <h2 className="text-lg sm:text-xl font-bold text-foreground break-words">{user.name}</h2>
+              <p className="text-muted-foreground mb-2 text-sm sm:text-base">{profileData.jobTitle}</p>
+              <p className="text-primary-teal dark:text-dark-primary text-xs sm:text-sm">{user.role.replace('_', ' ').toUpperCase()}</p>
               
-              <div className="border-t border-border w-full mt-4 pt-4">
-                <div className="flex items-center justify-center mb-2">
-                  <Mail className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-sm">{user.email}</span>
+              <div className="border-t border-border w-full mt-3 sm:mt-4 pt-3 sm:pt-4">
+                <div className="flex items-center justify-center mb-2 flex-wrap">
+                  <Mail className="h-4 w-4 mr-2 text-muted-foreground flex-shrink-0" />
+                  <span className="text-xs sm:text-sm break-all">{user.email}</span>
                 </div>
-                <div className="flex items-center justify-center">
-                  <Building className="h-4 w-4 mr-2 text-muted-foreground" />
-                  <span className="text-sm">{profileData.company}</span>
+                <div className="flex items-center justify-center flex-wrap">
+                  <Building className="h-4 w-4 mr-2 text-muted-foreground flex-shrink-0" />
+                  <span className="text-xs sm:text-sm break-words">{profileData.company}</span>
                 </div>
               </div>
 
               <Button 
                 variant="destructive" 
-                className="mt-6 w-full" 
+                className="mt-4 sm:mt-6 w-full text-sm sm:text-base" 
                 onClick={handleLogout}
               >
                 <LogOut className="mr-2 h-4 w-4" />
@@ -105,23 +105,23 @@ const UserProfile = () => {
           </Card>
 
           {/* Quick Stats */}
-          <Card className="mt-6 border border-support-gray dark:border-dark-support">
-            <CardHeader>
-              <CardTitle className="text-lg">Activity</CardTitle>
+          <Card className="mt-4 sm:mt-6 border border-support-gray dark:border-dark-support">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base sm:text-lg">Activity</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
+            <CardContent className="p-4 sm:p-6">
+              <div className="space-y-3 sm:space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Last Assessment</span>
-                  <span className="text-sm font-medium">2 days ago</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">Last Assessment</span>
+                  <span className="text-xs sm:text-sm font-medium">2 days ago</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Completed Assessments</span>
-                  <span className="text-sm font-medium">12</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">Completed Assessments</span>
+                  <span className="text-xs sm:text-sm font-medium">12</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">POA&Ms Created</span>
-                  <span className="text-sm font-medium">5</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">POA&Ms Created</span>
+                  <span className="text-xs sm:text-sm font-medium">5</span>
                 </div>
               </div>
             </CardContent>
@@ -131,13 +131,14 @@ const UserProfile = () => {
         {/* Main Profile Content */}
         <div className="md:col-span-2">
           <Card className="border border-support-gray dark:border-dark-support">
-            <CardHeader className="pb-3">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-xl">Profile Information</CardTitle>
+            <CardHeader className="pb-3 px-4 sm:px-6">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
+                <CardTitle className="text-lg sm:text-xl">Profile Information</CardTitle>
                 <Button 
                   variant="outline" 
                   size="sm" 
                   onClick={() => setIsEditing(!isEditing)}
+                  className="w-full sm:w-auto"
                 >
                   {isEditing ? 'Cancel' : (
                     <>
@@ -147,13 +148,13 @@ const UserProfile = () => {
                   )}
                 </Button>
               </div>
-              <CardDescription>Manage your personal information</CardDescription>
+              <CardDescription className="mt-2">Manage your personal information</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="px-4 sm:px-6">
               <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <label className="text-sm font-medium block mb-1">Full Name</label>
+                    <label className="text-xs sm:text-sm font-medium block mb-1.5">Full Name</label>
                     {isEditing ? (
                       <input
                         type="text"
@@ -163,15 +164,15 @@ const UserProfile = () => {
                         className="w-full rounded-md border-border bg-background py-2 px-3 text-sm"
                       />
                     ) : (
-                      <div className="flex items-center">
-                        <User className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary" />
-                        <span>{profileData.name}</span>
+                      <div className="flex items-center min-h-[2rem]">
+                        <User className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary flex-shrink-0" />
+                        <span className="text-sm sm:text-base break-words">{profileData.name}</span>
                       </div>
                     )}
                   </div>
                   
                   <div>
-                    <label className="text-sm font-medium block mb-1">Email</label>
+                    <label className="text-xs sm:text-sm font-medium block mb-1.5">Email</label>
                     {isEditing ? (
                       <input
                         type="email"
@@ -181,15 +182,15 @@ const UserProfile = () => {
                         className="w-full rounded-md border-border bg-background py-2 px-3 text-sm"
                       />
                     ) : (
-                      <div className="flex items-center">
-                        <Mail className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary" />
-                        <span>{profileData.email}</span>
+                      <div className="flex items-center min-h-[2rem]">
+                        <Mail className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary flex-shrink-0" />
+                        <span className="text-sm sm:text-base break-all">{profileData.email}</span>
                       </div>
                     )}
                   </div>
                   
                   <div>
-                    <label className="text-sm font-medium block mb-1">Job Title</label>
+                    <label className="text-xs sm:text-sm font-medium block mb-1.5">Job Title</label>
                     {isEditing ? (
                       <input
                         type="text"
@@ -199,15 +200,15 @@ const UserProfile = () => {
                         className="w-full rounded-md border-border bg-background py-2 px-3 text-sm"
                       />
                     ) : (
-                      <div className="flex items-center">
-                        <Briefcase className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary" />
-                        <span>{profileData.jobTitle}</span>
+                      <div className="flex items-center min-h-[2rem]">
+                        <Briefcase className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary flex-shrink-0" />
+                        <span className="text-sm sm:text-base break-words">{profileData.jobTitle}</span>
                       </div>
                     )}
                   </div>
                   
                   <div>
-                    <label className="text-sm font-medium block mb-1">Department</label>
+                    <label className="text-xs sm:text-sm font-medium block mb-1.5">Department</label>
                     {isEditing ? (
                       <input
                         type="text"
@@ -217,27 +218,25 @@ const UserProfile = () => {
                         className="w-full rounded-md border-border bg-background py-2 px-3 text-sm"
                       />
                     ) : (
-                      <div className="flex items-center">
-                        <Building className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary" />
-                        <span>{profileData.department}</span>
+                      <div className="flex items-center min-h-[2rem]">
+                        <Building className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary flex-shrink-0" />
+                        <span className="text-sm sm:text-base break-words">{profileData.department}</span>
                       </div>
                     )}
                   </div>
                   
-                  
-                  
                   <div>
-                    <label className="text-sm font-medium block mb-1">Join Date</label>
-                    <div className="flex items-center">
-                      <Calendar className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary" />
-                      <span>{profileData.joinDate}</span>
+                    <label className="text-xs sm:text-sm font-medium block mb-1.5">Join Date</label>
+                    <div className="flex items-center min-h-[2rem]">
+                      <Calendar className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary flex-shrink-0" />
+                      <span className="text-sm sm:text-base">{profileData.joinDate}</span>
                     </div>
                   </div>
                 </div>
 
                 {isEditing && (
-                  <div className="flex justify-end mt-4">
-                    <Button onClick={handleSaveProfile}>
+                  <div className="flex justify-end mt-4 pt-4 border-t border-border">
+                    <Button onClick={handleSaveProfile} className="w-full sm:w-auto">
                       <Save className="mr-2 h-4 w-4" />
                       Save Changes
                     </Button>
@@ -248,18 +247,20 @@ const UserProfile = () => {
           </Card>
 
           {/* Compliance Role */}
-          <Card className="mt-6 border border-support-gray dark:border-dark-support">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-xl">Compliance Role & Permissions</CardTitle>
-              <CardDescription>Your system access and permissions</CardDescription>
+          <Card className="mt-4 sm:mt-6 border border-support-gray dark:border-dark-support">
+            <CardHeader className="pb-3 px-4 sm:px-6">
+              <CardTitle className="text-lg sm:text-xl">Compliance Role & Permissions</CardTitle>
+              <CardDescription className="mt-2">Your system access and permissions</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="px-4 sm:px-6">
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <Shield className="h-5 w-5 text-primary-teal dark:text-dark-primary mt-0.5" />
-                  <div>
-                    <p className="font-medium">{user.role.replace('_', ' ').charAt(0).toUpperCase() + user.role.replace('_', ' ').slice(1)}</p>
-                    <p className="text-sm text-muted-foreground">
+                  <div className="flex-shrink-0 mt-0.5">
+                    <Logo size="small" showText={false} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-sm sm:text-base">{user.role.replace('_', ' ').charAt(0).toUpperCase() + user.role.replace('_', ' ').slice(1)}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                       {user.role === 'admin' && 'Full system access with ability to manage users and system settings.'}
                       {user.role === 'risk_manager' && 'Ability to manage risks, treatments, and generate reports.'}
                       {user.role === 'auditor' && 'Read-only access to compliance data for auditing purposes.'}
@@ -268,9 +269,9 @@ const UserProfile = () => {
                   </div>
                 </div>
                 
-                <div className="bg-muted/30 dark:bg-muted/20 rounded-lg p-4">
-                  <h4 className="text-sm font-medium mb-2">Access Permissions:</h4>
-                  <ul className="space-y-1 text-sm">
+                <div className="bg-muted/30 dark:bg-muted/20 rounded-lg p-3 sm:p-4">
+                  <h4 className="text-xs sm:text-sm font-medium mb-2">Access Permissions:</h4>
+                  <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
                     {user.role === 'admin' && (
                       <>
                         <li className="flex items-center">
@@ -304,50 +305,50 @@ const UserProfile = () => {
           </Card>
 
           {/* Recent Activity */}
-          <Card className="mt-6 border border-support-gray dark:border-dark-support">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-xl">Recent Activity</CardTitle>
-              <CardDescription>Your latest actions in the system</CardDescription>
+          <Card className="mt-4 sm:mt-6 border border-support-gray dark:border-dark-support">
+            <CardHeader className="pb-3 px-4 sm:px-6">
+              <CardTitle className="text-lg sm:text-xl">Recent Activity</CardTitle>
+              <CardDescription className="mt-2">Your latest actions in the system</CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex justify-between items-center py-3 border-b border-border">
-                  <div className="flex items-center">
-                    <div className="bg-primary/10 p-2 rounded mr-3">
-                      <FileText className="h-4 w-4 text-primary" />
+            <CardContent className="px-4 sm:px-6">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 py-3 border-b border-border">
+                  <div className="flex items-start sm:items-center flex-1 min-w-0">
+                    <div className="bg-primary/10 p-1.5 sm:p-2 rounded mr-2 sm:mr-3 flex-shrink-0">
+                      <FileText className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
                     </div>
-                    <div>
-                      <p className="font-medium">Completed Compliance Quick Check</p>
-                      <p className="text-sm text-muted-foreground">Score: 78%</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-sm sm:text-base break-words">Completed Compliance Quick Check</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">Score: 78%</p>
                     </div>
                   </div>
-                  <span className="text-xs text-muted-foreground">2 days ago</span>
+                  <span className="text-xs text-muted-foreground flex-shrink-0 sm:ml-2">2 days ago</span>
                 </div>
                 
-                <div className="flex justify-between items-center py-3 border-b border-border">
-                  <div className="flex items-center">
-                    <div className="bg-primary/10 p-2 rounded mr-3">
-                      <Database className="h-4 w-4 text-primary" />
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 py-3 border-b border-border">
+                  <div className="flex items-start sm:items-center flex-1 min-w-0">
+                    <div className="bg-primary/10 p-1.5 sm:p-2 rounded mr-2 sm:mr-3 flex-shrink-0">
+                      <Database className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
                     </div>
-                    <div>
-                      <p className="font-medium">Created CUI Data Flow Map</p>
-                      <p className="text-sm text-muted-foreground">5 nodes, 6 connections</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-sm sm:text-base break-words">Created CUI Data Flow Map</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">5 nodes, 6 connections</p>
                     </div>
                   </div>
-                  <span className="text-xs text-muted-foreground">1 week ago</span>
+                  <span className="text-xs text-muted-foreground flex-shrink-0 sm:ml-2">1 week ago</span>
                 </div>
                 
-                <div className="flex justify-between items-center py-3">
-                  <div className="flex items-center">
-                    <div className="bg-primary/10 p-2 rounded mr-3">
-                      <FileCheck className="h-4 w-4 text-primary" />
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 py-3">
+                  <div className="flex items-start sm:items-center flex-1 min-w-0">
+                    <div className="bg-primary/10 p-1.5 sm:p-2 rounded mr-2 sm:mr-3 flex-shrink-0">
+                      <FileCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
                     </div>
-                    <div>
-                      <p className="font-medium">Generated POA&M</p>
-                      <p className="text-sm text-muted-foreground">8 action items</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-sm sm:text-base break-words">Generated POA&M</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">8 action items</p>
                     </div>
                   </div>
-                  <span className="text-xs text-muted-foreground">2 weeks ago</span>
+                  <span className="text-xs text-muted-foreground flex-shrink-0 sm:ml-2">2 weeks ago</span>
                 </div>
               </div>
             </CardContent>
