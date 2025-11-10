@@ -539,36 +539,66 @@ const ComplianceGapAnalyzer: React.FC = () => {
       }))
     };
     
-    let content: string, mimeType: string, filename: string;
+    const reportDataForPdf = {
+      metadata: {
+        timestamp: new Date().toISOString(),
+        framework: frameworks[selectedFramework].name,
+        assessmentId: `COMP-${Date.now()}`,
+        version: '2.0',
+        generatedBy: 'CyberCaorrect Compliance Gap Analyzer'
+      },
+      executiveSummary: {
+        overallScore: overallScore,
+        totalControls: frameworks[selectedFramework].totalControls,
+        implementedControls: Object.values(complianceData).reduce((sum, domain) => sum + (domain?.implementedControls || 0), 0),
+        totalGaps: gapAnalysis.length,
+        criticalGaps: gapAnalysis.filter(gap => gap.priority === 'critical').length,
+        estimatedCost: gapAnalysis.reduce((sum, gap) => sum + gap.estimatedCost, 0),
+        riskLevel: overallScore >= 80 ? 'Low' : overallScore >= 60 ? 'Medium' : overallScore >= 40 ? 'High' : 'Critical'
+      },
+      gapAnalysis: gapAnalysis.map(gap => ({
+        title: gap.title,
+        priority: gap.priority,
+        domain: gap.domain,
+        estimatedCost: gap.estimatedCost,
+        timeframe: gap.timeframe
+      }))
+    };
     
     if (format === 'json') {
-      content = JSON.stringify(reportData, null, 2);
-      mimeType = 'application/json';
-      filename = `compliance-gap-analysis-${selectedFramework}-${new Date().toISOString().split('T')[0]}.json`;
-    } else {
-      content = generateCSVReport(reportData);
-      mimeType = 'text/csv';
-      filename = `compliance-gaps-${selectedFramework}-${new Date().toISOString().split('T')[0]}.csv`;
+      const content = JSON.stringify(reportData, null, 2);
+      const blob = new Blob([content], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `compliance-gap-analysis-${selectedFramework}-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.success("Export completed", `Report exported as JSON`);
+    } else if (format === 'csv') {
+      const content = generateCSVReport();
+      const blob = new Blob([content], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `compliance-gaps-${selectedFramework}-${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.success("Export completed", `Report exported as CSV`);
+    } else if (format === 'pdf') {
+      const { generateComplianceGapAnalyzerPdf } = await import('../../utils/generateExportPdf');
+      generateComplianceGapAnalyzerPdf(reportDataForPdf);
+      toast.success("Export completed", `Report exported as PDF`);
     }
-    
-    const blob = new Blob([content], { type: mimeType });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
-    
-    toast.success("Export completed", `Report exported as ${filename}`);
   };
 
-  const generateCSVReport = (data: Control[]): string => {
+  const generateCSVReport = (): string => {
     const headers = [
       'Control ID', 'Title', 'Domain', 'Status', 'Priority', 'Risk Level', 
       'Owner', 'Cost Estimate', 'Timeframe', 'Business Impact'
     ];
     
-    const rows = data.detailedResults.gapAnalysis.map((gap: GapAnalysisItem) => [
+    const rows = gapAnalysis.map((gap: GapAnalysisItem) => [
       gap.id,
       gap.title,
       gap.domain,
@@ -910,7 +940,15 @@ const ComplianceGapAnalyzer: React.FC = () => {
             onClick={() => exportReport('json')}
           >
             <Download className="h-4 w-4 mr-2" />
-            Export Report
+            Export JSON
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => exportReport('pdf')}
+            className="border-primary text-primary hover:bg-primary/10 dark:hover:bg-primary/20"
+          >
+            <Download className="h-4 w-4 mr-2" />
+            Export PDF
           </Button>
           <Button
             variant="outline"

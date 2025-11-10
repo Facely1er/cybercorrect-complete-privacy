@@ -207,7 +207,9 @@ const IncidentResponseManager = () => {
         URL.revokeObjectURL(url);
         toast.success('Export successful', 'CSV report downloaded');
       } else if (format === 'pdf') {
-        toast.info('PDF export', 'PDF export functionality coming soon');
+        const { generateIncidentResponsePdf } = await import('../../utils/generateExportPdf');
+        generateIncidentResponsePdf(reportData);
+        toast.success('Export successful', 'PDF report downloaded');
       }
     } catch (error) {
       console.error('Export failed:', error);

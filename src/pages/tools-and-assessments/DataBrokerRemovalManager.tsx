@@ -244,7 +244,9 @@ const DataBrokerRemovalManager = () => {
         URL.revokeObjectURL(url);
         toast.success('Export successful', 'CSV report downloaded');
       } else if (format === 'pdf') {
-        toast.info('PDF export', 'PDF export functionality coming soon');
+        const { generateDataBrokerRemovalPdf } = await import('../../utils/generateExportPdf');
+        generateDataBrokerRemovalPdf(reportData);
+        toast.success('Export successful', 'PDF report downloaded');
       }
     } catch (error) {
       console.error('Export failed:', error);

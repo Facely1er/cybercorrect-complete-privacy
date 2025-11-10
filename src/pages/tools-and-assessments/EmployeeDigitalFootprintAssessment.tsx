@@ -318,8 +318,9 @@ const EmployeeDigitalFootprintAssessment = () => {
         URL.revokeObjectURL(url);
         toast.success('Export successful', 'CSV report downloaded');
       } else if (format === 'pdf') {
-        // PDF export would use jsPDF similar to SSP generator
-        toast.info('PDF export', 'PDF export functionality coming soon');
+        const { generateEmployeeDigitalFootprintPdf } = await import('../../utils/generateExportPdf');
+        generateEmployeeDigitalFootprintPdf(reportData);
+        toast.success('Export successful', 'PDF report downloaded');
       }
     } catch (error) {
       console.error('Export failed:', error);
