@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { useProject } from '../../context/ProjectContext';
@@ -15,9 +15,15 @@ import {
   Shield,
   CheckCircle,
   Users,
-  Link2
+  Link2,
+  FileDown,
+  ChevronDown,
+  FileJson,
+  File
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { toast } from '../../components/ui/Toaster';
+import { generateEvidencePdf, EvidenceItem as EvidenceItemType } from '../../utils/generateEvidencePdf';
 
 interface EvidenceItem {
   id: string;
@@ -44,8 +50,28 @@ const EvidenceVault = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [isExporting, setIsExporting] = useState(false);
+  const [showExportMenu, setShowExportMenu] = useState(false);
+  const exportMenuRef = useRef<HTMLDivElement>(null);
 
   const project = getCurrentProject();
+
+  // Close export menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (exportMenuRef.current && !exportMenuRef.current.contains(event.target as Node)) {
+        setShowExportMenu(false);
+      }
+    };
+
+    if (showExportMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showExportMenu]);
 
   // Sample evidence items for privacy compliance
   const evidenceItems: EvidenceItem[] = [
@@ -168,6 +194,50 @@ const EvidenceVault = () => {
     return colors[type] || 'bg-gray-100 text-gray-800';
   };
 
+  const handleExportJSON = () => {
+    try {
+      setIsExporting(true);
+      const exportData = {
+        metadata: {
+          timestamp: new Date().toISOString(),
+          exportDate: new Date().toLocaleDateString(),
+          totalDocuments: filteredEvidence.length,
+          projectName: project?.name || 'Unknown Project'
+        },
+        documents: filteredEvidence
+      };
+
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `evidence-vault-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.success('Export successful', 'Evidence vault exported as JSON');
+      setShowExportMenu(false);
+    } catch (error) {
+      console.error('Error exporting JSON:', error);
+      toast.error('Export failed', 'Failed to export evidence vault as JSON');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  const handleExportPDF = () => {
+    try {
+      setIsExporting(true);
+      generateEvidencePdf(filteredEvidence as EvidenceItemType[]);
+      toast.success('Export successful', 'Evidence vault exported as PDF');
+      setShowExportMenu(false);
+    } catch (error) {
+      console.error('Error exporting PDF:', error);
+      toast.error('Export failed', 'Failed to export evidence vault as PDF');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   if (!project) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -200,6 +270,37 @@ const EvidenceVault = () => {
               <Upload className="h-4 w-4 mr-2" />
               Upload Evidence
             </Button>
+            <div className="relative" ref={exportMenuRef}>
+              <Button 
+                variant="outline" 
+                onClick={() => setShowExportMenu(!showExportMenu)}
+                disabled={isExporting || filteredEvidence.length === 0}
+              >
+                <FileDown className="h-4 w-4 mr-2" />
+                Export
+                <ChevronDown className="h-4 w-4 ml-2" />
+              </Button>
+              {showExportMenu && (
+                <div className="absolute right-0 mt-2 w-48 bg-background border border-border rounded-md shadow-lg z-10">
+                  <button
+                    onClick={handleExportJSON}
+                    disabled={isExporting}
+                    className="w-full text-left px-4 py-2 text-sm hover:bg-muted transition-colors flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <FileJson className="h-4 w-4 mr-2" />
+                    Export as JSON
+                  </button>
+                  <button
+                    onClick={handleExportPDF}
+                    disabled={isExporting}
+                    className="w-full text-left px-4 py-2 text-sm hover:bg-muted transition-colors flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <File className="h-4 w-4 mr-2" />
+                    Export as PDF
+                  </button>
+                </div>
+              )}
+            </div>
             <Button>
               <Plus className="h-4 w-4 mr-2" />
               Create Document
