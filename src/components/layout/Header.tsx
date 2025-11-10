@@ -42,10 +42,10 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
 
   return (
     <header className="sticky top-0 z-50 flex h-16 flex-shrink-0 border-b border-border bg-background/95 dark:bg-dark-surface/95 backdrop-blur-md shadow-sm">
-      <div className="container mx-auto flex justify-between items-center px-4">
-        <div className="flex items-center">
+      <div className="container mx-auto flex justify-between items-center px-2 sm:px-4 min-w-0">
+        <div className="flex items-center min-w-0 flex-shrink">
           <Link to="/" className="flex items-center focus-ring rounded-md p-1" aria-label="CyberCorrect Privacy Platform Home">
-            <span className="text-xl font-semibold text-foreground dark:text-dark-text transition-colors hover:text-primary dark:hover:text-dark-primary">CyberCorrect Privacy Platform</span>
+            <span className="text-base sm:text-xl font-semibold text-foreground dark:text-dark-text transition-colors hover:text-primary dark:hover:text-dark-primary truncate">CyberCorrect Privacy Platform</span>
           </Link>
         </div>
         
@@ -163,30 +163,30 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           </div>
         </div>
         
-        <div className="flex items-center md:ml-6 space-x-3">
+        <div className="flex items-center md:ml-6 space-x-1 sm:space-x-2 md:space-x-3 flex-shrink-0">
           <NotificationBell />
           <Button
             variant="ghost"
             size="icon"
-            className="rounded-full text-foreground dark:text-dark-text hover:bg-muted/70 dark:hover:bg-dark-support"
+            className="rounded-full text-foreground dark:text-dark-text hover:bg-muted/70 dark:hover:bg-dark-support h-9 w-9 sm:h-10 sm:w-10"
             onClick={toggleDarkMode}
             aria-label="Toggle dark mode"
           >
             {darkMode ? (
-              <SunMoon className="h-5 w-5" aria-hidden="true" />
+              <SunMoon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
             ) : (
-              <Moon className="h-5 w-5" aria-hidden="true" />
+              <Moon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
             )}
           </Button>
           
           <button
             type="button"
-            className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary focus-ring transition-colors"
+            className="md:hidden inline-flex items-center justify-center p-1.5 sm:p-2 rounded-md text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary focus-ring transition-colors flex-shrink-0"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? "Close main menu" : "Open main menu"}
           >
-            <Menu className="block h-6 w-6" aria-hidden="true" />
+            <Menu className="block h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
           </button>
         </div>
       </div>
