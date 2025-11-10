@@ -11,7 +11,10 @@ export function initSentry() {
     const dsn = import.meta.env.VITE_SENTRY_DSN;
     
     if (!dsn) {
-      console.warn('Sentry DSN not configured. Error monitoring will use fallback methods.');
+      // Only show warning in development mode
+      if (import.meta.env.DEV) {
+        console.warn('Sentry DSN not configured. Error monitoring will use fallback methods.');
+      }
       sentryAvailable = false;
       return;
     }

@@ -18,7 +18,8 @@ import {
   Scale,
   RefreshCw,
   UserX,
-  Info
+  Info,
+  AlertTriangle
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
