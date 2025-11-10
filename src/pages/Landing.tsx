@@ -339,7 +339,7 @@ const Landing = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 md:py-24 bg-gradient-to-r from-primary via-secondary to-accent dark:from-dark-primary dark:via-dark-primary dark:to-dark-primary">
+      <section className="py-12 md:py-16 bg-gradient-to-r from-primary via-secondary to-accent dark:from-dark-primary dark:via-dark-primary dark:to-dark-primary">
         <div className="container mx-auto px-4">
           <div className="text-center text-primary-foreground max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
