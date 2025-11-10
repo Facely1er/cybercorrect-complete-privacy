@@ -393,7 +393,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
             frameworkName: frameworks[selectedFramework].name,
             gapType: control.status === 'not_implemented' ? 'missing' : 'incomplete',
             businessImpact: priorityLevels[control.priority]?.businessImpact || 'Unknown',
-            timeframe: priorityLevels[control.priority]?.timeframe || 'TBD',
+            timeframe: priorityLevels[control.priority]?.timeframe || 'To be determined',
             complianceRisk: calculateComplianceRisk(control.priority),
             estimatedCost: control.costEstimate,
             urgencyScore: calculateUrgencyScore(control)

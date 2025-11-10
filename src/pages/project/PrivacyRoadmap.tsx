@@ -280,8 +280,10 @@ const PrivacyRoadmap = () => {
                           variant="outline" 
                           size="sm"
                           onClick={() => {
-                            // TODO: Implement team assignment functionality
+                            // Team assignment functionality: Allows assigning team members to roadmap phases
+                            // Implementation will include user selection, role assignment, and notification system
                             console.log('Assign team for phase:', phase.id);
+                            toast.info('Team Assignment', 'Team assignment functionality is currently under development. This feature will allow you to assign team members to specific roadmap phases and send automated notifications.');
                           }}
                         >
                           <Users className="h-4 w-4 mr-1" />

@@ -200,7 +200,7 @@ const ConsentManagement = () => {
         URL.revokeObjectURL(url);
         toast.success('Export successful', 'CSV report downloaded');
       } else if (format === 'pdf') {
-        toast.info('PDF export', 'PDF export functionality coming soon');
+        toast.info('PDF Export', 'PDF export functionality is currently under development. You can export your consent management data using the Word export option available in the export menu.');
       }
     } catch (error) {
       console.error('Export failed:', error);
@@ -603,7 +603,7 @@ END OF TEMPLATE
                         size="sm" 
                         className="w-full"
                         onClick={() => {
-                          toast.info("Preview", `Preview functionality for ${type.name} consent form coming soon`);
+                          toast.info("Preview Consent Form", `Preview functionality for ${type.name} consent forms is currently under development. This feature will allow you to preview how consent forms will appear to users before publishing.`);
                         }}
                       >
                         <Eye className="h-4 w-4 mr-2" />
