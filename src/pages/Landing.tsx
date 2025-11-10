@@ -5,6 +5,7 @@ import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
 import TextCarousel from '../components/ui/TextCarousel';
 import { InternalLink } from '../components/ui/InternalLinkingHelper';
+import FloatingPrivacyIcons from '../components/ui/FloatingPrivacyIcons';
 import { 
   ArrowRight, 
   Shield, 
@@ -33,6 +34,7 @@ const Landing = () => {
       {/* Hero Section */}
       <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
         <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-30 dark:opacity-20"></div>
+        <FloatingPrivacyIcons />
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-5xl mx-auto">
             {/* Platform Badge */}

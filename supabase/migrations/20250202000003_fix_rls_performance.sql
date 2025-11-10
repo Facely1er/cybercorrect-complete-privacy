@@ -3,7 +3,7 @@
 -- This prevents re-evaluation for each row and improves query performance at scale
 
 -- ============================================================================
--- Fix RLS Policies for notifications table
+-- Fix RLS Policies for notifications tablea
 -- ============================================================================
 
 DROP POLICY IF EXISTS "Users can view their own notifications" ON notifications;
