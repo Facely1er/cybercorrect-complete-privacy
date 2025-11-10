@@ -424,7 +424,7 @@ const About = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16">
+      <section className="py-10">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto bg-gradient-to-r from-primary-teal to-secondary-teal dark:from-dark-primary dark:to-dark-primary/70 rounded-xl p-8 text-white text-center">
             <h2 className="text-2xl font-bold mb-4">Ready to Secure Your Compliance Journey?</h2>

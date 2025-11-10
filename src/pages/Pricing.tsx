@@ -716,7 +716,7 @@ const Pricing = () => {
       </section>
 
       {/* CTA Section */}
-      <div className="mt-12 text-center max-w-5xl mx-auto px-4">
+      <div className="mt-8 text-center max-w-5xl mx-auto px-4">
         <div className="bg-gradient-to-r from-primary-teal to-secondary-teal rounded-xl p-6 text-white dark:from-dark-primary dark:to-dark-primary/70">
           <h3 className="text-xl font-bold mb-3">Ready to achieve compliance?</h3>
           <p className="mb-5">Start your free 14-day trial or schedule a demo with our compliance experts</p>
