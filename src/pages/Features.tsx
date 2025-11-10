@@ -79,7 +79,7 @@ const Features = () => {
           icon: Scale,
           title: 'Multi-Framework Assessment',
           description: 'Single assessment mapped to SOC 2, ISO 27001, NIST, and more',
-          benefits: ['12+ frameworks covered', 'Common controls mapping', 'Unified reporting', 'Compliance orchestration'],
+          benefits: ['5+ privacy frameworks', 'Common controls mapping', 'Unified reporting', 'Compliance orchestration'],
           stats: '45 min average',
           link: '/toolkit/privacy-gap-analyzer'
         },
