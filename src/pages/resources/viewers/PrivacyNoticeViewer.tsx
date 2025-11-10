@@ -5,7 +5,8 @@ import {
   CheckCircle, 
   Users,
   Globe,
-  Settings
+  Settings,
+  Eye
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
@@ -143,7 +144,7 @@ This template should be customized for your specific organization and reviewed b
                 onClick={() => setNoticeType(type.id)}
               >
                 <CardContent className="p-4 text-center">
-                  <h3 className="font-semibold text-foreground mb-1">{type.name}</h3>
+                  <h3 className="font-semibold text-foreground mb-2">{type.name}</h3>
                   <p className="text-xs text-muted-foreground">{type.description}</p>
                 </CardContent>
               </Card>
@@ -224,7 +225,7 @@ This template should be customized for your specific organization and reviewed b
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <h4 className="font-semibold text-foreground">GDPR Requirements:</h4>
+                  <h4 className="font-semibold text-foreground mb-2">GDPR Requirements:</h4>
                   <ul className="space-y-1 text-sm text-muted-foreground">
                     <li>• Controller identity and contact details</li>
                     <li>• Purposes and legal basis for processing</li>
@@ -236,7 +237,7 @@ This template should be customized for your specific organization and reviewed b
                   </ul>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="font-semibold text-foreground">CCPA Requirements:</h4>
+                  <h4 className="font-semibold text-foreground mb-2">CCPA Requirements:</h4>
                   <ul className="space-y-1 text-sm text-muted-foreground">
                     <li>• Categories of personal information collected</li>
                     <li>• Sources of personal information</li>

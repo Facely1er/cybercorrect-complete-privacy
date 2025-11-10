@@ -195,7 +195,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <h4 className="font-semibold text-foreground">Applies To:</h4>
+                    <h4 className="font-semibold text-foreground mb-2">Applies To:</h4>
                     <ul className="space-y-1 text-sm text-muted-foreground">
                       <li>• Organizations with CA customers</li>
                       <li>• Businesses meeting CCPA thresholds</li>
@@ -204,7 +204,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
                     </ul>
                   </div>
                   <div className="space-y-2">
-                    <h4 className="font-semibold text-foreground">Key Requirements:</h4>
+                    <h4 className="font-semibold text-foreground mb-2">Key Requirements:</h4>
                     <ul className="space-y-1 text-sm text-muted-foreground">
                       <li>• Consumer rights fulfillment</li>
                       <li>• Privacy notice requirements</li>
@@ -230,7 +230,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
                     <div className="flex items-start space-x-3">
                       <Eye className="h-5 w-5 text-blue-600 mt-1" />
                       <div>
-                        <h4 className="font-semibold text-foreground">Right to Know</h4>
+                        <h4 className="font-semibold text-foreground mb-2">Right to Know</h4>
                         <p className="text-sm text-muted-foreground">
                           Consumers can request disclosure of what personal information is collected, used, shared, or sold.
                         </p>
@@ -239,7 +239,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
                     <div className="flex items-start space-x-3">
                       <AlertTriangle className="h-5 w-5 text-red-600 mt-1" />
                       <div>
-                        <h4 className="font-semibold text-foreground">Right to Delete</h4>
+                        <h4 className="font-semibold text-foreground mb-2">Right to Delete</h4>
                         <p className="text-sm text-muted-foreground">
                           Consumers can request deletion of their personal information from business records.
                         </p>
@@ -250,7 +250,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
                     <div className="flex items-start space-x-3">
                       <Settings className="h-5 w-5 text-green-600 mt-1" />
                       <div>
-                        <h4 className="font-semibold text-foreground">Right to Opt-Out</h4>
+                        <h4 className="font-semibold text-foreground mb-2">Right to Opt-Out</h4>
                         <p className="text-sm text-muted-foreground">
                           Consumers can opt-out of the sale of their personal information to third parties.
                         </p>
@@ -259,7 +259,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-purple-600 mt-1" />
                       <div>
-                        <h4 className="font-semibold text-foreground">Right to Non-Discrimination</h4>
+                        <h4 className="font-semibold text-foreground mb-2">Right to Non-Discrimination</h4>
                         <p className="text-sm text-muted-foreground">
                           Protection against discriminatory treatment for exercising CCPA rights.
                         </p>

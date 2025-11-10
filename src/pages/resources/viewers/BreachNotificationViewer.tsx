@@ -243,7 +243,7 @@ This template ensures comprehensive documentation of privacy breaches and compli
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <h4 className="font-semibold text-foreground">Key Notification Triggers:</h4>
+                  <h4 className="font-semibold text-foreground mb-2">Key Notification Triggers:</h4>
                   <ul className="space-y-1 text-sm text-muted-foreground">
                     <li>• Unauthorized access to personal data</li>
                     <li>• Data theft or loss of devices containing personal data</li>
@@ -252,7 +252,7 @@ This template ensures comprehensive documentation of privacy breaches and compli
                   </ul>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="font-semibold text-foreground">Risk Assessment Factors:</h4>
+                  <h4 className="font-semibold text-foreground mb-2">Risk Assessment Factors:</h4>
                   <ul className="space-y-1 text-sm text-muted-foreground">
                     <li>• Types of personal data affected</li>
                     <li>• Number of individuals impacted</li>
