@@ -1,10 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { CheckCircle, ArrowRight, Shield, XCircle, Calculator, Check, ChevronDown, ChevronUp, Building, Cloud, Network } from 'lucide-react';
 
 const Pricing = () => {
+  const navigate = useNavigate();
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
   const [calculator, setCalculator] = useState({ employees: 10, complexity: 'medium', companySize: '11-50', complianceLevel: 'partial' });
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
@@ -719,14 +721,21 @@ const Pricing = () => {
       <div className="mt-8 text-center max-w-5xl mx-auto px-4">
         <div className="bg-gradient-to-r from-primary-teal to-secondary-teal rounded-xl p-6 text-white dark:from-dark-primary dark:to-dark-primary/70">
           <h3 className="text-xl font-bold mb-3">Ready to achieve compliance?</h3>
-          <p className="mb-5">Start your free 14-day trial or schedule a demo with our compliance experts</p>
+          <p className="mb-5">Start your free 14-day trial or view our interactive demo</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-background text-primary hover:bg-muted border-2 border-background shadow-lg">
+            <Button 
+              className="bg-background text-primary hover:bg-muted border-2 border-background shadow-lg"
+              onClick={() => navigate('/assessments/privacy-assessment')}
+            >
               Start Free Trial
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button variant="default" className="shadow-lg">
-              Schedule Demo
+            <Button 
+              variant="default" 
+              className="shadow-lg"
+              onClick={() => navigate('/demo')}
+            >
+              View Demo
             </Button>
           </div>
         </div>
