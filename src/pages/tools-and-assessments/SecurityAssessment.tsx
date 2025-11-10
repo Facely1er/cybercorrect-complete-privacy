@@ -206,7 +206,7 @@ const SecurityAssessment = () => {
   };
 
   const handleViewResults = () => {
-    navigate('/security-results');
+    navigate('/privacy-results');
   };
 
   const sectionInfoList: SectionInfo[] = sections.map(section => ({
