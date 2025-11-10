@@ -27,10 +27,10 @@ const UserProfile = () => {
   const [profileData, setProfileData] = useState({
     name: user?.name || '',
     email: user?.email || '',
-    jobTitle: 'Security Analyst',
-    department: 'Cybersecurity',
-    company: 'ACME Defense Systems',
-    joinDate: '2023-05-15',
+    jobTitle: '',
+    department: '',
+    company: '',
+    joinDate: '',
   });
 
   if (!user) {
@@ -113,15 +113,15 @@ const UserProfile = () => {
               <div className="space-y-3 sm:space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="text-xs sm:text-sm text-muted-foreground">Last Assessment</span>
-                  <span className="text-xs sm:text-sm font-medium">2 days ago</span>
+                  <span className="text-xs sm:text-sm font-medium">-</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-xs sm:text-sm text-muted-foreground">Completed Assessments</span>
-                  <span className="text-xs sm:text-sm font-medium">12</span>
+                  <span className="text-xs sm:text-sm font-medium">0</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-xs sm:text-sm text-muted-foreground">POA&Ms Created</span>
-                  <span className="text-xs sm:text-sm font-medium">5</span>
+                  <span className="text-xs sm:text-sm font-medium">0</span>
                 </div>
               </div>
             </CardContent>
@@ -312,43 +312,9 @@ const UserProfile = () => {
             </CardHeader>
             <CardContent className="px-4 sm:px-6">
               <div className="space-y-3 sm:space-y-4">
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 py-3 border-b border-border">
-                  <div className="flex items-start sm:items-center flex-1 min-w-0">
-                    <div className="bg-primary/10 p-1.5 sm:p-2 rounded mr-2 sm:mr-3 flex-shrink-0">
-                      <FileText className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm sm:text-base break-words">Completed Compliance Quick Check</p>
-                      <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">Score: 78%</p>
-                    </div>
-                  </div>
-                  <span className="text-xs text-muted-foreground flex-shrink-0 sm:ml-2">2 days ago</span>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 py-3 border-b border-border">
-                  <div className="flex items-start sm:items-center flex-1 min-w-0">
-                    <div className="bg-primary/10 p-1.5 sm:p-2 rounded mr-2 sm:mr-3 flex-shrink-0">
-                      <Database className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm sm:text-base break-words">Created CUI Data Flow Map</p>
-                      <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">5 nodes, 6 connections</p>
-                    </div>
-                  </div>
-                  <span className="text-xs text-muted-foreground flex-shrink-0 sm:ml-2">1 week ago</span>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 py-3">
-                  <div className="flex items-start sm:items-center flex-1 min-w-0">
-                    <div className="bg-primary/10 p-1.5 sm:p-2 rounded mr-2 sm:mr-3 flex-shrink-0">
-                      <FileCheck className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm sm:text-base break-words">Generated POA&M</p>
-                      <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">8 action items</p>
-                    </div>
-                  </div>
-                  <span className="text-xs text-muted-foreground flex-shrink-0 sm:ml-2">2 weeks ago</span>
+                <div className="text-center py-8 text-muted-foreground">
+                  <p className="text-sm">No recent activity</p>
+                  <p className="text-xs mt-1">Complete assessments and use tools to see activity here</p>
                 </div>
               </div>
             </CardContent>

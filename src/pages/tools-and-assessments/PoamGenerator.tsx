@@ -42,113 +42,10 @@ interface PoamItem {
 }
 
 const PoamGenerator = () => {
-  const [poamItems, setPoamItems] = useState<PoamItem[]>([
-    {
-      id: 'poam-001',
-      controlId: 'AC.L2-3.1.3',
-      weakness: 'CUI flow controls not fully implemented',
-      description: 'Organization lacks comprehensive controls for managing the flow of CUI in accordance with approved authorizations.',
-      priority: 'high',
-      status: 'in_progress',
-      plannedActions: [
-        'Implement data loss prevention (DLP) solution',
-        'Configure network segmentation for CUI systems',
-        'Develop CUI handling procedures',
-        'Train staff on CUI flow requirements'
-      ],
-      responsibleParty: 'IT Security Manager',
-      targetDate: '2024-03-15',
-      estimatedCost: 75000,
-      businessImpact: 'Medium - Potential compliance violations',
-      milestones: [
-        {
-          description: 'DLP solution procurement and installation',
-          targetDate: '2024-02-01',
-          status: 'complete'
-        },
-        {
-          description: 'Network segmentation implementation',
-          targetDate: '2024-02-28',
-          status: 'pending'
-        },
-        {
-          description: 'Staff training completion',
-          targetDate: '2024-03-15',
-          status: 'pending'
-        }
-      ]
-    },
-    {
-      id: 'poam-002',
-      controlId: 'IA.L2-3.5.3',
-      weakness: 'Multifactor authentication not implemented for all accounts',
-      description: 'MFA is not consistently implemented for all user accounts accessing CUI systems.',
-      priority: 'critical',
-      status: 'open',
-      plannedActions: [
-        'Deploy MFA solution organization-wide',
-        'Configure MFA for all user accounts',
-        'Implement MFA bypass procedures for emergencies',
-        'Update access control policies'
-      ],
-      responsibleParty: 'Identity Management Team',
-      targetDate: '2024-02-15',
-      estimatedCost: 45000,
-      businessImpact: 'High - Critical security vulnerability',
-      milestones: [
-        {
-          description: 'MFA solution selection and procurement',
-          targetDate: '2024-01-15',
-          status: 'pending'
-        },
-        {
-          description: 'Pilot deployment and testing',
-          targetDate: '2024-01-31',
-          status: 'pending'
-        },
-        {
-          description: 'Full organization rollout',
-          targetDate: '2024-02-15',
-          status: 'pending'
-        }
-      ]
-    },
-    {
-      id: 'poam-003',
-      controlId: 'SI.L2-3.14.1',
-      weakness: 'Vulnerability scanning not performed regularly',
-      description: 'Organization does not conduct regular vulnerability scans of CUI systems as required.',
-      priority: 'medium',
-      status: 'open',
-      plannedActions: [
-        'Implement automated vulnerability scanning solution',
-        'Establish scanning schedule and procedures',
-        'Develop vulnerability remediation process',
-        'Create vulnerability management dashboard'
-      ],
-      responsibleParty: 'Security Operations Team',
-      targetDate: '2024-04-30',
-      estimatedCost: 25000,
-      businessImpact: 'Medium - Undetected vulnerabilities may persist',
-      milestones: [
-        {
-          description: 'Vulnerability scanner deployment',
-          targetDate: '2024-03-01',
-          status: 'pending'
-        },
-        {
-          description: 'Process documentation and training',
-          targetDate: '2024-04-15',
-          status: 'pending'
-        },
-        {
-          description: 'Full operational capability',
-          targetDate: '2024-04-30',
-          status: 'pending'
-        }
-      ]
-    }
-  ]);
+  const [poamItems, setPoamItems] = useState<PoamItem[]>(() => {
+    const saved = secureStorage.getItem<PoamItem[]>('poam_items');
+    return saved || [];
+  });
 
   const [selectedItem, setSelectedItem] = useState<string | null>(() => 
     secureStorage.getItem('poam_selected', null)
@@ -157,7 +54,9 @@ const PoamGenerator = () => {
   
   // Auto-save POAM items
   useEffect(() => {
-    secureStorage.setItem('poam_items', poamItems);
+    if (poamItems.length > 0) {
+      secureStorage.setItem('poam_items', poamItems);
+    }
   }, [poamItems]);
 
   useEffect(() => {
@@ -184,7 +83,7 @@ const PoamGenerator = () => {
           title: 'Plan of Action and Milestones (POA&M)',
           created: new Date().toISOString(),
           version: '1.0',
-          organization: 'Sample Organization',
+          organization: '',
           framework: 'NIST SP 800-171',
           totalItems: poamItems.length,
           totalCost: poamItems.reduce((sum, item) => sum + item.estimatedCost, 0)
