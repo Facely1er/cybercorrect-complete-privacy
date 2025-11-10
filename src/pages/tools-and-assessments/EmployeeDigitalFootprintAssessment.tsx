@@ -319,7 +319,7 @@ const EmployeeDigitalFootprintAssessment = () => {
         toast.success('Export successful', 'CSV report downloaded');
       } else if (format === 'pdf') {
         // PDF export would use jsPDF similar to SSP generator
-        toast.info('PDF export', 'PDF export functionality coming soon');
+        toast.info('PDF Export', 'PDF export functionality is currently under development. You can export your employee digital footprint assessment data using the Word export option available in the export menu.');
       }
     } catch (error) {
       console.error('Export failed:', error);

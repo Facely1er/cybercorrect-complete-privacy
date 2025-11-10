@@ -37,9 +37,12 @@ serve(async (req) => {
     // Verify webhook signature (in production, use Stripe SDK)
     // For now, we'll skip verification in development
     if (import.meta.env.PROD && stripeWebhookSecret) {
-      // TODO: Implement Stripe webhook signature verification
+      // Note: Stripe webhook signature verification should be implemented using the Stripe SDK
+      // Example implementation:
       // const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') ?? '');
       // const event = stripe.webhooks.constructEvent(body, signature, stripeWebhookSecret);
+      // This ensures webhook requests are authentic and prevents unauthorized access
+      console.warn('Stripe webhook signature verification not yet implemented. This should be added for production security.');
     }
 
     // Parse webhook event
