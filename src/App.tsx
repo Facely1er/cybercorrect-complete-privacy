@@ -214,6 +214,9 @@ const App: React.FC = () => {
                     <Route path="cookies" element={<Cookies />} />
                     <Route path="acceptable-use" element={<AcceptableUse />} />
                     
+                    {/* Compliance Redirect */}
+                    <Route path="compliance" element={<Navigate to="/dashboard/compliance-health" replace />} />
+                    
                     {/* Assessment Hub */}
                     <Route path="assessment-hub" element={
                       <Suspense fallback={<LoadingSpinner />}>
