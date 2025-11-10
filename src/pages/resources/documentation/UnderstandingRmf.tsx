@@ -17,7 +17,8 @@ import {
   Lock,
   Settings,
   Users,
-  Layers
+  Layers,
+  Download
 } from 'lucide-react';
 
 const UnderstandingRmf = () => {
@@ -619,7 +620,211 @@ const UnderstandingRmf = () => {
                     <span>Plan of Action & Milestones (POA&M) Template</span>
                   </li>
                 </ul>
-                <Button variant="outline" className="w-full">
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={() => {
+                    const templates = `RMF (RISK MANAGEMENT FRAMEWORK) TEMPLATES
+
+================================================================================
+1. SYSTEM SECURITY PLAN (SSP) TEMPLATE
+================================================================================
+
+SYSTEM INFORMATION
+- System Name: 
+- System Owner: 
+- System Categorization: [ ] Low [ ] Medium [ ] High
+- Date: 
+
+SYSTEM DESCRIPTION
+- Purpose: 
+- System boundaries: 
+- System environment: 
+- Architecture: 
+
+CONTROL IMPLEMENTATION
+For each control, document:
+- Control ID: 
+- Control Name: 
+- Implementation Status: [ ] Implemented [ ] Partially Implemented [ ] Planned [ ] Alternative
+- Implementation Description: 
+- Responsible Party: 
+- Testing/Verification: 
+
+CONTINUOUS MONITORING
+- Monitoring Strategy: 
+- Frequency: 
+- Responsible Party: 
+- Tools/Methods: 
+
+APPROVAL
+- Author: 
+- Date: 
+- Approver: 
+- Approval Date: 
+
+================================================================================
+2. SECURITY ASSESSMENT REPORT (SAR) TEMPLATE
+================================================================================
+
+ASSESSMENT INFORMATION
+- System Name: 
+- Assessment Date: 
+- Assessor: 
+- Assessment Type: [ ] Initial [ ] Ongoing [ ] Reassessment
+
+ASSESSMENT SCOPE
+- Controls Assessed: 
+- Assessment Method: 
+- Tools Used: 
+
+FINDINGS
+For each control assessed:
+- Control ID: 
+- Control Name: 
+- Assessment Result: [ ] Satisfied [ ] Other than Satisfied [ ] Not Applicable
+- Findings: 
+- Risk Level: [ ] Low [ ] Medium [ ] High
+- Recommendations: 
+
+OVERALL ASSESSMENT
+- Overall Risk: [ ] Low [ ] Medium [ ] High
+- Summary of Findings: 
+- Key Recommendations: 
+- Next Assessment Date: 
+
+APPROVAL
+- Assessor Signature: 
+- Date: 
+- System Owner Acknowledgment: 
+- Date: 
+
+================================================================================
+3. RISK ASSESSMENT REPORT TEMPLATE
+================================================================================
+
+RISK ASSESSMENT INFORMATION
+- System Name: 
+- Assessment Date: 
+- Assessor: 
+- Risk Assessment Type: 
+
+THREATS IDENTIFIED
+For each threat:
+- Threat ID: 
+- Threat Description: 
+- Threat Source: 
+- Likelihood: [ ] Low [ ] Medium [ ] High
+- Impact: [ ] Low [ ] Medium [ ] High
+- Risk Level: [ ] Low [ ] Medium [ ] High
+
+VULNERABILITIES IDENTIFIED
+For each vulnerability:
+- Vulnerability ID: 
+- Vulnerability Description: 
+- Affected Controls: 
+- Exploitability: [ ] Low [ ] Medium [ ] High
+- Impact: [ ] Low [ ] Medium [ ] High
+
+RISK ANALYSIS
+- Risk ID: 
+- Risk Description: 
+- Likelihood: [ ] Low [ ] Medium [ ] High
+- Impact: [ ] Low [ ] Medium [ ] High
+- Risk Level: [ ] Low [ ] Medium [ ] High
+- Affected Assets: 
+- Current Controls: 
+
+RISK RESPONSE
+- Risk ID: 
+- Response Strategy: [ ] Accept [ ] Mitigate [ ] Transfer [ ] Avoid
+- Mitigation Measures: 
+- Residual Risk: [ ] Low [ ] Medium [ ] High
+- Responsible Party: 
+- Target Date: 
+
+OVERALL RISK SUMMARY
+- Total Risks Identified: 
+- High Risks: 
+- Medium Risks: 
+- Low Risks: 
+- Overall Risk Posture: 
+
+APPROVAL
+- Assessor: 
+- Date: 
+- Risk Owner: 
+- Date: 
+
+================================================================================
+4. PLAN OF ACTION & MILESTONES (POA&M) TEMPLATE
+================================================================================
+
+POA&M INFORMATION
+- System Name: 
+- POA&M ID: 
+- Date Created: 
+- Last Updated: 
+
+FINDING/RISK INFORMATION
+- Finding/Risk ID: 
+- Description: 
+- Source: [ ] Security Assessment [ ] Risk Assessment [ ] Continuous Monitoring [ ] Other
+- Risk Level: [ ] Low [ ] Medium [ ] High
+- Affected Controls: 
+
+PLANNED REMEDIATION
+- Remediation Strategy: 
+- Planned Start Date: 
+- Planned Completion Date: 
+- Resources Required: 
+- Estimated Cost: 
+
+MILESTONES
+- Milestone 1: 
+  - Description: 
+  - Target Date: 
+  - Status: [ ] Not Started [ ] In Progress [ ] Completed
+- Milestone 2: 
+  - Description: 
+  - Target Date: 
+  - Status: [ ] Not Started [ ] In Progress [ ] Completed
+- Milestone 3: 
+  - Description: 
+  - Target Date: 
+  - Status: [ ] Not Started [ ] In Progress [ ] Completed
+
+RESPONSIBILITY
+- Responsible Party: 
+- Contact Information: 
+- Supporting Resources: 
+
+STATUS TRACKING
+- Current Status: [ ] Not Started [ ] In Progress [ ] Completed [ ] On Hold
+- Progress Notes: 
+- Last Status Update: 
+- Next Review Date: 
+
+APPROVAL
+- System Owner: 
+- Date: 
+- Authorizing Official: 
+- Date: 
+
+================================================================================
+END OF TEMPLATES
+================================================================================
+`;
+
+                    const blob = new Blob([templates], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `RMF-Templates-${new Date().toISOString().split('T')[0]}.txt`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                >
                   <Download className="mr-2 h-4 w-4" />
                   Download Templates
                 </Button>

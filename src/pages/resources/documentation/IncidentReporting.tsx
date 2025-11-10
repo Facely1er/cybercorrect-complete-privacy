@@ -54,7 +54,11 @@ const IncidentReporting = () => {
                   <span>Multi-jurisdiction compliance</span>
                 </li>
               </ul>
-              <Button variant="outline" className="w-full">
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => navigate('/documentation/breach-response-guide')}
+              >
                 View Requirements
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -82,7 +86,139 @@ const IncidentReporting = () => {
                   <span>Internal documentation forms</span>
                 </li>
               </ul>
-              <Button variant="outline" className="w-full">
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => {
+                  const templates = `PRIVACY INCIDENT REPORTING TEMPLATES
+
+================================================================================
+1. REGULATORY AUTHORITY NOTIFICATION TEMPLATE (GDPR Article 33)
+================================================================================
+
+To: [Supervisory Authority Name]
+Date: _____________________________
+Reference Number: _____________________________
+
+NOTIFICATION OF PERSONAL DATA BREACH
+
+1. NATURE OF THE BREACH
+   - Description of the breach:
+   - Categories and approximate number of data subjects concerned:
+   - Categories and approximate number of personal data records concerned:
+
+2. LIKELY CONSEQUENCES
+   - Description of likely consequences of the breach:
+   - Potential harm to data subjects:
+
+3. MEASURES PROPOSED OR TAKEN
+   - Measures to address the breach:
+   - Measures to mitigate possible adverse effects:
+   - Additional information:
+
+4. CONTACT INFORMATION
+   - Data Protection Officer (if designated):
+   - Contact person:
+   - Phone:
+   - Email:
+
+Signature: _____________________________
+Date: _____________________________
+
+================================================================================
+2. INDIVIDUAL NOTIFICATION TEMPLATE (GDPR Article 34)
+================================================================================
+
+Subject: Notification of Personal Data Breach
+
+Dear [Data Subject Name],
+
+We are writing to inform you of a personal data breach that may affect your personal information.
+
+INCIDENT DETAILS
+- Date of breach: 
+- Nature of breach: 
+- Personal data affected: 
+
+WHAT WE ARE DOING
+- Immediate actions taken:
+- Measures to address the breach:
+- Steps to prevent future occurrences:
+
+WHAT YOU CAN DO
+- Recommended actions:
+- How to protect yourself:
+
+CONTACT INFORMATION
+If you have questions or concerns, please contact us at:
+- Email: 
+- Phone: 
+- Address: 
+
+We sincerely apologize for any inconvenience this may cause.
+
+Sincerely,
+[Organization Name]
+
+================================================================================
+3. INTERNAL INCIDENT DOCUMENTATION FORM
+================================================================================
+
+INCIDENT ID: _____________________________
+DATE DISCOVERED: _____________________________
+REPORTED BY: _____________________________
+
+1. INCIDENT DESCRIPTION
+   - What happened:
+   - When did it occur:
+   - Where did it occur:
+   - Who discovered it:
+
+2. DATA AFFECTED
+   - Types of personal data:
+   - Number of records:
+   - Number of individuals:
+   - Special categories of data (if applicable):
+
+3. CAUSE ANALYSIS
+   - Root cause:
+   - Contributing factors:
+   - System/process involved:
+
+4. IMPACT ASSESSMENT
+   - Severity level: [ ] Low [ ] Medium [ ] High
+   - Likelihood of harm: [ ] Low [ ] Medium [ ] High
+   - Potential consequences:
+
+5. RESPONSE ACTIONS
+   - Immediate containment:
+   - Investigation steps:
+   - Remediation measures:
+
+6. NOTIFICATIONS
+   - Supervisory authority notified: [ ] Yes [ ] No
+   - Date notified: 
+   - Individuals notified: [ ] Yes [ ] No
+   - Date notified: 
+
+7. FOLLOW-UP
+   - Preventive measures:
+   - Review date:
+   - Lessons learned:
+
+APPROVED BY: _____________________________
+DATE: _____________________________
+`;
+
+                  const blob = new Blob([templates], { type: 'text/plain' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `Privacy-Incident-Reporting-Templates-${new Date().toISOString().split('T')[0]}.txt`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+              >
                 Download Templates
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -96,7 +232,10 @@ const IncidentReporting = () => {
             Get prepared with comprehensive incident response documentation
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg">
+            <Button 
+              size="lg"
+              onClick={() => navigate('/toolkit/incident-response-manager')}
+            >
               Access Incident Response Kit
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>

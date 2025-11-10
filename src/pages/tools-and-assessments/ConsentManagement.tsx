@@ -525,11 +525,87 @@ const ConsentManagement = () => {
                       Required under {type.regulation}
                     </p>
                     <div className="space-y-2">
-                      <Button variant="outline" size="sm" className="w-full">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="w-full"
+                        onClick={() => {
+                          const template = `${type.name.toUpperCase()} CONSENT FORM TEMPLATE
+Required under: ${type.regulation}
+
+================================================================================
+CONSENT FORM FOR: ${type.name}
+================================================================================
+
+ORGANIZATION INFORMATION
+- Organization Name: 
+- Contact Information: 
+- Data Protection Officer (if applicable): 
+
+CONSENT DETAILS
+- Consent Type: ${type.name}
+- Purpose of Processing: 
+- Data Categories: 
+- Data Recipients: 
+- Data Retention Period: 
+- International Transfers: [ ] Yes [ ] No
+  If yes, safeguards: 
+
+YOUR RIGHTS
+You have the right to:
+- Withdraw consent at any time
+- Access your personal data
+- Rectify inaccurate data
+- Erase your data (right to be forgotten)
+- Restrict processing
+- Data portability
+- Object to processing
+- Lodge a complaint with supervisory authority
+
+CONSENT STATEMENT
+I, [Name], hereby provide my consent for [Organization Name] to process my personal data 
+for the purposes described above.
+
+[ ] I consent to the processing of my personal data as described
+[ ] I understand I can withdraw my consent at any time
+[ ] I have been informed of my rights regarding my personal data
+
+SIGNATURE
+- Name: 
+- Signature: 
+- Date: 
+
+WITHDRAWAL OF CONSENT
+If you wish to withdraw your consent, please contact us at:
+- Email: 
+- Phone: 
+- Address: 
+
+================================================================================
+END OF TEMPLATE
+================================================================================
+`;
+
+                          const blob = new Blob([template], { type: 'text/plain' });
+                          const url = URL.createObjectURL(blob);
+                          const a = document.createElement('a');
+                          a.href = url;
+                          a.download = `${type.name.replace(/\s+/g, '-')}-Consent-Template-${new Date().toISOString().split('T')[0]}.txt`;
+                          a.click();
+                          URL.revokeObjectURL(url);
+                        }}
+                      >
                         <Download className="h-4 w-4 mr-2" />
                         Download Template
                       </Button>
-                      <Button variant="outline" size="sm" className="w-full">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="w-full"
+                        onClick={() => {
+                          toast.info("Preview", `Preview functionality for ${type.name} consent form coming soon`);
+                        }}
+                      >
                         <Eye className="h-4 w-4 mr-2" />
                         Preview Form
                       </Button>
