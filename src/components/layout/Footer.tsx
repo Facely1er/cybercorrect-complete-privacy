@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
     <footer className="bg-surface border-t border-support-gray dark:bg-dark-surface dark:border-dark-support">
       <div className="container mx-auto px-6">
         {/* Main Footer Content - Reduced to 2 rows */}
-        <div className="py-8 flex flex-col md:flex-row gap-8">
+        <div className="py-4 flex flex-col md:flex-row gap-8">
           {/* Company Info - Left column */}
           <div className="md:w-1/3">
             <Link to="/" className="flex items-center">
@@ -84,6 +84,7 @@ const Footer: React.FC = () => {
                   <li><Link to="/guides" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><BookOpen className="h-3.5 w-3.5 mr-1.5" />Guides</Link></li>
                   <li><Link to="/documentation/faqs" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><FileQuestion className="h-3.5 w-3.5 mr-1.5" />FAQs</Link></li>
                   <li><Link to="/support" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><HelpCircle className="h-3.5 w-3.5 mr-1.5" />Support</Link></li>
+                  <li><Link to="/pricing" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><CircleDollarSign className="h-3.5 w-3.5 mr-1.5" />Pricing</Link></li>
                 </ul>
               </div>
               
@@ -92,7 +93,6 @@ const Footer: React.FC = () => {
                 <h3 className="text-base font-medium mb-3 text-foreground dark:text-dark-text">Company</h3>
                 <ul className="space-y-2 text-sm">
                   <li><Link to="/about" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Info className="h-3.5 w-3.5 mr-1.5" />About</Link></li>
-                  <li><Link to="/pricing" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><CircleDollarSign className="h-3.5 w-3.5 mr-1.5" />Pricing</Link></li>
                   <li><Link to="/privacy" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Shield className="h-3.5 w-3.5 mr-1.5" />Privacy Policy</Link></li>
                   <li><Link to="/terms" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Lock className="h-3.5 w-3.5 mr-1.5" />Terms of Service</Link></li>
                   <li><Link to="/cookies" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><FileText className="h-3.5 w-3.5 mr-1.5" />Cookie Policy</Link></li>
@@ -104,7 +104,7 @@ const Footer: React.FC = () => {
         </div>
         
         {/* Footer Bottom - Copyright & Legal */}
-        <div className="py-4 border-t border-support-gray dark:border-dark-support flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+        <div className="py-2 border-t border-support-gray dark:border-dark-support flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
           <p className="text-muted-foreground">
             &copy; {currentYear} ERMITS LLC. All rights reserved.
           </p>
