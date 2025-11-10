@@ -204,7 +204,7 @@ Generated: ${new Date().toLocaleDateString()}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <h4 className="font-semibold text-foreground">Who Must Maintain Records:</h4>
+                  <h4 className="font-semibold text-foreground mb-2">Who Must Maintain Records:</h4>
                   <ul className="space-y-1 text-sm text-muted-foreground">
                     <li>• Organizations with 250+ employees</li>
                     <li>• Organizations processing high-risk data</li>
@@ -213,7 +213,7 @@ Generated: ${new Date().toLocaleDateString()}
                   </ul>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="font-semibold text-foreground">Record Requirements:</h4>
+                  <h4 className="font-semibold text-foreground mb-2">Record Requirements:</h4>
                   <ul className="space-y-1 text-sm text-muted-foreground">
                     <li>• Must be in writing (electronic form acceptable)</li>
                     <li>• Must be available to supervisory authority</li>

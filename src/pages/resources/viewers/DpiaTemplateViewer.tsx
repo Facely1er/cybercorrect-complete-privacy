@@ -192,7 +192,7 @@ This template should be customized based on your specific processing activities 
                     <div className="flex items-start space-x-3">
                       <item.icon className={`h-6 w-6 ${item.color} mt-1`} />
                       <div>
-                        <h4 className="font-semibold text-foreground mb-1">{item.section}</h4>
+                        <h4 className="font-semibold text-foreground mb-2">{item.section}</h4>
                         <p className="text-sm text-muted-foreground">{item.description}</p>
                       </div>
                     </div>
@@ -204,7 +204,7 @@ This template should be customized based on your specific processing activities 
             {/* Usage Instructions */}
             <Card className="bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800">
               <CardContent className="p-6">
-                <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-3">How to Use This Template</h3>
+                <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">How to Use This Template</h3>
                 <div className="space-y-2 text-sm text-blue-700 dark:text-blue-300">
                   <p>• Download the template and customize it for your specific processing activities</p>
                   <p>• Complete each section thoroughly, providing detailed information</p>
