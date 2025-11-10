@@ -430,7 +430,7 @@ const PrivacyFrameworkGuide = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
-                  onClick={() => navigate('/tools-and-assessments/privacy-assessment')}
+                  onClick={() => navigate('/assessments/privacy-assessment')}
                   className="flex items-center"
                 >
                   Start Privacy Assessment
@@ -438,7 +438,7 @@ const PrivacyFrameworkGuide = () => {
                 </Button>
                 <Button 
                   variant="outline"
-                  onClick={() => navigate('/tools-and-assessments/gdpr-mapper')}
+                  onClick={() => navigate('/toolkit/gdpr-mapper')}
                   className="flex items-center"
                 >
                   GDPR Mapper Tool

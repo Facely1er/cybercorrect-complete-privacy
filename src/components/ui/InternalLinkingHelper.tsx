@@ -93,7 +93,7 @@ export const RelatedContent: React.FC<RelatedContentProps> = ({
         { title: 'DPIA Generator', href: '/toolkit/dpia-generator', description: 'Generate impact assessments', category: 'Documentation' },
         { title: 'Privacy Policy Generator', href: '/toolkit/privacy-policy-generator', description: 'Create compliant privacy policies', category: 'Documentation' },
         { title: 'Privacy Gap Analyzer', href: '/toolkit/privacy-gap-analyzer', description: 'Identify privacy compliance gaps', category: 'Analysis' },
-        { title: 'Security Results', href: '/security-results', description: 'View assessment results', category: 'Results' },
+        { title: 'Privacy Results', href: '/privacy-results', description: 'View assessment results', category: 'Results' },
         { title: 'Documentation Guide', href: '/documentation', description: 'Implementation documentation', category: 'Resources' }
       ],
       '/toolkit/gdpr-mapper': [

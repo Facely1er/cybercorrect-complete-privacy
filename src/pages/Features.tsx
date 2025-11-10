@@ -127,7 +127,7 @@ const Features = () => {
           description: 'Centralized repository for compliance evidence and documentation',
           benefits: ['Organized storage', 'Audit-ready reports', 'Version tracking', 'Secure sharing'],
           stats: 'Audit ready',
-          link: '/app/document-vault'
+          link: '/project/evidence'
         },
         {
           icon: Users,
