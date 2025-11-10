@@ -605,7 +605,7 @@ END OF TEMPLATE
                         size="sm" 
                         className="w-full"
                         onClick={() => {
-                          toast.info("Preview", `Preview functionality for ${type.name} consent form coming soon`);
+                          toast.info("Preview Consent Form", `Preview functionality for ${type.name} consent forms is currently under development. This feature will allow you to preview how consent forms will appear to users before publishing.`);
                         }}
                       >
                         <Eye className="h-4 w-4 mr-2" />

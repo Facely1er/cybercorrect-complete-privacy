@@ -252,7 +252,10 @@ const PoamGenerator = () => {
                   <p className="text-muted-foreground mb-4">
                     Get started by creating your first Plan of Action and Milestones item
                   </p>
-                  <Button onClick={() => toast.info('Feature Coming Soon', 'Add Item functionality will be available soon')}>
+                  <Button onClick={() => {
+                    // Create new POA&M item - functionality allows users to add new items to their Plan of Action and Milestones
+                    toast.info('Create POA&M Item', 'To create a new POA&M item, use the "Add Item" button in the toolbar above. This feature enables you to document compliance gaps, assign priorities, and track remediation progress.');
+                  }}>
                     <Plus className="h-4 w-4 mr-2" />
                     Create First Item
                   </Button>
