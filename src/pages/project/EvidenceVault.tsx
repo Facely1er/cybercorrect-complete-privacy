@@ -24,6 +24,7 @@ import {
 import { Link } from 'react-router-dom';
 import { toast } from '../../components/ui/Toaster';
 import { generateEvidencePdf, EvidenceItem as EvidenceItemType } from '../../utils/generateEvidencePdf';
+import { secureStorage } from '../../utils/secureStorage';
 
 interface EvidenceItem {
   id: string;
@@ -73,96 +74,17 @@ const EvidenceVault = () => {
     };
   }, [showExportMenu]);
 
-  // Sample evidence items for privacy compliance
-  const evidenceItems: EvidenceItem[] = [
-    {
-      id: 'ev001',
-      name: 'Privacy Assessment Report v1.0',
-      type: 'assessment',
-      category: 'Foundation Documents',
-      description: 'Comprehensive privacy assessment against NIST Privacy Framework',
-      uploadDate: '2024-01-20',
-      lastModified: '2024-01-20',
-      uploadedBy: 'Data Protection Officer',
-      fileSize: '2.4 MB',
-      tags: ['NIST', 'Assessment', 'Baseline'],
-      linkedTasks: ['1.1.1', '1.1.2'],
-      complianceFrameworks: ['NIST Privacy Framework', 'GDPR', 'CCPA'],
-      auditTrail: [
-        { action: 'Document uploaded', user: 'DPO', timestamp: '2024-01-20 10:30' },
-        { action: 'Document approved', user: 'Legal Counsel', timestamp: '2024-01-20 14:15' }
-      ]
-    },
-    {
-      id: 'ev002',
-      name: 'GDPR Data Processing Inventory',
-      type: 'technical',
-      category: 'Data Management',
-      description: 'Complete inventory of personal data processing activities under GDPR Article 30',
-      uploadDate: '2024-01-25',
-      lastModified: '2024-01-28',
-      uploadedBy: 'Data Steward',
-      fileSize: '1.8 MB',
-      tags: ['GDPR', 'Article 30', 'Data Inventory'],
-      linkedTasks: ['1.2.1', '1.2.3'],
-      complianceFrameworks: ['GDPR'],
-      auditTrail: [
-        { action: 'Document created', user: 'Data Steward', timestamp: '2024-01-25 09:00' },
-        { action: 'Document updated', user: 'Data Steward', timestamp: '2024-01-28 16:45' }
-      ]
-    },
-    {
-      id: 'ev003',
-      name: 'Privacy Policy v2.1',
-      type: 'policy',
-      category: 'Governance',
-      description: 'Updated privacy policy compliant with GDPR, CCPA, and NIST Privacy Framework',
-      uploadDate: '2024-02-01',
-      lastModified: '2024-02-01',
-      uploadedBy: 'Legal Counsel',
-      fileSize: '856 KB',
-      tags: ['Policy', 'GDPR', 'CCPA', 'Public'],
-      linkedTasks: ['2.1.1', '2.1.2'],
-      complianceFrameworks: ['GDPR', 'CCPA', 'NIST Privacy Framework'],
-      auditTrail: [
-        { action: 'Document uploaded', user: 'Legal Counsel', timestamp: '2024-02-01 11:20' }
-      ]
-    },
-    {
-      id: 'ev004',
-      name: 'Data Subject Rights Procedures',
-      type: 'procedure',
-      category: 'Rights Management',
-      description: 'Detailed procedures for handling data subject requests (access, rectification, deletion)',
-      uploadDate: '2024-02-05',
-      lastModified: '2024-02-05',
-      uploadedBy: 'Data Protection Officer',
-      fileSize: '1.2 MB',
-      tags: ['Rights', 'GDPR', 'Procedures'],
-      linkedTasks: ['2.2.1'],
-      complianceFrameworks: ['GDPR', 'CCPA'],
-      auditTrail: [
-        { action: 'Document created', user: 'DPO', timestamp: '2024-02-05 14:30' }
-      ]
-    },
-    {
-      id: 'ev005',
-      name: 'Privacy Training Materials',
-      type: 'training',
-      category: 'Awareness',
-      description: 'Comprehensive privacy training materials for all staff levels',
-      uploadDate: '2024-02-08',
-      lastModified: '2024-02-08',
-      uploadedBy: 'Business Analyst',
-      fileSize: '3.1 MB',
-      tags: ['Training', 'Awareness', 'Staff'],
-      linkedTasks: ['2.3.1'],
-      complianceFrameworks: ['GDPR', 'NIST Privacy Framework'],
-      auditTrail: [
-        { action: 'Document uploaded', user: 'Business Analyst', timestamp: '2024-02-08 13:15' }
-      ]
+  const [evidenceItems, setEvidenceItems] = useState<EvidenceItem[]>(() => {
+    const saved = secureStorage.getItem<EvidenceItem[]>('evidence_items');
+    return saved || [];
+  });
+
+  // Auto-save evidence items
+  useEffect(() => {
+    if (evidenceItems.length > 0) {
+      secureStorage.setItem('evidence_items', evidenceItems);
     }
-  ];
+  }, [evidenceItems]);
 
   const evidenceTypes = [
     { key: 'all', name: 'All Evidence', icon: Database },
@@ -356,8 +278,8 @@ const EvidenceVault = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Storage Used</p>
-                <p className="text-3xl font-bold text-purple-600">8.3</p>
-                <p className="text-xs text-muted-foreground">GB</p>
+                <p className="text-3xl font-bold text-purple-600">0</p>
+                <p className="text-xs text-muted-foreground">MB</p>
               </div>
               <Database className="h-8 w-8 text-purple-600" />
             </div>

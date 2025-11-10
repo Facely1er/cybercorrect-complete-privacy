@@ -37,41 +37,7 @@ interface ProcessingActivity {
 const GdprMapper = () => {
   const [activities, setActivities] = useState<ProcessingActivity[]>(() => {
     const saved = secureStorage.getItem<ProcessingActivity[]>('gdpr_activities');
-    return saved || [
-      {
-        id: 'activity-1',
-        name: 'Customer Registration',
-        purpose: 'User account creation and management',
-        legalBasis: 'Contract',
-        dataTypes: ['Name', 'Email', 'Phone'],
-        dataSubjects: ['Customers', 'Prospects'],
-        recipients: ['Internal Staff', 'Payment Processor'],
-        retentionPeriod: '7 years',
-        riskLevel: 'medium'
-      },
-      {
-        id: 'activity-2',
-        name: 'Marketing Communications',
-        purpose: 'Direct marketing and promotional activities',
-        legalBasis: 'Consent',
-        dataTypes: ['Email', 'Preferences', 'Behavior Data'],
-        dataSubjects: ['Customers', 'Newsletter Subscribers'],
-        recipients: ['Marketing Team', 'Email Service Provider'],
-        retentionPeriod: '2 years or until consent withdrawn',
-        riskLevel: 'low'
-      },
-      {
-        id: 'activity-3',
-        name: 'Employee HR Management',
-        purpose: 'Human resources administration',
-        legalBasis: 'Legal Obligation',
-        dataTypes: ['Personal Details', 'Employment History', 'Performance Data'],
-        dataSubjects: ['Employees', 'Job Applicants'],
-        recipients: ['HR Department', 'Payroll Provider'],
-        retentionPeriod: '6 years after employment ends',
-        riskLevel: 'high'
-      }
-    ];
+    return saved || [];
   });
 
   const [selectedActivity, setSelectedActivity] = useState<string | null>(() => 
@@ -113,7 +79,7 @@ const GdprMapper = () => {
         title: 'GDPR Data Processing Mapping',
         created: new Date().toISOString(),
         version: '1.0',
-        organization: 'Sample Organization'
+        organization: ''
       },
       processingActivities: activities,
       compliance: {

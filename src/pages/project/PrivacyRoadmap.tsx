@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { useProject } from '../../context/ProjectContext';
+import { secureStorage } from '../../utils/secureStorage';
 import { 
   Calendar, 
   CheckCircle, 
@@ -49,108 +50,17 @@ const PrivacyRoadmap = () => {
     );
   }
 
-  // Sample roadmap data based on privacy compliance requirements
-  const roadmapPhases = [
-    {
-      id: 'foundation',
-      name: 'Privacy Foundation',
-      duration: '4-6 weeks',
-      status: 'in_progress',
-      milestones: [
-        { name: 'Privacy Assessment Complete', date: '2024-02-15', status: 'completed' },
-        { name: 'Data Inventory Complete', date: '2024-02-28', status: 'in_progress' },
-        { name: 'Legal Basis Mapping', date: '2024-03-05', status: 'pending' }
-      ],
-      deliverables: [
-        'Privacy Assessment Report',
-        'Data Processing Inventory',
-        'Legal Basis Documentation',
-        'Initial Risk Assessment'
-      ],
-      keyActivities: [
-        'Conduct comprehensive privacy assessment',
-        'Map all data processing activities',
-        'Document legal basis for each processing activity',
-        'Identify high-risk processing requiring DPIA'
-      ]
-    },
-    {
-      id: 'governance',
-      name: 'Privacy Governance',
-      duration: '3-4 weeks',
-      status: 'pending',
-      milestones: [
-        { name: 'Privacy Policy Framework', date: '2024-03-15', status: 'pending' },
-        { name: 'Governance Structure', date: '2024-03-22', status: 'pending' },
-        { name: 'Training Program Launch', date: '2024-03-30', status: 'pending' }
-      ],
-      deliverables: [
-        'Privacy Management Framework',
-        'Privacy Policies and Procedures',
-        'Governance Structure Documentation',
-        'Privacy Training Materials'
-      ],
-      keyActivities: [
-        'Establish privacy governance structure',
-        'Develop privacy policies and procedures',
-        'Create privacy training program',
-        'Implement privacy management processes'
-      ]
-    },
-    {
-      id: 'controls',
-      name: 'Privacy Controls',
-      duration: '6-8 weeks',
-      status: 'pending',
-      milestones: [
-        { name: 'Technical Controls Implementation', date: '2024-04-15', status: 'pending' },
-        { name: 'Process Controls Documentation', date: '2024-04-30', status: 'pending' },
-        { name: 'Data Subject Rights Portal', date: '2024-05-10', status: 'pending' }
-      ],
-      deliverables: [
-        'Privacy Controls Implementation',
-        'Data Subject Rights Procedures',
-        'Privacy Notice Framework',
-        'Consent Management System',
-        'Vendor Risk Assessments',
-        'Service Provider Agreements',
-        'Retention Policies',
-        'Privacy by Design Assessments'
-      ],
-      keyActivities: [
-        'Implement data protection by design',
-        'Deploy data subject rights management',
-        'Configure privacy notices and consent',
-        'Implement data retention and deletion'
-      ]
-    },
-    {
-      id: 'validation',
-      name: 'Validation & Monitoring',
-      duration: '2-3 weeks',
-      status: 'pending',
-      milestones: [
-        { name: 'Control Testing Complete', date: '2024-05-20', status: 'pending' },
-        { name: 'Evidence Package Ready', date: '2024-05-25', status: 'pending' },
-        { name: 'Monitoring Dashboard Live', date: '2024-05-31', status: 'pending' }
-      ],
-      deliverables: [
-        'Control Validation Report',
-        'Evidence Package',
-        'Monitoring Dashboard',
-        'Compliance Certificate',
-        'Incident Response Plan',
-        'DPIA Management System',
-        'Service Provider Monitoring'
-      ],
-      keyActivities: [
-        'Test privacy control effectiveness',
-        'Compile evidence for audit readiness',
-        'Implement continuous monitoring',
-        'Conduct final compliance review'
-      ]
+  const [roadmapPhases, setRoadmapPhases] = useState<Phase[]>(() => {
+    const saved = secureStorage.getItem<Phase[]>('privacy_roadmap_phases');
+    return saved || [];
+  });
+
+  // Auto-save roadmap phases
+  useEffect(() => {
+    if (roadmapPhases.length > 0) {
+      secureStorage.setItem('privacy_roadmap_phases', roadmapPhases);
     }
-  ];
+  }, [roadmapPhases]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -195,7 +105,7 @@ const PrivacyRoadmap = () => {
   };
 
   const getStartDate = (index: number): Date => {
-    const start = new Date('2024-02-01');
+    const start = new Date();
     let weeksOffset = 0;
     for (let i = 0; i < index; i++) {
       weeksOffset += parseDuration(roadmapPhases[i].duration);
@@ -205,8 +115,9 @@ const PrivacyRoadmap = () => {
   };
 
   const renderGanttChart = () => {
-    const startDate = new Date('2024-02-01');
-    const endDate = new Date('2024-06-01');
+    const startDate = new Date();
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + (roadmapPhases.reduce((sum, phase) => sum + parseDuration(phase.duration), 0) * 7));
     const totalWeeks = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 7));
     
     return (
@@ -449,19 +360,25 @@ const PrivacyRoadmap = () => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">15-20</div>
+              <div className="text-2xl font-bold text-blue-600">
+                {roadmapPhases.reduce((sum, phase) => sum + parseDuration(phase.duration), 0)}
+              </div>
               <div className="text-sm text-muted-foreground">Weeks Duration</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">4</div>
+              <div className="text-2xl font-bold text-green-600">{roadmapPhases.length}</div>
               <div className="text-sm text-muted-foreground">Major Phases</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">12</div>
+              <div className="text-2xl font-bold text-purple-600">
+                {roadmapPhases.reduce((sum, phase) => sum + phase.milestones.length, 0)}
+              </div>
               <div className="text-sm text-muted-foreground">Key Milestones</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">16</div>
+              <div className="text-2xl font-bold text-orange-600">
+                {roadmapPhases.reduce((sum, phase) => sum + phase.deliverables.length, 0)}
+              </div>
               <div className="text-sm text-muted-foreground">Deliverables</div>
             </div>
           </div>

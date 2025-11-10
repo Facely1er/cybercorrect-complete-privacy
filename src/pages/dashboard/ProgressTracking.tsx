@@ -52,30 +52,17 @@ export const ProgressTracking: React.FC = () => {
       const trend90 = await complianceHealthMonitor.getTrends({ period: '90d' });
       setTrend90d(trend90);
 
-      // Load milestones (mock data for now)
-      setMilestones([
-        {
-          id: '1',
-          title: 'Complete Privacy Assessment',
-          targetDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-          status: 'in_progress',
-          progress: 65,
-        },
-        {
-          id: '2',
-          title: 'Implement Critical Controls',
-          targetDate: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
-          status: 'pending',
-          progress: 0,
-        },
-        {
-          id: '3',
-          title: 'Achieve 80% Compliance Score',
-          targetDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
-          status: 'pending',
-          progress: 0,
-        },
-      ]);
+      // Load milestones from storage (empty by default)
+      const savedMilestones = localStorage.getItem('progress_milestones');
+      if (savedMilestones) {
+        try {
+          setMilestones(JSON.parse(savedMilestones));
+        } catch {
+          setMilestones([]);
+        }
+      } else {
+        setMilestones([]);
+      }
     } catch (error) {
       console.error('Failed to load progress data:', error);
       toast.error('Failed to load progress data', 'Please try again');

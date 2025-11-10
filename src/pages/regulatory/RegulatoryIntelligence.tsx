@@ -69,29 +69,7 @@ export const RegulatoryIntelligence: React.FC = () => {
       if (data) {
         setUpdates(data as RegulatoryUpdate[]);
       } else {
-        // Mock data for demonstration
-        setUpdates([
-          {
-            id: '1',
-            framework: 'GDPR',
-            region: 'EU',
-            update_type: 'amendment',
-            title: 'GDPR Enforcement Guidelines Updated',
-            description: 'The European Data Protection Board has updated enforcement guidelines for data breach notifications.',
-            impact_level: 'high',
-            published_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-          },
-          {
-            id: '2',
-            framework: 'CCPA',
-            region: 'US',
-            update_type: 'new_regulation',
-            title: 'New CCPA Amendment Effective',
-            description: 'California Privacy Rights Act (CPRA) amendments take effect, expanding consumer rights.',
-            impact_level: 'critical',
-            published_at: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
-          },
-        ]);
+        setUpdates([]);
       }
     } catch (error) {
       console.error('Failed to load regulatory updates:', error);

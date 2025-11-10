@@ -179,31 +179,19 @@ const ComplianceGapAnalyzer: React.FC = () => {
       return totalWeight > 0 ? Math.round(totalScore / totalWeight) : 0;
     };
 
-    // Use mock data if no assessment results available
-    const mockAssessmentResults = {
-      overallScore: 75,
-      sectionScores: [
-        { title: "Access Control", percentage: 78 },
-        { title: "Configuration Management", percentage: 82 },
-        { title: "Incident Response", percentage: 65 },
-        { title: "System Protection", percentage: 70 }
-      ]
-    };
-    
     const framework = frameworks[selectedFramework];
     if (!framework) return {};
     
     const compliance: Record<string, DomainData> = {};
 
-    // Use assessment results section scores
+    // Use assessment results section scores if available
     framework.domains.forEach((domain) => {
-      const sectionScore = mockAssessmentResults.sectionScores.find(s => 
+      const sectionScore = assessmentResults?.sectionScores?.find(s => 
         s.title.toLowerCase().includes(domain.toLowerCase()) || 
         domain.toLowerCase().includes(s.title.toLowerCase())
       );
       
-      const domainScore = sectionScore ? sectionScore.percentage : 
-        Math.floor(Math.random() * 40) + 50; // Fallback if no match found
+      const domainScore = sectionScore ? sectionScore.percentage : 0;
       
       const controlCount = Math.floor(framework.totalControls / framework.domains.length);
       const controls: Control[] = [];
