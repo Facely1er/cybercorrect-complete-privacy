@@ -64,7 +64,7 @@ const Features = () => {
           title: 'Privacy Impact Assessment',
           description: 'Comprehensive GDPR/CCPA privacy assessment with automated DPIA generation',
           benefits: ['25-minute assessment', 'Multi-regulation coverage', 'Automated risk scoring', 'Custom remediation roadmaps'],
-          stats: '25 min average',
+          stats: '',
           link: '/assessments/privacy-assessment'
         },
         {
@@ -72,7 +72,7 @@ const Features = () => {
           title: 'Data Classification Assessment',
           description: 'Complete data classification and privacy risk evaluation',
           benefits: ['Privacy risk evaluation', 'Compliance scoring', 'Gap identification', 'Implementation guidance'],
-          stats: '30 min average',
+          stats: '',
           link: '/assessments/privacy-assessment'
         },
         {
@@ -80,7 +80,7 @@ const Features = () => {
           title: 'Multi-Framework Assessment',
           description: 'Single assessment mapped to SOC 2, ISO 27001, NIST, and more',
           benefits: ['5+ privacy frameworks', 'Common controls mapping', 'Unified reporting', 'Compliance orchestration'],
-          stats: '45 min average',
+          stats: '',
           link: '/toolkit/privacy-gap-analyzer'
         },
         {
@@ -102,7 +102,7 @@ const Features = () => {
           title: 'DPIA Generator',
           description: 'AI-powered Data Protection Impact Assessment creation',
           benefits: ['Template-based generation', 'Risk assessment integration', 'Multi-language support', 'Regulatory alignment'],
-          stats: '95% faster',
+          stats: '',
           link: '/toolkit/resources/viewers/dpia-template'
         },
         {
@@ -110,7 +110,7 @@ const Features = () => {
           title: 'Policy Generator',
           description: 'Automated policy and procedure generation for multiple frameworks',
           benefits: ['Industry-specific templates', 'Regulatory compliance', 'Version control', 'Approval workflows'],
-          stats: '80% time savings',
+          stats: '',
           link: '/toolkit/privacy-policy-generator'
         },
         {

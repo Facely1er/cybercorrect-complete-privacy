@@ -664,9 +664,6 @@ const ComplianceGapAnalyzer: React.FC = () => {
               <div className="text-right">
                 <div className="text-4xl font-bold text-primary">{overallScore}%</div>
                 <div className="text-sm text-muted-foreground">Overall Compliance</div>
-                <div className="text-xs text-muted-foreground mt-1">
-                  Industry Average: 68%
-                </div>
               </div>
             </div>
           </CardContent>
