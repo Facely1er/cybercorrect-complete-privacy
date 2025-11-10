@@ -20,7 +20,9 @@
     "setup:complete": "tsx scripts/setup-complete.ts",
     "migrate:apply": "supabase db push",
     "migrate:verify": "tsx scripts/verify-supabase-setup.ts",
-    "verify:production": "tsx scripts/verify-production-ready.ts"
+    "verify:migrations": "tsx scripts/verify-migrations-status.ts",
+    "verify:production": "tsx scripts/verify-production-ready.ts",
+    "configure:secrets": "tsx scripts/configure-edge-function-secrets-cli.ts"
   },
   "dependencies": {
     "@sentry/react": "^10.20.0",

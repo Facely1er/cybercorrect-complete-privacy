@@ -85,7 +85,7 @@ const Subscription = () => {
     );
   }
 
-  const limits = SUBSCRIPTION_LIMITS[subscription.tier];
+  const limits = SUBSCRIPTION_LIMITS[subscription.tier] || SUBSCRIPTION_LIMITS.free;
   const isActive = subscription.status === 'active' || subscription.status === 'trialing';
   const isExpired = new Date(subscription.currentPeriodEnd) < new Date();
 

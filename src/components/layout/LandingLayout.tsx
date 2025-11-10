@@ -138,18 +138,6 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
     }
   ];
 
-  // Helper function for page descriptions (for better title attributes)
-  const getPageDescription = (path: string): string => {
-    const descriptions: Record<string, string> = {
-      '/': 'Privacy compliance platform for GDPR, CCPA and global regulations',
-      '/assessment-hub': 'Start your privacy compliance assessment journey',
-      '/toolkit': 'Privacy compliance tools and automation',
-      '/resources-landing': 'Documentation, guides and support resources',
-      '/pricing': 'Plans and pricing for privacy compliance platform',
-      '/demo': 'Interactive platform demonstration'
-    };
-    return descriptions[path] || '';
-  };
   return (
     <div className={`min-h-screen flex flex-col ${darkMode ? 'dark' : ''} bg-surface dark:bg-dark-bg`}>
       <nav className={`fixed top-0 left-0 right-0 z-20 bg-surface/90 dark:bg-dark-surface/90 backdrop-blur-md transition-all duration-300 ${isScrolled ? 'py-1' : 'py-1'}`}>
@@ -164,7 +152,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
             
             {/* Column 2: Navigation (center) */}
             <div className="hidden lg:flex items-center flex-1 justify-center">
-                {mainNavItems.map(item => {
+                {mainNavItems?.map(item => {
                   if (item.dropdown) {
                     return (
                       <div key={item.name} className="relative">
@@ -277,11 +265,10 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
           className={`lg:hidden absolute top-16 left-0 right-0 bg-surface dark:bg-dark-surface border-b border-support-gray dark:border-dark-support transition-all duration-300 ease-in-out overflow-hidden ${mobileMenuOpen ? 'max-h-[80vh]' : 'max-h-0'}`}
         >
           <div className="px-4 py-2 space-y-1 overflow-y-auto max-h-[calc(80vh-4rem)]">
-            {mainNavItems.map(item => {
+            {mainNavItems?.map(item => {
               if (item.dropdown) {
                 return (
                   <div key={item.name}>
-                      title={`${item.name} - ${getPageDescription(item.path)}`}
                     <div className="px-3 py-2 text-sm font-medium text-foreground dark:text-dark-text">
                       <item.icon className="mr-3 h-5 w-5 inline" />
                       {item.name}
