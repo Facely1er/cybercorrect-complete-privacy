@@ -55,20 +55,20 @@ const AssessmentHub = () => {
                   <Eye className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-foreground">Comprehensive Privacy Assessment</h3>
-                  <p className="text-muted-foreground">NIST Privacy Framework, GDPR, CCPA & Global Regulations</p>
+                  <h3 className="text-2xl font-bold text-foreground">Privacy Framework Assessment</h3>
+                  <p className="text-muted-foreground">NIST Privacy Framework</p>
                 </div>
               </div>
               
               <p className="text-muted-foreground mb-6">
-                Evaluate your privacy program against multiple global regulations with intelligent gap analysis and remediation planning.
+                Evaluate your privacy program against the NIST Privacy Framework with intelligent gap analysis and remediation planning.
               </p>
               
               <div className="mb-6">
                 <h4 className="font-semibold mb-3 text-foreground">What You'll Get:</h4>
                 <div className="space-y-2">
                   {[
-                    'Multi-regulation compliance scoring',
+                    'NIST Privacy Framework compliance scoring',
                     'Privacy gap analysis with priorities',
                     'Implementation roadmap and timeline',
                     'Role-based task assignments',
@@ -200,16 +200,16 @@ const AssessmentHub = () => {
         <Card className="bg-gradient-to-br from-primary/10 to-background dark:from-primary/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
           <CardContent className="p-8 text-center">
             <Bell className="h-8 w-8 text-primary mx-auto mb-2" />
-            <div className="text-2xl font-bold text-foreground">95%</div>
-            <p className="text-sm text-muted-foreground">Faster assessments</p>
+            <div className="text-2xl font-bold text-foreground">30-45</div>
+            <p className="text-sm text-muted-foreground">Minutes to complete</p>
           </CardContent>
         </Card>
         
         <Card className="bg-gradient-to-br from-success/10 to-background dark:from-success/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
           <CardContent className="p-8 text-center">
             <CheckCircle className="h-8 w-8 text-success mx-auto mb-2" />
-            <div className="text-2xl font-bold text-foreground">12+</div>
-            <p className="text-sm text-muted-foreground">Frameworks covered</p>
+            <div className="text-2xl font-bold text-foreground">5+</div>
+            <p className="text-sm text-muted-foreground">Privacy frameworks</p>
           </CardContent>
         </Card>
         
@@ -224,8 +224,8 @@ const AssessmentHub = () => {
         <Card className="bg-gradient-to-br from-warning/10 to-background dark:from-warning/20 dark:to-dark-surface border-0 shadow-md hover:shadow-lg transition-shadow">
           <CardContent className="p-8 text-center">
             <Shield className="h-8 w-8 text-warning mx-auto mb-2" />
-            <div className="text-2xl font-bold text-foreground">$0</div>
-            <p className="text-sm text-muted-foreground">Penalties avoided</p>
+            <div className="text-2xl font-bold text-foreground">30</div>
+            <p className="text-sm text-muted-foreground">Assessment questions</p>
           </CardContent>
         </Card>
       </div>
