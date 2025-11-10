@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ProjectProvider } from './context/ProjectContext';
 import { NotificationProvider } from './context/NotificationContext';
@@ -213,6 +213,7 @@ const App: React.FC = () => {
                     
                     {/* Assessment Routes */}
                     <Route path="assessments" element={<AssessmentLayout />}>
+                      <Route index element={<Navigate to="/assessment-hub" replace />} />
                       <Route path="privacy-assessment" element={
                         <Suspense fallback={<LoadingSpinner />}>
                           <PrivacyAssessment />
