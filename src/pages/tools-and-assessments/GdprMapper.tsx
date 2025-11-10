@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/secureStorage';
+import { generateGdprMappingPdf } from '../../utils/generateGdprMappingPdf';
 
 interface ProcessingActivity {
   id: string;
@@ -106,8 +107,8 @@ const GdprMapper = () => {
     toast.success('Activity Added', 'New processing activity has been added');
   };
 
-  const handleExportMapping = () => {
-    const mappingData = {
+  const getMappingData = () => {
+    return {
       metadata: {
         title: 'GDPR Data Processing Mapping',
         created: new Date().toISOString(),
@@ -121,16 +122,29 @@ const GdprMapper = () => {
         dpiaRequired: activities.some(a => a.riskLevel === 'high')
       }
     };
+  };
 
-    const blob = new Blob([JSON.stringify(mappingData, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `gdpr-processing-mapping-${new Date().toISOString().split('T')[0]}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+  const handleExportMapping = (format: 'json' | 'pdf' = 'json') => {
+    const mappingData = getMappingData();
 
-    toast.success("Mapping exported", "GDPR processing mapping has been exported successfully");
+    if (format === 'json') {
+      const blob = new Blob([JSON.stringify(mappingData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `gdpr-processing-mapping-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.success("Mapping exported", "GDPR processing mapping has been exported as JSON");
+    } else if (format === 'pdf') {
+      try {
+        generateGdprMappingPdf(mappingData);
+        toast.success("Mapping exported", "GDPR processing mapping has been exported as PDF");
+      } catch (error) {
+        console.error('Error generating PDF:', error);
+        toast.error("Export failed", "Failed to generate PDF export. Please try again.");
+      }
+    }
   };
 
   const getRiskColor = (risk: string) => {
@@ -169,9 +183,13 @@ const GdprMapper = () => {
               <Plus className="h-4 w-4 mr-2" />
               Add Activity
             </Button>
-            <Button onClick={handleExportMapping}>
+            <Button variant="outline" onClick={() => handleExportMapping('json')}>
               <Download className="h-4 w-4 mr-2" />
-              Export Mapping
+              Export JSON
+            </Button>
+            <Button onClick={() => handleExportMapping('pdf')}>
+              <Download className="h-4 w-4 mr-2" />
+              Export PDF
             </Button>
           </div>
         </div>
