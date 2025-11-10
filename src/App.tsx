@@ -14,6 +14,7 @@ import ToolkitLayout from './components/layout/ToolkitLayout';
 import AssessmentLayout from './components/layout/AssessmentLayout';
 import { setAppSetting, getAppSetting } from './utils/secureStorage';
 import AnalyticsWrapper from './components/AnalyticsWrapper';
+import { lazyWithRetry } from './utils/lazyWithRetry';
 
 // Pages
 import Landing from './pages/Landing';
@@ -44,8 +45,17 @@ const PrivacyPolicyGenerator = lazy(() => import('./pages/tools-and-assessments/
 const PrivacyRightsManager = lazy(() => import('./pages/tools-and-assessments/PrivacyRightsManager'));
 const PiiDataFlowMapper = lazy(() => import('./pages/tools-and-assessments/PiiDataFlowMapper'));
 
-// Project Management - Lazy loaded
-const PrivacyProjectDashboard = lazy(() => import('./pages/project/PrivacyProjectDashboard'));
+// Project Management - Lazy loaded with retry logic
+const PrivacyProjectDashboard = lazyWithRetry(
+  () => import('./pages/project/PrivacyProjectDashboard'),
+  {
+    maxRetries: 3,
+    retryDelay: 1000,
+    onError: (error, retryCount) => {
+      console.warn(`PrivacyProjectDashboard import failed (retry ${retryCount}):`, error);
+    }
+  }
+);
 const PrivacyRoadmap = lazy(() => import('./pages/project/PrivacyRoadmap'));
 const PrivacyRaci = lazy(() => import('./pages/project/PrivacyRaci'));
 const PrivacyWbs = lazy(() => import('./pages/project/PrivacyWbs'));

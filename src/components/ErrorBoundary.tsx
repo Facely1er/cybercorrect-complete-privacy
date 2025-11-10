@@ -19,6 +19,29 @@ class ErrorBoundary extends React.Component<
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    // Check if this is a dynamic import failure
+    const isDynamicImportError = 
+      error.message.includes('Failed to fetch dynamically imported module') ||
+      error.message.includes('Failed to load module') ||
+      error.name === 'ChunkLoadError' ||
+      error.message.includes('Loading chunk');
+    
+    if (isDynamicImportError) {
+      console.warn('Dynamic import error detected:', error);
+      // Log additional context for debugging
+      errorMonitoring.captureException(error, {
+        tags: {
+          errorType: 'dynamic_import',
+          component: 'ErrorBoundary'
+        },
+        extra: {
+          userAgent: navigator.userAgent,
+          url: window.location.href,
+          timestamp: new Date().toISOString()
+        }
+      });
+    }
+    
     return { hasError: true, error };
   }
 
@@ -41,13 +64,28 @@ class ErrorBoundary extends React.Component<
 
   render() {
     if (this.state.hasError) {
+      const isDynamicImportError = 
+        this.state.error?.message.includes('Failed to fetch dynamically imported module') ||
+        this.state.error?.message.includes('Failed to load module') ||
+        this.state.error?.name === 'ChunkLoadError' ||
+        this.state.error?.message.includes('Loading chunk');
+      
       return (
         <div className="min-h-screen flex items-center justify-center bg-background">
           <div className="max-w-md w-full p-8 text-center">
             <AlertTriangle className="h-16 w-16 text-destructive mx-auto mb-4" />
             <h1 className="text-2xl font-bold mb-2 text-foreground">Something went wrong</h1>
             <p className="text-muted-foreground mb-6">
-              We're sorry, but something unexpected happened. Please try refreshing the page.
+              {isDynamicImportError ? (
+                <>
+                  We're having trouble loading a component. This is usually a temporary network issue.
+                  <br />
+                  <br />
+                  Please try refreshing the page. If the problem persists, it may be due to a deployment update.
+                </>
+              ) : (
+                "We're sorry, but something unexpected happened. Please try refreshing the page."
+              )}
             </p>
             <div className="space-y-3">
               <Button onClick={this.handleReload} className="w-full">
