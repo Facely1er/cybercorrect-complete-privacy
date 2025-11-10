@@ -10,7 +10,6 @@ import {
   User, 
   SunMoon, 
   Moon, 
-  MessageSquare, 
   HelpCircle, 
   Home, 
   ArrowRight,
@@ -319,18 +318,6 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       </main>
       
       <Footer />
-      
-      {/* Chat widget for conversion */}
-      <div className="fixed bottom-5 right-5 z-40">
-        <Button 
-          className="rounded-full shadow-enhanced hover:shadow-glow transition-all hover:-translate-y-1 bg-gradient-primary"
-          size="lg"
-          onClick={() => openChatbot()}
-        >
-          <MessageSquare className="h-5 w-5 mr-2" />
-          Speak to a Privacy Advisor
-        </Button>
-      </div>
     </div>
   );
 };
