@@ -49,11 +49,11 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           </Link>
         </div>
         
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4">
           {/* Main Navigation */}
           <div className="relative">
             <button 
-              className={`flex items-center text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary px-3 py-2 text-sm font-medium rounded-md transition-colors focus-ring ${
+              className={`flex items-center text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
                 location.pathname.includes('assessment') ? 'text-primary dark:text-dark-primary' : ''
               }`}
               onClick={() => toggleDropdown('assessments')}
@@ -61,8 +61,9 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
               aria-haspopup="true"
               aria-label="Assessments menu"
             >
-              Assessments
-              <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${activeDropdown === 'assessments' ? 'transform rotate-180' : ''}`} aria-hidden="true" />
+              <span className="hidden sm:inline">Assessments</span>
+              <span className="sm:hidden">Assess</span>
+              <ChevronDown className={`ml-0.5 sm:ml-1 h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-200 ${activeDropdown === 'assessments' ? 'transform rotate-180' : ''}`} aria-hidden="true" />
             </button>
             
             {activeDropdown === 'assessments' && (
@@ -90,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
 
           <div className="relative">
             <button 
-              className={`flex items-center text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary px-3 py-2 text-sm font-medium rounded-md transition-colors focus-ring ${
+              className={`flex items-center text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
                 location.pathname.includes('mapper') || location.pathname.includes('generator') ? 'text-primary dark:text-dark-primary' : ''
               }`}
               onClick={() => toggleDropdown('tools')}
@@ -99,7 +100,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
               aria-label="Tools menu"
             >
               Tools
-              <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${activeDropdown === 'tools' ? 'transform rotate-180' : ''}`} aria-hidden="true" />
+              <ChevronDown className={`ml-0.5 sm:ml-1 h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-200 ${activeDropdown === 'tools' ? 'transform rotate-180' : ''}`} aria-hidden="true" />
             </button>
             
             {activeDropdown === 'tools' && (
@@ -127,7 +128,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
 
           <div className="relative">
             <button 
-              className={`flex items-center text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary px-3 py-2 text-sm font-medium rounded-md transition-colors focus-ring ${
+              className={`flex items-center text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
                 location.pathname.includes('results') || location.pathname.includes('recommendations') ? 'text-primary dark:text-dark-primary' : ''
               }`}
               onClick={() => toggleDropdown('results')}
@@ -136,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
               aria-label="Results menu"
             >
               Results
-              <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-200 ${activeDropdown === 'results' ? 'transform rotate-180' : ''}`} aria-hidden="true" />
+              <ChevronDown className={`ml-0.5 sm:ml-1 h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-200 ${activeDropdown === 'results' ? 'transform rotate-180' : ''}`} aria-hidden="true" />
             </button>
             
             {activeDropdown === 'results' && (
@@ -164,20 +165,24 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
         </div>
         
         <div className="flex items-center md:ml-6 space-x-1 sm:space-x-2 md:space-x-3 flex-shrink-0">
-          <NotificationBell />
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-full text-foreground dark:text-dark-text hover:bg-muted/70 dark:hover:bg-dark-support h-9 w-9 sm:h-10 sm:w-10"
-            onClick={toggleDarkMode}
-            aria-label="Toggle dark mode"
-          >
-            {darkMode ? (
-              <SunMoon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
-            ) : (
-              <Moon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
-            )}
-          </Button>
+          <div className="portrait-hidden">
+            <NotificationBell />
+          </div>
+          <div className="portrait-hidden">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full text-foreground dark:text-dark-text hover:bg-muted/70 dark:hover:bg-dark-support h-9 w-9 sm:h-10 sm:w-10"
+              onClick={toggleDarkMode}
+              aria-label="Toggle dark mode"
+            >
+              {darkMode ? (
+                <SunMoon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
+              ) : (
+                <Moon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
+              )}
+            </Button>
+          </div>
           
           <button
             type="button"

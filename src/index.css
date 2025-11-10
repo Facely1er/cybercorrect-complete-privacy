@@ -296,6 +296,22 @@
   }
 }
 
+@layer utilities {
+  /* Hide elements in portrait mode */
+  @media (orientation: portrait) {
+    .portrait-hidden {
+      display: none !important;
+    }
+  }
+  
+  /* Show elements only in landscape mode */
+  @media (orientation: landscape) {
+    .portrait-only {
+      display: none !important;
+    }
+  }
+}
+
 /* Prevent flash of unstyled content when switching themes */
 .no-fouc {
   opacity: 0;
