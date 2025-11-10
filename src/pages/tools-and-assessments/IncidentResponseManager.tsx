@@ -219,8 +219,8 @@ const IncidentResponseManager = () => {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <Breadcrumbs />
+      <div className="container mx-auto px-4 py-6">
+        <Breadcrumbs className="mb-6" />
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
@@ -232,8 +232,8 @@ const IncidentResponseManager = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Breadcrumbs />
+    <div className="container mx-auto px-4 py-6">
+      <Breadcrumbs className="mb-6" />
       
       <div className="mb-6">
         <Link to="/toolkit" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-4">
