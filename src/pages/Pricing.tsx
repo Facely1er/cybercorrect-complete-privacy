@@ -268,7 +268,7 @@ const Pricing = () => {
         </div>
 
         <p className="text-sm text-muted-foreground">
-          Join 500+ organizations achieving compliance faster
+          Start your privacy compliance journey today
         </p>
       </div>
 
@@ -355,35 +355,6 @@ const Pricing = () => {
         ))}
       </div>
 
-      {/* Value proposition stats */}
-      <div className="bg-primary-teal/5 dark:bg-dark-primary/10 rounded-lg p-6 mt-16 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-          <Card className="border-none shadow-none bg-transparent">
-            <CardContent className="p-4">
-              <div className="text-2xl font-bold text-primary-teal dark:text-dark-primary">60%</div>
-              <div className="text-sm text-muted-foreground">Faster compliance</div>
-            </CardContent>
-          </Card>
-          <Card className="border-none shadow-none bg-transparent">
-            <CardContent className="p-4">
-              <div className="text-2xl font-bold text-primary-teal dark:text-dark-primary">$250K</div>
-              <div className="text-sm text-muted-foreground">Average cost savings vs. consultants</div>
-            </CardContent>
-          </Card>
-          <Card className="border-none shadow-none bg-transparent">
-            <CardContent className="p-4">
-              <div className="text-2xl font-bold text-primary-teal dark:text-dark-primary">500+</div>
-              <div className="text-sm text-muted-foreground">Organizations certified</div>
-            </CardContent>
-          </Card>
-          <Card className="border-none shadow-none bg-transparent">
-            <CardContent className="p-4">
-              <div className="text-2xl font-bold text-primary-teal dark:text-dark-primary">97%</div>
-              <div className="text-sm text-muted-foreground">Customer satisfaction</div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
 
       {/* Feature comparison section */}
       <div className="max-w-7xl mx-auto mt-16">
