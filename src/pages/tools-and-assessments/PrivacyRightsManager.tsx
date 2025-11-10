@@ -187,34 +187,52 @@ const PrivacyRightsManager = () => {
     toast.success('Request Created', `New data subject request ${newId} has been created`);
   };
 
-  const handleExportReport = async () => {
+  const handleExportReport = async (format: 'json' | 'pdf' = 'json') => {
     setIsExporting(true);
     try {
       // Simulate export delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
+      const pendingRequests = requests.filter(r => r.status === 'pending').length;
+      const inProgressRequests = requests.filter(r => r.status === 'in_progress').length;
+      const completedRequests = requests.filter(r => r.status === 'completed').length;
+      
       const exportData = {
         metadata: {
-          title: 'Data Subject Rights Requests Report',
-          created: new Date().toISOString(),
-          version: '1.0',
-          totalRequests: requests.length,
-          pending: requests.filter(r => r.status === 'pending').length,
-          inProgress: requests.filter(r => r.status === 'in_progress').length,
-          completed: requests.filter(r => r.status === 'completed').length
+          timestamp: new Date().toISOString(),
+          reportId: `PRR-${Date.now()}`,
+          version: '1.0'
         },
-        requests: requests
+        summary: {
+          totalRequests: requests.length,
+          pendingRequests,
+          completedRequests,
+          averageProcessingTime: '15 days'
+        },
+        requests: requests.map(r => ({
+          id: r.id,
+          type: r.type,
+          requesterName: r.requesterName,
+          status: r.status,
+          submittedDate: r.submittedDate,
+          completedDate: r.completedDate
+        }))
       };
 
-      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `privacy-rights-report-${new Date().toISOString().split('T')[0]}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-
-      toast.success('Report Exported', 'Data subject rights report has been exported successfully');
+      if (format === 'json') {
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `privacy-rights-report-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        toast.success('Report Exported', 'Data subject rights report has been exported successfully');
+      } else if (format === 'pdf') {
+        const { generatePrivacyRightsPdf } = await import('../../utils/generateExportPdf');
+        generatePrivacyRightsPdf(exportData);
+        toast.success('Report Exported', 'PDF report downloaded');
+      }
     } catch (error) {
       toast.error('Export Failed', error instanceof Error ? error.message : 'Failed to export report');
     } finally {
@@ -249,7 +267,7 @@ const PrivacyRightsManager = () => {
               <Plus className="h-4 w-4 mr-2" />
               New Request
             </Button>
-            <Button onClick={handleExportReport} disabled={isExporting}>
+            <Button variant="outline" onClick={() => handleExportReport('json')} disabled={isExporting}>
               {isExporting ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -258,7 +276,20 @@ const PrivacyRightsManager = () => {
               ) : (
                 <>
                   <Download className="h-4 w-4 mr-2" />
-                  Export Report
+                  Export JSON
+                </>
+              )}
+            </Button>
+            <Button variant="outline" onClick={() => handleExportReport('pdf')} disabled={isExporting} className="border-primary text-primary hover:bg-primary/10 dark:hover:bg-primary/20">
+              {isExporting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Exporting...
+                </>
+              ) : (
+                <>
+                  <Download className="h-4 w-4 mr-2" />
+                  Export PDF
                 </>
               )}
             </Button>

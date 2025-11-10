@@ -262,7 +262,9 @@ const PrivacySettingsAudit = () => {
         URL.revokeObjectURL(url);
         toast.success('Export successful', 'CSV report downloaded');
       } else if (format === 'pdf') {
-        toast.info('PDF Export', 'PDF export functionality is currently under development. You can export your privacy settings audit data using the Word export option available in the export menu.');
+        const { generatePrivacySettingsAuditPdf } = await import('../../utils/generateExportPdf');
+        generatePrivacySettingsAuditPdf(reportData);
+        toast.success('Export successful', 'PDF report downloaded');
       }
     } catch (error) {
       console.error('Export failed:', error);
