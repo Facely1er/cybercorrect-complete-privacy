@@ -38,8 +38,8 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  const handleStartFreeTrial = () => {
-    navigate('/assessments/privacy-assessment');
+  const handleViewDemo = () => {
+    navigate('/demo');
   };
 
   // Close mobile menu when route changes
@@ -219,9 +219,9 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                   <Button 
                     className="hidden md:flex enhanced-button rounded-full shadow-glow animate-in slide-in-from-right" 
                     size="sm"
-                    onClick={handleStartFreeTrial}
+                    onClick={handleViewDemo}
                   >
-                    Start Free Trial
+                    View Demo
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 )}

@@ -47,8 +47,8 @@ const ChatSupport = () => {
       response: "You can reach our support team via email at support@cybercorrect.com or by phone at +1 (888) 618-6160 during business hours. We also offer comprehensive documentation at cybercorrect.com/documentation."
     },
     {
-      keywords: ['trial', 'free', 'start'],
-      response: "You can start a free 7-day trial of CyberCorrect by visiting our website and clicking 'Get Started'. The trial gives you full access to all features with no credit card required."
+      keywords: ['trial', 'free', 'demo', 'start'],
+      response: "You can explore our interactive demo to see all features and capabilities. Visit our demo page to get hands-on experience with our privacy assessment tools, data mapping, and compliance workflows. For a personalized walkthrough, schedule a live demo with our team."
     }
   ];
 
