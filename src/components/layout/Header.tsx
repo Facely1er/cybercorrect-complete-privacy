@@ -42,16 +42,16 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
 
   return (
     <header className="sticky top-0 z-50 flex h-16 flex-shrink-0 border-b border-border bg-background/95 dark:bg-dark-surface/95 backdrop-blur-md shadow-sm">
-      <div className="container mx-auto flex justify-between items-center px-2 sm:px-4 min-w-0">
+      <div className="container mx-auto flex justify-between items-center px-2 sm:px-4 min-w-0 overflow-visible">
         <div className="flex items-center min-w-0 flex-shrink">
           <Link to="/" className="flex items-center focus-ring rounded-md p-1" aria-label="CyberCorrect Privacy Platform Home">
             <span className="text-base sm:text-xl font-semibold text-foreground dark:text-dark-text transition-colors hover:text-primary dark:hover:text-dark-primary truncate">CyberCorrect Privacy Platform</span>
           </Link>
         </div>
         
-        <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4">
+        <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4 overflow-visible">
           {/* Main Navigation */}
-          <div className="relative">
+          <div className="relative overflow-visible">
             <button 
               className={`flex items-center text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
                 location.pathname.includes('assessment') ? 'text-primary dark:text-dark-primary' : ''
@@ -67,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             </button>
             
             {activeDropdown === 'assessments' && (
-              <div className="absolute left-0 mt-2 w-56 bg-popover dark:bg-dark-surface rounded-lg shadow-xl border border-border dark:border-dark-support backdrop-blur-sm animate-in slide-up">
+              <div className="absolute left-0 mt-2 w-56 bg-popover dark:bg-dark-surface rounded-lg shadow-xl border border-border dark:border-dark-support backdrop-blur-sm animate-in slide-up z-[60]">
                 <div className="py-1">
                   {assessmentLinks.map(link => (
                     <Link
@@ -89,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             )}
           </div>
 
-          <div className="relative">
+          <div className="relative overflow-visible">
             <button 
               className={`flex items-center text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
                 location.pathname.includes('mapper') || location.pathname.includes('generator') ? 'text-primary dark:text-dark-primary' : ''
@@ -104,7 +104,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             </button>
             
             {activeDropdown === 'tools' && (
-              <div className="absolute left-0 mt-2 w-56 bg-popover dark:bg-dark-surface rounded-lg shadow-xl border border-border dark:border-dark-support backdrop-blur-sm animate-in slide-up">
+              <div className="absolute left-0 mt-2 w-56 bg-popover dark:bg-dark-surface rounded-lg shadow-xl border border-border dark:border-dark-support backdrop-blur-sm animate-in slide-up z-[60]">
                 <div className="py-1">
                   {toolLinks.map(link => (
                     <Link
@@ -126,7 +126,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             )}
           </div>
 
-          <div className="relative">
+          <div className="relative overflow-visible">
             <button 
               className={`flex items-center text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
                 location.pathname.includes('results') || location.pathname.includes('recommendations') ? 'text-primary dark:text-dark-primary' : ''
@@ -141,7 +141,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             </button>
             
             {activeDropdown === 'results' && (
-              <div className="absolute left-0 mt-2 w-56 bg-popover dark:bg-dark-surface rounded-lg shadow-xl border border-border dark:border-dark-support backdrop-blur-sm animate-in slide-up">
+              <div className="absolute left-0 mt-2 w-56 bg-popover dark:bg-dark-surface rounded-lg shadow-xl border border-border dark:border-dark-support backdrop-blur-sm animate-in slide-up z-[60]">
                 <div className="py-1">
                   {resultLinks.map(link => (
                     <Link
