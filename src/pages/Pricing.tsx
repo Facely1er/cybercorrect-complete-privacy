@@ -156,8 +156,8 @@ const Pricing = () => {
 
   const faqs = [
     {
-      question: "What happens during the free trial?",
-      answer: "You get full access to your chosen plan for 14 days. We'll help you import your current compliance data and get your first assessment started within 24 hours. Our team will guide you through the platform to ensure you get maximum value from your trial."
+      question: "How can I see the platform in action?",
+      answer: "You can explore our interactive demo to see all features and capabilities. The demo gives you hands-on experience with our privacy assessment tools, data mapping, and compliance workflows. Schedule a live demo with our team for a personalized walkthrough tailored to your needs."
     },
     {
       question: "How does the annual discount work?",
@@ -721,21 +721,23 @@ const Pricing = () => {
       <div className="mt-8 text-center max-w-5xl mx-auto px-4">
         <div className="bg-gradient-to-r from-primary-teal to-secondary-teal rounded-xl p-6 text-white dark:from-dark-primary dark:to-dark-primary/70">
           <h3 className="text-xl font-bold mb-3">Ready to achieve compliance?</h3>
-          <p className="mb-5">Start your free 14-day trial or view our interactive demo</p>
+          <p className="mb-5">View our interactive demo to explore the platform</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              className="bg-background text-primary hover:bg-muted border-2 border-background shadow-lg"
-              onClick={() => navigate('/assessments/privacy-assessment')}
-            >
-              Start Free Trial
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button 
               variant="default" 
-              className="shadow-lg"
+              className="bg-background text-primary hover:bg-muted border-2 border-background shadow-lg"
               onClick={() => navigate('/demo')}
             >
               View Demo
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            <Button 
+              variant="secondary"
+              className="bg-background/10 text-background hover:bg-background/20 border-2 border-background/30 shadow-lg"
+              onClick={() => navigate('/assessments/privacy-assessment')}
+            >
+              Start Assessment
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         </div>
