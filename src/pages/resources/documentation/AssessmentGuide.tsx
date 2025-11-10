@@ -759,11 +759,228 @@ const AssessmentGuide = () => {
             Use our tools to better understand your assessment results and create effective remediation plans
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg">
+            <Button 
+              size="lg"
+              onClick={() => navigate('/assessment-hub')}
+            >
               View Your Assessments
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline">
+            <Button 
+              size="lg" 
+              variant="outline"
+              onClick={() => {
+                const templates = `REMEDIATION TEMPLATES FOR PRIVACY ASSESSMENTS
+
+================================================================================
+1. REMEDIATION PLAN TEMPLATE
+================================================================================
+
+ASSESSMENT INFORMATION
+- Assessment ID: 
+- Assessment Date: 
+- Assessor: 
+- Framework: [ ] NIST Privacy Framework [ ] GDPR [ ] CCPA [ ] Other
+
+FINDING INFORMATION
+- Finding ID: 
+- Finding Title: 
+- Severity: [ ] Critical [ ] High [ ] Medium [ ] Low
+- Affected Controls: 
+- Description: 
+- Risk Impact: 
+
+REMEDIATION PLAN
+- Remediation Strategy: 
+- Planned Actions: 
+  1. 
+  2. 
+  3. 
+- Resources Required: 
+- Estimated Cost: 
+- Timeline: 
+- Start Date: 
+- Target Completion Date: 
+
+RESPONSIBILITY
+- Responsible Party: 
+- Supporting Team: 
+- Contact Information: 
+
+MILESTONES
+- Milestone 1: 
+  - Description: 
+  - Target Date: 
+  - Status: [ ] Not Started [ ] In Progress [ ] Completed
+- Milestone 2: 
+  - Description: 
+  - Target Date: 
+  - Status: [ ] Not Started [ ] In Progress [ ] Completed
+- Milestone 3: 
+  - Description: 
+  - Target Date: 
+  - Status: [ ] Not Started [ ] In Progress [ ] Completed
+
+VERIFICATION
+- Verification Method: 
+- Success Criteria: 
+- Verification Date: 
+- Verified By: 
+
+STATUS TRACKING
+- Current Status: [ ] Not Started [ ] In Progress [ ] Completed [ ] On Hold
+- Progress Notes: 
+- Last Update: 
+- Next Review Date: 
+
+APPROVAL
+- Prepared By: 
+- Date: 
+- Approved By: 
+- Approval Date: 
+
+================================================================================
+2. CONTROL IMPLEMENTATION TEMPLATE
+================================================================================
+
+CONTROL INFORMATION
+- Control ID: 
+- Control Name: 
+- Framework: 
+- Category: 
+
+CURRENT STATE
+- Implementation Status: [ ] Not Implemented [ ] Partially Implemented [ ] Implemented
+- Current Implementation Description: 
+- Gaps Identified: 
+
+TARGET STATE
+- Target Implementation: 
+- Required Changes: 
+- New Processes/Procedures: 
+- Technology Requirements: 
+
+IMPLEMENTATION PLAN
+- Phase 1: 
+  - Activities: 
+  - Timeline: 
+  - Resources: 
+- Phase 2: 
+  - Activities: 
+  - Timeline: 
+  - Resources: 
+- Phase 3: 
+  - Activities: 
+  - Timeline: 
+  - Resources: 
+
+TESTING & VALIDATION
+- Test Plan: 
+- Test Scenarios: 
+- Success Criteria: 
+- Test Results: 
+
+DOCUMENTATION
+- Procedures Updated: [ ] Yes [ ] No
+- Training Materials: [ ] Yes [ ] No
+- Documentation Updated: [ ] Yes [ ] No
+
+APPROVAL
+- Implemented By: 
+- Date: 
+- Verified By: 
+- Date: 
+
+================================================================================
+3. GAP ANALYSIS & REMEDIATION TEMPLATE
+================================================================================
+
+GAP IDENTIFICATION
+- Gap ID: 
+- Gap Description: 
+- Affected Controls: 
+- Framework Requirements: 
+- Current State: 
+- Target State: 
+
+GAP ANALYSIS
+- Root Cause: 
+- Impact Assessment: 
+- Risk Level: [ ] Low [ ] Medium [ ] High
+- Business Impact: 
+
+REMEDIATION APPROACH
+- Remediation Option Selected: 
+- Rationale: 
+- Alternative Options Considered: 
+- Cost-Benefit Analysis: 
+
+IMPLEMENTATION DETAILS
+- Implementation Steps: 
+  1. 
+  2. 
+  3. 
+- Dependencies: 
+- Prerequisites: 
+- Timeline: 
+- Resources: 
+
+VERIFICATION & VALIDATION
+- Verification Method: 
+- Test Plan: 
+- Success Criteria: 
+- Validation Results: 
+
+CLOSURE
+- Gap Closed: [ ] Yes [ ] No
+- Closure Date: 
+- Verified By: 
+- Notes: 
+
+================================================================================
+4. PRIORITY REMEDIATION TRACKER
+================================================================================
+
+PRIORITY LEVEL: [ ] P0 - Critical [ ] P1 - High [ ] P2 - Medium [ ] P3 - Low
+
+FINDING INFORMATION
+- Finding ID: 
+- Title: 
+- Description: 
+- Affected Areas: 
+
+REMEDIATION STATUS
+- Status: [ ] Not Started [ ] In Progress [ ] Completed [ ] Blocked
+- Assigned To: 
+- Start Date: 
+- Due Date: 
+- Completion Date: 
+
+PROGRESS TRACKING
+- Progress: ___%
+- Current Phase: 
+- Blockers: 
+- Notes: 
+
+VERIFICATION
+- Verified: [ ] Yes [ ] No
+- Verification Date: 
+- Verified By: 
+
+================================================================================
+END OF TEMPLATES
+================================================================================
+`;
+
+                const blob = new Blob([templates], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Remediation-Templates-${new Date().toISOString().split('T')[0]}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
+            >
               Download Remediation Templates
               <Download className="ml-2 h-4 w-4" />
             </Button>

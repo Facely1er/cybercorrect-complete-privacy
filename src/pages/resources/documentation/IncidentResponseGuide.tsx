@@ -54,7 +54,11 @@ const IncidentResponseGuide = () => {
                   <span>Risk evaluation criteria</span>
                 </li>
               </ul>
-              <Button variant="outline" className="w-full">
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => navigate('/documentation/breach-response-guide')}
+              >
                 Learn Classification
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -82,7 +86,11 @@ const IncidentResponseGuide = () => {
                   <span>Documentation deadlines</span>
                 </li>
               </ul>
-              <Button variant="outline" className="w-full">
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => navigate('/documentation/breach-response-guide')}
+              >
                 View Timeline Requirements
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -96,11 +104,177 @@ const IncidentResponseGuide = () => {
             Access templates and tools for effective privacy incident response
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg">
+            <Button 
+              size="lg"
+              onClick={() => {
+                const templates = `PRIVACY INCIDENT RESPONSE TEMPLATES
+
+================================================================================
+1. INCIDENT CLASSIFICATION MATRIX
+================================================================================
+
+SEVERITY LEVELS:
+- LOW: Minimal impact, limited data affected, no special categories
+- MEDIUM: Moderate impact, significant data affected, some risk
+- HIGH: Severe impact, large-scale breach, special categories or high risk
+
+CLASSIFICATION CRITERIA:
+[ ] Number of individuals affected
+[ ] Types of personal data involved
+[ ] Special categories of data (if applicable)
+[ ] Likelihood of harm
+[ ] Severity of potential harm
+[ ] Sensitivity of data
+[ ] Context of processing
+
+================================================================================
+2. RESPONSE TIMELINE CHECKLIST
+================================================================================
+
+WITHIN 1 HOUR:
+[ ] Contain the breach
+[ ] Assess initial scope
+[ ] Notify incident response team
+[ ] Document initial findings
+
+WITHIN 4 HOURS:
+[ ] Complete initial assessment
+[ ] Determine if breach is reportable
+[ ] Begin detailed investigation
+[ ] Notify management/DPO
+
+WITHIN 24 HOURS:
+[ ] Complete detailed assessment
+[ ] Document all findings
+[ ] Prepare notification if required
+[ ] Implement remediation measures
+
+WITHIN 72 HOURS (GDPR):
+[ ] Notify supervisory authority (if required)
+[ ] Complete notification form
+[ ] Submit notification
+[ ] Document notification
+
+WITHIN REASONABLE TIME:
+[ ] Notify affected individuals (if high risk)
+[ ] Provide clear information
+[ ] Offer support and guidance
+[ ] Monitor for additional issues
+
+================================================================================
+3. BREACH ASSESSMENT FORM
+================================================================================
+
+INCIDENT ID: _____________________________
+ASSESSMENT DATE: _____________________________
+ASSESSOR: _____________________________
+
+1. BREACH DETAILS
+   - Date/time discovered:
+   - Date/time occurred:
+   - Method of discovery:
+   - Current status:
+
+2. DATA AFFECTED
+   - Categories of personal data:
+   - Special categories (if any):
+   - Approximate number of records:
+   - Approximate number of individuals:
+
+3. CAUSE ANALYSIS
+   - Root cause:
+   - Contributing factors:
+   - System/process involved:
+   - Human error: [ ] Yes [ ] No
+   - Technical failure: [ ] Yes [ ] No
+   - Malicious activity: [ ] Yes [ ] No
+
+4. RISK EVALUATION
+   - Likelihood of harm: [ ] Low [ ] Medium [ ] High
+   - Severity of potential harm: [ ] Low [ ] Medium [ ] High
+   - Overall risk level: [ ] Low [ ] Medium [ ] High
+   - Factors increasing risk:
+   - Factors decreasing risk:
+
+5. NOTIFICATION REQUIREMENTS
+   - Supervisory authority: [ ] Required [ ] Not Required
+   - Rationale:
+   - Affected individuals: [ ] Required [ ] Not Required
+   - Rationale:
+
+6. REMEDIATION MEASURES
+   - Immediate actions:
+   - Short-term measures:
+   - Long-term measures:
+   - Preventive actions:
+
+7. APPROVAL
+   - DPO approval: [ ] Yes [ ] No
+   - Management approval: [ ] Yes [ ] No
+   - Signature: _____________________________
+   - Date: _____________________________
+
+================================================================================
+4. RESPONSE PROCEDURE CHECKLIST
+================================================================================
+
+DETECTION & CONTAINMENT
+[ ] Breach detected and reported
+[ ] Immediate containment measures taken
+[ ] Affected systems isolated
+[ ] Evidence preserved
+[ ] Initial documentation completed
+
+ASSESSMENT & INVESTIGATION
+[ ] Incident response team activated
+[ ] Detailed investigation conducted
+[ ] Root cause identified
+[ ] Scope of breach determined
+[ ] Risk assessment completed
+
+NOTIFICATION
+[ ] Decision made on notification requirements
+[ ] Supervisory authority notified (if required)
+[ ] Affected individuals notified (if required)
+[ ] Internal stakeholders informed
+[ ] All notifications documented
+
+REMEDIATION
+[ ] Immediate remediation measures implemented
+[ ] Long-term fixes planned
+[ ] Systems restored/updated
+[ ] Security measures enhanced
+[ ] Monitoring increased
+
+FOLLOW-UP
+[ ] Post-incident review conducted
+[ ] Lessons learned documented
+[ ] Procedures updated
+[ ] Training provided
+[ ] Monitoring continued
+
+================================================================================
+END OF TEMPLATES
+================================================================================
+`;
+
+                const blob = new Blob([templates], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Incident-Response-Templates-${new Date().toISOString().split('T')[0]}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
+            >
               Download Response Templates
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline">
+            <Button 
+              size="lg" 
+              variant="outline"
+              onClick={() => navigate('/documentation/breach-response-guide')}
+            >
               View Breach Procedures
             </Button>
           </div>

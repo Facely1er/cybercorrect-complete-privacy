@@ -159,7 +159,10 @@ const GdprGuide = () => {
                       </ul>
                     </div>
                   </div>
-                  <Button variant="outline">
+                  <Button 
+                    variant="outline"
+                    onClick={() => navigate('/toolkit/gdpr-mapper')}
+                  >
                     Use GDPR-NIST Mapper
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -463,7 +466,102 @@ const GdprGuide = () => {
                         </ol>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => {
+                        const dpiaTemplate = `DATA PROTECTION IMPACT ASSESSMENT (DPIA) TEMPLATE
+
+Organization Name: _____________________________
+Date: _____________________________
+Assessment ID: _____________________________
+
+1. PROCESSING ACTIVITY DESCRIPTION
+   - Name of processing activity: 
+   - Purpose of processing: 
+   - Nature of processing: 
+   - Categories of data subjects: 
+   - Categories of personal data: 
+   - Special categories of personal data (if applicable): 
+   - Volume of data: 
+   - Frequency of processing: 
+
+2. NECESSITY AND PROPORTIONALITY
+   - Why is the processing necessary? 
+   - What are the benefits? 
+   - Are there less intrusive alternatives? 
+   - Is the processing proportionate to the purpose? 
+
+3. RISK ASSESSMENT
+   - Likelihood of risk: [ ] Low [ ] Medium [ ] High
+   - Severity of impact: [ ] Low [ ] Medium [ ] High
+   - Overall risk level: [ ] Low [ ] Medium [ ] High
+   
+   Identified Risks:
+   1. 
+   2. 
+   3. 
+
+4. DATA SUBJECTS AFFECTED
+   - Number of individuals affected: 
+   - Vulnerable groups (if applicable): 
+   - Nature of potential harm: 
+
+5. DATA SOURCES AND SHARING
+   - Where does the data come from? 
+   - Who will have access to the data? 
+   - Will data be shared with third parties? 
+   - Will data be transferred outside the EU/EEA? 
+
+6. TECHNICAL AND ORGANIZATIONAL MEASURES
+   - Security measures in place: 
+   - Access controls: 
+   - Encryption: 
+   - Data minimization measures: 
+   - Retention policies: 
+   - Other safeguards: 
+
+7. CONSULTATION
+   - Have data subjects been consulted? [ ] Yes [ ] No
+   - Have the DPO/legal team been consulted? [ ] Yes [ ] No
+   - Have other stakeholders been consulted? [ ] Yes [ ] No
+   - Consultation notes: 
+
+8. MITIGATION MEASURES
+   - Measures to address identified risks:
+   1. 
+   2. 
+   3. 
+
+9. RESIDUAL RISK
+   - After mitigation measures, what is the residual risk? 
+   - Is the residual risk acceptable? [ ] Yes [ ] No
+   - If not acceptable, what additional measures are needed? 
+
+10. APPROVAL AND REVIEW
+    - Assessor name: 
+    - Assessor signature: 
+    - Date: 
+    - DPO approval: [ ] Yes [ ] No
+    - Next review date: 
+
+11. IMPLEMENTATION AND MONITORING
+    - Implementation plan: 
+    - Monitoring arrangements: 
+    - Review schedule: 
+
+NOTES:
+`;
+
+                        const blob = new Blob([dpiaTemplate], { type: 'text/plain' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `DPIA-Template-${new Date().toISOString().split('T')[0]}.txt`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                      }}
+                    >
                       Download DPIA Template
                     </Button>
                   </div>
@@ -863,7 +961,327 @@ const GdprGuide = () => {
           </div>
 
           <div className="mt-8 text-center">
-            <Button variant="outline" className="mt-4">
+            <Button 
+              variant="outline" 
+              className="mt-4"
+              onClick={() => {
+                const guide = `DATA SUBJECT RIGHTS IMPLEMENTATION GUIDE
+GDPR Articles 15-22 Implementation
+
+================================================================================
+1. RIGHT OF ACCESS (Article 15)
+================================================================================
+
+What it means:
+Individuals have the right to obtain confirmation of whether personal data is being 
+processed and access to that data.
+
+Implementation Steps:
+1. Create Subject Access Request (SAR) procedure
+   - Designate responsible person/team
+   - Create request form/template
+   - Establish intake process
+   - Set up tracking system
+
+2. Implement identity verification
+   - Require proof of identity
+   - Verify requester is the data subject
+   - Document verification process
+
+3. Develop data retrieval process
+   - Identify all systems containing personal data
+   - Create data extraction procedures
+   - Compile comprehensive data package
+   - Include processing information (purposes, legal basis, retention, etc.)
+
+4. Create response templates
+   - Standard response format
+   - Include all required information per Article 15
+   - Provide data in commonly used format
+
+5. Establish timelines
+   - Respond within 1 month
+   - Can extend by 2 months for complex requests
+   - Notify if extension needed
+
+6. Handle exemptions
+   - Document when access can be restricted
+   - Consider third-party rights
+   - Balance transparency with other rights
+
+================================================================================
+2. RIGHT TO RECTIFICATION (Article 16)
+================================================================================
+
+What it means:
+Individuals have the right to have inaccurate or incomplete personal data rectified.
+
+Implementation Steps:
+1. Create rectification request procedure
+   - Designate responsible person/team
+   - Create request form
+   - Establish intake process
+
+2. Add verification mechanisms
+   - Verify identity of requester
+   - Verify accuracy of claimed inaccuracy
+   - Consider supporting documentation
+
+3. Implement data correction workflows
+   - Update data in all relevant systems
+   - Ensure corrections propagate across systems
+   - Maintain audit trail of changes
+
+4. Notify third parties of corrections
+   - Identify recipients of the data
+   - Notify them of corrections (unless impossible/disproportionate)
+   - Document notifications sent
+
+5. Handle disputes
+   - If correction refused, explain why
+   - Provide right to complain to supervisory authority
+   - Document all decisions
+
+================================================================================
+3. RIGHT TO ERASURE / "RIGHT TO BE FORGOTTEN" (Article 17)
+================================================================================
+
+What it means:
+Individuals can request deletion of their personal data in certain circumstances.
+
+When it applies:
+- Data no longer necessary for original purpose
+- Consent withdrawn and no other legal basis
+- Objection to processing (and no overriding legitimate interest)
+- Unlawful processing
+- Legal obligation to erase
+- Data collected from child (under 16) in relation to information society services
+
+Implementation Steps:
+1. Create deletion request procedure
+   - Designate responsible person/team
+   - Create request form
+   - Establish intake process
+
+2. Assess each request against exceptions
+   - Freedom of expression and information
+   - Legal compliance obligations
+   - Public interest in public health
+   - Archiving purposes in public interest
+   - Scientific/historical research
+   - Establishment/exercise/defense of legal claims
+
+3. Implement secure deletion methods
+   - Physical deletion where possible
+   - Secure overwriting for digital data
+   - Verify deletion completion
+   - Document deletion actions
+
+4. Notify processors and third parties
+   - Identify all recipients of the data
+   - Notify them of erasure request
+   - Request they erase the data
+   - Document notifications sent
+
+5. Handle technical limitations
+   - Consider backup systems
+   - Plan for restoration scenarios
+   - Document any data that cannot be deleted and why
+
+================================================================================
+4. RIGHT TO RESTRICTION OF PROCESSING (Article 18)
+================================================================================
+
+What it means:
+Individuals can request restriction of processing in specific circumstances.
+
+When it applies:
+- Accuracy contested (during verification period)
+- Processing unlawful but erasure not desired
+- Data no longer needed but required for legal claims
+- Objection pending (verification of overriding legitimate grounds)
+
+Implementation Steps:
+1. Create restriction request procedure
+   - Designate responsible person/team
+   - Create request form
+   - Establish intake process
+
+2. Implement data flagging system
+   - Mark restricted data clearly
+   - Prevent processing except storage
+   - Ensure flags persist across systems
+
+3. Limit processing capabilities
+   - Block automated processing
+   - Prevent sharing with third parties
+   - Allow only essential processing (storage)
+
+4. Notify user before lifting restriction
+   - Inform when restriction will be lifted
+   - Explain reason for lifting
+   - Provide opportunity to object
+
+5. Handle exceptions
+   - Processing for legal claims
+   - Protection of rights of other individuals
+   - Important public interest
+
+================================================================================
+5. RIGHT TO DATA PORTABILITY (Article 20)
+================================================================================
+
+What it means:
+Individuals can request their data in a structured, commonly used, machine-readable format.
+
+When it applies:
+- Processing based on consent or contract
+- Processing by automated means
+- Personal data provided by the data subject
+
+Implementation Steps:
+1. Create data portability procedure
+   - Designate responsible person/team
+   - Create request form
+   - Establish intake process
+
+2. Develop export functionality
+   - Support multiple formats (CSV, XML, JSON)
+   - Include all personal data provided by subject
+   - Include data inferred from provided data
+   - Exclude data about others
+
+3. Implement secure transmission methods
+   - Secure download links
+   - Encrypted transmission
+   - Password protection if emailing
+   - Verify recipient identity
+
+4. Ensure data accuracy and completeness
+   - Include all relevant data
+   - Verify export completeness
+   - Test export formats
+
+5. Handle direct transmission requests
+   - If requested, transmit directly to another controller
+   - Verify technical feasibility
+   - Obtain explicit request for transmission
+   - Ensure secure transmission
+
+================================================================================
+6. RIGHT TO OBJECT (Article 21)
+================================================================================
+
+What it means:
+Individuals can object to processing based on legitimate interests, public interest, 
+or for direct marketing.
+
+Implementation Steps:
+1. Create objection procedure
+   - Designate responsible person/team
+   - Create request form
+   - Establish intake process
+
+2. Implement opt-out mechanisms
+   - Easy-to-use opt-out options
+   - Clear instructions
+   - Immediate effect
+   - No cost to data subject
+
+3. Develop balancing test for legitimate interests
+   - Assess if legitimate interest overrides data subject interests
+   - Document balancing test
+   - Consider specific situation of data subject
+
+4. Create clear marketing opt-out systems
+   - One-click opt-out for marketing
+   - Apply immediately
+   - No exceptions for marketing objections
+   - Maintain suppression lists
+
+5. Handle processing objections
+   - Stop processing unless compelling legitimate grounds
+   - Notify data subject of decision
+   - Provide right to complain
+   - Document all objections and responses
+
+================================================================================
+GENERAL IMPLEMENTATION REQUIREMENTS
+================================================================================
+
+1. Response Timeframes
+   - Respond within 1 month of request
+   - Can extend by 2 months for complex requests
+   - Must notify if extension needed
+   - No fee unless manifestly unfounded/excessive
+
+2. Identity Verification
+   - Verify identity of requester
+   - Request additional information if needed
+   - Document verification process
+
+3. Documentation
+   - Maintain records of all requests
+   - Document responses provided
+   - Track response times
+   - Keep audit trail
+
+4. Training
+   - Train staff on data subject rights
+   - Provide handling procedures
+   - Regular updates on requirements
+   - Role-specific training
+
+5. Technology Support
+   - Systems to track requests
+   - Data location and retrieval tools
+   - Automated workflows where possible
+   - Integration across systems
+
+6. Communication
+   - Clear, plain language responses
+   - Provide information free of charge
+   - Explain any refusals clearly
+   - Inform about right to complain
+
+7. Continuous Improvement
+   - Regular review of procedures
+   - Update based on experience
+   - Monitor response times
+   - Seek feedback from data subjects
+
+================================================================================
+CHECKLIST FOR IMPLEMENTATION
+================================================================================
+
+[ ] Procedures created for all six rights
+[ ] Staff trained on data subject rights
+[ ] Identity verification process established
+[ ] Data location tools/maps created
+[ ] Response templates developed
+[ ] Tracking system implemented
+[ ] Timeline monitoring in place
+[ ] Documentation procedures established
+[ ] Technology solutions deployed
+[ ] Regular review schedule set
+[ ] DPO/legal team consulted
+[ ] Privacy notice updated with rights information
+[ ] Contact information for requests published
+
+================================================================================
+END OF GUIDE
+================================================================================
+`;
+
+                const blob = new Blob([guide], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Data-Subject-Rights-Implementation-Guide-${new Date().toISOString().split('T')[0]}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
+            >
               Download Data Subject Rights Implementation Guide
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
