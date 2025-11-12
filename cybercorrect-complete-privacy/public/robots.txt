@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Disallow sensitive paths
+Disallow: /app/
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /*?*
+
+Sitemap: https://cybercorrect.com/sitemap.xml
