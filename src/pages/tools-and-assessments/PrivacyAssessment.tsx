@@ -334,9 +334,30 @@ const PrivacyAssessment = () => {
   };
 
   const handleViewResults = () => {
-    // In a real application, you would save the assessment results
-    // before navigating to the results page
-    navigate('/privacy-results');
+    // Calculate section scores for results
+    const sectionScores = sections.map((section, index) => {
+      const score = calculateSectionScore(index);
+      return {
+        title: section.title,
+        percentage: score.percentage,
+        completed: score.completed
+      };
+    });
+
+    const results = {
+      overallScore: getOverallScore(),
+      sectionScores,
+      assessmentType: 'privacy',
+      frameworkName: 'NIST Privacy Framework',
+      completedDate: new Date().toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      }),
+      answers // Include answers for potential future use
+    };
+
+    navigate('/privacy-results', { state: { assessmentResults: results } });
   };
 
   // Create a list of section info for the start screen

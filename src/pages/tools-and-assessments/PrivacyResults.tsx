@@ -1,13 +1,14 @@
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { AssessmentResults } from '../../components/assessment/AssessmentResults';
 import { generateResultsPdf } from '../../utils/generatePdf';
 
 const PrivacyResults = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   
-  // In a real application, this would be passed through the location state
-  const mockResults = {
+  // Get assessment results from location state, or use mock data as fallback
+  const assessmentResults = location.state?.assessmentResults || {
     overallScore: 66,
     sectionScores: [
       { title: "Identify", percentage: 73, completed: true },
@@ -28,9 +29,9 @@ const PrivacyResults = () => {
   const handleExport = () => {
     generateResultsPdf(
       'Privacy Framework Assessment Results',
-      mockResults.overallScore,
-      mockResults.sectionScores,
-      mockResults.completedDate,
+      assessmentResults.overallScore,
+      assessmentResults.sectionScores,
+      assessmentResults.completedDate,
       'privacy-assessment-results.pdf'
     );
   };
@@ -38,7 +39,7 @@ const PrivacyResults = () => {
   const handleViewGapAnalysis = () => {
     navigate('/toolkit/privacy-gap-analyzer', {
       state: {
-        assessmentResults: mockResults,
+        assessmentResults: assessmentResults,
         frameworkType: 'nist_privacy_framework'
       }
     });
@@ -48,7 +49,7 @@ const PrivacyResults = () => {
       <h1 className="text-3xl font-bold mb-6 text-foreground">Privacy Framework Assessment Results</h1>
       
       <AssessmentResults 
-        data={mockResults}
+        data={assessmentResults}
         onExport={handleExport}
       />
       
