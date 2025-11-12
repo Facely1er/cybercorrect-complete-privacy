@@ -1,11 +1,14 @@
-import React from 'react';
+import { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { AssessmentResults } from '../../components/assessment/AssessmentResults';
 import { generateResultsPdf } from '../../utils/generatePdf';
+import { Loader2 } from 'lucide-react';
+import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
 
 const PrivacyResults = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isNavigating, setIsNavigating] = useState(false);
   
   // Get assessment results from location state, or use mock data as fallback
   const assessmentResults = location.state?.assessmentResults || {
@@ -37,15 +40,21 @@ const PrivacyResults = () => {
   };
 
   const handleViewGapAnalysis = () => {
+    setIsNavigating(true);
     navigate('/toolkit/privacy-gap-analyzer', {
       state: {
         assessmentResults: assessmentResults,
-        frameworkType: 'nist_privacy_framework'
+        frameworkType: 'nist_privacy_framework',
+        fromAssessment: true
       }
     });
   };
   return (
     <div className="container mx-auto px-4 py-8">
+      <AssessmentFlowProgress 
+        currentStep="results" 
+        assessmentResults={assessmentResults}
+      />
       <h1 className="text-3xl font-bold mb-6 text-foreground">Privacy Framework Assessment Results</h1>
       
       <AssessmentResults 
@@ -80,9 +89,17 @@ const PrivacyResults = () => {
         <div className="flex gap-4">
           <button
             onClick={handleViewGapAnalysis}
-            className="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-colors"
+            disabled={isNavigating}
+            className="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
           >
-            View Gap Analysis
+            {isNavigating ? (
+              <>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                Loading...
+              </>
+            ) : (
+              'View Gap Analysis'
+            )}
           </button>
           <Link to="/privacy-recommendations">
             <button

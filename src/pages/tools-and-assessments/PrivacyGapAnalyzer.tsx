@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { 
@@ -7,12 +7,18 @@ import {
   Download,
   BarChart3,
   AlertTriangle,
-  Target
+  Target,
+  Loader2,
+  CheckCircle,
+  FileCheck
 } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { toast } from '../../components/ui/Toaster';
 import { generatePrivacyGapAnalysisPdf } from '../../utils/generatePrivacyGapAnalysisPdf';
+import { EmptyState } from '../../components/ui/EmptyState';
+import { Tooltip as TooltipComponent } from '../../components/ui/Tooltip';
+import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
 
 interface AssessmentResults {
   overallScore?: number;
@@ -27,8 +33,13 @@ interface AssessmentResults {
 
 const PrivacyGapAnalyzer = () => {
   const location = useLocation();
-  const { assessmentResults } = (location.state || {}) as { assessmentResults?: AssessmentResults };
+  const navigate = useNavigate();
+  const { assessmentResults, fromAssessment } = (location.state || {}) as { 
+    assessmentResults?: AssessmentResults;
+    fromAssessment?: boolean;
+  };
   const [activeTab, setActiveTab] = useState('overview');
+  const [isExporting, setIsExporting] = useState(false);
 
   // Base privacy gaps - these are always shown
   const basePrivacyGaps = [
@@ -98,7 +109,7 @@ const PrivacyGapAnalyzer = () => {
   const assessmentBasedGaps = useMemo(() => {
     if (!assessmentResults?.sectionScores) return [];
     
-    const gaps: typeof basePrivacyGaps = [];
+    const gaps: Array<typeof basePrivacyGaps[0] & { priority: 'critical' | 'high' | 'medium' | 'low' }> = [];
     const nistSectionMapping: Record<string, { 
       gaps: Array<{ id: string; title: string; description: string; framework: string; article: string; category: string }>;
       threshold: number;
@@ -218,13 +229,13 @@ const PrivacyGapAnalyzer = () => {
                           section.percentage < 65 ? 'high' as const : 'medium' as const;
           gaps.push({
             ...gap,
-            priority,
+            priority: priority as 'critical' | 'high' | 'medium' | 'low',
             effort: priority === 'critical' ? 'significant' : priority === 'high' ? 'moderate' : 'low',
             timeframe: priority === 'critical' ? 'immediate' : priority === 'high' ? 'short-term' : 'medium-term',
             impact: `Low compliance score (${section.percentage}%) in ${section.title} section indicates gaps in ${gap.category}`,
             recommendation: `Improve ${section.title} section compliance to address ${gap.title}`,
             nistSection: section.title
-          });
+          } as typeof basePrivacyGaps[0] & { priority: 'critical' | 'high' | 'medium' | 'low' });
         });
       }
     });
@@ -275,10 +286,27 @@ const PrivacyGapAnalyzer = () => {
     }
   };
 
-  const handleExportAnalysis = () => {
+  // Show welcome message when coming from assessment
+  useEffect(() => {
+    if (fromAssessment && assessmentResults) {
+      toast.success(
+        'Assessment Integrated',
+        'Your NIST Privacy Framework assessment results have been integrated into the gap analysis'
+      );
+    }
+  }, [fromAssessment, assessmentResults]);
+
+  const handleExportAnalysis = async () => {
+    setIsExporting(true);
     try {
+      // Show progress toast
+      toast.info('Generating PDF', 'Please wait while we generate your gap analysis report...');
+      
       const overallScore = assessmentResults?.overallScore || 
         Math.round(complianceData.reduce((sum, f) => sum + f.score, 0) / complianceData.length);
+      
+      // Small delay to show loading state
+      await new Promise(resolve => setTimeout(resolve, 100));
       
       generatePrivacyGapAnalysisPdf({
         metadata: {
@@ -293,7 +321,7 @@ const PrivacyGapAnalyzer = () => {
           totalGaps: privacyGaps.length,
           criticalGaps: privacyGaps.filter(gap => gap.priority === 'critical').length,
           highGaps: privacyGaps.filter(gap => gap.priority === 'high').length,
-          mediumGaps: privacyGaps.filter(gap => gap.priority === 'medium').length,
+          mediumGaps: privacyGaps.filter(gap => (gap as any).priority === 'medium').length,
           frameworksAssessed: complianceData.length,
           assessmentDate: assessmentResults?.completedDate || new Date().toLocaleDateString(),
           frameworkName: assessmentResults?.frameworkName || 'NIST Privacy Framework'
@@ -326,15 +354,27 @@ const PrivacyGapAnalyzer = () => {
         } : undefined
       });
 
-      toast.success('Analysis Exported', 'Privacy gap analysis PDF has been generated successfully');
+      // Success with details
+      toast.success(
+        'PDF Exported Successfully',
+        `Your gap analysis report has been downloaded. It includes ${privacyGaps.length} gaps and ${complianceData.length} framework assessments.`
+      );
     } catch (error) {
       console.error('Error generating PDF:', error);
       toast.error('Export Failed', 'Failed to generate PDF. Please try again.');
+    } finally {
+      setIsExporting(false);
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {assessmentResults && (
+        <AssessmentFlowProgress 
+          currentStep="gap-analysis" 
+          assessmentResults={assessmentResults}
+        />
+      )}
       <div className="mb-6">
         <Link to="/toolkit" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-4">
           <ArrowLeft className="mr-2 h-4 w-4" />
@@ -347,9 +387,18 @@ const PrivacyGapAnalyzer = () => {
               Multi-framework privacy compliance assessment and gap identification
             </p>
           </div>
-          <Button onClick={handleExportAnalysis}>
-            <Download className="h-4 w-4 mr-2" />
-            Export Analysis
+          <Button onClick={handleExportAnalysis} disabled={isExporting}>
+            {isExporting ? (
+              <>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                Exporting PDF...
+              </>
+            ) : (
+              <>
+                <Download className="h-4 w-4 mr-2" />
+                Export Analysis
+              </>
+            )}
           </Button>
         </div>
       </div>
@@ -378,6 +427,51 @@ const PrivacyGapAnalyzer = () => {
         </nav>
       </div>
 
+      {/* Assessment Integration Banner */}
+      {assessmentResults && (
+        <div className="mb-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
+          <div className="flex items-start gap-3">
+            <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+            <div className="flex-1">
+              <h4 className="font-semibold text-foreground mb-1">
+                Assessment Results Integrated
+              </h4>
+              <p className="text-sm text-muted-foreground mb-3">
+                Your NIST Privacy Framework Assessment (completed on {assessmentResults.completedDate || 'recently'}) 
+                has been integrated into this gap analysis. {assessmentBasedGaps.length} additional gaps 
+                were identified based on your assessment responses.
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/privacy-results', { state: { assessmentResults } })}
+              >
+                View Full Results
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Empty State for No Assessment */}
+      {!assessmentResults && privacyGaps.length === basePrivacyGaps.length && (
+        <EmptyState
+          icon={Eye}
+          title="No Assessment Data"
+          description="Complete a NIST Privacy Framework Assessment to see integrated gap analysis results. The assessment will automatically identify compliance gaps based on your responses."
+          action={{
+            label: 'Start Assessment',
+            onClick: () => navigate('/assessments/privacy-assessment'),
+            icon: FileCheck
+          }}
+          secondaryAction={{
+            label: 'View Base Analysis',
+            onClick: () => setActiveTab('overview')
+          }}
+          className="mb-6"
+        />
+      )}
+
       {/* Tab Content */}
       {activeTab === 'overview' && (
         <div className="space-y-6">
@@ -387,6 +481,10 @@ const PrivacyGapAnalyzer = () => {
                 <CardTitle className="flex items-center">
                   <Eye className="h-5 w-5 mr-2 text-primary" />
                   NIST Privacy Framework Assessment Results
+                  <TooltipComponent
+                    content="These scores are from your completed NIST Privacy Framework Assessment. Gaps are automatically identified for sections scoring below the threshold."
+                    className="ml-2"
+                  />
                 </CardTitle>
               </CardHeader>
               <CardContent>

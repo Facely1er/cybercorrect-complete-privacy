@@ -5,6 +5,7 @@ import { AlertTriangle, CheckCircle, Circle, Info, ArrowLeft, ArrowRight } from 
 import { Link, useNavigate } from 'react-router-dom';
 import AssessmentStartScreen, { SectionInfo } from '../../components/assessment/AssessmentStartScreen';
 import { RelatedContent } from '../../components/ui/InternalLinkingHelper';
+import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
 
 const PrivacyAssessment = () => {
   const navigate = useNavigate();
@@ -383,6 +384,7 @@ const PrivacyAssessment = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <AssessmentFlowProgress currentStep="assessment" />
       <div className="mb-6">
         <Link to="/assessment-hub" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-4">
           <ArrowLeft className="mr-2 h-4 w-4" />
