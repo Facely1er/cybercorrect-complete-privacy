@@ -22,7 +22,40 @@ VITE_SUPABASE_ANON_KEY=your-anon-key-here
    - **Project URL** → Use for `VITE_SUPABASE_URL`
    - **anon/public key** → Use for `VITE_SUPABASE_ANON_KEY`
 
-**Note**: For production deployment, see `ENV_PRODUCTION_TEMPLATE.md` for detailed instructions on configuring environment variables on your hosting platform.
+## Production Environment Variables
+
+For production deployment, configure these additional optional variables:
+
+```env
+# Error Monitoring (OPTIONAL)
+VITE_SENTRY_DSN=https://your-sentry-dsn@sentry.io/project-id
+
+# Payment Processing (OPTIONAL)
+VITE_STRIPE_PUBLISHABLE_KEY=pk_live_your_key_here
+
+# Analytics (OPTIONAL)
+VITE_ENABLE_ANALYTICS=true
+VITE_ANALYTICS_ID=your-analytics-id
+
+# Error Monitoring Endpoint (OPTIONAL)
+VITE_ERROR_MONITORING_ENDPOINT=https://your-error-monitoring-endpoint.com/api/errors
+
+# App Version (OPTIONAL)
+VITE_APP_VERSION=1.0.0
+```
+
+### How to Get Optional Values
+
+**Sentry DSN:**
+1. Go to [Sentry Dashboard](https://sentry.io)
+2. Select your project
+3. Navigate to **Settings** → **Client Keys (DSN)**
+4. Copy the DSN value
+
+**Stripe Keys:**
+1. Go to [Stripe Dashboard](https://dashboard.stripe.com)
+2. Navigate to **Developers** → **API keys**
+3. Copy the **Publishable key** for `VITE_STRIPE_PUBLISHABLE_KEY`
 
 ## Optional Environment Variables
 

@@ -11,8 +11,11 @@ Configure secrets for all deployed Edge Functions in Supabase Dashboard.
 ## 📋 Prerequisites
 
 - Access to Supabase Dashboard
-- Project: **achowlksgmwuvfbvjfrt**
-- Edge Functions already deployed (✅ Done)
+- Your Supabase project URL (from `VITE_SUPABASE_URL` environment variable)
+- Your Supabase Service Role Key (from Supabase Dashboard → Settings → API)
+- Edge Functions already deployed
+
+**⚠️ Security Note**: Never commit credentials to version control. Get them from your Supabase Dashboard.
 
 ---
 
@@ -22,8 +25,13 @@ Configure secrets for all deployed Edge Functions in Supabase Dashboard.
 
 These secrets are needed for all functions:
 
-- `SUPABASE_URL` = `https://achowlksgmwuvfbvjfrt.supabase.co`
-- `SUPABASE_SERVICE_ROLE_KEY` = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I`
+- `SUPABASE_URL` - Your Supabase project URL (e.g., `https://your-project.supabase.co`)
+- `SUPABASE_SERVICE_ROLE_KEY` - Your Supabase service role key (from Dashboard → Settings → API)
+
+**Where to find these:**
+- Go to Supabase Dashboard → Settings → API
+- Copy the **Project URL** for `SUPABASE_URL`
+- Copy the **service_role** key for `SUPABASE_SERVICE_ROLE_KEY`
 
 ### Optional Secrets (Function-Specific)
 
@@ -39,7 +47,7 @@ These secrets are needed for all functions:
 ### Step 1: Open Supabase Dashboard
 
 1. Go to: https://app.supabase.com
-2. Select your project: **achowlksgmwuvfbvjfrt**
+2. Select your project
 3. Navigate to: **Edge Functions** (left sidebar)
 
 ---
@@ -55,8 +63,8 @@ These secrets are needed for all functions:
 
 | Secret Name | Secret Value |
 |------------|--------------|
-| `SUPABASE_URL` | `https://achowlksgmwuvfbvjfrt.supabase.co` |
-| `SUPABASE_SERVICE_ROLE_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I` |
+| `SUPABASE_URL` | Your Supabase project URL (from Dashboard → Settings → API) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Your Supabase service role key (from Dashboard → Settings → API) |
 | `SENDGRID_API_KEY` | (Optional - when SendGrid is configured) |
 | `SENDGRID_FROM_EMAIL` | (Optional - when SendGrid is configured) |
 
@@ -76,8 +84,8 @@ These secrets are needed for all functions:
 
 | Secret Name | Secret Value |
 |------------|--------------|
-| `SUPABASE_URL` | `https://achowlksgmwuvfbvjfrt.supabase.co` |
-| `SUPABASE_SERVICE_ROLE_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I` |
+| `SUPABASE_URL` | Your Supabase project URL (from Dashboard → Settings → API) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Your Supabase service role key (from Dashboard → Settings → API) |
 | `STRIPE_SECRET_KEY` | (Optional - when Stripe is configured) |
 | `STRIPE_WEBHOOK_SECRET` | (Optional - when Stripe is configured) |
 
@@ -106,8 +114,8 @@ Repeat for each of these functions:
 
 | Secret Name | Secret Value |
 |------------|--------------|
-| `SUPABASE_URL` | `https://achowlksgmwuvfbvjfrt.supabase.co` |
-| `SUPABASE_SERVICE_ROLE_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I` |
+| `SUPABASE_URL` | Your Supabase project URL (from Dashboard → Settings → API) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Your Supabase service role key (from Dashboard → Settings → API) |
 
 5. Click: **Save** for each secret
 6. Wait for: ✅ **Secret saved** confirmation
@@ -156,12 +164,12 @@ After configuring secrets, verify:
 
 **SUPABASE_URL**:
 ```
-https://achowlksgmwuvfbvjfrt.supabase.co
+Your Supabase project URL (from Dashboard → Settings → API)
 ```
 
 **SUPABASE_SERVICE_ROLE_KEY**:
 ```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I
+Your Supabase service role key (from Dashboard → Settings → API)
 ```
 
 ---

@@ -23,7 +23,7 @@ This is a security restriction in the Supabase CLI. Secrets like:
 Edge Function secrets **must be configured via Supabase Dashboard**:
 
 1. Go to: https://app.supabase.com
-2. Select your project: **achowlksgmwuvfbvjfrt**
+2. Select your project
 3. Navigate to: **Edge Functions**
 4. For each function:
    - Click on the function name
@@ -40,8 +40,13 @@ For all Edge Functions, add these secrets:
 
 | Secret Name | Secret Value |
 |------------|--------------|
-| `SUPABASE_URL` | `https://achowlksgmwuvfbvjfrt.supabase.co` |
-| `SUPABASE_SERVICE_ROLE_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I` |
+| `SUPABASE_URL` | Your Supabase project URL (from Dashboard → Settings → API) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Your Supabase service role key (from Dashboard → Settings → API) |
+
+**Where to find these:**
+- Go to Supabase Dashboard → Settings → API
+- Copy the **Project URL** for `SUPABASE_URL`
+- Copy the **service_role** key for `SUPABASE_SERVICE_ROLE_KEY`
 
 ---
 

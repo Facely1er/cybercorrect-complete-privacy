@@ -41,8 +41,12 @@ This will:
 ## Step 3: Link Your Project
 
 ```bash
-supabase link --project-ref achowlksgmwuvfbvjfrt
+supabase link --project-ref your-project-ref
 ```
+
+**To find your project ref:**
+- Go to Supabase Dashboard → Settings → General
+- Copy the **Reference ID** (the part after `https://` in your project URL)
 
 This will:
 - Connect to your Supabase project
@@ -80,7 +84,7 @@ supabase functions deploy check-regulatory-updates
 ## Step 5: Verify Functions Deployed
 
 1. Go to: https://app.supabase.com
-2. Select project: **achowlksgmwuvfbvjfrt**
+2. Select your project
 3. Navigate to **Edge Functions**
 4. Verify all 6 functions are listed:
    - ✅ `send-email-notification`
@@ -98,8 +102,8 @@ For each function, set these secrets in Supabase Dashboard:
 
 1. Go to **Edge Functions** → `send-email-notification` → **Settings** → **Secrets**
 2. Add these secrets:
-   - `SUPABASE_URL` = `https://achowlksgmwuvfbvjfrt.supabase.co`
-   - `SUPABASE_SERVICE_ROLE_KEY` = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I`
+   - `SUPABASE_URL` = Your Supabase project URL (from Dashboard → Settings → API)
+   - `SUPABASE_SERVICE_ROLE_KEY` = Your Supabase service role key (from Dashboard → Settings → API)
    - `SENDGRID_API_KEY` = (when SendGrid is configured - optional)
    - `SENDGRID_FROM_EMAIL` = (when SendGrid is configured - optional)
 
@@ -107,7 +111,7 @@ For each function, set these secrets in Supabase Dashboard:
 
 1. Go to **Edge Functions** → `stripe-webhook` → **Settings** → **Secrets**
 2. Add these secrets:
-   - `SUPABASE_URL` = `https://achowlksgmwuvfbvjfrt.supabase.co`
+   - `SUPABASE_URL` = Your Supabase project URL (from Dashboard → Settings → API)
    - `SUPABASE_SERVICE_ROLE_KEY` = (same as above)
    - `STRIPE_SECRET_KEY` = (when Stripe is configured - optional)
    - `STRIPE_WEBHOOK_SECRET` = (when Stripe is configured - optional)
@@ -116,7 +120,7 @@ For each function, set these secrets in Supabase Dashboard:
 
 1. Go to **Edge Functions** → `[function-name]` → **Settings** → **Secrets**
 2. Add these secrets:
-   - `SUPABASE_URL` = `https://achowlksgmwuvfbvjfrt.supabase.co`
+   - `SUPABASE_URL` = Your Supabase project URL (from Dashboard → Settings → API)
    - `SUPABASE_SERVICE_ROLE_KEY` = (same as above)
 
 **Functions that need secrets**:
@@ -195,7 +199,7 @@ Each function can be tested from the Supabase Dashboard:
 
 2. **Re-link project**:
    ```bash
-   supabase link --project-ref achowlksgmwuvfbvjfrt
+   supabase link --project-ref your-project-ref
    ```
 
 3. **Check authentication**:

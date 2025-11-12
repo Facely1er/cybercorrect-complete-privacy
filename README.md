@@ -100,10 +100,10 @@ npm install
 ```bash
 # Create .env file with Supabase credentials
 # See scripts/create-env-file.md for instructions
-# Or see SUPABASE_CREDENTIALS.md for your credentials
+# See ENV_SETUP_GUIDE.md for detailed instructions
 
 # Required environment variables:
-VITE_SUPABASE_URL=https://achowlksgmwuvfbvjfrt.supabase.co
+VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your_anon_key_here
 ```
 

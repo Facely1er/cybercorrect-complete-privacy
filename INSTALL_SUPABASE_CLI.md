@@ -41,7 +41,7 @@ You can use Supabase CLI without installing it globally using `npx`:
 npx supabase login
 
 # Link project
-npx supabase link --project-ref achowlksgmwuvfbvjfrt
+npx supabase link --project-ref your-project-ref
 
 # Deploy functions
 npx supabase functions deploy send-email-notification

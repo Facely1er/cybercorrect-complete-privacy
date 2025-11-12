@@ -44,7 +44,7 @@ npm install -g supabase
 supabase login
 
 # Link project
-supabase link --project-ref achowlksgmwuvfbvjfrt
+supabase link --project-ref your-project-ref
 
 # Deploy Edge Functions
 supabase functions deploy send-email-notification
@@ -64,9 +64,11 @@ supabase functions deploy check-regulatory-updates
 ### Required (.env file)
 
 ```bash
-VITE_SUPABASE_URL=https://achowlksgmwuvfbvjfrt.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3MTY2MjAsImV4cCI6MjA3ODI5MjYyMH0.VA3C-heQSKCyiRTfrDdhrb2ONUt44W-o-a2D7ci5eUo
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key-here
 ```
+
+**Get your credentials from:** Supabase Dashboard → Settings → API
 
 ### Optional
 
@@ -86,11 +88,13 @@ VITE_SENTRY_DSN=https://...
 
 ## 🔐 Supabase Credentials
 
-**Project URL**: `https://achowlksgmwuvfbvjfrt.supabase.co`
+**Get your credentials from:** Supabase Dashboard → Settings → API
 
-**Anon Key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3MTY2MjAsImV4cCI6MjA3ODI5MjYyMH0.VA3C-heQSKCyiRTfrDdhrb2ONUt44W-o-a2D7ci5eUo`
+- **Project URL**: Your Supabase project URL (e.g., `https://your-project.supabase.co`)
+- **Anon Key**: Your anon/public key (safe for client-side use)
+- **Service Role Key**: Your service role key (for Edge Functions only - NEVER expose to client)
 
-**Service Role Key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I`
+**⚠️ Security Note:** Never commit credentials to Git. Use environment variables or Supabase Dashboard secrets.
 
 ## 📊 Database Tables
 
@@ -121,8 +125,8 @@ VITE_SENTRY_DSN=https://...
 6. `check-regulatory-updates`
 
 ### Required Secrets (for each function)
-- `SUPABASE_URL` = `https://achowlksgmwuvfbvjfrt.supabase.co`
-- `SUPABASE_SERVICE_ROLE_KEY` = (your service role key)
+- `SUPABASE_URL` = Your Supabase project URL (from Dashboard → Settings → API)
+- `SUPABASE_SERVICE_ROLE_KEY` = Your Supabase service role key (from Dashboard → Settings → API)
 
 ### Optional Secrets
 - `SENDGRID_API_KEY` (for `send-email-notification`)
@@ -133,17 +137,16 @@ VITE_SENTRY_DSN=https://...
 ## 🔗 Important Links
 
 ### Supabase Dashboard
-- **Project**: https://app.supabase.com/project/achowlksgmwuvfbvjfrt
-- **Table Editor**: https://app.supabase.com/project/achowlksgmwuvfbvjfrt/editor
-- **Edge Functions**: https://app.supabase.com/project/achowlksgmwuvfbvjfrt/functions
-- **SQL Editor**: https://app.supabase.com/project/achowlksgmwuvfbvjfrt/sql
+- **Project**: https://app.supabase.com (select your project)
+- **Table Editor**: Available in your project dashboard
+- **Edge Functions**: Available in your project dashboard
+- **SQL Editor**: Available in your project dashboard
 
 ### Documentation
 - **Quick Start**: `QUICK_START.md`
 - **Migration Guide**: `APPLY_MIGRATIONS.md`
 - **Deploy Functions**: `DEPLOY_EDGE_FUNCTIONS.md`
-- **Next Steps**: `NEXT_STEPS_AFTER_MIGRATIONS.md`
-- **Migration Complete**: `MIGRATION_COMPLETE.md`
+- **Next Steps**: `NEXT_STEPS.md`
 
 ## 📝 Common Tasks
 

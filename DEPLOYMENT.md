@@ -5,15 +5,12 @@
 This application is ready for production deployment with proper security, performance optimizations, and error handling.
 
 **Latest Updates:**
-- ✅ **CRITICAL FIX**: Resolved blank page deployment issues caused by environment variable handling
+- ✅ Resolved blank page deployment issues caused by environment variable handling
 - ✅ Implemented graceful environment variable validation (warnings instead of crashes)
 - ✅ Added lazy Supabase client initialization to prevent module-load failures
 - ✅ Added path alias resolution to Vite configuration
 - ✅ Fixed TypeScript compilation errors in PDF generation
 - ✅ Enhanced error boundary with proper development/production modes
-- ✅ Comprehensive deployment checklist created
-
-**📖 See `DEPLOYMENT_FIX_SUMMARY.md` for detailed information about the blank page fixes.**
 
 ## Pre-Deployment Requirements
 
@@ -49,23 +46,79 @@ npm run preview
 
 ## Deployment Options
 
-### Option 1: Netlify (Recommended)
+### Option 1: Vercel (Recommended)
+
+Vercel provides zero-config deployment with automatic HTTPS, global CDN, and preview deployments.
+
+#### Quick Deploy (5 minutes)
+
+1. **Import Project:**
+   - Go to https://vercel.com
+   - Click **"Add New..."** → **"Project"**
+   - Import your GitHub repository: `cybercorrect-complete-privacy`
+   - Click **"Import"**
+
+2. **Configure Build Settings:**
+   - **Framework Preset**: `Vite` (auto-detected)
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+   - **Root Directory**: `cybercorrect-complete-privacy` (if repo root is parent)
+
+3. **Add Environment Variables:**
+   - Click **"Environment Variables"** in project settings
+   - Add required variables:
+     ```
+     VITE_SUPABASE_URL=https://your-project.supabase.co
+     VITE_SUPABASE_ANON_KEY=your-anon-key-here
+     ```
+   - Add optional variables if needed:
+     ```
+     VITE_SENTRY_DSN=https://your-sentry-dsn@sentry.io/project-id
+     VITE_STRIPE_PUBLISHABLE_KEY=pk_live_your_key
+     ```
+   - Select **"Production"** environment for all variables
+
+4. **Deploy:**
+   - Click **"Deploy"**
+   - Wait ~2-3 minutes for build
+   - Your app will be live at: `https://your-project.vercel.app`
+
+#### CLI Deployment (For Updates)
+
+```bash
+# Install Vercel CLI (one time)
+npm i -g vercel
+
+# Login (one time)
+vercel login
+
+# Deploy to production
+cd cybercorrect-complete-privacy
+vercel --prod
+```
+
+**Benefits:**
+- ✅ Automatic deployments on every push to `main`
+- ✅ Preview deployments for pull requests
+- ✅ SSL certificate automatically configured
+- ✅ Global CDN for fast performance
+- ✅ SPA routing already configured in `vercel.json`
+
+### Option 2: Netlify
+
 1. Connect your GitHub repository to Netlify
 2. Set build command: `npm run build`
 3. Set publish directory: `dist`
 4. Add environment variables in Netlify dashboard
-5. Deploy
-
-### Option 2: Vercel
-1. Import project to Vercel
-2. Set framework preset to "Vite"
-3. Add environment variables
-4. Deploy
+5. Configure redirects for SPA routing (see `public/_redirects`)
+6. Deploy
 
 ### Option 3: Custom Server
+
 1. Build the project: `npm run build`
 2. Serve the `dist` folder with a static file server
 3. Configure reverse proxy (nginx/Apache) with security headers
+4. Set up SPA routing (all routes redirect to `index.html`)
 
 ## Security Considerations
 
@@ -144,7 +197,6 @@ If your deployment shows blank pages, this is likely due to **missing environmen
 3. Clear browser cache (Ctrl+Shift+R or Cmd+Shift+R)
 
 **Detailed Guide:**
-- See `DEPLOYMENT_FIX_SUMMARY.md` for comprehensive troubleshooting
 - See `ENV_SETUP_GUIDE.md` for environment variable setup instructions
 
 ### Common Issues:
@@ -168,8 +220,8 @@ If your deployment shows blank pages, this is likely due to **missing environmen
 ## Support
 
 For deployment issues or questions:
-- **Blank pages?** → See `DEPLOYMENT_FIX_SUMMARY.md`
 - **Environment setup?** → See `ENV_SETUP_GUIDE.md`
+- **Database setup?** → See `APPLY_MIGRATIONS.md`
 - Check the browser console for errors
 - Verify environment variables are set in deployment platform
 - Ensure Supabase connection is working
@@ -179,5 +231,3 @@ For deployment issues or questions:
 ---
 
 **Status: Ready for Production Deployment** 🚀
-
-**Recent Fixes Applied**: Blank page issues resolved - see `DEPLOYMENT_FIX_SUMMARY.md` for details.

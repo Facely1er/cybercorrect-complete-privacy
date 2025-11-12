@@ -20,8 +20,11 @@ Copy and paste this content into the `.env` file:
 
 ```bash
 # Supabase Configuration
-VITE_SUPABASE_URL=https://achowlksgmwuvfbvjfrt.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3MTY2MjAsImV4cCI6MjA3ODI5MjYyMH0.VA3C-heQSKCyiRTfrDdhrb2ONUt44W-o-a2D7ci5eUo
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key-here
+```
+
+**Get your credentials from:** Supabase Dashboard → Settings → API
 
 # Optional: Stripe Configuration (for payments)
 # VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...

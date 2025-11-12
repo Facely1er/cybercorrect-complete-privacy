@@ -26,9 +26,11 @@
 Create a `.env` file in the project root with:
 
 ```bash
-VITE_SUPABASE_URL=https://achowlksgmwuvfbvjfrt.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3MTY2MjAsImV4cCI6MjA3ODI5MjYyMH0.VA3C-heQSKCyiRTfrDdhrb2ONUt44W-o-a2D7ci5eUo
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key-here
 ```
+
+**Get your credentials from:** Supabase Dashboard → Settings → API
 
 **⚠️ IMPORTANT**: 
 - The `.env` file is already in `.gitignore` - it won't be committed
@@ -40,7 +42,7 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 **Easiest Method - Using Supabase Dashboard**:
 
 1. Go to: https://app.supabase.com
-2. Login and select project: **achowlksgmwuvfbvjfrt**
+2. Login and select your project
 3. Click **SQL Editor** → **New query**
 4. Apply migrations in this order:
 
@@ -102,7 +104,7 @@ npm install -g supabase
 supabase login
 
 # Link your project
-supabase link --project-ref achowlksgmwuvfbvjfrt
+supabase link --project-ref your-project-ref
 
 # Deploy each function
 supabase functions deploy send-email-notification
@@ -125,19 +127,19 @@ supabase functions deploy check-regulatory-updates
 2. For each function, set these secrets:
 
    **For `send-email-notification`:**
-   - `SUPABASE_URL` = `https://achowlksgmwuvfbvjfrt.supabase.co`
-   - `SUPABASE_SERVICE_ROLE_KEY` = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I`
+   - `SUPABASE_URL` = Your Supabase project URL (from Dashboard → Settings → API)
+   - `SUPABASE_SERVICE_ROLE_KEY` = Your Supabase service role key (from Dashboard → Settings → API)
    - `SENDGRID_API_KEY` = (when SendGrid is configured)
    - `SENDGRID_FROM_EMAIL` = (when SendGrid is configured)
 
    **For `stripe-webhook`:**
-   - `SUPABASE_URL` = `https://achowlksgmwuvfbvjfrt.supabase.co`
+   - `SUPABASE_URL` = Your Supabase project URL (from Dashboard → Settings → API)
    - `SUPABASE_SERVICE_ROLE_KEY` = (same as above)
    - `STRIPE_SECRET_KEY` = (when Stripe is configured)
    - `STRIPE_WEBHOOK_SECRET` = (when Stripe is configured)
 
    **For other functions:**
-   - `SUPABASE_URL` = `https://achowlksgmwuvfbvjfrt.supabase.co`
+   - `SUPABASE_URL` = Your Supabase project URL (from Dashboard → Settings → API)
    - `SUPABASE_SERVICE_ROLE_KEY` = (same as above)
 
 ### Step 6: Test the Application (15 minutes)

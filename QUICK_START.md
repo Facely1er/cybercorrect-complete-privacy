@@ -7,9 +7,11 @@
 Create a `.env` file in the project root:
 
 ```bash
-VITE_SUPABASE_URL=https://achowlksgmwuvfbvjfrt.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3MTY2MjAsImV4cCI6MjA3ODI5MjYyMH0.VA3C-heQSKCyiRTfrDdhrb2ONUt44W-o-a2D7ci5eUo
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key-here
 ```
+
+**Get your credentials from:** Supabase Dashboard → Settings → API
 
 **⚠️ IMPORTANT**: Never commit this file to Git (already in `.gitignore`)
 
@@ -18,7 +20,7 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 **Easiest Method - Using Supabase Dashboard**:
 
 1. Go to: https://app.supabase.com
-2. Login and select project: **achowlksgmwuvfbvjfrt**
+2. Login and select your project
 3. Click **SQL Editor** → **New query**
 4. Apply migrations in order:
 
@@ -50,7 +52,7 @@ npm install -g supabase
 supabase login
 
 # Link project
-supabase link --project-ref achowlksgmwuvfbvjfrt
+supabase link --project-ref your-project-ref
 
 # Apply all migrations
 supabase db push
@@ -85,7 +87,7 @@ npm install -g supabase
 
 # Login and link (if not already done)
 supabase login
-supabase link --project-ref achowlksgmwuvfbvjfrt
+supabase link --project-ref your-project-ref
 
 # Deploy all functions
 supabase functions deploy send-email-notification
@@ -115,21 +117,20 @@ chmod +x scripts/deploy-edge-functions.sh
 2. For each function, click **Settings** → **Secrets**
 3. Add these secrets:
 
-   **For `send-email-notification`:**
-   - `SUPABASE_URL` = `https://achowlksgmwuvfbvjfrt.supabase.co`
-   - `SUPABASE_SERVICE_ROLE_KEY` = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I`
-   - `SENDGRID_API_KEY` = (when SendGrid is configured)
-   - `SENDGRID_FROM_EMAIL` = (when SendGrid is configured)
+   **For all functions, add these required secrets:**
+   - `SUPABASE_URL` = Your Supabase project URL (from Dashboard → Settings → API)
+   - `SUPABASE_SERVICE_ROLE_KEY` = Your Supabase service role key (from Dashboard → Settings → API)
 
-   **For `stripe-webhook`:**
-   - `SUPABASE_URL` = `https://achowlksgmwuvfbvjfrt.supabase.co`
-   - `SUPABASE_SERVICE_ROLE_KEY` = (same as above)
-   - `STRIPE_SECRET_KEY` = (when Stripe is configured)
-   - `STRIPE_WEBHOOK_SECRET` = (when Stripe is configured)
+   **Optional secrets (function-specific):**
+   - `SENDGRID_API_KEY` = (for `send-email-notification` when SendGrid is configured)
+   - `SENDGRID_FROM_EMAIL` = (for `send-email-notification` when SendGrid is configured)
+   - `STRIPE_SECRET_KEY` = (for `stripe-webhook` when Stripe is configured)
+   - `STRIPE_WEBHOOK_SECRET` = (for `stripe-webhook` when Stripe is configured)
 
-   **For other functions:**
-   - `SUPABASE_URL` = `https://achowlksgmwuvfbvjfrt.supabase.co`
-   - `SUPABASE_SERVICE_ROLE_KEY` = (same as above)
+**Where to find your credentials:**
+- Go to Supabase Dashboard → Settings → API
+- Copy the **Project URL** for `SUPABASE_URL`
+- Copy the **service_role** key for `SUPABASE_SERVICE_ROLE_KEY`
 
 ---
 
@@ -210,7 +211,7 @@ After migrations, you should see these 12 tables in Supabase:
 ### Edge Function Issues?
 
 1. **Check login**: `supabase login`
-2. **Check link**: `supabase link --project-ref achowlksgmwuvfbvjfrt`
+2. **Check link**: `supabase link --project-ref your-project-ref`
 3. **Check secrets**: Verify all secrets are set correctly
 4. **Check logs**: Review function logs in Supabase Dashboard
 
@@ -220,7 +221,7 @@ After migrations, you should see these 12 tables in Supabase:
 
 - **Detailed Migration Guide**: `APPLY_MIGRATIONS.md`
 - **Full Setup Guide**: `SUPABASE_SETUP_COMPLETE.md`
-- **Credentials Reference**: `SUPABASE_CREDENTIALS.md`
+- **Environment Setup**: `ENV_SETUP_GUIDE.md`
 - **Next Steps**: `NEXT_STEPS.md`
 
 ---

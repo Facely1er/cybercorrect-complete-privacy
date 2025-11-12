@@ -1,12 +1,13 @@
 # Apply Database Migrations - Quick Guide
 
-## Your Supabase Credentials
+## Prerequisites
 
-**Project URL**: `https://achowlksgmwuvfbvjfrt.supabase.co`
+Before applying migrations, ensure you have:
+- Access to your Supabase Dashboard
+- Your Supabase project URL (from `VITE_SUPABASE_URL` environment variable)
+- SQL Editor access in Supabase Dashboard
 
-**Anon Key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3MTY2MjAsImV4cCI6MjA3ODI5MjYyMH0.VA3C-heQSKCyiRTfrDdhrb2ONUt44W-o-a2D7ci5eUo`
-
-**Service Role Key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I`
+**⚠️ Security Note**: Never commit credentials to version control. Use environment variables instead.
 
 ## Step-by-Step: Apply Migrations
 
@@ -14,7 +15,7 @@
 
 1. Visit: https://app.supabase.com
 2. Login to your account
-3. Select project: **achowlksgmwuvfbvjfrt**
+3. Select your project (use the project ID from your `VITE_SUPABASE_URL`)
 
 ### 2. Open SQL Editor
 
@@ -78,16 +79,17 @@
 
 ### 5. Set Environment Variables
 
-Create a `.env` file in your project root:
+Create a `.env` file in your project root with your Supabase credentials:
 
 ```bash
-VITE_SUPABASE_URL=https://achowlksgmwuvfbvjfrt.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3MTY2MjAsImV4cCI6MjA3ODI5MjYyMH0.VA3C-heQSKCyiRTfrDdhrb2ONUt44W-o-a2D7ci5eUo
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key-here
 ```
 
 **⚠️ IMPORTANT**: 
-- Never commit `.env` file to Git
-- Add `.env` to `.gitignore` if not already there
+- Get your credentials from Supabase Dashboard → Settings → API
+- Never commit `.env` file to Git (already in `.gitignore`)
+- See `ENV_SETUP_GUIDE.md` for detailed instructions
 
 ### 6. Test the Setup
 

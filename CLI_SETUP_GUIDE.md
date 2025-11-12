@@ -24,7 +24,7 @@ This will open your browser to authenticate. Follow the prompts.
 ### Step 2: Link Your Project
 
 ```bash
-npx supabase link --project-ref achowlksgmwuvfbvjfrt
+npx supabase link --project-ref your-project-ref
 ```
 
 ### Step 3: Configure Secrets
@@ -46,14 +46,16 @@ If you prefer to configure secrets manually, use these commands:
 ### Set SUPABASE_URL Secret
 
 ```bash
-npx supabase secrets set SUPABASE_URL="https://achowlksgmwuvfbvjfrt.supabase.co" --project-ref achowlksgmwuvfbvjfrt
+npx supabase secrets set SUPABASE_URL="https://your-project.supabase.co" --project-ref your-project-ref
 ```
+
+**Note:** CLI cannot set secrets starting with "SUPABASE_" - see CLI_LIMITATIONS.md for details.
 
 ### Set SUPABASE_SERVICE_ROLE_KEY Secret
 
-```bash
-npx supabase secrets set SUPABASE_SERVICE_ROLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I" --project-ref achowlksgmwuvfbvjfrt
-```
+**Note:** CLI cannot set secrets starting with "SUPABASE_" - you must use the Supabase Dashboard. See `CLI_LIMITATIONS.md` for details.
+
+**Alternative:** Use Supabase Dashboard → Edge Functions → Settings → Secrets
 
 ---
 
@@ -79,7 +81,7 @@ After configuring secrets, verify they're set:
 ### List All Secrets
 
 ```bash
-npx supabase secrets list --project-ref achowlksgmwuvfbvjfrt
+npx supabase secrets list --project-ref your-project-ref
 ```
 
 ### Test Edge Function
@@ -102,31 +104,31 @@ npx supabase login
 ### Link Project
 
 ```bash
-npx supabase link --project-ref achowlksgmwuvfbvjfrt
+npx supabase link --project-ref your-project-ref
 ```
 
 ### Set Secret
 
 ```bash
-npx supabase secrets set SECRET_NAME="secret_value" --project-ref achowlksgmwuvfbvjfrt
+npx supabase secrets set SECRET_NAME="secret_value" --project-ref your-project-ref
 ```
 
 ### List Secrets
 
 ```bash
-npx supabase secrets list --project-ref achowlksgmwuvfbvjfrt
+npx supabase secrets list --project-ref your-project-ref
 ```
 
 ### Deploy Function
 
 ```bash
-npx supabase functions deploy FUNCTION_NAME --project-ref achowlksgmwuvfbvjfrt
+npx supabase functions deploy FUNCTION_NAME --project-ref your-project-ref
 ```
 
 ### Deploy All Functions
 
 ```bash
-npx supabase functions deploy --project-ref achowlksgmwuvfbvjfrt
+npx supabase functions deploy --project-ref your-project-ref
 ```
 
 ---
@@ -140,15 +142,14 @@ Copy and paste this entire block to set up everything:
 npx supabase login
 
 # Step 2: Link project
-npx supabase link --project-ref achowlksgmwuvfbvjfrt
+npx supabase link --project-ref your-project-ref
 
-# Step 3: Set secrets
-npx supabase secrets set SUPABASE_URL="https://achowlksgmwuvfbvjfrt.supabase.co" --project-ref achowlksgmwuvfbvjfrt
-
-npx supabase secrets set SUPABASE_SERVICE_ROLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I" --project-ref achowlksgmwuvfbvjfrt
+# Step 3: Set secrets (Note: CLI cannot set secrets starting with "SUPABASE_")
+# You must use Supabase Dashboard → Edge Functions → Settings → Secrets
+# See CLI_LIMITATIONS.md for details
 
 # Step 4: Verify secrets
-npx supabase secrets list --project-ref achowlksgmwuvfbvjfrt
+npx supabase secrets list --project-ref your-project-ref
 ```
 
 ---
@@ -176,7 +177,7 @@ npx supabase login
 Link your project:
 
 ```bash
-npx supabase link --project-ref achowlksgmwuvfbvjfrt
+npx supabase link --project-ref your-project-ref
 ```
 
 ### Secrets Not Appearing

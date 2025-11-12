@@ -10,19 +10,21 @@ Create a `.env` file in the project root (or set them in your deployment platfor
 
 ```bash
 # Supabase Configuration
-VITE_SUPABASE_URL=https://achowlksgmwuvfbvjfrt.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3MTY2MjAsImV4cCI6MjA3ODI5MjYyMH0.VA3C-heQSKCyiRTfrDdhrb2ONUt44W-o-a2D7ci5eUo
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key-here
 
 # Service Role Key (for Edge Functions only - never expose to client)
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
 ```
+
+**Get your credentials from:** Supabase Dashboard → Settings → API
 
 ### 2. Apply Database Migrations
 
 #### Option A: Using Supabase Dashboard (Recommended)
 
 1. Go to [Supabase Dashboard](https://app.supabase.com)
-2. Select your project: `achowlksgmwuvfbvjfrt`
+2. Select your project
 3. Navigate to **SQL Editor**
 4. Apply migrations in this order:
 
@@ -68,7 +70,7 @@ npm install -g supabase
 supabase login
 
 # Link your project
-supabase link --project-ref achowlksgmwuvfbvjfrt
+supabase link --project-ref your-project-ref
 
 # Apply all migrations
 supabase db push
@@ -100,21 +102,15 @@ After applying migrations, verify tables exist:
 1. Go to **Edge Functions** in Supabase Dashboard
 2. For each function, set these secrets:
 
-   **For `send-email-notification`:**
-   - `SENDGRID_API_KEY` (if using SendGrid)
-   - `SENDGRID_FROM_EMAIL` (if using SendGrid)
-   - `SUPABASE_URL`
-   - `SUPABASE_SERVICE_ROLE_KEY`
+   **For all functions, add these required secrets:**
+   - `SUPABASE_URL` = Your Supabase project URL (from Dashboard → Settings → API)
+   - `SUPABASE_SERVICE_ROLE_KEY` = Your Supabase service role key (from Dashboard → Settings → API)
 
-   **For `stripe-webhook`:**
-   - `STRIPE_SECRET_KEY`
-   - `STRIPE_WEBHOOK_SECRET`
-   - `SUPABASE_URL`
-   - `SUPABASE_SERVICE_ROLE_KEY`
-
-   **For other functions:**
-   - `SUPABASE_URL`
-   - `SUPABASE_SERVICE_ROLE_KEY`
+   **Optional secrets (function-specific):**
+   - `SENDGRID_API_KEY` = (for `send-email-notification` when SendGrid is configured)
+   - `SENDGRID_FROM_EMAIL` = (for `send-email-notification` when SendGrid is configured)
+   - `STRIPE_SECRET_KEY` = (for `stripe-webhook` when Stripe is configured)
+   - `STRIPE_WEBHOOK_SECRET` = (for `stripe-webhook` when Stripe is configured)
 
 #### Deploy Edge Functions
 
@@ -124,7 +120,7 @@ npm install -g supabase
 
 # Login and link (if not already done)
 supabase login
-supabase link --project-ref achowlksgmwuvfbvjfrt
+supabase link --project-ref your-project-ref
 
 # Deploy each function
 supabase functions deploy send-email-notification
@@ -192,7 +188,7 @@ If you can't connect:
 
 If Edge Functions fail to deploy:
 1. Check that you're logged in: `supabase login`
-2. Verify project is linked: `supabase link --project-ref achowlksgmwuvfbvjfrt`
+2. Verify project is linked: `supabase link --project-ref your-project-ref`
 3. Check function secrets are set correctly
 4. Review function logs in Supabase Dashboard
 
