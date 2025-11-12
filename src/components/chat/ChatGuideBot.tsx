@@ -87,8 +87,7 @@ const ChatGuideBot = () => {
         { id: 'try-gap-analyzer', text: 'Try Gap Analyzer', nextStep: 'try-gap-analyzer' }
       ],
       links: [
-        { text: 'Privacy Gap Analyzer', url: '/toolkit/privacy-gap-analyzer' },
-        { text: 'Compliance Gap Analyzer', url: '/toolkit/compliance-gap-analyzer' }
+        { text: 'Privacy Gap Analyzer', url: '/toolkit/privacy-gap-analyzer' }
       ]
     },
     'privacy-tools': {
