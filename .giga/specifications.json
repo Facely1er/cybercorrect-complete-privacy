@@ -1,22 +1,22 @@
 [
   {
     "fileName": "main-overview.mdc",
-    "description": "Complete system overview detailing the privacy compliance platform architecture, key components, and their interactions"
+    "description": "Complete system overview documenting the privacy compliance management system architecture, key components, and their interactions. Includes high-level documentation of all major subsystems and their relationships."
   },
   {
     "fileName": "compliance-scoring-algorithms.mdc",
-    "description": "Detailed documentation of risk-weighted compliance scoring algorithms, maturity level calculations, and urgency scoring implementations across different assessment types"
+    "description": "Detailed documentation of all risk-weighted compliance scoring algorithms, including maturity level calculations, urgency scoring formulas, and multi-framework gap analysis implementations. Covers mathematical models and decision logic for risk assessment."
   },
   {
-    "fileName": "privacy-assessment-models.mdc",
-    "description": "Comprehensive documentation of data models for DPIA, CUI Assessment, Privacy Framework evaluations, and their relationships with scoring systems"
+    "fileName": "data-processing-models.mdc",
+    "description": "Comprehensive documentation of data models for GDPR processing activities, data flow mapping, cross-border transfers, and legal basis tracking. Includes entity relationships and data structure specifications for all privacy-related data."
   },
   {
-    "fileName": "compliance-data-flow.mdc",
-    "description": "Documentation of data flow patterns between assessment components, evidence management, and documentation generation systems"
+    "fileName": "assessment-workflow-engine.mdc",
+    "description": "Technical documentation of the assessment workflow engine, including DPIA generation logic, privacy assessment frameworks, and compliance gap analysis processes. Details the business rules and control mapping algorithms."
   },
   {
     "fileName": "privacy-framework-mappings.mdc",
-    "description": "Technical documentation of cross-framework compliance mappings, including GDPR, CCPA, NIST Privacy Framework integration points and correlation logic"
+    "description": "Detailed documentation of how multiple privacy frameworks (GDPR, CCPA, LGPD, PIPEDA) are mapped and correlated, including control mapping logic, cross-framework compatibility, and automated recommendation generation algorithms."
   }
 ]

@@ -10,57 +10,46 @@
 - Explain your OBSERVATIONS clearly, then provide REASONING to identify the exact issue. Add console logs when needed to gather more information.
 
 
-Privacy Compliance Management System Overview
+## Core Privacy Compliance Platform
 
-Core Compliance Analysis Components (Importance: 90/100):
+The platform implements automated privacy compliance management through interconnected assessment and workflow engines.
 
-1. Compliance Gap Analyzer
-- Risk-weighted scoring system using priority levels
-- Domain-specific maturity calculations
-- Urgency score generation for compliance gaps
-- Custom trend analysis with improvement tracking
+### Assessment Core
+- Privacy Gap Analysis Engine calculates multi-framework compliance scores using NIST, GDPR, CCPA standards
+- Risk scoring system applies weighted priority levels and implementation status
+- Domain-specific maturity calculations based on control completion rates
+- Custom urgency scoring for compliance gap prioritization
 
-2. DPIA Generator
-- Structured privacy impact assessment workflow
-- Risk categorization for data processing
-- Legal basis validation system
-- Multi-stage compliance evaluation
+### Compliance Workflows
+1. DPIA Generator
+- Automated GDPR Article 35 risk threshold calculations
+- Processing activity classification 
+- Impact severity scoring by data category
 
-3. Privacy Assessment Framework
-- NIST Privacy Framework implementation
-- Custom scoring algorithms
-- Section-based progression system
-- Cross-framework compliance mapping
+2. Privacy Rights Management
+- Multi-regulation request orchestration (GDPR/CCPA)
+- 30-day compliance window tracking
+- Automated request routing and SLA monitoring
 
-Privacy Rights Management (Importance: 85/100):
-- GDPR-compliant request handling workflow
-- Automated due date calculations
-- Priority-based request management
-- Status tracking with regulatory timestamps
+3. Policy Generation System
+- Multi-framework template selection
+- Organization-specific clause generation
+- Regulatory requirement mapping
 
-Project Implementation Components (Importance: 80/100):
-1. Privacy Program Workflow
-- Four-phase implementation framework
-- Phase-specific deliverables tracking
-- Control implementation sequencing
-- Validation checkpoints system
+### Risk Assessment Framework
+- Privacy-specific scoring algorithm incorporating:
+  - Control effectiveness weights
+  - Framework-specific requirements
+  - Industry risk factors
+  - Gap severity classification
 
-2. RACI Matrix Implementation
-- Role-based privacy responsibility mapping
-- Privacy-specific activity categorization
-- DPO/Legal/Data Steward role assignments
+### Evidence Management
+- Compliance documentation categorization
+- Regulatory framework mapping
+- Audit trail tracking
+- Legal basis documentation
 
-3. Evidence Management System
-- Compliance documentation lifecycle
-- Evidence type classification
-- Audit trail maintenance
-- Privacy documentation tracking
-
-ROI Calculator System (Importance: 75/100):
-- Company size-based savings calculations
-- Compliance level multipliers
-- Platform cost algorithms
-- Complexity-based ROI adjustments
+The system's core value derives from its comprehensive privacy compliance automation and sophisticated risk assessment algorithms tailored to privacy regulatory requirements.
 
 $END$
 

@@ -1,56 +1,60 @@
 ---
-description: Specification for implementing and documenting risk-weighted compliance scoring algorithms and calculations across assessment types
+description: Specifies core algorithms and logic for calculating risk-weighted compliance scores and maturity levels across multiple frameworks
 ---
 
 
 # compliance-scoring-algorithms
 
-## Risk-Weighted Scoring System
-Importance Score: 95/100
+## Core Scoring Components
 
-Located in: src/pages/tools-and-assessments/ComplianceGapAnalyzer.tsx
+### Control Risk Assessment
+`src/pages/tools-and-assessments/ComplianceGapAnalyzer.tsx`
+- Domain-specific compliance scoring using weighted control priorities
+- Maturity level calculation based on implementation rates per domain
+- Risk scoring formula: `(controlPriority * statusWeight) / maxScore`
+- Maps raw scores to business risk categories (High/Medium/Low)
+Importance Score: 85
 
-Core scoring components:
-- Priority level weighting (Critical: 1.0, High: 0.8, Medium: 0.6, Low: 0.4)
-- Implementation status multipliers (Complete: 1.0, Partial: 0.5, None: 0.0)
-- Domain-specific maturity calculations based on control implementation rates
-- Trend analysis for compliance improvement patterns
+### Gap Analysis Engine  
+`src/lib/compliance/scoreEngine.ts`
+- Multi-framework compliance gap identification
+- Framework-specific scoring matrices for NIST, ISO, GDPR
+- Weighted domain calculations based on regulatory requirements
+- Progressive maturity tracking across control domains
+Importance Score: 92
 
-## Urgency Scoring
-Importance Score: 85/100
+### Urgency Scoring
+`src/pages/tools-and-assessments/PoamGenerator.tsx`
+- Remediation urgency calculation: `(riskLevel * timeWeight + impactScore) / maxUrgency`
+- Priority adjustment based on regulatory deadlines
+- Business impact weighting by control category
+Importance Score: 75
 
-Located in: src/pages/tools-and-assessments/PoamGenerator.tsx
+## Assessment Logic
 
-Scoring factors:
-- Risk level (weighted 40%)
-- Regulatory deadline proximity (30%)
-- Implementation complexity (20%)
-- Resource availability (10%)
-- Custom multipliers for regulatory mandates
+### Privacy Framework Scoring
+`src/pages/tools-and-assessments/PrivacyAssessment.tsx`
+- 5-function NIST privacy framework scoring
+- Section-based evaluation with weighted calculations
+- Progressive scoring based on control implementation status
+Importance Score: 85
 
-## Domain Risk Categorization
-Importance Score: 90/100
+### Multi-Framework Analysis
+`src/pages/tools-and-assessments/PrivacyGapAnalyzer.tsx`
+- Cross-framework gap identification (GDPR, CCPA, LGPD, PIPEDA)
+- Framework-specific scoring categories and thresholds
+- Risk-based prioritization using custom weighting
+Importance Score: 80
 
-Located in: src/pages/tools-and-assessments/DpiaGenerator.tsx
-
-Risk assessment metrics:
-- Data sensitivity classification (5 levels)
-- Processing volume impact scores
-- Cross-border transfer risk weights
-- Special category data multipliers
-- Automated high-risk processing detection
-
-## Compliance Gap Analysis
-Importance Score: 88/100
-
-Located in: src/pages/tools-and-assessments/CuiAssessment.tsx
-
-Analysis components:
-- Control implementation scoring
-- Framework-specific weighting systems
-- Gap severity classification
-- Business impact correlation
-- Remediation priority calculation
+## Key Scoring Rules
+- Minimum 50% section completion requirement
+- Control scoring: Yes=2, Partial=1, No=0
+- Domain maturity thresholds:
+  - Level 1: <40%
+  - Level 2: 40-70%
+  - Level 3: 70-85%
+  - Level 4: 85-95%
+  - Level 5: >95%
 
 $END$
 

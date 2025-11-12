@@ -1,63 +1,70 @@
 ---
-description: Technical implementation of privacy framework mappings and compliance correlation logic
+description: Documents privacy framework mapping functionality and correlation algorithms for multi-framework compliance analysis
 ---
 
 
 # privacy-framework-mappings
 
-## Core Framework Mapping Engine
+## Framework Correlation Engine
+Location: src/pages/tools-and-assessments/PrivacyGapAnalyzer.tsx
 Importance Score: 95/100
 
-Implementation in cybercorrect-complete-privacy/src/pages/tools-and-assessments/GdprMapper.tsx:
+Maps and correlates controls across privacy frameworks:
+- GDPR to CCPA mapping algorithm
+- LGPD to GDPR control correlation
+- PIPEDA requirement mapping
+- Cross-framework gap identification
+- Automated control mapping recommendations
 
-- Cross-framework compliance correlation between:
-  - GDPR Articles and Recitals
-  - CCPA/CPRA Requirements
-  - NIST Privacy Framework Core Functions
-  - ISO 27701 Controls
-  - LGPD Chapters
+Key mappings include:
+```typescript
+frameworkCorrelation: {
+  gdpr: {
+    ccpa: {
+      'data-subject-rights': ['consumer-rights'],
+      'lawful-basis': ['notice-choice'],
+      'data-protection': ['security-measures']
+    },
+    lgpd: {
+      'data-subject-rights': ['titular-rights'],
+      'data-protection': ['security-standards']  
+    }
+  }
+}
+```
 
-- Bi-directional mapping logic with:
-  - Primary control identification
-  - Supporting control relationships
-  - Implementation dependencies
-  - Control overlap analysis
+## Control Mapping Logic
+Location: src/lib/compliance/mappingEngine.ts
+Importance Score: 90/100
 
-## Assessment Correlation System
+Implements sophisticated control mapping algorithms:
+- Framework-specific control categorization 
+- Control effectiveness scoring
+- Gap identification across frameworks
+- Requirement overlap detection
+- Control hierarchy mapping
+
+## Recommendation Generator
+Location: src/lib/assessment/recommendationEngine.ts
 Importance Score: 85/100
 
-Implementation in cybercorrect-complete-privacy/src/pages/tools-and-assessments/PrivacyGapAnalyzer.tsx:
+Generates automated recommendations based on:
+- Framework-specific control requirements
+- Cross-framework compliance gaps
+- Organization maturity level
+- Industry-specific requirements
+- Implementation complexity scoring
 
-- Framework-specific scoring models:
-  - GDPR maturity levels (1-5)
-  - CCPA readiness indicators
-  - NIST framework alignment percentages
-  
-- Cross-framework gap analysis:
-  - Control coverage mapping
-  - Implementation status tracking
-  - Unified compliance scoring
-  - Control priority weighting
-
-## Documentation Generator
+## Framework Compatibility Analysis
+Location: src/lib/compliance/compatibilityAnalyzer.ts
 Importance Score: 80/100
 
-Implementation in cybercorrect-complete-privacy/src/pages/tools-and-assessments/DpiaGenerator.tsx:
-
-- Automated evidence mapping across frameworks
-- Control implementation documentation
-- Framework-specific reporting templates
-- Cross-reference documentation generation
-
-## Regulatory Response Mapping
-Importance Score: 75/100
-
-Implementation in cybercorrect-complete-privacy/src/pages/tools-and-assessments/PrivacyRightsManager.tsx:
-
-- Rights request categorization by framework
-- Cross-framework response requirements
-- Unified timeline management
-- Multi-jurisdiction compliance tracking
+Analyzes compatibility between frameworks:
+- Control overlap detection
+- Implementation conflict identification
+- Framework-specific requirement validation
+- Compliance scope determination
+- Gap remediation prioritization
 
 $END$
 
