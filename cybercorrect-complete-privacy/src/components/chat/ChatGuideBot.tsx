@@ -555,7 +555,7 @@ const ChatGuideBot = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="absolute bottom-16 right-0 w-80 sm:w-96 bg-background border border-border rounded-lg shadow-lg flex flex-col h-[500px] max-h-[80vh] overflow-hidden"
+        <div className="absolute bottom-16 right-0 w-[calc(100vw-2rem)] max-w-80 sm:max-w-96 bg-background border border-border rounded-lg shadow-lg flex flex-col h-[500px] max-h-[80vh] overflow-hidden"
           data-chat-bot-window
         >
           {/* Chat Header */}
