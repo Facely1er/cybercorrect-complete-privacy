@@ -45,8 +45,9 @@ const Login = () => {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div className="relative">
+              <label htmlFor="email-address" className="sr-only">Email address</label>
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Mail className="h-5 w-5 text-muted-foreground" />
+                <Mail className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
               </div>
               <input
                 id="email-address"
@@ -58,11 +59,13 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 className="block w-full pl-10 border-border bg-background text-foreground rounded-t-md py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 placeholder="Email address"
+                aria-label="Email address"
               />
             </div>
             <div className="relative">
+              <label htmlFor="password" className="sr-only">Password</label>
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Lock className="h-5 w-5 text-muted-foreground" />
+                <Lock className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
               </div>
               <input
                 id="password"
@@ -74,6 +77,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 className="block w-full pl-10 border-border bg-background text-foreground rounded-b-md py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 placeholder="Password"
+                aria-label="Password"
               />
             </div>
           </div>
