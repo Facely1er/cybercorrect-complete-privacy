@@ -127,12 +127,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       icon: Home
     },
     {
-      name: 'Resources',
-      path: '/resources-landing',
-      icon: BookOpen
-    },
-    {
-      name: 'Pricing', 
+      name: 'Pricing',
       path: '/pricing',
       icon: CircleDollarSign
     },
