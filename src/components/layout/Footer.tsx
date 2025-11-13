@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { 
+import {
   FileText,
   ClipboardCheck,
   Fingerprint,
@@ -8,7 +8,6 @@ import {
   Database,
   BookOpen,
   HelpCircle,
-  Info,
   FileQuestion,
   CircleDollarSign,
   Shield,
@@ -92,7 +91,6 @@ const Footer: React.FC = () => {
               <div>
                 <h3 className="text-base font-medium mb-3 text-foreground dark:text-dark-text">Company</h3>
                 <ul className="space-y-2 text-sm">
-                  <li><Link to="/about" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Info className="h-3.5 w-3.5 mr-1.5" />About</Link></li>
                   <li><Link to="/privacy" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Shield className="h-3.5 w-3.5 mr-1.5" />Privacy Policy</Link></li>
                   <li><Link to="/terms" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Lock className="h-3.5 w-3.5 mr-1.5" />Terms of Service</Link></li>
                   <li><Link to="/cookies" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><FileText className="h-3.5 w-3.5 mr-1.5" />Cookie Policy</Link></li>

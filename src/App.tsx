@@ -18,7 +18,6 @@ import { lazyWithRetry } from './utils/lazyWithRetry';
 
 // Pages
 import Landing from './pages/Landing';
-import About from './pages/About';
 import Pricing from './pages/Pricing';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
@@ -183,7 +182,6 @@ const App: React.FC = () => {
                   {/* Main Layout Routes */}
                   <Route path="/" element={<LandingLayout toggleDarkMode={toggleDarkMode} darkMode={darkMode} />}>
                     <Route index element={<Landing />} />
-                    <Route path="about" element={<About />} />
                     <Route path="pricing" element={<Pricing />} />
                     <Route path="features" element={<Features />} />
                     <Route path="demo" element={<Demo />} />

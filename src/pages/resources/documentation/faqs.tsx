@@ -109,7 +109,7 @@ const Faqs = () => {
     },
     {
       question: "Is training available for CyberCorrect Privacy Platform users?",
-      answer: "Yes, CyberCorrect Privacy Platform provides multiple training options including on-demand video tutorials, comprehensive documentation, regular webinars on privacy topics, and personalized training sessions for enterprise customers. Our Support Center contains a comprehensive knowledge base to help you maximize platform value and understand privacy compliance.",
+      answer: "Yes, CyberCorrect Privacy Platform provides multiple training options including comprehensive documentation, regular webinars on privacy topics, and personalized training sessions for enterprise customers. Our Support Center contains a comprehensive knowledge base to help you maximize platform value and understand privacy compliance.",
       category: 'general'
     },
     {

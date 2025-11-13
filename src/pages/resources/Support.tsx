@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { Link } from 'react-router-dom';
 import { useChatSupport } from '../../components/chat/ChatSupportProvider';
 import { useChatbot } from '../../components/chat/ChatbotProvider';
-import { MessageSquare, Mail, BookOpen, Video, FileQuestion, ArrowRight, Shield, FileText, HelpCircle, Notebook as Robot, Send, User, Building } from 'lucide-react';
+import { MessageSquare, Mail, BookOpen, FileQuestion, ArrowRight, Shield, FileText, HelpCircle, Notebook as Robot, Send, User, Building } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 
 const Support = () => {
@@ -81,7 +81,7 @@ const Support = () => {
       title: "FAQs",
       description: "Find answers to common questions",
       articles: 100,
-      path: "/documentation/faqs" 
+      path: "/documentation/faqs"
     },
     {
       icon: BookOpen,
@@ -89,13 +89,6 @@ const Support = () => {
       description: "Browse our comprehensive knowledge base",
       articles: 250,
       path: "/documentation"
-    },
-    {
-      icon: Video, 
-      title: "Video Tutorials",
-      description: "Learn through step-by-step video guides",
-      articles: 50,
-      path: "/documentation/tutorials"
     }
   ];
 

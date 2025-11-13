@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { 
-  Menu, 
-  X, 
-  Puzzle as PuzzlePiece, 
-  CircleDollarSign, 
-  Info,
-  BookOpen, 
-  User, 
-  SunMoon, 
-  Moon, 
-  HelpCircle, 
-  Home, 
+import {
+  Menu,
+  X,
+  Puzzle as PuzzlePiece,
+  CircleDollarSign,
+  BookOpen,
+  User,
+  SunMoon,
+  Moon,
+  HelpCircle,
+  Home,
   ArrowRight,
   Eye,
   ChevronDown
@@ -135,11 +134,6 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       name: 'Demo',
       path: '/demo',
       icon: Eye
-    },
-    {
-      name: 'About', 
-      path: '/about',
-      icon: Info
     }
   ];
 
