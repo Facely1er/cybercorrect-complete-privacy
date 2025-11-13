@@ -1,6 +1,9 @@
-import { useState, useMemo, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import React, { useState, useMemo, useEffect } from 'react';
+import Card from '../../components/ui/Card';
+import CardContent from '../../components/ui/CardContent';
+import CardHeader from '../../components/ui/CardHeader';
+import CardTitle from '../../components/ui/CardTitle';
+import Button from '../../components/ui/Button';
 import { 
   Eye, 
   ArrowLeft, 
@@ -278,11 +281,11 @@ const PrivacyGapAnalyzer = () => {
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return 'text-red-600 bg-red-100';
-      case 'high': return 'text-orange-600 bg-orange-100'; 
-      case 'medium': return 'text-yellow-600 bg-yellow-100';
-      case 'low': return 'text-green-600 bg-green-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'critical': return 'text-destructive bg-destructive/10';
+      case 'high': return 'text-warning bg-warning/10';
+      case 'medium': return 'text-warning bg-warning/10';
+      case 'low': return 'text-success bg-success/10';
+      default: return 'text-muted-foreground bg-muted/10';
     }
   };
 
@@ -499,8 +502,8 @@ const PrivacyGapAnalyzer = () => {
                         <div key={index} className="text-center p-3 bg-card rounded border">
                           <div className="text-lg font-semibold text-foreground">{section.title}</div>
                           <div className={`text-2xl font-bold mt-1 ${
-                            section.percentage >= 80 ? 'text-green-600' :
-                            section.percentage >= 60 ? 'text-yellow-600' : 'text-red-600'
+                            section.percentage >= 80 ? 'text-success' :
+                            section.percentage >= 60 ? 'text-warning' : 'text-destructive'
                           }`}>
                             {section.percentage}%
                           </div>
@@ -530,17 +533,17 @@ const PrivacyGapAnalyzer = () => {
                   <div className="text-sm text-muted-foreground">Overall Compliance</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-red-600">{privacyGaps.length}</div>
+                  <div className="text-3xl font-bold text-destructive">{privacyGaps.length}</div>
                   <div className="text-sm text-muted-foreground">Total Gaps</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-orange-600">
+                  <div className="text-3xl font-bold text-warning">
                     {privacyGaps.filter(gap => gap.priority === 'critical').length}
                   </div>
                   <div className="text-sm text-muted-foreground">Critical Gaps</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-600">{complianceData.length}</div>
+                  <div className="text-3xl font-bold text-primary">{complianceData.length}</div>
                   <div className="text-sm text-muted-foreground">Frameworks</div>
                 </div>
               </div>
@@ -572,7 +575,7 @@ const PrivacyGapAnalyzer = () => {
                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${getPriorityColor(gap.priority)}`}>
                       {gap.priority.toUpperCase()}
                     </span>
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
+                    <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">
                       {gap.regulation}
                     </span>
                   </div>
