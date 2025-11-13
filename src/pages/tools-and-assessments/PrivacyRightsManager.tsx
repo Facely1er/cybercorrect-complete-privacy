@@ -16,12 +16,14 @@ import {
   CheckCircle,
   Mail,
   X,
-  Loader2
+  Loader2,
+  AlertCircle
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/secureStorage';
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
 import { EmptyState } from '../../components/ui/EmptyState';
+import { required, email, minLength, combine } from '../../utils/formValidation';
 
 interface DataSubjectRequest {
   id: string;
@@ -107,6 +109,13 @@ const PrivacyRightsManager = () => {
     priority: 'medium',
     assignedTo: 'Data Protection Officer'
   });
+
+  // Form validation errors
+  const [formErrors, setFormErrors] = useState<{
+    requesterName?: string;
+    requesterEmail?: string;
+    description?: string;
+  }>({});
 
   // Auto-save requests and selection
   useEffect(() => {
@@ -196,9 +205,69 @@ const PrivacyRightsManager = () => {
     setRejectionReason('');
   };
 
+  // Validate individual field
+  const validateField = (fieldName: 'requesterName' | 'requesterEmail' | 'description', value: string) => {
+    let error: string | undefined;
+
+    switch (fieldName) {
+      case 'requesterName': {
+        const nameResult = combine(
+          required('Requester name'),
+          minLength(2, 'Requester name')
+        )(value);
+        error = nameResult.error;
+        break;
+      }
+      case 'requesterEmail': {
+        const emailResult = combine(
+          required('Email'),
+          email
+        )(value);
+        error = emailResult.error;
+        break;
+      }
+      case 'description': {
+        const descResult = combine(
+          required('Description'),
+          minLength(10, 'Description')
+        )(value);
+        error = descResult.error;
+        break;
+      }
+    }
+
+    setFormErrors(prev => ({
+      ...prev,
+      [fieldName]: error
+    }));
+
+    return !error;
+  };
+
+  // Handle field blur for real-time validation
+  const handleFieldBlur = (fieldName: 'requesterName' | 'requesterEmail' | 'description') => {
+    const value = newRequest[fieldName] as string || '';
+    validateField(fieldName, value);
+  };
+
+  // Handle field change and clear errors
+  const handleFieldChange = (fieldName: 'requesterName' | 'requesterEmail' | 'description', value: string) => {
+    setNewRequest({ ...newRequest, [fieldName]: value });
+
+    // Clear error when user starts typing
+    if (formErrors[fieldName]) {
+      setFormErrors(prev => ({ ...prev, [fieldName]: undefined }));
+    }
+  };
+
   const handleCreateRequest = () => {
-    if (!newRequest.requesterName || !newRequest.requesterEmail || !newRequest.description) {
-      toast.error('Validation Error', 'Please fill in all required fields');
+    // Validate all fields
+    const nameValid = validateField('requesterName', newRequest.requesterName || '');
+    const emailValid = validateField('requesterEmail', newRequest.requesterEmail || '');
+    const descValid = validateField('description', newRequest.description || '');
+
+    if (!nameValid || !emailValid || !descValid) {
+      toast.error('Validation Error', 'Please fix the errors in the form');
       return;
     }
 
@@ -230,6 +299,7 @@ const PrivacyRightsManager = () => {
       priority: 'medium',
       assignedTo: 'Data Protection Officer'
     });
+    setFormErrors({});
     toast.success('Request Created', `New data subject request ${newId} has been created`);
   };
 
@@ -618,11 +688,24 @@ const PrivacyRightsManager = () => {
                   </label>
                   <input
                     type="text"
-                    className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                    className={`w-full px-3 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 ${
+                      formErrors.requesterName
+                        ? 'border-destructive focus:ring-destructive'
+                        : 'border-border focus:ring-primary'
+                    }`}
                     value={newRequest.requesterName}
-                    onChange={(e) => setNewRequest({ ...newRequest, requesterName: e.target.value })}
+                    onChange={(e) => handleFieldChange('requesterName', e.target.value)}
+                    onBlur={() => handleFieldBlur('requesterName')}
                     placeholder="Enter requester's name"
+                    aria-invalid={!!formErrors.requesterName}
+                    aria-describedby={formErrors.requesterName ? 'requesterName-error' : undefined}
                   />
+                  {formErrors.requesterName && (
+                    <p id="requesterName-error" className="text-destructive text-sm mt-1 flex items-center">
+                      <AlertCircle className="h-3 w-3 mr-1" />
+                      {formErrors.requesterName}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -631,11 +714,24 @@ const PrivacyRightsManager = () => {
                   </label>
                   <input
                     type="email"
-                    className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                    className={`w-full px-3 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 ${
+                      formErrors.requesterEmail
+                        ? 'border-destructive focus:ring-destructive'
+                        : 'border-border focus:ring-primary'
+                    }`}
                     value={newRequest.requesterEmail}
-                    onChange={(e) => setNewRequest({ ...newRequest, requesterEmail: e.target.value })}
+                    onChange={(e) => handleFieldChange('requesterEmail', e.target.value)}
+                    onBlur={() => handleFieldBlur('requesterEmail')}
                     placeholder="Enter requester's email"
+                    aria-invalid={!!formErrors.requesterEmail}
+                    aria-describedby={formErrors.requesterEmail ? 'requesterEmail-error' : undefined}
                   />
+                  {formErrors.requesterEmail && (
+                    <p id="requesterEmail-error" className="text-destructive text-sm mt-1 flex items-center">
+                      <AlertCircle className="h-3 w-3 mr-1" />
+                      {formErrors.requesterEmail}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -643,11 +739,24 @@ const PrivacyRightsManager = () => {
                     Description <span className="text-destructive">*</span>
                   </label>
                   <textarea
-                    className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary min-h-[100px]"
+                    className={`w-full px-3 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 min-h-[100px] ${
+                      formErrors.description
+                        ? 'border-destructive focus:ring-destructive'
+                        : 'border-border focus:ring-primary'
+                    }`}
                     value={newRequest.description}
-                    onChange={(e) => setNewRequest({ ...newRequest, description: e.target.value })}
+                    onChange={(e) => handleFieldChange('description', e.target.value)}
+                    onBlur={() => handleFieldBlur('description')}
                     placeholder="Describe the data subject request..."
+                    aria-invalid={!!formErrors.description}
+                    aria-describedby={formErrors.description ? 'description-error' : undefined}
                   />
+                  {formErrors.description && (
+                    <p id="description-error" className="text-destructive text-sm mt-1 flex items-center">
+                      <AlertCircle className="h-3 w-3 mr-1" />
+                      {formErrors.description}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">

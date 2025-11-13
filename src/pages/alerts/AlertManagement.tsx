@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   ArrowLeft, 
   Plus, 
-  AlertTriangle, 
+  AlertTriangle,
   Settings,
   Trash2,
   Edit,
@@ -12,13 +12,15 @@ import {
   Clock,
   CheckCircle,
   XCircle,
-  Calendar
+  Calendar,
+  AlertCircle
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { alertService, AlertRule, AlertRuleType, Alert } from '../../utils/alertService';
 import { toast } from '../../components/ui/Toaster';
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
+import { required, minLength, combine } from '../../utils/formValidation';
 
 export const AlertManagement: React.FC = () => {
   const [alertRules, setAlertRules] = useState<AlertRule[]>([]);
@@ -45,6 +47,9 @@ export const AlertManagement: React.FC = () => {
     enabled: true,
   });
 
+  // Form validation errors
+  const [ruleNameError, setRuleNameError] = useState<string>();
+
   useEffect(() => {
     loadData();
   }, []);
@@ -65,10 +70,35 @@ export const AlertManagement: React.FC = () => {
     }
   };
 
+  // Validate rule name field
+  const validateRuleName = (value: string): boolean => {
+    const result = combine(
+      required('Rule name'),
+      minLength(3, 'Rule name')
+    )(value);
+
+    setRuleNameError(result.error);
+    return result.isValid;
+  };
+
+  // Handle field blur for validation
+  const handleRuleNameBlur = () => {
+    validateRuleName(newRule.name);
+  };
+
+  // Handle field change and clear errors
+  const handleRuleNameChange = (value: string) => {
+    setNewRule({ ...newRule, name: value });
+    if (ruleNameError) {
+      setRuleNameError(undefined);
+    }
+  };
+
   const handleCreateRule = async () => {
     try {
-      if (!newRule.name.trim()) {
-        toast.error('Rule name required', 'Please enter a name for the alert rule');
+      // Validate rule name
+      if (!validateRuleName(newRule.name)) {
+        toast.error('Validation Error', 'Please fix the errors in the form');
         return;
       }
 
@@ -83,6 +113,7 @@ export const AlertManagement: React.FC = () => {
           actions: { createNotification: true },
           enabled: true,
         });
+        setRuleNameError(undefined);
         toast.success('Alert rule created', 'Alert rule has been created successfully');
       }
     } catch (error) {
@@ -190,14 +221,29 @@ export const AlertManagement: React.FC = () => {
           <CardContent>
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium mb-2 block">Rule Name</label>
+                <label className="text-sm font-medium mb-2 block">
+                  Rule Name <span className="text-destructive">*</span>
+                </label>
                 <input
                   type="text"
                   value={newRule.name}
-                  onChange={(e) => setNewRule({ ...newRule, name: e.target.value })}
-                  className="w-full px-3 py-2 border rounded"
-                  placeholder="Enter rule name"
+                  onChange={(e) => handleRuleNameChange(e.target.value)}
+                  onBlur={handleRuleNameBlur}
+                  className={`w-full px-3 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 ${
+                    ruleNameError
+                      ? 'border-destructive focus:ring-destructive'
+                      : 'border-border focus:ring-primary'
+                  }`}
+                  placeholder="Enter rule name (min 3 characters)"
+                  aria-invalid={!!ruleNameError}
+                  aria-describedby={ruleNameError ? 'ruleName-error' : undefined}
                 />
+                {ruleNameError && (
+                  <p id="ruleName-error" className="text-destructive text-sm mt-1 flex items-center">
+                    <AlertCircle className="h-3 w-3 mr-1" />
+                    {ruleNameError}
+                  </p>
+                )}
               </div>
               <div>
                 <label className="text-sm font-medium mb-2 block">Rule Type</label>
