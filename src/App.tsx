@@ -78,7 +78,6 @@ import ControlImplementationGuide from './pages/resources/documentation/ControlI
 import IncidentResponseGuide from './pages/resources/documentation/IncidentResponseGuide';
 import IncidentReporting from './pages/resources/documentation/IncidentReporting';
 import BreachResponseGuide from './pages/resources/documentation/BreachResponseGuide';
-import Tutorials from './pages/resources/documentation/Tutorials';
 import Faqs from './pages/resources/documentation/faqs';
 import PrivacyFrameworkGuide from './pages/resources/documentation/PrivacyFrameworkGuide';
 
@@ -449,7 +448,6 @@ const App: React.FC = () => {
                     <Route path="documentation/incident-response-guide" element={<IncidentResponseGuide />} />
                     <Route path="documentation/incident-reporting" element={<IncidentReporting />} />
                     <Route path="documentation/breach-response-guide" element={<BreachResponseGuide />} />
-                    <Route path="documentation/tutorials" element={<Tutorials />} />
                     <Route path="documentation/faqs" element={<Faqs />} />
                     <Route path="documentation/privacy-framework-guide" element={<PrivacyFrameworkGuide />} />
                     
