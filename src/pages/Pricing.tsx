@@ -16,15 +16,34 @@ const Pricing = () => {
 
   const plans = [
     {
+      name: "Free",
+      description: "Get started with essential privacy compliance tools",
+      price: "0",
+      billing: "forever free",
+      features: [
+        "Basic privacy assessment",
+        "Essential privacy gap analysis",
+        "Up to 25 risks tracked",
+        "3 basic templates",
+        "PDF exports only",
+        "Community support",
+        "1 privacy framework (GDPR or CCPA)",
+        "Manual evidence upload",
+        "Basic compliance dashboard",
+        "Self-service resources"
+      ]
+    },
+    {
       name: "Starter",
       description: "Perfect for small teams starting their privacy compliance journey",
       price: billingPeriod === "monthly" ? "49" : "39",
       billing: "per user/month",
       features: [
-        "Basic privacy assessment",
+        "Everything in Free, plus:",
+        "Multi-regulation privacy assessments",
         "Essential privacy controls coverage",
         "Up to 100 risks tracked",
-        "5 compliance templates",
+        "10 compliance templates",
         "Monthly automated compliance reports",
         "Weekly compliance status emails",
         "Quarterly executive summaries (automated)",
@@ -33,7 +52,7 @@ const Pricing = () => {
         "Compliance health score tracking",
         "Basic progress dashboard",
         "Email support (48hr response)",
-        "1 privacy framework",
+        "2 privacy frameworks",
         "Basic risk analytics"
       ]
     },
@@ -44,7 +63,7 @@ const Pricing = () => {
       billing: "per user/month",
       popular: true,
       features: [
-        "Multi-regulation privacy assessments",
+        "Everything in Starter, plus:",
         "Full privacy framework coverage",
         "Unlimited risk tracking",
         "Automated compliance planning",
@@ -62,7 +81,7 @@ const Pricing = () => {
         "Advanced progress analytics",
         "Compliance velocity metrics",
         "Priority support (24hr response)",
-        "Multiple privacy frameworks",
+        "Up to 5 privacy frameworks",
         "Advanced analytics & dashboards",
         "Custom workflows",
         "API access",
@@ -109,45 +128,46 @@ const Pricing = () => {
       id: "assessment",
       name: "Assessment Tools",
       features: [
-        { name: "NIST 800-171 Assessment", starter: "Limited", professional: true, enterprise: true },
-        { name: "NIST Privacy Framework Assessment", starter: false, professional: true, enterprise: true },
-        { name: "Custom Assessment Templates", starter: false, professional: "Limited", enterprise: true },
-        { name: "Supply Chain Risk Assessment", starter: false, professional: true, enterprise: true }
+        { name: "Privacy Gap Analysis", free: "Basic", starter: "Enhanced", professional: true, enterprise: true },
+        { name: "GDPR/CCPA Assessment", free: "1 framework", starter: "2 frameworks", professional: true, enterprise: true },
+        { name: "Risk Tracking", free: "Up to 25", starter: "Up to 100", professional: "Unlimited", enterprise: "Unlimited" },
+        { name: "Custom Assessment Templates", free: false, starter: "Limited", professional: "Advanced", enterprise: true },
+        { name: "Supply Chain Risk Assessment", free: false, starter: false, professional: true, enterprise: true }
       ]
     },
     {
       id: "documents",
       name: "Documentation & Evidence",
       features: [
-        { name: "System Security Plan (SSP) Generation", starter: "Basic", professional: true, enterprise: true },
-        { name: "Automated POA&M Creation", starter: "Manual", professional: true, enterprise: true },
-        { name: "Policy Templates", starter: "5 templates", professional: "20+ templates", enterprise: "Unlimited + Custom" },
-        { name: "Evidence Management", starter: "Basic", professional: true, enterprise: true },
-        { name: "Document Version Control", starter: false, professional: true, enterprise: true },
-        { name: "CUI Flow Mapping", starter: false, professional: true, enterprise: true }
+        { name: "Privacy Policy Generation", free: "Basic", starter: "Enhanced", professional: true, enterprise: true },
+        { name: "DPIA Templates", free: false, starter: "Basic", professional: "Advanced", enterprise: "Custom" },
+        { name: "Policy Templates", free: "3 templates", starter: "10 templates", professional: "25+ templates", enterprise: "Unlimited + Custom" },
+        { name: "Evidence Management", free: "Manual", starter: "Basic", professional: true, enterprise: true },
+        { name: "Document Version Control", free: false, starter: false, professional: true, enterprise: true },
+        { name: "Export Formats", free: "PDF only", starter: "PDF, Word", professional: "All formats", enterprise: "All formats + Custom" }
       ]
     },
     {
       id: "compliance",
       name: "Compliance Management",
       features: [
-        { name: "Control Mapping", starter: "Basic", professional: true, enterprise: true },
-        { name: "Compliance Dashboards", starter: "Basic", professional: true, enterprise: true },
-        { name: "Continuous Monitoring", starter: false, professional: true, enterprise: true },
-        { name: "Gap Analysis", starter: "Basic", professional: true, enterprise: true },
-        { name: "Compliance Scoring", starter: true, professional: true, enterprise: true },
-        { name: "Automated Evidence Collection", starter: false, professional: "Limited", enterprise: true },
+        { name: "Control Mapping", free: "Basic", starter: "Enhanced", professional: true, enterprise: true },
+        { name: "Compliance Dashboard", free: "Basic", starter: "Standard", professional: "Advanced", enterprise: "Custom" },
+        { name: "Continuous Monitoring", free: false, starter: false, professional: true, enterprise: true },
+        { name: "Gap Analysis", free: "Basic", starter: "Standard", professional: "Advanced", enterprise: "Advanced + AI" },
+        { name: "Compliance Scoring", free: true, starter: true, professional: true, enterprise: true },
+        { name: "Automated Reporting", free: false, starter: "Monthly", professional: "Weekly/Daily", enterprise: "Real-time" },
       ]
     },
     {
       id: "support",
       name: "Support & Services",
       features: [
-        { name: "Customer Support", starter: "Email (48hr)", professional: "Priority (24hr)", enterprise: "24/7 Dedicated" },
-        { name: "Implementation Support", starter: false, professional: "Self-guided", enterprise: "White glove" },
-        { name: "Compliance Expert Access", starter: false, professional: "Quarterly", enterprise: "Dedicated" },
-        { name: "Training Sessions", starter: "1 session", professional: "Monthly", enterprise: "Unlimited" },
-        { name: "Custom Integrations", starter: false, professional: "Basic API", enterprise: true }
+        { name: "Customer Support", free: "Community", starter: "Email (48hr)", professional: "Priority (24hr)", enterprise: "24/7 Dedicated" },
+        { name: "Implementation Support", free: "Self-service", starter: "Documentation", professional: "Guided", enterprise: "White glove" },
+        { name: "Compliance Expert Access", free: false, starter: false, professional: "Quarterly", enterprise: "Dedicated" },
+        { name: "Training Sessions", free: "Self-paced", starter: "2 sessions", professional: "Monthly", enterprise: "Unlimited" },
+        { name: "Custom Integrations", free: false, starter: false, professional: "Basic API", enterprise: true }
       ]
     }
   ];
@@ -192,10 +212,10 @@ const Pricing = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
         {plans.map((plan, index) => (
-          <Card 
-            key={index} 
+          <Card
+            key={index}
             className={`relative dark:border-muted ${plan.popular ? 'border-primary shadow-lg dark:shadow-primary/10' : ''}`}
           >
             {plan.popular && (
@@ -205,12 +225,12 @@ const Pricing = () => {
                 </span>
               </div>
             )}
-            
+
             <CardHeader>
               <CardTitle className="text-2xl text-foreground">{plan.name}</CardTitle>
               <CardDescription>{plan.description}</CardDescription>
             </CardHeader>
-            
+
             <CardContent>
               <div className="mb-6">
                 <div className="flex items-end gap-2">
@@ -235,22 +255,28 @@ const Pricing = () => {
                 ))}
               </ul>
 
-              <Button 
-                className="w-full" 
+              <Button
+                className="w-full"
                 variant={plan.popular ? "default" : "outline"}
                 onClick={async () => {
                   if (plan.price === "Contact us") {
                     window.location.href = "mailto:sales@cybercorrect.com?subject=Enterprise Plan Inquiry";
                     return;
                   }
-                  
+
+                  if (plan.name === "Free") {
+                    // For free plan, just redirect to signup/login
+                    window.location.href = '/login';
+                    return;
+                  }
+
                   try {
                     const { createCheckoutSession } = await import('../services/subscriptionService');
                     const tier = plan.name.toLowerCase() as 'starter' | 'professional';
-                    
+
                     // createCheckoutSession never throws - always returns null or session
                     const session = await createCheckoutSession(tier, billingPeriod);
-                    
+
                     if (session?.url) {
                       window.location.href = session.url;
                     } else {
@@ -267,7 +293,7 @@ const Pricing = () => {
                   }
                 }}
               >
-                {plan.price === "Contact us" ? "Contact Sales" : "Subscribe Now"}
+                {plan.price === "Contact us" ? "Contact Sales" : plan.name === "Free" ? "Get Started Free" : "Subscribe Now"}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </CardContent>
@@ -290,18 +316,19 @@ const Pricing = () => {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-muted/50">
-                    <th className="text-left p-4 font-medium text-foreground border-b border-border w-1/3">Feature</th>
-                    <th className="text-center p-4 font-medium text-foreground border-b border-border w-1/5">Starter</th>
-                    <th className="text-center p-4 font-medium text-foreground border-b border-border w-1/5 bg-primary/5">Professional</th>
-                    <th className="text-center p-4 font-medium text-foreground border-b border-border w-1/5">Enterprise</th>
+                    <th className="text-left p-4 font-medium text-foreground border-b border-border">Feature</th>
+                    <th className="text-center p-4 font-medium text-foreground border-b border-border">Free</th>
+                    <th className="text-center p-4 font-medium text-foreground border-b border-border">Starter</th>
+                    <th className="text-center p-4 font-medium text-foreground border-b border-border bg-primary/5">Professional</th>
+                    <th className="text-center p-4 font-medium text-foreground border-b border-border">Enterprise</th>
                   </tr>
                 </thead>
                 <tbody>
                   {featureCategories.map((category) => (
                     <React.Fragment key={category.id}>
                       <tr className="bg-muted/20">
-                        <td colSpan={4} className="p-4 font-semibold text-foreground border-t border-b border-border">
-                          <button 
+                        <td colSpan={5} className="p-4 font-semibold text-foreground border-t border-b border-border">
+                          <button
                             className="flex items-center justify-between w-full text-left"
                             onClick={() => setShowComparisonDetails(showComparisonDetails === category.id ? null : category.id)}
                           >
@@ -317,6 +344,11 @@ const Pricing = () => {
                       {(showComparisonDetails === category.id) && category.features.map((feature, idx) => (
                         <tr key={`${category.id}-${idx}`} className={idx % 2 === 0 ? 'bg-background' : 'bg-muted/10'}>
                           <td className="p-4 text-sm border-b border-border">{feature.name}</td>
+                          <td className="text-center p-4 border-b border-border">
+                            {feature.free === true && <Check className="h-5 w-5 text-primary mx-auto" />}
+                            {feature.free === false && <XCircle className="h-5 w-5 text-muted-foreground/50 mx-auto" />}
+                            {typeof feature.free === 'string' && <span className="text-sm">{feature.free}</span>}
+                          </td>
                           <td className="text-center p-4 border-b border-border">
                             {feature.starter === true && <Check className="h-5 w-5 text-primary mx-auto" />}
                             {feature.starter === false && <XCircle className="h-5 w-5 text-muted-foreground/50 mx-auto" />}
