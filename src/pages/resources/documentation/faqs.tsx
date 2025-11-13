@@ -46,6 +46,11 @@ const Faqs = () => {
       id: 'documents',
       name: 'Documentation',
       icon: FileText
+    },
+    {
+      id: 'pricing',
+      name: 'Pricing & Plans',
+      icon: Users
     }
   ];
 
@@ -111,6 +116,46 @@ const Faqs = () => {
       question: "Can I use CyberCorrect Privacy Platform for privacy evidence collection?",
       answer: "Yes, CyberCorrect Privacy Platform includes an evidence vault system that allows you to collect, organize, and store evidence of privacy compliance implementation. You can attach files, screenshots, documents, and other artifacts to specific privacy controls, making it easier to demonstrate compliance during privacy audits or regulatory investigations.",
       category: 'documents'
+    },
+    {
+      question: "How can I see the platform in action?",
+      answer: "You can explore our interactive demo to see all features and capabilities. The demo gives you hands-on experience with our privacy assessment tools, data mapping, and compliance workflows. Schedule a live demo with our team for a personalized walkthrough tailored to your needs.",
+      category: 'pricing'
+    },
+    {
+      question: "How does the annual discount work?",
+      answer: "Annual plans are billed once per year and include a 20% discount compared to monthly billing. You can switch between billing periods at any time before your renewal date. All annual plans also include additional benefits like extended support hours and priority feature requests.",
+      category: 'pricing'
+    },
+    {
+      question: "Can I switch plans later?",
+      answer: "Yes, you can upgrade, downgrade or cancel your subscription at any time. Upgrades take effect immediately, while downgrades or cancellations take effect at the end of your current billing cycle.",
+      category: 'pricing'
+    },
+    {
+      question: "How long does compliance certification take?",
+      answer: "The timeline varies depending on your organization's size and current privacy posture. With CyberCorrect Privacy Platform, most small-to-medium businesses can achieve GDPR readiness in 4-6 weeks, and comprehensive multi-regulation privacy compliance in 3-6 months. Our platform accelerates this process by automating privacy documentation and gap analysis.",
+      category: 'pricing'
+    },
+    {
+      question: "Do you provide implementation support?",
+      answer: "Yes. Professional plans include quarterly review sessions, while Enterprise plans include dedicated compliance specialists to guide your implementation process with a structured 30-60-90 day plan. We also offer implementation workshops and technical configuration guidance for all customers.",
+      category: 'pricing'
+    },
+    {
+      question: "What if I need additional users?",
+      answer: "You can add additional users to your plan at any time. User pricing is prorated based on your billing cycle, and volume discounts are available for organizations with more than 50 users.",
+      category: 'pricing'
+    },
+    {
+      question: "Can I export my data and documentation?",
+      answer: "Yes, all documentation generated in CyberCorrect Privacy Platform can be exported in standard formats (PDF, Word, Excel) that are accepted by privacy auditors and regulators. Our templates are designed to meet GDPR, CCPA, and other privacy regulation requirements and have been reviewed by privacy professionals.",
+      category: 'pricing'
+    },
+    {
+      question: "Is my data secure with CyberCorrect Privacy Platform?",
+      answer: "Absolutely. We maintain SOC 2 Type II compliance and implement comprehensive security controls including encryption in transit and at rest, multi-factor authentication, regular penetration testing, and role-based access control to ensure your security and compliance data remains protected.",
+      category: 'pricing'
     }
   ];
 
