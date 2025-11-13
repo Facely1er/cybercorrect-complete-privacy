@@ -20,6 +20,8 @@ import {
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/secureStorage';
+import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
+import { EmptyState } from '../../components/ui/EmptyState';
 
 interface DataSubjectRequest {
   id: string;
@@ -81,12 +83,20 @@ const PrivacyRightsManager = () => {
     ];
   });
 
-  const [selectedRequest, setSelectedRequest] = useState<string | null>(() => 
+  const [selectedRequest, setSelectedRequest] = useState<string | null>(() =>
     secureStorage.getItem('privacy_rights_selected_request', null)
   );
   const [showNewRequest, setShowNewRequest] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const newRequestFormRef = useRef<HTMLDivElement>(null);
+
+  // Confirmation dialog state
+  const [confirmDialog, setConfirmDialog] = useState<{
+    open: boolean;
+    requestId: string;
+    status: DataSubjectRequest['status'];
+  } | null>(null);
+  const [rejectionReason, setRejectionReason] = useState('');
   
   // New request form state
   const [newRequest, setNewRequest] = useState<Partial<DataSubjectRequest>>({
@@ -144,10 +154,46 @@ const PrivacyRightsManager = () => {
   };
 
   const handleStatusUpdate = (requestId: string, newStatus: DataSubjectRequest['status']) => {
-    setRequests(prev => prev.map(req => 
+    // Show confirmation dialog for rejected status
+    if (newStatus === 'rejected') {
+      setConfirmDialog({
+        open: true,
+        requestId,
+        status: newStatus
+      });
+      return;
+    }
+
+    // For other statuses, update immediately
+    setRequests(prev => prev.map(req =>
       req.id === requestId ? { ...req, status: newStatus } : req
     ));
     toast.success('Status updated', `Request ${requestId} status changed to ${newStatus}`);
+  };
+
+  const handleConfirmStatusChange = () => {
+    if (!confirmDialog) return;
+
+    setRequests(prev => prev.map(req =>
+      req.id === confirmDialog.requestId
+        ? {
+            ...req,
+            status: confirmDialog.status,
+            responseNotes: confirmDialog.status === 'rejected' && rejectionReason
+              ? rejectionReason
+              : req.responseNotes
+          }
+        : req
+    ));
+
+    toast.success(
+      'Request Rejected',
+      `Request ${confirmDialog.requestId} has been rejected${rejectionReason ? ' with reason provided' : ''}`
+    );
+
+    // Reset state
+    setConfirmDialog(null);
+    setRejectionReason('');
   };
 
   const handleCreateRequest = () => {
@@ -367,17 +413,16 @@ const PrivacyRightsManager = () => {
             </CardHeader>
             <CardContent>
               {requests.length === 0 ? (
-                <Card className="text-center py-12">
-                  <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">No Requests Yet</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Get started by creating your first data subject rights request
-                  </p>
-                  <Button onClick={() => setShowNewRequest(true)}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Create First Request
-                  </Button>
-                </Card>
+                <EmptyState
+                  icon={Users}
+                  title="No Requests Yet"
+                  description="Get started by creating your first data subject rights request"
+                  action={{
+                    label: "Create First Request",
+                    onClick: () => setShowNewRequest(true),
+                    icon: Plus
+                  }}
+                />
               ) : (
                 <div className="space-y-4">
                   {requests.map((request) => (
@@ -676,6 +721,38 @@ const PrivacyRightsManager = () => {
           </div>
         </div>
       </div>
+
+      {/* Confirmation Dialog for Rejecting Requests */}
+      <ConfirmDialog
+        open={confirmDialog?.open ?? false}
+        onOpenChange={(open) => {
+          if (!open) {
+            setConfirmDialog(null);
+            setRejectionReason('');
+          }
+        }}
+        title="Reject Data Subject Request?"
+        description={`Are you sure you want to reject request ${confirmDialog?.requestId}? This action will mark the request as rejected and notify the requester.`}
+        confirmLabel="Reject Request"
+        cancelLabel="Cancel"
+        onConfirm={handleConfirmStatusChange}
+        variant="destructive"
+      >
+        <div>
+          <label className="block text-sm font-medium mb-2">
+            Rejection Reason (Optional)
+          </label>
+          <textarea
+            className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary min-h-[100px]"
+            value={rejectionReason}
+            onChange={(e) => setRejectionReason(e.target.value)}
+            placeholder="Provide a reason for rejecting this request..."
+          />
+          <p className="text-xs text-muted-foreground mt-1">
+            This reason will be saved in the request notes and can be included in the response to the requester.
+          </p>
+        </div>
+      </ConfirmDialog>
     </div>
   );
 };
