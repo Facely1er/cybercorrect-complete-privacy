@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Ta
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { toast } from '../../components/ui/Toaster';
 import { storageAdapter } from '../../utils/storageAdapter';
+import { EmptyState } from '../../components/ui/EmptyState';
 import { 
   FileText,
   AlertTriangle,
@@ -470,11 +471,16 @@ const DpiaManager = () => {
           {/* DPIAs List */}
           <div className="space-y-4">
             {filteredDpias.length === 0 ? (
-              <Card>
-                <CardContent className="p-8 text-center text-muted-foreground">
-                  No DPIAs found. Click "New DPIA" to create your first assessment.
-                </CardContent>
-              </Card>
+              <EmptyState
+                icon={FileText}
+                title="No DPIAs Found"
+                description="Click 'New DPIA' to create your first Data Protection Impact Assessment."
+                action={{
+                  label: "Create First DPIA",
+                  onClick: () => window.location.href = '/toolkit/dpia-generator',
+                  icon: Plus
+                }}
+              />
             ) : (
               filteredDpias.map((dpia) => (
                 <Card key={dpia.id}>

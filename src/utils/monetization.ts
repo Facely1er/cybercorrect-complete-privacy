@@ -54,10 +54,15 @@ export interface PremiumTemplate {
 // Subscription tier limits
 export const SUBSCRIPTION_LIMITS = {
   free: {
-    templates: 0,
-    exportsPerMonth: 0,
-    exportFormats: ['json'] as ExportFormat[],
+    // Enhanced Free Tier - aligned with pricing recommendations
+    templates: 3, // 3 basic templates (Privacy Policy, Cookie Policy, Terms of Service)
+    exportsPerMonth: 3, // 3 exports per month
+    exportFormats: ['json', 'csv'] as ExportFormat[], // JSON/CSV only
     premiumFeatures: false,
+    assessmentsPerMonth: 1, // 1 privacy assessment per month
+    dataFlows: 5, // Up to 5 data flows in data mapping tool
+    riskTracking: 25, // Up to 25 risks tracked manually
+    evidenceStorage: 100, // 100MB evidence storage
     notifications: {
       emailEnabled: false,
       inAppEnabled: true,
@@ -70,7 +75,7 @@ export const SUBSCRIPTION_LIMITS = {
       custom: false,
     },
     complianceHealth: {
-      enabled: false,
+      enabled: true, // Basic compliance score dashboard (view-only)
       predictiveAnalytics: false,
     },
     scheduledAssessments: {
@@ -80,6 +85,9 @@ export const SUBSCRIPTION_LIMITS = {
     regulatoryIntelligence: {
       enabled: false,
     },
+    teamCollaboration: false,
+    cloudSync: false, // LocalStorage only
+    apiAccess: false,
   },
   starter: {
     templates: 5,

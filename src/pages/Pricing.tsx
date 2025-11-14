@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { CheckCircle, ArrowRight, XCircle, Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { CheckCircle, ArrowRight, XCircle, Check, ChevronDown, ChevronUp, ShoppingBag, Zap } from 'lucide-react';
+import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES } from '../utils/oneTimeProducts';
 
 const Pricing = () => {
   const navigate = useNavigate();
@@ -15,6 +16,28 @@ const Pricing = () => {
   };
 
   const plans = [
+    {
+      name: "Free",
+      description: "Perfect for individuals and students learning about privacy compliance",
+      price: "0",
+      billing: "forever",
+      free: true,
+      features: [
+        "1 privacy assessment per month",
+        "Privacy Gap Analyzer (view-only)",
+        "3 basic templates (Privacy Policy, Cookie Policy, Terms)",
+        "3 exports per month (JSON/CSV)",
+        "Data mapping tool (up to 5 data flows)",
+        "Manual risk tracking (up to 25 risks)",
+        "Evidence vault (100MB storage)",
+        "Basic compliance score dashboard",
+        "In-app notifications (weekly digest)",
+        "Community forum access",
+        "All educational content & tutorials",
+        "LocalStorage only (no cloud sync)",
+        "No team collaboration"
+      ]
+    },
     {
       name: "Starter",
       description: "Perfect for small teams starting their privacy compliance journey",
@@ -192,7 +215,52 @@ const Pricing = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      {/* One-Time Products Banner */}
+      <div className="max-w-7xl mx-auto mb-12">
+        <Card className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border-2 border-primary/20">
+          <CardContent className="p-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex-1">
+                <h3 className="text-2xl font-bold mb-2 text-foreground">Prefer One-Time Purchases?</h3>
+                <p className="text-muted-foreground mb-4">
+                  Own privacy compliance tools forever with our localStorage-based products.
+                  No subscriptions, 100% offline, complete data control.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <div className="flex items-center gap-2">
+                    <Check className="h-5 w-5 text-primary" />
+                    <span className="text-sm">Lifetime Access</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="h-5 w-5 text-primary" />
+                    <span className="text-sm">100% Offline</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="h-5 w-5 text-primary" />
+                    <span className="text-sm">14-Day Guarantee</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="h-5 w-5 text-primary" />
+                    <span className="text-sm">$99-$599</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <Button
+                  size="lg"
+                  onClick={() => navigate('/store')}
+                  className="bg-primary hover:bg-primary/90"
+                >
+                  Browse Privacy Tools Store
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
         {plans.map((plan, index) => (
           <Card 
             key={index} 
@@ -235,22 +303,27 @@ const Pricing = () => {
                 ))}
               </ul>
 
-              <Button 
-                className="w-full" 
-                variant={plan.popular ? "default" : "outline"}
+              <Button
+                className="w-full"
+                variant={plan.free ? "default" : (plan.popular ? "default" : "outline")}
                 onClick={async () => {
+                  if (plan.free) {
+                    navigate('/login');
+                    return;
+                  }
+
                   if (plan.price === "Contact us") {
                     window.location.href = "mailto:sales@cybercorrect.com?subject=Enterprise Plan Inquiry";
                     return;
                   }
-                  
+
                   try {
                     const { createCheckoutSession } = await import('../services/subscriptionService');
                     const tier = plan.name.toLowerCase() as 'starter' | 'professional';
-                    
+
                     // createCheckoutSession never throws - always returns null or session
                     const session = await createCheckoutSession(tier, billingPeriod);
-                    
+
                     if (session?.url) {
                       window.location.href = session.url;
                     } else {
@@ -267,7 +340,7 @@ const Pricing = () => {
                   }
                 }}
               >
-                {plan.price === "Contact us" ? "Contact Sales" : "Subscribe Now"}
+                {plan.free ? "Get Started Free" : (plan.price === "Contact us" ? "Contact Sales" : "Subscribe Now")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </CardContent>
@@ -275,6 +348,124 @@ const Pricing = () => {
         ))}
       </div>
 
+      {/* One-Time Products Section */}
+      <div className="max-w-7xl mx-auto mt-20">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4">
+            <ShoppingBag className="h-5 w-5" />
+            <span className="font-medium">One-Time Purchase Options</span>
+          </div>
+          <h2 className="text-3xl font-bold mb-4 text-foreground">Own Your Privacy Tools Forever</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Pay once, use forever. 100% offline tools with complete data ownership.
+          </p>
+        </div>
+
+        {/* Featured Bundle */}
+        {PRODUCT_BUNDLES.filter(b => b.id === 'complete-privacy-suite').map((bundle) => (
+          <Card key={bundle.id} className="mb-8 bg-gradient-to-br from-primary/5 via-background to-cyan-500/5 border-2 border-primary/30">
+            <CardContent className="p-8">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="flex-1">
+                  <div className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium mb-3">
+                    <Zap className="h-4 w-4" />
+                    Best Value - Save ${bundle.savings}
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2 text-foreground">{bundle.name}</h3>
+                  <p className="text-muted-foreground mb-4">{bundle.description}</p>
+                  <div className="flex items-baseline gap-3 mb-4">
+                    <span className="text-4xl font-bold text-foreground">${bundle.price}</span>
+                    <span className="text-2xl text-muted-foreground line-through">
+                      ${bundle.products.reduce((sum, pid) => {
+                        const product = ONE_TIME_PRODUCTS.find(p => p.id === pid);
+                        return sum + (product?.price || 0);
+                      }, 0)}
+                    </span>
+                    <span className="text-success font-medium">Save ${bundle.savings}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Includes all 4 premium tools + lifetime updates</p>
+                </div>
+                <div>
+                  <Button
+                    size="lg"
+                    onClick={() => navigate('/store')}
+                    className="bg-primary hover:bg-primary/90"
+                  >
+                    Buy Complete Suite
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+
+        {/* Individual One-Time Products Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {ONE_TIME_PRODUCTS.map((product) => (
+            <Card key={product.id} className="relative hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="text-xl text-foreground">{product.name}</CardTitle>
+                <CardDescription>{product.tagline}</CardDescription>
+              </CardHeader>
+
+              <CardContent>
+                <div className="mb-6">
+                  <div className="flex items-end gap-2 mb-2">
+                    <span className="text-sm mt-2 text-foreground">$</span>
+                    <span className="text-4xl font-bold text-foreground">{product.price}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">one-time payment</p>
+                </div>
+
+                <div className="mb-6">
+                  <p className="text-sm text-muted-foreground mb-4">{product.description}</p>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm">
+                      <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>Lifetime access</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>100% offline</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>All v1.x updates</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>14-day refund</span>
+                    </div>
+                  </div>
+                </div>
+
+                <Button
+                  className="w-full"
+                  variant="outline"
+                  onClick={() => navigate('/store')}
+                >
+                  Learn More
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="mt-8 text-center">
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={() => navigate('/store')}
+            className="border-2"
+          >
+            View Full Product Catalog & Bundles
+            <ShoppingBag className="ml-2 h-5 w-5" />
+          </Button>
+        </div>
+      </div>
 
       {/* Feature comparison section */}
       <div className="max-w-7xl mx-auto mt-16">
