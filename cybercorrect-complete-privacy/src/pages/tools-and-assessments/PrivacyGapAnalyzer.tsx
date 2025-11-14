@@ -1,6 +1,17 @@
-import { useState, useMemo, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import React, { useState, useMemo, useEffect } from 'react';
+// Error handling for missing Card components
+let Card, CardContent, CardHeader, CardTitle, Button;
+try {
+  Card = require('../../components/ui/Card').default;
+  CardContent = require('../../components/ui/CardContent').default;
+  CardHeader = require('../../components/ui/CardHeader').default;
+  CardTitle = require('../../components/ui/CardTitle').default;
+  Button = require('../../components/ui/Button').default;
+} catch (error) {
+  console.warn('One or more UI component modules could not be found:', error);
+  // Optionally, provide minimal fallback components for development so the rest of the code can still function
+  Card = CardContent = CardHeader = CardTitle = Button = (props: any) => <div>{props.children}</div>;
+}
 import { 
   Eye, 
   ArrowLeft, 
@@ -9,16 +20,44 @@ import {
   AlertTriangle,
   Target,
   Loader2,
-  CheckCircle,
-  FileCheck
-} from 'lucide-react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { toast } from '@/components/ui/Toaster';
-import { generatePrivacyGapAnalysisPdf } from '@/utils/generatePrivacyGapAnalysisPdf';
-import { EmptyState } from '@/components/ui/EmptyState';
-import { Tooltip as TooltipComponent } from '@/components/ui/Tooltip';
-import { AssessmentFlowProgress } from '@/components/assessment/AssessmentFlowProgress';
+  // These imports are required for icons, routing, charts, and utilities.
+  // If these modules are not available, make sure to install them:
+  // npm install lucide-react react-router-dom recharts
+
+  // Icon imports
+  import { 
+    Eye, 
+    ArrowLeft, 
+    Download,
+    BarChart3,
+    AlertTriangle,
+    Target,
+    Loader2,
+    CheckCircle,
+    FileCheck
+  } from 'lucide-react';
+
+  // Core routing and navigation from React Router
+  import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+  // Visualization (bar chart)
+  import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    ResponsiveContainer
+  } from 'recharts';
+
+  // UI utilities and PDF export
+  import { toast } from '../../components/ui/Toaster';
+  import { generatePrivacyGapAnalysisPdf } from '../../utils/generatePrivacyGapAnalysisPdf';
+import { EmptyState } from '../../components/ui/EmptyState';
+import { Tooltip as TooltipComponent } from '../../components/ui/Tooltip';
+import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
 
 interface AssessmentResults {
   overallScore?: number;
@@ -29,24 +68,6 @@ interface AssessmentResults {
   }>;
   frameworkName?: string;
   completedDate?: string;
-}
-
-type Priority = 'critical' | 'high' | 'medium' | 'low';
-
-interface PrivacyGap {
-  id: string;
-  title: string;
-  description: string;
-  regulation: string;
-  article: string;
-  priority: Priority;
-  category: string;
-  effort: string;
-  timeframe: string;
-  impact: string;
-  recommendation: string;
-  framework: string;
-  nistSection?: string;
 }
 
 const PrivacyGapAnalyzer = () => {
@@ -60,7 +81,7 @@ const PrivacyGapAnalyzer = () => {
   const [isExporting, setIsExporting] = useState(false);
 
   // Base privacy gaps - these are always shown
-  const basePrivacyGaps: PrivacyGap[] = [
+  const basePrivacyGaps = [
     {
       id: 'GAP-001',
       title: 'Data Processing Records Incomplete',
@@ -127,7 +148,7 @@ const PrivacyGapAnalyzer = () => {
   const assessmentBasedGaps = useMemo(() => {
     if (!assessmentResults?.sectionScores) return [];
     
-    const gaps: PrivacyGap[] = [];
+    const gaps: Array<typeof basePrivacyGaps[0] & { priority: 'critical' | 'high' | 'medium' | 'low' }> = [];
     const nistSectionMapping: Record<string, { 
       gaps: Array<{ id: string; title: string; description: string; framework: string; article: string; category: string }>;
       threshold: number;
@@ -239,21 +260,21 @@ const PrivacyGapAnalyzer = () => {
       }
     };
 
-    assessmentResults.sectionScores.forEach((section: { title: string; percentage: number; completed?: boolean }) => {
+    assessmentResults.sectionScores.forEach(section => {
       const sectionData = nistSectionMapping[section.title];
       if (sectionData && section.percentage < sectionData.threshold) {
-        sectionData.gaps.forEach((gap: { id: string; title: string; description: string; framework: string; article: string; category: string }) => {
-          const priority: Priority = section.percentage < 50 ? 'critical' : 
-                          section.percentage < 65 ? 'high' : 'medium';
+        sectionData.gaps.forEach(gap => {
+          const priority = section.percentage < 50 ? 'critical' as const : 
+                          section.percentage < 65 ? 'high' as const : 'medium' as const;
           gaps.push({
             ...gap,
-            priority,
+            priority: priority as 'critical' | 'high' | 'medium' | 'low',
             effort: priority === 'critical' ? 'significant' : priority === 'high' ? 'moderate' : 'low',
             timeframe: priority === 'critical' ? 'immediate' : priority === 'high' ? 'short-term' : 'medium-term',
             impact: `Low compliance score (${section.percentage}%) in ${section.title} section indicates gaps in ${gap.category}`,
             recommendation: `Improve ${section.title} section compliance to address ${gap.title}`,
             nistSection: section.title
-          } as PrivacyGap);
+          } as typeof basePrivacyGaps[0] & { priority: 'critical' | 'high' | 'medium' | 'low' });
         });
       }
     });
@@ -263,10 +284,10 @@ const PrivacyGapAnalyzer = () => {
 
   // Combine base gaps with assessment-based gaps, removing duplicates
   const privacyGaps = useMemo(() => {
-    const combined: PrivacyGap[] = [...basePrivacyGaps];
-    const existingIds = new Set(basePrivacyGaps.map((g) => g.id));
+    const combined = [...basePrivacyGaps];
+    const existingIds = new Set(basePrivacyGaps.map(g => g.id));
     
-    assessmentBasedGaps.forEach((gap: PrivacyGap) => {
+    assessmentBasedGaps.forEach(gap => {
       if (!existingIds.has(gap.id)) {
         combined.push(gap);
         existingIds.add(gap.id);
@@ -278,9 +299,9 @@ const PrivacyGapAnalyzer = () => {
 
   // Update compliance data based on assessment results
   const complianceData = useMemo(() => {
-    const baseData: Array<{ framework: string; score: number; gaps: number }> = [
-      { framework: 'NIST Privacy Framework', score: assessmentResults?.overallScore || 68, gaps: privacyGaps.filter((g: PrivacyGap) => g.framework.includes('NIST')).length },
-      { framework: 'GDPR', score: 55, gaps: privacyGaps.filter((g: PrivacyGap) => g.regulation === 'GDPR').length },
+    const baseData = [
+      { framework: 'NIST Privacy Framework', score: assessmentResults?.overallScore || 68, gaps: privacyGaps.filter(g => g.framework.includes('NIST')).length },
+      { framework: 'GDPR', score: 55, gaps: privacyGaps.filter(g => g.regulation === 'GDPR').length },
       { framework: 'CCPA', score: 72, gaps: 8 },
       { framework: 'LGPD', score: 62, gaps: 10 },
       { framework: 'PIPEDA', score: 78, gaps: 5 }
@@ -294,10 +315,10 @@ const PrivacyGapAnalyzer = () => {
     return baseData;
   }, [assessmentResults, privacyGaps]);
 
-  const getPriorityColor = (priority: Priority | string) => {
+  const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'critical': return 'text-destructive bg-destructive/10';
-      case 'high': return 'text-warning bg-warning/10'; 
+      case 'high': return 'text-warning bg-warning/10';
       case 'medium': return 'text-warning bg-warning/10';
       case 'low': return 'text-success bg-success/10';
       default: return 'text-muted-foreground bg-muted/10';
@@ -321,7 +342,7 @@ const PrivacyGapAnalyzer = () => {
       toast.info('Generating PDF', 'Please wait while we generate your gap analysis report...');
       
       const overallScore = assessmentResults?.overallScore || 
-        Math.round(complianceData.reduce((sum: number, f: { framework: string; score: number; gaps: number }) => sum + f.score, 0) / complianceData.length);
+        Math.round(complianceData.reduce((sum, f) => sum + f.score, 0) / complianceData.length);
       
       // Small delay to show loading state
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -337,19 +358,19 @@ const PrivacyGapAnalyzer = () => {
         executiveSummary: {
           overallScore,
           totalGaps: privacyGaps.length,
-          criticalGaps: privacyGaps.filter((gap: PrivacyGap) => gap.priority === 'critical').length,
-          highGaps: privacyGaps.filter((gap: PrivacyGap) => gap.priority === 'high').length,
-          mediumGaps: privacyGaps.filter((gap: PrivacyGap) => gap.priority === 'medium').length,
+          criticalGaps: privacyGaps.filter(gap => gap.priority === 'critical').length,
+          highGaps: privacyGaps.filter(gap => gap.priority === 'high').length,
+          mediumGaps: privacyGaps.filter(gap => (gap as any).priority === 'medium').length,
           frameworksAssessed: complianceData.length,
           assessmentDate: assessmentResults?.completedDate || new Date().toLocaleDateString(),
           frameworkName: assessmentResults?.frameworkName || 'NIST Privacy Framework'
         },
-        complianceData: complianceData.map((f: { framework: string; score: number; gaps: number }) => ({
+        complianceData: complianceData.map(f => ({
           framework: f.framework,
           score: f.score,
           gaps: f.gaps
         })),
-        gapAnalysis: privacyGaps.map((gap: PrivacyGap) => ({
+        gapAnalysis: privacyGaps.map(gap => ({
           id: gap.id,
           title: gap.title,
           description: gap.description,
@@ -362,7 +383,7 @@ const PrivacyGapAnalyzer = () => {
           timeframe: gap.timeframe,
           impact: gap.impact,
           recommendation: gap.recommendation,
-          nistSection: gap.nistSection || ''
+          nistSection: (gap as any).nistSection || ''
         })),
         assessmentResults: assessmentResults ? {
           overallScore: assessmentResults.overallScore || 0,
@@ -428,7 +449,7 @@ const PrivacyGapAnalyzer = () => {
             { id: 'overview', label: 'Overview', icon: BarChart3 },
             { id: 'gaps', label: 'Gap Analysis', icon: AlertTriangle },
             { id: 'recommendations', label: 'Recommendations', icon: Target }
-          ].map((tab: { id: string; label: string; icon: typeof BarChart3 }) => (
+          ].map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
@@ -513,7 +534,7 @@ const PrivacyGapAnalyzer = () => {
                   </p>
                   {assessmentResults.sectionScores && (
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-                      {assessmentResults.sectionScores.map((section: { title: string; percentage: number; completed?: boolean }, index: number) => (
+                      {assessmentResults.sectionScores.map((section, index) => (
                         <div key={index} className="text-center p-3 bg-card rounded border">
                           <div className="text-lg font-semibold text-foreground">{section.title}</div>
                           <div className={`text-2xl font-bold mt-1 ${
@@ -543,7 +564,7 @@ const PrivacyGapAnalyzer = () => {
                 <div className="text-center">
                   <div className="text-3xl font-bold text-primary">
                     {assessmentResults?.overallScore || 
-                      Math.round(complianceData.reduce((sum: number, f: { framework: string; score: number; gaps: number }) => sum + f.score, 0) / complianceData.length)}%
+                      Math.round(complianceData.reduce((sum, f) => sum + f.score, 0) / complianceData.length)}%
                   </div>
                   <div className="text-sm text-muted-foreground">Overall Compliance</div>
                 </div>
@@ -553,7 +574,7 @@ const PrivacyGapAnalyzer = () => {
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-warning">
-                    {privacyGaps.filter((gap: PrivacyGap) => gap.priority === 'critical').length}
+                    {privacyGaps.filter(gap => gap.priority === 'critical').length}
                   </div>
                   <div className="text-sm text-muted-foreground">Critical Gaps</div>
                 </div>
@@ -581,7 +602,7 @@ const PrivacyGapAnalyzer = () => {
 
       {activeTab === 'gaps' && (
         <div className="space-y-4">
-          {privacyGaps.map((gap: PrivacyGap) => (
+          {privacyGaps.map(gap => (
             <Card key={gap.id}>
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-3">
@@ -608,9 +629,9 @@ const PrivacyGapAnalyzer = () => {
                   <div>
                     <span className="text-muted-foreground">NIST Framework:</span>
                     <div className="font-medium">{gap.framework}</div>
-                    {gap.nistSection && (
+                    {(gap as any).nistSection && (
                       <div className="text-xs text-primary mt-1">
-                        Section: {gap.nistSection}
+                        Section: {(gap as any).nistSection}
                       </div>
                     )}
                   </div>
