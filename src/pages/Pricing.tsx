@@ -16,6 +16,28 @@ const Pricing = () => {
 
   const plans = [
     {
+      name: "Free",
+      description: "Perfect for individuals and students learning about privacy compliance",
+      price: "0",
+      billing: "forever",
+      free: true,
+      features: [
+        "1 privacy assessment per month",
+        "Privacy Gap Analyzer (view-only)",
+        "3 basic templates (Privacy Policy, Cookie Policy, Terms)",
+        "3 exports per month (JSON/CSV)",
+        "Data mapping tool (up to 5 data flows)",
+        "Manual risk tracking (up to 25 risks)",
+        "Evidence vault (100MB storage)",
+        "Basic compliance score dashboard",
+        "In-app notifications (weekly digest)",
+        "Community forum access",
+        "All educational content & tutorials",
+        "LocalStorage only (no cloud sync)",
+        "No team collaboration"
+      ]
+    },
+    {
       name: "Starter",
       description: "Perfect for small teams starting their privacy compliance journey",
       price: billingPeriod === "monthly" ? "49" : "39",
@@ -192,7 +214,52 @@ const Pricing = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      {/* One-Time Products Banner */}
+      <div className="max-w-7xl mx-auto mb-12">
+        <Card className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border-2 border-primary/20">
+          <CardContent className="p-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex-1">
+                <h3 className="text-2xl font-bold mb-2 text-foreground">Prefer One-Time Purchases?</h3>
+                <p className="text-muted-foreground mb-4">
+                  Own privacy compliance tools forever with our localStorage-based products.
+                  No subscriptions, 100% offline, complete data control.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <div className="flex items-center gap-2">
+                    <Check className="h-5 w-5 text-primary" />
+                    <span className="text-sm">Lifetime Access</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="h-5 w-5 text-primary" />
+                    <span className="text-sm">100% Offline</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="h-5 w-5 text-primary" />
+                    <span className="text-sm">14-Day Guarantee</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="h-5 w-5 text-primary" />
+                    <span className="text-sm">$99-$599</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <Button
+                  size="lg"
+                  onClick={() => navigate('/store')}
+                  className="bg-primary hover:bg-primary/90"
+                >
+                  Browse Privacy Tools Store
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
         {plans.map((plan, index) => (
           <Card 
             key={index} 
@@ -235,22 +302,27 @@ const Pricing = () => {
                 ))}
               </ul>
 
-              <Button 
-                className="w-full" 
-                variant={plan.popular ? "default" : "outline"}
+              <Button
+                className="w-full"
+                variant={plan.free ? "default" : (plan.popular ? "default" : "outline")}
                 onClick={async () => {
+                  if (plan.free) {
+                    navigate('/login');
+                    return;
+                  }
+
                   if (plan.price === "Contact us") {
                     window.location.href = "mailto:sales@cybercorrect.com?subject=Enterprise Plan Inquiry";
                     return;
                   }
-                  
+
                   try {
                     const { createCheckoutSession } = await import('../services/subscriptionService');
                     const tier = plan.name.toLowerCase() as 'starter' | 'professional';
-                    
+
                     // createCheckoutSession never throws - always returns null or session
                     const session = await createCheckoutSession(tier, billingPeriod);
-                    
+
                     if (session?.url) {
                       window.location.href = session.url;
                     } else {
@@ -267,7 +339,7 @@ const Pricing = () => {
                   }
                 }}
               >
-                {plan.price === "Contact us" ? "Contact Sales" : "Subscribe Now"}
+                {plan.free ? "Get Started Free" : (plan.price === "Contact us" ? "Contact Sales" : "Subscribe Now")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </CardContent>

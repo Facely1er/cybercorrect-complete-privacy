@@ -23,6 +23,7 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Cookies from './pages/Cookies';
 import AcceptableUse from './pages/AcceptableUse';
+import RefundPolicy from './pages/RefundPolicy';
 import Features from './pages/Features';
 import Demo from './pages/Demo';
 import Login from './pages/Login';
@@ -126,6 +127,7 @@ const IncidentResponseManager = lazy(() => import('./pages/tools-and-assessments
 // Monetization pages
 const TemplateStore = lazy(() => import('./pages/monetization/TemplateStore'));
 const CreditsManager = lazy(() => import('./pages/monetization/CreditsManager'));
+const OneTimeStore = lazy(() => import('./pages/OneTimeStore'));
 
 // Subscription enhancement pages
 const NotificationCenter = lazy(() => import('./components/notifications/NotificationCenter'));
@@ -211,6 +213,7 @@ const App: React.FC = () => {
                     <Route path="terms" element={<Terms />} />
                     <Route path="cookies" element={<Cookies />} />
                     <Route path="acceptable-use" element={<AcceptableUse />} />
+                    <Route path="refund-policy" element={<RefundPolicy />} />
                     
                     {/* Compliance Redirect */}
                     <Route path="compliance" element={<Navigate to="/dashboard/compliance-health" replace />} />
@@ -374,6 +377,21 @@ const App: React.FC = () => {
                     <Route path="monetization/credits" element={
                       <Suspense fallback={<LoadingSpinner />}>
                         <CreditsManager />
+                      </Suspense>
+                    } />
+                    <Route path="store" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <OneTimeStore />
+                      </Suspense>
+                    } />
+                    <Route path="one-time-products" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <OneTimeStore />
+                      </Suspense>
+                    } />
+                    <Route path="products" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <OneTimeStore />
                       </Suspense>
                     } />
                     
