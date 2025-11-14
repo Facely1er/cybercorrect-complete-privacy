@@ -23,7 +23,6 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Cookies from './pages/Cookies';
 import AcceptableUse from './pages/AcceptableUse';
-import RefundPolicy from './pages/RefundPolicy';
 import Features from './pages/Features';
 import Demo from './pages/Demo';
 import Login from './pages/Login';
@@ -214,7 +213,6 @@ const App: React.FC = () => {
                     <Route path="terms" element={<Terms />} />
                     <Route path="cookies" element={<Cookies />} />
                     <Route path="acceptable-use" element={<AcceptableUse />} />
-                    <Route path="refund-policy" element={<RefundPolicy />} />
                     
                     {/* Compliance Redirect */}
                     <Route path="compliance" element={<Navigate to="/dashboard/compliance-health" replace />} />

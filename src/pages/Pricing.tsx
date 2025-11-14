@@ -177,11 +177,30 @@ const Pricing = () => {
 
   return (
     <div className="py-20">
-      <div className="text-center mb-10">
+      <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4 text-foreground">Simple, Transparent Pricing</h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-          Choose the plan that best fits your organization's compliance needs
+        <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
+          Choose between flexible subscriptions or own your tools forever
         </p>
+        <div className="flex justify-center gap-6 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <Check className="h-4 w-4 text-success" />
+            <span>Subscriptions: Continuous updates & support</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Check className="h-4 w-4 text-success" />
+            <span>One-Time: Own forever, 100% offline</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Subscription Plans Section */}
+      <div className="max-w-7xl mx-auto mb-20">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold mb-3 text-foreground">Subscription Plans</h2>
+          <p className="text-lg text-muted-foreground mb-6">
+            Continuous compliance with automated updates, alerts, and team features
+          </p>
         
         {/* Billing toggle */}
         <div className="flex items-center justify-center space-x-3 mb-8">
@@ -209,58 +228,10 @@ const Pricing = () => {
             Save 20%
           </span>
         </div>
+        </div>
 
-        <p className="text-sm text-muted-foreground">
-          Start your privacy compliance journey today
-        </p>
-      </div>
-
-      {/* One-Time Products Banner */}
-      <div className="max-w-7xl mx-auto mb-12">
-        <Card className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border-2 border-primary/20">
-          <CardContent className="p-8">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold mb-2 text-foreground">Prefer One-Time Purchases?</h3>
-                <p className="text-muted-foreground mb-4">
-                  Own privacy compliance tools forever with our localStorage-based products.
-                  No subscriptions, 100% offline, complete data control.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <div className="flex items-center gap-2">
-                    <Check className="h-5 w-5 text-primary" />
-                    <span className="text-sm">Lifetime Access</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Check className="h-5 w-5 text-primary" />
-                    <span className="text-sm">100% Offline</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Check className="h-5 w-5 text-primary" />
-                    <span className="text-sm">14-Day Guarantee</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Check className="h-5 w-5 text-primary" />
-                    <span className="text-sm">$99-$599</span>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <Button
-                  size="lg"
-                  onClick={() => navigate('/store')}
-                  className="bg-primary hover:bg-primary/90"
-                >
-                  Browse Privacy Tools Store
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        {/* Subscription Plans Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {plans.map((plan, index) => (
           <Card 
             key={index} 
@@ -281,6 +252,16 @@ const Pricing = () => {
             
             <CardContent>
               <div className="mb-6">
+                {!plan.free && plan.price !== "Contact us" && (
+                  <span className="inline-block bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 px-2 py-1 rounded text-xs font-semibold mb-3">
+                    SUBSCRIPTION
+                  </span>
+                )}
+                {plan.free && (
+                  <span className="inline-block bg-success/10 text-success px-2 py-1 rounded text-xs font-semibold mb-3">
+                    FREE FOREVER
+                  </span>
+                )}
                 <div className="flex items-end gap-2">
                   {plan.price === "Contact us" ? (
                     <span className="text-4xl font-bold text-foreground">{plan.price}</span>
@@ -346,19 +327,30 @@ const Pricing = () => {
             </CardContent>
           </Card>
         ))}
+        </div>
       </div>
 
       {/* One-Time Products Section */}
-      <div className="max-w-7xl mx-auto mt-20">
+      <div className="max-w-7xl mx-auto mb-16">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4">
-            <ShoppingBag className="h-5 w-5" />
-            <span className="font-medium">One-Time Purchase Options</span>
-          </div>
-          <h2 className="text-3xl font-bold mb-4 text-foreground">Own Your Privacy Tools Forever</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Pay once, use forever. 100% offline tools with complete data ownership.
+          <h2 className="text-3xl font-bold mb-3 text-foreground">One-Time Purchase Products</h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-6">
+            Own your privacy tools forever with 100% offline operation. No recurring fees, complete data control.
           </p>
+          <div className="flex justify-center flex-wrap gap-6 text-sm">
+            <div className="flex items-center gap-2">
+              <Check className="h-4 w-4 text-primary flex-shrink-0" />
+              <span className="text-muted-foreground">Lifetime access to all purchased tools</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Check className="h-4 w-4 text-primary flex-shrink-0" />
+              <span className="text-muted-foreground">100% offline - your data never leaves your device</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Check className="h-4 w-4 text-primary flex-shrink-0" />
+              <span className="text-muted-foreground">All v1.x updates included free</span>
+            </div>
+          </div>
         </div>
 
         {/* Featured Bundle */}
@@ -367,9 +359,14 @@ const Pricing = () => {
             <CardContent className="p-8">
               <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex-1">
-                  <div className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium mb-3">
-                    <Zap className="h-4 w-4" />
-                    Best Value - Save ${bundle.savings}
+                  <div className="flex gap-2 mb-3">
+                    <span className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold">
+                      <Zap className="h-3.5 w-3.5" />
+                      BEST VALUE
+                    </span>
+                    <span className="inline-flex items-center bg-success/10 text-success px-3 py-1 rounded-full text-xs font-semibold">
+                      SAVE ${bundle.savings}
+                    </span>
                   </div>
                   <h3 className="text-2xl font-bold mb-2 text-foreground">{bundle.name}</h3>
                   <p className="text-muted-foreground mb-4">{bundle.description}</p>
@@ -410,12 +407,15 @@ const Pricing = () => {
               </CardHeader>
 
               <CardContent>
-                <div className="mb-6">
-                  <div className="flex items-end gap-2 mb-2">
+                <div className="mb-4">
+                  <span className="inline-block bg-primary/10 text-primary px-2 py-1 rounded text-xs font-semibold mb-3">
+                    ONE-TIME PURCHASE
+                  </span>
+                  <div className="flex items-end gap-2 mb-1">
                     <span className="text-sm mt-2 text-foreground">$</span>
                     <span className="text-4xl font-bold text-foreground">{product.price}</span>
                   </div>
-                  <p className="text-sm text-muted-foreground">one-time payment</p>
+                  <p className="text-xs text-muted-foreground">Pay once, own forever</p>
                 </div>
 
                 <div className="mb-6">
