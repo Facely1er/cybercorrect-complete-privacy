@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import {
@@ -19,6 +19,7 @@ import {
 import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES, ProductCatalog, LicenseManager } from '../utils/oneTimeProducts';
 
 const OneTimeStore = () => {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [cart, setCart] = useState<string[]>([]);
 
@@ -439,7 +440,10 @@ const OneTimeStore = () => {
                 <Button variant="outline" onClick={() => setCart([])}>
                   Clear Cart
                 </Button>
-                <Button className="bg-primary hover:bg-primary/90">
+                <Button
+                  className="bg-primary hover:bg-primary/90"
+                  onClick={() => navigate('/checkout', { state: { cart } })}
+                >
                   <ShoppingCart className="w-5 h-5 mr-2" />
                   Proceed to Checkout (${getCartTotal()})
                 </Button>

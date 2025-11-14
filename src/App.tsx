@@ -128,6 +128,7 @@ const IncidentResponseManager = lazy(() => import('./pages/tools-and-assessments
 const TemplateStore = lazy(() => import('./pages/monetization/TemplateStore'));
 const CreditsManager = lazy(() => import('./pages/monetization/CreditsManager'));
 const OneTimeStore = lazy(() => import('./pages/OneTimeStore'));
+const Checkout = lazy(() => import('./pages/Checkout'));
 
 // Subscription enhancement pages
 const NotificationCenter = lazy(() => import('./components/notifications/NotificationCenter'));
@@ -394,7 +395,12 @@ const App: React.FC = () => {
                         <OneTimeStore />
                       </Suspense>
                     } />
-                    
+                    <Route path="checkout" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <Checkout />
+                      </Suspense>
+                    } />
+
                     {/* Subscription Enhancement Routes */}
                     <Route path="notifications" element={
                       <Suspense fallback={<LoadingSpinner />}>
