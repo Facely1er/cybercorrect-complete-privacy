@@ -19,6 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Ca
 import { Button } from '../../components/ui/Button';
 import { reportService, AutomatedReport, ReportType, ReportFrequency } from '../../utils/reportService';
 import { toast } from '../../components/ui/Toaster';
+import { EmptyState } from '../../components/ui/EmptyState';
 
 export const AutomatedReports: React.FC = () => {
   const [reports, setReports] = useState<AutomatedReport[]>([]);
@@ -249,9 +250,16 @@ export const AutomatedReports: React.FC = () => {
               Loading scheduled reports...
             </div>
           ) : reports.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              No scheduled reports. Create one to get started.
-            </div>
+            <EmptyState
+              icon={FileText}
+              title="No Scheduled Reports"
+              description="Create your first automated report to receive regular compliance updates."
+              action={{
+                label: "Create Report Schedule",
+                onClick: () => setShowCreateModal(true),
+                icon: Plus
+              }}
+            />
           ) : (
             <div className="space-y-4">
               {reports.map((report) => (
@@ -325,9 +333,11 @@ export const AutomatedReports: React.FC = () => {
         </CardHeader>
         <CardContent>
           {reportHistory.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              No report history available
-            </div>
+            <EmptyState
+              icon={Clock}
+              title="No Report History"
+              description="Your generated reports will appear here once you schedule and run automated reports."
+            />
           ) : (
             <div className="space-y-2">
               {reportHistory.map((history) => (

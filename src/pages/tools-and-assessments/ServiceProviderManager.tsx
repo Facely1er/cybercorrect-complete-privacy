@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Ta
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { toast } from '../../components/ui/Toaster';
 import { storageAdapter } from '../../utils/storageAdapter';
+import { EmptyState } from '../../components/ui/EmptyState';
 import { 
   FileText,
   CheckCircle,
@@ -502,11 +503,16 @@ const ServiceProviderManager = () => {
           {/* Providers List */}
           <div className="space-y-4">
             {filteredProviders.length === 0 ? (
-              <Card>
-                <CardContent className="p-8 text-center text-muted-foreground">
-                  No service providers found. Click "Add Provider" to create your first provider.
-                </CardContent>
-              </Card>
+              <EmptyState
+                icon={Building}
+                title="No Service Providers"
+                description="Add your first service provider to track data processing agreements and compliance requirements."
+                action={{
+                  label: "Add Provider",
+                  onClick: () => window.location.href = '/toolkit/service-providers/new',
+                  icon: Plus
+                }}
+              />
             ) : (
               filteredProviders.map((provider) => (
                 <Card key={provider.id}>

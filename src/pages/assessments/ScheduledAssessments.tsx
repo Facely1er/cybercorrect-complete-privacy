@@ -18,6 +18,7 @@ import { Button } from '../../components/ui/Button';
 import { supabase } from '../../lib/supabase';
 import { secureStorage } from '../../utils/secureStorage';
 import { toast } from '../../components/ui/Toaster';
+import { EmptyState } from '../../components/ui/EmptyState';
 
 export type AssessmentType = 'privacy' | 'gap' | 'risk' | 'compliance' | 'custom';
 export type AssessmentSchedule = 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'custom';
@@ -357,9 +358,16 @@ export const ScheduledAssessments: React.FC = () => {
               Loading scheduled assessments...
             </div>
           ) : assessments.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              No scheduled assessments. Create one to get started.
-            </div>
+            <EmptyState
+              icon={Calendar}
+              title="No Scheduled Assessments"
+              description="Create your first scheduled assessment to automate regular compliance checks."
+              action={{
+                label: "Schedule Assessment",
+                onClick: () => setShowCreateModal(true),
+                icon: Plus
+              }}
+            />
           ) : (
             <div className="space-y-4">
               {assessments.map((assessment) => (
