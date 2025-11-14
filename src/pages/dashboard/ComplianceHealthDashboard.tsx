@@ -81,17 +81,17 @@ export const ComplianceHealthDashboard: React.FC = () => {
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-600 dark:text-green-400';
-    if (score >= 60) return 'text-yellow-600 dark:text-yellow-400';
-    if (score >= 40) return 'text-orange-600 dark:text-orange-400';
-    return 'text-red-600 dark:text-red-400';
+    if (score >= 80) return 'text-success';
+    if (score >= 60) return 'text-warning';
+    if (score >= 40) return 'text-warning';
+    return 'text-destructive';
   };
 
   const getScoreBgColor = (score: number) => {
-    if (score >= 80) return 'bg-green-100 dark:bg-green-900/30';
-    if (score >= 60) return 'bg-yellow-100 dark:bg-yellow-900/30';
-    if (score >= 40) return 'bg-orange-100 dark:bg-orange-900/30';
-    return 'bg-red-100 dark:bg-red-900/30';
+    if (score >= 80) return 'bg-success/10';
+    if (score >= 60) return 'bg-warning/10';
+    if (score >= 40) return 'bg-warning/10';
+    return 'bg-destructive/10';
   };
 
   const getScoreLabel = (score: number) => {
@@ -104,9 +104,9 @@ export const ComplianceHealthDashboard: React.FC = () => {
   const getTrendIcon = (trend: ScoreTrend['trend']) => {
     switch (trend) {
       case 'improving':
-        return <TrendingUp className="h-5 w-5 text-green-600 dark:text-green-400" />;
+        return <TrendingUp className="h-5 w-5 text-success" />;
       case 'declining':
-        return <TrendingDown className="h-5 w-5 text-red-600 dark:text-red-400" />;
+        return <TrendingDown className="h-5 w-5 text-destructive" />;
       default:
         return <Minus className="h-5 w-5 text-muted-foreground" />;
     }
@@ -115,9 +115,9 @@ export const ComplianceHealthDashboard: React.FC = () => {
   const getTrendColor = (trend: ScoreTrend['trend']) => {
     switch (trend) {
       case 'improving':
-        return 'text-green-600 dark:text-green-400';
+        return 'text-success';
       case 'declining':
-        return 'text-red-600 dark:text-red-400';
+        return 'text-destructive';
       default:
         return 'text-muted-foreground';
     }
@@ -148,7 +148,13 @@ export const ComplianceHealthDashboard: React.FC = () => {
     score: Math.round(fw.score / fw.count),
   }));
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
+  const COLORS = [
+    'hsl(var(--primary))',
+    'hsl(var(--success))',
+    'hsl(var(--warning))',
+    'hsl(var(--destructive))',
+    'hsl(var(--accent))'
+  ];
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -333,10 +339,10 @@ export const ComplianceHealthDashboard: React.FC = () => {
                       <YAxis domain={[0, 100]} />
                       <Tooltip />
                       <Legend />
-                      <Line 
-                        type="monotone" 
-                        dataKey="score" 
-                        stroke="#0088FE" 
+                      <Line
+                        type="monotone"
+                        dataKey="score"
+                        stroke="hsl(var(--primary))"
                         strokeWidth={2}
                         name="Compliance Score"
                       />
@@ -368,7 +374,7 @@ export const ComplianceHealthDashboard: React.FC = () => {
                         labelLine={false}
                         label={({ name, score }) => `${name}: ${score}`}
                         outerRadius={80}
-                        fill="#8884d8"
+                        fill="hsl(var(--primary))"
                         dataKey="score"
                       >
                         {frameworkData.map((entry, index) => (

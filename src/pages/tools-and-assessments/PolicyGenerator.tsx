@@ -143,19 +143,19 @@ const ComplianceGapAnalyzer: React.FC = () => {
 
   // Control implementation status with enhanced scoring
   const implementationStatus = useMemo(() => ({
-    'fully_implemented': { label: 'Fully Implemented', color: '#22c55e', textColor: 'text-success dark:text-success', score: 100, priority: 1 },
-    'partially_implemented': { label: 'Partially Implemented', color: '#f59e0b', textColor: 'text-warning dark:text-warning', score: 60, priority: 2 },
-    'planned': { label: 'Planned', color: '#3b82f6', textColor: 'text-primary dark:text-primary', score: 30, priority: 3 },
-    'not_implemented': { label: 'Not Implemented', color: '#ef4444', textColor: 'text-destructive dark:text-destructive', score: 0, priority: 4 },
-    'not_applicable': { label: 'Not Applicable', color: '#6b7280', textColor: 'text-muted-foreground', score: 100, priority: 0 }
+    'fully_implemented': { label: 'Fully Implemented', color: 'hsl(var(--success))', textColor: 'text-success', score: 100, priority: 1 },
+    'partially_implemented': { label: 'Partially Implemented', color: 'hsl(var(--warning))', textColor: 'text-warning', score: 60, priority: 2 },
+    'planned': { label: 'Planned', color: 'hsl(var(--primary))', textColor: 'text-primary', score: 30, priority: 3 },
+    'not_implemented': { label: 'Not Implemented', color: 'hsl(var(--destructive))', textColor: 'text-destructive', score: 0, priority: 4 },
+    'not_applicable': { label: 'Not Applicable', color: 'hsl(var(--muted))', textColor: 'text-muted-foreground', score: 100, priority: 0 }
   }), []);
 
   // Enhanced priority levels with business impact
   const priorityLevels = useMemo(() => ({
-    'critical': { label: 'Critical', color: '#dc2626', weight: 4, businessImpact: 'Severe', timeframe: 'Immediate' },
-    'high': { label: 'High', color: '#ea580c', weight: 3, businessImpact: 'High', timeframe: '30 days' },
-    'medium': { label: 'Medium', color: '#d97706', weight: 2, businessImpact: 'Medium', timeframe: '90 days' },
-    'low': { label: 'Low', color: '#16a34a', weight: 1, businessImpact: 'Low', timeframe: '180 days' }
+    'critical': { label: 'Critical', color: 'hsl(var(--destructive))', weight: 4, businessImpact: 'Severe', timeframe: 'Immediate' },
+    'high': { label: 'High', color: 'hsl(var(--warning))', weight: 3, businessImpact: 'High', timeframe: '30 days' },
+    'medium': { label: 'Medium', color: 'hsl(var(--warning))', weight: 2, businessImpact: 'Medium', timeframe: '90 days' },
+    'low': { label: 'Low', color: 'hsl(var(--success))', weight: 1, businessImpact: 'Low', timeframe: '180 days' }
   }), []);
 
   // Generate realistic compliance data with enhanced metrics
@@ -602,11 +602,11 @@ const ComplianceGapAnalyzer: React.FC = () => {
     return (
       <div className="space-y-8">
         {/* Framework Info Card */}
-        <Card className="border-l-4 border-l-blue-600">
+        <Card className="border-l-4 border-l-primary">
           <CardContent className="p-6">
             <div className="flex items-start justify-between">
               <div className="flex items-center space-x-4">
-                <div className="bg-gradient-to-r from-blue-600 to-orange-600 p-3 rounded-lg">
+                <div className="bg-gradient-to-r from-primary to-accent p-3 rounded-lg">
                   <FrameworkIcon className="h-8 w-8 text-white" />
                 </div>
                 <div>
@@ -626,7 +626,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-4xl font-bold text-primary dark:text-primary">{overallScore}%</div>
+                <div className="text-4xl font-bold text-primary">{overallScore}%</div>
                 <div className="text-sm text-muted-foreground">Overall Compliance</div>
               </div>
             </div>
@@ -635,7 +635,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
 
         {/* Key Metrics Dashboard */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card className="border-l-4 border-l-green-500">
+          <Card className="border-l-4 border-l-success">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -652,7 +652,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-red-500">
+          <Card className="border-l-4 border-l-destructive">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -669,7 +669,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-yellow-500">
+          <Card className="border-l-4 border-l-warning">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -684,7 +684,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
             </CardContent>
           </Card>
 
-          <Card className="border-l-4 border-l-purple-500">
+          <Card className="border-l-4 border-l-accent">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -708,7 +708,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
-                <BarChart3 className="h-5 w-5 mr-2 text-primary dark:text-primary" />
+                <BarChart3 className="h-5 w-5 mr-2 text-primary" />
                 Domain Compliance Scores
               </CardTitle>
             </CardHeader>
@@ -721,8 +721,8 @@ const ComplianceGapAnalyzer: React.FC = () => {
                   implemented: data?.implementedControls || 0
                 }))}>
                   <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
-                  <XAxis 
-                    dataKey="domain" 
+                  <XAxis
+                    dataKey="domain"
                     className="fill-muted-foreground"
                     angle={-45}
                     textAnchor="end"
@@ -730,20 +730,20 @@ const ComplianceGapAnalyzer: React.FC = () => {
                     fontSize={12}
                   />
                   <YAxis className="fill-muted-foreground" domain={[0, 100]} />
-                  <Tooltip 
+                  <Tooltip
                     formatter={(value, name) => [
                       name === 'score' ? `${value}%` : value,
                       name === 'score' ? 'Compliance Score' : name === 'gaps' ? 'Gap Count' : 'Implemented'
                     ]}
-                    contentStyle={{ 
-                      backgroundColor: 'hsl(var(--background))', 
+                    contentStyle={{
+                      backgroundColor: 'hsl(var(--background))',
                       border: '1px solid hsl(var(--border))',
                       borderRadius: '8px'
                     }}
                   />
                   <Legend />
-                  <Bar dataKey="score" fill="#3b82f6" name="Compliance Score %" />
-                  <Bar dataKey="gaps" fill="#ef4444" name="Gap Count" />
+                  <Bar dataKey="score" fill="hsl(var(--primary))" name="Compliance Score %" />
+                  <Bar dataKey="gaps" fill="hsl(var(--destructive))" name="Gap Count" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -752,7 +752,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center">
-                <Target className="h-5 w-5 mr-2 text-orange-600" />
+                <Target className="h-5 w-5 mr-2 text-accent" />
                 Implementation Status Distribution
               </CardTitle>
             </CardHeader>
@@ -814,9 +814,9 @@ const ComplianceGapAnalyzer: React.FC = () => {
                   }}
                 />
                 <Legend />
-                <Line type="monotone" dataKey="score" stroke="#22c55e" strokeWidth={3} name="Compliance Score %" />
-                <Line type="monotone" dataKey="gaps" stroke="#ef4444" strokeWidth={2} name="Open Gaps" />
-                <Line type="monotone" dataKey="implemented" stroke="#3b82f6" strokeWidth={2} name="Controls Implemented" />
+                <Line type="monotone" dataKey="score" stroke="hsl(var(--success))" strokeWidth={3} name="Compliance Score %" />
+                <Line type="monotone" dataKey="gaps" stroke="hsl(var(--destructive))" strokeWidth={2} name="Open Gaps" />
+                <Line type="monotone" dataKey="implemented" stroke="hsl(var(--primary))" strokeWidth={2} name="Controls Implemented" />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>
@@ -831,7 +831,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
-            <RefreshCw className="h-8 w-8 animate-spin text-primary dark:text-primary mx-auto mb-4" />
+            <RefreshCw className="h-8 w-8 animate-spin text-primary mx-auto mb-4" />
             <p className="text-muted-foreground">Loading compliance assessment...</p>
           </div>
         </div>
@@ -877,7 +877,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
             </span>
           </div>
           
-          <span className="px-3 py-1 bg-gradient-to-r from-blue-100 to-orange-100 dark:from-blue-900/30 dark:to-orange-900/30 text-sm font-medium rounded-full text-foreground">
+          <span className="px-3 py-1 bg-gradient-to-r from-primary/10 to-accent/10 dark:from-primary/20 dark:to-accent/20 text-sm font-medium rounded-full text-foreground">
             Assessment Results
           </span>
         </div>
@@ -931,7 +931,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors flex items-center ${
                 activeTab === tab.id
-                  ? 'border-orange-500 text-orange-600'
+                  ? 'border-accent text-accent'
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -961,7 +961,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
                     <select
                       value={selectedDomain}
                       onChange={(e) => setSelectedDomain(e.target.value)}
-                      className="px-3 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="px-3 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                     >
                       <option value="all">All Domains</option>
                       {frameworks[selectedFramework].domains.map(domain => (
@@ -980,10 +980,10 @@ const ComplianceGapAnalyzer: React.FC = () => {
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center space-x-3">
-                        <span className="font-mono text-primary dark:text-primary text-sm font-semibold">
+                        <span className="font-mono text-primary text-sm font-semibold">
                           {gap.id}
                         </span>
-                        <span 
+                        <span
                           className={`px-3 py-1 rounded-full text-xs font-medium text-white ${
                             gap.priority === 'critical' ? 'bg-destructive' :
                             gap.priority === 'high' ? 'bg-destructive/80' :
@@ -993,14 +993,14 @@ const ComplianceGapAnalyzer: React.FC = () => {
                         >
                           {priorityLevels[gap.priority]?.label}
                         </span>
-                        <span 
+                        <span
                           className={`px-2 py-1 rounded text-xs font-medium ${
                             implementationStatus[gap.status]?.textColor
                           } bg-muted`}
                         >
                           {implementationStatus[gap.status]?.label}
                         </span>
-                        <span className="px-2 py-1 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary rounded text-xs font-medium">
+                        <span className="px-2 py-1 bg-primary/10 dark:bg-primary/20 text-primary rounded text-xs font-medium">
                           {gap.domain}
                         </span>
                       </div>

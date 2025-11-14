@@ -16,10 +16,14 @@ import {
   CheckCircle,
   Mail,
   X,
-  Loader2
+  Loader2,
+  AlertCircle
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/secureStorage';
+import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
+import { EmptyState } from '../../components/ui/EmptyState';
+import { required, email, minLength, combine } from '../../utils/formValidation';
 
 interface DataSubjectRequest {
   id: string;
@@ -81,12 +85,20 @@ const PrivacyRightsManager = () => {
     ];
   });
 
-  const [selectedRequest, setSelectedRequest] = useState<string | null>(() => 
+  const [selectedRequest, setSelectedRequest] = useState<string | null>(() =>
     secureStorage.getItem('privacy_rights_selected_request', null)
   );
   const [showNewRequest, setShowNewRequest] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const newRequestFormRef = useRef<HTMLDivElement>(null);
+
+  // Confirmation dialog state
+  const [confirmDialog, setConfirmDialog] = useState<{
+    open: boolean;
+    requestId: string;
+    status: DataSubjectRequest['status'];
+  } | null>(null);
+  const [rejectionReason, setRejectionReason] = useState('');
   
   // New request form state
   const [newRequest, setNewRequest] = useState<Partial<DataSubjectRequest>>({
@@ -97,6 +109,13 @@ const PrivacyRightsManager = () => {
     priority: 'medium',
     assignedTo: 'Data Protection Officer'
   });
+
+  // Form validation errors
+  const [formErrors, setFormErrors] = useState<{
+    requesterName?: string;
+    requesterEmail?: string;
+    description?: string;
+  }>({});
 
   // Auto-save requests and selection
   useEffect(() => {
@@ -144,15 +163,111 @@ const PrivacyRightsManager = () => {
   };
 
   const handleStatusUpdate = (requestId: string, newStatus: DataSubjectRequest['status']) => {
-    setRequests(prev => prev.map(req => 
+    // Show confirmation dialog for rejected status
+    if (newStatus === 'rejected') {
+      setConfirmDialog({
+        open: true,
+        requestId,
+        status: newStatus
+      });
+      return;
+    }
+
+    // For other statuses, update immediately
+    setRequests(prev => prev.map(req =>
       req.id === requestId ? { ...req, status: newStatus } : req
     ));
     toast.success('Status updated', `Request ${requestId} status changed to ${newStatus}`);
   };
 
+  const handleConfirmStatusChange = () => {
+    if (!confirmDialog) return;
+
+    setRequests(prev => prev.map(req =>
+      req.id === confirmDialog.requestId
+        ? {
+            ...req,
+            status: confirmDialog.status,
+            responseNotes: confirmDialog.status === 'rejected' && rejectionReason
+              ? rejectionReason
+              : req.responseNotes
+          }
+        : req
+    ));
+
+    toast.success(
+      'Request Rejected',
+      `Request ${confirmDialog.requestId} has been rejected${rejectionReason ? ' with reason provided' : ''}`
+    );
+
+    // Reset state
+    setConfirmDialog(null);
+    setRejectionReason('');
+  };
+
+  // Validate individual field
+  const validateField = (fieldName: 'requesterName' | 'requesterEmail' | 'description', value: string) => {
+    let error: string | undefined;
+
+    switch (fieldName) {
+      case 'requesterName': {
+        const nameResult = combine(
+          required('Requester name'),
+          minLength(2, 'Requester name')
+        )(value);
+        error = nameResult.error;
+        break;
+      }
+      case 'requesterEmail': {
+        const emailResult = combine(
+          required('Email'),
+          email
+        )(value);
+        error = emailResult.error;
+        break;
+      }
+      case 'description': {
+        const descResult = combine(
+          required('Description'),
+          minLength(10, 'Description')
+        )(value);
+        error = descResult.error;
+        break;
+      }
+    }
+
+    setFormErrors(prev => ({
+      ...prev,
+      [fieldName]: error
+    }));
+
+    return !error;
+  };
+
+  // Handle field blur for real-time validation
+  const handleFieldBlur = (fieldName: 'requesterName' | 'requesterEmail' | 'description') => {
+    const value = newRequest[fieldName] as string || '';
+    validateField(fieldName, value);
+  };
+
+  // Handle field change and clear errors
+  const handleFieldChange = (fieldName: 'requesterName' | 'requesterEmail' | 'description', value: string) => {
+    setNewRequest({ ...newRequest, [fieldName]: value });
+
+    // Clear error when user starts typing
+    if (formErrors[fieldName]) {
+      setFormErrors(prev => ({ ...prev, [fieldName]: undefined }));
+    }
+  };
+
   const handleCreateRequest = () => {
-    if (!newRequest.requesterName || !newRequest.requesterEmail || !newRequest.description) {
-      toast.error('Validation Error', 'Please fill in all required fields');
+    // Validate all fields
+    const nameValid = validateField('requesterName', newRequest.requesterName || '');
+    const emailValid = validateField('requesterEmail', newRequest.requesterEmail || '');
+    const descValid = validateField('description', newRequest.description || '');
+
+    if (!nameValid || !emailValid || !descValid) {
+      toast.error('Validation Error', 'Please fix the errors in the form');
       return;
     }
 
@@ -184,6 +299,7 @@ const PrivacyRightsManager = () => {
       priority: 'medium',
       assignedTo: 'Data Protection Officer'
     });
+    setFormErrors({});
     toast.success('Request Created', `New data subject request ${newId} has been created`);
   };
 
@@ -367,17 +483,16 @@ const PrivacyRightsManager = () => {
             </CardHeader>
             <CardContent>
               {requests.length === 0 ? (
-                <Card className="text-center py-12">
-                  <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">No Requests Yet</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Get started by creating your first data subject rights request
-                  </p>
-                  <Button onClick={() => setShowNewRequest(true)}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Create First Request
-                  </Button>
-                </Card>
+                <EmptyState
+                  icon={Users}
+                  title="No Requests Yet"
+                  description="Get started by creating your first data subject rights request"
+                  action={{
+                    label: "Create First Request",
+                    onClick: () => setShowNewRequest(true),
+                    icon: Plus
+                  }}
+                />
               ) : (
                 <div className="space-y-4">
                   {requests.map((request) => (
@@ -573,11 +688,24 @@ const PrivacyRightsManager = () => {
                   </label>
                   <input
                     type="text"
-                    className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                    className={`w-full px-3 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 ${
+                      formErrors.requesterName
+                        ? 'border-destructive focus:ring-destructive'
+                        : 'border-border focus:ring-primary'
+                    }`}
                     value={newRequest.requesterName}
-                    onChange={(e) => setNewRequest({ ...newRequest, requesterName: e.target.value })}
+                    onChange={(e) => handleFieldChange('requesterName', e.target.value)}
+                    onBlur={() => handleFieldBlur('requesterName')}
                     placeholder="Enter requester's name"
+                    aria-invalid={!!formErrors.requesterName}
+                    aria-describedby={formErrors.requesterName ? 'requesterName-error' : undefined}
                   />
+                  {formErrors.requesterName && (
+                    <p id="requesterName-error" className="text-destructive text-sm mt-1 flex items-center">
+                      <AlertCircle className="h-3 w-3 mr-1" />
+                      {formErrors.requesterName}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -586,11 +714,24 @@ const PrivacyRightsManager = () => {
                   </label>
                   <input
                     type="email"
-                    className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                    className={`w-full px-3 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 ${
+                      formErrors.requesterEmail
+                        ? 'border-destructive focus:ring-destructive'
+                        : 'border-border focus:ring-primary'
+                    }`}
                     value={newRequest.requesterEmail}
-                    onChange={(e) => setNewRequest({ ...newRequest, requesterEmail: e.target.value })}
+                    onChange={(e) => handleFieldChange('requesterEmail', e.target.value)}
+                    onBlur={() => handleFieldBlur('requesterEmail')}
                     placeholder="Enter requester's email"
+                    aria-invalid={!!formErrors.requesterEmail}
+                    aria-describedby={formErrors.requesterEmail ? 'requesterEmail-error' : undefined}
                   />
+                  {formErrors.requesterEmail && (
+                    <p id="requesterEmail-error" className="text-destructive text-sm mt-1 flex items-center">
+                      <AlertCircle className="h-3 w-3 mr-1" />
+                      {formErrors.requesterEmail}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -598,11 +739,24 @@ const PrivacyRightsManager = () => {
                     Description <span className="text-destructive">*</span>
                   </label>
                   <textarea
-                    className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary min-h-[100px]"
+                    className={`w-full px-3 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 min-h-[100px] ${
+                      formErrors.description
+                        ? 'border-destructive focus:ring-destructive'
+                        : 'border-border focus:ring-primary'
+                    }`}
                     value={newRequest.description}
-                    onChange={(e) => setNewRequest({ ...newRequest, description: e.target.value })}
+                    onChange={(e) => handleFieldChange('description', e.target.value)}
+                    onBlur={() => handleFieldBlur('description')}
                     placeholder="Describe the data subject request..."
+                    aria-invalid={!!formErrors.description}
+                    aria-describedby={formErrors.description ? 'description-error' : undefined}
                   />
+                  {formErrors.description && (
+                    <p id="description-error" className="text-destructive text-sm mt-1 flex items-center">
+                      <AlertCircle className="h-3 w-3 mr-1" />
+                      {formErrors.description}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
@@ -676,6 +830,38 @@ const PrivacyRightsManager = () => {
           </div>
         </div>
       </div>
+
+      {/* Confirmation Dialog for Rejecting Requests */}
+      <ConfirmDialog
+        open={confirmDialog?.open ?? false}
+        onOpenChange={(open) => {
+          if (!open) {
+            setConfirmDialog(null);
+            setRejectionReason('');
+          }
+        }}
+        title="Reject Data Subject Request?"
+        description={`Are you sure you want to reject request ${confirmDialog?.requestId}? This action will mark the request as rejected and notify the requester.`}
+        confirmLabel="Reject Request"
+        cancelLabel="Cancel"
+        onConfirm={handleConfirmStatusChange}
+        variant="destructive"
+      >
+        <div>
+          <label className="block text-sm font-medium mb-2">
+            Rejection Reason (Optional)
+          </label>
+          <textarea
+            className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary min-h-[100px]"
+            value={rejectionReason}
+            onChange={(e) => setRejectionReason(e.target.value)}
+            placeholder="Provide a reason for rejecting this request..."
+          />
+          <p className="text-xs text-muted-foreground mt-1">
+            This reason will be saved in the request notes and can be included in the response to the requester.
+          </p>
+        </div>
+      </ConfirmDialog>
     </div>
   );
 };

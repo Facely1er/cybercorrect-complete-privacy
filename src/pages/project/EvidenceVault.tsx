@@ -25,6 +25,7 @@ import { Link } from 'react-router-dom';
 import { toast } from '../../components/ui/Toaster';
 import { generateEvidencePdf, EvidenceItem as EvidenceItemType } from '../../utils/generateEvidencePdf';
 import { secureStorage } from '../../utils/secureStorage';
+import { EmptyState } from '../../components/ui/EmptyState';
 
 interface EvidenceItem {
   id: string;
@@ -324,7 +325,19 @@ const EvidenceVault = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <div className="space-y-4">
-            {filteredEvidence.map(item => (
+            {filteredEvidence.length === 0 ? (
+              <EmptyState
+                icon={Database}
+                title="No Evidence Items"
+                description="Upload your first evidence document to start building your compliance documentation library."
+                action={{
+                  label: "Upload Evidence",
+                  onClick: () => toast.info('Upload', 'Upload feature coming soon'),
+                  icon: Upload
+                }}
+              />
+            ) : (
+              filteredEvidence.map(item => (
               <Card 
                 key={item.id} 
                 className={`cursor-pointer transition-all hover:shadow-md ${
@@ -365,7 +378,8 @@ const EvidenceVault = () => {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+            ))
+            )}
           </div>
         </div>
 
