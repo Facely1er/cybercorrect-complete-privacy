@@ -194,7 +194,7 @@ const Settings = () => {
                     <input
                       type="checkbox"
                       checked={notifications.emailEnabled}
-                      onChange={(e) => setNotifications({ ...notifications, emailEnabled: e.target.checked })}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNotifications({ ...notifications, emailEnabled: e.target.checked })}
                       className="h-5 w-5"
                     />
                   </div>
@@ -207,7 +207,7 @@ const Settings = () => {
                     <input
                       type="checkbox"
                       checked={notifications.inAppEnabled}
-                      onChange={(e) => setNotifications({ ...notifications, inAppEnabled: e.target.checked })}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNotifications({ ...notifications, inAppEnabled: e.target.checked })}
                       className="h-5 w-5"
                     />
                   </div>
@@ -216,7 +216,7 @@ const Settings = () => {
                     <h4 className="font-medium mb-2">Notification Frequency</h4>
                     <select
                       value={notifications.frequency}
-                      onChange={(e) => setNotifications({ ...notifications, frequency: e.target.value as any })}
+                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setNotifications({ ...notifications, frequency: e.target.value as 'real_time' | 'daily' | 'weekly' })}
                       className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                     >
                       <option value="real_time">Real-time</option>
@@ -245,7 +245,7 @@ const Settings = () => {
                     <input
                       type="checkbox"
                       checked={privacy.dataSharing}
-                      onChange={(e) => setPrivacy({ ...privacy, dataSharing: e.target.checked })}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrivacy({ ...privacy, dataSharing: e.target.checked })}
                       className="h-5 w-5"
                     />
                   </div>
@@ -258,7 +258,7 @@ const Settings = () => {
                     <input
                       type="checkbox"
                       checked={privacy.analytics}
-                      onChange={(e) => setPrivacy({ ...privacy, analytics: e.target.checked })}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrivacy({ ...privacy, analytics: e.target.checked })}
                       className="h-5 w-5"
                     />
                   </div>
@@ -271,7 +271,7 @@ const Settings = () => {
                     <input
                       type="checkbox"
                       checked={privacy.marketing}
-                      onChange={(e) => setPrivacy({ ...privacy, marketing: e.target.checked })}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrivacy({ ...privacy, marketing: e.target.checked })}
                       className="h-5 w-5"
                     />
                   </div>
@@ -292,7 +292,7 @@ const Settings = () => {
                     <h4 className="font-medium mb-2">Language</h4>
                     <select
                       value={language.language}
-                      onChange={(e) => setLanguage({ ...language, language: e.target.value })}
+                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setLanguage({ ...language, language: e.target.value })}
                       className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                     >
                       <option value="en">English</option>
@@ -306,7 +306,7 @@ const Settings = () => {
                     <h4 className="font-medium mb-2">Timezone</h4>
                     <select
                       value={language.timezone}
-                      onChange={(e) => setLanguage({ ...language, timezone: e.target.value })}
+                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setLanguage({ ...language, timezone: e.target.value })}
                       className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                     >
                       <option value="America/New_York">Eastern Time (ET)</option>
@@ -323,7 +323,7 @@ const Settings = () => {
                     <h4 className="font-medium mb-2">Date Format</h4>
                     <select
                       value={language.dateFormat}
-                      onChange={(e) => setLanguage({ ...language, dateFormat: e.target.value })}
+                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setLanguage({ ...language, dateFormat: e.target.value })}
                       className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                     >
                       <option value="MM/DD/YYYY">MM/DD/YYYY</option>
