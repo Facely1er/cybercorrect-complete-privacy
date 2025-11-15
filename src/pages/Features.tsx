@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
 
@@ -8,15 +8,15 @@ import { Shield, FileText, ChevronRight, CheckCircle, Users, Lock, Settings, Dat
 
 const Features = () => {
   const [activeTab, setActiveTab] = useState('platform');
-
+  const navigate = useNavigate();
 
   // Handler functions
   const handleStartAssessment = () => {
-    // Navigate to assessment
+    navigate('/assessments/privacy-assessment');
   };
 
   const handleGuideMe = () => {
-    // Navigate to guide
+    navigate('/documentation/getting-started');
   };
 
   // Platform capabilities organized by function

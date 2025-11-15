@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { useProject } from '../../context/ProjectContext';
@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 
 const PrivacyProjectDashboard = () => {
+  const navigate = useNavigate();
   const { 
     userMode, 
     setUserMode, 
@@ -184,11 +185,14 @@ const PrivacyProjectDashboard = () => {
             </p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline">
+            <Button 
+              variant="outline"
+              onClick={() => navigate('/account/settings')}
+            >
               <Settings className="h-4 w-4 mr-2" />
               Project Settings
             </Button>
-            <Button>
+            <Button onClick={() => navigate('/project/roadmap')}>
               <Plus className="h-4 w-4 mr-2" />
               Add Task
             </Button>
