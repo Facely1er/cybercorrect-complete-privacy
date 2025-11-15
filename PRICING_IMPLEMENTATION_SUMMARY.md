@@ -24,11 +24,12 @@ All implementations align with ERMITS LLC's e-commerce policies and privacy-firs
 
 ### New Files Created
 
-1. **`/src/pages/RefundPolicy.tsx`**
-   - Complete refund and cancellation policy page
+1. **Refund Policy Documentation**
+   - Official policy in `ecommerce_policies.md` Section 2
    - Covers subscriptions, one-time products, templates, credits
    - Details refund processes, timelines, and eligibility
    - Aligned with Terms of Service Section 1.12
+   - Note: Policy document is sufficient - link to it from application
 
 2. **`/src/utils/oneTimeProducts.ts`**
    - One-time product catalog (4 products)
@@ -113,7 +114,6 @@ All implementations align with ERMITS LLC's e-commerce policies and privacy-firs
 - 9 integrated tools (DPIA, Policy Gen, Data Mapping, etc.)
 - Unlimited exports (PDF, Word, Excel)
 - Lifetime access + v1.x updates
-- 14-day money-back guarantee
 - **Target:** Small businesses, consultants, individuals
 
 #### **Product 2: Compliance Assessment Suite - $149**
@@ -163,28 +163,18 @@ All implementations align with ERMITS LLC's e-commerce policies and privacy-firs
 
 ### 4. Refund & Cancellation Policy
 
-**Subscription Refunds:**
-- Monthly: 7-day refund on first month
-- Annual: 30-day money-back guarantee
-- No pro-rated refunds after initial period
-
-**One-Time Product Refunds:**
-- 14-day satisfaction guarantee
-- Full refund if defective or not as described
-- Non-refundable after customization/export
-
-**Templates:**
-- 7-day satisfaction guarantee
-- Must contain errors or not match description
-
-**Export Credits:**
-- Non-refundable once purchased
-- Credits refunded if export fails due to system error
+**Official ERMITS Policy:**
+- All sales are final except as provided in Refund & Cancellation Policy
+- No standard money-back guarantees
+- Refunds may be available for:
+  - Technical service failures (Section 2.3.1)
+  - Billing errors (Section 2.3.3)
+  - Discretionary circumstances (Section 2.3.2)
 
 **Refund Process:**
 - Email: contact@ermits.com
-- Response: 2 business days
-- Processing: 5-7 business days
+- Review within 5 business days (refund requests)
+- Processing: 5-10 business days if approved
 - Method: Original payment via Stripe
 
 ---
@@ -227,18 +217,20 @@ All implementations align with ERMITS LLC's e-commerce policies and privacy-firs
 
 ### Refund Policy Compliance ✅
 
-**Alignment with Industry Standards:**
-- ✅ 14-day guarantee for digital products (FTC compliant)
-- ✅ 30-day for annual subscriptions (industry standard)
+**Alignment with Official ERMITS Policy:**
+- ✅ All sales final except as provided in Refund & Cancellation Policy
+- ✅ Refunds for technical service failures
+- ✅ Refunds for billing errors
+- ✅ Discretionary refunds in exceptional circumstances
 - ✅ Clear eligibility criteria
 - ✅ Transparent refund process
 - ✅ Reasonable processing timelines
 
 **Consumer Protection:**
-- ✅ Money-back guarantees
-- ✅ Technical defect coverage
-- ✅ "Not as described" protection
-- ✅ Abuse prevention measures
+- ✅ Technical defect coverage (refunds for service failures)
+- ✅ Billing error protection (immediate refunds)
+- ✅ Discretionary refunds in exceptional circumstances
+- ✅ Clear policy transparency
 
 ---
 
@@ -280,7 +272,6 @@ All implementations align with ERMITS LLC's e-commerce policies and privacy-firs
 ```
 /src
 ├── /pages
-│   ├── RefundPolicy.tsx          (NEW - Refund policy page)
 │   └── OneTimeStore.tsx           (NEW - Product store)
 ├── /utils
 │   ├── monetization.ts            (MODIFIED - Enhanced free tier)
@@ -319,7 +310,6 @@ All implementations align with ERMITS LLC's e-commerce policies and privacy-firs
 1. **Add Routes** (REQUIRED)
    ```tsx
    // In App.tsx or router configuration
-   <Route path="/refund-policy" element={<RefundPolicy />} />
    <Route path="/store" element={<OneTimeStore />} />
    <Route path="/one-time-products" element={<OneTimeStore />} />
    ```
@@ -327,7 +317,8 @@ All implementations align with ERMITS LLC's e-commerce policies and privacy-firs
 2. **Update Footer Links** (REQUIRED)
    ```tsx
    // Add to Footer.tsx
-   <Link to="/refund-policy">Refund Policy</Link>
+   // Link to ecommerce_policies.md Section 2 (Refund & Cancellation Policy)
+   <a href="/ecommerce-policies#refund-cancellation-policy">Refund Policy</a>
    <Link to="/store">Privacy Tools Store</Link>
    ```
 
@@ -436,18 +427,16 @@ const purchase = LicenseManager.activateLicense('product-id', licenseKey);
 
 - [x] Free tier limitations clearly disclosed
 - [x] Subscription auto-renewal disclosed
-- [x] Refund policy clearly stated
+- [x] Refund policy clearly stated (aligned with official ERMITS policy)
 - [x] Privacy policy supports localStorage products
 - [x] Terms reference refund policy
-- [x] 14-day guarantee for digital products
-- [x] 30-day guarantee for annual subscriptions
 - [x] Payment processor (Stripe) disclosed
 - [x] USD pricing disclosed
 - [x] Data ownership rights preserved
 - [x] Technical requirements disclosed
 - [x] License terms clearly stated
-- [ ] Add refund policy link to footer
-- [ ] Add refund policy to routes
+- [ ] Add refund policy link to footer (link to `ecommerce_policies.md` Section 2)
+- [ ] Add refund policy link to checkout page
 - [ ] Implement payment integration
 - [ ] Test refund process end-to-end
 
@@ -520,7 +509,7 @@ This implementation provides a comprehensive, policy-compliant pricing strategy 
 2. ✅ **Supports Privacy-First Architecture** - LocalStorage products respect data sovereignty
 3. ✅ **Provides Clear Value Ladder** - Free → One-Time → Subscription progression
 4. ✅ **Enables Multiple Revenue Streams** - Subscriptions + one-time + add-ons
-5. ✅ **Builds User Trust** - Clear refund policies, money-back guarantees
+5. ✅ **Builds User Trust** - Clear refund policies aligned with official ERMITS policy
 6. ✅ **Offers Flexible Options** - Users choose ownership vs. subscription model
 
 The pricing strategy balances business needs with customer value, creating a sustainable monetization model aligned with the platform's privacy-first mission.

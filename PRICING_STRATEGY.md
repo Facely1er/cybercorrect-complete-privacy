@@ -152,7 +152,6 @@ For users who:
 - ✅ No cloud dependencies or subscriptions
 - ✅ Complete data ownership
 - ✅ Lifetime access to v1.x updates
-- ✅ 14-day money-back guarantee
 - ❌ No cloud sync
 - ❌ No automated compliance monitoring
 - ❌ No team collaboration
@@ -192,7 +191,7 @@ Complete offline toolkit that runs in browser with all data stored in localStora
 - Organizations requiring complete data control
 - Budget-conscious compliance teams
 
-**Refund Policy:** 14-day money-back guarantee
+**Refund Policy:** All sales are final except as provided in our Refund & Cancellation Policy. Refunds may be available for technical service failures or billing errors.
 
 ---
 
@@ -221,7 +220,7 @@ Offline assessment tools with local scoring and framework templates.
 - One-time compliance projects
 - Organizations needing periodic assessments
 
-**Refund Policy:** 14-day money-back guarantee
+**Refund Policy:** All sales are final except as provided in our Refund & Cancellation Policy. Refunds may be available for technical service failures or billing errors.
 
 ---
 
@@ -249,7 +248,7 @@ Complete GDPR compliance toolkit with all templates and documentation generators
 - GDPR-only compliance needs
 - Data Protection Officers (DPOs)
 
-**Refund Policy:** 14-day money-back guarantee
+**Refund Policy:** All sales are final except as provided in our Refund & Cancellation Policy. Refunds may be available for technical service failures or billing errors.
 
 ---
 
@@ -276,7 +275,7 @@ Comprehensive library of 50+ privacy policies and templates.
 - Website operators
 - App developers
 
-**Refund Policy:** 14-day money-back guarantee
+**Refund Policy:** All sales are final except as provided in our Refund & Cancellation Policy. Refunds may be available for technical service failures or billing errors.
 
 ---
 
@@ -430,20 +429,17 @@ Includes all 4 one-time products above.
 
 ### **Refund Policy Compliance**
 
-✅ **Subscriptions:**
-- Monthly: 7-day refund on first month
-- Annual: 30-day money-back guarantee
-- No pro-rated refunds
-
-✅ **One-Time Products:**
-- 14-day satisfaction guarantee
-- Full refund if product defective or not as described
-- Non-refundable after customization/export
+✅ **Official ERMITS Policy:**
+- All sales are final except as provided in Refund & Cancellation Policy
+- No standard money-back guarantees
+- Refunds may be available for technical service failures (Section 2.3.1)
+- Refunds available for billing errors (Section 2.3.3)
+- Discretionary refunds in exceptional circumstances only (Section 2.3.2)
 
 ✅ **Refund Process:**
 - Email: contact@ermits.com
-- Response: 2 business days
-- Processing: 5-7 business days
+- Review within 5 business days (refund requests)
+- Processing: 5-10 business days if approved
 - Method: Original payment method via Stripe
 
 ---
@@ -455,7 +451,7 @@ Includes all 4 one-time products above.
 - [x] Enhanced free tier limits in `monetization.ts`
 - [x] One-time product catalog in `oneTimeProducts.ts`
 - [x] License management system
-- [x] Refund policy page (`RefundPolicy.tsx`)
+- [x] Refund policy documented in `ecommerce_policies.md` Section 2
 - [ ] One-time product store page
 - [ ] Purchase flow components
 - [ ] License activation workflow
@@ -511,7 +507,7 @@ This pricing strategy balances:
 2. **One-Time Products:** Ownership model for privacy-conscious users
 3. **Subscriptions:** Recurring revenue from ongoing compliance needs
 
-All pricing aligns with ERMITS LLC e-commerce policies, privacy commitments, and refund guarantees, creating a transparent and customer-friendly monetization model.
+All pricing aligns with ERMITS LLC e-commerce policies and privacy commitments, creating a transparent and customer-friendly monetization model.
 
 ---
 

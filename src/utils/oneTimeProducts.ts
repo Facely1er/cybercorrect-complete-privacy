@@ -21,7 +21,7 @@ export interface OneTimeProduct {
   limitations: string[];
   targetAudience: string[];
   technicalRequirements: string[];
-  refundPolicy: 'standard' | 'extended'; // '14-day' or 'extended'
+  refundPolicy: 'standard'; // All sales final except as provided in Refund & Cancellation Policy
   updatePolicy: string; // e.g., "v1.x updates included"
   supportLevel: 'email' | 'priority' | 'dedicated';
   icon?: string;
@@ -110,7 +110,7 @@ export const ONE_TIME_PRODUCTS: OneTimeProduct[] = [
       'Screen resolution 1280x720 or higher',
       'Internet connection for initial download only'
     ],
-    refundPolicy: 'standard', // 14-day money-back guarantee
+    refundPolicy: 'standard', // All sales final except as provided in Refund & Cancellation Policy
     updatePolicy: 'All v1.x updates included free. Major version upgrades (v2.0+) may require upgrade fee.',
     supportLevel: 'email'
   },
@@ -165,7 +165,7 @@ export const ONE_TIME_PRODUCTS: OneTimeProduct[] = [
       'JavaScript enabled',
       'Minimum 50MB free storage'
     ],
-    refundPolicy: 'standard',
+    refundPolicy: 'standard', // All sales final except as provided in Refund & Cancellation Policy
     updatePolicy: 'All v1.x updates included. Framework updates released quarterly.',
     supportLevel: 'email'
   },
@@ -224,7 +224,7 @@ export const ONE_TIME_PRODUCTS: OneTimeProduct[] = [
       'JavaScript enabled',
       'Minimum 75MB free storage'
     ],
-    refundPolicy: 'standard',
+    refundPolicy: 'standard', // All sales final except as provided in Refund & Cancellation Policy
     updatePolicy: 'GDPR-specific updates included for life. Updated within 30 days of regulatory changes.',
     supportLevel: 'email'
   },
@@ -277,7 +277,7 @@ export const ONE_TIME_PRODUCTS: OneTimeProduct[] = [
       'JavaScript enabled',
       'Minimum 30MB free storage'
     ],
-    refundPolicy: 'standard',
+    refundPolicy: 'standard', // All sales final except as provided in Refund & Cancellation Policy
     updatePolicy: 'Template updates released monthly. All updates included.',
     supportLevel: 'email'
   }
