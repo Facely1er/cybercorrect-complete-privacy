@@ -2,8 +2,15 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { ArrowLeft, Check, CreditCard, Lock, ShoppingCart } from 'lucide-react';
+import { ArrowLeft, Check, CreditCard, Lock, ShoppingCart, Loader2, AlertCircle } from 'lucide-react';
 import { ProductCatalog } from '../utils/oneTimeProducts';
+import { toast } from '../components/ui/Toaster';
+import { 
+  createOneTimeCheckoutSession, 
+  validateCheckoutItems, 
+  calculateTax,
+  type OneTimeCheckoutItem 
+} from '../services/oneTimeCheckoutService';
 
 interface CheckoutState {
   cart: string[];
@@ -30,6 +37,8 @@ const Checkout = () => {
     }
   });
   const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [taxAmount, setTaxAmount] = useState(0);
 
   // Sync cart to localStorage
   useEffect(() => {
@@ -59,17 +68,89 @@ const Checkout = () => {
     }, 0);
   };
 
+  const getCartItems = (): OneTimeCheckoutItem[] => {
+    return cart.map((productId) => {
+      const product = ProductCatalog.getProduct(productId);
+      const bundle = ProductCatalog.getBundle(productId);
+      const item = product || bundle;
+      
+      return {
+        productId,
+        name: item?.name || 'Unknown Product',
+        price: item?.price || 0,
+        quantity: 1,
+      };
+    }).filter(item => item.price > 0);
+  };
+
+  // Calculate tax when cart changes
+  useEffect(() => {
+    const subtotal = getCartTotal();
+    const calculatedTax = calculateTax(subtotal);
+    setTaxAmount(calculatedTax);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart]);
+
   const handleCheckout = async () => {
+    // Clear any previous errors
+    setError(null);
     setIsProcessing(true);
 
-    // TODO: Integrate with Stripe for payment processing
-    // For now, show a message that this feature is coming soon
-    alert('Checkout integration with Stripe is coming soon! You will receive a license key via email after payment.');
+    try {
+      // Validate cart
+      if (cart.length === 0) {
+        setError('Your cart is empty');
+        toast.error('Cart Empty', 'Please add items to your cart before checkout');
+        setIsProcessing(false);
+        return;
+      }
 
-    setTimeout(() => {
+      // Get cart items
+      const items = getCartItems();
+      
+      // Validate items
+      const validation = validateCheckoutItems(items);
+      if (!validation.valid) {
+        setError(validation.error || 'Invalid cart items');
+        toast.error('Validation Error', validation.error || 'Please check your cart and try again');
+        setIsProcessing(false);
+        return;
+      }
+
+      // Create checkout session
+      const successUrl = `${window.location.origin}/store/success?session_id={CHECKOUT_SESSION_ID}`;
+      const cancelUrl = `${window.location.origin}/store`;
+
+      toast.info('Processing', 'Creating secure checkout session...');
+
+      const session = await createOneTimeCheckoutSession(items, successUrl, cancelUrl);
+
+      if (!session || !session.url) {
+        setError('Unable to create checkout session. Please try again.');
+        toast.error(
+          'Checkout Unavailable', 
+          'Payment processing is currently unavailable. Please try again later or contact support.'
+        );
+        setIsProcessing(false);
+        return;
+      }
+
+      // Redirect to Stripe Checkout
+      toast.success('Redirecting', 'Redirecting to secure payment page...');
+      window.location.href = session.url;
+
+      // Note: setIsProcessing(false) won't be reached if redirect succeeds,
+      // but we keep it for error cases
+    } catch (err) {
+      console.error('Checkout error:', err);
+      const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred';
+      setError(errorMessage);
+      toast.error(
+        'Checkout Failed', 
+        errorMessage || 'Please try again or contact support if the problem persists.'
+      );
       setIsProcessing(false);
-      // In production, redirect to success page after payment
-    }, 1000);
+    }
   };
 
   return (
@@ -199,24 +280,48 @@ const Checkout = () => {
                   </div>
                   <div className="flex justify-between text-muted-foreground">
                     <span>Tax</span>
-                    <span>$0.00</span>
+                    <span>
+                      {taxAmount > 0 ? `$${taxAmount.toFixed(2)}` : (
+                        <span className="text-xs">Calculated at checkout</span>
+                      )}
+                    </span>
                   </div>
                   <div className="border-t border-border pt-4">
                     <div className="flex justify-between items-center">
                       <span className="text-lg font-semibold text-foreground">Total</span>
-                      <span className="text-2xl font-bold text-foreground">${getCartTotal()}</span>
+                      <span className="text-2xl font-bold text-foreground">
+                        ${(getCartTotal() + taxAmount).toFixed(2)}
+                      </span>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">One-time payment</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {taxAmount > 0 ? 'Including tax' : 'Tax calculated at checkout'} • One-time payment
+                    </p>
                   </div>
+
+                  {/* Error Display */}
+                  {error && (
+                    <div className="mt-4 p-3 bg-alert-coral/10 border border-alert-coral/20 rounded-lg">
+                      <div className="flex items-start gap-2">
+                        <AlertCircle className="w-4 h-4 text-alert-coral flex-shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                          <p className="text-sm font-medium text-alert-coral">Error</p>
+                          <p className="text-xs text-muted-foreground mt-1">{error}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   <Button
                     className="w-full"
                     size="lg"
                     onClick={handleCheckout}
-                    disabled={isProcessing}
+                    disabled={isProcessing || cart.length === 0}
                   >
                     {isProcessing ? (
-                      'Processing...'
+                      <>
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                        Processing...
+                      </>
                     ) : (
                       <>
                         <Lock className="w-5 h-5 mr-2" />
