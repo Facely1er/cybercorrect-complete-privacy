@@ -48,13 +48,14 @@ const Pricing = () => {
         "Essential privacy controls coverage",
         "Up to 100 risks tracked",
         "5 compliance templates",
+        "10 exports per month (PDF, Word, JSON, CSV)",
         "Monthly automated compliance reports",
         "Weekly compliance status emails",
         "Quarterly executive summaries (automated)",
-        "Deadline alerts (7, 3, 1 days before)",
-        "Quarterly automated assessments",
+        "Scheduled assessments (up to 2 per quarter)",
         "Compliance health score tracking",
         "Basic progress dashboard",
+        "Email & in-app notifications",
         "Email support (48hr response)",
         "1 privacy framework",
         "Basic risk analytics"
@@ -70,17 +71,20 @@ const Pricing = () => {
         "Multi-regulation privacy assessments",
         "Full privacy framework coverage",
         "Unlimited risk tracking",
+        "20+ compliance templates",
+        "Unlimited exports (PDF, Word, JSON, CSV, Excel)",
         "Automated compliance planning",
         "Unlimited custom reports",
         "Daily compliance health digest",
         "Weekly automated compliance reports",
         "Monthly comprehensive reports (automated)",
         "Quarterly executive dashboards (automated)",
-        "Monthly automated assessments",
+        "Unlimited scheduled assessments",
         "Real-time risk alerts (all priorities)",
         "Custom notification rules",
         "Multi-channel notifications (Email, SMS, Slack)",
         "Regulatory change alerts (24-hour)",
+        "Regulatory intelligence dashboard",
         "Predictive compliance analytics",
         "Advanced progress analytics",
         "Compliance velocity metrics",
@@ -176,34 +180,35 @@ const Pricing = () => {
   ];
 
   return (
-    <div className="py-20">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4 text-foreground">Simple, Transparent Pricing</h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
-          Choose between flexible subscriptions or own your tools forever
-        </p>
-        <div className="flex justify-center gap-6 text-sm text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <Check className="h-4 w-4 text-success" />
-            <span>Subscriptions: Continuous updates & support</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Check className="h-4 w-4 text-success" />
-            <span>One-Time: Own forever, 100% offline</span>
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-12 md:py-20">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">Simple, Transparent Pricing</h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            Choose between flexible subscriptions or own your tools forever
+          </p>
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <Check className="h-4 w-4 text-success" />
+              <span>Subscriptions: Continuous updates & support</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Check className="h-4 w-4 text-success" />
+              <span>One-Time: Own forever, 100% offline</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Subscription Plans Section */}
-      <div className="max-w-7xl mx-auto mb-20">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-3 text-foreground">Subscription Plans</h2>
-          <p className="text-lg text-muted-foreground mb-6">
+        {/* Subscription Plans Section */}
+        <div className="max-w-7xl mx-auto mb-24">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Subscription Plans</h2>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Continuous compliance with automated updates, alerts, and team features
           </p>
         
         {/* Billing toggle */}
-        <div className="flex items-center justify-center space-x-3 mb-8">
+        <div className="flex items-center justify-center space-x-3 mb-10">
           <span className={`text-sm ${billingPeriod === 'monthly' ? 'font-medium text-foreground' : 'text-muted-foreground'}`}>
             Monthly
           </span>
@@ -231,26 +236,20 @@ const Pricing = () => {
         </div>
 
         {/* Subscription Plans Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
         {plans.map((plan, index) => (
           <Card 
             key={index} 
-            className={`relative dark:border-muted ${plan.popular ? 'border-primary shadow-lg dark:shadow-primary/10' : ''}`}
+            className={`relative h-full flex flex-col transition-all hover:shadow-xl dark:border-muted ${
+              plan.popular ? 'border-primary border-2 shadow-lg dark:shadow-primary/10 scale-105' : 'hover:border-primary/50'
+            }`}
           >
-            {plan.popular && (
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                <span className="bg-primary text-primary-foreground text-sm font-medium px-3 py-1 rounded-full">
-                  Most Popular
-                </span>
-              </div>
-            )}
-            
-            <CardHeader>
-              <CardTitle className="text-2xl text-foreground">{plan.name}</CardTitle>
-              <CardDescription>{plan.description}</CardDescription>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-2xl font-bold text-foreground">{plan.name}</CardTitle>
+              <CardDescription className="text-sm mt-2">{plan.description}</CardDescription>
             </CardHeader>
             
-            <CardContent>
+            <CardContent className="flex-1 flex flex-col">
               <div className="mb-6">
                 {!plan.free && plan.price !== "Contact us" && (
                   <span className="inline-block bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 px-2 py-1 rounded text-xs font-semibold mb-3">
@@ -275,18 +274,19 @@ const Pricing = () => {
                 <p className="text-sm text-muted-foreground">{plan.billing}</p>
               </div>
 
-              <ul className="space-y-3 mb-6">
+              <ul className="space-y-3 mb-8 flex-1">
                 {plan.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-primary mr-2 flex-shrink-0" />
-                    <span className="text-sm text-foreground">{feature}</span>
+                    <CheckCircle className="h-5 w-5 text-primary mr-3 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm text-foreground leading-relaxed">{feature}</span>
                   </li>
                 ))}
               </ul>
 
               <Button
-                className="w-full"
+                className="w-full mt-auto"
                 variant={plan.free ? "default" : (plan.popular ? "default" : "outline")}
+                size="lg"
                 onClick={async () => {
                   if (plan.free) {
                     navigate('/login');
@@ -331,10 +331,10 @@ const Pricing = () => {
       </div>
 
       {/* One-Time Products Section */}
-      <div className="max-w-7xl mx-auto mb-16">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold mb-3 text-foreground">One-Time Purchase Products</h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-6">
+      <div className="max-w-7xl mx-auto mb-24">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">One-Time Purchase Products</h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
             Own your privacy tools forever with 100% offline operation. No recurring fees, complete data control.
           </p>
           <div className="flex justify-center flex-wrap gap-6 text-sm">
@@ -398,7 +398,7 @@ const Pricing = () => {
         ))}
 
         {/* Individual One-Time Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {ONE_TIME_PRODUCTS.map((product) => (
             <Card key={product.id} className="relative hover:shadow-lg transition-shadow">
               <CardHeader>
@@ -434,10 +434,6 @@ const Pricing = () => {
                       <Check className="h-4 w-4 text-primary flex-shrink-0" />
                       <span>All v1.x updates</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Check className="h-4 w-4 text-primary flex-shrink-0" />
-                      <span>14-day refund</span>
-                    </div>
                   </div>
                 </div>
 
@@ -468,10 +464,10 @@ const Pricing = () => {
       </div>
 
       {/* Feature comparison section */}
-      <div className="max-w-7xl mx-auto mt-16">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-4 text-foreground">Compare Features</h2>
-          <p className="text-muted-foreground">A detailed comparison of features across our plans</p>
+      <div className="max-w-7xl mx-auto mt-24">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Compare Features</h2>
+          <p className="text-lg text-muted-foreground">A detailed comparison of features across our plans</p>
         </div>
 
         {/* Feature Comparison Table */}
@@ -535,10 +531,10 @@ const Pricing = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="mt-8 text-center max-w-5xl mx-auto px-4">
-        <div className="bg-gradient-to-r from-primary-teal to-secondary-teal rounded-xl p-6 text-white dark:from-dark-primary dark:to-dark-primary/70">
-          <h3 className="text-xl font-bold mb-3">Ready to achieve compliance?</h3>
-          <p className="mb-5">View our interactive demo to explore the platform</p>
+      <div className="mt-24 text-center max-w-5xl mx-auto px-4">
+        <div className="bg-gradient-to-r from-primary-teal to-secondary-teal rounded-xl p-8 md:p-10 text-white dark:from-dark-primary dark:to-dark-primary/70 shadow-xl">
+          <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready to achieve compliance?</h3>
+          <p className="mb-6 text-lg">View our interactive demo to explore the platform</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               variant="default" 

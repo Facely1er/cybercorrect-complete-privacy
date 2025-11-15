@@ -123,10 +123,6 @@ const Checkout = () => {
                     </div>
                     <div className="flex items-center gap-2 text-sm">
                       <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span>14-day money-back guarantee</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Check className="w-4 h-4 text-primary flex-shrink-0" />
                       <span>License key delivered via email</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm">
@@ -205,8 +201,6 @@ const Checkout = () => {
                   <p className="text-xs text-muted-foreground text-center">
                     By completing this purchase, you agree to our{' '}
                     <a href="/terms" className="text-primary hover:underline">Terms of Service</a>
-                    {' '}and{' '}
-                    <a href="/refund-policy" className="text-primary hover:underline">Refund Policy</a>
                   </p>
 
                   {/* Security Badges */}
@@ -223,20 +217,6 @@ const Checkout = () => {
               </CardContent>
             </Card>
 
-            {/* Refund Policy Reminder */}
-            <Card className="mt-4 bg-success/5 border-success/20">
-              <CardContent className="p-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="font-semibold text-sm mb-1">14-Day Money-Back Guarantee</h4>
-                    <p className="text-xs text-muted-foreground">
-                      Not satisfied? Get a full refund within 14 days, no questions asked.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>

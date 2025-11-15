@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Card, CardContent } from '../components/ui/Card';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import {
   ShoppingCart,
@@ -14,14 +14,27 @@ import {
   Sparkles,
   TrendingUp,
   Star,
-  Info
+  Info,
+  ChevronRight
 } from 'lucide-react';
-import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES, ProductCatalog, LicenseManager } from '../utils/oneTimeProducts';
+import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES, ProductCatalog, LicenseManager, OneTimeProduct, ProductBundle } from '../utils/oneTimeProducts';
+
+const CART_STORAGE_KEY = 'onetimestore_cart';
 
 const OneTimeStore = () => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [cart, setCart] = useState<string[]>([]);
+  const [cart, setCart] = useState<string[]>(() => {
+    // Load cart from localStorage on mount
+    try {
+      const savedCart = localStorage.getItem(CART_STORAGE_KEY);
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [selectedProduct, setSelectedProduct] = useState<OneTimeProduct | ProductBundle | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const categories = [
     { id: 'all', name: 'All Products', icon: ShoppingCart },
@@ -40,14 +53,45 @@ const OneTimeStore = () => {
     ? PRODUCT_BUNDLES
     : [];
 
+  // Persist cart to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    } catch (error) {
+      console.error('Failed to save cart to localStorage:', error);
+    }
+  }, [cart]);
+
   const addToCart = (productId: string) => {
     if (!cart.includes(productId)) {
-      setCart([...cart, productId]);
+      const newCart = [...cart, productId];
+      setCart(newCart);
     }
   };
 
   const removeFromCart = (productId: string) => {
-    setCart(cart.filter(id => id !== productId));
+    const newCart = cart.filter(id => id !== productId);
+    setCart(newCart);
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  const handleLearnMore = (productId: string) => {
+    const product = ProductCatalog.getProduct(productId);
+    const bundle = ProductCatalog.getBundle(productId);
+    if (product) {
+      setSelectedProduct(product);
+      setIsModalOpen(true);
+    } else if (bundle) {
+      setSelectedProduct(bundle);
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleProceedToCheckout = () => {
+    navigate('/checkout', { state: { cart } });
   };
 
   const getCartTotal = () => {
@@ -78,10 +122,6 @@ const OneTimeStore = () => {
               <div className="flex items-center">
                 <Check className="w-6 h-6 mr-2" />
                 <span>100% Offline</span>
-              </div>
-              <div className="flex items-center">
-                <Check className="w-6 h-6 mr-2" />
-                <span>14-Day Guarantee</span>
               </div>
               <div className="flex items-center">
                 <Check className="w-6 h-6 mr-2" />
@@ -266,16 +306,6 @@ const OneTimeStore = () => {
                       </p>
                     </div>
 
-                    {/* Refund Policy */}
-                    <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Shield className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                        <span className="font-semibold text-blue-800 dark:text-blue-300">14-Day Money-Back Guarantee</span>
-                      </div>
-                      <p className="text-sm text-blue-700 dark:text-blue-400">
-                        Try risk-free. Full refund if product doesn't meet your expectations.
-                      </p>
-                    </div>
 
                     {/* CTA Buttons */}
                     <div className="space-y-3">
@@ -295,7 +325,11 @@ const OneTimeStore = () => {
                           </>
                         )}
                       </Button>
-                      <Button variant="outline" className="w-full">
+                      <Button 
+                        variant="outline" 
+                        className="w-full"
+                        onClick={() => handleLearnMore(product.id)}
+                      >
                         <Info className="w-5 h-5 mr-2" />
                         Learn More
                       </Button>
@@ -437,12 +471,12 @@ const OneTimeStore = () => {
                 </div>
               </div>
               <div className="flex gap-4">
-                <Button variant="outline" onClick={() => setCart([])}>
+                <Button variant="outline" onClick={clearCart}>
                   Clear Cart
                 </Button>
                 <Button
                   className="bg-primary hover:bg-primary/90"
-                  onClick={() => navigate('/checkout', { state: { cart } })}
+                  onClick={handleProceedToCheckout}
                 >
                   <ShoppingCart className="w-5 h-5 mr-2" />
                   Proceed to Checkout (${getCartTotal()})
@@ -470,15 +504,6 @@ const OneTimeStore = () => {
                 </CardContent>
               </Card>
 
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="font-bold text-lg mb-2">How does the 14-day money-back guarantee work?</h3>
-                  <p className="text-muted-foreground">
-                    If you're not satisfied within 14 days, email contact@ermits.com for a full refund. See our{' '}
-                    <Link to="/refund-policy" className="text-primary hover:underline">Refund Policy</Link> for details.
-                  </p>
-                </CardContent>
-              </Card>
 
               <Card>
                 <CardContent className="p-6">
