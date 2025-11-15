@@ -127,6 +127,8 @@ const IncidentResponseManager = lazy(() => import('./pages/tools-and-assessments
 const TemplateStore = lazy(() => import('./pages/monetization/TemplateStore'));
 const CreditsManager = lazy(() => import('./pages/monetization/CreditsManager'));
 const OneTimeStore = lazy(() => import('./pages/OneTimeStore'));
+const PurchaseSuccess = lazy(() => import('./pages/PurchaseSuccess'));
+const ActivateLicense = lazy(() => import('./pages/ActivateLicense'));
 const Checkout = lazy(() => import('./pages/Checkout'));
 
 // Subscription enhancement pages
@@ -396,6 +398,16 @@ const App: React.FC = () => {
                     <Route path="checkout" element={
                       <Suspense fallback={<LoadingSpinner />}>
                         <Checkout />
+                      </Suspense>
+                    } />
+                    <Route path="store/success" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <PurchaseSuccess />
+                      </Suspense>
+                    } />
+                    <Route path="activate-license" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <ActivateLicense />
                       </Suspense>
                     } />
 
