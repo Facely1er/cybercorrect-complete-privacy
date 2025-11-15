@@ -48,7 +48,7 @@ const ChatSupport = () => {
     },
     {
       keywords: ['trial', 'free', 'demo', 'start'],
-      response: "You can explore our interactive demo to see all features and capabilities. Visit our demo page to get hands-on experience with our privacy assessment tools, data mapping, and compliance workflows. For a personalized walkthrough, schedule a live demo with our team."
+      response: "You can explore our interactive demo to see all features and capabilities. Visit our demo page to get hands-on experience with our privacy assessment tools, data mapping, and compliance workflows."
     }
   ];
 

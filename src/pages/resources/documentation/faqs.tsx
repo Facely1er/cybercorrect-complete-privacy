@@ -119,7 +119,7 @@ const Faqs = () => {
     },
     {
       question: "How can I see the platform in action?",
-      answer: "You can explore our interactive demo to see all features and capabilities. The demo gives you hands-on experience with our privacy assessment tools, data mapping, and compliance workflows. Schedule a live demo with our team for a personalized walkthrough tailored to your needs.",
+      answer: "You can explore our interactive demo to see all features and capabilities. The demo gives you hands-on experience with our privacy assessment tools, data mapping, and compliance workflows.",
       category: 'pricing'
     },
     {

@@ -88,19 +88,9 @@ const Demo = () => {
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Home
         </Link>
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold mb-2 text-foreground">Interactive Demo</h1>
-            <p className="text-muted-foreground">Explore CyberCorrect Privacy Platform's powerful features for privacy compliance and data protection management</p>
-          </div>
-          <div className="flex gap-2">
-            <Link to="/about">
-              <Button size="lg">
-                Schedule a Live Demo
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
+        <div>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">Interactive Demo</h1>
+          <p className="text-muted-foreground">Explore CyberCorrect Privacy Platform's powerful features for privacy compliance and data protection management</p>
         </div>
       </div>
       
@@ -543,10 +533,6 @@ const Demo = () => {
         <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Ready to streamline your compliance journey?</h3>
         <p className="mb-6 text-lg text-muted-foreground">Experience the full power of CyberCorrect Privacy Platform with a personalized demo or comprehensive assessment.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" variant="default" className="hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-            Schedule a Live Demo
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
           <Button size="lg" variant="outline" onClick={handleGuideMe} className="border-2 hover:shadow-lg transform hover:scale-105 transition-all duration-300">
             <HelpCircle className="mr-2 h-4 w-4" />
             Guide Me Through It
