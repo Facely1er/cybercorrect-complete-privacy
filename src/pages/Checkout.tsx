@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
@@ -9,13 +9,40 @@ interface CheckoutState {
   cart: string[];
 }
 
+const CART_STORAGE_KEY = 'onetimestore_cart';
+
 const Checkout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as CheckoutState | null;
 
-  const [cart, setCart] = useState<string[]>(state?.cart || []);
+  // Load cart from state or localStorage
+  const [cart] = useState<string[]>(() => {
+    if (state?.cart && state.cart.length > 0) {
+      return state.cart;
+    }
+    // Fallback to localStorage
+    try {
+      const savedCart = localStorage.getItem(CART_STORAGE_KEY);
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch {
+      return [];
+    }
+  });
   const [isProcessing, setIsProcessing] = useState(false);
+
+  // Sync cart to localStorage
+  useEffect(() => {
+    try {
+      if (cart.length > 0) {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+      } else {
+        localStorage.removeItem(CART_STORAGE_KEY);
+      }
+    } catch (error) {
+      console.error('Failed to save cart to localStorage:', error);
+    }
+  }, [cart]);
 
   useEffect(() => {
     // If no items in cart, redirect to store

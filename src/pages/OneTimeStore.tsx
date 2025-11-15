@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
+import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import {
   ShoppingCart,
@@ -17,7 +17,7 @@ import {
   Info,
   ChevronRight
 } from 'lucide-react';
-import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES, ProductCatalog, LicenseManager, OneTimeProduct, ProductBundle } from '../utils/oneTimeProducts';
+import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES, ProductCatalog, OneTimeProduct, ProductBundle } from '../utils/oneTimeProducts';
 
 const CART_STORAGE_KEY = 'onetimestore_cart';
 
@@ -215,22 +215,32 @@ const OneTimeStore = () => {
                         ))}
                       </div>
 
-                      <Button
-                        onClick={() => inCart ? removeFromCart(bundle.id) : addToCart(bundle.id)}
-                        className={`w-full ${inCart ? 'bg-red-500 hover:bg-red-600' : 'bg-accent hover:bg-accent/90'}`}
-                      >
-                        {inCart ? (
-                          <>
-                            <X className="w-5 h-5 mr-2" />
-                            Remove from Cart
-                          </>
-                        ) : (
-                          <>
-                            <ShoppingCart className="w-5 h-5 mr-2" />
-                            Add to Cart
-                          </>
-                        )}
-                      </Button>
+                      <div className="space-y-3">
+                        <Button
+                          onClick={() => inCart ? removeFromCart(bundle.id) : addToCart(bundle.id)}
+                          className={`w-full ${inCart ? 'bg-red-500 hover:bg-red-600' : 'bg-accent hover:bg-accent/90'}`}
+                        >
+                          {inCart ? (
+                            <>
+                              <X className="w-5 h-5 mr-2" />
+                              Remove from Cart
+                            </>
+                          ) : (
+                            <>
+                              <ShoppingCart className="w-5 h-5 mr-2" />
+                              Add to Cart
+                            </>
+                          )}
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className="w-full"
+                          onClick={() => handleLearnMore(bundle.id)}
+                        >
+                          <Info className="w-5 h-5 mr-2" />
+                          Learn More
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 );
@@ -557,6 +567,154 @@ const OneTimeStore = () => {
           </div>
         </div>
       </section>
+
+      {/* Product Detail Modal */}
+      {isModalOpen && selectedProduct && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div 
+            className="bg-background rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 bg-background border-b border-border p-6 flex items-center justify-between z-10">
+              <h2 className="text-2xl font-bold text-foreground">
+                {selectedProduct.name}
+              </h2>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsModalOpen(false)}
+                className="rounded-full"
+              >
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+            
+            <div className="p-6">
+              {'tagline' in selectedProduct && (
+                <p className="text-lg text-muted-foreground mb-4">{selectedProduct.tagline}</p>
+              )}
+              
+              {'longDescription' in selectedProduct ? (
+                <p className="text-muted-foreground mb-6">{selectedProduct.longDescription}</p>
+              ) : (
+                <p className="text-muted-foreground mb-6">{selectedProduct.description}</p>
+              )}
+
+              {'features' in selectedProduct && selectedProduct.features && (
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Star className="w-5 h-5 text-accent" />
+                    Features
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    {selectedProduct.features.map((feature, idx) => (
+                      <div key={idx} className="flex items-start gap-2">
+                        <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {'includedTools' in selectedProduct && selectedProduct.includedTools && selectedProduct.includedTools.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold mb-4">Included Tools</h3>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    {selectedProduct.includedTools.map((tool, idx) => (
+                      <div key={idx} className="flex items-center gap-2">
+                        <ChevronRight className="w-4 h-4 text-primary" />
+                        <span className="text-sm">{tool}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {'products' in selectedProduct && (
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold mb-4">Bundle Includes</h3>
+                  <div className="space-y-2">
+                    {ProductCatalog.getProductsInBundle(selectedProduct.id).map((product) => (
+                      <div key={product.id} className="flex items-center gap-2 p-3 bg-muted/50 rounded">
+                        <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                        <div className="flex-1">
+                          <div className="font-medium">{product.name}</div>
+                          <div className="text-sm text-muted-foreground">{product.tagline}</div>
+                        </div>
+                        <div className="text-primary font-semibold">${product.price}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {'targetAudience' in selectedProduct && selectedProduct.targetAudience && (
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold mb-4">Perfect For</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProduct.targetAudience.map((audience, idx) => (
+                      <span key={idx} className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                        {audience}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {'technicalRequirements' in selectedProduct && selectedProduct.technicalRequirements && selectedProduct.technicalRequirements.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold mb-4">Technical Requirements</h3>
+                  <ul className="space-y-2">
+                    {selectedProduct.technicalRequirements.map((req, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <ChevronRight className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                        <span>{req}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <div className="mt-8 pt-6 border-t border-border">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <div className="text-3xl font-bold text-primary">${selectedProduct.price}</div>
+                    <div className="text-sm text-muted-foreground">One-time payment, lifetime access</div>
+                  </div>
+                  <div className="flex gap-3">
+                    {cart.includes(selectedProduct.id) ? (
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          removeFromCart(selectedProduct.id);
+                        }}
+                        className="border-red-500 text-red-500 hover:bg-red-50"
+                      >
+                        <X className="w-5 h-5 mr-2" />
+                        Remove from Cart
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={() => {
+                          addToCart(selectedProduct.id);
+                        }}
+                        className="bg-primary hover:bg-primary/90"
+                      >
+                        <ShoppingCart className="w-5 h-5 mr-2" />
+                        Add to Cart - ${selectedProduct.price}
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
