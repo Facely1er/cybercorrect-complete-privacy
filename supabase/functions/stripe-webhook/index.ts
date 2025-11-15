@@ -105,7 +105,15 @@ async function handleCheckoutCompleted(supabase: any, session: any) {
   const customerId = session.customer;
   const subscriptionId = session.subscription;
   const clientReferenceId = session.client_reference_id; // Should be user_id
+  const purchaseType = session.metadata?.purchase_type;
 
+  // Handle one-time product purchases
+  if (purchaseType === 'one_time') {
+    await handleOneTimePurchase(supabase, session);
+    return;
+  }
+
+  // Handle subscription purchases (existing logic)
   if (!subscriptionId || !clientReferenceId) {
     console.error('Missing subscription ID or client reference ID');
     return;
@@ -138,6 +146,269 @@ async function handleCheckoutCompleted(supabase: any, session: any) {
   }
 
   console.log('Subscription created/updated:', subscriptionId);
+}
+
+// Handle one-time product purchase
+async function handleOneTimePurchase(supabase: any, session: any) {
+  const productIds = session.metadata?.product_ids?.split(',') || [];
+  const customerEmail = session.customer_email || session.metadata?.customer_email;
+  const userId = session.metadata?.user_id;
+  const sessionId = session.id;
+
+  if (productIds.length === 0) {
+    console.error('No product IDs found in session metadata');
+    return;
+  }
+
+  // Generate license keys for each product
+  const licenseKeys: Array<{ productId: string; licenseKey: string; productName: string }> = [];
+  
+  for (const productId of productIds) {
+    const licenseKey = generateLicenseKey(productId);
+    
+    // Get product name (you may want to fetch from database or use a mapping)
+    const productName = getProductName(productId);
+    
+    licenseKeys.push({
+      productId,
+      licenseKey,
+      productName,
+    });
+
+    // Store purchase record in database (optional)
+    if (userId) {
+      const { error } = await supabase
+        .from('cc_one_time_purchases')
+        .insert({
+          user_id: userId,
+          product_id: productId,
+          license_key: licenseKey,
+          stripe_session_id: sessionId,
+          stripe_customer_id: session.customer,
+          amount: session.amount_total ? session.amount_total / 100 : 0,
+          currency: session.currency || 'usd',
+          status: 'active',
+          purchased_at: new Date().toISOString(),
+        });
+
+      if (error) {
+        console.error(`Error storing purchase for ${productId}:`, error);
+        // Continue processing other products even if one fails
+      }
+    }
+  }
+
+  // Build success URL with license keys
+  const siteUrl = Deno.env.get('SITE_URL') || 'http://localhost:5173';
+  const licenseParams = licenseKeys
+    .map(l => `${l.productId}-${l.licenseKey}`)
+    .join(',');
+  
+  const successUrl = `${siteUrl}/store/success?licenses=${encodeURIComponent(licenseParams)}&session_id=${sessionId}`;
+
+  // Send email with license keys (if email service configured)
+  if (customerEmail) {
+    try {
+      await sendLicenseKeysEmail(supabase, customerEmail, licenseKeys, successUrl);
+    } catch (emailError) {
+      console.error('Error sending license keys email:', emailError);
+      // Don't fail the webhook if email fails
+    }
+  }
+
+  // Update Stripe session metadata with license keys (for reference)
+  // Note: This requires Stripe API call - implement if needed
+  console.log('One-time purchase processed:', {
+    sessionId,
+    productIds,
+    licenseKeys: licenseKeys.map(l => l.licenseKey),
+  });
+}
+
+// Generate license key (matches client-side format)
+function generateLicenseKey(productId: string): string {
+  const timestamp = Date.now().toString(36);
+  const random = Math.random().toString(36).substring(2, 15);
+  const productCode = productId.substring(0, 4).toUpperCase();
+  return `${productCode}-${timestamp}-${random}`.toUpperCase();
+}
+
+// Get product name (you may want to fetch from database)
+function getProductName(productId: string): string {
+  const productNames: Record<string, string> = {
+    'privacy-toolkit-pro': 'Privacy Toolkit Pro',
+    'compliance-assessment-suite': 'Compliance Assessment Suite',
+    'gdpr-complete-kit': 'GDPR Complete Kit',
+    'policy-template-library': 'Policy & Template Library',
+  };
+  return productNames[productId] || productId;
+}
+
+// Send license keys via email
+async function sendLicenseKeysEmail(
+  supabase: any,
+  email: string,
+  licenseKeys: Array<{ productId: string; licenseKey: string; productName: string }>,
+  activationUrl: string
+) {
+  const siteUrl = Deno.env.get('SITE_URL') || 'http://localhost:5173';
+  
+  // Build email content
+  const licenseList = licenseKeys
+    .map(l => `  • ${l.productName}: ${l.licenseKey}`)
+    .join('\n');
+
+  const emailHtml = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #4F46E5; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; background: #f9f9f9; }
+        .license-key { background: #fff; padding: 15px; margin: 10px 0; border-left: 4px solid #4F46E5; font-family: monospace; }
+        .button { display: inline-block; padding: 12px 24px; background: #4F46E5; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+        .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>Your License Keys Are Ready!</h1>
+        </div>
+        <div class="content">
+          <p>Thank you for your purchase! Your license keys have been generated and are ready to use.</p>
+          
+          <h2>Your License Keys:</h2>
+          ${licenseKeys.map(l => `
+            <div class="license-key">
+              <strong>${l.productName}</strong><br>
+              <code>${l.licenseKey}</code>
+            </div>
+          `).join('')}
+          
+          <p><strong>Quick Activation:</strong></p>
+          <a href="${activationUrl}" class="button">Activate Licenses Now</a>
+          
+          <p>Or manually activate at: <a href="${siteUrl}/activate-license">${siteUrl}/activate-license</a></p>
+          
+          <h3>What's Next?</h3>
+          <ul>
+            <li>Click the activation link above to automatically activate your licenses</li>
+            <li>Or copy your license keys and activate them manually</li>
+            <li>Your licenses are stored locally in your browser for complete privacy</li>
+          </ul>
+          
+          <p><strong>Need Help?</strong></p>
+          <p>If you have any questions, contact us at <a href="mailto:contact@ermits.com">contact@ermits.com</a></p>
+        </div>
+        <div class="footer">
+          <p>© ${new Date().getFullYear()} ERMITS LLC. All rights reserved.</p>
+          <p>This is an automated email. Please do not reply.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  const emailText = `
+Your License Keys Are Ready!
+
+Thank you for your purchase! Your license keys have been generated:
+
+${licenseList}
+
+Quick Activation:
+${activationUrl}
+
+Or manually activate at: ${siteUrl}/activate-license
+
+Need Help?
+Contact us at contact@ermits.com
+  `;
+
+  // Use external email service (Resend, SendGrid, etc.)
+  const sendGridApiKey = Deno.env.get('SENDGRID_API_KEY');
+  const resendApiKey = Deno.env.get('RESEND_API_KEY');
+  const fromEmail = Deno.env.get('FROM_EMAIL') || 'contact@ermits.com';
+
+  // Try SendGrid first
+  if (sendGridApiKey) {
+    try {
+      const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${sendGridApiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          personalizations: [{
+            to: [{ email }],
+            subject: 'Your License Keys - Privacy Compliance Platform',
+          }],
+          from: {
+            email: fromEmail,
+            name: 'ERMITS LLC',
+          },
+          content: [{
+            type: 'text/html',
+            value: emailHtml,
+          }, {
+            type: 'text/plain',
+            value: emailText,
+          }],
+        }),
+      });
+
+      if (response.ok) {
+        console.log('License keys email sent via SendGrid');
+        return;
+      } else {
+        const errorText = await response.text();
+        console.warn('SendGrid API error:', response.status, errorText);
+      }
+    } catch (err) {
+      console.error('SendGrid error:', err);
+    }
+  }
+
+  // Try Resend as fallback
+  if (resendApiKey) {
+    try {
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${resendApiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: fromEmail,
+          to: email,
+          subject: 'Your License Keys - Privacy Compliance Platform',
+          html: emailHtml,
+          text: emailText,
+        }),
+      });
+
+      if (response.ok) {
+        console.log('License keys email sent via Resend');
+        return;
+      } else {
+        const errorText = await response.text();
+        console.warn('Resend API error:', response.status, errorText);
+      }
+    } catch (err) {
+      console.error('Resend error:', err);
+    }
+  }
+
+  // Log if no email service configured (don't fail webhook)
+  if (!sendGridApiKey && !resendApiKey) {
+    console.log('No email service configured. License keys:', licenseKeys.map(l => l.licenseKey));
+    console.log('Activation URL:', activationUrl);
+  }
 }
 
 // Handle subscription updated
