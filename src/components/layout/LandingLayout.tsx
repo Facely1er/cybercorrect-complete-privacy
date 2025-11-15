@@ -311,7 +311,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
           if (!isRoot && !handledByNestedLayout) {
             return (
               <div className="container mx-auto px-4 py-6">
-                <Breadcrumbs className="mb-6" />
+                <Breadcrumbs className="mb-2" />
                 <Outlet />
               </div>
             );

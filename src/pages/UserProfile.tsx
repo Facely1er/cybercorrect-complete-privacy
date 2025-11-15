@@ -16,7 +16,9 @@ import {
   CheckCircle,
   FileText,
   Database,
-  FileCheck
+  FileCheck,
+  Settings,
+  FolderKanban
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Logo from '../components/ui/Logo';
@@ -93,14 +95,34 @@ const UserProfile = () => {
                 </div>
               </div>
 
-              <Button 
-                variant="destructive" 
-                className="mt-4 sm:mt-6 w-full text-sm sm:text-base" 
-                onClick={handleLogout}
-              >
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
-              </Button>
+              <div className="w-full mt-4 sm:mt-6 space-y-2">
+                <Link to="/project" className="block">
+                  <Button 
+                    variant="outline" 
+                    className="w-full text-sm sm:text-base" 
+                  >
+                    <FolderKanban className="mr-2 h-4 w-4" />
+                    Project
+                  </Button>
+                </Link>
+                <Link to="/account/settings" className="block">
+                  <Button 
+                    variant="outline" 
+                    className="w-full text-sm sm:text-base" 
+                  >
+                    <Settings className="mr-2 h-4 w-4" />
+                    Settings
+                  </Button>
+                </Link>
+                <Button 
+                  variant="destructive" 
+                  className="w-full text-sm sm:text-base" 
+                  onClick={handleLogout}
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Logout
+                </Button>
+              </div>
             </CardContent>
           </Card>
 
