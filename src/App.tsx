@@ -125,6 +125,10 @@ const IncidentResponseManager = lazy(() => import('./pages/tools-and-assessments
 // Monetization pages
 const TemplateStore = lazy(() => import('./pages/monetization/TemplateStore'));
 const CreditsManager = lazy(() => import('./pages/monetization/CreditsManager'));
+const OneTimeStore = lazy(() => import('./pages/OneTimeStore'));
+const PurchaseSuccess = lazy(() => import('./pages/PurchaseSuccess'));
+const ActivateLicense = lazy(() => import('./pages/ActivateLicense'));
+const Checkout = lazy(() => import('./pages/Checkout'));
 
 // Subscription enhancement pages
 const NotificationCenter = lazy(() => import('./components/notifications/NotificationCenter'));
@@ -375,7 +379,37 @@ const App: React.FC = () => {
                         <CreditsManager />
                       </Suspense>
                     } />
-                    
+                    <Route path="store" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <OneTimeStore />
+                      </Suspense>
+                    } />
+                    <Route path="one-time-products" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <OneTimeStore />
+                      </Suspense>
+                    } />
+                    <Route path="products" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <OneTimeStore />
+                      </Suspense>
+                    } />
+                    <Route path="checkout" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <Checkout />
+                      </Suspense>
+                    } />
+                    <Route path="store/success" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <PurchaseSuccess />
+                      </Suspense>
+                    } />
+                    <Route path="activate-license" element={
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <ActivateLicense />
+                      </Suspense>
+                    } />
+
                     {/* Subscription Enhancement Routes */}
                     <Route path="notifications" element={
                       <Suspense fallback={<LoadingSpinner />}>

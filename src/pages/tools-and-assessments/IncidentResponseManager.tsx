@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Ta
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { toast } from '../../components/ui/Toaster';
 import { storageAdapter } from '../../utils/storageAdapter';
+import { EmptyState } from '../../components/ui/EmptyState';
 import { 
   AlertTriangle,
   Shield,
@@ -437,11 +438,16 @@ const IncidentResponseManager = () => {
           {/* Incidents List */}
           <div className="space-y-4">
             {filteredIncidents.length === 0 ? (
-              <Card>
-                <CardContent className="p-8 text-center text-muted-foreground">
-                  No incidents found. Click "Report Incident" to create your first incident record.
-                </CardContent>
-              </Card>
+              <EmptyState
+                icon={AlertTriangle}
+                title="No Incidents Recorded"
+                description="Click 'Report Incident' to create your first privacy incident record and begin tracking your response."
+                action={{
+                  label: "Report First Incident",
+                  onClick: () => window.location.href = '/toolkit/incident-response',
+                  icon: Plus
+                }}
+              />
             ) : (
               filteredIncidents.map((incident) => (
                 <Card key={incident.id}>

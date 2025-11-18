@@ -382,7 +382,7 @@ const PrivacyMaintenanceScheduler = () => {
           ].map(tab => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
+              onClick={() => setActiveTab(tab.id as 'overview' | 'tasks' | 'reminders' | 'calendar')}
               className={`flex items-center gap-2 px-4 py-2 border-b-2 transition-colors ${
                 activeTab === tab.id
                   ? 'border-primary text-primary'
@@ -405,7 +405,7 @@ const PrivacyMaintenanceScheduler = () => {
               <div className="flex gap-2">
                 <select
                   value={filter}
-                  onChange={(e) => setFilter(e.target.value as any)}
+                  onChange={(e) => setFilter(e.target.value as 'all' | 'pending' | 'overdue' | 'upcoming' | 'completed')}
                   className="px-3 py-2 border border-border rounded-md bg-background text-foreground"
                 >
                   <option value="all">All Tasks</option>

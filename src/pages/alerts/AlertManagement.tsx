@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   ArrowLeft, 
   Plus, 
-  AlertTriangle, 
+  AlertTriangle,
   Settings,
   Trash2,
   Edit,
@@ -12,12 +12,15 @@ import {
   Clock,
   CheckCircle,
   XCircle,
-  Calendar
+  Calendar,
+  AlertCircle
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { alertService, AlertRule, AlertRuleType, Alert } from '../../utils/alertService';
 import { toast } from '../../components/ui/Toaster';
+import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
+import { required, minLength, combine } from '../../utils/formValidation';
 
 export const AlertManagement: React.FC = () => {
   const [alertRules, setAlertRules] = useState<AlertRule[]>([]);
@@ -25,6 +28,11 @@ export const AlertManagement: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [editingRule, setEditingRule] = useState<AlertRule | null>(null);
+  const [deleteConfirm, setDeleteConfirm] = useState<{
+    open: boolean;
+    ruleId: string;
+    ruleName: string;
+  } | null>(null);
   const [newRule, setNewRule] = useState<{
     rule_type: AlertRuleType;
     name: string;
@@ -38,6 +46,9 @@ export const AlertManagement: React.FC = () => {
     actions: { createNotification: true },
     enabled: true,
   });
+
+  // Form validation errors
+  const [ruleNameError, setRuleNameError] = useState<string>();
 
   useEffect(() => {
     loadData();
@@ -59,10 +70,35 @@ export const AlertManagement: React.FC = () => {
     }
   };
 
+  // Validate rule name field
+  const validateRuleName = (value: string): boolean => {
+    const result = combine(
+      required('Rule name'),
+      minLength(3, 'Rule name')
+    )(value);
+
+    setRuleNameError(result.error);
+    return result.isValid;
+  };
+
+  // Handle field blur for validation
+  const handleRuleNameBlur = () => {
+    validateRuleName(newRule.name);
+  };
+
+  // Handle field change and clear errors
+  const handleRuleNameChange = (value: string) => {
+    setNewRule({ ...newRule, name: value });
+    if (ruleNameError) {
+      setRuleNameError(undefined);
+    }
+  };
+
   const handleCreateRule = async () => {
     try {
-      if (!newRule.name.trim()) {
-        toast.error('Rule name required', 'Please enter a name for the alert rule');
+      // Validate rule name
+      if (!validateRuleName(newRule.name)) {
+        toast.error('Validation Error', 'Please fix the errors in the form');
         return;
       }
 
@@ -77,6 +113,7 @@ export const AlertManagement: React.FC = () => {
           actions: { createNotification: true },
           enabled: true,
         });
+        setRuleNameError(undefined);
         toast.success('Alert rule created', 'Alert rule has been created successfully');
       }
     } catch (error) {
@@ -104,19 +141,30 @@ export const AlertManagement: React.FC = () => {
   };
 
   const handleDelete = async (ruleId: string) => {
-    if (!confirm('Are you sure you want to delete this alert rule?')) {
-      return;
-    }
+    const rule = alertRules.find(r => r.id === ruleId);
+    if (!rule) return;
+
+    setDeleteConfirm({
+      open: true,
+      ruleId,
+      ruleName: rule.name
+    });
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deleteConfirm) return;
 
     try {
-      const success = await alertService.deleteAlertRule(ruleId);
+      const success = await alertService.deleteAlertRule(deleteConfirm.ruleId);
       if (success) {
         await loadData();
-        toast.success('Alert rule deleted', 'Alert rule has been deleted');
+        toast.success('Alert rule deleted', `"${deleteConfirm.ruleName}" has been deleted`);
       }
     } catch (error) {
       console.error('Failed to delete alert rule:', error);
       toast.error('Failed to delete alert rule', 'Please try again');
+    } finally {
+      setDeleteConfirm(null);
     }
   };
 
@@ -173,14 +221,29 @@ export const AlertManagement: React.FC = () => {
           <CardContent>
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium mb-2 block">Rule Name</label>
+                <label className="text-sm font-medium mb-2 block">
+                  Rule Name <span className="text-destructive">*</span>
+                </label>
                 <input
                   type="text"
                   value={newRule.name}
-                  onChange={(e) => setNewRule({ ...newRule, name: e.target.value })}
-                  className="w-full px-3 py-2 border rounded"
-                  placeholder="Enter rule name"
+                  onChange={(e) => handleRuleNameChange(e.target.value)}
+                  onBlur={handleRuleNameBlur}
+                  className={`w-full px-3 py-2 border rounded-lg bg-background focus:outline-none focus:ring-2 ${
+                    ruleNameError
+                      ? 'border-destructive focus:ring-destructive'
+                      : 'border-border focus:ring-primary'
+                  }`}
+                  placeholder="Enter rule name (min 3 characters)"
+                  aria-invalid={!!ruleNameError}
+                  aria-describedby={ruleNameError ? 'ruleName-error' : undefined}
                 />
+                {ruleNameError && (
+                  <p id="ruleName-error" className="text-destructive text-sm mt-1 flex items-center">
+                    <AlertCircle className="h-3 w-3 mr-1" />
+                    {ruleNameError}
+                  </p>
+                )}
               </div>
               <div>
                 <label className="text-sm font-medium mb-2 block">Rule Type</label>
@@ -345,6 +408,20 @@ export const AlertManagement: React.FC = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        open={deleteConfirm?.open ?? false}
+        onOpenChange={(open) => {
+          if (!open) setDeleteConfirm(null);
+        }}
+        title="Delete Alert Rule?"
+        description={`Are you sure you want to delete the alert rule "${deleteConfirm?.ruleName}"? This action cannot be undone and will stop all alerts generated by this rule.`}
+        confirmLabel="Delete Rule"
+        cancelLabel="Cancel"
+        onConfirm={handleConfirmDelete}
+        variant="destructive"
+      />
     </div>
   );
 };

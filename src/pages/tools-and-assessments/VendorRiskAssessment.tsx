@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Ta
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { toast } from '../../components/ui/Toaster';
 import { storageAdapter } from '../../utils/storageAdapter';
+import { EmptyState } from '../../components/ui/EmptyState';
 import { 
   Building,
   AlertTriangle,
@@ -414,11 +415,16 @@ const VendorRiskAssessment = () => {
           {/* Vendors List */}
           <div className="space-y-4">
             {filteredVendors.length === 0 ? (
-              <Card>
-                <CardContent className="p-8 text-center text-muted-foreground">
-                  No vendor assessments found. Click "Add Vendor" to create your first assessment.
-                </CardContent>
-              </Card>
+              <EmptyState
+                icon={BarChart3}
+                title="No Vendor Assessments"
+                description="Add your first vendor to begin assessing third-party risks and compliance status."
+                action={{
+                  label: "Add Vendor",
+                  onClick: () => window.location.href = '/toolkit/vendor-risk/new',
+                  icon: Plus
+                }}
+              />
             ) : (
               filteredVendors.map((vendor) => (
                 <Card key={vendor.id}>

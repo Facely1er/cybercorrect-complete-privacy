@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
-import { Button } from '../../components/ui/Button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 import { 
   Eye, 
   ArrowLeft, 
@@ -14,11 +14,11 @@ import {
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { toast } from '../../components/ui/Toaster';
-import { generatePrivacyGapAnalysisPdf } from '../../utils/generatePrivacyGapAnalysisPdf';
-import { EmptyState } from '../../components/ui/EmptyState';
-import { Tooltip as TooltipComponent } from '../../components/ui/Tooltip';
-import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
+import { toast } from '@/components/ui/Toaster';
+import { generatePrivacyGapAnalysisPdf } from '@/utils/generatePrivacyGapAnalysisPdf';
+import { EmptyState } from '@/components/ui/EmptyState';
+import { Tooltip as TooltipComponent } from '@/components/ui/Tooltip';
+import { AssessmentFlowProgress } from '@/components/assessment/AssessmentFlowProgress';
 
 interface AssessmentResults {
   overallScore?: number;
@@ -29,6 +29,24 @@ interface AssessmentResults {
   }>;
   frameworkName?: string;
   completedDate?: string;
+}
+
+type Priority = 'critical' | 'high' | 'medium' | 'low';
+
+interface PrivacyGap {
+  id: string;
+  title: string;
+  description: string;
+  regulation: string;
+  article: string;
+  priority: Priority;
+  category: string;
+  effort: string;
+  timeframe: string;
+  impact: string;
+  recommendation: string;
+  framework: string;
+  nistSection?: string;
 }
 
 const PrivacyGapAnalyzer = () => {
@@ -42,7 +60,7 @@ const PrivacyGapAnalyzer = () => {
   const [isExporting, setIsExporting] = useState(false);
 
   // Base privacy gaps - these are always shown
-  const basePrivacyGaps = [
+  const basePrivacyGaps: PrivacyGap[] = [
     {
       id: 'GAP-001',
       title: 'Data Processing Records Incomplete',
@@ -109,7 +127,7 @@ const PrivacyGapAnalyzer = () => {
   const assessmentBasedGaps = useMemo(() => {
     if (!assessmentResults?.sectionScores) return [];
     
-    const gaps: Array<typeof basePrivacyGaps[0] & { priority: 'critical' | 'high' | 'medium' | 'low' }> = [];
+    const gaps: PrivacyGap[] = [];
     const nistSectionMapping: Record<string, { 
       gaps: Array<{ id: string; title: string; description: string; framework: string; article: string; category: string }>;
       threshold: number;
@@ -221,21 +239,21 @@ const PrivacyGapAnalyzer = () => {
       }
     };
 
-    assessmentResults.sectionScores.forEach(section => {
+    assessmentResults.sectionScores.forEach((section: { title: string; percentage: number; completed?: boolean }) => {
       const sectionData = nistSectionMapping[section.title];
       if (sectionData && section.percentage < sectionData.threshold) {
-        sectionData.gaps.forEach(gap => {
-          const priority = section.percentage < 50 ? 'critical' as const : 
-                          section.percentage < 65 ? 'high' as const : 'medium' as const;
+        sectionData.gaps.forEach((gap: { id: string; title: string; description: string; framework: string; article: string; category: string }) => {
+          const priority: Priority = section.percentage < 50 ? 'critical' : 
+                          section.percentage < 65 ? 'high' : 'medium';
           gaps.push({
             ...gap,
-            priority: priority as 'critical' | 'high' | 'medium' | 'low',
+            priority,
             effort: priority === 'critical' ? 'significant' : priority === 'high' ? 'moderate' : 'low',
             timeframe: priority === 'critical' ? 'immediate' : priority === 'high' ? 'short-term' : 'medium-term',
             impact: `Low compliance score (${section.percentage}%) in ${section.title} section indicates gaps in ${gap.category}`,
             recommendation: `Improve ${section.title} section compliance to address ${gap.title}`,
             nistSection: section.title
-          } as typeof basePrivacyGaps[0] & { priority: 'critical' | 'high' | 'medium' | 'low' });
+          } as PrivacyGap);
         });
       }
     });
@@ -245,10 +263,10 @@ const PrivacyGapAnalyzer = () => {
 
   // Combine base gaps with assessment-based gaps, removing duplicates
   const privacyGaps = useMemo(() => {
-    const combined = [...basePrivacyGaps];
-    const existingIds = new Set(basePrivacyGaps.map(g => g.id));
+    const combined: PrivacyGap[] = [...basePrivacyGaps];
+    const existingIds = new Set(basePrivacyGaps.map((g) => g.id));
     
-    assessmentBasedGaps.forEach(gap => {
+    assessmentBasedGaps.forEach((gap: PrivacyGap) => {
       if (!existingIds.has(gap.id)) {
         combined.push(gap);
         existingIds.add(gap.id);
@@ -260,9 +278,9 @@ const PrivacyGapAnalyzer = () => {
 
   // Update compliance data based on assessment results
   const complianceData = useMemo(() => {
-    const baseData = [
-      { framework: 'NIST Privacy Framework', score: assessmentResults?.overallScore || 68, gaps: privacyGaps.filter(g => g.framework.includes('NIST')).length },
-      { framework: 'GDPR', score: 55, gaps: privacyGaps.filter(g => g.regulation === 'GDPR').length },
+    const baseData: Array<{ framework: string; score: number; gaps: number }> = [
+      { framework: 'NIST Privacy Framework', score: assessmentResults?.overallScore || 68, gaps: privacyGaps.filter((g: PrivacyGap) => g.framework.includes('NIST')).length },
+      { framework: 'GDPR', score: 55, gaps: privacyGaps.filter((g: PrivacyGap) => g.regulation === 'GDPR').length },
       { framework: 'CCPA', score: 72, gaps: 8 },
       { framework: 'LGPD', score: 62, gaps: 10 },
       { framework: 'PIPEDA', score: 78, gaps: 5 }
@@ -276,13 +294,13 @@ const PrivacyGapAnalyzer = () => {
     return baseData;
   }, [assessmentResults, privacyGaps]);
 
-  const getPriorityColor = (priority: string) => {
+  const getPriorityColor = (priority: Priority | string) => {
     switch (priority) {
-      case 'critical': return 'text-red-600 bg-red-100';
-      case 'high': return 'text-orange-600 bg-orange-100'; 
-      case 'medium': return 'text-yellow-600 bg-yellow-100';
-      case 'low': return 'text-green-600 bg-green-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'critical': return 'text-destructive bg-destructive/10';
+      case 'high': return 'text-warning bg-warning/10'; 
+      case 'medium': return 'text-warning bg-warning/10';
+      case 'low': return 'text-success bg-success/10';
+      default: return 'text-muted-foreground bg-muted/10';
     }
   };
 
@@ -303,7 +321,7 @@ const PrivacyGapAnalyzer = () => {
       toast.info('Generating PDF', 'Please wait while we generate your gap analysis report...');
       
       const overallScore = assessmentResults?.overallScore || 
-        Math.round(complianceData.reduce((sum, f) => sum + f.score, 0) / complianceData.length);
+        Math.round(complianceData.reduce((sum: number, f: { framework: string; score: number; gaps: number }) => sum + f.score, 0) / complianceData.length);
       
       // Small delay to show loading state
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -319,19 +337,19 @@ const PrivacyGapAnalyzer = () => {
         executiveSummary: {
           overallScore,
           totalGaps: privacyGaps.length,
-          criticalGaps: privacyGaps.filter(gap => gap.priority === 'critical').length,
-          highGaps: privacyGaps.filter(gap => gap.priority === 'high').length,
-          mediumGaps: privacyGaps.filter(gap => (gap as any).priority === 'medium').length,
+          criticalGaps: privacyGaps.filter((gap: PrivacyGap) => gap.priority === 'critical').length,
+          highGaps: privacyGaps.filter((gap: PrivacyGap) => gap.priority === 'high').length,
+          mediumGaps: privacyGaps.filter((gap: PrivacyGap) => gap.priority === 'medium').length,
           frameworksAssessed: complianceData.length,
           assessmentDate: assessmentResults?.completedDate || new Date().toLocaleDateString(),
           frameworkName: assessmentResults?.frameworkName || 'NIST Privacy Framework'
         },
-        complianceData: complianceData.map(f => ({
+        complianceData: complianceData.map((f: { framework: string; score: number; gaps: number }) => ({
           framework: f.framework,
           score: f.score,
           gaps: f.gaps
         })),
-        gapAnalysis: privacyGaps.map(gap => ({
+        gapAnalysis: privacyGaps.map((gap: PrivacyGap) => ({
           id: gap.id,
           title: gap.title,
           description: gap.description,
@@ -344,7 +362,7 @@ const PrivacyGapAnalyzer = () => {
           timeframe: gap.timeframe,
           impact: gap.impact,
           recommendation: gap.recommendation,
-          nistSection: (gap as any).nistSection || ''
+          nistSection: gap.nistSection || ''
         })),
         assessmentResults: assessmentResults ? {
           overallScore: assessmentResults.overallScore || 0,
@@ -410,7 +428,7 @@ const PrivacyGapAnalyzer = () => {
             { id: 'overview', label: 'Overview', icon: BarChart3 },
             { id: 'gaps', label: 'Gap Analysis', icon: AlertTriangle },
             { id: 'recommendations', label: 'Recommendations', icon: Target }
-          ].map(tab => (
+          ].map((tab: { id: string; label: string; icon: typeof BarChart3 }) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
@@ -495,12 +513,12 @@ const PrivacyGapAnalyzer = () => {
                   </p>
                   {assessmentResults.sectionScores && (
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-                      {assessmentResults.sectionScores.map((section, index) => (
+                      {assessmentResults.sectionScores.map((section: { title: string; percentage: number; completed?: boolean }, index: number) => (
                         <div key={index} className="text-center p-3 bg-card rounded border">
                           <div className="text-lg font-semibold text-foreground">{section.title}</div>
                           <div className={`text-2xl font-bold mt-1 ${
-                            section.percentage >= 80 ? 'text-green-600' :
-                            section.percentage >= 60 ? 'text-yellow-600' : 'text-red-600'
+                            section.percentage >= 80 ? 'text-success' :
+                            section.percentage >= 60 ? 'text-warning' : 'text-destructive'
                           }`}>
                             {section.percentage}%
                           </div>
@@ -525,22 +543,22 @@ const PrivacyGapAnalyzer = () => {
                 <div className="text-center">
                   <div className="text-3xl font-bold text-primary">
                     {assessmentResults?.overallScore || 
-                      Math.round(complianceData.reduce((sum, f) => sum + f.score, 0) / complianceData.length)}%
+                      Math.round(complianceData.reduce((sum: number, f: { framework: string; score: number; gaps: number }) => sum + f.score, 0) / complianceData.length)}%
                   </div>
                   <div className="text-sm text-muted-foreground">Overall Compliance</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-red-600">{privacyGaps.length}</div>
+                  <div className="text-3xl font-bold text-destructive">{privacyGaps.length}</div>
                   <div className="text-sm text-muted-foreground">Total Gaps</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-orange-600">
-                    {privacyGaps.filter(gap => gap.priority === 'critical').length}
+                  <div className="text-3xl font-bold text-warning">
+                    {privacyGaps.filter((gap: PrivacyGap) => gap.priority === 'critical').length}
                   </div>
                   <div className="text-sm text-muted-foreground">Critical Gaps</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-600">{complianceData.length}</div>
+                  <div className="text-3xl font-bold text-primary">{complianceData.length}</div>
                   <div className="text-sm text-muted-foreground">Frameworks</div>
                 </div>
               </div>
@@ -563,7 +581,7 @@ const PrivacyGapAnalyzer = () => {
 
       {activeTab === 'gaps' && (
         <div className="space-y-4">
-          {privacyGaps.map(gap => (
+          {privacyGaps.map((gap: PrivacyGap) => (
             <Card key={gap.id}>
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-3">
@@ -572,7 +590,7 @@ const PrivacyGapAnalyzer = () => {
                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${getPriorityColor(gap.priority)}`}>
                       {gap.priority.toUpperCase()}
                     </span>
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
+                    <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">
                       {gap.regulation}
                     </span>
                   </div>
@@ -590,9 +608,9 @@ const PrivacyGapAnalyzer = () => {
                   <div>
                     <span className="text-muted-foreground">NIST Framework:</span>
                     <div className="font-medium">{gap.framework}</div>
-                    {(gap as any).nistSection && (
+                    {gap.nistSection && (
                       <div className="text-xs text-primary mt-1">
-                        Section: {(gap as any).nistSection}
+                        Section: {gap.nistSection}
                       </div>
                     )}
                   </div>

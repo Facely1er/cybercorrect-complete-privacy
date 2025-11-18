@@ -143,19 +143,19 @@ const ComplianceGapAnalyzer: React.FC = () => {
 
   // Control implementation status with enhanced scoring
   const implementationStatus = useMemo(() => ({
-    'fully_implemented': { label: 'Fully Implemented', color: '#22c55e', textColor: 'text-green-700 dark:text-green-300', score: 100, priority: 1 },
-    'partially_implemented': { label: 'Partially Implemented', color: '#f59e0b', textColor: 'text-yellow-700 dark:text-yellow-300', score: 60, priority: 2 },
-    'planned': { label: 'Planned', color: '#3b82f6', textColor: 'text-blue-700 dark:text-blue-300', score: 30, priority: 3 },
-    'not_implemented': { label: 'Not Implemented', color: '#ef4444', textColor: 'text-red-700 dark:text-red-300', score: 0, priority: 4 },
-    'not_applicable': { label: 'Not Applicable', color: '#6b7280', textColor: 'text-muted-foreground', score: 100, priority: 0 }
+    'fully_implemented': { label: 'Fully Implemented', color: 'hsl(var(--success))', textColor: 'text-success', score: 100, priority: 1 },
+    'partially_implemented': { label: 'Partially Implemented', color: 'hsl(var(--warning))', textColor: 'text-warning', score: 60, priority: 2 },
+    'planned': { label: 'Planned', color: 'hsl(var(--primary))', textColor: 'text-primary', score: 30, priority: 3 },
+    'not_implemented': { label: 'Not Implemented', color: 'hsl(var(--destructive))', textColor: 'text-destructive', score: 0, priority: 4 },
+    'not_applicable': { label: 'Not Applicable', color: 'hsl(var(--muted))', textColor: 'text-muted-foreground', score: 100, priority: 0 }
   }), []);
 
   // Enhanced priority levels with business impact
   const priorityLevels = useMemo(() => ({
-    'critical': { label: 'Critical', color: '#dc2626', weight: 4, businessImpact: 'Severe', timeframe: 'Immediate' },
-    'high': { label: 'High', color: '#ea580c', weight: 3, businessImpact: 'High', timeframe: '30 days' },
-    'medium': { label: 'Medium', color: '#d97706', weight: 2, businessImpact: 'Medium', timeframe: '90 days' },
-    'low': { label: 'Low', color: '#16a34a', weight: 1, businessImpact: 'Low', timeframe: '180 days' }
+    'critical': { label: 'Critical', color: 'hsl(var(--destructive))', weight: 4, businessImpact: 'Severe', timeframe: 'Immediate' },
+    'high': { label: 'High', color: 'hsl(var(--warning))', weight: 3, businessImpact: 'High', timeframe: '30 days' },
+    'medium': { label: 'Medium', color: 'hsl(var(--warning))', weight: 2, businessImpact: 'Medium', timeframe: '90 days' },
+    'low': { label: 'Low', color: 'hsl(var(--success))', weight: 1, businessImpact: 'Low', timeframe: '180 days' }
   }), []);
 
   // Generate realistic compliance data with enhanced metrics
@@ -778,8 +778,8 @@ const ComplianceGapAnalyzer: React.FC = () => {
                     }}
                   />
                   <Legend />
-                  <Bar dataKey="score" fill="#3b82f6" name="Compliance Score %" />
-                  <Bar dataKey="gaps" fill="#ef4444" name="Gap Count" />
+                  <Bar dataKey="score" fill="hsl(var(--primary))" name="Compliance Score %" />
+                  <Bar dataKey="gaps" fill="hsl(var(--destructive))" name="Gap Count" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -848,9 +848,9 @@ const ComplianceGapAnalyzer: React.FC = () => {
                   }}
                 />
                 <Legend />
-                <Line type="monotone" dataKey="score" stroke="#22c55e" strokeWidth={3} name="Compliance Score %" />
-                <Line type="monotone" dataKey="gaps" stroke="#ef4444" strokeWidth={2} name="Open Gaps" />
-                <Line type="monotone" dataKey="implemented" stroke="#3b82f6" strokeWidth={2} name="Controls Implemented" />
+                <Line type="monotone" dataKey="score" stroke="hsl(var(--success))" strokeWidth={3} name="Compliance Score %" />
+                <Line type="monotone" dataKey="gaps" stroke="hsl(var(--destructive))" strokeWidth={2} name="Open Gaps" />
+                <Line type="monotone" dataKey="implemented" stroke="hsl(var(--primary))" strokeWidth={2} name="Controls Implemented" />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>

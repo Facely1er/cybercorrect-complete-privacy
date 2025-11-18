@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { CheckCircle, ArrowRight, XCircle, Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { CheckCircle, ArrowRight, XCircle, Check, ChevronDown, ChevronUp, ShoppingBag, Zap } from 'lucide-react';
+import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES } from '../utils/oneTimeProducts';
 
 const Pricing = () => {
   const navigate = useNavigate();
@@ -17,20 +18,24 @@ const Pricing = () => {
   const plans = [
     {
       name: "Free",
-      description: "Get started with essential privacy compliance tools",
+      description: "Perfect for individuals and students learning about privacy compliance",
       price: "0",
-      billing: "forever free",
+      billing: "forever",
+      free: true,
       features: [
-        "Basic privacy assessment",
-        "Essential privacy gap analysis",
-        "Up to 25 risks tracked",
-        "3 basic templates",
-        "PDF exports only",
-        "Community support",
-        "1 privacy framework (GDPR or CCPA)",
-        "Manual evidence upload",
-        "Basic compliance dashboard",
-        "Self-service resources"
+        "1 privacy assessment per month",
+        "Privacy Gap Analyzer (view-only)",
+        "3 basic templates (Privacy Policy, Cookie Policy, Terms)",
+        "3 exports per month (JSON/CSV)",
+        "Data mapping tool (up to 5 data flows)",
+        "Manual risk tracking (up to 25 risks)",
+        "Evidence vault (100MB storage)",
+        "Basic compliance score dashboard",
+        "In-app notifications (weekly digest)",
+        "Community forum access",
+        "All educational content & tutorials",
+        "LocalStorage only (no cloud sync)",
+        "No team collaboration"
       ]
     },
     {
@@ -43,14 +48,15 @@ const Pricing = () => {
         "Multi-regulation privacy assessments",
         "Essential privacy controls coverage",
         "Up to 100 risks tracked",
-        "10 compliance templates",
+        "5 compliance templates",
+        "10 exports per month (PDF, Word, JSON, CSV)",
         "Monthly automated compliance reports",
         "Weekly compliance status emails",
         "Quarterly executive summaries (automated)",
-        "Deadline alerts (7, 3, 1 days before)",
-        "Quarterly automated assessments",
+        "Scheduled assessments (up to 2 per quarter)",
         "Compliance health score tracking",
         "Basic progress dashboard",
+        "Email & in-app notifications",
         "Email support (48hr response)",
         "2 privacy frameworks",
         "Basic risk analytics"
@@ -66,17 +72,20 @@ const Pricing = () => {
         "Everything in Starter, plus:",
         "Full privacy framework coverage",
         "Unlimited risk tracking",
+        "20+ compliance templates",
+        "Unlimited exports (PDF, Word, JSON, CSV, Excel)",
         "Automated compliance planning",
         "Unlimited custom reports",
         "Daily compliance health digest",
         "Weekly automated compliance reports",
         "Monthly comprehensive reports (automated)",
         "Quarterly executive dashboards (automated)",
-        "Monthly automated assessments",
+        "Unlimited scheduled assessments",
         "Real-time risk alerts (all priorities)",
         "Custom notification rules",
         "Multi-channel notifications (Email, SMS, Slack)",
         "Regulatory change alerts (24-hour)",
+        "Regulatory intelligence dashboard",
         "Predictive compliance analytics",
         "Advanced progress analytics",
         "Compliance velocity metrics",
@@ -173,15 +182,35 @@ const Pricing = () => {
   ];
 
   return (
-    <div className="py-20">
-      <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-4 text-foreground">Simple, Transparent Pricing</h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-          Choose the plan that best fits your organization's compliance needs
-        </p>
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 pt-4 md:pt-6 pb-12 md:pb-20">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">Simple, Transparent Pricing</h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            Choose between flexible subscriptions or own your tools forever
+          </p>
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <Check className="h-4 w-4 text-success" />
+              <span>Subscriptions: Continuous updates & support</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Check className="h-4 w-4 text-success" />
+              <span>One-Time: Own forever, 100% offline</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Subscription Plans Section */}
+        <div className="max-w-7xl mx-auto mb-24">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Subscription Plans</h2>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Continuous compliance with automated updates, alerts, and team features
+          </p>
         
         {/* Billing toggle */}
-        <div className="flex items-center justify-center space-x-3 mb-8">
+        <div className="flex items-center justify-center space-x-3 mb-10">
           <span className={`text-sm ${billingPeriod === 'monthly' ? 'font-medium text-foreground' : 'text-muted-foreground'}`}>
             Monthly
           </span>
@@ -206,33 +235,34 @@ const Pricing = () => {
             Save 20%
           </span>
         </div>
+        </div>
 
-        <p className="text-sm text-muted-foreground">
-          Start your privacy compliance journey today
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        {/* Subscription Plans Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
         {plans.map((plan, index) => (
-          <Card
-            key={index}
-            className={`relative dark:border-muted ${plan.popular ? 'border-primary shadow-lg dark:shadow-primary/10' : ''}`}
+          <Card 
+            key={index} 
+            className={`relative h-full flex flex-col transition-all hover:shadow-xl dark:border-muted ${
+              plan.popular ? 'border-primary border-2 shadow-lg dark:shadow-primary/10 scale-105' : 'hover:border-primary/50'
+            }`}
           >
-            {plan.popular && (
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                <span className="bg-primary text-primary-foreground text-sm font-medium px-3 py-1 rounded-full">
-                  Most Popular
-                </span>
-              </div>
-            )}
-
-            <CardHeader>
-              <CardTitle className="text-2xl text-foreground">{plan.name}</CardTitle>
-              <CardDescription>{plan.description}</CardDescription>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-2xl font-bold text-foreground">{plan.name}</CardTitle>
+              <CardDescription className="text-sm mt-2">{plan.description}</CardDescription>
             </CardHeader>
-
-            <CardContent>
+            
+            <CardContent className="flex-1 flex flex-col">
               <div className="mb-6">
+                {!plan.free && plan.price !== "Contact us" && (
+                  <span className="inline-block bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 px-2 py-1 rounded text-xs font-semibold mb-3">
+                    SUBSCRIPTION
+                  </span>
+                )}
+                {plan.free && (
+                  <span className="inline-block bg-success/10 text-success px-2 py-1 rounded text-xs font-semibold mb-3">
+                    FREE FOREVER
+                  </span>
+                )}
                 <div className="flex items-end gap-2">
                   {plan.price === "Contact us" ? (
                     <span className="text-4xl font-bold text-foreground">{plan.price}</span>
@@ -246,27 +276,27 @@ const Pricing = () => {
                 <p className="text-sm text-muted-foreground">{plan.billing}</p>
               </div>
 
-              <ul className="space-y-3 mb-6">
+              <ul className="space-y-3 mb-8 flex-1">
                 {plan.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-primary mr-2 flex-shrink-0" />
-                    <span className="text-sm text-foreground">{feature}</span>
+                    <CheckCircle className="h-5 w-5 text-primary mr-3 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm text-foreground leading-relaxed">{feature}</span>
                   </li>
                 ))}
               </ul>
 
               <Button
-                className="w-full"
-                variant={plan.popular ? "default" : "outline"}
+                className="w-full mt-auto"
+                variant={plan.free ? "default" : (plan.popular ? "default" : "outline")}
+                size="lg"
                 onClick={async () => {
-                  if (plan.price === "Contact us") {
-                    window.location.href = "mailto:sales@cybercorrect.com?subject=Enterprise Plan Inquiry";
+                  if (plan.free) {
+                    navigate('/login');
                     return;
                   }
 
-                  if (plan.name === "Free") {
-                    // For free plan, just redirect to signup/login
-                    window.location.href = '/login';
+                  if (plan.price === "Contact us") {
+                    window.location.href = "mailto:sales@cybercorrect.com?subject=Enterprise Plan Inquiry";
                     return;
                   }
 
@@ -293,20 +323,153 @@ const Pricing = () => {
                   }
                 }}
               >
-                {plan.price === "Contact us" ? "Contact Sales" : plan.name === "Free" ? "Get Started Free" : "Subscribe Now"}
+                {plan.free ? "Get Started Free" : (plan.price === "Contact us" ? "Contact Sales" : "Subscribe Now")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </CardContent>
           </Card>
         ))}
+        </div>
       </div>
 
+      {/* One-Time Products Section */}
+      <div className="max-w-7xl mx-auto mb-24">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">One-Time Purchase Products</h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+            Own your privacy tools forever with 100% offline operation. No recurring fees, complete data control.
+          </p>
+          <div className="flex justify-center flex-wrap gap-6 text-sm">
+            <div className="flex items-center gap-2">
+              <Check className="h-4 w-4 text-primary flex-shrink-0" />
+              <span className="text-muted-foreground">Lifetime access to all purchased tools</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Check className="h-4 w-4 text-primary flex-shrink-0" />
+              <span className="text-muted-foreground">100% offline - your data never leaves your device</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Check className="h-4 w-4 text-primary flex-shrink-0" />
+              <span className="text-muted-foreground">All v1.x updates included free</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Featured Bundle */}
+        {PRODUCT_BUNDLES.filter(b => b.id === 'complete-privacy-suite').map((bundle) => (
+          <Card key={bundle.id} className="mb-8 bg-gradient-to-br from-primary/5 via-background to-cyan-500/5 border-2 border-primary/30">
+            <CardContent className="p-8">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="flex-1">
+                  <div className="flex gap-2 mb-3">
+                    <span className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold">
+                      <Zap className="h-3.5 w-3.5" />
+                      BEST VALUE
+                    </span>
+                    <span className="inline-flex items-center bg-success/10 text-success px-3 py-1 rounded-full text-xs font-semibold">
+                      SAVE ${bundle.savings}
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2 text-foreground">{bundle.name}</h3>
+                  <p className="text-muted-foreground mb-4">{bundle.description}</p>
+                  <div className="flex items-baseline gap-3 mb-4">
+                    <span className="text-4xl font-bold text-foreground">${bundle.price}</span>
+                    <span className="text-2xl text-muted-foreground line-through">
+                      ${bundle.products.reduce((sum, pid) => {
+                        const product = ONE_TIME_PRODUCTS.find(p => p.id === pid);
+                        return sum + (product?.price || 0);
+                      }, 0)}
+                    </span>
+                    <span className="text-success font-medium">Save ${bundle.savings}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Includes all 4 premium tools + lifetime updates</p>
+                </div>
+                <div>
+                  <Button
+                    size="lg"
+                    onClick={() => navigate('/store')}
+                    className="bg-primary hover:bg-primary/90"
+                  >
+                    Buy Complete Suite
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+
+        {/* Individual One-Time Products Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          {ONE_TIME_PRODUCTS.map((product) => (
+            <Card key={product.id} className="relative hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="text-xl text-foreground">{product.name}</CardTitle>
+                <CardDescription>{product.tagline}</CardDescription>
+              </CardHeader>
+
+              <CardContent>
+                <div className="mb-4">
+                  <span className="inline-block bg-primary/10 text-primary px-2 py-1 rounded text-xs font-semibold mb-3">
+                    ONE-TIME PURCHASE
+                  </span>
+                  <div className="flex items-end gap-2 mb-1">
+                    <span className="text-sm mt-2 text-foreground">$</span>
+                    <span className="text-4xl font-bold text-foreground">{product.price}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">Pay once, own forever</p>
+                </div>
+
+                <div className="mb-6">
+                  <p className="text-sm text-muted-foreground mb-4">{product.description}</p>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm">
+                      <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>Lifetime access</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>100% offline</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                      <span>All v1.x updates</span>
+                    </div>
+                  </div>
+                </div>
+
+                <Button
+                  className="w-full"
+                  variant="outline"
+                  onClick={() => navigate('/store')}
+                >
+                  Learn More
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="mt-8 text-center">
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={() => navigate('/store')}
+            className="border-2"
+          >
+            View Full Product Catalog & Bundles
+            <ShoppingBag className="ml-2 h-5 w-5" />
+          </Button>
+        </div>
+      </div>
 
       {/* Feature comparison section */}
-      <div className="max-w-7xl mx-auto mt-16">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-4 text-foreground">Compare Features</h2>
-          <p className="text-muted-foreground">A detailed comparison of features across our plans</p>
+      <div className="max-w-7xl mx-auto mt-24">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Compare Features</h2>
+          <p className="text-lg text-muted-foreground">A detailed comparison of features across our plans</p>
         </div>
 
         {/* Feature Comparison Table */}
@@ -376,10 +539,10 @@ const Pricing = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="mt-8 text-center max-w-5xl mx-auto px-4">
-        <div className="bg-gradient-to-r from-primary-teal to-secondary-teal rounded-xl p-6 text-white dark:from-dark-primary dark:to-dark-primary/70">
-          <h3 className="text-xl font-bold mb-3">Ready to achieve compliance?</h3>
-          <p className="mb-5">View our interactive demo to explore the platform</p>
+      <div className="mt-24 text-center max-w-5xl mx-auto px-4">
+        <div className="bg-gradient-to-r from-primary-teal to-secondary-teal rounded-xl p-8 md:p-10 text-white dark:from-dark-primary dark:to-dark-primary/70 shadow-xl">
+          <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready to achieve compliance?</h3>
+          <p className="mb-6 text-lg">View our interactive demo to explore the platform</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               variant="default" 
@@ -399,6 +562,7 @@ const Pricing = () => {
             </Button>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

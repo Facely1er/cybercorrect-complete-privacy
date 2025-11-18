@@ -12,6 +12,8 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    /* Type resolution */
+    "typeRoots": ["./node_modules/@types"],
     /* Path mapping */
     "baseUrl": ".",
     "paths": {

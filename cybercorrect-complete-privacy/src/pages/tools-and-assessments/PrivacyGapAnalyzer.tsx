@@ -1,6 +1,17 @@
-import { useState, useMemo, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
-import { Button } from '../../components/ui/Button';
+import React, { useState, useMemo, useEffect } from 'react';
+// Error handling for missing Card components
+let Card, CardContent, CardHeader, CardTitle, Button;
+try {
+  Card = require('../../components/ui/Card').default;
+  CardContent = require('../../components/ui/CardContent').default;
+  CardHeader = require('../../components/ui/CardHeader').default;
+  CardTitle = require('../../components/ui/CardTitle').default;
+  Button = require('../../components/ui/Button').default;
+} catch (error) {
+  console.warn('One or more UI component modules could not be found:', error);
+  // Optionally, provide minimal fallback components for development so the rest of the code can still function
+  Card = CardContent = CardHeader = CardTitle = Button = (props: any) => <div>{props.children}</div>;
+}
 import { 
   Eye, 
   ArrowLeft, 
@@ -9,13 +20,41 @@ import {
   AlertTriangle,
   Target,
   Loader2,
-  CheckCircle,
-  FileCheck
-} from 'lucide-react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { toast } from '../../components/ui/Toaster';
-import { generatePrivacyGapAnalysisPdf } from '../../utils/generatePrivacyGapAnalysisPdf';
+  // These imports are required for icons, routing, charts, and utilities.
+  // If these modules are not available, make sure to install them:
+  // npm install lucide-react react-router-dom recharts
+
+  // Icon imports
+  import { 
+    Eye, 
+    ArrowLeft, 
+    Download,
+    BarChart3,
+    AlertTriangle,
+    Target,
+    Loader2,
+    CheckCircle,
+    FileCheck
+  } from 'lucide-react';
+
+  // Core routing and navigation from React Router
+  import { Link, useLocation, useNavigate } from 'react-router-dom';
+
+  // Visualization (bar chart)
+  import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    ResponsiveContainer
+  } from 'recharts';
+
+  // UI utilities and PDF export
+  import { toast } from '../../components/ui/Toaster';
+  import { generatePrivacyGapAnalysisPdf } from '../../utils/generatePrivacyGapAnalysisPdf';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { Tooltip as TooltipComponent } from '../../components/ui/Tooltip';
 import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
