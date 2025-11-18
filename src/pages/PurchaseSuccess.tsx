@@ -79,7 +79,9 @@ const PurchaseSuccess = () => {
           try {
             // For now, show manual activation option
             // In production, you'd call: /api/session/{sessionId}/licenses
-            console.log('Session ID received:', sessionId);
+            if (import.meta.env.DEV) {
+              console.log('Session ID received:', sessionId);
+            }
             // If backend is available, fetch licenses here
             // Otherwise, show manual activation
           } catch (err) {
