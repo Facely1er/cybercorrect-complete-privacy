@@ -6,6 +6,7 @@ import { Check, Copy, Download, ExternalLink, Loader2, AlertCircle, Key } from '
 import { LicenseManager } from '../utils/oneTimeProducts';
 import { ProductCatalog } from '../utils/oneTimeProducts';
 import { toast } from '../components/ui/Toaster';
+import { logDebug, logWarning, logError } from '../utils/logger';
 
 const PurchaseSuccess = () => {
   const navigate = useNavigate();
@@ -79,20 +80,18 @@ const PurchaseSuccess = () => {
           try {
             // For now, show manual activation option
             // In production, you'd call: /api/session/{sessionId}/licenses
-            if (import.meta.env.DEV) {
-              console.log('Session ID received:', sessionId);
-            }
+            logDebug('Session ID received:', sessionId);
             // If backend is available, fetch licenses here
             // Otherwise, show manual activation
           } catch (err) {
-            console.warn('Could not fetch licenses from session:', err);
+            logWarning('Could not fetch licenses from session', { error: err });
           }
         }
 
         // No licenses in URL - show manual activation option
         setIsActivating(false);
       } catch (err) {
-        console.error('Error activating licenses:', err);
+        logError(err instanceof Error ? err : new Error('Error activating licenses'), { context: 'PurchaseSuccess' });
         setError('Failed to activate licenses. Please use manual activation.');
         setIsActivating(false);
       }

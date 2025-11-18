@@ -4,9 +4,13 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import { initSentry, SentryErrorBoundary } from './lib/sentry';
+import { initWebVitals } from './utils/performance';
 
 // Initialize Sentry before anything else
 initSentry();
+
+// Initialize Web Vitals monitoring
+initWebVitals();
 
 // Global error handler to catch undefined run errors and dynamic import failures
 window.addEventListener('error', (event) => {
@@ -27,10 +31,14 @@ window.addEventListener('error', (event) => {
       console.warn('Caught dynamic import error:', event.error);
       // Don't prevent default - let ErrorBoundary handle it
       // But log for monitoring
-      if (typeof window !== 'undefined' && (window as any).Sentry) {
-        (window as any).Sentry.captureException(event.error, {
-          tags: { errorType: 'dynamic_import_global' }
-        });
+      if (typeof window !== 'undefined') {
+        // Access Sentry from window if available (Sentry SDK adds this)
+        const sentry = (window as typeof window & { Sentry?: { captureException: (error: Error, context?: unknown) => void } }).Sentry;
+        if (sentry) {
+          sentry.captureException(event.error, {
+            tags: { errorType: 'dynamic_import_global' }
+          });
+        }
       }
     }
   }
@@ -56,10 +64,14 @@ window.addEventListener('unhandledrejection', (event) => {
     ) {
       console.warn('Caught dynamic import promise rejection:', error);
       // Don't prevent default - let retry logic handle it
-      if (typeof window !== 'undefined' && (window as any).Sentry) {
-        (window as any).Sentry.captureException(error, {
-          tags: { errorType: 'dynamic_import_promise' }
-        });
+      if (typeof window !== 'undefined') {
+        // Access Sentry from window if available (Sentry SDK adds this)
+        const sentry = (window as typeof window & { Sentry?: { captureException: (error: Error, context?: unknown) => void } }).Sentry;
+        if (sentry) {
+          sentry.captureException(error, {
+            tags: { errorType: 'dynamic_import_promise' }
+          });
+        }
       }
     }
   }

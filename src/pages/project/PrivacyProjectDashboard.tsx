@@ -5,7 +5,8 @@ import { Button } from '../../components/ui/Button';
 import { useProject } from '../../context/ProjectContext';
 import { InternalLink, RelatedContent } from '../../components/ui/InternalLinkingHelper';
 import { complianceHealthMonitor } from '../../utils/complianceHealthMonitor';
-import { notificationService } from '../../utils/notificationService';
+import { notificationService, Notification } from '../../utils/notificationService';
+import { logError } from '../../utils/logger';
 import { 
   Eye, 
   Users, 
@@ -36,7 +37,7 @@ const PrivacyProjectDashboard = () => {
   } = useProject();
   const [, setShowCreateProject] = useState(false);
   const [complianceScore, setComplianceScore] = useState<number | null>(null);
-  const [recentNotifications, setRecentNotifications] = useState<any[]>([]);
+  const [recentNotifications, setRecentNotifications] = useState<Notification[]>([]);
 
   const project = getCurrentProject();
 
@@ -56,7 +57,7 @@ const PrivacyProjectDashboard = () => {
       const notifications = await notificationService.getNotifications({ limit: 5, unreadOnly: false });
       setRecentNotifications(notifications);
     } catch (error) {
-      console.error('Failed to load dashboard data:', error);
+      logError(error instanceof Error ? error : new Error('Failed to load dashboard data'), { context: 'PrivacyProjectDashboard' });
     }
   };
 

@@ -11,6 +11,7 @@ import {
   calculateTax,
   type OneTimeCheckoutItem 
 } from '../services/oneTimeCheckoutService';
+import { logError } from '../utils/logger';
 
 interface CheckoutState {
   cart: string[];
@@ -49,7 +50,7 @@ const Checkout = () => {
         localStorage.removeItem(CART_STORAGE_KEY);
       }
     } catch (error) {
-      console.error('Failed to save cart to localStorage:', error);
+      logError(error instanceof Error ? error : new Error('Failed to save cart to localStorage'), { context: 'Checkout' });
     }
   }, [cart]);
 
@@ -142,7 +143,7 @@ const Checkout = () => {
       // Note: setIsProcessing(false) won't be reached if redirect succeeds,
       // but we keep it for error cases
     } catch (err) {
-      console.error('Checkout error:', err);
+      logError(err instanceof Error ? err : new Error('Checkout error'), { context: 'Checkout' });
       const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred';
       setError(errorMessage);
       toast.error(

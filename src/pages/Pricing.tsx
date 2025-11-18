@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../co
 import { Button } from '../components/ui/Button';
 import { CheckCircle, ArrowRight, XCircle, Check, ChevronDown, ChevronUp, ShoppingBag, Zap } from 'lucide-react';
 import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES } from '../utils/oneTimeProducts';
+import { logWarning, logError } from '../utils/logger';
 
 const Pricing = () => {
   const navigate = useNavigate();
@@ -311,13 +312,13 @@ const Pricing = () => {
                       window.location.href = session.url;
                     } else {
                       // Fallback: redirect to subscription page (service not configured or failed)
-                      console.warn('Checkout session not available, redirecting to subscription page');
+                      logWarning('Checkout session not available, redirecting to subscription page');
                       window.location.href = '/account/subscription';
                     }
                   } catch (error) {
                     // This should never happen since createCheckoutSession never throws,
                     // but handle it gracefully just in case
-                    console.error('Unexpected error creating checkout session:', error);
+                    logError(error instanceof Error ? error : new Error('Unexpected error creating checkout session'), { context: 'Pricing' });
                     // Fallback: redirect to subscription page
                     window.location.href = '/account/subscription';
                   }

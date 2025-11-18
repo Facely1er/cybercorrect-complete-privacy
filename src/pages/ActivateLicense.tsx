@@ -6,6 +6,7 @@ import { Input } from '../components/ui/Input';
 import { Key, Check, X, AlertCircle, Loader2 } from 'lucide-react';
 import { LicenseManager, ProductCatalog } from '../utils/oneTimeProducts';
 import { toast } from '../components/ui/Toaster';
+import { logError } from '../utils/logger';
 
 const ActivateLicense = () => {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ const ActivateLicense = () => {
         navigate('/store');
       }, 3000);
     } catch (err) {
-      console.error('License activation error:', err);
+      logError(err instanceof Error ? err : new Error('License activation error'), { context: 'ActivateLicense' });
       setError('Failed to activate license. Please check your license key and try again.');
       setIsActivating(false);
     }

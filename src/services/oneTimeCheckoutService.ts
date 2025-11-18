@@ -6,7 +6,7 @@
  */
 
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
-import { errorMonitoring } from '../lib/errorMonitoring';
+import { logWarning, logError } from '../utils/logger';
 
 export interface CheckoutSession {
   sessionId: string;
@@ -22,13 +22,21 @@ export interface OneTimeCheckoutItem {
 
 /**
  * Calculate tax for a given subtotal
- * For now, returns 0.00 but can be extended with tax calculation logic
- * or integration with tax calculation services
+ * 
+ * Note: Tax calculation is currently handled by Stripe when configured.
+ * This function returns 0.00 as a placeholder. For production, either:
+ * 1. Configure Stripe Tax (recommended) - Stripe will calculate tax server-side
+ * 2. Integrate a tax calculation service (e.g., TaxJar, Avalara)
+ * 3. Implement location-based tax calculation logic here
+ * 
+ * @param subtotal - The subtotal amount before tax
+ * @param country - Optional country code for tax calculation
+ * @param state - Optional state/province code for tax calculation
+ * @returns Tax amount (currently always 0.00)
  */
-export function calculateTax(subtotal: number, country?: string, state?: string): number {
-  // TODO: Implement tax calculation based on location
-  // For now, return 0.00 - tax will be calculated by Stripe if configured
-  // or can be added via a tax calculation service
+export function calculateTax(_subtotal: number, _country?: string, _state?: string): number {
+  // Tax calculation is handled by Stripe if configured
+  // For custom tax calculation, implement logic here or integrate a tax service
   return 0.00;
 }
 
@@ -43,14 +51,14 @@ export async function createOneTimeCheckoutSession(
   try {
     // Validate items
     if (!items || items.length === 0) {
-      console.warn('No items provided for checkout');
+      logWarning('No items provided for checkout');
       return null;
     }
 
     // Check if Stripe is configured
     const stripeKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
     if (!stripeKey) {
-      console.warn('Stripe not configured. One-time checkout unavailable.');
+      logWarning('Stripe not configured. One-time checkout unavailable.');
       // Return mock session in dev, null in prod (graceful degradation)
       if (import.meta.env.DEV) {
         return {
@@ -67,12 +75,12 @@ export async function createOneTimeCheckoutSession(
       const { data: { user: authUser }, error: authError } = await supabase.auth.getUser();
       if (authError || !authUser) {
         // User not authenticated - still allow checkout (guest checkout)
-        console.warn('User not authenticated, proceeding with guest checkout');
+        logWarning('User not authenticated, proceeding with guest checkout');
       } else {
         user = authUser;
       }
     } catch (authErr) {
-      console.warn('Error getting user for checkout:', authErr);
+      logWarning('Error getting user for checkout', { error: authErr });
       // Continue with guest checkout
     }
 
@@ -90,20 +98,20 @@ export async function createOneTimeCheckoutSession(
         });
 
         if (error) {
-          console.warn('Supabase Edge Function error:', error);
+          logWarning('Supabase Edge Function error', { error });
           // Fall through to mock/dev fallback
         } else if (data) {
           return data as CheckoutSession;
         }
       } catch (invokeError) {
-        console.warn('Error invoking checkout session function:', invokeError);
+        logWarning('Error invoking checkout session function', { error: invokeError });
         // Fall through to mock/dev fallback
       }
     }
 
     // Fallback: Return mock session for development (never throw)
     if (import.meta.env.DEV) {
-      console.warn('Using mock checkout session (Stripe/Supabase not configured or failed)');
+      logWarning('Using mock checkout session (Stripe/Supabase not configured or failed)');
       return {
         sessionId: `mock_session_${Date.now()}`,
         url: successUrl || `/store/success?session_id=mock_${Date.now()}`,
@@ -114,19 +122,13 @@ export async function createOneTimeCheckoutSession(
     return null;
   } catch (error) {
     // Never throw - always return null or fallback
-    console.error('Unexpected error in createOneTimeCheckoutSession:', error);
-    try {
-      errorMonitoring.captureException(
-        error instanceof Error ? error : new Error('Failed to create one-time checkout session'),
-        {
-          context: 'one_time_checkout_service',
-          itemsCount: items?.length || 0,
-        }
-      );
-    } catch (monitoringError) {
-      // Even error monitoring failed - just log to console
-      console.error('Error monitoring also failed:', monitoringError);
-    }
+    logError(
+      error instanceof Error ? error : new Error('Failed to create one-time checkout session'),
+      {
+        context: 'one_time_checkout_service',
+        itemsCount: items?.length || 0,
+      }
+    );
 
     // Always return a fallback instead of throwing
     if (import.meta.env.DEV) {
