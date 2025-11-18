@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
+import Logo from '../components/ui/Logo';
 import { 
   ArrowRight, 
   ArrowLeft,
@@ -192,7 +193,9 @@ const Demo = () => {
         <Card className="mb-6">
           <CardContent className="p-6 text-center">
             <div className="max-w-2xl mx-auto">
-              <Shield className="h-16 w-16 text-primary mx-auto mb-4" />
+              <div className="flex justify-center mb-4">
+                <Logo size="large" showText={false} />
+              </div>
               <h2 className="text-2xl font-bold mb-4">Welcome to CyberCorrect Privacy Platform</h2>
               <p className="text-lg mb-6">
                 Experience our powerful, integrated platform for privacy compliance and personal data protection
