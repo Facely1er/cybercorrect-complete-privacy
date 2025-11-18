@@ -545,8 +545,8 @@ const Pricing = () => {
           <p className="mb-6 text-lg">View our interactive demo to explore the platform</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              variant="default" 
-              className="bg-background text-primary hover:bg-muted border-2 border-background shadow-lg"
+              variant="outline" 
+              className="bg-white text-gray-900 hover:bg-gray-100 border-2 border-white shadow-lg font-semibold"
               onClick={() => navigate('/demo')}
             >
               View Demo
@@ -554,7 +554,7 @@ const Pricing = () => {
             </Button>
             <Button 
               variant="secondary"
-              className="bg-background/10 text-background hover:bg-background/20 border-2 border-background/30 shadow-lg"
+              className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 border-2 border-white/50 shadow-lg font-semibold"
               onClick={() => navigate('/assessments/privacy-assessment')}
             >
               Start Assessment
