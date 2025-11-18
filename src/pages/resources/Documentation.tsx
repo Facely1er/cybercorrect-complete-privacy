@@ -34,8 +34,7 @@ const Documentation = () => {
       description: "Core platform docs and framework overviews",
       articles: [
         { title: "Platform Overview", path: "/documentation/platform-overview" },
-        { title: "Incident Response Guide", path: "/documentation/incident-response-guide" },
-        { title: "Tutorials", path: "/documentation/tutorials" }
+        { title: "Incident Response Guide", path: "/documentation/incident-response-guide" }
       ]
     },
     {
