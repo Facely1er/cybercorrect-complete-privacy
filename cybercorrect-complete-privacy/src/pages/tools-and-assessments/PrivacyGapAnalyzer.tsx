@@ -12,6 +12,11 @@ try {
   // Optionally, provide minimal fallback components for development so the rest of the code can still function
   Card = CardContent = CardHeader = CardTitle = Button = (props: any) => <div>{props.children}</div>;
 }
+
+// Icon imports
+// These imports are required for icons, routing, charts, and utilities.
+// If these modules are not available, make sure to install them:
+// npm install lucide-react react-router-dom recharts
 import { 
   Eye, 
   ArrowLeft, 
@@ -20,44 +25,31 @@ import {
   AlertTriangle,
   Target,
   Loader2,
-  // These imports are required for icons, routing, charts, and utilities.
-  // If these modules are not available, make sure to install them:
-  // npm install lucide-react react-router-dom recharts
+  CheckCircle,
+  FileCheck
+} from 'lucide-react';
 
-  // Icon imports
-  import { 
-    Eye, 
-    ArrowLeft, 
-    Download,
-    BarChart3,
-    AlertTriangle,
-    Target,
-    Loader2,
-    CheckCircle,
-    FileCheck
-  } from 'lucide-react';
+// Core routing and navigation from React Router
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-  // Core routing and navigation from React Router
-  import { Link, useLocation, useNavigate } from 'react-router-dom';
+// Visualization (bar chart)
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer
+} from 'recharts';
 
-  // Visualization (bar chart)
-  import {
-    BarChart,
-    Bar,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    Legend,
-    ResponsiveContainer
-  } from 'recharts';
-
-  // UI utilities and PDF export
-  import { toast } from '../../components/ui/Toaster';
-  import { generatePrivacyGapAnalysisPdf } from '../../utils/generatePrivacyGapAnalysisPdf';
-import { EmptyState } from '../../components/ui/EmptyState';
-import { Tooltip as TooltipComponent } from '../../components/ui/Tooltip';
-import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
+// UI utilities and PDF export
+import { toast } from '../../../../src/components/ui/Toaster';
+import { generatePrivacyGapAnalysisPdf } from '../../../../src/utils/generatePrivacyGapAnalysisPdf';
+import { EmptyState } from '../../../../src/components/ui/EmptyState';
+import { Tooltip as TooltipComponent } from '../../../../src/components/ui/Tooltip';
+import { AssessmentFlowProgress } from '../../../../src/components/assessment/AssessmentFlowProgress';
 
 interface AssessmentResults {
   overallScore?: number;
