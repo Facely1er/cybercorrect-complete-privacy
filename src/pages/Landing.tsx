@@ -63,27 +63,27 @@ const Landing = () => {
             </div>
 
             {/* Quick CTA */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link to="/assessments/privacy-assessment" className="no-underline">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center w-full max-w-2xl mx-auto px-4">
+              <Link to="/assessments/privacy-assessment" className="no-underline w-full sm:w-auto">
                 <Button 
                   size="xl"
                   variant="default"
-                  className="enhanced-button shadow-lg"
+                  className="enhanced-button shadow-lg w-full sm:w-auto"
                   aria-label="Start Privacy Assessment"
                 >
-                  <Eye className="h-5 w-5" aria-hidden="true" />
-                  Start Privacy Assessment
+                  <Eye className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" aria-hidden="true" />
+                  <span className="whitespace-normal">Start Privacy Assessment</span>
                 </Button>
               </Link>
-              <Link to="/project" className="no-underline">
+              <Link to="/project" className="no-underline w-full sm:w-auto">
                 <Button 
                   size="xl"
                   variant="outline"
-                  className="bg-background/90 backdrop-blur-sm border-2 border-primary/30 hover:bg-primary hover:text-primary-foreground shadow-lg"
+                  className="bg-background/90 backdrop-blur-sm border-2 border-primary/30 hover:bg-primary hover:text-primary-foreground shadow-lg w-full sm:w-auto"
                   aria-label="Start Privacy Project"
                 >
-                  <Users className="h-5 w-5" aria-hidden="true" />
-                  Start Privacy Project
+                  <Users className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" aria-hidden="true" />
+                  <span className="whitespace-normal">Start Privacy Project</span>
                 </Button>
               </Link>
             </div>
@@ -350,38 +350,38 @@ const Landing = () => {
             <p className="text-lg text-white/95 dark:text-foreground mb-8 leading-relaxed">
               Complete a privacy assessment and get your personalized privacy roadmap with collaborative project management
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/assessments/privacy-assessment" className="no-underline">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-3xl mx-auto px-4">
+              <Link to="/assessments/privacy-assessment" className="no-underline w-full sm:w-auto">
                 <Button 
                   size="lg" 
                   variant="secondary"
-                  className="bg-background text-foreground hover:bg-background/90 border-2 border-background shadow-xl backdrop-blur-sm"
+                  className="bg-background text-foreground hover:bg-background/90 border-2 border-background shadow-xl backdrop-blur-sm w-full sm:w-auto"
                   aria-label="Start Privacy Assessment"
                 >
-                  Start Privacy Assessment
-                  <Eye className="ml-2 h-5 w-5" aria-hidden="true" />
+                  <span className="whitespace-normal">Start Privacy Assessment</span>
+                  <Eye className="ml-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" aria-hidden="true" />
                 </Button>
               </Link>
-              <Link to="/project" className="no-underline">
+              <Link to="/project" className="no-underline w-full sm:w-auto">
                 <Button 
                   size="lg" 
                   variant="secondary"
-                  className="bg-background text-foreground hover:bg-background/90 border-2 border-background shadow-xl backdrop-blur-sm"
+                  className="bg-background text-foreground hover:bg-background/90 border-2 border-background shadow-xl backdrop-blur-sm w-full sm:w-auto"
                   aria-label="Start Privacy Project Manager"
                 >
-                  Privacy Project Manager
-                  <Target className="ml-2 h-5 w-5" aria-hidden="true" />
+                  <span className="whitespace-normal">Privacy Project Manager</span>
+                  <Target className="ml-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" aria-hidden="true" />
                 </Button>
               </Link>
               <Button 
                 size="lg" 
                 variant="ghost"
-                className="text-background border-2 border-background/30 hover:bg-background/20 hover:border-background shadow-lg backdrop-blur-sm"
+                className="text-background border-2 border-background/30 hover:bg-background/20 hover:border-background shadow-lg backdrop-blur-sm w-full sm:w-auto"
                 onClick={handleGuideMe}
                 aria-label="Get Guided Help"
               >
-                Get Guided Help
-                <Users className="ml-2 h-5 w-5" aria-hidden="true" />
+                <span className="whitespace-normal">Get Guided Help</span>
+                <Users className="ml-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" aria-hidden="true" />
               </Button>
             </div>
           </div>

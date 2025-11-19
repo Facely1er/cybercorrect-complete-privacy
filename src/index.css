@@ -82,15 +82,50 @@
   * {
     @apply border-border;
   }
+  
+  /* Prevent horizontal scroll globally */
+  html, body {
+    @apply transition-colors duration-200;
+    overflow-x: hidden;
+    max-width: 100vw;
+    position: relative;
+  }
+  
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
-    overflow-x: hidden;
   }
-
-  html {
-    @apply transition-colors duration-200;
+  
+  /* Ensure all containers respect viewport width */
+  #root {
+    max-width: 100vw;
     overflow-x: hidden;
+    position: relative;
+  }
+  
+  /* Prevent horizontal overflow on all elements */
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Ensure containers don't exceed viewport */
+  .container, [class*="container"] {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .container, [class*="container"] {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  
+  /* Ensure images and media don't cause overflow */
+  img, video, iframe, embed, object {
+    max-width: 100%;
+    height: auto;
   }
 
   .dark-mode-transition-disabled {
@@ -362,6 +397,35 @@
   @media (orientation: landscape) {
     .portrait-only {
       display: none !important;
+    }
+  }
+  
+  /* Mobile-first responsive utilities */
+  .mobile-scroll-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  
+  .mobile-scroll-container::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  .mobile-scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .mobile-scroll-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+  }
+  
+  /* Prevent text truncation on mobile */
+  @media (max-width: 640px) {
+    .no-truncate-mobile {
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
     }
   }
 }

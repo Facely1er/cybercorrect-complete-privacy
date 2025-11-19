@@ -320,13 +320,13 @@ const Checkout = () => {
                   >
                     {isProcessing ? (
                       <>
-                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                        Processing...
+                        <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2 animate-spin flex-shrink-0" />
+                        <span className="whitespace-normal">Processing...</span>
                       </>
                     ) : (
                       <>
-                        <Lock className="w-5 h-5 mr-2" />
-                        Complete Purchase
+                        <Lock className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
+                        <span className="whitespace-normal">Complete Purchase</span>
                       </>
                     )}
                   </Button>

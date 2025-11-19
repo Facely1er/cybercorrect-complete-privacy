@@ -140,17 +140,17 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   return (
     <div className={`min-h-screen flex flex-col ${darkMode ? 'dark' : ''} bg-surface dark:bg-dark-bg`}>
       <nav className={`fixed top-0 left-0 right-0 z-20 bg-surface/90 dark:bg-dark-surface/90 backdrop-blur-md transition-all duration-300 ${isScrolled ? 'py-1' : 'py-1'}`}>
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between h-14 gap-x-8">
+        <div className="container mx-auto px-2 sm:px-4 max-w-full overflow-hidden">
+          <div className="flex justify-between items-center h-14 gap-2 sm:gap-4 min-w-0">
             {/* Column 1: Logo (left) */}
-            <div className="flex items-center inline">
-              <Link to="/" className="flex items-center">
+            <div className="flex items-center flex-shrink-0 min-w-0">
+              <Link to="/" className="flex items-center min-w-0">
                 <Logo size="medium" />
               </Link>
             </div>
             
             {/* Column 2: Navigation (center) */}
-            <div className="hidden lg:flex items-center flex-1 justify-center">
+            <div className="hidden lg:flex items-center flex-1 justify-center min-w-0 overflow-hidden">
                 {mainNavItems?.map(item => {
                   if (item.dropdown) {
                     return (
@@ -202,7 +202,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
               </div>
               
               {/* Action Buttons */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
                 {/* Sticky CTA that appears on scroll - only on landing page */}
                 {isLandingPage && showStickyCta && (
                   <Button 
@@ -303,7 +303,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
         </div>
       </nav>
       
-      <main className="flex-1 mx-auto w-full max-w-screen-2xl pt-14">
+      <main className="flex-1 mx-auto w-full max-w-screen-2xl pt-14 overflow-x-hidden">
         {(() => {
           const path = location.pathname;
           const isRoot = path === '/';

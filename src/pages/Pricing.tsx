@@ -476,8 +476,8 @@ const Pricing = () => {
         {/* Feature Comparison Table */}
         <Card>
           <CardContent className="p-0">
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
+            <div className="overflow-x-auto mobile-scroll-container -mx-4 sm:mx-0">
+              <table className="w-full border-collapse min-w-[640px] sm:min-w-0">
                 <thead>
                   <tr className="bg-muted/50">
                     <th className="text-left p-4 font-medium text-foreground border-b border-border">Feature</th>
@@ -544,22 +544,22 @@ const Pricing = () => {
         <div className="bg-gradient-to-r from-primary-teal to-secondary-teal rounded-xl p-8 md:p-10 text-white dark:from-dark-primary dark:to-dark-primary/70 shadow-xl">
           <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready to achieve compliance?</h3>
           <p className="mb-6 text-lg">View our interactive demo to explore the platform</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-2xl mx-auto px-4">
             <Button 
               variant="outline" 
-              className="bg-white text-gray-900 hover:bg-gray-100 border-2 border-white shadow-lg font-semibold"
+              className="bg-white text-gray-900 hover:bg-gray-100 border-2 border-white shadow-lg font-semibold w-full sm:w-auto"
               onClick={() => navigate('/demo')}
             >
-              View Demo
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <span className="whitespace-normal">View Demo</span>
+              <ArrowRight className="ml-2 h-4 w-4 flex-shrink-0" />
             </Button>
             <Button 
               variant="secondary"
-              className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 border-2 border-white/50 shadow-lg font-semibold"
+              className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 border-2 border-white/50 shadow-lg font-semibold w-full sm:w-auto"
               onClick={() => navigate('/assessments/privacy-assessment')}
             >
-              Start Assessment
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <span className="whitespace-normal">Start Assessment</span>
+              <ArrowRight className="ml-2 h-4 w-4 flex-shrink-0" />
             </Button>
           </div>
         </div>
