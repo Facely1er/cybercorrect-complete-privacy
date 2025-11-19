@@ -26,7 +26,7 @@ const TextCarousel: React.FC<TextCarouselProps> = ({
   }, [items.length, interval]);
   
   return (
-    <div className={`relative min-h-[4em] overflow-hidden ${className}`}>
+    <div className={`relative min-h-[5em] sm:min-h-[4em] md:min-h-[3.5em] overflow-visible ${className}`}>
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
@@ -34,9 +34,11 @@ const TextCarousel: React.FC<TextCarouselProps> = ({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.5 }}
-          className="absolute w-full text-wrap flex items-center justify-center h-full"
+          className="w-full text-center px-2 sm:px-4"
         >
-          {items[currentIndex]}
+          <p className="whitespace-normal break-words leading-relaxed">
+            {items[currentIndex]}
+          </p>
         </motion.div>
       </AnimatePresence>
     </div>

@@ -32,25 +32,25 @@ const Landing = () => {
   return (
     <div className="min-h-screen bg-surface dark:bg-dark-bg">
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
+      <section className="relative py-16 sm:py-20 md:py-32 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
         <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-30 dark:opacity-20"></div>
         <FloatingPrivacyIcons />
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="text-center max-w-5xl mx-auto">
             {/* Platform Badge */}
-            <div className="inline-block mb-8 animate-fade-in">
-              <span className="hero-badge bg-primary/10 text-primary dark:bg-dark-primary/10 dark:text-dark-primary border border-primary/20 dark:border-dark-primary/20">
-                <Eye className="w-4 h-4 mr-2" aria-hidden="true" />
+            <div className="inline-block mb-6 sm:mb-8 animate-fade-in">
+              <span className="hero-badge bg-primary/10 text-primary dark:bg-dark-primary/10 dark:text-dark-primary border border-primary/20 dark:border-dark-primary/20 text-xs sm:text-sm px-4 sm:px-6 py-2 sm:py-3">
+                <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 inline" aria-hidden="true" />
                 Privacy Compliance Platform
               </span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 text-foreground dark:text-dark-text px-2">
               Privacy by <span className="bg-gradient-to-r from-primary via-secondary to-accent dark:from-dark-primary dark:via-dark-primary dark:to-dark-primary bg-clip-text text-transparent">Design</span>
             </h1>
             
-            <div className="text-xl md:text-2xl text-muted-foreground dark:text-gray-400 mb-16 max-w-3xl mx-auto">
+            <div className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground dark:text-gray-400 mb-12 sm:mb-16 max-w-3xl mx-auto px-2 sm:px-4">
               <TextCarousel 
                 items={[
                   "Global privacy compliance made simple: GDPR, CCPA, NIST Privacy Framework, and more. Collaborative project management for teams or streamlined workflows for solo users.",
