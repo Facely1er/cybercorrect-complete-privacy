@@ -5,7 +5,6 @@ import {
   X,
   Puzzle as PuzzlePiece,
   CircleDollarSign,
-  BookOpen,
   User,
   SunMoon,
   Moon,
@@ -182,28 +181,34 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                     return (
                       <div 
                         key={item.name} 
-                        className="relative"
+                        className="relative flex items-center"
                         ref={(el) => {
                           if (el) {
                             dropdownRefs.current[item.name] = el;
                           }
                         }}
                       >
-                        <button 
-                          type="button"
+                        <Link
+                          to={item.path}
                           className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
-                          onClick={(e) => toggleDropdown(item.name, e)}
-                          aria-expanded={activeDropdown === item.name}
-                          aria-haspopup="true"
                         >
                           <item.icon className="mr-2 h-4 w-4" />
                           {item.name}
-                          <ChevronDown className={`ml-1 h-3 w-3 transition-transform ${activeDropdown === item.name ? 'transform rotate-180' : ''}`} />
+                        </Link>
+                        <button 
+                          type="button"
+                          className="p-1 text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200"
+                          onClick={(e) => toggleDropdown(item.name, e)}
+                          aria-expanded={activeDropdown === item.name}
+                          aria-haspopup="true"
+                          aria-label="Toggle compliance menu"
+                        >
+                          <ChevronDown className={`h-3 w-3 transition-transform ${activeDropdown === item.name ? 'transform rotate-180' : ''}`} />
                         </button>
                         
                         {activeDropdown === item.name && (
                           <div 
-                            className="absolute left-0 mt-1 w-56 bg-white dark:bg-dark-surface rounded-md shadow-lg border border-support-gray dark:border-dark-support z-[100]"
+                            className="absolute left-0 top-full mt-1 w-56 bg-white dark:bg-dark-surface rounded-md shadow-lg border border-support-gray dark:border-dark-support z-[100]"
                             onClick={(e) => e.stopPropagation()}
                           >
                             <div className="py-1">
