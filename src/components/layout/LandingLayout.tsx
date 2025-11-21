@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 import {
   Menu,
@@ -89,13 +89,39 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
     return () => window.removeEventListener('scroll', handleScrollCta);
   }, [isLandingPage]);
 
-  const toggleDropdown = (name: string) => {
+  const dropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+  const toggleDropdown = (name: string, e?: React.MouseEvent) => {
+    e?.stopPropagation();
     if (activeDropdown === name) {
       setActiveDropdown(null);
     } else {
       setActiveDropdown(name);
     }
   };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (activeDropdown) {
+        const dropdownElement = dropdownRefs.current[activeDropdown];
+        if (dropdownElement && !dropdownElement.contains(event.target as Node)) {
+          setActiveDropdown(null);
+        }
+      }
+    };
+
+    if (activeDropdown) {
+      // Small delay to prevent immediate closure
+      setTimeout(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+      }, 0);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [activeDropdown]);
 
   // Main navigation structure with direct links
   const mainNavItems = [
@@ -154,10 +180,21 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                 {mainNavItems?.map(item => {
                   if (item.dropdown) {
                     return (
-                      <div key={item.name} className="relative">
+                      <div 
+                        key={item.name} 
+                        className="relative"
+                        ref={(el) => {
+                          if (el) {
+                            dropdownRefs.current[item.name] = el;
+                          }
+                        }}
+                      >
                         <button 
+                          type="button"
                           className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
-                          onClick={() => toggleDropdown(item.name)}
+                          onClick={(e) => toggleDropdown(item.name, e)}
+                          aria-expanded={activeDropdown === item.name}
+                          aria-haspopup="true"
                         >
                           <item.icon className="mr-2 h-4 w-4" />
                           {item.name}
@@ -165,7 +202,10 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                         </button>
                         
                         {activeDropdown === item.name && (
-                          <div className="absolute left-0 mt-1 w-56 bg-white dark:bg-dark-surface rounded-md shadow-lg border border-support-gray dark:border-dark-support z-50">
+                          <div 
+                            className="absolute left-0 mt-1 w-56 bg-white dark:bg-dark-surface rounded-md shadow-lg border border-support-gray dark:border-dark-support z-[100]"
+                            onClick={(e) => e.stopPropagation()}
+                          >
                             <div className="py-1">
                               <Link
                                 to={item.path}
