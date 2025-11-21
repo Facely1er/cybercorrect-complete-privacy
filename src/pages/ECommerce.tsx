@@ -505,7 +505,7 @@ const ECommerce = () => {
                       <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-1">
                         <li>Sales tax charged based on billing address</li>
                         <li>Rates vary by state, county, and municipality</li>
-                        <li>Tax-exempt organizations: Provide valid exemption certificate to &lt;legal@ermits.com&gt;</li>
+                        <li>Tax-exempt organizations: Provide valid exemption certificate to <a href="mailto:legal@ermits.com" className="text-primary hover:underline">legal@ermits.com</a></li>
                         <li>Tax amounts shown before final payment confirmation</li>
                       </ul>
                     </div>
@@ -613,7 +613,7 @@ const ECommerce = () => {
                   <h3 className="text-lg font-medium mb-3">1.8 Enterprise and Custom Agreements</h3>
                   <p className="text-muted-foreground text-sm mb-2">
                     Enterprise customers receive custom pricing, flexible billing terms, dedicated account management, 
-                    and custom contracts. Contact sales at &lt;sales@ermits.com&gt; for enterprise inquiries.
+                    and custom contracts. Contact sales at <a href="mailto:sales@ermits.com" className="text-primary hover:underline">sales@ermits.com</a> for enterprise inquiries.
                   </p>
                 </div>
 
@@ -629,7 +629,7 @@ const ECommerce = () => {
                 <div>
                   <h3 className="text-lg font-medium mb-3">1.10 Contact and Support for Billing Issues</h3>
                   <p className="text-muted-foreground text-sm">
-                    For billing questions, payment issues, or invoice requests, contact &lt;contact@ermits.com&gt;. 
+                    For billing questions, payment issues, or invoice requests, contact <a href="mailto:contact@ermits.com" className="text-primary hover:underline">contact@ermits.com</a>. 
                     Response time: Standard inquiries within 24 hours, payment issues within 4 hours.
                   </p>
                 </div>
@@ -692,7 +692,7 @@ const ECommerce = () => {
                     <div>
                       <strong className="text-foreground text-sm">Email Cancellation:</strong>
                       <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-1">
-                        <li>Email &lt;contact@ermits.com&gt;</li>
+                        <li>Email <a href="mailto:contact@ermits.com?subject=Subscription Cancellation" className="text-primary hover:underline">contact@ermits.com</a></li>
                         <li>Subject: "Subscription Cancellation - [Your Name]"</li>
                         <li>Include account email and subscription details</li>
                         <li>Confirmation sent within 1 business day</li>
@@ -743,7 +743,7 @@ const ECommerce = () => {
                       <li>Incompatibility with user's environment (specs clearly documented)</li>
                     </ul>
                     <p className="text-muted-foreground text-sm mt-2">
-                      <strong>Process:</strong> Email &lt;contact@ermits.com&gt; with order number and detailed reason.
+                      <strong>Process:</strong> Email <a href="mailto:contact@ermits.com" className="text-primary hover:underline">contact@ermits.com</a> with order number and detailed reason.
                     </p>
                   </div>
 
@@ -756,7 +756,7 @@ const ECommerce = () => {
                         <li><strong>Refund Policy:</strong> Milestone-based billing with satisfaction checkpoints</li>
                         <li><strong>Eligibility:</strong> Pro-rated refund if ERMITS fails to deliver contracted scope or material breach of Statement of Work</li>
                         <li><strong>Not Eligible:</strong> After final deliverables accepted, subjective dissatisfaction without contractual breach</li>
-                        <li><strong>Process:</strong> Contact dedicated account manager or &lt;contact@ermits.com&gt;</li>
+                        <li><strong>Process:</strong> Contact dedicated account manager or <a href="mailto:contact@ermits.com" className="text-primary hover:underline">contact@ermits.com</a></li>
                         <li><strong>Timeline:</strong> 14 days notice for cancellation; pro-rated refund for unperformed work</li>
                       </ul>
                     </div>
@@ -912,20 +912,20 @@ const ECommerce = () => {
                   <h3 className="text-lg font-medium mb-3">2.12 Special Circumstances</h3>
                   <p className="text-muted-foreground text-sm">
                     ERMITS may grant discretionary refunds for extenuating circumstances (death, incapacity, business closure, 
-                    natural disasters) on a case-by-case basis. Contact &lt;contact@ermits.com&gt; with explanation and documentation.
+                    natural disasters) on a case-by-case basis. Contact <a href="mailto:contact@ermits.com" className="text-primary hover:underline">contact@ermits.com</a> with explanation and documentation.
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-medium mb-3">2.13 Contact Information</h3>
                   <p className="text-muted-foreground text-sm mb-2">
-                    <strong>Cancellation Requests:</strong> Email &lt;contact@ermits.com&gt; | Subject: "Subscription Cancellation"
+                    <strong>Cancellation Requests:</strong> Email <a href="mailto:contact@ermits.com?subject=Subscription Cancellation" className="text-primary hover:underline">contact@ermits.com</a> | Subject: "Subscription Cancellation"
                   </p>
                   <p className="text-muted-foreground text-sm mb-2">
-                    <strong>Refund Requests:</strong> Email &lt;contact@ermits.com&gt; | Subject: "Refund Request - [Invoice Number]"
+                    <strong>Refund Requests:</strong> Email <a href="mailto:contact@ermits.com?subject=Refund Request" className="text-primary hover:underline">contact@ermits.com</a> | Subject: "Refund Request - [Invoice Number]"
                   </p>
                   <p className="text-muted-foreground text-sm">
-                    <strong>Billing Disputes:</strong> Email &lt;contact@ermits.com&gt; | Subject: "Billing Dispute - [Invoice Number]"
+                    <strong>Billing Disputes:</strong> Email <a href="mailto:contact@ermits.com?subject=Billing Dispute" className="text-primary hover:underline">contact@ermits.com</a> | Subject: "Billing Dispute - [Invoice Number]"
                   </p>
                 </div>
               </div>
@@ -944,6 +944,9 @@ const ECommerce = () => {
             </Link>
             <Link to="/cookies">
               <Button variant="outline">Cookie Policy</Button>
+            </Link>
+            <Link to="/acceptable-use">
+              <Button variant="outline">Acceptable Use Policy</Button>
             </Link>
           </div>
         </div>

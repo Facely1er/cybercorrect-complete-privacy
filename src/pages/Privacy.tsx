@@ -1429,7 +1429,7 @@ const Privacy = () => {
                   </p>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
                     <li>Required for healthcare customers processing PHI</li>
-                    <li>Contact: &lt;privacy@ermits.com&gt; to execute BAA</li>
+                    <li>Contact: <a href="mailto:privacy@ermits.com" className="text-primary hover:underline">privacy@ermits.com</a> to execute BAA</li>
                     <li>HIPAA-compliant infrastructure and safeguards</li>
                   </ul>
                 </div>
@@ -1495,7 +1495,7 @@ const Privacy = () => {
                 <div>
                   <h3 className="text-lg font-medium mb-2">13.3 Version History</h3>
                   <p className="text-muted-foreground text-sm">
-                    Previous versions of this Privacy Policy are available upon request: &lt;privacy@ermits.com&gt;
+                    Previous versions of this Privacy Policy are available upon request: <a href="mailto:privacy@ermits.com" className="text-primary hover:underline">privacy@ermits.com</a>
                   </p>
                   <p className="text-muted-foreground text-sm mt-2">
                     <strong>Current Version:</strong> 2.0 (January 2025)
@@ -1515,22 +1515,22 @@ const Privacy = () => {
               
               <div className="space-y-3 text-muted-foreground">
                 <p><strong>Privacy Inquiries:</strong></p>
-                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "Privacy Inquiry"</p>
+                <p>Email: <a href="mailto:privacy@ermits.com?subject=Privacy Inquiry" className="text-primary hover:underline">privacy@ermits.com</a> | Subject: "Privacy Inquiry"</p>
                 
                 <p className="mt-4"><strong>Data Rights Requests:</strong></p>
-                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "Privacy Rights Request - [Type]"</p>
+                <p>Email: <a href="mailto:privacy@ermits.com?subject=Privacy Rights Request" className="text-primary hover:underline">privacy@ermits.com</a> | Subject: "Privacy Rights Request - [Type]"</p>
                 
                 <p className="mt-4"><strong>Data Protection Officer (EU/UK/Swiss):</strong></p>
-                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "GDPR Inquiry - DPO"</p>
+                <p>Email: <a href="mailto:privacy@ermits.com?subject=GDPR Inquiry - DPO" className="text-primary hover:underline">privacy@ermits.com</a> | Subject: "GDPR Inquiry - DPO"</p>
                 
                 <p className="mt-4"><strong>California Privacy Requests (CCPA/CPRA):</strong></p>
-                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "CCPA Request"</p>
+                <p>Email: <a href="mailto:privacy@ermits.com?subject=CCPA Request" className="text-primary hover:underline">privacy@ermits.com</a> | Subject: "CCPA Request"</p>
                 
                 <p className="mt-4"><strong>HIPAA Privacy Officer (Healthcare):</strong></p>
-                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "HIPAA Privacy Matter"</p>
+                <p>Email: <a href="mailto:privacy@ermits.com?subject=HIPAA Privacy Matter" className="text-primary hover:underline">privacy@ermits.com</a> | Subject: "HIPAA Privacy Matter"</p>
                 
                 <p className="mt-4"><strong>Security Concerns:</strong></p>
-                <p>Email: &lt;contact@ermits.com&gt; | Subject: "Security Issue - [Urgent/Non-Urgent]"</p>
+                <p>Email: <a href="mailto:contact@ermits.com?subject=Security Issue" className="text-primary hover:underline">contact@ermits.com</a> | Subject: "Security Issue - [Urgent/Non-Urgent]"</p>
               </div>
             </CardContent>
           </Card>
@@ -1683,35 +1683,35 @@ const Privacy = () => {
               
               <div className="space-y-3 text-muted-foreground">
                 <p><strong>Privacy Inquiries:</strong></p>
-                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "Privacy Inquiry"</p>
-                <p>Website: <a href="http://www.ermits.com/privacy" className="text-primary hover:underline">www.ermits.com/privacy</a></p>
+                <p>Email: <a href="mailto:privacy@ermits.com?subject=Privacy Inquiry" className="text-primary hover:underline">privacy@ermits.com</a> | Subject: "Privacy Inquiry"</p>
+                <p>Website: <a href="http://www.ermits.com/privacy" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">www.ermits.com/privacy</a></p>
                 
                 <p className="mt-4"><strong>Data Rights Requests:</strong></p>
-                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "Privacy Rights Request - [Type]"</p>
-                <p>Online Form: <a href="http://www.ermits.com/privacy-request" className="text-primary hover:underline">www.ermits.com/privacy-request</a></p>
+                <p>Email: <a href="mailto:privacy@ermits.com?subject=Privacy Rights Request" className="text-primary hover:underline">privacy@ermits.com</a> | Subject: "Privacy Rights Request - [Type]"</p>
+                <p>Online Form: <a href="http://www.ermits.com/privacy-request" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">www.ermits.com/privacy-request</a></p>
                 
                 <p className="mt-4"><strong>Data Protection Officer (EU/UK/Swiss):</strong></p>
-                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "GDPR Inquiry - DPO"</p>
+                <p>Email: <a href="mailto:privacy@ermits.com?subject=GDPR Inquiry - DPO" className="text-primary hover:underline">privacy@ermits.com</a> | Subject: "GDPR Inquiry - DPO"</p>
                 <p>Handles: GDPR, UK GDPR, Swiss FADP matters</p>
                 
                 <p className="mt-4"><strong>California Privacy Requests (CCPA/CPRA):</strong></p>
-                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "CCPA Request"</p>
+                <p>Email: <a href="mailto:privacy@ermits.com?subject=CCPA Request" className="text-primary hover:underline">privacy@ermits.com</a> | Subject: "CCPA Request"</p>
                 <p>Handles: California consumer privacy rights</p>
                 
                 <p className="mt-4"><strong>HIPAA Privacy Officer (Healthcare):</strong></p>
-                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "HIPAA Privacy Matter"</p>
+                <p>Email: <a href="mailto:privacy@ermits.com?subject=HIPAA Privacy Matter" className="text-primary hover:underline">privacy@ermits.com</a> | Subject: "HIPAA Privacy Matter"</p>
                 <p>Handles: BAA requests, PHI concerns</p>
                 
                 <p className="mt-4"><strong>Product-Specific Privacy Contacts:</strong></p>
                 <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
-                  <li>ERMITS Advisory + STEEL: &lt;privacy@ermits.com&gt; (Subject: "Advisory Privacy Inquiry")</li>
-                  <li>SocialCaution: &lt;privacy@ermits.com&gt; (Subject: "SocialCaution Privacy Inquiry")</li>
-                  <li>All Other Products: &lt;privacy@ermits.com&gt; (Subject: "[Product Name] Privacy Inquiry")</li>
+                  <li>ERMITS Advisory + STEEL: <a href="mailto:privacy@ermits.com?subject=Advisory Privacy Inquiry" className="text-primary hover:underline">privacy@ermits.com</a> (Subject: "Advisory Privacy Inquiry")</li>
+                  <li>SocialCaution: <a href="mailto:privacy@ermits.com?subject=SocialCaution Privacy Inquiry" className="text-primary hover:underline">privacy@ermits.com</a> (Subject: "SocialCaution Privacy Inquiry")</li>
+                  <li>All Other Products: <a href="mailto:privacy@ermits.com?subject=Product Privacy Inquiry" className="text-primary hover:underline">privacy@ermits.com</a> (Subject: "[Product Name] Privacy Inquiry")</li>
                 </ul>
                 
                 <p className="mt-4"><strong>Security Concerns:</strong></p>
-                <p>Email: &lt;contact@ermits.com&gt; | Subject: "Security Issue - [Urgent/Non-Urgent]"</p>
-                <p>For vulnerabilities: &lt;contact@ermits.com&gt; (responsible disclosure)</p>
+                <p>Email: <a href="mailto:contact@ermits.com?subject=Security Issue" className="text-primary hover:underline">contact@ermits.com</a> | Subject: "Security Issue - [Urgent/Non-Urgent]"</p>
+                <p>For vulnerabilities: <a href="mailto:contact@ermits.com?subject=Security Vulnerability" className="text-primary hover:underline">contact@ermits.com</a> (responsible disclosure)</p>
               </div>
             </CardContent>
           </Card>
@@ -1728,6 +1728,9 @@ const Privacy = () => {
             </Link>
             <Link to="/acceptable-use">
               <Button variant="outline">Acceptable Use Policy</Button>
+            </Link>
+            <Link to="/ecommerce">
+              <Button variant="outline">E-Commerce Policies</Button>
             </Link>
           </div>
         </div>

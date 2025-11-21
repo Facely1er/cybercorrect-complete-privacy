@@ -40,12 +40,37 @@ export default defineConfig(({ mode }) => {
     sourcemap: mode === 'production' ? false : 'inline',
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          ui: ['lucide-react'],
-          charts: ['chart.js', 'react-chartjs-2', 'recharts']
-        }
+        manualChunks: (id) => {
+          // Vendor chunks - core dependencies
+          if (id.includes('node_modules')) {
+            // React core
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'vendor-react';
+            }
+            // React Router
+            if (id.includes('react-router')) {
+              return 'vendor-router';
+            }
+            // UI libraries
+            if (id.includes('lucide-react')) {
+              return 'vendor-ui';
+            }
+            // Chart libraries
+            if (id.includes('chart.js') || id.includes('react-chartjs-2') || id.includes('recharts')) {
+              return 'vendor-charts';
+            }
+            // PDF libraries
+            if (id.includes('jspdf') || id.includes('html2canvas')) {
+              return 'vendor-pdf';
+            }
+            // Other vendor dependencies
+            return 'vendor';
+          }
+        },
+        // Ensure consistent chunk file names
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]'
       }
     },
     chunkSizeWarningLimit: 1000

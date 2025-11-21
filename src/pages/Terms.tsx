@@ -860,7 +860,7 @@ const Terms = () => {
                   <p className="text-muted-foreground text-sm mb-2">You may terminate your account at any time through:</p>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
                     <li>Account settings within the Services</li>
-                    <li>Contacting ERMITS support at &lt;contact@ermits.com&gt;</li>
+                    <li>Contacting ERMITS support at <a href="mailto:contact@ermits.com" className="text-primary hover:underline">contact@ermits.com</a></li>
                     <li>Following product-specific cancellation procedures</li>
                   </ul>
                   
@@ -1353,7 +1353,7 @@ const Terms = () => {
                 <div>
                   <h3 className="text-lg font-medium mb-2">20.4 Opt-Out of Arbitration</h3>
                   <p className="text-muted-foreground text-sm">
-                    You may opt out of the arbitration provision by sending written notice to ERMITS at &lt;legal@ermits.com&gt; within 30 days of first accepting these Terms. The notice must include your name, address, and a clear statement that you wish to opt out of arbitration. If you opt out, disputes will be resolved in court pursuant to Section 20.2.
+                    You may opt out of the arbitration provision by sending written notice to ERMITS at <a href="mailto:legal@ermits.com" className="text-primary hover:underline">legal@ermits.com</a> within 30 days of first accepting these Terms. The notice must include your name, address, and a clear statement that you wish to opt out of arbitration. If you opt out, disputes will be resolved in court pursuant to Section 20.2.
                   </p>
                 </div>
               </div>
@@ -1409,7 +1409,7 @@ const Terms = () => {
                   <p className="text-muted-foreground text-sm mb-2">All notices under these Terms must be in writing and shall be deemed given:</p>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
                     <li>When delivered personally or by confirmed delivery service</li>
-                    <li>When sent by email to &lt;contact@ermits.com&gt; or &lt;legal@ermits.com&gt; (for notices to ERMITS)</li>
+                    <li>When sent by email to <a href="mailto:contact@ermits.com" className="text-primary hover:underline">contact@ermits.com</a> or <a href="mailto:legal@ermits.com" className="text-primary hover:underline">legal@ermits.com</a> (for notices to ERMITS)</li>
                     <li>When sent by email to your registered email address (for notices to you)</li>
                   </ul>
                 </div>
@@ -1456,21 +1456,21 @@ const Terms = () => {
               <div className="space-y-3 text-muted-foreground">
                 <p>For questions, concerns, or notices regarding these Terms:</p>
                 <p><strong>ERMITS LLC</strong></p>
-                <p>Email: &lt;contact@ermits.com&gt;</p>
-                <p>Website: <a href="http://www.ermits.com" className="text-primary hover:underline">www.ermits.com</a></p>
+                <p>Email: <a href="mailto:contact@ermits.com" className="text-primary hover:underline">contact@ermits.com</a></p>
+                <p>Website: <a href="http://www.ermits.com" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">www.ermits.com</a></p>
                 
                 <p className="mt-4"><strong>For technical support inquiries:</strong></p>
-                <p>Email: &lt;contact@ermits.com&gt;</p>
+                <p>Email: <a href="mailto:contact@ermits.com" className="text-primary hover:underline">contact@ermits.com</a></p>
                 
                 <p className="mt-4"><strong>For privacy inquiries:</strong></p>
-                <p>Email: &lt;privacy@ermits.com&gt;</p>
+                <p>Email: <a href="mailto:privacy@ermits.com" className="text-primary hover:underline">privacy@ermits.com</a></p>
                 
                 <p className="mt-4"><strong>For compliance and legal inquiries:</strong></p>
-                <p>Email: &lt;legal@ermits.com&gt;</p>
+                <p>Email: <a href="mailto:legal@ermits.com" className="text-primary hover:underline">legal@ermits.com</a></p>
                 
                 <p className="mt-4"><strong>For advisory services inquiries:</strong></p>
-                <p>Email: &lt;advisory@ermits.com&gt;</p>
-                <p>Website: <a href="http://www.ermits-advisory.com" className="text-primary hover:underline">www.ermits-advisory.com</a></p>
+                <p>Email: <a href="mailto:advisory@ermits.com" className="text-primary hover:underline">advisory@ermits.com</a></p>
+                <p>Website: <a href="http://www.ermits-advisory.com" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">www.ermits-advisory.com</a></p>
               </div>
             </CardContent>
           </Card>
@@ -1487,6 +1487,9 @@ const Terms = () => {
             </Link>
             <Link to="/acceptable-use">
               <Button variant="outline">Acceptable Use Policy</Button>
+            </Link>
+            <Link to="/ecommerce">
+              <Button variant="outline">E-Commerce Policies</Button>
             </Link>
           </div>
         </div>

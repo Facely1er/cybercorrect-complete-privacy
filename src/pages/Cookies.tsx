@@ -836,6 +836,9 @@ const Cookies = () => {
             <Link to="/acceptable-use">
               <Button variant="outline">Acceptable Use Policy</Button>
             </Link>
+            <Link to="/ecommerce">
+              <Button variant="outline">E-Commerce Policies</Button>
+            </Link>
           </div>
         </div>
       </div>

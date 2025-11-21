@@ -719,6 +719,9 @@ const AcceptableUse = () => {
             <Link to="/cookies">
               <Button variant="outline">Cookie Policy</Button>
             </Link>
+            <Link to="/ecommerce">
+              <Button variant="outline">E-Commerce Policies</Button>
+            </Link>
           </div>
         </div>
       </div>
