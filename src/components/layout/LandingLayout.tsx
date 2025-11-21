@@ -188,22 +188,17 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                           }
                         }}
                       >
-                        <Link
-                          to={item.path}
-                          className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
-                        >
-                          <item.icon className="mr-2 h-4 w-4" />
-                          {item.name}
-                        </Link>
-                        <button 
+                        <button
                           type="button"
-                          className="p-1 text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200"
+                          className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
                           onClick={(e) => toggleDropdown(item.name, e)}
                           aria-expanded={activeDropdown === item.name}
                           aria-haspopup="true"
-                          aria-label="Toggle compliance menu"
+                          aria-label={`Toggle ${item.name} menu`}
                         >
-                          <ChevronDown className={`h-3 w-3 transition-transform ${activeDropdown === item.name ? 'transform rotate-180' : ''}`} />
+                          <item.icon className="mr-2 h-4 w-4" />
+                          {item.name}
+                          <ChevronDown className={`ml-1 h-3 w-3 transition-transform ${activeDropdown === item.name ? 'transform rotate-180' : ''}`} />
                         </button>
                         
                         {activeDropdown === item.name && (
