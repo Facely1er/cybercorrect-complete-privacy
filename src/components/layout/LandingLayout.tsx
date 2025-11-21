@@ -167,6 +167,17 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                         {activeDropdown === item.name && (
                           <div className="absolute left-0 mt-1 w-56 bg-white dark:bg-dark-surface rounded-md shadow-lg border border-support-gray dark:border-dark-support z-50">
                             <div className="py-1">
+                              <Link
+                                to={item.path}
+                                className={`flex items-center px-4 py-2 text-sm font-medium border-b border-support-gray dark:border-dark-support ${
+                                  location.pathname === item.path 
+                                    ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' 
+                                    : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'
+                                }`}
+                                onClick={() => setActiveDropdown(null)}
+                              >
+                                Overview
+                              </Link>
                               {item.dropdownItems?.map(dropdownItem => (
                                 <Link
                                   key={dropdownItem.name}
@@ -275,6 +286,12 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                       <item.icon className="mr-3 h-5 w-5 inline" />
                       {item.name}
                     </div>
+                    <Link
+                      to={item.path}
+                      className={`flex items-center px-6 py-2 text-base font-medium rounded-md ${location.pathname === item.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
+                    >
+                      Overview
+                    </Link>
                     {item.dropdownItems?.map(dropdownItem => (
                       <Link
                         key={dropdownItem.name}
