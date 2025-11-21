@@ -105,11 +105,12 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       if (activeDropdown) {
         const dropdownElement = dropdownRefs.current[activeDropdown];
         const target = event.target as Node;
-        // Don't close if clicking on a link or inside the dropdown container
-        if (dropdownElement && !dropdownElement.contains(target)) {
-          // Check if target is a link - if so, allow navigation to proceed
-          const linkElement = (target as Element)?.closest('a');
-          if (!linkElement) {
+        // Don't close if clicking inside the dropdown container or on a link
+        if (dropdownElement) {
+          const isClickInside = dropdownElement.contains(target);
+          const isLink = (target as Element)?.closest('a') !== null;
+          // Only close if clicking outside and not on a link
+          if (!isClickInside && !isLink) {
             setActiveDropdown(null);
           }
         }
@@ -117,14 +118,14 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
     };
 
     if (activeDropdown) {
-      // Use click instead of mousedown to avoid interfering with link navigation
+      // Use click event (not capture phase) to avoid interfering with link navigation
       setTimeout(() => {
-        document.addEventListener('click', handleClickOutside, true);
-      }, 0);
+        document.addEventListener('click', handleClickOutside);
+      }, 100);
     }
 
     return () => {
-      document.removeEventListener('click', handleClickOutside, true);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, [activeDropdown]);
 
@@ -197,14 +198,9 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                         <Link
                           to={item.path}
                           className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium cursor-pointer ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
-                          onClick={(e) => {
-                            // Ensure navigation happens - don't prevent default
-                            e.stopPropagation();
+                          onClick={() => {
+                            // Close dropdown when navigating
                             setActiveDropdown(null);
-                            // Force navigation if Link doesn't work
-                            if (location.pathname !== item.path) {
-                              navigate(item.path);
-                            }
                           }}
                         >
                           <item.icon className="mr-2 h-4 w-4" />
