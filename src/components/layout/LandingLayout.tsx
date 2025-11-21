@@ -99,7 +99,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
     }
   };
 
-  // Close dropdown when clicking outside
+  // Close dropdown when clicking outside or pressing Escape
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (activeDropdown) {
@@ -110,15 +110,23 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       }
     };
 
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && activeDropdown) {
+        setActiveDropdown(null);
+      }
+    };
+
     if (activeDropdown) {
       // Small delay to prevent immediate closure
       setTimeout(() => {
         document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleEscapeKey);
       }, 0);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
     };
   }, [activeDropdown]);
 
@@ -329,6 +337,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                     <Link
                       to={item.path}
                       className={`flex items-center px-6 py-2 text-base font-medium rounded-md ${location.pathname === item.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
+                      onClick={() => setMobileMenuOpen(false)}
                     >
                       Overview
                     </Link>
@@ -337,6 +346,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                         key={dropdownItem.name}
                         to={dropdownItem.path}
                         className={`flex items-center px-6 py-2 text-base font-medium rounded-md ${location.pathname === dropdownItem.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
+                        onClick={() => setMobileMenuOpen(false)}
                       >
                         {dropdownItem.name}
                       </Link>
