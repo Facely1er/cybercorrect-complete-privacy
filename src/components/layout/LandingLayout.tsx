@@ -104,21 +104,27 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
     const handleClickOutside = (event: MouseEvent) => {
       if (activeDropdown) {
         const dropdownElement = dropdownRefs.current[activeDropdown];
-        if (dropdownElement && !dropdownElement.contains(event.target as Node)) {
-          setActiveDropdown(null);
+        const target = event.target as Node;
+        // Don't close if clicking on a link or inside the dropdown container
+        if (dropdownElement && !dropdownElement.contains(target)) {
+          // Check if target is a link - if so, allow navigation to proceed
+          const linkElement = (target as Element)?.closest('a');
+          if (!linkElement) {
+            setActiveDropdown(null);
+          }
         }
       }
     };
 
     if (activeDropdown) {
-      // Small delay to prevent immediate closure
+      // Use click instead of mousedown to avoid interfering with link navigation
       setTimeout(() => {
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('click', handleClickOutside, true);
       }, 0);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('click', handleClickOutside, true);
     };
   }, [activeDropdown]);
 
@@ -190,7 +196,16 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                       >
                         <Link
                           to={item.path}
-                          className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
+                          className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium cursor-pointer ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
+                          onClick={(e) => {
+                            // Ensure navigation happens - don't prevent default
+                            e.stopPropagation();
+                            setActiveDropdown(null);
+                            // Force navigation if Link doesn't work
+                            if (location.pathname !== item.path) {
+                              navigate(item.path);
+                            }
+                          }}
                         >
                           <item.icon className="mr-2 h-4 w-4" />
                           {item.name}
