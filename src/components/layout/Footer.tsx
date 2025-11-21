@@ -97,6 +97,7 @@ const Footer: React.FC = () => {
                   <li><Link to="/terms" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Lock className="h-3.5 w-3.5 mr-1.5" />Terms of Service</Link></li>
                   <li><Link to="/cookies" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><FileText className="h-3.5 w-3.5 mr-1.5" />Cookie Policy</Link></li>
                   <li><Link to="/acceptable-use" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><AlertTriangle className="h-3.5 w-3.5 mr-1.5" />Acceptable Use Policy</Link></li>
+                  <li><Link to="/ecommerce" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><CircleDollarSign className="h-3.5 w-3.5 mr-1.5" />E-Commerce Policies</Link></li>
                 </ul>
               </div>
             </div>

@@ -14,7 +14,7 @@ const Privacy = () => {
             ERMITS LLC is committed to protecting your privacy through a Privacy-First Architecture
           </p>
           <p className="text-sm text-muted-foreground">
-            <strong>Effective Date:</strong> October 31, 2025 | <strong>Last Updated:</strong> October 31, 2025
+            <strong>Effective Date:</strong> November 19, 2025 | <strong>Last Updated:</strong> October 31, 2025
           </p>
         </div>
 
@@ -31,17 +31,118 @@ const Privacy = () => {
             </CardContent>
           </Card>
 
+          {/* Scope and Applicability */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-2xl font-semibold mb-4 flex items-center">
+                <FileText className="h-6 w-6 text-primary mr-2" />
+                1. SCOPE AND APPLICABILITY
+              </h2>
+              
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-medium mb-3">1.1 Services Covered</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    This Privacy Policy applies to all ERMITS products and services, including:
+                  </p>
+                  
+                  <div className="space-y-3">
+                    <div>
+                      <strong className="text-foreground text-sm">ERMITS Advisory + STEEL™:</strong>
+                      <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-1">
+                        <li>Strategic cybersecurity assessments and advisory services</li>
+                        <li>STEEL™ (Strategic Threat & Enterprise Evaluation Layer) framework assessments</li>
+                        <li>vCISO services and security consulting</li>
+                        <li>Compliance advisory and implementation services</li>
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <strong className="text-foreground text-sm">SocialCaution:</strong>
+                      <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-1">
+                        <li>Personalized privacy platform</li>
+                        <li>AI-powered persona detection</li>
+                        <li>Privacy exposure index and risk scoring</li>
+                        <li>Service catalog with privacy risk profiles</li>
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <strong className="text-foreground text-sm">TechnoSoluce™:</strong>
+                      <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-1">
+                        <li>SBOM (Software Bill of Materials) Analyzer</li>
+                        <li>Software supply chain security and vulnerability analysis</li>
+                        <li>Client-side SBOM processing</li>
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <strong className="text-foreground text-sm">CyberCertitude™:</strong>
+                      <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-1">
+                        <li>CMMC 2.0 Level 1 Implementation Suite</li>
+                        <li>CMMC 2.0 Level 2 Compliance Platform</li>
+                        <li>NIST SP 800-171 assessment and compliance tools</li>
+                        <li>Original Toolkit (localStorage-based compliance management)</li>
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <strong className="text-foreground text-sm">VendorSoluce™:</strong>
+                      <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-1">
+                        <li>Supply Chain Risk Management Platform</li>
+                        <li>Vendor assessment and monitoring</li>
+                        <li>Third-party risk evaluation</li>
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <strong className="text-foreground text-sm">CyberCorrect™:</strong>
+                      <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-1">
+                        <li>Privacy Portal (workplace privacy compliance)</li>
+                        <li>Privacy Platform (multi-regulation privacy management)</li>
+                        <li>Data subject rights management</li>
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <strong className="text-foreground text-sm">CyberCaution™:</strong>
+                      <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-1">
+                        <li>RansomCheck (ransomware readiness assessment)</li>
+                        <li>Security Toolkit (comprehensive cybersecurity assessments)</li>
+                        <li>RiskProfessional (CISA-aligned security assessments)</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">1.2 Geographic Scope</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    This Privacy Policy applies to users worldwide and complies with:
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>General Data Protection Regulation (GDPR) - European Union, United Kingdom, Switzerland</li>
+                    <li>California Consumer Privacy Act (CCPA) / California Privacy Rights Act (CPRA)</li>
+                    <li>Personal Information Protection and Electronic Documents Act (PIPEDA) - Canada</li>
+                    <li>Lei Geral de Proteção de Dados (LGPD) - Brazil</li>
+                    <li>Other applicable privacy and data protection laws</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Privacy-First Architecture Overview */}
           <Card>
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Shield className="h-6 w-6 text-primary mr-2" />
-                1. Privacy-First Architecture Overview
+                2. PRIVACY-FIRST ARCHITECTURE OVERVIEW
               </h2>
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">1.1 Core Principles</h3>
+                  <h3 className="text-lg font-medium mb-3">2.1 Core Privacy Principles</h3>
                   <p className="text-muted-foreground mb-4">
                     ERMITS implements Privacy-First Architecture built on five fundamental principles:
                   </p>
@@ -116,7 +217,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">1.2 Privacy-First Implementation by Product</h3>
+                  <h3 className="text-lg font-medium mb-3">2.2 Product-Specific Privacy-First Implementations</h3>
                   <p className="text-muted-foreground mb-3">Each ERMITS product implements Privacy-First Architecture as follows:</p>
                   <div className="overflow-x-auto">
                     <table className="min-w-full text-sm border-collapse">
@@ -172,12 +273,12 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <FileText className="h-6 w-6 text-primary mr-2" />
-                2. Information We Collect
+                3. INFORMATION WE COLLECT
               </h2>
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">2.1 Information You Provide Directly</h3>
+                  <h3 className="text-lg font-medium mb-3">3.1 Information You Provide Directly</h3>
                   
                   <div className="mb-4">
                     <strong className="text-foreground">Account Information (Optional):</strong>
@@ -202,7 +303,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">2.2 Information We Do NOT Collect</h3>
+                  <h3 className="text-lg font-medium mb-3">3.2 Information We Do NOT Collect</h3>
                   <p className="text-muted-foreground mb-3 font-semibold">
                     ERMITS explicitly does NOT collect, access, store, or transmit:
                   </p>
@@ -219,7 +320,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">2.3 Automatically Collected Information</h3>
+                  <h3 className="text-lg font-medium mb-3">3.3 Automatically Collected Information</h3>
                   
                   <div className="mb-4">
                     <strong className="text-foreground">Pseudonymized Telemetry (Optional):</strong>
@@ -256,7 +357,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">2.4 Information from Third Parties</h3>
+                  <h3 className="text-lg font-medium mb-3">3.4 Information from Third Parties</h3>
                   
                   <div className="mb-4">
                     <strong className="text-foreground">Authentication Providers:</strong>
@@ -303,12 +404,12 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Database className="h-6 w-6 text-primary mr-2" />
-                3. How We Use Information
+                4. HOW WE USE INFORMATION
               </h2>
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.1 Service Delivery and Operation</h3>
+                  <h3 className="text-lg font-medium mb-2">4.1 Service Delivery and Operation</h3>
                   <ul className="space-y-2 text-muted-foreground text-sm">
                     <li className="flex items-start">
                       <CheckCircle className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
@@ -334,7 +435,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.2 Service Improvement and Analytics</h3>
+                  <h3 className="text-lg font-medium mb-2">4.2 Service Improvement and Analytics</h3>
                   <ul className="space-y-2 text-muted-foreground text-sm">
                     <li className="flex items-start">
                       <CheckCircle className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
@@ -356,7 +457,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.3 Communication</h3>
+                  <h3 className="text-lg font-medium mb-2">4.3 Communication</h3>
                   <ul className="space-y-2 text-muted-foreground text-sm">
                     <li className="flex items-start">
                       <CheckCircle className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
@@ -382,7 +483,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.4 Security and Fraud Prevention</h3>
+                  <h3 className="text-lg font-medium mb-2">4.4 Security and Fraud Prevention</h3>
                   <ul className="space-y-2 text-muted-foreground text-sm">
                     <li className="flex items-start">
                       <CheckCircle className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
@@ -404,7 +505,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.5 Legal and Compliance</h3>
+                  <h3 className="text-lg font-medium mb-2">4.5 Legal and Compliance</h3>
                   <ul className="space-y-2 text-muted-foreground text-sm">
                     <li className="flex items-start">
                       <CheckCircle className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
@@ -426,7 +527,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">3.6 What We Do NOT Do</h3>
+                  <h3 className="text-lg font-medium mb-2">4.6 What We Do NOT Do</h3>
                   <p className="text-muted-foreground mb-2 text-sm">ERMITS does NOT:</p>
                   <ul className="space-y-2">
                     <li className="flex items-start">
@@ -464,12 +565,12 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Users className="h-6 w-6 text-primary mr-2" />
-                4. Information Sharing and Disclosure
+                5. INFORMATION SHARING AND DISCLOSURE
               </h2>
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">4.1 Service Providers (Sub-Processors)</h3>
+                  <h3 className="text-lg font-medium mb-3">5.1 Service Providers (Sub-Processors)</h3>
                   <p className="text-muted-foreground mb-3 text-sm">
                     We share limited data with trusted third-party service providers who assist in delivering the Services:
                   </p>
@@ -531,7 +632,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">4.2 Legal Requirements</h3>
+                  <h3 className="text-lg font-medium mb-2">5.2 Legal Requirements</h3>
                   <p className="text-muted-foreground text-sm mb-2">We may disclose information if required by law or in response to:</p>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
                     <li>Court orders, subpoenas, or legal process</li>
@@ -548,7 +649,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">4.3 Business Transfers</h3>
+                  <h3 className="text-lg font-medium mb-2">5.3 Business Transfers</h3>
                   <p className="text-muted-foreground text-sm mb-2">If ERMITS is involved in a merger, acquisition, asset sale, or bankruptcy:</p>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
                     <li>User information may be transferred as part of the business assets</li>
@@ -559,7 +660,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">4.4 Consent-Based Sharing</h3>
+                  <h3 className="text-lg font-medium mb-2">5.4 Consent-Based Sharing</h3>
                   <p className="text-muted-foreground text-sm mb-2">We may share information with your explicit consent for purposes such as:</p>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
                     <li>Integration with third-party tools you authorize</li>
@@ -569,7 +670,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">4.5 Aggregated and Anonymous Data</h3>
+                  <h3 className="text-lg font-medium mb-2">5.5 Aggregated and Anonymous Data</h3>
                   <p className="text-muted-foreground text-sm mb-2">We may share aggregated, anonymous data that cannot identify you:</p>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
                     <li>Industry benchmarks and statistics</li>
@@ -590,12 +691,12 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Shield className="h-6 w-6 text-primary mr-2" />
-                5. Data Security Measures
+                6. DATA SECURITY MEASURES
               </h2>
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">5.1 Encryption</h3>
+                  <h3 className="text-lg font-medium mb-3">6.1 Encryption</h3>
                   
                   <div className="mb-4">
                     <strong className="text-foreground">Data in Transit:</strong>
@@ -628,7 +729,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">5.2 Access Controls</h3>
+                  <h3 className="text-lg font-medium mb-3">6.2 Access Controls</h3>
                   <ul className="list-disc ml-6 space-y-2 text-muted-foreground text-sm">
                     <li><strong>Multi-Factor Authentication (MFA):</strong> Available for all accounts, required for administrators</li>
                     <li><strong>Role-Based Access Control (RBAC):</strong> Granular permissions based on user roles</li>
@@ -639,7 +740,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">5.3 Infrastructure Security</h3>
+                  <h3 className="text-lg font-medium mb-3">6.3 Infrastructure Security</h3>
                   <ul className="list-disc ml-6 space-y-2 text-muted-foreground text-sm">
                     <li><strong>Secure Cloud Hosting:</strong> Enterprise-grade infrastructure (Supabase, Vercel)</li>
                     <li><strong>Network Segmentation:</strong> Isolated production, staging, and development environments</li>
@@ -651,7 +752,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">5.4 Application Security</h3>
+                  <h3 className="text-lg font-medium mb-3">6.4 Application Security</h3>
                   <ul className="list-disc ml-6 space-y-2 text-muted-foreground text-sm">
                     <li><strong>Secure Coding Practices:</strong> Following OWASP Top 10 guidelines</li>
                     <li><strong>Input Validation:</strong> Comprehensive sanitization of all user inputs</li>
@@ -663,7 +764,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">5.5 Employee and Contractor Access</h3>
+                  <h3 className="text-lg font-medium mb-3">6.5 Employee and Contractor Access</h3>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
                     <li>Background checks for employees with data access</li>
                     <li>Confidentiality agreements and security training</li>
@@ -674,7 +775,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">5.6 Security Incident Response</h3>
+                  <h3 className="text-lg font-medium mb-3">6.6 Security Incident Response</h3>
                   <p className="text-muted-foreground text-sm mb-2">In the event of a data breach or security incident:</p>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
                     <li><strong>Detection:</strong> 24/7 monitoring and alerting systems</li>
@@ -694,12 +795,12 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Database className="h-6 w-6 text-primary mr-2" />
-                6. Data Retention
+                7. DATA RETENTION
               </h2>
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">6.1 Active Accounts</h3>
+                  <h3 className="text-lg font-medium mb-3">7.1 Active Account Data</h3>
                   <p className="text-muted-foreground mb-3 text-sm">
                     We retain your data for as long as your account is active or as needed to provide Services:
                   </p>
@@ -744,7 +845,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">6.2 Deleted Accounts</h3>
+                  <h3 className="text-lg font-medium mb-2">7.2 Product-Specific Retention</h3>
                   <p className="text-muted-foreground text-sm mb-2">When you delete your account or request data deletion:</p>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
                     <li><strong>Immediate:</strong> Account access disabled, data marked for deletion</li>
@@ -755,7 +856,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">6.3 Legal and Regulatory Retention</h3>
+                  <h3 className="text-lg font-medium mb-2">7.3 Deleted Accounts</h3>
                   <p className="text-muted-foreground text-sm mb-2">
                     Certain data must be retained for legal, regulatory, or tax purposes:
                   </p>
@@ -768,7 +869,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-2">6.4 Inactive Accounts</h3>
+                  <h3 className="text-lg font-medium mb-2">7.4 Data Deletion Verification</h3>
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
                     <li><strong>Free Accounts:</strong> May be deleted after 12 months of inactivity (with 30 days' notice)</li>
                     <li><strong>Paid Accounts:</strong> Retained for duration of subscription plus 30 days</li>
@@ -784,12 +885,12 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Lock className="h-6 w-6 text-primary mr-2" />
-                7. Your Privacy Rights
+                8. YOUR PRIVACY RIGHTS
               </h2>
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">7.1 Universal Rights</h3>
+                  <h3 className="text-lg font-medium mb-3">8.1 Universal Rights (All Users)</h3>
                   <p className="text-muted-foreground mb-3 text-sm">
                     All users have the following rights regardless of location:
                   </p>
@@ -851,7 +952,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">7.2 Additional Rights for EU/UK/Swiss Users (GDPR/UK GDPR/Swiss DPA)</h3>
+                  <h3 className="text-lg font-medium mb-3">8.2 Additional Rights for EU/UK/Swiss Users (GDPR)</h3>
                   <p className="text-muted-foreground mb-3 text-sm">
                     If you are located in the European Economic Area, United Kingdom, or Switzerland, you have additional rights:
                   </p>
@@ -905,7 +1006,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">7.3 Additional Rights for California Residents (CCPA/CPRA)</h3>
+                  <h3 className="text-lg font-medium mb-3">8.3 Additional Rights for California Residents (CCPA/CPRA)</h3>
                   <p className="text-muted-foreground mb-3 text-sm">
                     If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA):
                   </p>
@@ -970,7 +1071,14 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">7.4 Exercising Your Rights</h3>
+                  <h3 className="text-lg font-medium mb-3">8.4 Additional Rights for Other Jurisdictions</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    Additional rights may apply based on location (Canada PIPEDA, Brazil LGPD, Australia Privacy Act, etc.)
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">8.5 Exercising Your Rights</h3>
                   
                   <div className="mb-4">
                     <strong className="text-foreground">How to Submit Requests:</strong>
@@ -1021,12 +1129,12 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Globe className="h-6 w-6 text-primary mr-2" />
-                8. International Data Transfers
+                9. INTERNATIONAL DATA TRANSFERS
               </h2>
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">8.1 Data Processing Locations</h3>
+                  <h3 className="text-lg font-medium mb-3">9.1 Data Processing Locations</h3>
                   <p className="text-muted-foreground mb-3 text-sm">
                     ERMITS is based in the United States. If you access Services from outside the U.S., your data may be transferred to, stored, and processed in the United States or other countries where our service providers operate.
                   </p>
@@ -1042,7 +1150,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">8.2 Safeguards for International Transfers</h3>
+                  <h3 className="text-lg font-medium mb-3">9.2 Safeguards for International Transfers</h3>
                   <p className="text-muted-foreground mb-3 text-sm">
                     For data transfers from the EEA, UK, or Switzerland to the United States:
                   </p>
@@ -1079,7 +1187,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">8.3 UK and Swiss Transfers</h3>
+                  <h3 className="text-lg font-medium mb-3">9.3 UK and Swiss Transfers</h3>
                   
                   <div className="mb-4">
                     <strong className="text-foreground">UK Transfers:</strong>
@@ -1099,6 +1207,13 @@ const Privacy = () => {
                     </ul>
                   </div>
                 </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">9.4 No Adequacy Decision Reliance</h3>
+                  <p className="text-muted-foreground text-sm">
+                    ERMITS does not rely solely on adequacy decisions for international transfers. We implement Standard Contractual Clauses and additional safeguards regardless of adequacy status to ensure ongoing compliance even if adequacy decisions are invalidated.
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -1108,12 +1223,12 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <UserCheck className="h-6 w-6 text-primary mr-2" />
-                9. Children's Privacy
+                10. CHILDREN'S PRIVACY
               </h2>
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">9.1 Age Restrictions</h3>
+                  <h3 className="text-lg font-medium mb-3">10.1 Age Restrictions</h3>
                   <p className="text-muted-foreground mb-3 text-sm">
                     The Services are not intended for children under 18 years of age. We do not knowingly collect personal information from children under 18.
                   </p>
@@ -1129,7 +1244,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">9.2 Parental Rights</h3>
+                  <h3 className="text-lg font-medium mb-3">10.2 Parental Rights</h3>
                   <p className="text-muted-foreground mb-3 text-sm">
                     If we learn that we have collected personal information from a child under 18:
                   </p>
@@ -1141,7 +1256,7 @@ const Privacy = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium mb-3">9.3 Educational Use</h3>
+                  <h3 className="text-lg font-medium mb-3">10.3 Educational Use</h3>
                   <p className="text-muted-foreground mb-3 text-sm">
                     For educational institutions using Services for students:
                   </p>
@@ -1161,12 +1276,285 @@ const Privacy = () => {
             <CardContent className="p-6">
               <h2 className="text-2xl font-semibold mb-4 flex items-center">
                 <Shield className="h-6 w-6 text-primary mr-2" />
-                10. Federal Contractor Privacy Considerations
+                11. PRODUCT-SPECIFIC PRIVACY CONSIDERATIONS
               </h2>
               
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">10.1 CUI and FCI Handling</h3>
+                  <h3 className="text-lg font-medium mb-3">11.1 ERMITS Advisory + STEEL™</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    <strong>What We Collect:</strong>
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Contact information (name, email, company) for consultation scheduling</li>
+                    <li>Billing information (via Stripe) for paid advisory services</li>
+                    <li>Communication history (emails, meeting notes) for service delivery</li>
+                  </ul>
+                  <p className="text-muted-foreground mb-3 text-sm mt-3">
+                    <strong>What We Do NOT Collect:</strong>
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>STEEL assessment responses (processed client-side or recorded by you)</li>
+                    <li>Strategic recommendations or advisory deliverables (owned by you)</li>
+                    <li>Proprietary business information or trade secrets</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">11.2 SocialCaution</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    <strong>What We Collect:</strong>
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Minimal account information (email for login, optional)</li>
+                    <li>User preferences (theme, notification settings)</li>
+                    <li>Anonymous aggregate statistics (opt-in only)</li>
+                  </ul>
+                  <p className="text-muted-foreground mb-3 text-sm mt-3">
+                    <strong>What We Do NOT Collect:</strong>
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Privacy assessment responses (processed 100% client-side)</li>
+                    <li>Personal data entered into assessments</li>
+                    <li>Service usage details or persona detection results</li>
+                    <li>Any identifiable information about your privacy posture</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">11.3 TechnoSoluce™ (SBOM Analyzer)</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    <strong>What We Collect:</strong>
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Account information (email, name) if you create an account</li>
+                    <li>Payment information (via Stripe) for premium features</li>
+                  </ul>
+                  <p className="text-muted-foreground mb-3 text-sm mt-3">
+                    <strong>What We Do NOT Collect:</strong>
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>SBOM files or contents (processed 100% client-side)</li>
+                    <li>Software component lists or dependency graphs</li>
+                    <li>Vulnerability analysis results</li>
+                    <li>Package metadata or software inventories</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">11.4 CyberCertitude™ (CMMC Compliance)</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    <strong>Toolkit (localStorage-based):</strong>
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>No data collected: 100% local storage in browser</li>
+                    <li>No account required: Anonymous use</li>
+                    <li>No transmission: Zero data sent to ERMITS servers</li>
+                  </ul>
+                  <p className="text-muted-foreground mb-3 text-sm mt-3">
+                    <strong>Level 1 & Level 2 Platform (Cloud-Enabled):</strong>
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Account information (name, email, company)</li>
+                    <li>Encrypted compliance data (if cloud sync enabled)</li>
+                    <li>Zero-knowledge E2EE with user-managed keys</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">11.5 VendorSoluce™</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    Vendor assessment data encrypted before transmission. SBOM analysis performed client-side.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">11.6 CyberCorrect™ (Privacy Compliance)</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    Privacy assessments and DPIA documentation encrypted. Employee personal data remains in your HRIS.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">11.7 CyberCaution™ (Security Assessments)</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    Browser-based assessments: 100% local processing, no data collected. Cloud-enabled: Encrypted security assessment data.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Special Considerations */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-2xl font-semibold mb-4 flex items-center">
+                <Shield className="h-6 w-6 text-primary mr-2" />
+                12. SPECIAL CONSIDERATIONS
+              </h2>
+              
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-medium mb-3">12.1 Federal Contractor Privacy</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    For users handling Controlled Unclassified Information (CUI) or Federal Contract Information (FCI):
+                  </p>
+                  
+                  <div className="mb-4">
+                    <strong className="text-foreground text-sm">Privacy-First Architecture Benefits:</strong>
+                    <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-2">
+                      <li>CUI/FCI processed client-side; never transmitted to ERMITS</li>
+                      <li>Zero-knowledge encryption ensures ERMITS cannot access CUI/FCI</li>
+                      <li>Local storage options eliminate cloud transmission of sensitive data</li>
+                      <li>You maintain complete control over CUI/FCI data</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <strong className="text-foreground text-sm">Your Responsibilities:</strong>
+                    <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-2">
+                      <li>Properly mark and handle CUI/FCI according to NIST SP 800-171 and 32 CFR Part 2002</li>
+                      <li>Use encryption features and self-managed deployment options for CUI/FCI</li>
+                      <li>Implement appropriate access controls per DFARS requirements</li>
+                      <li>Maintain audit logs for CUI/FCI access</li>
+                      <li>Report cyber incidents as required by DFARS 252.204-7012 (within 72 hours to DoD)</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">12.2 Healthcare Privacy (HIPAA)</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    <strong>Business Associate Agreement (BAA) Available:</strong>
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Required for healthcare customers processing PHI</li>
+                    <li>Contact: &lt;privacy@ermits.com&gt; to execute BAA</li>
+                    <li>HIPAA-compliant infrastructure and safeguards</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">12.3 Financial Services Privacy</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    For financial institutions subject to GLBA, SOX, or PCI-DSS. SOC 2 Type II certification in progress.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Updates to This Privacy Policy */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-2xl font-semibold mb-4 flex items-center">
+                <FileText className="h-6 w-6 text-primary mr-2" />
+                13. UPDATES TO THIS PRIVACY POLICY
+              </h2>
+              
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-medium mb-3">13.1 Policy Updates</h3>
+                  <p className="text-muted-foreground mb-3 text-sm">
+                    We may update this Privacy Policy periodically to reflect:
+                  </p>
+                  <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                    <li>Changes in data practices or Services</li>
+                    <li>New product launches or features</li>
+                    <li>Legal or regulatory developments</li>
+                    <li>Technological improvements</li>
+                    <li>User feedback and industry best practices</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-3">13.2 Notification of Changes</h3>
+                  
+                  <div className="mb-4">
+                    <strong className="text-foreground text-sm">Material Changes:</strong>
+                    <p className="text-muted-foreground text-sm mb-2 mt-1">For significant changes affecting your rights or data practices:</p>
+                    <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                      <li><strong>30 Days' Advance Notice:</strong> Email notification and in-app announcement</li>
+                      <li><strong>Prominent Display:</strong> Notice displayed on website and in Services</li>
+                      <li><strong>Opt-Out Option:</strong> Option to export data and close account before changes take effect</li>
+                      <li><strong>Continued Use:</strong> Continued use after effective date constitutes acceptance</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <strong className="text-foreground text-sm">Non-Material Changes:</strong>
+                    <p className="text-muted-foreground text-sm mb-2 mt-1">For clarifications, formatting, or minor updates:</p>
+                    <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                      <li>Update "Last Updated" date at top of policy</li>
+                      <li>Changes effective immediately upon posting</li>
+                      <li>Continued use constitutes acceptance</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium mb-2">13.3 Version History</h3>
+                  <p className="text-muted-foreground text-sm">
+                    Previous versions of this Privacy Policy are available upon request: &lt;privacy@ermits.com&gt;
+                  </p>
+                  <p className="text-muted-foreground text-sm mt-2">
+                    <strong>Current Version:</strong> 2.0 (January 2025)
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Contact Information */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-2xl font-semibold mb-4 flex items-center">
+                <Mail className="h-6 w-6 text-primary mr-2" />
+                14. CONTACT INFORMATION
+              </h2>
+              
+              <div className="space-y-3 text-muted-foreground">
+                <p><strong>Privacy Inquiries:</strong></p>
+                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "Privacy Inquiry"</p>
+                
+                <p className="mt-4"><strong>Data Rights Requests:</strong></p>
+                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "Privacy Rights Request - [Type]"</p>
+                
+                <p className="mt-4"><strong>Data Protection Officer (EU/UK/Swiss):</strong></p>
+                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "GDPR Inquiry - DPO"</p>
+                
+                <p className="mt-4"><strong>California Privacy Requests (CCPA/CPRA):</strong></p>
+                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "CCPA Request"</p>
+                
+                <p className="mt-4"><strong>HIPAA Privacy Officer (Healthcare):</strong></p>
+                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "HIPAA Privacy Matter"</p>
+                
+                <p className="mt-4"><strong>Security Concerns:</strong></p>
+                <p>Email: &lt;contact@ermits.com&gt; | Subject: "Security Issue - [Urgent/Non-Urgent]"</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Effective Date and Acceptance */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-2xl font-semibold mb-4 flex items-center">
+                <FileText className="h-6 w-6 text-primary mr-2" />
+                15. EFFECTIVE DATE AND ACCEPTANCE
+              </h2>
+              
+              <div className="space-y-3 text-muted-foreground">
+                <p><strong>Effective Date:</strong> October 31, 2025</p>
+                <p><strong>Last Updated:</strong> November 19, 2025</p>
+                <p className="mt-4">
+                  <strong>By using ERMITS Services, you acknowledge that you have read, understood, and agree to be bound by this Privacy Policy.</strong>
+                </p>
+                <p>
+                  If you do not agree with this Privacy Policy, you must discontinue use of all ERMITS Services immediately.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
                   <p className="text-muted-foreground mb-3 text-sm">
                     For users handling Controlled Unclassified Information (CUI) or Federal Contract Information (FCI):
                   </p>
@@ -1295,22 +1683,35 @@ const Privacy = () => {
               
               <div className="space-y-3 text-muted-foreground">
                 <p><strong>Privacy Inquiries:</strong></p>
-                <p>Email: <Mail className="inline h-4 w-4" /> contact@ermits.com | Subject: "Privacy Inquiry"</p>
+                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "Privacy Inquiry"</p>
+                <p>Website: <a href="http://www.ermits.com/privacy" className="text-primary hover:underline">www.ermits.com/privacy</a></p>
                 
                 <p className="mt-4"><strong>Data Rights Requests:</strong></p>
-                <p>Email: <Mail className="inline h-4 w-4" /> contact@ermits.com | Subject: "Privacy Rights Request"</p>
+                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "Privacy Rights Request - [Type]"</p>
+                <p>Online Form: <a href="http://www.ermits.com/privacy-request" className="text-primary hover:underline">www.ermits.com/privacy-request</a></p>
                 
                 <p className="mt-4"><strong>Data Protection Officer (EU/UK/Swiss):</strong></p>
-                <p>Email: <Mail className="inline h-4 w-4" /> contact@ermits.com | Subject: "GDPR Inquiry"</p>
+                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "GDPR Inquiry - DPO"</p>
+                <p>Handles: GDPR, UK GDPR, Swiss FADP matters</p>
                 
-                <p className="mt-4"><strong>California Privacy Requests:</strong></p>
-                <p>Email: <Mail className="inline h-4 w-4" /> contact@ermits.com | Subject: "CCPA Request"</p>
+                <p className="mt-4"><strong>California Privacy Requests (CCPA/CPRA):</strong></p>
+                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "CCPA Request"</p>
+                <p>Handles: California consumer privacy rights</p>
+                
+                <p className="mt-4"><strong>HIPAA Privacy Officer (Healthcare):</strong></p>
+                <p>Email: &lt;privacy@ermits.com&gt; | Subject: "HIPAA Privacy Matter"</p>
+                <p>Handles: BAA requests, PHI concerns</p>
+                
+                <p className="mt-4"><strong>Product-Specific Privacy Contacts:</strong></p>
+                <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
+                  <li>ERMITS Advisory + STEEL: &lt;privacy@ermits.com&gt; (Subject: "Advisory Privacy Inquiry")</li>
+                  <li>SocialCaution: &lt;privacy@ermits.com&gt; (Subject: "SocialCaution Privacy Inquiry")</li>
+                  <li>All Other Products: &lt;privacy@ermits.com&gt; (Subject: "[Product Name] Privacy Inquiry")</li>
+                </ul>
                 
                 <p className="mt-4"><strong>Security Concerns:</strong></p>
-                <p>Email: <Mail className="inline h-4 w-4" /> contact@ermits.com | Subject: "Security Issue"</p>
-                
-                <p className="mt-4"><strong>General Inquiries:</strong></p>
-                <p>Email: <Mail className="inline h-4 w-4" /> contact@ermits.com | Website: www.ermits.com</p>
+                <p>Email: &lt;contact@ermits.com&gt; | Subject: "Security Issue - [Urgent/Non-Urgent]"</p>
+                <p>For vulnerabilities: &lt;contact@ermits.com&gt; (responsible disclosure)</p>
               </div>
             </CardContent>
           </Card>

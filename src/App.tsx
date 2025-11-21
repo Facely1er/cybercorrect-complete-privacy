@@ -23,6 +23,7 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Cookies from './pages/Cookies';
 import AcceptableUse from './pages/AcceptableUse';
+import ECommerce from './pages/ECommerce';
 import Features from './pages/Features';
 import Demo from './pages/Demo';
 import Login from './pages/Login';
@@ -193,6 +194,7 @@ const App: React.FC = () => {
                     <Route path="profile" element={<UserProfile />} />
                     
                     {/* Account Routes */}
+                    <Route path="account" element={<Navigate to="/account/profile" replace />} />
                     <Route path="account/profile" element={
                       <Suspense fallback={<LoadingSpinner />}>
                         <Profile />
@@ -214,6 +216,7 @@ const App: React.FC = () => {
                     <Route path="terms" element={<Terms />} />
                     <Route path="cookies" element={<Cookies />} />
                     <Route path="acceptable-use" element={<AcceptableUse />} />
+                    <Route path="ecommerce" element={<ECommerce />} />
                     
                     {/* Compliance Redirect */}
                     <Route path="compliance" element={<Navigate to="/dashboard/compliance-health" replace />} />
@@ -416,11 +419,13 @@ const App: React.FC = () => {
                         <NotificationCenter />
                       </Suspense>
                     } />
+                    <Route path="dashboard" element={<Navigate to="/dashboard/compliance-health" replace />} />
                     <Route path="dashboard/compliance-health" element={
                       <Suspense fallback={<LoadingSpinner />}>
                         <ComplianceHealthDashboard />
                       </Suspense>
                     } />
+                    <Route path="reports" element={<Navigate to="/reports/automated" replace />} />
                     <Route path="reports/automated" element={
                       <Suspense fallback={<LoadingSpinner />}>
                         <AutomatedReports />
