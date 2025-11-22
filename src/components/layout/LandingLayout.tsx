@@ -113,12 +113,11 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       if (activeDropdown) {
         const dropdownElement = dropdownRefs.current[activeDropdown];
         const target = event.target as Node;
-        // Don't close if clicking inside the dropdown container or on a link
+        // Don't close if clicking inside the dropdown container
         if (dropdownElement) {
           const isClickInside = dropdownElement.contains(target);
-          const isLink = (target as Element)?.closest('a') !== null;
-          // Only close if clicking outside and not on a link
-          if (!isClickInside && !isLink) {
+          // Only close if clicking outside the dropdown menu
+          if (!isClickInside) {
             setActiveDropdown(null);
           }
         }
@@ -205,11 +204,6 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                       <div 
                         key={item.name} 
                         className="relative flex items-center"
-                        ref={(el) => {
-                          if (el) {
-                            dropdownRefs.current[item.name] = el;
-                          }
-                        }}
                       >
                         <Link
                           to={item.path}
@@ -231,6 +225,11 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                         
                         {activeDropdown === item.name && (
                           <div 
+                            ref={(el) => {
+                              if (el) {
+                                dropdownRefs.current[item.name] = el;
+                              }
+                            }}
                             className="absolute left-0 top-full mt-1 w-56 bg-white dark:bg-dark-surface rounded-md shadow-lg border border-support-gray dark:border-dark-support z-[100]"
                             onClick={(e) => e.stopPropagation()}
                           >
