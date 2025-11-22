@@ -9,6 +9,88 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, stripe-signature',
 };
 
+/**
+ * Verify Stripe webhook signature
+ * Implements Stripe's webhook signature verification algorithm
+ * See: https://stripe.com/docs/webhooks/signatures
+ */
+async function verifyStripeSignatureAsync(
+  payload: string,
+  signature: string,
+  secret: string
+): Promise<boolean> {
+  try {
+    // Parse signature header
+    const elements = signature.split(',');
+    let timestamp: string | null = null;
+    const signatures: string[] = [];
+
+    for (const element of elements) {
+      const [key, value] = element.split('=');
+      if (key === 't') {
+        timestamp = value;
+      } else if (key.startsWith('v')) {
+        signatures.push(value);
+      }
+    }
+
+    if (!timestamp || signatures.length === 0) {
+      return false;
+    }
+
+    // Check timestamp (prevent replay attacks)
+    const currentTime = Math.floor(Date.now() / 1000);
+    const signatureTimestamp = parseInt(timestamp, 10);
+    const tolerance = 300; // 5 minutes
+    if (Math.abs(currentTime - signatureTimestamp) > tolerance) {
+      return false;
+    }
+
+    // Create signed payload
+    const signedPayload = `${timestamp}.${payload}`;
+
+    // Compute expected signature using HMAC SHA-256
+    const encoder = new TextEncoder();
+    const keyData = encoder.encode(secret);
+    const messageData = encoder.encode(signedPayload);
+
+    const cryptoKey = await crypto.subtle.importKey(
+      'raw',
+      keyData,
+      { name: 'HMAC', hash: 'SHA-256' },
+      false,
+      ['sign']
+    );
+
+    const signatureBuffer = await crypto.subtle.sign('HMAC', cryptoKey, messageData);
+    
+    // Convert signature to hex string
+    const signatureArray = Array.from(new Uint8Array(signatureBuffer));
+    const expectedSignature = signatureArray
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+
+    // Compare with provided signatures (constant-time comparison)
+    for (const sig of signatures) {
+      if (sig.length !== expectedSignature.length) {
+        continue;
+      }
+      let result = 0;
+      for (let i = 0; i < sig.length; i++) {
+        result |= sig.charCodeAt(i) ^ expectedSignature.charCodeAt(i);
+      }
+      if (result === 0) {
+        return true;
+      }
+    }
+
+    return false;
+  } catch (error) {
+    console.error('Error in signature verification:', error);
+    return false;
+  }
+}
+
 serve(async (req) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
@@ -34,19 +116,31 @@ serve(async (req) => {
     // Get raw body for signature verification
     const body = await req.text();
 
-    // Verify webhook signature (in production, use Stripe SDK)
-    // For now, we'll skip verification in development
-    if (import.meta.env.PROD && stripeWebhookSecret) {
-      // Note: Stripe webhook signature verification should be implemented using the Stripe SDK
-      // Example implementation:
-      // const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') ?? '');
-      // const event = stripe.webhooks.constructEvent(body, signature, stripeWebhookSecret);
-      // This ensures webhook requests are authentic and prevents unauthorized access
-      console.warn('Stripe webhook signature verification not yet implemented. This should be added for production security.');
+    // Verify webhook signature
+    if (stripeWebhookSecret) {
+      const isValid = await verifyStripeSignatureAsync(body, signature, stripeWebhookSecret);
+      if (!isValid) {
+        console.error('Invalid Stripe webhook signature');
+        return new Response(
+          JSON.stringify({ error: 'Invalid signature' }),
+          { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    } else {
+      console.warn('Stripe webhook secret not configured. Skipping signature verification.');
     }
 
     // Parse webhook event
-    const event = JSON.parse(body);
+    let event;
+    try {
+      event = JSON.parse(body);
+    } catch (parseError) {
+      console.error('Error parsing webhook body:', parseError);
+      return new Response(
+        JSON.stringify({ error: 'Invalid JSON in webhook body' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
     console.log('Stripe webhook event:', event.type);
 
@@ -93,8 +187,9 @@ serve(async (req) => {
     );
   } catch (error) {
     console.error('Error processing Stripe webhook:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error';
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: errorMessage }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
