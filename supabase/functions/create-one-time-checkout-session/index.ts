@@ -3,6 +3,7 @@
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import Stripe from 'https://esm.sh/stripe@14.21.0?target=deno';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -46,6 +47,11 @@ serve(async (req) => {
       );
     }
 
+    // Initialize Stripe client
+    const stripe = new Stripe(stripeSecretKey, {
+      apiVersion: '2023-10-16',
+    });
+
     // Build line items for Stripe
     const lineItems = items.map((item: CheckoutItem) => ({
       price_data: {
@@ -75,34 +81,16 @@ serve(async (req) => {
       metadata.customer_email = email;
     }
 
-    // Create Stripe checkout session
-    const stripeResponse = await fetch('https://api.stripe.com/v1/checkout/sessions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${stripeSecretKey}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({
-        mode: 'payment',
-        success_url: successUrl || `${Deno.env.get('SITE_URL') || 'http://localhost:5173'}/store/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: cancelUrl || `${Deno.env.get('SITE_URL') || 'http://localhost:5173'}/store`,
-        line_items: JSON.stringify(lineItems),
-        metadata: JSON.stringify(metadata),
-        customer_email: email || undefined,
-        allow_promotion_codes: 'true',
-      }).toString(),
+    // Create Stripe checkout session using Stripe SDK
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      success_url: successUrl || `${Deno.env.get('SITE_URL') || 'http://localhost:5173'}/store/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${Deno.env.get('SITE_URL') || 'http://localhost:5173'}/store`,
+      line_items: lineItems,
+      metadata: metadata,
+      customer_email: email || undefined,
+      allow_promotion_codes: true,
     });
-
-    if (!stripeResponse.ok) {
-      const error = await stripeResponse.text();
-      console.error('Stripe API error:', error);
-      return new Response(
-        JSON.stringify({ error: 'Failed to create checkout session' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-
-    const session = await stripeResponse.json();
 
     return new Response(
       JSON.stringify({
@@ -113,8 +101,16 @@ serve(async (req) => {
     );
   } catch (error) {
     console.error('Error creating checkout session:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    const errorDetails = error instanceof Error && 'type' in error ? (error as any).type : undefined;
+    
+    // Return more detailed error information
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: 'Failed to create checkout session',
+        message: errorMessage,
+        details: errorDetails,
+      }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }

@@ -99,12 +99,32 @@ export async function createOneTimeCheckoutSession(
 
         if (error) {
           logWarning('Supabase Edge Function error', { error });
+          // Check if error has details
+          if (error.message) {
+            logError(new Error(`Checkout session creation failed: ${error.message}`), {
+              context: 'one_time_checkout_service',
+              errorDetails: error,
+            });
+          }
           // Fall through to mock/dev fallback
         } else if (data) {
-          return data as CheckoutSession;
+          // Check if data contains an error (Edge Function might return error in response body)
+          if (data.error) {
+            logWarning('Edge Function returned error', { error: data.error, message: data.message });
+            // Fall through to mock/dev fallback
+          } else if (data.sessionId && data.url) {
+            return data as CheckoutSession;
+          } else {
+            logWarning('Invalid response format from Edge Function', { data });
+            // Fall through to mock/dev fallback
+          }
         }
       } catch (invokeError) {
         logWarning('Error invoking checkout session function', { error: invokeError });
+        logError(
+          invokeError instanceof Error ? invokeError : new Error('Failed to invoke checkout function'),
+          { context: 'one_time_checkout_service' }
+        );
         // Fall through to mock/dev fallback
       }
     }
