@@ -41,13 +41,14 @@ export default defineConfig(({ mode }) => {
         manualChunks: (id) => {
           // Vendor chunks - core dependencies
           if (id.includes('node_modules')) {
-            // React core - keep React and React DOM together to avoid loading issues
+            // Keep React and React DOM in main bundle to ensure they're loaded before any code uses them
+            // This prevents "Cannot read properties of undefined (reading 'createContext')" errors
             if (id.includes('react') || id.includes('react-dom')) {
-              return 'vendor-react';
+              return undefined; // Keep in main bundle
             }
-            // React Router - keep with React to ensure proper loading order
+            // React Router - can be split since React will be loaded first
             if (id.includes('react-router')) {
-              return 'vendor-react';
+              return 'vendor-router';
             }
             // UI libraries
             if (id.includes('lucide-react')) {
