@@ -27,6 +27,14 @@ interface LandingLayoutProps {
   darkMode: boolean;
 }
 
+interface NavItem {
+  name: string;
+  path: string;
+  icon: React.ComponentType<{ className?: string }>;
+  dropdown?: boolean;
+  dropdownItems?: { name: string; path: string }[];
+}
+
 const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   const { openChatbot } = useChatbot();
   const { user } = useAuth();
@@ -99,7 +107,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
     }
   };
 
-  // Close dropdown when clicking outside
+  // Close dropdown when clicking outside or pressing Escape
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (activeDropdown) {
@@ -117,20 +125,28 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       }
     };
 
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && activeDropdown) {
+        setActiveDropdown(null);
+      }
+    };
+
     if (activeDropdown) {
-      // Use click event (not capture phase) to avoid interfering with link navigation
+      // Use mousedown event to avoid interfering with link navigation
       setTimeout(() => {
-        document.addEventListener('click', handleClickOutside);
-      }, 100);
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleEscapeKey);
+      }, 0);
     }
 
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
     };
   }, [activeDropdown]);
 
   // Main navigation structure with direct links
-  const mainNavItems = [
+  const mainNavItems: NavItem[] = [
     {
       name: 'Home',
       path: '/',
@@ -183,7 +199,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
             
             {/* Column 2: Navigation (center) */}
             <div className="hidden lg:flex items-center flex-1 justify-center min-w-0 overflow-hidden">
-                {mainNavItems?.map(item => {
+                {mainNavItems?.map((item: NavItem) => {
                   if (item.dropdown) {
                     return (
                       <div 
@@ -195,26 +211,17 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                           }
                         }}
                       >
-                        <Link
-                          to={item.path}
-                          className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium cursor-pointer ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
-                          onClick={() => {
-                            // Close dropdown when navigating
-                            setActiveDropdown(null);
-                          }}
-                        >
-                          <item.icon className="mr-2 h-4 w-4" />
-                          {item.name}
-                        </Link>
-                        <button 
+                        <button
                           type="button"
-                          className="p-1 text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200"
+                          className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
                           onClick={(e) => toggleDropdown(item.name, e)}
                           aria-expanded={activeDropdown === item.name}
                           aria-haspopup="true"
-                          aria-label="Toggle compliance menu"
+                          aria-label={`Toggle ${item.name} menu`}
                         >
-                          <ChevronDown className={`h-3 w-3 transition-transform ${activeDropdown === item.name ? 'transform rotate-180' : ''}`} />
+                          <item.icon className="mr-2 h-4 w-4" />
+                          {item.name}
+                          <ChevronDown className={`ml-1 h-3 w-3 transition-transform ${activeDropdown === item.name ? 'transform rotate-180' : ''}`} />
                         </button>
                         
                         {activeDropdown === item.name && (
@@ -234,7 +241,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                               >
                                 Overview
                               </Link>
-                              {item.dropdownItems?.map(dropdownItem => (
+                              {item.dropdownItems?.map((dropdownItem: { name: string; path: string }) => (
                                 <Link
                                   key={dropdownItem.name}
                                   to={dropdownItem.path}
@@ -334,7 +341,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
           className={`lg:hidden absolute top-16 left-0 right-0 bg-surface dark:bg-dark-surface border-b border-support-gray dark:border-dark-support transition-all duration-300 ease-in-out overflow-hidden ${mobileMenuOpen ? 'max-h-[80vh]' : 'max-h-0'}`}
         >
           <div className="px-4 py-2 space-y-1 overflow-y-auto max-h-[calc(80vh-4rem)]">
-            {mainNavItems?.map(item => {
+            {mainNavItems?.map((item: NavItem) => {
               if (item.dropdown) {
                 return (
                   <div key={item.name}>
@@ -345,14 +352,16 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                     <Link
                       to={item.path}
                       className={`flex items-center px-6 py-2 text-base font-medium rounded-md ${location.pathname === item.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
+                      onClick={() => setMobileMenuOpen(false)}
                     >
                       Overview
                     </Link>
-                    {item.dropdownItems?.map(dropdownItem => (
+                    {item.dropdownItems?.map((dropdownItem: { name: string; path: string }) => (
                       <Link
                         key={dropdownItem.name}
                         to={dropdownItem.path}
                         className={`flex items-center px-6 py-2 text-base font-medium rounded-md ${location.pathname === dropdownItem.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
+                        onClick={() => setMobileMenuOpen(false)}
                       >
                         {dropdownItem.name}
                       </Link>
