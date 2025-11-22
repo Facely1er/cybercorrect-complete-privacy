@@ -28,11 +28,12 @@
   RewriteRule . /index.html [L]
 </IfModule>
 
-# MIME types for JavaScript modules
+# MIME types for JavaScript modules and CSS
 <IfModule mod_mime.c>
   AddType application/javascript js
   AddType application/javascript mjs
   AddType text/javascript jsx
+  AddType text/css css
   AddType application/json json
   AddType application/wasm wasm
 </IfModule>
@@ -42,6 +43,11 @@
   # Set proper Content-Type for JavaScript files
   <FilesMatch "\.(js|mjs|jsx)$">
     Header set Content-Type "application/javascript; charset=utf-8"
+  </FilesMatch>
+  
+  # Set proper Content-Type for CSS files
+  <FilesMatch "\.css$">
+    Header set Content-Type "text/css; charset=utf-8"
   </FilesMatch>
   
   # Set proper Content-Type for WASM files
