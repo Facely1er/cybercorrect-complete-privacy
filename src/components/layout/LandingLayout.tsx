@@ -187,8 +187,8 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   return (
     <div className={`min-h-screen flex flex-col ${darkMode ? 'dark' : ''} bg-surface dark:bg-dark-bg`}>
       <nav className={`fixed top-0 left-0 right-0 z-20 bg-surface/90 dark:bg-dark-surface/90 backdrop-blur-md transition-all duration-300 ${isScrolled ? 'py-1' : 'py-1'}`}>
-        <div className="container mx-auto px-2 sm:px-4 max-w-full overflow-hidden">
-          <div className="flex justify-between items-center h-14 gap-2 sm:gap-4 min-w-0">
+        <div className="container mx-auto px-2 sm:px-4 max-w-full overflow-visible">
+          <div className="flex justify-between items-center h-14 gap-2 sm:gap-4 min-w-0 overflow-visible">
             {/* Column 1: Logo (left) */}
             <div className="flex items-center flex-shrink-0 min-w-0">
               <Link to="/" className="flex items-center min-w-0">
@@ -197,19 +197,25 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
             </div>
             
             {/* Column 2: Navigation (center) */}
-            <div className="hidden lg:flex items-center flex-1 justify-center min-w-0 overflow-hidden">
+            <div className="hidden lg:flex items-center flex-1 justify-center min-w-0 overflow-visible">
                 {mainNavItems?.map((item: NavItem) => {
                   if (item.dropdown) {
                     return (
                       <div 
                         key={item.name} 
-                        className="relative flex items-center"
+                        className="relative flex items-center overflow-visible"
                       >
                         <div className="flex items-center">
                           <Link
                             to={item.path}
-                            onClick={() => {
-                              setActiveDropdown(null);
+                            onClick={(e) => {
+                              // Don't navigate if dropdown is open or about to open
+                              if (activeDropdown === item.name) {
+                                e.preventDefault();
+                                setActiveDropdown(null);
+                              } else {
+                                setActiveDropdown(null);
+                              }
                             }}
                             className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium cursor-pointer ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
                           >
@@ -218,7 +224,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                           </Link>
                           <button
                             type="button"
-                            className="p-2 text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200"
+                            className="p-2 text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-primary-teal transition-colors duration-200"
                             onClick={(e) => {
                               e.stopPropagation();
                               e.preventDefault();
