@@ -3,20 +3,24 @@
   RewriteEngine On
   RewriteBase /
   
+  # CRITICAL: Don't rewrite JavaScript, CSS, or other static assets
+  # This must come FIRST to prevent 404s from being rewritten to index.html
+  # Check for file extensions that should never be rewritten
+  # If file doesn't exist, let Apache return 404 (don't rewrite to index.html)
+  RewriteCond %{REQUEST_URI} \.(js|mjs|jsx|css|map|json|xml|txt|pdf|ico|png|jpg|jpeg|gif|svg|webp|woff|woff2|ttf|eot|wasm)$ [NC]
+  RewriteRule ^ - [L]
+  
+  # Don't rewrite assets directory - serve files directly (even if missing)
+  # This ensures missing assets return 404, not index.html
+  RewriteCond %{REQUEST_URI} ^/assets/
+  RewriteRule ^ - [L]
+  
   # Don't rewrite if the request is for an existing file
   RewriteCond %{REQUEST_FILENAME} -f
   RewriteRule ^ - [L]
   
   # Don't rewrite if the request is for an existing directory
   RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
-  
-  # Don't rewrite assets directory - serve files directly
-  RewriteCond %{REQUEST_URI} ^/assets/
-  RewriteRule ^ - [L]
-  
-  # Don't rewrite other static files (images, fonts, etc.)
-  RewriteCond %{REQUEST_URI} \.(ico|png|jpg|jpeg|gif|svg|webp|woff|woff2|ttf|eot|css|js|map|json|xml|txt|pdf)$ [NC]
   RewriteRule ^ - [L]
   
   # Rewrite everything else to index.html for SPA routing

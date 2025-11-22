@@ -402,6 +402,10 @@ export class LicenseManager {
   }
 }
 
+// Unified Product Types
+export type ProductType = 'one-time' | 'subscription';
+export type UnifiedProduct = OneTimeProduct | { type: 'subscription'; id: string; name: string; category: 'subscription' };
+
 // Product Discovery Helpers
 export class ProductCatalog {
   static getProduct(productId: string): OneTimeProduct | undefined {
@@ -422,6 +426,30 @@ export class ProductCatalog {
 
   static getAllBundles(): ProductBundle[] {
     return PRODUCT_BUNDLES;
+  }
+
+  /**
+   * Get all products including subscriptions
+   * This provides a unified view of all available products
+   * Note: Import SUBSCRIPTION_PRODUCTS from './subscriptionProducts' when using this method
+   */
+  static getAllProductsIncludingSubscriptions(subscriptionProducts?: any[]): Array<OneTimeProduct | { type: 'subscription'; id: string; name: string; category: 'subscription' }> {
+    if (!subscriptionProducts) {
+      return ONE_TIME_PRODUCTS;
+    }
+    
+    const subscriptions = subscriptionProducts.map((sub: any) => ({
+      type: 'subscription' as const,
+      id: sub.id,
+      name: sub.name,
+      category: 'subscription' as const,
+      tier: sub.tier,
+      description: sub.description,
+      monthlyPrice: sub.monthlyPrice,
+      annualPrice: sub.annualPrice
+    }));
+    
+    return [...ONE_TIME_PRODUCTS, ...subscriptions];
   }
 
   static calculateBundleSavings(bundleId: string): number {

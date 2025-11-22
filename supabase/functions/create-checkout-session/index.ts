@@ -61,9 +61,30 @@ serve(async (req) => {
     }
 
     const priceId = PRICE_IDS[tier]?.[billingPeriod];
-    if (!priceId) {
+    if (!priceId || priceId.trim() === '') {
+      console.error(`Price ID not configured for ${tier} ${billingPeriod}. Available tiers: ${Object.keys(PRICE_IDS).join(', ')}`);
       return new Response(
-        JSON.stringify({ error: `Price ID not configured for ${tier} ${billingPeriod}` }),
+        JSON.stringify({ 
+          error: `Price ID not configured for ${tier} ${billingPeriod}`,
+          details: 'Please configure the STRIPE_PRICE environment variables in your Supabase Edge Function secrets',
+          availableTiers: Object.keys(PRICE_IDS),
+          requiredEnvVars: [
+            `STRIPE_PRICE_${tier.toUpperCase()}_MONTHLY`,
+            `STRIPE_PRICE_${tier.toUpperCase()}_ANNUAL`
+          ]
+        }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validate price ID format (Stripe price IDs start with price_)
+    if (!priceId.startsWith('price_')) {
+      console.error(`Invalid price ID format for ${tier} ${billingPeriod}: ${priceId}`);
+      return new Response(
+        JSON.stringify({ 
+          error: `Invalid price ID format for ${tier} ${billingPeriod}`,
+          details: 'Stripe price IDs must start with "price_"'
+        }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }

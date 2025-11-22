@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../co
 import { Button } from '../components/ui/Button';
 import { CheckCircle, ArrowRight, XCircle, Check, ChevronDown, ChevronUp, ShoppingBag, Zap } from 'lucide-react';
 import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES } from '../utils/oneTimeProducts';
+import { UnifiedProductCatalog, getAllSubscriptions } from '../utils/unifiedProductCatalog';
 import { logWarning, logError } from '../utils/logger';
 
 const Pricing = () => {
