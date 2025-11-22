@@ -157,11 +157,12 @@ export async function getUserSubscription(): Promise<SubscriptionStatus | null> 
         }
 
         try {
+          // Fetch active or trialing subscriptions
           const { data, error } = await supabase
             .from('cc_privacy_subscriptions')
             .select('*')
             .eq('user_id', user.id)
-            .eq('status', 'active')
+            .in('status', ['active', 'trialing'])
             .order('created_at', { ascending: false })
             .limit(1)
             .single();
@@ -423,26 +424,27 @@ export async function checkSubscriptionAccess(feature: string): Promise<boolean>
         return false;
       }
 
-      // Feature-based access checks
-      const tier = subscription.tier;
+      // For trials, grant access based on the tier being trialed
+      // Trials get the same access as the paid tier they're trialing
+      const effectiveTier = subscription.tier; // Trial tier = target paid tier
       
       switch (feature) {
         case 'premium_templates':
-          return tier === 'professional' || tier === 'enterprise';
+          return effectiveTier === 'professional' || effectiveTier === 'enterprise';
         case 'unlimited_exports':
-          return tier === 'professional' || tier === 'enterprise';
+          return effectiveTier === 'professional' || effectiveTier === 'enterprise';
         case 'advanced_analytics':
-          return tier === 'professional' || tier === 'enterprise';
+          return effectiveTier === 'professional' || effectiveTier === 'enterprise';
         case 'regulatory_intelligence':
-          return tier === 'professional' || tier === 'enterprise';
+          return effectiveTier === 'professional' || effectiveTier === 'enterprise';
         case 'api_access':
-          return tier === 'professional' || tier === 'enterprise';
+          return effectiveTier === 'professional' || effectiveTier === 'enterprise';
         case 'white_glove_support':
-          return tier === 'enterprise';
+          return effectiveTier === 'enterprise';
         case 'custom_integrations':
-          return tier === 'enterprise';
+          return effectiveTier === 'enterprise';
         default:
-          return tier !== 'free';
+          return effectiveTier !== 'free';
       }
     } catch (checkError) {
       console.warn('Error checking subscription access:', checkError);
@@ -460,6 +462,83 @@ export async function checkSubscriptionAccess(feature: string): Promise<boolean>
       console.error('Error monitoring also failed:', monitoringError);
     }
     return false; // Safe default - deny access on error
+  }
+}
+
+/**
+ * Check if user is currently on a trial
+ */
+export async function isOnTrial(): Promise<boolean> {
+  try {
+    const subscription = await getUserSubscription();
+    return subscription?.status === 'trialing' ?? false;
+  } catch (error) {
+    console.warn('Error checking trial status:', error);
+    return false;
+  }
+}
+
+/**
+ * Get trial days remaining
+ */
+export async function getTrialDaysRemaining(): Promise<number> {
+  try {
+    const subscription = await getUserSubscription();
+    if (!subscription || subscription.status !== 'trialing') {
+      return 0;
+    }
+
+    const periodEnd = new Date(subscription.currentPeriodEnd);
+    const now = new Date();
+    const diffTime = periodEnd.getTime() - now.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    return Math.max(0, diffDays);
+  } catch (error) {
+    console.warn('Error calculating trial days remaining:', error);
+    return 0;
+  }
+}
+
+/**
+ * Check if user has used a trial before (prevent abuse)
+ */
+export async function hasUsedTrial(): Promise<boolean> {
+  if (!isSupabaseConfigured()) {
+    return false; // Can't check without database
+  }
+
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return false;
+
+    const { data, error } = await supabase
+      .from('cc_privacy_subscription_history')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('new_status', 'trialing')
+      .limit(1)
+      .single();
+
+    return !error && !!data;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Get effective subscription tier (for trials, returns the tier being trialed)
+ */
+export async function getEffectiveTier(): Promise<SubscriptionTier> {
+  try {
+    const subscription = await getUserSubscription();
+    if (!subscription) return 'free';
+    
+    // Trials grant access to the tier they're trialing
+    return subscription.tier;
+  } catch (error) {
+    console.warn('Error getting effective tier:', error);
+    return 'free';
   }
 }
 
@@ -483,12 +562,12 @@ export async function syncSubscriptionFromSupabase(): Promise<void> {
       return;
     }
 
-    // Fetch from Supabase
+    // Fetch from Supabase (include trialing subscriptions)
     const { data, error } = await supabase
       .from('cc_privacy_subscriptions')
       .select('*')
       .eq('user_id', user.id)
-      .eq('status', 'active')
+      .in('status', ['active', 'trialing'])
       .order('created_at', { ascending: false })
       .limit(1)
       .single();

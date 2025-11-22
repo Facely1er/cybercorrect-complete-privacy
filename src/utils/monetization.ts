@@ -10,7 +10,7 @@ export interface UserSubscription {
   startDate: string;
   endDate?: string;
   billingPeriod: 'monthly' | 'annual';
-  status: 'active' | 'expired' | 'cancelled';
+  status: 'active' | 'expired' | 'cancelled' | 'trialing';
 }
 
 export interface ExportCredits {
@@ -174,6 +174,20 @@ export const SUBSCRIPTION_LIMITS = {
     },
   }
 };
+
+// Trial configuration
+export const TRIAL_CONFIG = {
+  durationDays: 14, // 14-day trial (aligns with policy)
+  requiresPaymentMethod: true,
+  autoConvert: true, // Auto-convert to paid at end
+  eligibleTiers: ['starter', 'professional'] as SubscriptionTier[], // No enterprise trials
+};
+
+// Helper function to get trial limits (trials get full tier features)
+export function getTrialLimits(tier: SubscriptionTier) {
+  // Trials get the same limits as the paid tier they're trialing
+  return SUBSCRIPTION_LIMITS[tier] || SUBSCRIPTION_LIMITS.free;
+}
 
 // Export credit costs
 export const EXPORT_CREDIT_COSTS: Record<ExportFormat, number> = {
@@ -350,6 +364,18 @@ class MonetizationManager {
 
   canExport(format: ExportFormat): { allowed: boolean; reason?: string; creditsNeeded?: number } {
     const subscription = this.getSubscription();
+    
+    // Check if trial is expired
+    if (subscription.status === 'trialing' && subscription.endDate) {
+      const trialEnd = new Date(subscription.endDate);
+      if (trialEnd < new Date()) {
+        return {
+          allowed: false,
+          reason: 'Your trial has expired. Upgrade to continue using this feature.',
+        };
+      }
+    }
+    
     const limits = SUBSCRIPTION_LIMITS[subscription.tier];
     
     // Check if format is available for tier

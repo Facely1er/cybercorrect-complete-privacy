@@ -214,15 +214,61 @@ async function handleCheckoutCompleted(supabase: any, session: any) {
     return;
   }
 
-  // Fetch subscription from Stripe (in production, use Stripe SDK)
-  // For now, we'll create a basic subscription record
+  // Fetch subscription from Stripe API to get accurate trial status
+  // The subscription object in checkout.session.completed contains basic info
+  // We need to check the actual subscription status from Stripe
+  const stripeSecretKey = Deno.env.get('STRIPE_SECRET_KEY') ?? '';
+  
+  let subscriptionStatus = 'active';
+  let periodEnd = new Date((session.created + 30 * 24 * 60 * 60) * 1000).toISOString();
+  
+  // Fetch subscription details from Stripe API if subscription ID exists
+  if (subscriptionId && stripeSecretKey) {
+    try {
+      const stripeResponse = await fetch(`https://api.stripe.com/v1/subscriptions/${subscriptionId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${stripeSecretKey}`,
+        },
+      });
+      
+      if (stripeResponse.ok) {
+        const stripeSubscription = await stripeResponse.json();
+        // Map Stripe status to our status
+        if (stripeSubscription.status === 'trialing') {
+          subscriptionStatus = 'trialing';
+        } else if (stripeSubscription.status === 'active') {
+          subscriptionStatus = 'active';
+        }
+        
+        // Use actual period end from Stripe
+        if (stripeSubscription.current_period_end) {
+          periodEnd = new Date(stripeSubscription.current_period_end * 1000).toISOString();
+        }
+      }
+    } catch (err) {
+      console.warn('Error fetching subscription from Stripe:', err);
+      // Fallback: assume trialing if metadata suggests it
+      if (session.metadata?.trial_period_days) {
+        subscriptionStatus = 'trialing';
+        periodEnd = new Date((session.created + 14 * 24 * 60 * 60) * 1000).toISOString();
+      }
+    }
+  } else {
+    // Fallback: check metadata for trial indication
+    if (session.metadata?.trial_period_days) {
+      subscriptionStatus = 'trialing';
+      periodEnd = new Date((session.created + 14 * 24 * 60 * 60) * 1000).toISOString();
+    }
+  }
+  
   const subscriptionData = {
     user_id: clientReferenceId,
     tier: session.metadata?.tier || 'starter',
-    status: 'active',
+    status: subscriptionStatus,
     billing_period: session.metadata?.billing_period || 'monthly',
     current_period_start: new Date(session.created * 1000).toISOString(),
-    current_period_end: new Date((session.created + 30 * 24 * 60 * 60) * 1000).toISOString(),
+    current_period_end: periodEnd,
     cancel_at_period_end: false,
     stripe_subscription_id: subscriptionId,
     stripe_customer_id: customerId,
@@ -511,30 +557,54 @@ async function handleSubscriptionUpdated(supabase: any, subscription: any) {
   const subscriptionId = subscription.id;
   const customerId = subscription.customer;
 
-  // Find user by customer ID
-  const { data: userData } = await supabase
+  // Find user by customer ID or subscription ID
+  let userData;
+  const { data: subData } = await supabase
     .from('cc_privacy_subscriptions')
     .select('user_id')
-    .eq('stripe_customer_id', customerId)
+    .eq('stripe_subscription_id', subscriptionId)
     .single();
+  
+  if (subData) {
+    userData = subData;
+  } else {
+    // Fallback: find by customer ID
+    const { data: customerData } = await supabase
+      .from('cc_privacy_subscriptions')
+      .select('user_id')
+      .eq('stripe_customer_id', customerId)
+      .single();
+    userData = customerData;
+  }
 
   if (!userData) {
-    console.error('User not found for customer:', customerId);
+    console.error('User not found for subscription:', subscriptionId);
     return;
+  }
+
+  // Map Stripe status to our status
+  let status: string;
+  if (subscription.status === 'active') {
+    status = 'active';
+  } else if (subscription.status === 'trialing') {
+    status = 'trialing';
+  } else if (subscription.status === 'past_due') {
+    status = 'past_due';
+  } else if (subscription.status === 'canceled' || subscription.status === 'cancelled') {
+    status = 'cancelled';
+  } else {
+    status = 'expired';
   }
 
   const subscriptionData = {
     tier: subscription.metadata?.tier || 'starter',
-    status: subscription.status === 'active' ? 'active' : 
-            subscription.status === 'trialing' ? 'trialing' :
-            subscription.status === 'past_due' ? 'past_due' :
-            subscription.status === 'canceled' ? 'cancelled' : 'expired',
-    billing_period: subscription.items?.data[0]?.price?.recurring?.interval === 'year' ? 'annual' : 'monthly',
+    status: status,
+    billing_period: subscription.items?.data?.[0]?.price?.recurring?.interval === 'year' ? 'annual' : 'monthly',
     current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
     current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
     cancel_at_period_end: subscription.cancel_at_period_end || false,
     canceled_at: subscription.canceled_at ? new Date(subscription.canceled_at * 1000).toISOString() : null,
-    stripe_price_id: subscription.items?.data[0]?.price?.id,
+    stripe_price_id: subscription.items?.data?.[0]?.price?.id,
   };
 
   const { error } = await supabase

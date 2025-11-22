@@ -1,7 +1,11 @@
 // Supabase Edge Function for creating subscription checkout sessions
 // Generates Stripe checkout sessions for subscription purchases
 
+/// <reference path="../deno.d.ts" />
+
+// @ts-expect-error - Deno HTTP imports are valid in Supabase Edge Functions runtime
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+// @ts-expect-error - ESM imports are valid in Supabase Edge Functions runtime
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const corsHeaders = {
@@ -89,6 +93,27 @@ serve(async (req) => {
       );
     }
 
+    // Check if user has used a trial before (prevent abuse)
+    let enableTrial = true;
+    if (userId && tier !== 'enterprise') {
+      try {
+        const { data: historyData } = await supabase
+          .from('cc_privacy_subscription_history')
+          .select('*')
+          .eq('user_id', userId)
+          .eq('new_status', 'trialing')
+          .limit(1)
+          .single();
+        
+        if (historyData) {
+          enableTrial = false; // User has already used a trial
+        }
+      } catch (err) {
+        // If check fails, allow trial (graceful degradation)
+        console.warn('Error checking trial history:', err);
+      }
+    }
+
     // Build form data for Stripe API
     const formData = new URLSearchParams();
     formData.append('mode', 'subscription');
@@ -96,6 +121,12 @@ serve(async (req) => {
     formData.append('cancel_url', `${Deno.env.get('SITE_URL') || 'http://localhost:5173'}/subscription`);
     formData.append('line_items[0][price]', priceId);
     formData.append('line_items[0][quantity]', '1');
+    
+    // Add trial period if eligible (14 days, requires payment method)
+    if (enableTrial && tier !== 'enterprise') {
+      formData.append('subscription_data[trial_period_days]', '14');
+      formData.append('payment_method_collection', 'always'); // Require payment method for trial
+    }
     
     if (userId) {
       formData.append('client_reference_id', userId);
