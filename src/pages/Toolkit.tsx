@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { InternalLink, ContextualCTA } from '../components/ui/InternalLinkingHelper';
+import { usePageTitle } from '../hooks/usePageTitle';
 import { 
   Shield, 
   FileText, 
@@ -25,6 +26,7 @@ import {
 } from 'lucide-react';
 
 const Toolkit = () => {
+  usePageTitle('Toolkit');
   // Main compliance tools organized by category
   const toolCategories = [
     {

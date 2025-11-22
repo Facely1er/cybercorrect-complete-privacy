@@ -4,6 +4,7 @@ import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 
 import { InternalLink} from '../components/ui/InternalLinkingHelper';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 import { 
   Eye,
@@ -21,7 +22,7 @@ import {
 } from 'lucide-react';
 
 const AssessmentHub = () => {
-
+  usePageTitle('Assessment Hub');
 
   // Compact page header (replaces hero)
   const headerSection = (

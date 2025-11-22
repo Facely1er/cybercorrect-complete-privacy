@@ -7,6 +7,7 @@ import { InternalLink, RelatedContent } from '../../components/ui/InternalLinkin
 import { complianceHealthMonitor } from '../../utils/complianceHealthMonitor';
 import { notificationService, Notification } from '../../utils/notificationService';
 import { logError } from '../../utils/logger';
+import { usePageTitle } from '../../hooks/usePageTitle';
 import { 
   Eye, 
   Users, 
@@ -28,6 +29,7 @@ import {
 } from 'lucide-react';
 
 const PrivacyProjectDashboard = () => {
+  usePageTitle('Project Dashboard');
   const navigate = useNavigate();
   const { 
     userMode, 

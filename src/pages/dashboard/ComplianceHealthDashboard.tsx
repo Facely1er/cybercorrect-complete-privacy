@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { usePageTitle } from '../../hooks/usePageTitle';
 import { 
   ArrowLeft, 
   TrendingUp, 
@@ -20,6 +21,7 @@ import { complianceHealthMonitor, ComplianceHealthScore, ScoreTrend } from '../.
 import { toast } from '../../components/ui/Toaster';
 
 export const ComplianceHealthDashboard: React.FC = () => {
+  usePageTitle('Compliance Health Dashboard');
   const [currentScore, setCurrentScore] = useState<ComplianceHealthScore | null>(null);
   const [scoreHistory, setScoreHistory] = useState<ComplianceHealthScore[]>([]);
   const [trend30d, setTrend30d] = useState<ScoreTrend | null>(null);

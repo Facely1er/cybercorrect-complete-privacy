@@ -17,33 +17,138 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter(x => x);
 
-  // Map path segments to user-friendly names
+  // Comprehensive map of path segments to user-friendly names
   const pathNameMap: Record<string, string> = {
+    // Main pages
+    'pricing': 'Pricing',
+    'features': 'Features',
+    'demo': 'Demo',
+    'integrations': 'Integrations',
+    'login': 'Login',
+    'profile': 'Profile',
+    
+    // Account pages
+    'account': 'Account',
+    'settings': 'Settings',
+    'subscription': 'Subscription',
+    
+    // Legal pages
+    'privacy': 'Privacy Policy',
+    'terms': 'Terms of Service',
+    'cookies': 'Cookie Policy',
+    'acceptable-use': 'Acceptable Use Policy',
+    'ecommerce': 'E-Commerce Policy',
+    
+    // Assessment pages
     'assessment-hub': 'Assessment Hub',
+    'assessments': 'Assessments',
     'privacy-assessment': 'Privacy Assessment',
     'privacy-results': 'Privacy Results',
     'privacy-recommendations': 'Privacy Recommendations',
-    'gdpr-mapper': 'GDPR Mapper',
+    'scheduled': 'Scheduled Assessments',
+    
+    // Project Management
+    'project': 'Project Dashboard',
+    'roadmap': 'Privacy Roadmap',
+    'raci': 'RACI Matrix',
+    'wbs': 'Work Breakdown Structure',
+    'evidence': 'Evidence Vault',
+    
+    // Toolkit pages
     'toolkit': 'Toolkit',
+    'privacy-gap-analyzer': 'Privacy Gap Analyzer',
+    'privacy-policy-generator': 'Privacy Policy Generator',
+    'gdpr-mapper': 'GDPR Mapper',
+    'pii-data-flow-mapper': 'PII Data Flow Mapper',
+    'privacy-rights-manager': 'Privacy Rights Manager',
+    'dpia-generator': 'DPIA Generator',
+    'employee-digital-footprint': 'Employee Digital Footprint',
+    'data-broker-removal': 'Data Broker Removal',
+    'privacy-settings-audit': 'Privacy Settings Audit',
+    'privacy-maintenance-scheduler': 'Privacy Maintenance Scheduler',
+    'consent-management': 'Consent Management',
+    'vendor-risk-assessment': 'Vendor Risk Assessment',
+    'retention-policy-generator': 'Retention Policy Generator',
+    'dpia-manager': 'DPIA Manager',
+    'privacy-by-design-assessment': 'Privacy by Design Assessment',
+    'service-provider-manager': 'Service Provider Manager',
+    'incident-response-manager': 'Incident Response Manager',
+    
+    // Dashboard pages
+    'dashboard': 'Dashboard',
+    'compliance-health': 'Compliance Health',
+    'progress': 'Progress Tracking',
+    
+    // Reports
+    'reports': 'Reports',
+    'automated': 'Automated Reports',
+    
+    // Alerts
+    'alerts': 'Alert Management',
+    
+    // Regulatory
+    'regulatory': 'Regulatory Intelligence',
+    
+    // Resources
     'resources-landing': 'Resources',
     'documentation': 'Documentation',
     'guides': 'Guides',
     'support': 'Support',
-    'roles': 'Compliance',
+    'chat': 'Chat Support',
+    
+    // Documentation pages
+    'gdpr-implementation-guide': 'GDPR Implementation Guide',
+    'assessment-guide': 'Assessment Guide',
+    'getting-started': 'Getting Started',
+    'quick-start': 'Quick Start',
+    'platform-overview': 'Platform Overview',
+    'understanding-dashboard': 'Understanding Dashboard',
+    'understanding-rmf': 'Understanding RMF',
+    'control-implementation-guide': 'Control Implementation Guide',
+    'incident-response-guide': 'Incident Response Guide',
+    'incident-reporting': 'Incident Reporting',
+    'breach-response-guide': 'Breach Response Guide',
+    'faqs': 'FAQs',
+    'privacy-framework-guide': 'Privacy Framework Guide',
+    
+    // Guide pages
+    'data-protection': 'Data Protection Guide',
+    'privacy-by-design': 'Privacy by Design Guide',
+    'data-subject-rights': 'Data Subject Rights Guide',
+    'breach-notification': 'Breach Notification Guide',
+    'privacy-impact-assessment': 'Privacy Impact Assessment Guide',
+    
+    // Role Journey pages
+    'roles': 'Role-Based Workflows',
     'data-protection-officer': 'Data Protection Officer',
     'legal-counsel': 'Legal Counsel',
     'data-steward': 'Data Steward',
+    'privacy-officer': 'Privacy Officer',
+    
+    // Template Viewers
     'viewers': 'Templates',
     'dpia-template': 'DPIA Template',
     'ccpa-policy': 'CCPA Policy',
     'gdpr-checklist': 'GDPR Checklist',
     'privacy-notice': 'Privacy Notice',
-    'data-processing-record': 'Processing Records',
-    'breach-notification': 'Breach Notification',
-    'privacy': 'Privacy Policy',
-    'terms': 'Terms of Service',
-    'cookies': 'Cookie Policy',
-    'acceptable-use': 'Acceptable Use Policy'
+    'data-processing-record': 'Data Processing Record',
+    
+    // Monetization
+    'monetization': 'Monetization',
+    'templates': 'Template Store',
+    'credits': 'Credits Manager',
+    'store': 'Store',
+    'one-time-products': 'One-Time Products',
+    'products': 'Products',
+    'checkout': 'Checkout',
+    'success': 'Purchase Success',
+    'activate-license': 'Activate License',
+    
+    // Notifications
+    'notifications': 'Notifications',
+    
+    // Compliance redirect
+    'compliance': 'Compliance'
   };
 
   const getBreadcrumbName = (segment: string) => {
@@ -53,11 +158,30 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   };
 
   // Implement breadcrumb truncation for long paths
-  const truncatedPathnames = pathnames.length > maxItems 
-    ? [...pathnames.slice(0, 1), '...', ...pathnames.slice(-2)]
+  const shouldTruncate = pathnames.length > maxItems;
+  const truncatedPathnames = shouldTruncate
+    ? [...pathnames.slice(0, 1), '...', ...pathnames.slice(-(maxItems - 1))]
     : pathnames;
 
-  const renderBreadcrumbItem = (segment: string, index: number, isLast: boolean) => {
+  // Create a mapping of truncated indices to original indices
+  const getOriginalIndex = (truncatedIndex: number): number => {
+    if (!shouldTruncate) {
+      return truncatedIndex;
+    }
+    if (truncatedIndex === 0) {
+      return 0; // First item
+    }
+    if (truncatedPathnames[truncatedIndex] === '...') {
+      return -1; // Ellipsis
+    }
+    // For items after ellipsis, calculate their position
+    // We show: [first, '...', last-(maxItems-2), ..., last-1, last]
+    const itemsAfterEllipsis = truncatedIndex - 2; // Subtract first item and ellipsis
+    const startOfLastItems = pathnames.length - (maxItems - 1);
+    return startOfLastItems + itemsAfterEllipsis;
+  };
+
+  const renderBreadcrumbItem = (segment: string, truncatedIndex: number, isLast: boolean) => {
     if (segment === '...') {
       return (
         <React.Fragment key="ellipsis">
@@ -67,10 +191,15 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
       );
     }
 
-    const routeTo = `/${pathnames.slice(0, pathnames.indexOf(segment) + 1).join('/')}`;
+    const originalIndex = getOriginalIndex(truncatedIndex);
+    if (originalIndex === -1) {
+      return null; // Shouldn't happen, but handle gracefully
+    }
+
+    const routeTo = `/${pathnames.slice(0, originalIndex + 1).join('/')}`;
     
     return (
-      <React.Fragment key={segment}>
+      <React.Fragment key={`${segment}-${truncatedIndex}`}>
         <ChevronRight className="h-4 w-4 text-muted-foreground" />
         {isLast ? (
           <span className="text-foreground font-medium">
@@ -87,6 +216,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
       </React.Fragment>
     );
   };
+  
   return (
     <nav className={cn("flex items-center space-x-2 text-sm", className)} aria-label="Breadcrumb">
       {showHome && (
@@ -99,9 +229,10 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
         </Link>
       )}
       
-      {truncatedPathnames.map((segment, index) => {
-        const isLast = index === pathnames.length - 1;
-        return renderBreadcrumbItem(segment, index, isLast);
+      {truncatedPathnames.map((segment, truncatedIndex) => {
+        const originalIndex = getOriginalIndex(truncatedIndex);
+        const isLast = originalIndex === pathnames.length - 1;
+        return renderBreadcrumbItem(segment, truncatedIndex, isLast);
       })}
     </nav>
   );

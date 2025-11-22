@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { usePageTitle } from '@/hooks/usePageTitle';
 import { 
   Eye, 
   ArrowLeft, 
@@ -50,6 +51,7 @@ interface PrivacyGap {
 }
 
 const PrivacyGapAnalyzer = () => {
+  usePageTitle('Privacy Gap Analyzer');
   const location = useLocation();
   const navigate = useNavigate();
   const { assessmentResults, fromAssessment } = (location.state || {}) as { 

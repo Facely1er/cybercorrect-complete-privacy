@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { usePageTitle } from '../../hooks/usePageTitle';
 import { 
   Shield, 
   Download, 
@@ -13,6 +14,7 @@ import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/secureStorage';
 
 const DpiaGenerator = () => {
+  usePageTitle('DPIA Generator');
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState(() => {
     const savedData = secureStorage.getItem('dpia_form_data');
