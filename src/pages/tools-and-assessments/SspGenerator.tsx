@@ -527,7 +527,16 @@ const SspGenerator = () => {
                 </button>
               </div>
             </div>
-            <Button>
+            <Button
+              onClick={() => {
+                // Manual save - force save even if auto-save is disabled
+                localStorage.setItem('ssp_sections', JSON.stringify(sspSections));
+                localStorage.setItem('ssp_system_info', JSON.stringify(systemInfo));
+                localStorage.setItem('ssp_controls', JSON.stringify(controls));
+                setLastSaved(new Date().toISOString());
+                toast.success('Saved', 'SSP saved successfully');
+              }}
+            >
               <Save className="mr-2 h-4 w-4" />
               Save SSP
               {autoSaveEnabled && (

@@ -18,6 +18,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES, ProductCatalog, OneTimeProduct, ProductBundle } from '../utils/oneTimeProducts';
+import { UnifiedProductCatalog, UnifiedProduct } from '../utils/unifiedProductCatalog';
 
 const CART_STORAGE_KEY = 'onetimestore_cart';
 
@@ -38,6 +39,7 @@ const OneTimeStore = () => {
 
   const categories = [
     { id: 'all', name: 'All Products', icon: ShoppingCart },
+    { id: 'subscription', name: 'Subscriptions', icon: TrendingUp },
     { id: 'bundle', name: 'Bundles', icon: Sparkles },
     { id: 'toolkit', name: 'Toolkits', icon: Database },
     { id: 'assessment', name: 'Assessments', icon: FileText },
@@ -45,9 +47,17 @@ const OneTimeStore = () => {
     { id: 'templates', name: 'Templates', icon: FileText }
   ];
 
-  const filteredProducts = selectedCategory === 'all'
-    ? ONE_TIME_PRODUCTS
-    : ProductCatalog.getProductsByCategory(selectedCategory as any);
+  // Get all products from unified catalog
+  const allUnifiedProducts = UnifiedProductCatalog.getAllProducts();
+  
+  // Filter products based on category
+  const filteredUnifiedProducts = selectedCategory === 'all'
+    ? allUnifiedProducts.filter(p => p.type !== 'bundle')
+    : UnifiedProductCatalog.getProductsByCategory(selectedCategory as any).filter(p => p.type !== 'bundle');
+
+  // Separate subscriptions and one-time products
+  const subscriptionProducts = filteredUnifiedProducts.filter(p => p.type === 'subscription');
+  const oneTimeProducts = filteredUnifiedProducts.filter(p => p.type === 'one-time');
 
   const filteredBundles = selectedCategory === 'all' || selectedCategory === 'bundle'
     ? PRODUCT_BUNDLES
@@ -79,14 +89,25 @@ const OneTimeStore = () => {
   };
 
   const handleLearnMore = (productId: string) => {
-    const product = ProductCatalog.getProduct(productId);
-    const bundle = ProductCatalog.getBundle(productId);
-    if (product) {
-      setSelectedProduct(product);
-      setIsModalOpen(true);
-    } else if (bundle) {
-      setSelectedProduct(bundle);
-      setIsModalOpen(true);
+    const unifiedProduct = UnifiedProductCatalog.getProduct(productId);
+    if (unifiedProduct) {
+      if (unifiedProduct.type === 'subscription') {
+        // Redirect to pricing page for subscriptions
+        navigate('/pricing');
+        return;
+      } else if (unifiedProduct.type === 'one-time') {
+        const product = ProductCatalog.getProduct(productId);
+        if (product) {
+          setSelectedProduct(product);
+          setIsModalOpen(true);
+        }
+      } else if (unifiedProduct.type === 'bundle') {
+        const bundle = ProductCatalog.getBundle(productId);
+        if (bundle) {
+          setSelectedProduct(bundle);
+          setIsModalOpen(true);
+        }
+      }
     }
   };
 
@@ -96,10 +117,19 @@ const OneTimeStore = () => {
 
   const getCartTotal = () => {
     return cart.reduce((total, productId) => {
-      const product = ProductCatalog.getProduct(productId);
-      const bundle = ProductCatalog.getBundle(productId);
-      return total + (product?.price || bundle?.price || 0);
+      const unifiedProduct = UnifiedProductCatalog.getProduct(productId);
+      if (unifiedProduct?.type === 'one-time' || unifiedProduct?.type === 'bundle') {
+        const product = ProductCatalog.getProduct(productId);
+        const bundle = ProductCatalog.getBundle(productId);
+        return total + (product?.price || bundle?.price || 0);
+      }
+      return total;
     }, 0);
+  };
+
+  const handleSubscriptionClick = (productId: string) => {
+    // Redirect to pricing page for subscription purchases
+    navigate('/pricing');
   };
 
   return (
@@ -109,23 +139,23 @@ const OneTimeStore = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Privacy Tools You Own Forever
+              Complete Privacy Compliance Solutions
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-white/90">
-              No subscriptions. No recurring fees. Complete privacy with 100% offline tools.
+              Choose from one-time purchases or subscriptions. Find the perfect solution for your privacy compliance needs.
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-lg">
               <div className="flex items-center">
                 <Check className="w-6 h-6 mr-2" />
-                <span>Lifetime Access</span>
+                <span>One-Time & Subscriptions</span>
               </div>
               <div className="flex items-center">
                 <Check className="w-6 h-6 mr-2" />
-                <span>100% Offline</span>
+                <span>Complete Privacy Options</span>
               </div>
               <div className="flex items-center">
                 <Check className="w-6 h-6 mr-2" />
-                <span>Complete Privacy</span>
+                <span>Flexible Pricing</span>
               </div>
             </div>
           </div>
@@ -250,21 +280,102 @@ const OneTimeStore = () => {
         </section>
       )}
 
-      {/* Individual Products */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Individual Products
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Choose the tools you need, pay once, own forever
-            </p>
-          </div>
+      {/* Subscription Plans */}
+      {subscriptionProducts.length > 0 && (
+        <section className="py-16 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-foreground mb-4">
+                Subscription Plans
+              </h2>
+              <p className="text-xl text-muted-foreground">
+                Continuous compliance with cloud sync and team features
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {filteredProducts.map((product) => {
-              const inCart = cart.includes(product.id);
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+              {subscriptionProducts.map((product) => {
+                return (
+                  <Card key={product.id} className={`hover:shadow-xl transition-shadow duration-300 ${product.popular ? 'border-2 border-accent' : ''}`}>
+                    {product.popular && (
+                      <div className="absolute top-0 right-0 bg-accent text-white px-3 py-1 text-xs font-bold rounded-bl-lg">
+                        POPULAR
+                      </div>
+                    )}
+                    <CardContent className="p-6">
+                      <div className="mb-4">
+                        <h3 className="text-xl font-bold mb-2">{product.name}</h3>
+                        <p className="text-sm text-muted-foreground">{product.description}</p>
+                      </div>
+
+                      <div className="mb-4">
+                        <div className="text-3xl font-bold text-primary">
+                          {product.monthlyPrice === 0 ? 'Free' : `$${product.monthlyPrice}`}
+                        </div>
+                        {product.monthlyPrice > 0 && (
+                          <div className="text-sm text-muted-foreground">
+                            {product.billing}
+                            {product.annualPrice && product.annualPrice < product.monthlyPrice * 12 && (
+                              <div className="text-accent mt-1">
+                                Save ${(product.monthlyPrice * 12 - product.annualPrice).toFixed(0)}/year with annual billing
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {product.features && product.features.length > 0 && (
+                        <div className="mb-4">
+                          <div className="space-y-2">
+                            {product.features.slice(0, 4).map((feature, idx) => (
+                              <div key={idx} className="flex items-start gap-2">
+                                <Check className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
+                                <span className="text-xs text-muted-foreground">{feature}</span>
+                              </div>
+                            ))}
+                            {product.features.length > 4 && (
+                              <div className="text-xs text-primary font-medium">
+                                + {product.features.length - 4} more features
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
+                      <Button
+                        onClick={() => handleSubscriptionClick(product.id)}
+                        className={`w-full ${product.popular ? 'bg-accent hover:bg-accent/90' : 'bg-primary hover:bg-primary/90'}`}
+                      >
+                        {product.monthlyPrice === 0 ? 'Get Started' : 'View Plan'}
+                      </Button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Individual Products */}
+      {oneTimeProducts.length > 0 && (
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-foreground mb-4">
+                One-Time Purchase Products
+              </h2>
+              <p className="text-xl text-muted-foreground">
+                Choose the tools you need, pay once, own forever
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              {oneTimeProducts.map((unifiedProduct) => {
+                const product = ProductCatalog.getProduct(unifiedProduct.id);
+                if (!product) return null;
+                
+                const inCart = cart.includes(product.id);
 
               return (
                 <Card key={product.id} className="hover:shadow-xl transition-shadow duration-300">

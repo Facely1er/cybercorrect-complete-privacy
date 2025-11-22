@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { useProject } from '../../context/ProjectContext';
@@ -125,7 +125,7 @@ const EvidenceVault = () => {
           timestamp: new Date().toISOString(),
           exportDate: new Date().toLocaleDateString(),
           totalDocuments: filteredEvidence.length,
-          projectName: project?.name || 'Unknown Project'
+          projectName: project?.projectId || 'Unknown Project'
         },
         documents: filteredEvidence
       };
@@ -161,6 +161,73 @@ const EvidenceVault = () => {
     }
   };
 
+  const handleUploadEvidence = () => {
+    // Create a file input element
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.pdf,.doc,.docx,.txt,.json,.csv';
+    input.multiple = true;
+    
+    input.onchange = (e) => {
+      const files = (e.target as HTMLInputElement).files;
+      if (!files || files.length === 0) return;
+
+      Array.from(files).forEach((file) => {
+        const newEvidence: EvidenceItem = {
+          id: `evidence-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          name: file.name,
+          type: 'technical', // Default type, can be changed later
+          category: 'Uploaded',
+          description: `Uploaded file: ${file.name}`,
+          uploadDate: new Date().toISOString(),
+          lastModified: new Date().toISOString(),
+          uploadedBy: 'Current User',
+          fileSize: `${(file.size / 1024).toFixed(2)} KB`,
+          tags: [],
+          linkedTasks: [],
+          complianceFrameworks: [],
+          auditTrail: [{
+            action: 'Uploaded',
+            user: 'Current User',
+            timestamp: new Date().toISOString()
+          }]
+        };
+
+        setEvidenceItems(prev => [...prev, newEvidence]);
+      });
+
+      toast.success('Upload successful', `${files.length} file(s) uploaded successfully`);
+    };
+
+    input.click();
+  };
+
+  const handleCreateDocument = () => {
+    const newDocument: EvidenceItem = {
+      id: `evidence-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      name: `New Document ${new Date().toLocaleDateString()}`,
+      type: 'policy',
+      category: 'Custom',
+      description: 'New document created',
+      uploadDate: new Date().toISOString(),
+      lastModified: new Date().toISOString(),
+      uploadedBy: 'Current User',
+      fileSize: '0 KB',
+      tags: ['new'],
+      linkedTasks: [],
+      complianceFrameworks: [],
+      auditTrail: [{
+        action: 'Created',
+        user: 'Current User',
+        timestamp: new Date().toISOString()
+      }]
+    };
+
+    setEvidenceItems(prev => [...prev, newDocument]);
+    setSelectedItem(newDocument.id);
+    toast.success('Document created', 'New document added to evidence vault');
+  };
+
   if (!project) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -189,7 +256,7 @@ const EvidenceVault = () => {
             </p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline">
+            <Button variant="outline" onClick={handleUploadEvidence}>
               <Upload className="h-4 w-4 mr-2" />
               Upload Evidence
             </Button>
@@ -224,7 +291,7 @@ const EvidenceVault = () => {
                 </div>
               )}
             </div>
-            <Button>
+            <Button onClick={handleCreateDocument}>
               <Plus className="h-4 w-4 mr-2" />
               Create Document
             </Button>
@@ -464,11 +531,52 @@ const EvidenceVault = () => {
                         </div>
 
                         <div className="pt-4 space-y-2">
-                          <Button size="sm" className="w-full">
+                          <Button 
+                            size="sm" 
+                            className="w-full"
+                            onClick={() => {
+                              if (selectedItem) {
+                                const item = evidenceItems.find(e => e.id === selectedItem);
+                                if (item) {
+                                  // Create a download link for the evidence item
+                                  const dataStr = JSON.stringify(item, null, 2);
+                                  const blob = new Blob([dataStr], { type: 'application/json' });
+                                  const url = URL.createObjectURL(blob);
+                                  const a = document.createElement('a');
+                                  a.href = url;
+                                  a.download = `${item.name.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.json`;
+                                  a.click();
+                                  URL.revokeObjectURL(url);
+                                  toast.success('Download started', 'Evidence item downloaded');
+                                }
+                              }
+                            }}
+                          >
                             <Download className="h-4 w-4 mr-2" />
                             Download
                           </Button>
-                          <Button variant="outline" size="sm" className="w-full">
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="w-full"
+                            onClick={() => {
+                              if (selectedItem) {
+                                const item = evidenceItems.find(e => e.id === selectedItem);
+                                if (item) {
+                                  // Open edit modal or allow inline editing
+                                  const newName = prompt('Edit document name:', item.name);
+                                  if (newName && newName !== item.name) {
+                                    setEvidenceItems(prev => prev.map(e => 
+                                      e.id === selectedItem 
+                                        ? { ...e, name: newName, lastModified: new Date().toISOString() }
+                                        : e
+                                    ));
+                                    toast.success('Updated', 'Document details updated');
+                                  }
+                                }
+                              }
+                            }}
+                          >
                             <Edit className="h-4 w-4 mr-2" />
                             Edit Details
                           </Button>
