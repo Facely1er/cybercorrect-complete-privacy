@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { InternalLink, RelatedContent } from '../../components/ui/InternalLinkingHelper';
+import { usePageTitle } from '../../hooks/usePageTitle';
 import { 
   Eye, 
   CheckCircle, 
@@ -35,6 +36,8 @@ interface ProcessingActivity {
 }
 
 const GdprMapper = () => {
+  usePageTitle('GDPR Mapper');
+  
   const [activities, setActivities] = useState<ProcessingActivity[]>(() => {
     const saved = secureStorage.getItem<ProcessingActivity[]>('gdpr_activities');
     return saved || [];

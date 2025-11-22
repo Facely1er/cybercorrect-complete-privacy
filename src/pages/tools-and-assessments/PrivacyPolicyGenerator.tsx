@@ -16,8 +16,10 @@ import {
 import { Link } from 'react-router-dom';
 import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/secureStorage';
+import { usePageTitle } from '../../hooks/usePageTitle';
 
 const PrivacyPolicyGenerator = () => {
+  usePageTitle('Privacy Policy Generator');
   const [selectedRegulation, setSelectedRegulation] = useState(() => 
     secureStorage.getItem('policy_selected_regulation', 'gdpr')
   );

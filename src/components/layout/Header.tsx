@@ -25,14 +25,12 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
 
   const assessmentLinks = [
     { name: 'Privacy Assessment', path: '/assessments/privacy-assessment' },
-    { name: 'Data Governance Review', path: '/toolkit/gdpr-mapper' },
   ];
 
   const toolLinks = [
-    { name: 'Data Flow Mapper', path: '/toolkit/gdpr-mapper' },
-    { name: 'DPIA Generator', path: '/toolkit/dpia-generator' },
     { name: 'GDPR Mapper', path: '/toolkit/gdpr-mapper' },
-    { name: 'Policy Generator', path: '/toolkit/privacy-policy-generator' },
+    { name: 'DPIA Generator', path: '/toolkit/dpia-generator' },
+    { name: 'Privacy Policy Generator', path: '/toolkit/privacy-policy-generator' },
   ];
 
   const resultLinks = [
@@ -97,9 +95,9 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
               onClick={() => toggleDropdown('tools')}
               aria-expanded={activeDropdown === 'tools'}
               aria-haspopup="true"
-              aria-label="Tools menu"
+              aria-label="Toolkit menu"
             >
-              Tools
+              Toolkit
               <ChevronDown className={`ml-0.5 sm:ml-1 h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-200 ${activeDropdown === 'tools' ? 'transform rotate-180' : ''}`} aria-hidden="true" />
             </button>
             
@@ -221,7 +219,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           </div>
           
           <div className="py-2 border-b border-border dark:border-dark-support">
-            <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Tools</div>
+            <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Toolkit</div>
             {toolLinks.map(link => (
               <Link
                 key={link.name}
