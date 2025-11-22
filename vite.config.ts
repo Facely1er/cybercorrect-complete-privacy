@@ -4,10 +4,8 @@ import path from 'path'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 
 // https://vitejs.dev/config/
-import type { Plugin } from 'vite';
-
 export default defineConfig(({ mode }) => {
-  const plugins: Plugin[] = [
+  const plugins = [
     react(),
   ];
 
@@ -43,13 +41,13 @@ export default defineConfig(({ mode }) => {
         manualChunks: (id) => {
           // Vendor chunks - core dependencies
           if (id.includes('node_modules')) {
-            // React core
+            // React core - keep React and React DOM together to avoid loading issues
             if (id.includes('react') || id.includes('react-dom')) {
               return 'vendor-react';
             }
-            // React Router
+            // React Router - keep with React to ensure proper loading order
             if (id.includes('react-router')) {
-              return 'vendor-router';
+              return 'vendor-react';
             }
             // UI libraries
             if (id.includes('lucide-react')) {
@@ -66,6 +64,8 @@ export default defineConfig(({ mode }) => {
             // Other vendor dependencies
             return 'vendor';
           }
+          // Don't split context files - keep them in main bundle to ensure React is loaded
+          // Returning null/undefined means they stay in the main bundle
         },
         // Ensure consistent chunk file names
         chunkFileNames: 'assets/[name]-[hash].js',
