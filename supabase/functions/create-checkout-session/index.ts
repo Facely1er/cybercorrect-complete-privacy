@@ -1,5 +1,5 @@
-// Supabase Edge Function for creating one-time product checkout sessions
-// Generates Stripe checkout sessions for one-time product purchases
+// Supabase Edge Function for creating subscription checkout sessions
+// Generates Stripe checkout sessions for subscription purchases
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
@@ -9,12 +9,26 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-interface CheckoutItem {
-  productId: string;
-  name: string;
-  price: number;
-  quantity: number;
+interface SubscriptionTier {
+  tier: 'starter' | 'professional' | 'enterprise';
+  billingPeriod: 'monthly' | 'annual';
 }
+
+// Price IDs mapping (should be configured via environment variables or database)
+const PRICE_IDS: Record<string, Record<string, string>> = {
+  starter: {
+    monthly: Deno.env.get('STRIPE_PRICE_STARTER_MONTHLY') || '',
+    annual: Deno.env.get('STRIPE_PRICE_STARTER_ANNUAL') || '',
+  },
+  professional: {
+    monthly: Deno.env.get('STRIPE_PRICE_PROFESSIONAL_MONTHLY') || '',
+    annual: Deno.env.get('STRIPE_PRICE_PROFESSIONAL_ANNUAL') || '',
+  },
+  enterprise: {
+    monthly: Deno.env.get('STRIPE_PRICE_ENTERPRISE_MONTHLY') || '',
+    annual: Deno.env.get('STRIPE_PRICE_ENTERPRISE_ANNUAL') || '',
+  },
+};
 
 serve(async (req) => {
   // Handle CORS preflight
@@ -37,45 +51,45 @@ serve(async (req) => {
     }
 
     // Parse request body
-    const { items, userId, email, successUrl, cancelUrl } = await req.json();
+    const { tier, billingPeriod, userId, email }: SubscriptionTier & { userId?: string; email?: string } = await req.json();
 
-    if (!items || items.length === 0) {
+    if (!tier || !billingPeriod) {
       return new Response(
-        JSON.stringify({ error: 'No items provided' }),
+        JSON.stringify({ error: 'Tier and billing period are required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Build line items for Stripe API (form-encoded format)
+    const priceId = PRICE_IDS[tier]?.[billingPeriod];
+    if (!priceId) {
+      return new Response(
+        JSON.stringify({ error: `Price ID not configured for ${tier} ${billingPeriod}` }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Build form data for Stripe API
     const formData = new URLSearchParams();
-    formData.append('mode', 'payment');
-    formData.append('success_url', successUrl || `${Deno.env.get('SITE_URL') || 'http://localhost:5173'}/store/success?session_id={CHECKOUT_SESSION_ID}`);
-    formData.append('cancel_url', cancelUrl || `${Deno.env.get('SITE_URL') || 'http://localhost:5173'}/store`);
+    formData.append('mode', 'subscription');
+    formData.append('success_url', `${Deno.env.get('SITE_URL') || 'http://localhost:5173'}/subscription/success?session_id={CHECKOUT_SESSION_ID}`);
+    formData.append('cancel_url', `${Deno.env.get('SITE_URL') || 'http://localhost:5173'}/subscription`);
+    formData.append('line_items[0][price]', priceId);
+    formData.append('line_items[0][quantity]', '1');
+    
+    if (userId) {
+      formData.append('client_reference_id', userId);
+    }
     
     if (email) {
       formData.append('customer_email', email);
     }
-    
-    formData.append('allow_promotion_codes', 'true');
-
-    // Add line items in Stripe's expected format
-    items.forEach((item: CheckoutItem, index: number) => {
-      const prefix = `line_items[${index}]`;
-      formData.append(`${prefix}[price_data][currency]`, 'usd');
-      formData.append(`${prefix}[price_data][product_data][name]`, item.name);
-      formData.append(`${prefix}[price_data][product_data][metadata][product_id]`, item.productId);
-      formData.append(`${prefix}[price_data][unit_amount]`, Math.round(item.price * 100).toString());
-      formData.append(`${prefix}[quantity]`, item.quantity.toString());
-    });
 
     // Add metadata
-    formData.append('metadata[purchase_type]', 'one_time');
-    formData.append('metadata[product_ids]', items.map((item: CheckoutItem) => item.productId).join(','));
+    formData.append('metadata[tier]', tier);
+    formData.append('metadata[billing_period]', billingPeriod);
+    formData.append('metadata[price_id]', priceId);
     if (userId) {
       formData.append('metadata[user_id]', userId);
-    }
-    if (email) {
-      formData.append('metadata[customer_email]', email);
     }
 
     // Create Stripe checkout session
@@ -116,9 +130,8 @@ serve(async (req) => {
   } catch (error) {
     console.error('Error creating checkout session:', error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: error instanceof Error ? error.message : 'Internal server error' }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
 });
-
