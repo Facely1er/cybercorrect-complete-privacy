@@ -206,17 +206,16 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                         className="relative flex items-center"
                       >
                         <div className="flex items-center">
-                          <button
-                            type="button"
+                          <Link
+                            to={item.path}
                             onClick={() => {
                               setActiveDropdown(null);
-                              navigate(item.path);
                             }}
                             className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium cursor-pointer ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
                           >
                             <item.icon className="mr-2 h-4 w-4" />
                             {item.name}
-                          </button>
+                          </Link>
                           <button
                             type="button"
                             className="p-2 text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200"
