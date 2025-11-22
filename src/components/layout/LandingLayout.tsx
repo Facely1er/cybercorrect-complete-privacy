@@ -114,11 +114,13 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       if (activeDropdown) {
         const dropdownElement = dropdownRefs.current[activeDropdown];
         const target = event.target as Node;
-        // Don't close if clicking inside the dropdown container
+        // Don't close if clicking inside the dropdown container or on the button
         if (dropdownElement) {
           const isClickInside = dropdownElement.contains(target);
-          // Only close if clicking outside the dropdown menu
-          if (!isClickInside) {
+          // Check if clicking on the button that opened the dropdown
+          const button = (target as Element).closest('button[aria-haspopup="true"]');
+          // Only close if clicking outside the dropdown menu and not on the button
+          if (!isClickInside && !button) {
             setActiveDropdown(null);
           }
         }
@@ -198,7 +200,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   return (
     <div className={`min-h-screen flex flex-col ${darkMode ? 'dark' : ''} bg-surface dark:bg-dark-bg`}>
       <nav className={`fixed top-0 left-0 right-0 z-20 bg-surface/90 dark:bg-dark-surface/90 backdrop-blur-md transition-all duration-300 ${isScrolled ? 'py-1' : 'py-1'}`}>
-        <div className="container mx-auto px-2 sm:px-4 max-w-full overflow-hidden">
+        <div className="container mx-auto px-2 sm:px-4 max-w-full">
           <div className="flex justify-between items-center h-14 gap-2 sm:gap-4 min-w-0">
             {/* Column 1: Logo (left) */}
             <div className="flex items-center flex-shrink-0 min-w-0">
@@ -208,7 +210,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
             </div>
             
             {/* Column 2: Navigation (center) */}
-            <div className="hidden lg:flex items-center flex-1 justify-center min-w-0 overflow-hidden">
+            <div className="hidden lg:flex items-center flex-1 justify-center min-w-0">
                 {mainNavItems?.map((item: NavItem) => {
                   if (item.dropdown) {
                     return (
@@ -243,6 +245,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                             }}
                             className="absolute left-0 top-full mt-1 w-56 bg-white dark:bg-dark-surface rounded-md shadow-lg border border-support-gray dark:border-dark-support z-[100]"
                             onClick={(e) => e.stopPropagation()}
+                            onMouseDown={(e) => e.stopPropagation()}
                           >
                             <div className="py-1">
                               {/* Only show overview link if the main path is different from all dropdown items */}
