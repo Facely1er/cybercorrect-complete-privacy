@@ -3,16 +3,17 @@ import { Outlet } from 'react-router-dom';
 import {
   Menu,
   X,
-  Puzzle as PuzzlePiece,
   CircleDollarSign,
   User,
+  Users,
   SunMoon,
   Moon,
   HelpCircle,
   Home,
   ArrowRight,
   Eye,
-  ChevronDown
+  ChevronDown,
+  Sparkles
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
@@ -152,14 +153,24 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       icon: Home
     },
     {
-      name: 'Compliance',
-      path: '/documentation/platform-overview',
-      icon: PuzzlePiece,
+      name: 'Features',
+      path: '/features',
+      icon: Sparkles,
+      dropdown: true,
+      dropdownItems: [
+        { name: 'Platform Overview', path: '/documentation/platform-overview' }
+      ]
+    },
+    {
+      name: 'Roles',
+      path: '/roles/data-protection-officer',
+      icon: Users,
       dropdown: true,
       dropdownItems: [
         { name: 'Data Protection Officer', path: '/roles/data-protection-officer' },
         { name: 'Legal Counsel', path: '/roles/legal-counsel' },
-        { name: 'Data Steward', path: '/roles/data-steward' }
+        { name: 'Data Steward', path: '/roles/data-steward' },
+        { name: 'Privacy Officer', path: '/roles/privacy-officer' }
       ]
     },
     {
@@ -243,17 +254,20 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                             onClick={(e) => e.stopPropagation()}
                           >
                             <div className="py-1">
-                              <Link
-                                to={item.path}
-                                className={`flex items-center px-4 py-2 text-sm font-medium border-b border-support-gray dark:border-dark-support ${
-                                  location.pathname === item.path 
-                                    ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' 
-                                    : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'
-                                }`}
-                                onClick={() => setActiveDropdown(null)}
-                              >
-                                Overview
-                              </Link>
+                              {/* Only show overview link if the main path is different from all dropdown items */}
+                              {!item.dropdownItems?.some(dropdownItem => dropdownItem.path === item.path) && (
+                                <Link
+                                  to={item.path}
+                                  className={`flex items-center px-4 py-2 text-sm font-medium border-b border-support-gray dark:border-dark-support ${
+                                    location.pathname === item.path 
+                                      ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' 
+                                      : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'
+                                  }`}
+                                  onClick={() => setActiveDropdown(null)}
+                                >
+                                  {item.name === 'Features' ? 'Features Overview' : 'Overview'}
+                                </Link>
+                              )}
                               {item.dropdownItems?.map((dropdownItem: { name: string; path: string }) => (
                                 <Link
                                   key={dropdownItem.name}
@@ -362,13 +376,16 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                       <item.icon className="mr-3 h-5 w-5 inline" />
                       {item.name}
                     </div>
-                    <Link
-                      to={item.path}
-                      className={`flex items-center px-6 py-2 text-base font-medium rounded-md ${location.pathname === item.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Overview
-                    </Link>
+                    {/* Only show overview link if the main path is different from all dropdown items */}
+                    {!item.dropdownItems?.some(dropdownItem => dropdownItem.path === item.path) && (
+                      <Link
+                        to={item.path}
+                        className={`flex items-center px-6 py-2 text-base font-medium rounded-md ${location.pathname === item.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {item.name === 'Features' ? 'Features Overview' : 'Overview'}
+                      </Link>
+                    )}
                     {item.dropdownItems?.map((dropdownItem: { name: string; path: string }) => (
                       <Link
                         key={dropdownItem.name}
