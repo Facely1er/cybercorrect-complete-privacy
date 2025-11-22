@@ -154,7 +154,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
     },
     {
       name: 'Compliance',
-      path: '/documentation/platform-overview',
+      path: '/compliance',
       icon: PuzzlePiece,
       dropdown: true,
       dropdownItems: [
@@ -211,17 +211,22 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                           }
                         }}
                       >
+                        <Link
+                          to={item.path}
+                          className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
+                        >
+                          <item.icon className="mr-2 h-4 w-4" />
+                          {item.name}
+                        </Link>
                         <button
                           type="button"
-                          className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
+                          className="flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-1 py-2"
                           onClick={(e) => toggleDropdown(item.name, e)}
                           aria-expanded={activeDropdown === item.name}
                           aria-haspopup="true"
                           aria-label={`Toggle ${item.name} menu`}
                         >
-                          <item.icon className="mr-2 h-4 w-4" />
-                          {item.name}
-                          <ChevronDown className={`ml-1 h-3 w-3 transition-transform ${activeDropdown === item.name ? 'transform rotate-180' : ''}`} />
+                          <ChevronDown className={`h-3 w-3 transition-transform ${activeDropdown === item.name ? 'transform rotate-180' : ''}`} />
                         </button>
                         
                         {activeDropdown === item.name && (
@@ -345,10 +350,14 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
               if (item.dropdown) {
                 return (
                   <div key={item.name}>
-                    <div className="px-3 py-2 text-sm font-medium text-foreground dark:text-dark-text">
-                      <item.icon className="mr-3 h-5 w-5 inline" />
+                    <Link
+                      to={item.path}
+                      className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${location.pathname === item.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <item.icon className="mr-3 h-5 w-5" />
                       {item.name}
-                    </div>
+                    </Link>
                     <Link
                       to={item.path}
                       className={`flex items-center px-6 py-2 text-base font-medium rounded-md ${location.pathname === item.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
