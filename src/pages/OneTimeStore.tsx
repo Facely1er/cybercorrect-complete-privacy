@@ -377,7 +377,7 @@ const OneTimeStore = () => {
                 
                 const inCart = cart.includes(product.id);
 
-              return (
+                return (
                 <Card key={product.id} className="hover:shadow-xl transition-shadow duration-300">
                   <CardContent className="p-8">
                     {/* Header */}
@@ -469,6 +469,7 @@ const OneTimeStore = () => {
           </div>
         </div>
       </section>
+      )}
 
       {/* Comparison with Subscriptions */}
       <section className="py-16 bg-muted/20 dark:bg-dark-support/5">

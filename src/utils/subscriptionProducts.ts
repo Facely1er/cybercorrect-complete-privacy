@@ -79,8 +79,8 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
       'Basic risk analytics'
     ],
     stripePriceId: {
-      monthly: process.env.VITE_STRIPE_PRICE_STARTER_MONTHLY || '',
-      annual: process.env.VITE_STRIPE_PRICE_STARTER_ANNUAL || ''
+      monthly: import.meta.env.VITE_STRIPE_PRICE_STARTER_MONTHLY || '',
+      annual: import.meta.env.VITE_STRIPE_PRICE_STARTER_ANNUAL || ''
     }
   },
   {
@@ -123,8 +123,8 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
       'Quarterly privacy reviews'
     ],
     stripePriceId: {
-      monthly: process.env.VITE_STRIPE_PRICE_PROFESSIONAL_MONTHLY || '',
-      annual: process.env.VITE_STRIPE_PRICE_PROFESSIONAL_ANNUAL || ''
+      monthly: import.meta.env.VITE_STRIPE_PRICE_PROFESSIONAL_MONTHLY || '',
+      annual: import.meta.env.VITE_STRIPE_PRICE_PROFESSIONAL_ANNUAL || ''
     }
   },
   {
@@ -164,8 +164,8 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
       'Training and certification programs'
     ],
     stripePriceId: {
-      monthly: process.env.VITE_STRIPE_PRICE_ENTERPRISE_MONTHLY || '',
-      annual: process.env.VITE_STRIPE_PRICE_ENTERPRISE_ANNUAL || ''
+      monthly: import.meta.env.VITE_STRIPE_PRICE_ENTERPRISE_MONTHLY || '',
+      annual: import.meta.env.VITE_STRIPE_PRICE_ENTERPRISE_ANNUAL || ''
     }
   }
 ];

@@ -471,7 +471,7 @@ export async function checkSubscriptionAccess(feature: string): Promise<boolean>
 export async function isOnTrial(): Promise<boolean> {
   try {
     const subscription = await getUserSubscription();
-    return subscription?.status === 'trialing' ?? false;
+    return subscription?.status === 'trialing' || false;
   } catch (error) {
     console.warn('Error checking trial status:', error);
     return false;
