@@ -2,14 +2,49 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+  
+  # Don't rewrite if the request is for an existing file
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
+  
+  # Don't rewrite if the request is for an existing directory
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  
+  # Don't rewrite assets directory - serve files directly
+  RewriteCond %{REQUEST_URI} ^/assets/
+  RewriteRule ^ - [L]
+  
+  # Don't rewrite other static files (images, fonts, etc.)
+  RewriteCond %{REQUEST_URI} \.(ico|png|jpg|jpeg|gif|svg|webp|woff|woff2|ttf|eot|css|js|map|json|xml|txt|pdf)$ [NC]
+  RewriteRule ^ - [L]
+  
+  # Rewrite everything else to index.html for SPA routing
   RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]
+</IfModule>
+
+# MIME types for JavaScript modules
+<IfModule mod_mime.c>
+  AddType application/javascript js
+  AddType application/javascript mjs
+  AddType text/javascript jsx
+  AddType application/json json
+  AddType application/wasm wasm
 </IfModule>
 
 # Security headers
 <IfModule mod_headers.c>
+  # Set proper Content-Type for JavaScript files
+  <FilesMatch "\.(js|mjs|jsx)$">
+    Header set Content-Type "application/javascript; charset=utf-8"
+  </FilesMatch>
+  
+  # Set proper Content-Type for WASM files
+  <FilesMatch "\.wasm$">
+    Header set Content-Type "application/wasm"
+  </FilesMatch>
+  
   Header set X-Frame-Options "DENY"
   Header set X-Content-Type-Options "nosniff"
   Header set X-XSS-Protection "1; mode=block"
