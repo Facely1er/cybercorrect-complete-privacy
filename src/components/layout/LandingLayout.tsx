@@ -113,12 +113,11 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       if (activeDropdown) {
         const dropdownElement = dropdownRefs.current[activeDropdown];
         const target = event.target as Node;
-        // Don't close if clicking inside the dropdown container or on a link
+        // Don't close if clicking inside the dropdown container
         if (dropdownElement) {
           const isClickInside = dropdownElement.contains(target);
-          const isLink = (target as Element)?.closest('a') !== null;
-          // Only close if clicking outside and not on a link
-          if (!isClickInside && !isLink) {
+          // Only close if clicking outside the dropdown menu
+          if (!isClickInside) {
             setActiveDropdown(null);
           }
         }
@@ -205,25 +204,25 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                       <div 
                         key={item.name} 
                         className="relative flex items-center"
-                        ref={(el) => {
-                          if (el) {
-                            dropdownRefs.current[item.name] = el;
-                          }
-                        }}
                       >
                         <div className="flex items-center">
-                          <Link
-                            to={item.path}
-                            className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setActiveDropdown(null);
+                              navigate(item.path);
+                            }}
+                            className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium cursor-pointer ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
                           >
                             <item.icon className="mr-2 h-4 w-4" />
                             {item.name}
-                          </Link>
+                          </button>
                           <button
                             type="button"
                             className="p-2 text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200"
                             onClick={(e) => {
                               e.stopPropagation();
+                              e.preventDefault();
                               toggleDropdown(item.name, e);
                             }}
                             aria-expanded={activeDropdown === item.name}
@@ -236,6 +235,11 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                         
                         {activeDropdown === item.name && (
                           <div 
+                            ref={(el) => {
+                              if (el) {
+                                dropdownRefs.current[item.name] = el;
+                              }
+                            }}
                             className="absolute left-0 top-full mt-1 w-56 bg-white dark:bg-dark-surface rounded-md shadow-lg border border-support-gray dark:border-dark-support z-[100]"
                             onClick={(e) => e.stopPropagation()}
                           >
