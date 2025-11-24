@@ -17,72 +17,78 @@ const PrivacyAssessment = () => {
     {
       title: "Identify",
       description: "Develop understanding to manage privacy risk",
-      estimatedTime: "6min",
+      estimatedTime: "7min",
       complexity: "Intermediate" as const,
-      questionCount: 6,
+      questionCount: 7,
       questions: [
         {
           id: "ID-P1",
-          question: "Have you inventoried data processing activities and systems?",
-          control: "NIST Privacy ID.IM-P1",
-          guidance: "Inventory and map data processing activities and systems containing personal data"
+          question: "Have you inventoried data processing activities and systems, including AI systems?",
+          control: "NIST Privacy ID.IM-P1 (aligned with CSF 2.0 ID.AM)",
+          guidance: "Inventory and map data processing activities and systems containing personal data, including AI systems and automated decision-making processes"
         },
         {
           id: "ID-P2",
-          question: "Have you identified the categories of personal data being processed?",
+          question: "Have you identified the categories of personal data being processed, including data used in AI training?",
           control: "NIST Privacy ID.IM-P2",
-          guidance: "Document types of data, categories of individuals, and processing purposes"
+          guidance: "Document types of data, categories of individuals, processing purposes, and data used in AI model training and inference"
         },
         {
           id: "ID-P3",
-          question: "Have you identified and documented data flows and processing activities?",
+          question: "Have you identified and documented data flows and processing activities, including AI data pipelines?",
           control: "NIST Privacy ID.IM-P3",
-          guidance: "Create data flow diagrams or maps showing how personal data moves through systems"
+          guidance: "Create data flow diagrams or maps showing how personal data moves through systems, including AI training and inference pipelines"
         },
         {
           id: "ID-P4",
-          question: "Have you identified the environment your data processing systems operate in?",
-          control: "NIST Privacy ID.IM-P4",
-          guidance: "Document the technical, regulatory, and business environment"
+          question: "Have you identified the environment your data processing systems operate in, including cloud and AI infrastructure?",
+          control: "NIST Privacy ID.IM-P4 (aligned with CSF 2.0 ID.AM-2)",
+          guidance: "Document the technical, regulatory, and business environment, including cloud services and AI infrastructure"
         },
         {
           id: "ID-P5",
-          question: "Have you conducted privacy risk assessments for processing activities?",
-          control: "NIST Privacy ID.RA-P",
-          guidance: "Assess privacy risks for individuals associated with data processing"
+          question: "Have you conducted privacy risk assessments for processing activities, including AI systems?",
+          control: "NIST Privacy ID.RA-P (aligned with CSF 2.0 ID.RA)",
+          guidance: "Assess privacy risks for individuals associated with data processing, including risks from AI systems and automated decision-making"
         },
         {
           id: "ID-P6",
-          question: "Can you identify where privacy requirements apply to your organization?",
+          question: "Can you identify where privacy requirements apply to your organization, including AI-specific regulations?",
           control: "NIST Privacy ID.DE-P",
-          guidance: "Determine applicable regulations and requirements for privacy"
+          guidance: "Determine applicable regulations and requirements for privacy, including AI governance requirements and algorithmic transparency obligations"
+        },
+        {
+          id: "ID-P7",
+          question: "Have you identified third-party service providers and their roles in processing personal data, including AI service providers?",
+          control: "NIST Privacy ID.IM-P (aligned with CSF 2.0 ID.SC)",
+          guidance: "Identify and document third-party service providers, including AI service providers, cloud providers, and data processors, and their roles in data processing"
         }
       ]
     },
     {
       title: "Govern",
-      description: "Develop and implement privacy governance structure",
-      estimatedTime: "6min",
+      description: "Develop and implement privacy governance structure aligned with CSF 2.0",
+      estimatedTime: "7min",
       complexity: "Advanced" as const,
-      questionCount: 6,
+      questionCount: 7,
       questions: [
         {
           id: "GV-P1",
-          question: "Do you have documented privacy policies and procedures?",
-          control: "NIST Privacy GV.PO-P",
-          guidance: "Establish and maintain privacy policies and procedures"
+          question: "Do you have documented privacy policies and procedures that align with your risk management strategy?",
+          control: "NIST Privacy GV.PO-P (aligned with CSF 2.0 GV.RM)",
+          guidance: "Establish and maintain privacy policies and procedures integrated with organizational risk management strategy"
         },
         {
           id: "GV-P2",
-          question: "Are privacy roles and responsibilities clearly defined?",
-          control: "NIST Privacy GV.RR-P",
-          guidance: "Establish privacy roles and responsibilities for the workforce"
+          question: "Are privacy roles and responsibilities clearly defined and integrated with cybersecurity governance?",
+          control: "NIST Privacy GV.RR-P (aligned with CSF 2.0 GV.RR)",
+          guidance: "Establish privacy roles and responsibilities for the workforce, aligned with cybersecurity governance structure"
         },
         {
           id: "GV-P3",
-          question: "Is there a process for managing privacy risks?",
-          control: "NIST Privacy GV.RM-P",
-          guidance: "Develop and implement privacy risk management processes"
+          question: "Is there a comprehensive process for managing privacy risks that coordinates with cybersecurity risk management?",
+          control: "NIST Privacy GV.RM-P (aligned with CSF 2.0 GV.RM)",
+          guidance: "Develop and implement privacy risk management processes that coordinate with cybersecurity risk management"
         },
         {
           id: "GV-P4",
@@ -92,15 +98,21 @@ const PrivacyAssessment = () => {
         },
         {
           id: "GV-P5",
-          question: "Do you integrate privacy requirements into procurement processes?",
-          control: "NIST Privacy GV.PO-P4",
-          guidance: "Include privacy requirements in procurement activities and contracts"
+          question: "Do you integrate privacy requirements into procurement processes and supply chain risk management?",
+          control: "NIST Privacy GV.PO-P4 (aligned with CSF 2.0 GV.SC)",
+          guidance: "Include privacy requirements in procurement activities, contracts, and supply chain risk management"
         },
         {
           id: "GV-P6",
-          question: "Is privacy awareness and training provided to employees?",
-          control: "NIST Privacy GV.AT-P",
-          guidance: "Conduct privacy awareness and training activities for all staff"
+          question: "Is privacy awareness and training provided to employees, integrated with cybersecurity awareness?",
+          control: "NIST Privacy GV.AT-P (aligned with CSF 2.0 GV.AT)",
+          guidance: "Conduct privacy awareness and training activities for all staff, coordinated with cybersecurity awareness programs"
+        },
+        {
+          id: "GV-P7",
+          question: "Do you have governance processes for managing AI systems and their privacy implications?",
+          control: "NIST Privacy GV.PO-P (AI Risk Management)",
+          guidance: "Establish governance processes for AI systems that address privacy risks and align with organizational privacy policies"
         }
       ]
     },
@@ -196,46 +208,52 @@ const PrivacyAssessment = () => {
     },
     {
       title: "Protect",
-      description: "Develop and implement data protection measures",
-      estimatedTime: "6min",
+      description: "Develop and implement data protection measures aligned with CSF 2.0 safeguards",
+      estimatedTime: "7min",
       complexity: "Advanced" as const,
-      questionCount: 6,
+      questionCount: 7,
       questions: [
         {
           id: "PR-P1",
-          question: "Are security measures implemented to protect personal data?",
-          control: "NIST Privacy PR.DS-P",
-          guidance: "Implement security measures to protect personal data in systems"
+          question: "Are security measures implemented to protect personal data, coordinated with cybersecurity protections?",
+          control: "NIST Privacy PR.DS-P (aligned with CSF 2.0 PR.DS)",
+          guidance: "Implement security measures to protect personal data in systems, coordinated with cybersecurity data security controls"
         },
         {
           id: "PR-P2",
-          question: "Is data encrypted in transit and at rest where appropriate?",
-          control: "NIST Privacy PR.DS-P1",
-          guidance: "Encrypt personal data in transit and at rest"
+          question: "Is data encrypted in transit and at rest where appropriate, using current cryptographic standards?",
+          control: "NIST Privacy PR.DS-P1 (aligned with CSF 2.0 PR.DS-1)",
+          guidance: "Encrypt personal data in transit and at rest using current cryptographic standards and key management practices"
         },
         {
           id: "PR-P3",
-          question: "Do you maintain secure data backups?",
-          control: "NIST Privacy PR.DS-P4",
-          guidance: "Implement secure data backups with appropriate protections"
+          question: "Do you maintain secure data backups with appropriate privacy protections?",
+          control: "NIST Privacy PR.DS-P4 (aligned with CSF 2.0 PR.DS-4)",
+          guidance: "Implement secure data backups with appropriate protections for personal data, including access controls and encryption"
         },
         {
           id: "PR-P4",
-          question: "Are privacy-by-design principles incorporated into system development?",
-          control: "NIST Privacy PR.AT-P1",
-          guidance: "Incorporate privacy-by-design principles in system development"
+          question: "Are privacy-by-design principles incorporated into system development and AI system design?",
+          control: "NIST Privacy PR.AT-P1 (AI Privacy by Design)",
+          guidance: "Incorporate privacy-by-design principles in system development, including AI systems and automated decision-making"
         },
         {
           id: "PR-P5",
-          question: "Is there a process for handling personal data breaches?",
-          control: "NIST Privacy PR.AC-P4",
-          guidance: "Establish procedures to respond to personal data breaches"
+          question: "Is there a process for handling personal data breaches that coordinates with incident response?",
+          control: "NIST Privacy PR.AC-P4 (aligned with CSF 2.0 RS.RP)",
+          guidance: "Establish procedures to respond to personal data breaches, coordinated with cybersecurity incident response procedures"
         },
         {
           id: "PR-P6",
-          question: "Are privacy risk assessments conducted for new systems and processes?",
-          control: "NIST Privacy PR.PO-P2",
-          guidance: "Conduct privacy impact assessments for new systems and processes"
+          question: "Are privacy risk assessments conducted for new systems, processes, and AI implementations?",
+          control: "NIST Privacy PR.PO-P2 (AI Risk Assessment)",
+          guidance: "Conduct privacy impact assessments for new systems, processes, and AI implementations, including algorithmic impact assessments"
+        },
+        {
+          id: "PR-P7",
+          question: "Do you implement access controls for personal data that align with identity and access management practices?",
+          control: "NIST Privacy PR.AC-P (aligned with CSF 2.0 PR.AC)",
+          guidance: "Implement access controls for personal data that coordinate with identity and access management, including role-based access and least privilege"
         }
       ]
     }
@@ -349,7 +367,7 @@ const PrivacyAssessment = () => {
       overallScore: getOverallScore(),
       sectionScores,
       assessmentType: 'privacy',
-      frameworkName: 'NIST Privacy Framework',
+      frameworkName: 'NIST Privacy Framework v1.1 (draft)',
       completedDate: new Date().toLocaleDateString('en-US', { 
         year: 'numeric', 
         month: 'long', 
