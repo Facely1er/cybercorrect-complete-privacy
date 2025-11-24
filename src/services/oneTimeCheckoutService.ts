@@ -59,14 +59,14 @@ export async function createOneTimeCheckoutSession(
     const stripeKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
     if (!stripeKey) {
       logWarning('Stripe not configured. One-time checkout unavailable.');
-      // Return mock session in dev, null in prod (graceful degradation)
+      // Return mock session in dev, throw error in prod
       if (import.meta.env.DEV) {
         return {
           sessionId: `mock_session_${Date.now()}`,
           url: successUrl || `/store/success?session_id=mock_${Date.now()}`,
         };
       }
-      return null;
+      throw new Error('Stripe is not configured. Please contact support to enable payment processing.');
     }
 
     // Get current user (optional for one-time purchases)
@@ -84,44 +84,61 @@ export async function createOneTimeCheckoutSession(
       // Continue with guest checkout
     }
 
-    // If Supabase is configured, use Edge Function
-    if (isSupabaseConfigured()) {
-      try {
-        const { data, error } = await supabase.functions.invoke('create-one-time-checkout-session', {
-          body: {
-            items,
-            userId: user?.id,
-            email: user?.email,
-            successUrl: successUrl || `${window.location.origin}/store/success`,
-            cancelUrl: cancelUrl || `${window.location.origin}/store`,
-          },
-        });
-
-        if (error) {
-          logError(error instanceof Error ? error : new Error('Edge Function error'), { context: 'one_time_checkout', error });
-          // Return error details for better user feedback
-          if (error.message) {
-            throw new Error(error.message);
-          }
-          throw new Error('Failed to create checkout session. Please try again or contact support.');
-        } else if (data) {
-          // Check if data contains an error
-          if (data.error) {
-            throw new Error(data.error);
-          }
-          return data as CheckoutSession;
-        }
-      } catch (invokeError) {
-        logError(invokeError instanceof Error ? invokeError : new Error('Error invoking checkout function'), { context: 'one_time_checkout' });
-        // Re-throw to show error to user
-        if (invokeError instanceof Error) {
-          throw invokeError;
-        }
-        throw new Error('Failed to connect to payment service. Please check your connection and try again.');
+    // Check if Supabase is configured
+    if (!isSupabaseConfigured()) {
+      if (import.meta.env.DEV) {
+        logWarning('Supabase not configured, using mock session');
+        return {
+          sessionId: `mock_session_${Date.now()}`,
+          url: successUrl || `/store/success?session_id=mock_${Date.now()}`,
+        };
       }
+      throw new Error('Payment service is not configured. Please contact support to enable payment processing.');
     }
 
-    // Fallback: Return mock session for development (never throw)
+    // Use Edge Function to create checkout session
+    try {
+      const { data, error } = await supabase.functions.invoke('create-one-time-checkout-session', {
+        body: {
+          items,
+          userId: user?.id,
+          email: user?.email,
+          successUrl: successUrl || `${window.location.origin}/store/success`,
+          cancelUrl: cancelUrl || `${window.location.origin}/store`,
+        },
+      });
+
+      if (error) {
+        logError(error instanceof Error ? error : new Error('Edge Function error'), { context: 'one_time_checkout', error });
+        // Provide specific error message
+        if (error.message) {
+          // Check for common error messages
+          if (error.message.includes('not configured') || error.message.includes('not found')) {
+            throw new Error('Payment service is not properly configured. Please contact support.');
+          }
+          throw new Error(error.message);
+        }
+        throw new Error('Failed to create checkout session. The payment service may be unavailable. Please try again or contact support.');
+      } else if (data) {
+        // Check if data contains an error
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        return data as CheckoutSession;
+      } else {
+        // No data and no error - unexpected
+        throw new Error('Payment service returned an unexpected response. Please try again or contact support.');
+      }
+    } catch (invokeError) {
+      logError(invokeError instanceof Error ? invokeError : new Error('Error invoking checkout function'), { context: 'one_time_checkout' });
+      // Re-throw to show error to user
+      if (invokeError instanceof Error) {
+        throw invokeError;
+      }
+      throw new Error('Failed to connect to payment service. Please check your connection and try again.');
+    }
+
+    // Fallback: Return mock session for development
     if (import.meta.env.DEV) {
       logWarning('Using mock checkout session (Stripe/Supabase not configured or failed)');
       return {
@@ -130,8 +147,8 @@ export async function createOneTimeCheckoutSession(
       };
     }
 
-    // In production, return null if all services fail (graceful degradation)
-    return null;
+    // In production, throw error if all services fail
+    throw new Error('Payment service is currently unavailable. Please check your connection and try again, or contact support if the problem persists.');
   } catch (error) {
     // Log error for monitoring
     logError(

@@ -127,6 +127,7 @@ const Checkout = () => {
       const session = await createOneTimeCheckoutSession(items, successUrl, cancelUrl);
 
       if (!session || !session.url) {
+        // This should not happen if error handling is correct, but keep as safety check
         setError('Unable to create checkout session. Please try again.');
         toast.error(
           'Checkout Unavailable', 
