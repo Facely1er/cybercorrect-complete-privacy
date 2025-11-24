@@ -42,15 +42,22 @@ export async function createCheckoutSession(
     // Check if Stripe is configured
     const stripeKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
     if (!stripeKey) {
-      console.warn('Stripe not configured. Subscription checkout unavailable.');
-      // Return mock session in dev, null in prod (graceful degradation)
+      const errorMsg = 'Stripe not configured. VITE_STRIPE_PUBLISHABLE_KEY environment variable is missing.';
+      console.error(errorMsg);
+      console.error('To fix this:');
+      console.error('1. Create/update .env file in project root with: VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...');
+      console.error('2. Restart your dev server (npm run dev)');
+      console.error('3. For production, set the variable in your deployment platform');
+      
+      // Return mock session in dev, throw error in prod
       if (import.meta.env.DEV) {
+        console.warn('Using mock checkout session in development mode');
         return {
           sessionId: `mock_session_${Date.now()}`,
           url: `/subscription/success?tier=${tier}&billing=${billingPeriod}`,
         };
       }
-      return null;
+      throw new Error('Stripe is not configured. Please set VITE_STRIPE_PUBLISHABLE_KEY environment variable and restart the application.');
     }
 
     // Get current user (with error handling)

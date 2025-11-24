@@ -23,7 +23,8 @@
     "verify:migrations": "tsx scripts/verify-migrations-status.ts",
     "verify:production": "tsx scripts/verify-production-ready.ts",
     "verify:deployment": "tsx scripts/verify-post-deployment.ts",
-    "configure:secrets": "tsx scripts/configure-edge-function-secrets-cli.ts"
+    "configure:secrets": "tsx scripts/configure-edge-function-secrets-cli.ts",
+    "verify:stripe": "tsx scripts/verify-stripe-integration.ts"
   },
   "dependencies": {
     "@sentry/react": "^10.20.0",
