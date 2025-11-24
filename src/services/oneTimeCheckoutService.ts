@@ -6,7 +6,7 @@
  */
 
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
-import { logWarning, logError } from '../utils/logger';
+import { logWarning, logError, logDebug } from '../utils/logger';
 
 export interface CheckoutSession {
   sessionId: string;
@@ -98,28 +98,49 @@ export async function createOneTimeCheckoutSession(
 
     // Use Edge Function to create checkout session
     try {
+      const requestBody = {
+        items,
+        userId: user?.id,
+        email: user?.email,
+        successUrl: successUrl || `${window.location.origin}/store/success`,
+        cancelUrl: cancelUrl || `${window.location.origin}/store`,
+      };
+      
+      logDebug('Invoking Edge Function', { 
+        function: 'create-one-time-checkout-session',
+        itemsCount: items.length,
+        hasUser: !!user,
+      });
+      
       const { data, error } = await supabase.functions.invoke('create-one-time-checkout-session', {
-        body: {
-          items,
-          userId: user?.id,
-          email: user?.email,
-          successUrl: successUrl || `${window.location.origin}/store/success`,
-          cancelUrl: cancelUrl || `${window.location.origin}/store`,
-        },
+        body: requestBody,
       });
 
       if (error) {
-        logError(error instanceof Error ? error : new Error('Edge Function error'), { context: 'one_time_checkout', error });
+        logError(error instanceof Error ? error : new Error('Edge Function error'), { 
+          context: 'one_time_checkout', 
+          error: error,
+          errorMessage: error.message,
+          errorStatus: (error as any).status,
+        });
+        
         // Provide specific error message
         if (error.message) {
           // Check for common error messages
           if (error.message.includes('not configured') || error.message.includes('not found')) {
             throw new Error('Payment service is not properly configured. Please contact support.');
           }
+          if (error.message.includes('Function not found') || error.message.includes('404')) {
+            throw new Error('Payment service is not deployed. Please contact support.');
+          }
+          if (error.message.includes('CORS') || error.message.includes('cors')) {
+            throw new Error('Payment service configuration error. Please contact support.');
+          }
           throw new Error(error.message);
         }
         throw new Error('Failed to create checkout session. The payment service may be unavailable. Please try again or contact support.');
       } else if (data) {
+        logDebug('Edge Function response received', { hasData: !!data, hasUrl: !!data?.url });
         // Check if data contains an error
         if (data.error) {
           throw new Error(data.error);
