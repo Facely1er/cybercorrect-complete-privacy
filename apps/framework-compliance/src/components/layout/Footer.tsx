@@ -130,7 +130,7 @@ const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a 
-                    href={import.meta.env.VITE_MARKETING_SITE_URL || 'https://cybercorrect.com'} 
+                    href={import.meta.env.VITE_MARKETING_SITE_URL || 'https://www.cybercorrect.com'} 
                     className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -141,7 +141,7 @@ const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a 
-                    href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://portal.cybercorrect.com'} 
+                    href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'} 
                     className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
                     target="_blank"
                     rel="noopener noreferrer"

@@ -52,20 +52,20 @@ npm install
 
 **apps/marketing-site/.env**
 ```env
-VITE_FRAMEWORK_COMPLIANCE_URL=https://app.cybercorrect.com
-VITE_PRIVACY_PORTAL_URL=https://portal.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 ```
 
 **apps/framework-compliance/.env** (add if not exists)
 ```env
-VITE_MARKETING_SITE_URL=https://cybercorrect.com
-VITE_PRIVACY_PORTAL_URL=https://portal.cybercorrect.com
+VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
+VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 ```
 
 **apps/privacy-portal/.env** (add if not exists)
 ```env
-VITE_MARKETING_SITE_URL=https://cybercorrect.com
-VITE_FRAMEWORK_COMPLIANCE_URL=https://app.cybercorrect.com
+VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
 ```
 
 ### Step 3: Test Locally
@@ -99,9 +99,9 @@ ls dist/privacy-portal
 4. Output directory: `dist/marketing-site`
 5. Install command: `npm install` (from root)
 6. Environment variables:
-   - `VITE_FRAMEWORK_COMPLIANCE_URL=https://app.cybercorrect.com`
-   - `VITE_PRIVACY_PORTAL_URL=https://portal.cybercorrect.com`
-7. Domain: `cybercorrect.com` (root domain)
+   - `VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com`
+   - `VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com`
+7. Domain: `www.cybercorrect.com` (root domain)
 
 #### Framework Compliance (Subdomain)
 1. Existing Vercel project
@@ -109,9 +109,9 @@ ls dist/privacy-portal
 3. Build command: `npm run build:framework`
 4. Output directory: `dist/framework-compliance`
 5. Environment variables:
-   - `VITE_MARKETING_SITE_URL=https://cybercorrect.com`
-   - `VITE_PRIVACY_PORTAL_URL=https://portal.cybercorrect.com`
-6. Domain: `app.cybercorrect.com`
+   - `VITE_MARKETING_SITE_URL=https://www.cybercorrect.com`
+   - `VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com`
+6. Domain: `www.app.cybercorrect.com`
 
 #### Privacy Portal (Subdomain)
 1. Existing Vercel project
@@ -119,24 +119,66 @@ ls dist/privacy-portal
 3. Build command: `npm run build`
 4. Output directory: `dist/privacy-portal`
 5. Environment variables:
-   - `VITE_MARKETING_SITE_URL=https://cybercorrect.com`
-   - `VITE_FRAMEWORK_COMPLIANCE_URL=https://app.cybercorrect.com`
-6. Domain: `portal.cybercorrect.com`
+   - `VITE_MARKETING_SITE_URL=https://www.cybercorrect.com`
+   - `VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com`
+6. Domain: `www.portal.cybercorrect.com`
 
 ### Step 6: DNS Configuration
-- ✅ Configure `cybercorrect.com` → Marketing Site
-- ✅ Configure `app.cybercorrect.com` → Framework Compliance
-- ✅ Configure `portal.cybercorrect.com` → Privacy Portal
+- ✅ Configure `www.cybercorrect.com` → Marketing Site
+- ✅ Configure `www.app.cybercorrect.com` → Framework Compliance
+- ✅ Configure `www.portal.cybercorrect.com` → Privacy Portal
 
 ### Step 7: Post-Deployment Verification
-- [ ] Marketing site loads at root domain
-- [ ] Framework Compliance loads at subdomain
-- [ ] Privacy Portal loads at subdomain
-- [ ] Cross-links work between all three sites
-- [ ] Environment variables are set correctly in production
+
+#### Domain Verification
+- [ ] Marketing site loads at `https://www.cybercorrect.com`
+- [ ] Framework Compliance loads at `https://www.app.cybercorrect.com`
+- [ ] Privacy Portal loads at `https://www.portal.cybercorrect.com`
+- [ ] SSL certificates active for all domains
+- [ ] No mixed content warnings
+- [ ] All sites redirect HTTP to HTTPS
+
+#### Cross-Link Verification
+- [ ] Marketing Site → Framework Compliance link works
+- [ ] Marketing Site → Privacy Portal link works
+- [ ] Framework Compliance → Marketing Site link works
+- [ ] Framework Compliance → Privacy Portal link works
+- [ ] Privacy Portal → Marketing Site link works
+- [ ] Privacy Portal → Framework Compliance link works
+- [ ] All footer links functional on all three sites
+- [ ] All navigation links work correctly
+
+#### Configuration Verification
+- [ ] Environment variables set correctly in Vercel dashboard
+- [ ] All three apps have correct environment variables
+- [ ] No console errors on any site
+- [ ] Build outputs are correct
+- [ ] Source maps disabled in production (if configured)
+
+#### Functionality Verification
 - [ ] All CTAs and navigation links work
-- [ ] Mobile responsiveness verified
-- [ ] SEO meta tags verified
+- [ ] Mobile responsiveness verified on all three sites
+- [ ] Desktop view verified on all three sites
+- [ ] Tablet view verified on all three sites
+- [ ] SEO meta tags verified (check with browser dev tools)
+- [ ] Open Graph tags working (test with social media debuggers)
+- [ ] Twitter Card tags working
+- [ ] Analytics tracking works (if configured)
+- [ ] Error monitoring works (if configured)
+
+#### Performance Verification
+- [ ] Page load times acceptable (< 3s)
+- [ ] No performance warnings in browser console
+- [ ] Images and assets load correctly
+- [ ] No broken resources (404s)
+- [ ] Core Web Vitals within acceptable ranges
+- [ ] Lighthouse scores acceptable (> 90)
+
+#### Security Verification
+- [ ] Security headers present (check with securityheaders.com)
+- [ ] No sensitive data exposed in client-side code
+- [ ] HTTPS enforced on all domains
+- [ ] No console errors exposing sensitive information
 
 ## 📋 Known Issues
 None identified during inspection.

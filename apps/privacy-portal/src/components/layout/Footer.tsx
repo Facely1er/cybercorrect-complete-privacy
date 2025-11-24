@@ -179,7 +179,7 @@ export function Footer() {
               <ul className="space-y-3 text-sm">
                 <li>
                   <a 
-                    href={import.meta.env.VITE_MARKETING_SITE_URL || 'https://cybercorrect.com'} 
+                    href={import.meta.env.VITE_MARKETING_SITE_URL || 'https://www.cybercorrect.com'} 
                     className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -190,7 +190,7 @@ export function Footer() {
                 </li>
                 <li>
                   <a 
-                    href={import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://app.cybercorrect.com'} 
+                    href={import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'} 
                     className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
                     target="_blank"
                     rel="noopener noreferrer"

@@ -28,13 +28,13 @@ The marketing site runs on port **5175** by default.
 Create a `.env` file in the marketing site root:
 
 ```env
-VITE_FRAMEWORK_COMPLIANCE_URL=https://app.cybercorrect.com
-VITE_PRIVACY_PORTAL_URL=https://portal.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 ```
 
 ## Deployment
 
-The marketing site should be deployed to the root domain (e.g., `cybercorrect.com`).
+The marketing site should be deployed to the root domain (e.g., `www.cybercorrect.com`).
 
 ### Vercel Deployment
 

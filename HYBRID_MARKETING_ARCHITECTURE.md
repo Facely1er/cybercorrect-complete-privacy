@@ -4,16 +4,16 @@
 
 CyberCorrect now uses a **hybrid marketing approach** with three interconnected sites:
 
-1. **Marketing Site** (`apps/marketing-site`) - Root domain (e.g., `cybercorrect.com`)
-2. **Framework Compliance** (`apps/framework-compliance`) - Subdomain (e.g., `app.cybercorrect.com`)
-3. **Privacy Portal** (`apps/privacy-portal`) - Subdomain (e.g., `portal.cybercorrect.com`)
+1. **Marketing Site** (`apps/marketing-site`) - Root domain (e.g., `www.cybercorrect.com`)
+2. **Framework Compliance** (`apps/framework-compliance`) - Subdomain (e.g., `www.app.cybercorrect.com`)
+3. **Privacy Portal** (`apps/privacy-portal`) - Subdomain (e.g., `www.portal.cybercorrect.com`)
 
 ## Architecture
 
 ```
 ┌─────────────────────────────────────┐
 │   Marketing Site (Root Domain)      │
-│   cybercorrect.com                  │
+│   www.cybercorrect.com             │
 │   - Unified branding                │
 │   - Product overview                │
 │   - Links to both apps              │
@@ -24,7 +24,7 @@ CyberCorrect now uses a **hybrid marketing approach** with three interconnected 
 ┌──────▼──────┐  ┌─────▼──────┐
 │ Framework   │  │ Privacy    │
 │ Compliance  │  │ Portal     │
-│ app.cyber   │  │ portal.cyb │
+│ www.app.cyb│  │ www.portal.│
 │             │  │            │
 │ - B2B focus │  │ - B2C focus│
 │ - Keep own  │  │ - Keep own │
@@ -43,13 +43,13 @@ CyberCorrect now uses a **hybrid marketing approach** with three interconnected 
   - Clear CTAs to both apps
   - Company information
 
-### Framework Compliance (`app.cybercorrect.com`)
+### Framework Compliance (`www.app.cybercorrect.com`)
 - **Purpose**: Enterprise privacy compliance platform
 - **Audience**: Organizations, DPOs, legal teams
 - **Landing Page**: Product-focused, B2B oriented
 - **Features**: Assessments, DPIAs, project management
 
-### Privacy Portal (`portal.cybercorrect.com`)
+### Privacy Portal (`www.portal.cybercorrect.com`)
 - **Purpose**: Data subject rights portal
 - **Audience**: Individuals exercising privacy rights
 - **Landing Page**: User-focused, B2C oriented
@@ -108,40 +108,40 @@ npm run build:portal
 ### Marketing Site
 Create `apps/marketing-site/.env`:
 ```env
-VITE_FRAMEWORK_COMPLIANCE_URL=https://app.cybercorrect.com
-VITE_PRIVACY_PORTAL_URL=https://portal.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 ```
 
 ### Framework Compliance
 Create `apps/framework-compliance/.env`:
 ```env
-VITE_MARKETING_SITE_URL=https://cybercorrect.com
-VITE_PRIVACY_PORTAL_URL=https://portal.cybercorrect.com
+VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
+VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 ```
 
 ### Privacy Portal
 Create `apps/privacy-portal/.env`:
 ```env
-VITE_MARKETING_SITE_URL=https://cybercorrect.com
-VITE_FRAMEWORK_COMPLIANCE_URL=https://app.cybercorrect.com
+VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
 ```
 
 ## Deployment
 
 ### Marketing Site
-- **Domain**: Root domain (`cybercorrect.com`)
+- **Domain**: Root domain (`www.cybercorrect.com`)
 - **Build**: `npm run build:marketing`
 - **Output**: `dist/marketing-site/`
 - **Config**: `apps/marketing-site/vercel.json`
 
 ### Framework Compliance
-- **Domain**: Subdomain (`app.cybercorrect.com`)
+- **Domain**: Subdomain (`www.app.cybercorrect.com`)
 - **Build**: `npm run build:framework`
 - **Output**: `dist/framework-compliance/`
 - **Config**: Root `vercel.json`
 
 ### Privacy Portal
-- **Domain**: Subdomain (`portal.cybercorrect.com`)
+- **Domain**: Subdomain (`www.portal.cybercorrect.com`)
 - **Build**: `npm run build:portal`
 - **Output**: `dist/privacy-portal/`
 - **Config**: `apps/privacy-portal/vercel.json`

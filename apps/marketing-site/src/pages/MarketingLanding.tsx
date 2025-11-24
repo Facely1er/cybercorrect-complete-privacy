@@ -14,8 +14,8 @@ import {
 } from 'lucide-react';
 
 const MarketingLanding = () => {
-  const frameworkComplianceUrl = import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://app.cybercorrect.com';
-  const privacyPortalUrl = import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://portal.cybercorrect.com';
+  const frameworkComplianceUrl = import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com';
+  const privacyPortalUrl = import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com';
 
   return (
     <div className="min-h-screen bg-background">
