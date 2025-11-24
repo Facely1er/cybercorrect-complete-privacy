@@ -39,11 +39,11 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 flex h-16 flex-shrink-0 border-b border-border bg-background/95 dark:bg-dark-surface/95 backdrop-blur-md shadow-sm">
+    <header className="sticky top-0 z-50 flex h-16 flex-shrink-0 border-b border-border bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 shadow-sm">
       <div className="container mx-auto flex justify-between items-center px-2 sm:px-4 min-w-0 overflow-visible">
         <div className="flex items-center min-w-0 flex-shrink">
           <Link to="/" className="flex items-center focus-ring rounded-md p-1" aria-label="CyberCorrect Privacy Platform Home">
-            <span className="text-base sm:text-xl font-semibold text-foreground dark:text-dark-text transition-colors hover:text-primary dark:hover:text-dark-primary truncate">CyberCorrect Privacy Platform</span>
+            <span className="text-base sm:text-xl font-semibold text-foreground transition-colors hover:text-primary truncate">CyberCorrect Privacy Platform</span>
           </Link>
         </div>
         
@@ -51,8 +51,8 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           {/* Main Navigation */}
           <div className="relative overflow-visible">
             <button 
-              className={`flex items-center text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
-                location.pathname.includes('assessment') ? 'text-primary dark:text-dark-primary' : ''
+              className={`flex items-center text-foreground hover:text-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
+                location.pathname.includes('assessment') ? 'text-primary' : ''
               }`}
               onClick={() => toggleDropdown('assessments')}
               aria-expanded={activeDropdown === 'assessments'}
@@ -65,7 +65,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             </button>
             
             {activeDropdown === 'assessments' && (
-              <div className="absolute left-0 mt-2 w-56 bg-popover dark:bg-dark-surface rounded-lg shadow-xl border border-border dark:border-dark-support backdrop-blur-sm animate-in slide-up z-[60]">
+              <div className="absolute left-0 mt-2 w-56 bg-popover rounded-lg shadow-xl border border-border backdrop-blur-sm animate-in slide-up z-[60]">
                 <div className="py-1">
                   {assessmentLinks.map(link => (
                     <Link
@@ -73,8 +73,8 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                       to={link.path}
                       className={`flex items-center px-4 py-2.5 text-sm rounded-md transition-colors focus-ring ${
                         location.pathname === link.path 
-                          ? 'text-primary bg-primary/10 dark:text-dark-primary dark:bg-dark-primary/10 font-medium' 
-                          : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'
+                          ? 'text-primary bg-primary/10 font-medium' 
+                          : 'text-foreground hover:bg-accent hover:text-accent-foreground'
                       }`}
                       onClick={() => setActiveDropdown(null)}
                       aria-label={link.name}
@@ -89,8 +89,8 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
 
           <div className="relative overflow-visible">
             <button 
-              className={`flex items-center text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
-                location.pathname.includes('mapper') || location.pathname.includes('generator') ? 'text-primary dark:text-dark-primary' : ''
+              className={`flex items-center text-foreground hover:text-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
+                location.pathname.includes('mapper') || location.pathname.includes('generator') ? 'text-primary' : ''
               }`}
               onClick={() => toggleDropdown('tools')}
               aria-expanded={activeDropdown === 'tools'}
@@ -102,7 +102,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             </button>
             
             {activeDropdown === 'tools' && (
-              <div className="absolute left-0 mt-2 w-56 bg-popover dark:bg-dark-surface rounded-lg shadow-xl border border-border dark:border-dark-support backdrop-blur-sm animate-in slide-up z-[60]">
+              <div className="absolute left-0 mt-2 w-56 bg-popover rounded-lg shadow-xl border border-border backdrop-blur-sm animate-in slide-up z-[60]">
                 <div className="py-1">
                   {toolLinks.map(link => (
                     <Link
@@ -110,8 +110,8 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                       to={link.path}
                       className={`flex items-center px-4 py-2.5 text-sm rounded-md transition-colors focus-ring ${
                         location.pathname === link.path 
-                          ? 'text-primary bg-primary/10 dark:text-dark-primary dark:bg-dark-primary/10 font-medium' 
-                          : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'
+                          ? 'text-primary bg-primary/10 font-medium' 
+                          : 'text-foreground hover:bg-accent hover:text-accent-foreground'
                       }`}
                       onClick={() => setActiveDropdown(null)}
                       aria-label={link.name}
@@ -126,8 +126,8 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
 
           <div className="relative overflow-visible">
             <button 
-              className={`flex items-center text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
-                location.pathname.includes('results') || location.pathname.includes('recommendations') ? 'text-primary dark:text-dark-primary' : ''
+              className={`flex items-center text-foreground hover:text-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
+                location.pathname.includes('results') || location.pathname.includes('recommendations') ? 'text-primary' : ''
               }`}
               onClick={() => toggleDropdown('results')}
               aria-expanded={activeDropdown === 'results'}
@@ -139,7 +139,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             </button>
             
             {activeDropdown === 'results' && (
-              <div className="absolute left-0 mt-2 w-56 bg-popover dark:bg-dark-surface rounded-lg shadow-xl border border-border dark:border-dark-support backdrop-blur-sm animate-in slide-up z-[60]">
+              <div className="absolute left-0 mt-2 w-56 bg-popover rounded-lg shadow-xl border border-border backdrop-blur-sm animate-in slide-up z-[60]">
                 <div className="py-1">
                   {resultLinks.map(link => (
                     <Link
@@ -147,8 +147,8 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                       to={link.path}
                       className={`flex items-center px-4 py-2.5 text-sm rounded-md transition-colors focus-ring ${
                         location.pathname === link.path 
-                          ? 'text-primary bg-primary/10 dark:text-dark-primary dark:bg-dark-primary/10 font-medium' 
-                          : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'
+                          ? 'text-primary bg-primary/10 font-medium' 
+                          : 'text-foreground hover:bg-accent hover:text-accent-foreground'
                       }`}
                       onClick={() => setActiveDropdown(null)}
                       aria-label={link.name}
@@ -170,7 +170,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full text-foreground dark:text-dark-text hover:bg-muted/70 dark:hover:bg-dark-support h-9 w-9 sm:h-10 sm:w-10"
+              className="rounded-full text-foreground hover:bg-accent h-9 w-9 sm:h-10 sm:w-10"
               onClick={toggleDarkMode}
               aria-label="Toggle dark mode"
             >
@@ -184,7 +184,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           
           <button
             type="button"
-            className="md:hidden inline-flex items-center justify-center p-1.5 sm:p-2 rounded-md text-foreground dark:text-dark-text hover:text-primary dark:hover:text-dark-primary focus-ring transition-colors flex-shrink-0"
+            className="md:hidden inline-flex items-center justify-center p-1.5 sm:p-2 rounded-md text-foreground hover:text-primary focus-ring transition-colors flex-shrink-0"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? "Close main menu" : "Open main menu"}
@@ -196,10 +196,10 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
       
       {/* Mobile menu */}
       <div
-        className={`md:hidden absolute top-16 left-0 right-0 bg-background/98 dark:bg-dark-surface/98 backdrop-blur-md border-b border-border dark:border-dark-support transition-all duration-300 ease-in-out overflow-hidden shadow-lg ${mobileMenuOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'}`}
+        className={`md:hidden absolute top-16 left-0 right-0 bg-background/98 backdrop-blur-md border-b border-border transition-all duration-300 ease-in-out overflow-hidden shadow-lg ${mobileMenuOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'}`}
       >
         <div className="px-4 py-3 space-y-1 overflow-y-auto max-h-[calc(80vh-4rem)]">
-          <div className="py-2 border-b border-border dark:border-dark-support">
+          <div className="py-2 border-b border-border">
             <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Assessments</div>
             {assessmentLinks.map(link => (
               <Link
@@ -207,8 +207,8 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                 to={link.path}
                 className={`block px-3 py-2.5 text-sm rounded-md transition-colors focus-ring ${
                   location.pathname === link.path 
-                    ? 'text-primary bg-primary/10 dark:text-dark-primary dark:bg-dark-primary/10 font-medium' 
-                    : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'
+                    ? 'text-primary bg-primary/10 font-medium' 
+                    : 'text-foreground hover:bg-accent hover:text-accent-foreground'
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label={link.name}
@@ -218,7 +218,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             ))}
           </div>
           
-          <div className="py-2 border-b border-border dark:border-dark-support">
+          <div className="py-2 border-b border-border">
             <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Toolkit</div>
             {toolLinks.map(link => (
               <Link
@@ -226,8 +226,8 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                 to={link.path}
                 className={`block px-3 py-2.5 text-sm rounded-md transition-colors focus-ring ${
                   location.pathname === link.path 
-                    ? 'text-primary bg-primary/10 dark:text-dark-primary dark:bg-dark-primary/10 font-medium' 
-                    : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'
+                    ? 'text-primary bg-primary/10 font-medium' 
+                    : 'text-foreground hover:bg-accent hover:text-accent-foreground'
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label={link.name}
@@ -245,8 +245,8 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                 to={link.path}
                 className={`block px-3 py-2.5 text-sm rounded-md transition-colors focus-ring ${
                   location.pathname === link.path 
-                    ? 'text-primary bg-primary/10 dark:text-dark-primary dark:bg-dark-primary/10 font-medium' 
-                    : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'
+                    ? 'text-primary bg-primary/10 font-medium' 
+                    : 'text-foreground hover:bg-accent hover:text-accent-foreground'
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label={link.name}

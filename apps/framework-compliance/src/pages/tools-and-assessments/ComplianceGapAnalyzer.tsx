@@ -15,11 +15,11 @@ import {
   Import,
   Shield
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
-import { Button } from '../../components/ui/Button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 import { useLocation } from 'react-router-dom';
-import { toast } from '../../components/ui/Toaster';
+import { toast } from '@/components/ui/Toaster';
 
 // Define interfaces
 interface Framework {
@@ -549,7 +549,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
   // Enhanced export functionality
   const exportReport = async (format: 'json' | 'csv' | 'pdf' = 'json') => {
     // Check export credits
-    const { monetization } = await import('../../utils/monetization');
+    const { monetization } = await import('@/utils/monetization/monetization');
     const canExport = monetization.canExport(format);
     
     if (!canExport.allowed) {
@@ -648,7 +648,7 @@ const ComplianceGapAnalyzer: React.FC = () => {
       URL.revokeObjectURL(url);
       toast.success("Export completed", `Report exported as CSV`);
     } else if (format === 'pdf') {
-      const { generateComplianceGapAnalyzerPdf } = await import('../../utils/pdf');
+      const { generateComplianceGapAnalyzerPdf } = await import('@/utils/pdf/generateExportPdf');
       generateComplianceGapAnalyzerPdf(reportDataForPdf);
       toast.success("Export completed", `Report exported as PDF`);
     }
