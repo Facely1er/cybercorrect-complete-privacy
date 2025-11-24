@@ -11,7 +11,8 @@ import {
   Building,
   Eye,
   Server,
-  Import
+  Import,
+  Shield
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -113,6 +114,19 @@ const ComplianceGapAnalyzer: React.FC = () => {
 
   // Enhanced compliance frameworks with real standards and current versions
   const frameworks: Record<string, Framework> = useMemo(() => ({
+    'nist_csf_v2': {
+      name: 'NIST Cybersecurity Framework',
+      version: '2.0',
+      releaseDate: '2024-02-26',
+      domains: ['Govern', 'Identify', 'Protect', 'Detect', 'Respond', 'Recover'],
+      totalControls: 108,
+      description: 'A voluntary framework for managing cybersecurity risk, providing a common language for understanding, managing, and expressing cybersecurity risk both internally and externally.',
+      industry: 'All Industries',
+      complexity: 'Intermediate',
+      maturityLevels: ['Partial', 'Risk Informed', 'Repeatable', 'Adaptive'],
+      regulatoryMapping: ['FISMA', 'CMMC', 'ISO 27001'],
+      icon: Shield
+    },
     'nist_800_171': {
       name: 'NIST SP 800-171',
       version: 'Rev 2',
