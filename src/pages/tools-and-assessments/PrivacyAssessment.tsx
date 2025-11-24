@@ -215,141 +215,315 @@ const PrivacyAssessment = () => {
     {
       title: "Control",
       description: "Develop and implement data processing controls",
-      estimatedTime: "6min",
+      estimatedTime: "15min",
       complexity: "Intermediate" as const,
-      questionCount: 6,
+      questionCount: 16,
       questions: [
         {
-          id: "CT-P1",
-          question: "Do you implement data minimization practices?",
-          control: "NIST Privacy CT.DM-P",
-          guidance: "Process the minimum necessary personal data to achieve purpose"
+          id: "CT-DM-P1",
+          question: "Do you implement data minimization practices to collect only necessary personal data?",
+          control: "NIST Privacy CT.DM-P1",
+          guidance: "Process the minimum necessary personal data to achieve the stated purpose"
         },
         {
-          id: "CT-P2",
+          id: "CT-DM-P2",
+          question: "Do you limit the collection of personal data to what is directly relevant and necessary?",
+          control: "NIST Privacy CT.DM-P2",
+          guidance: "Limit collection of personal data to what is directly relevant and necessary for the stated purpose"
+        },
+        {
+          id: "CT-DM-P3",
+          question: "Do you limit the retention of personal data to what is necessary for the stated purpose?",
+          control: "NIST Privacy CT.DM-P3",
+          guidance: "Limit retention of personal data to what is necessary for the stated purpose and in accordance with legal requirements"
+        },
+        {
+          id: "CT-DM-P4",
+          question: "Do you limit the use of personal data to the stated purpose?",
+          control: "NIST Privacy CT.DM-P4",
+          guidance: "Limit use of personal data to the stated purpose for which it was collected"
+        },
+        {
+          id: "CT-DM-P5",
+          question: "Do you limit sharing of personal data with third parties?",
+          control: "NIST Privacy CT.DM-P5",
+          guidance: "Limit sharing of personal data with third parties to what is necessary and in accordance with stated purposes"
+        },
+        {
+          id: "CT-DM-P6",
+          question: "Do you have processes to review and validate data minimization practices?",
+          control: "NIST Privacy CT.DM-P6",
+          guidance: "Establish processes to regularly review and validate that data minimization practices are being followed"
+        },
+        {
+          id: "CT-DM-P7",
+          question: "Do you track and document data disclosures and sharing with third parties?",
+          control: "NIST Privacy CT.DM-P7",
+          guidance: "Track and document personal data disclosures to third parties, including purpose and legal basis"
+        },
+        {
+          id: "CT-AC-P1",
           question: "Do you implement access controls for systems with personal data?",
-          control: "NIST Privacy CT.AC-P",
-          guidance: "Implement access management for personal data"
+          control: "NIST Privacy CT.AC-P1",
+          guidance: "Implement access management for personal data, including role-based access controls"
         },
         {
-          id: "CT-P3",
+          id: "CT-AC-P2",
+          question: "Do you enforce least privilege principles for access to personal data?",
+          control: "NIST Privacy CT.AC-P2",
+          guidance: "Enforce least privilege principles, granting access to personal data only to those who need it for their job functions"
+        },
+        {
+          id: "CT-AC-P3",
+          question: "Do you regularly review and update access permissions for personal data?",
+          control: "NIST Privacy CT.AC-P3",
+          guidance: "Regularly review and update access permissions for personal data to ensure they remain appropriate"
+        },
+        {
+          id: "CT-DQ-P1",
           question: "Are measures in place to maintain data quality and integrity?",
-          control: "NIST Privacy CT.DQ-P",
+          control: "NIST Privacy CT.DQ-P1",
           guidance: "Maintain accuracy, completeness, and relevance of personal data"
         },
         {
-          id: "CT-P4",
+          id: "CT-DQ-P2",
+          question: "Do you have processes to correct inaccurate personal data?",
+          control: "NIST Privacy CT.DQ-P2",
+          guidance: "Establish processes to identify and correct inaccurate personal data"
+        },
+        {
+          id: "CT-DP-P1",
           question: "Do you have procedures for data management throughout the data lifecycle?",
-          control: "NIST Privacy CT.DP-P",
-          guidance: "Manage personal data throughout its lifecycle"
+          control: "NIST Privacy CT.DP-P1",
+          guidance: "Manage personal data throughout its lifecycle, from collection through disposal"
         },
         {
-          id: "CT-P5",
-          question: "Are disassociated processing methods used when appropriate?",
-          control: "NIST Privacy CT.DP-P8",
-          guidance: "Use de-identification, anonymization, or pseudonymization when appropriate"
+          id: "CT-DP-P2",
+          question: "Do you have retention schedules and procedures for disposing of personal data?",
+          control: "NIST Privacy CT.DP-P2",
+          guidance: "Establish retention schedules and secure procedures for disposing of personal data when no longer needed"
         },
         {
-          id: "CT-P6",
-          question: "Do you track and document data disclosures and sharing?",
-          control: "NIST Privacy CT.DM-P7",
-          guidance: "Track and document personal data disclosures to third parties"
+          id: "CT-DP-P3",
+          question: "Are disassociated processing methods (de-identification, anonymization) used when appropriate?",
+          control: "NIST Privacy CT.DP-P3",
+          guidance: "Use de-identification, anonymization, or pseudonymization when appropriate to reduce privacy risks"
+        },
+        {
+          id: "CT-DS-P1",
+          question: "Do you implement security controls to protect personal data from unauthorized access, use, or disclosure?",
+          control: "NIST Privacy CT.DS-P1",
+          guidance: "Implement security controls to protect personal data from unauthorized access, use, or disclosure"
         }
       ]
     },
     {
       title: "Communicate",
       description: "Develop and implement communication processes",
-      estimatedTime: "6min",
+      estimatedTime: "12min",
       complexity: "Intermediate" as const,
-      questionCount: 6,
+      questionCount: 13,
       questions: [
         {
-          id: "CM-P1",
+          id: "CM-PO-P1",
           question: "Do you provide privacy notices to individuals?",
-          control: "NIST Privacy CM.PO-P",
-          guidance: "Provide clear, accessible privacy notices to individuals"
+          control: "NIST Privacy CM.PO-P1",
+          guidance: "Provide clear, accessible privacy notices to individuals whose personal data you process"
         },
         {
-          id: "CM-P2",
-          question: "Do you explain the purposes for processing personal data?",
+          id: "CM-PO-P2",
+          question: "Do you explain the purposes for processing personal data in your privacy notices?",
           control: "NIST Privacy CM.PO-P2",
-          guidance: "Clearly communicate purposes for processing personal data"
+          guidance: "Clearly communicate purposes for processing personal data in privacy notices"
         },
         {
-          id: "CM-P3",
+          id: "CM-PO-P3",
+          question: "Do you explain the legal basis for processing personal data?",
+          control: "NIST Privacy CM.PO-P3",
+          guidance: "Explain the legal basis for processing personal data, including consent, contract, legal obligation, vital interests, public task, or legitimate interests"
+        },
+        {
+          id: "CM-PO-P4",
+          question: "Do you inform individuals about their privacy rights and how to exercise them?",
+          control: "NIST Privacy CM.PO-P4",
+          guidance: "Inform individuals about their privacy rights, including access, rectification, erasure, and how to exercise these rights"
+        },
+        {
+          id: "CM-PO-P5",
+          question: "Do you provide information about data retention periods and data sharing practices?",
+          control: "NIST Privacy CM.PO-P5",
+          guidance: "Provide information about how long personal data will be retained and with whom it may be shared"
+        },
+        {
+          id: "CM-AW-P1",
           question: "Do you have a process for individuals to request access to their data?",
           control: "NIST Privacy CM.AW-P1",
-          guidance: "Enable individual access to their personal data"
+          guidance: "Enable individual access to their personal data, including providing copies of their data upon request"
         },
         {
-          id: "CM-P4",
+          id: "CM-AW-P2",
           question: "Can individuals correct inaccuracies in their personal data?",
           control: "NIST Privacy CM.AW-P2",
-          guidance: "Allow individuals to correct inaccurate personal data"
+          guidance: "Allow individuals to correct inaccurate personal data and provide mechanisms to do so"
         },
         {
-          id: "CM-P5",
+          id: "CM-AW-P3",
           question: "Can individuals request deletion of their personal data?",
           control: "NIST Privacy CM.AW-P3",
-          guidance: "Enable individuals to request deletion of personal data"
+          guidance: "Enable individuals to request deletion of personal data, subject to legal and operational requirements"
         },
         {
-          id: "CM-P6",
+          id: "CM-AW-P4",
+          question: "Do you have processes for handling data portability requests?",
+          control: "NIST Privacy CM.AW-P4",
+          guidance: "Enable individuals to receive their personal data in a structured, commonly used format and transmit it to another controller"
+        },
+        {
+          id: "CM-AW-P5",
+          question: "Do you have processes for handling objections to processing?",
+          control: "NIST Privacy CM.AW-P5",
+          guidance: "Enable individuals to object to processing of their personal data, including for direct marketing purposes"
+        },
+        {
+          id: "CM-AW-P6",
           question: "Is there a process for handling privacy complaints or questions?",
-          control: "NIST Privacy CM.AW-P8",
-          guidance: "Provide a mechanism to handle privacy-related inquiries and complaints"
+          control: "NIST Privacy CM.AW-P6",
+          guidance: "Provide a mechanism to handle privacy-related inquiries and complaints, including contact information for privacy inquiries"
+        },
+        {
+          id: "CM-IN-P1",
+          question: "Do you communicate privacy policies and procedures internally to employees?",
+          control: "NIST Privacy CM.IN-P1",
+          guidance: "Communicate privacy policies and procedures internally to ensure employees understand their privacy responsibilities"
+        },
+        {
+          id: "CM-IN-P2",
+          question: "Do you provide training and awareness about privacy requirements to employees?",
+          control: "NIST Privacy CM.IN-P2",
+          guidance: "Provide training and awareness about privacy requirements, including how to handle personal data appropriately"
         }
       ]
     },
     {
       title: "Protect",
       description: "Develop and implement data protection measures aligned with CSF 2.0 safeguards",
-      estimatedTime: "7min",
+      estimatedTime: "18min",
       complexity: "Advanced" as const,
-      questionCount: 7,
+      questionCount: 18,
       questions: [
         {
-          id: "PR-P1",
+          id: "PR-AC-P1",
+          question: "Do you implement access controls for personal data that align with identity and access management practices?",
+          control: "NIST Privacy PR.AC-P1 (aligned with CSF 2.0 PR.AC)",
+          guidance: "Implement access controls for personal data that coordinate with identity and access management, including role-based access and least privilege"
+        },
+        {
+          id: "PR-AC-P2",
+          question: "Do you manage identities and credentials for accessing personal data?",
+          control: "NIST Privacy PR.AC-P2",
+          guidance: "Manage identities and credentials for accessing personal data, including authentication and authorization mechanisms"
+        },
+        {
+          id: "PR-AC-P3",
+          question: "Do you monitor and log access to personal data?",
+          control: "NIST Privacy PR.AC-P3",
+          guidance: "Monitor and log access to personal data to detect unauthorized access and maintain audit trails"
+        },
+        {
+          id: "PR-AT-P1",
+          question: "Are privacy-by-design principles incorporated into system development and AI system design?",
+          control: "NIST Privacy PR.AT-P1",
+          guidance: "Incorporate privacy-by-design principles in system development, including AI systems and automated decision-making"
+        },
+        {
+          id: "PR-AT-P2",
+          question: "Do you provide privacy training to personnel who handle personal data?",
+          control: "NIST Privacy PR.AT-P2",
+          guidance: "Provide privacy training to personnel who handle personal data, including how to protect personal data and respond to privacy incidents"
+        },
+        {
+          id: "PR-DS-P1",
           question: "Are security measures implemented to protect personal data, coordinated with cybersecurity protections?",
-          control: "NIST Privacy PR.DS-P (aligned with CSF 2.0 PR.DS)",
+          control: "NIST Privacy PR.DS-P1 (aligned with CSF 2.0 PR.DS)",
           guidance: "Implement security measures to protect personal data in systems, coordinated with cybersecurity data security controls"
         },
         {
-          id: "PR-P2",
+          id: "PR-DS-P2",
           question: "Is data encrypted in transit and at rest where appropriate, using current cryptographic standards?",
-          control: "NIST Privacy PR.DS-P1 (aligned with CSF 2.0 PR.DS-1)",
+          control: "NIST Privacy PR.DS-P2 (aligned with CSF 2.0 PR.DS-1)",
           guidance: "Encrypt personal data in transit and at rest using current cryptographic standards and key management practices"
         },
         {
-          id: "PR-P3",
+          id: "PR-DS-P3",
+          question: "Do you have processes for secure data disposal and destruction?",
+          control: "NIST Privacy PR.DS-P3",
+          guidance: "Establish processes for secure data disposal and destruction when personal data is no longer needed"
+        },
+        {
+          id: "PR-DS-P4",
           question: "Do you maintain secure data backups with appropriate privacy protections?",
           control: "NIST Privacy PR.DS-P4 (aligned with CSF 2.0 PR.DS-4)",
           guidance: "Implement secure data backups with appropriate protections for personal data, including access controls and encryption"
         },
         {
-          id: "PR-P4",
-          question: "Are privacy-by-design principles incorporated into system development and AI system design?",
-          control: "NIST Privacy PR.AT-P1 (AI Privacy by Design)",
-          guidance: "Incorporate privacy-by-design principles in system development, including AI systems and automated decision-making"
+          id: "PR-IP-P1",
+          question: "Do you have information protection processes and procedures for personal data?",
+          control: "NIST Privacy PR.IP-P1 (aligned with CSF 2.0 PR.IP)",
+          guidance: "Establish information protection processes and procedures for personal data, including classification and handling requirements"
         },
         {
-          id: "PR-P5",
-          question: "Is there a process for handling personal data breaches that coordinates with incident response?",
-          control: "NIST Privacy PR.AC-P4 (aligned with CSF 2.0 RS.RP)",
+          id: "PR-IP-P2",
+          question: "Do you have processes for managing personal data throughout its lifecycle?",
+          control: "NIST Privacy PR.IP-P2",
+          guidance: "Establish processes for managing personal data throughout its lifecycle, from collection through disposal"
+        },
+        {
+          id: "PR-IP-P3",
+          question: "Do you have processes for responding to privacy incidents and data breaches?",
+          control: "NIST Privacy PR.IP-P3 (aligned with CSF 2.0 RS.RP)",
           guidance: "Establish procedures to respond to personal data breaches, coordinated with cybersecurity incident response procedures"
         },
         {
-          id: "PR-P6",
+          id: "PR-IP-P4",
+          question: "Do you test and update privacy protection processes regularly?",
+          control: "NIST Privacy PR.IP-P4",
+          guidance: "Test and update privacy protection processes regularly to ensure they remain effective"
+        },
+        {
+          id: "PR-MA-P1",
+          question: "Do you maintain systems and processes that handle personal data?",
+          control: "NIST Privacy PR.MA-P1 (aligned with CSF 2.0 PR.MA)",
+          guidance: "Maintain systems and processes that handle personal data, including regular updates and patches"
+        },
+        {
+          id: "PR-MA-P2",
+          question: "Do you have processes for managing maintenance activities that may affect personal data?",
+          control: "NIST Privacy PR.MA-P2",
+          guidance: "Establish processes for managing maintenance activities that may affect personal data, including remote maintenance"
+        },
+        {
+          id: "PR-PT-P1",
+          question: "Do you use protective technology to safeguard personal data?",
+          control: "NIST Privacy PR.PT-P1 (aligned with CSF 2.0 PR.PT)",
+          guidance: "Use protective technology to safeguard personal data, including firewalls, intrusion detection, and data loss prevention"
+        },
+        {
+          id: "PR-PT-P2",
+          question: "Do you monitor systems that process personal data for security and privacy events?",
+          control: "NIST Privacy PR.PT-P2",
+          guidance: "Monitor systems that process personal data for security and privacy events, including unauthorized access attempts"
+        },
+        {
+          id: "PR-PO-P1",
           question: "Are privacy risk assessments conducted for new systems, processes, and AI implementations?",
-          control: "NIST Privacy PR.PO-P2 (AI Risk Assessment)",
+          control: "NIST Privacy PR.PO-P1",
           guidance: "Conduct privacy impact assessments for new systems, processes, and AI implementations, including algorithmic impact assessments"
         },
         {
-          id: "PR-P7",
-          question: "Do you implement access controls for personal data that align with identity and access management practices?",
-          control: "NIST Privacy PR.AC-P (aligned with CSF 2.0 PR.AC)",
-          guidance: "Implement access controls for personal data that coordinate with identity and access management, including role-based access and least privilege"
+          id: "PR-PO-P2",
+          question: "Do you have processes for managing privacy risks in ongoing operations?",
+          control: "NIST Privacy PR.PO-P2",
+          guidance: "Establish processes for managing privacy risks in ongoing operations, including regular risk reviews and updates"
         }
       ]
     }
