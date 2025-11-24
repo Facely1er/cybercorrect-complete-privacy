@@ -1,4 +1,6 @@
 {
+  "buildCommand": "npm run build:framework",
+  "outputDirectory": "dist/framework-compliance",
   "rewrites": [
     {
       "source": "/assets/(.*)",
