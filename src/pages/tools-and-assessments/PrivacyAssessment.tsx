@@ -374,8 +374,8 @@ const PrivacyAssessment = () => {
     return (
       <AssessmentStartScreen
         title="Privacy Framework Assessment"
-        description="Evaluate your privacy program against the NIST Privacy Framework"
-        frameworkName="NIST Privacy Framework"
+        description="Evaluate your privacy program against the NIST Privacy Framework v1.1 (draft) aligned with NIST CSF 2.0"
+        frameworkName="NIST Privacy Framework v1.1"
         sections={sectionInfoList}
         onStart={() => setShowStartScreen(false)}
       />
@@ -391,7 +391,7 @@ const PrivacyAssessment = () => {
           Back to Assessments
         </Link>
         <h1 className="text-3xl font-bold mb-2 text-foreground">Privacy Framework Assessment</h1>
-        <p className="text-muted-foreground mb-6">Based on the NIST Privacy Framework's five core functions</p>
+        <p className="text-muted-foreground mb-6">Based on the NIST Privacy Framework v1.1 (draft) aligned with NIST CSF 2.0 - five core functions</p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">

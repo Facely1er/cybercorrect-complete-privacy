@@ -41,7 +41,7 @@ const PrivacyFrameworkGuide = () => {
                   What is the NIST Privacy Framework?
                 </h3>
                 <p className="text-muted-foreground mb-4">
-                  The NIST Privacy Framework is a voluntary tool designed to help organizations identify, assess, manage, and communicate privacy risks. It provides a common language for privacy risk management and helps organizations align their privacy practices with business objectives.
+                  The NIST Privacy Framework (Version 1.1 draft, aligned with NIST CSF 2.0) is a voluntary tool designed to help organizations identify, assess, manage, and communicate privacy risks. It provides a common language for privacy risk management and helps organizations align their privacy practices with business objectives. The latest version includes enhanced alignment with the Cybersecurity Framework 2.0 and guidance on AI and privacy risk management.
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center">
