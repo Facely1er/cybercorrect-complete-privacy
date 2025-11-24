@@ -13,6 +13,11 @@ export default defineConfig({
   build: {
     outDir: '../../dist/marketing-site',
     sourcemap: false,
+    emptyOutDir: true,
+    commonjsOptions: {
+      include: [/node_modules/],
+      transformMixedEsModules: true,
+    },
   },
   server: {
     port: 5175,
