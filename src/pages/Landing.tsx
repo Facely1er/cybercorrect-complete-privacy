@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { useChatbot } from '../components/chat/ChatbotProvider';
 import { Button } from '../components/ui/Button';

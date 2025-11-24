@@ -3,6 +3,8 @@
  * Usage: tsx scripts/get-stripe-price-ids.ts <STRIPE_SECRET_KEY>
  */
 
+// Get Stripe secret key from command line, environment variable, or use default
+// NOTE: For security, prefer using environment variable: export STRIPE_SECRET_KEY=sk_live_...
 const STRIPE_SECRET_KEY = process.argv[2] || process.env.STRIPE_SECRET_KEY;
 
 if (!STRIPE_SECRET_KEY) {

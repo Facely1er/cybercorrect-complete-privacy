@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardContent } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
@@ -19,91 +18,91 @@ const QuickStart = () => {
 
   const steps = [
     {
-      title: "Choose Your Role",
-      description: "Select your role to see personalized privacy compliance guidance",
+      title: "Account Setup",
+      description: "Set up your organization's account and initial configuration",
       tasks: [
-        "Identify your role (DPO, Privacy Officer, Legal Counsel, Data Steward)",
-        "View role-specific journey",
-        "Understand your responsibilities",
-        "Access role-appropriate tools"
+        "Create organization profile",
+        "Configure basic settings",
+        "Set up authentication",
+        "Define user roles"
+      ],
+      icon: Shield,
+      status: "required",
+      path: "/app/settings"
+    },
+    {
+      title: "Framework Selection",
+      description: "Choose and configure your security frameworks",
+      tasks: [
+        "Select primary framework",
+        "Map controls",
+        "Set baseline requirements",
+        "Define assessment criteria"
+      ],
+      icon: Lock,
+      status: "required",
+      path: "/app/control-mapping"
+    },
+    {
+      title: "User Onboarding",
+      description: "Add and configure users and teams",
+      tasks: [
+        "Invite team members",
+        "Assign roles",
+        "Set permissions",
+        "Configure access levels"
       ],
       icon: Users,
       status: "required",
-      path: "/documentation/getting-started"
+      path: "/app/settings"
     },
     {
-      title: "Privacy Assessment",
-      description: "Complete your first privacy compliance assessment",
+      title: "Initial Assessment",
+      description: "Complete your first risk assessment",
       tasks: [
-        "Start Privacy Assessment",
-        "Answer questions about your privacy practices",
-        "Review compliance scores",
-        "Get prioritized gap analysis"
-      ],
-      icon: Shield,
-      status: "required",
-      path: "/assessments/privacy-assessment"
-    },
-    {
-      title: "Review Results & Recommendations",
-      description: "Understand your privacy compliance status and next steps",
-      tasks: [
-        "Review compliance scores by framework",
-        "Identify privacy gaps",
-        "Prioritize remediation actions",
-        "Access implementation recommendations"
+        "Identify key assets",
+        "Assess threats",
+        "Evaluate controls",
+        "Document findings"
       ],
       icon: AlertTriangle,
-      status: "required",
-      path: "/privacy-results"
-    },
-    {
-      title: "Set Up Privacy Project",
-      description: "Create a privacy implementation project to track your progress",
-      tasks: [
-        "Create privacy project",
-        "Set up team roles (RACI matrix)",
-        "Define implementation roadmap",
-        "Configure evidence vault"
-      ],
-      icon: Settings,
       status: "recommended",
-      path: "/project"
+      path: "/app/risk-assessment"
     },
     {
-      title: "Explore Privacy Tools",
-      description: "Get started with essential privacy compliance tools",
+      title: "Integration Setup",
+      description: "Configure integrations with your existing tools",
       tasks: [
-        "Try DPIA Generator",
-        "Use Privacy Policy Generator",
-        "Map data processing activities",
-        "Set up Privacy Rights Manager"
-      ],
-      icon: Shield,
-      status: "recommended",
-      path: "/toolkit"
-    },
-    {
-      title: "Configure Compliance Monitoring",
-      description: "Set up automated privacy compliance monitoring and reporting",
-      tasks: [
-        "Configure privacy compliance notifications",
-        "Set up automated compliance reports",
-        "Schedule privacy assessments",
-        "Enable compliance health tracking"
+        "API configuration",
+        "Tool integration",
+        "Data import",
+        "Workflow setup"
       ],
       icon: Settings,
       status: "optional",
+      path: "/app/settings"
+    },
+    {
+      title: "Subscription Features Setup",
+      description: "Configure automated notifications, reports, and compliance monitoring",
+      tasks: [
+        "Set up notification preferences",
+        "Configure automated reports",
+        "Schedule compliance assessments",
+        "Enable compliance health tracking"
+      ],
+      icon: Settings,
+      status: "recommended",
       path: "/notifications"
     }
   ];
 
   const tips = [
-    "Start with your most critical data processing activities",
-    "Involve privacy stakeholders (DPO, legal, IT)",
-    "Be thorough in documenting data flows",
-    "Prioritize high-risk privacy gaps first",
-    "Regularly review and update your privacy documentation"
+    "Start with your most critical assets",
+    "Involve relevant stakeholders",
+    "Be realistic about risk ratings",
+    "Document your assumptions",
+    "Consider both threats and opportunities"
   ];
 
   return (
@@ -119,9 +118,9 @@ const QuickStart = () => {
         </Button>
 
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold mb-4 text-foreground">Privacy Compliance Quick Start Guide</h1>
+          <h1 className="text-4xl font-bold mb-4 text-foreground">Quick Start Guide</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Get up and running with CyberCorrect Privacy Platform in 30 minutes or less
+            Get up and running with CyberCorrect in 30 minutes or less
           </p>
         </div>
 
@@ -189,9 +188,9 @@ const QuickStart = () => {
         <div className="mt-8 text-center">
           <Button 
             variant="outline"
-            onClick={() => navigate('/assessments/privacy-assessment')}
+            onClick={() => navigate('/documentation/platform-overview')}
           >
-            Start Privacy Assessment
+            View Risk Assessment Templates
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
