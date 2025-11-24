@@ -12,6 +12,7 @@ import {
   type OneTimeCheckoutItem 
 } from '../services/oneTimeCheckoutService';
 import { logError } from '../utils/logger';
+import { isSupabaseConfigured } from '../lib/supabase';
 
 interface CheckoutState {
   cart: string[];
@@ -124,10 +125,27 @@ const Checkout = () => {
 
       toast.info('Processing', 'Creating secure checkout session...');
 
+      console.log('Creating checkout session with:', {
+        itemsCount: items.length,
+        items: items.map(i => ({ productId: i.productId, name: i.name, price: i.price })),
+        successUrl,
+        cancelUrl,
+        hasSupabase: isSupabaseConfigured(),
+        stripeKey: !!import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY,
+      });
+
       const session = await createOneTimeCheckoutSession(items, successUrl, cancelUrl);
+
+      console.log('Checkout session result:', {
+        hasSession: !!session,
+        hasUrl: !!session?.url,
+        sessionId: session?.sessionId,
+        url: session?.url,
+      });
 
       if (!session || !session.url) {
         // This should not happen if error handling is correct, but keep as safety check
+        console.error('Checkout session is null or missing URL:', session);
         setError('Unable to create checkout session. Please try again.');
         toast.error(
           'Checkout Unavailable', 
@@ -144,7 +162,22 @@ const Checkout = () => {
       // Note: setIsProcessing(false) won't be reached if redirect succeeds,
       // but we keep it for error cases
     } catch (err) {
-      logError(err instanceof Error ? err : new Error('Checkout error'), { context: 'Checkout' });
+      // Log detailed error information
+      const errorDetails = {
+        error: err,
+        errorMessage: err instanceof Error ? err.message : String(err),
+        errorStack: err instanceof Error ? err.stack : undefined,
+        cartItems: items?.length || 0,
+        hasSupabase: isSupabaseConfigured(),
+        stripeKey: !!import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY,
+      };
+      
+      console.error('Checkout Error Details:', errorDetails);
+      logError(err instanceof Error ? err : new Error('Checkout error'), { 
+        context: 'Checkout',
+        ...errorDetails,
+      });
+      
       const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred';
       setError(errorMessage);
       toast.error(

@@ -112,8 +112,31 @@ export async function createOneTimeCheckoutSession(
         hasUser: !!user,
       });
       
+      console.log('[Checkout] Calling Edge Function:', {
+        function: 'create-one-time-checkout-session',
+        items: requestBody.items,
+        hasUser: !!user,
+        userId: user?.id,
+        email: user?.email,
+      });
+      
       const { data, error } = await supabase.functions.invoke('create-one-time-checkout-session', {
         body: requestBody,
+      });
+      
+      console.log('[Checkout] Edge Function Response:', {
+        hasData: !!data,
+        hasError: !!error,
+        error: error ? {
+          message: error.message,
+          status: (error as any).status,
+          details: error,
+        } : null,
+        data: data ? {
+          hasSessionId: !!data.sessionId,
+          hasUrl: !!data.url,
+          url: data.url,
+        } : null,
       });
 
       if (error) {
