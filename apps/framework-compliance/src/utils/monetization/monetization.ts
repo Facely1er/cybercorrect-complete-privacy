@@ -1,5 +1,5 @@
 // Monetization and credits management utility
-import { secureStorage } from './secureStorage';
+import { secureStorage } from '../storage/secureStorage';
 
 export type SubscriptionTier = 'free' | 'starter' | 'professional' | 'enterprise';
 export type ExportFormat = 'pdf' | 'word' | 'json' | 'csv' | 'excel' | 'powerpoint';

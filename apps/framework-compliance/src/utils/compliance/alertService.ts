@@ -1,6 +1,6 @@
 // Alert and reminder service
 import { supabase } from '../../lib/supabase';
-import { secureStorage } from './secureStorage';
+import { secureStorage } from '../storage/secureStorage';
 import { notificationService } from './notificationService';
 
 export type AlertRuleType = 'deadline' | 'score' | 'risk' | 'compliance' | 'custom';

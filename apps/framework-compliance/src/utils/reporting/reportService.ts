@@ -1,7 +1,7 @@
 // Report generation service for automated reports
 import { supabase } from '../../lib/supabase';
-import { secureStorage } from './secureStorage';
-import { complianceHealthMonitor } from './complianceHealthMonitor';
+import { secureStorage } from '../storage/secureStorage';
+import { complianceHealthMonitor } from '../compliance/complianceHealthMonitor';
 import { generateSSPPdf } from './generateSSPPdf';
 import { generateSSPWordDocument } from './generateWord';
 

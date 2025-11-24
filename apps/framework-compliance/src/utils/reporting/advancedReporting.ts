@@ -1,6 +1,6 @@
 // Advanced reporting for Professional/Enterprise plans
 import { reportService, ReportData } from './reportService';
-import { complianceHealthMonitor } from './complianceHealthMonitor';
+import { complianceHealthMonitor } from '../compliance/complianceHealthMonitor';
 import { predictiveAnalytics } from './predictiveAnalytics';
 
 export interface BoardReadyPresentation {
