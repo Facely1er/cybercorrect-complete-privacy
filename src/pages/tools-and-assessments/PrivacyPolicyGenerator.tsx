@@ -364,8 +364,8 @@ Last updated: ${new Date().toLocaleDateString()}
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card>
           <CardContent className="p-6">
-            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-              <Shield className="h-6 w-6 text-blue-600" />
+            <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+              <Shield className="h-6 w-6 text-primary" />
             </div>
             <h3 className="font-semibold mb-2">Regulation Compliant</h3>
             <p className="text-sm text-muted-foreground">
@@ -376,8 +376,8 @@ Last updated: ${new Date().toLocaleDateString()}
 
         <Card>
           <CardContent className="p-6">
-            <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-              <FileText className="h-6 w-6 text-green-600" />
+            <div className="w-10 h-10 bg-success/10 rounded-lg flex items-center justify-center mb-4">
+              <FileText className="h-6 w-6 text-success" />
             </div>
             <h3 className="font-semibold mb-2">Customizable Templates</h3>
             <p className="text-sm text-muted-foreground">
@@ -388,8 +388,8 @@ Last updated: ${new Date().toLocaleDateString()}
 
         <Card>
           <CardContent className="p-6">
-            <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-              <Zap className="h-6 w-6 text-purple-600" />
+            <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+              <Zap className="h-6 w-6 text-accent" />
             </div>
             <h3 className="font-semibold mb-2">Instant Generation</h3>
             <p className="text-sm text-muted-foreground">

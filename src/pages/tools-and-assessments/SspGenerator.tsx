@@ -448,16 +448,16 @@ const SspGenerator = () => {
   // Get status color
   const getStatusColor = (status: string) => {
     switch(status) {
-      case 'implemented': return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300';
-      case 'partially-implemented': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300';
-      case 'planned': return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300';
-      case 'not-applicable': return 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300';
-      case 'alternative': return 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300';
-      case 'complete': return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300';
-      case 'in-progress': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300';
-      case 'review': return 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300';
-      case 'not-started': return 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300';
+      case 'implemented': return 'bg-success/10 text-success';
+      case 'partially-implemented': return 'bg-warning/10 text-warning';
+      case 'planned': return 'bg-primary/10 text-primary';
+      case 'not-applicable': return 'bg-muted text-muted-foreground';
+      case 'alternative': return 'bg-accent/10 text-accent';
+      case 'complete': return 'bg-success/10 text-success';
+      case 'in-progress': return 'bg-warning/10 text-warning';
+      case 'review': return 'bg-warning/10 text-warning';
+      case 'not-started': return 'bg-muted text-muted-foreground';
+      default: return 'bg-muted text-muted-foreground';
     }
   };
   
@@ -482,7 +482,7 @@ const SspGenerator = () => {
               <BarChart3 className="mr-2 h-4 w-4" />
               Dashboard
               {metrics.completionPercentage < 100 && (
-                <span className="absolute -top-1 -right-1 h-3 w-3 bg-yellow-500 rounded-full"></span>
+                <span className="absolute -top-1 -right-1 h-3 w-3 bg-warning rounded-full"></span>
               )}
             </Button>
             <Button variant="outline" onClick={() => setShowTemplates(!showTemplates)}>
@@ -503,23 +503,23 @@ const SspGenerator = () => {
                 Export SSP
                 <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
-              <div id="export-menu" className="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10">
+              <div id="export-menu" className="hidden absolute right-0 mt-2 w-48 bg-background border border-border rounded-md shadow-lg z-10">
                 <button 
-                  className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+                  className="w-full text-left px-4 py-2 hover:bg-muted flex items-center"
                   onClick={() => exportSSP('pdf')}
                 >
                   <FileText className="h-4 w-4 mr-2" />
                   Export as PDF
                 </button>
                 <button 
-                  className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+                  className="w-full text-left px-4 py-2 hover:bg-muted flex items-center"
                   onClick={() => exportSSP('word')}
                 >
                   <FileText className="h-4 w-4 mr-2" />
                   Export as Word
                 </button>
                 <button 
-                  className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+                  className="w-full text-left px-4 py-2 hover:bg-muted flex items-center"
                   onClick={() => exportSSP('json')}
                 >
                   <FileDown className="h-4 w-4 mr-2" />
@@ -578,39 +578,39 @@ const SspGenerator = () => {
                     <p className="text-sm text-muted-foreground">Overall Progress</p>
                     <p className="text-2xl font-bold">{metrics.completionPercentage}%</p>
                   </div>
-                  <TrendingUp className="h-8 w-8 text-blue-500 opacity-50" />
+                  <TrendingUp className="h-8 w-8 text-primary opacity-50" />
                 </div>
-                <div className="mt-2 bg-gray-200 rounded-full h-2">
+                <div className="mt-2 bg-muted rounded-full h-2">
                   <div 
-                    className="bg-blue-600 h-2 rounded-full transition-all duration-500"
+                    className="bg-primary h-2 rounded-full transition-all duration-500"
                     style={{ width: `${metrics.completionPercentage}%` }}
                   ></div>
                 </div>
               </div>
               
-              <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-4 rounded-lg">
+              <div className="bg-gradient-to-br from-success/10 to-success/20 p-4 rounded-lg">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Implemented Controls</p>
                     <p className="text-2xl font-bold">{metrics.implementedControls}</p>
                     <p className="text-xs text-muted-foreground">of {metrics.totalControls}</p>
                   </div>
-                  <CheckCircle className="h-8 w-8 text-green-500 opacity-50" />
+                  <CheckCircle className="h-8 w-8 text-success opacity-50" />
                 </div>
               </div>
               
-              <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 p-4 rounded-lg">
+              <div className="bg-gradient-to-br from-warning/10 to-warning/20 p-4 rounded-lg">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Sections Complete</p>
                     <p className="text-2xl font-bold">{metrics.sectionsComplete}</p>
                     <p className="text-xs text-muted-foreground">of {metrics.totalSections}</p>
                   </div>
-                  <FileText className="h-8 w-8 text-yellow-500 opacity-50" />
+                  <FileText className="h-8 w-8 text-warning opacity-50" />
                 </div>
               </div>
               
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 p-4 rounded-lg">
+              <div className="bg-gradient-to-br from-accent/10 to-accent/20 p-4 rounded-lg">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Next Review</p>
@@ -618,7 +618,7 @@ const SspGenerator = () => {
                       {new Date(metrics.nextReviewDate).toLocaleDateString()}
                     </p>
                   </div>
-                  <Calendar className="h-8 w-8 text-purple-500 opacity-50" />
+                  <Calendar className="h-8 w-8 text-accent opacity-50" />
                 </div>
               </div>
             </div>
@@ -631,9 +631,9 @@ const SspGenerator = () => {
                   <div className="flex items-center justify-between">
                     <span className="text-sm">Implemented</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-32 bg-gray-200 rounded-full h-2">
+                      <div className="w-32 bg-muted rounded-full h-2">
                         <div 
-                          className="bg-green-600 h-2 rounded-full"
+                          className="bg-success h-2 rounded-full"
                           style={{ width: `${(metrics.implementedControls / metrics.totalControls) * 100}%` }}
                         ></div>
                       </div>
@@ -643,9 +643,9 @@ const SspGenerator = () => {
                   <div className="flex items-center justify-between">
                     <span className="text-sm">Partially Implemented</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-32 bg-gray-200 rounded-full h-2">
+                      <div className="w-32 bg-muted rounded-full h-2">
                         <div 
-                          className="bg-yellow-600 h-2 rounded-full"
+                          className="bg-warning h-2 rounded-full"
                           style={{ width: `${(metrics.partiallyImplementedControls / metrics.totalControls) * 100}%` }}
                         ></div>
                       </div>
@@ -655,9 +655,9 @@ const SspGenerator = () => {
                   <div className="flex items-center justify-between">
                     <span className="text-sm">Planned</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-32 bg-gray-200 rounded-full h-2">
+                      <div className="w-32 bg-muted rounded-full h-2">
                         <div 
-                          className="bg-blue-600 h-2 rounded-full"
+                          className="bg-primary h-2 rounded-full"
                           style={{ width: `${(metrics.plannedControls / metrics.totalControls) * 100}%` }}
                         ></div>
                       </div>
@@ -667,9 +667,9 @@ const SspGenerator = () => {
                   <div className="flex items-center justify-between">
                     <span className="text-sm">Alternative Implementation</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-32 bg-gray-200 rounded-full h-2">
+                      <div className="w-32 bg-muted rounded-full h-2">
                         <div 
-                          className="bg-purple-600 h-2 rounded-full"
+                          className="bg-accent h-2 rounded-full"
                           style={{ width: `${(metrics.alternativeControls / metrics.totalControls) * 100}%` }}
                         ></div>
                       </div>
@@ -720,13 +720,13 @@ const SspGenerator = () => {
                     <div className="flex items-center justify-between">
                       <span className="font-medium">{section.title}</span>
                       {section.status === 'complete' && (
-                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <CheckCircle className="h-4 w-4 text-success" />
                       )}
                       {section.status === 'in-progress' && (
-                        <Clock className="h-4 w-4 text-yellow-500" />
+                        <Clock className="h-4 w-4 text-warning" />
                       )}
                       {section.status === 'review' && (
-                        <AlertCircle className="h-4 w-4 text-orange-500" />
+                        <AlertCircle className="h-4 w-4 text-warning" />
                       )}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">{section.description}</p>
@@ -1019,7 +1019,7 @@ const SspGenerator = () => {
                           </span>
                         </div>
                         <h4 className="text-sm font-medium">{family.name}</h4>
-                        <div className="mt-2 bg-gray-200 rounded-full h-1">
+                        <div className="mt-2 bg-muted rounded-full h-1">
                           <div 
                             className="bg-primary h-1 rounded-full"
                             style={{ width: `${(implemented / family.controlCount) * 100}%` }}
@@ -1100,7 +1100,7 @@ const SspGenerator = () => {
                       </div>
                       
                       {control.implementation.gaps && control.implementation.gaps.length > 0 && (
-                        <div className="mt-3 p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded">
+                        <div className="mt-3 p-2 bg-warning/10 rounded">
                           <h5 className="text-xs font-medium mb-1 flex items-center">
                             <AlertTriangle className="h-3 w-3 mr-1" />
                             Identified Gaps

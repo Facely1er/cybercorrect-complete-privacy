@@ -118,8 +118,8 @@ const GdprMapper = () => {
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
-      case 'high': return 'text-red-600 bg-red-100 dark:bg-red-900/30 dark:text-red-200';
-      case 'medium': return 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30 dark:text-yellow-200';
+      case 'high': return 'text-destructive bg-destructive/10';
+      case 'medium': return 'text-warning bg-warning/10';
       case 'low': return 'text-success bg-success/10';
       default: return 'text-muted-foreground bg-muted';
     }
@@ -127,10 +127,10 @@ const GdprMapper = () => {
 
   const getLegalBasisColor = (basis: string) => {
     const colors: Record<string, string> = {
-      'Consent': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200',
-      'Contract': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200',
-      'Legal Obligation': 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200',
-      'Legitimate Interest': 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-200'
+      'Consent': 'bg-primary/10 text-primary',
+      'Contract': 'bg-success/10 text-success',
+      'Legal Obligation': 'bg-accent/10 text-accent',
+      'Legitimate Interest': 'bg-warning/10 text-warning'
     };
     return colors[basis] || 'bg-muted text-muted-foreground';
   };
@@ -336,19 +336,19 @@ const GdprMapper = () => {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm">Records of Processing (Art. 30)</span>
-                  <CheckCircle className="h-5 w-5 text-green-600" />
+                  <CheckCircle className="h-5 w-5 text-success" />
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm">Lawful Basis Documented</span>
-                  <CheckCircle className="h-5 w-5 text-green-600" />
+                  <CheckCircle className="h-5 w-5 text-success" />
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm">Data Subject Rights</span>
-                  <AlertTriangle className="h-5 w-5 text-yellow-600" />
+                  <AlertTriangle className="h-5 w-5 text-warning" />
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm">DPIA Required</span>
-                  <AlertTriangle className="h-5 w-5 text-yellow-600" />
+                  <AlertTriangle className="h-5 w-5 text-warning" />
                 </div>
               </div>
               
