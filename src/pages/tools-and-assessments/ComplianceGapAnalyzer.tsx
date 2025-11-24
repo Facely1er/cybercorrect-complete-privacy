@@ -290,6 +290,18 @@ const ComplianceGapAnalyzer: React.FC = () => {
         'Identity Management', 'Awareness Training', 'Data Security', 'Information Protection',
         'Maintenance', 'Protective Technology', 'Access Control', 'Security Architecture'
       ],
+      'Detect': [
+        'Anomaly Detection', 'Security Monitoring', 'Continuous Monitoring', 'Event Detection',
+        'Threat Detection', 'Vulnerability Scanning', 'Log Analysis', 'Network Monitoring'
+      ],
+      'Respond': [
+        'Incident Response Plan', 'Incident Handling', 'Communication', 'Analysis',
+        'Mitigation', 'Improvements', 'Incident Coordination', 'Response Procedures'
+      ],
+      'Recover': [
+        'Recovery Planning', 'Improvements', 'Communications', 'Recovery Procedures',
+        'Business Continuity', 'Disaster Recovery', 'System Restoration', 'Lessons Learned'
+      ],
       'Security': [
         'Access Controls', 'Security Monitoring', 'Incident Management', 'Vulnerability Management',
         'Security Architecture', 'Data Protection', 'Network Security', 'Endpoint Security'
