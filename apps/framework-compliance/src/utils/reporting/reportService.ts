@@ -4,6 +4,7 @@ import { secureStorage } from '../storage/secureStorage';
 import { complianceHealthMonitor } from '../compliance/complianceHealthMonitor';
 import { generateSSPPdf } from './generateSSPPdf';
 import { generateSSPWordDocument } from './generateWord';
+import { logError } from '../common/logger';
 
 export type ReportType = 'compliance' | 'executive' | 'risk' | 'health' | 'quarterly' | 'monthly' | 'weekly' | 'custom';
 export type ReportFrequency = 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'custom';
@@ -116,7 +117,10 @@ class ReportService {
       // Generate report based on format
       return await this.generateReportBlob(reportData, format);
     } catch (error) {
-      console.error('Failed to generate compliance report:', error);
+      logError(error instanceof Error ? error : new Error('Failed to generate compliance report'), {
+        context: 'reportService.generateComplianceReport',
+        format
+      });
       return null;
     }
   }
@@ -183,7 +187,10 @@ class ReportService {
 
       return await this.generateReportBlob(reportData, format);
     } catch (error) {
-      console.error('Failed to generate executive summary:', error);
+      logError(error instanceof Error ? error : new Error('Failed to generate executive summary'), {
+        context: 'reportService.generateExecutiveSummary',
+        format
+      });
       return null;
     }
   }
@@ -230,7 +237,10 @@ class ReportService {
 
       return await this.generateReportBlob(reportData, format);
     } catch (error) {
-      console.error('Failed to generate risk report:', error);
+      logError(error instanceof Error ? error : new Error('Failed to generate risk report'), {
+        context: 'reportService.generateRiskReport',
+        format
+      });
       return null;
     }
   }
@@ -269,7 +279,10 @@ class ReportService {
 
       return await this.generateReportBlob(reportData, format);
     } catch (error) {
-      console.error('Failed to generate health report:', error);
+      logError(error instanceof Error ? error : new Error('Failed to generate health report'), {
+        context: 'reportService.generateHealthReport',
+        format
+      });
       return null;
     }
   }
@@ -306,7 +319,10 @@ class ReportService {
           return new Blob([JSON.stringify(reportData, null, 2)], { type: 'application/json' });
       }
     } catch (error) {
-      console.error('Failed to generate report blob:', error);
+      logError(error instanceof Error ? error : new Error('Failed to generate report blob'), {
+        context: 'reportService.generateReportBlob',
+        format
+      });
       return null;
     }
   }
@@ -459,7 +475,10 @@ class ReportService {
       // Fallback to local storage
       return this.scheduleLocalReport(report);
     } catch (error) {
-      console.error('Failed to schedule report:', error);
+      logError(error instanceof Error ? error : new Error('Failed to schedule report'), {
+        context: 'reportService.scheduleReport',
+        reportType
+      });
       return this.scheduleLocalReport({
         report_type: reportType,
         frequency,
@@ -539,7 +558,9 @@ class ReportService {
       this.reportHistoryCache = filtered;
       return filtered;
     } catch (error) {
-      console.error('Failed to get report history:', error);
+      logError(error instanceof Error ? error : new Error('Failed to get report history'), {
+        context: 'reportService.getReportHistory'
+      });
       return [];
     }
   }
@@ -566,7 +587,10 @@ class ReportService {
       secureStorage.setItem(REPORT_HISTORY_STORAGE_KEY, history);
       this.reportHistoryCache = history;
     } catch (error) {
-      console.error('Failed to save report to history:', error);
+      logError(error instanceof Error ? error : new Error('Failed to save report to history'), {
+        context: 'reportService.saveReportToHistory',
+        reportId: report.id
+      });
     }
   }
 
@@ -577,7 +601,9 @@ class ReportService {
     try {
       secureStorage.setItem(REPORTS_STORAGE_KEY, this.reportsCache);
     } catch (error) {
-      console.error('Failed to sync reports to local storage:', error);
+      logError(error instanceof Error ? error : new Error('Failed to sync reports to local storage'), {
+        context: 'reportService.syncReportsToLocalStorage'
+      });
     }
   }
 
@@ -608,7 +634,9 @@ class ReportService {
         }
       }
     } catch (error) {
-      console.error('Failed to initialize report service:', error);
+      logError(error instanceof Error ? error : new Error('Failed to initialize report service'), {
+        context: 'reportService.initialize'
+      });
     }
   }
 }

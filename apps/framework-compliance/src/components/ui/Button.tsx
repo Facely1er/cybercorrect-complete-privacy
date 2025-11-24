@@ -7,7 +7,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'default', size = 'default', ...props }, ref) => {
+  ({ className, variant = 'default', size = 'default', 'aria-label': ariaLabel, ...props }, ref) => {
     return (
       <button
         className={cn(
@@ -29,6 +29,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           className
         )}
         ref={ref}
+        aria-label={ariaLabel || (typeof props.children === 'string' ? props.children : undefined)}
+        role={props.type === 'button' ? 'button' : undefined}
+        tabIndex={props.disabled ? -1 : 0}
         {...props}
       />
     );

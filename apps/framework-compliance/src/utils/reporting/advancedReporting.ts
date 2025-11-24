@@ -2,6 +2,7 @@
 import { reportService, ReportData } from './reportService';
 import { complianceHealthMonitor } from '../compliance/complianceHealthMonitor';
 import { predictiveAnalytics } from './predictiveAnalytics';
+import { logError } from '../common/logger';
 
 export interface BoardReadyPresentation {
   title: string;
@@ -117,7 +118,9 @@ class AdvancedReporting {
         nextSteps: context.nextSteps || [],
       };
     } catch (error) {
-      console.error('Failed to generate board presentation:', error);
+      logError(error instanceof Error ? error : new Error('Failed to generate board presentation'), {
+        context: 'advancedReporting.generateBoardReadyPresentation'
+      });
       throw error;
     }
   }
@@ -177,7 +180,9 @@ class AdvancedReporting {
         efficiencyGain,
       };
     } catch (error) {
-      console.error('Failed to calculate ROI:', error);
+      logError(error instanceof Error ? error : new Error('Failed to calculate ROI'), {
+        context: 'advancedReporting.calculateROI'
+      });
       throw error;
     }
   }
@@ -247,7 +252,9 @@ class AdvancedReporting {
         recommendations,
       };
     } catch (error) {
-      console.error('Failed to assess maturity:', error);
+      logError(error instanceof Error ? error : new Error('Failed to assess maturity'), {
+        context: 'advancedReporting.assessMaturityLevel'
+      });
       return null;
     }
   }
@@ -293,7 +300,9 @@ class AdvancedReporting {
         comparison,
       };
     } catch (error) {
-      console.error('Failed to compare industry benchmark:', error);
+      logError(error instanceof Error ? error : new Error('Failed to compare industry benchmark'), {
+        context: 'advancedReporting.compareIndustryBenchmark'
+      });
       return null;
     }
   }
@@ -331,7 +340,9 @@ class AdvancedReporting {
 
       return trackedKPIs;
     } catch (error) {
-      console.error('Failed to track custom KPIs:', error);
+      logError(error instanceof Error ? error : new Error('Failed to track custom KPIs'), {
+        context: 'advancedReporting.trackCustomKPIs'
+      });
       return [];
     }
   }

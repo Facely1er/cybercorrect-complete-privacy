@@ -38,6 +38,18 @@ export default defineConfig(({ mode }) => {
       outDir: '../../dist/framework-compliance',
       // Use inline source maps in development for better debugging, no source maps in production
       sourcemap: mode === 'production' ? false : 'inline',
+      // Performance optimizations
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: mode === 'production', // Remove console.log in production
+          drop_debugger: mode === 'production',
+        },
+      },
+      // Chunk size optimization
+      chunkSizeWarningLimit: 1000,
+      // Asset optimization
+      assetsInlineLimit: 4096, // Inline assets smaller than 4kb
     rollupOptions: {
       output: {
         manualChunks: (id) => {
