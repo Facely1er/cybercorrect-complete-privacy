@@ -98,14 +98,26 @@ export async function createOneTimeCheckoutSession(
         });
 
         if (error) {
-          logWarning('Supabase Edge Function error', { error });
-          // Fall through to mock/dev fallback
+          logError(error instanceof Error ? error : new Error('Edge Function error'), { context: 'one_time_checkout', error });
+          // Return error details for better user feedback
+          if (error.message) {
+            throw new Error(error.message);
+          }
+          throw new Error('Failed to create checkout session. Please try again or contact support.');
         } else if (data) {
+          // Check if data contains an error
+          if (data.error) {
+            throw new Error(data.error);
+          }
           return data as CheckoutSession;
         }
       } catch (invokeError) {
-        logWarning('Error invoking checkout session function', { error: invokeError });
-        // Fall through to mock/dev fallback
+        logError(invokeError instanceof Error ? invokeError : new Error('Error invoking checkout function'), { context: 'one_time_checkout' });
+        // Re-throw to show error to user
+        if (invokeError instanceof Error) {
+          throw invokeError;
+        }
+        throw new Error('Failed to connect to payment service. Please check your connection and try again.');
       }
     }
 
@@ -121,7 +133,7 @@ export async function createOneTimeCheckoutSession(
     // In production, return null if all services fail (graceful degradation)
     return null;
   } catch (error) {
-    // Never throw - always return null or fallback
+    // Log error for monitoring
     logError(
       error instanceof Error ? error : new Error('Failed to create one-time checkout session'),
       {
@@ -130,14 +142,11 @@ export async function createOneTimeCheckoutSession(
       }
     );
 
-    // Always return a fallback instead of throwing
-    if (import.meta.env.DEV) {
-      return {
-        sessionId: `mock_session_${Date.now()}`,
-        url: successUrl || `/store/success?session_id=mock_${Date.now()}`,
-      };
+    // Re-throw error so UI can show user-friendly message
+    if (error instanceof Error) {
+      throw error;
     }
-    return null;
+    throw new Error('Failed to create checkout session. Please try again or contact support.');
   }
 }
 

@@ -80,14 +80,26 @@ export async function createCheckoutSession(
         });
 
         if (error) {
-          console.warn('Supabase Edge Function error:', error);
-          // Fall through to mock/dev fallback
+          console.error('Supabase Edge Function error:', error);
+          // Return error details for better user feedback
+          if (error.message) {
+            throw new Error(error.message);
+          }
+          throw new Error('Failed to create checkout session. Please try again or contact support.');
         } else if (data) {
+          // Check if data contains an error
+          if (data.error) {
+            throw new Error(data.error);
+          }
           return data as CheckoutSession;
         }
       } catch (invokeError) {
-        console.warn('Error invoking checkout session function:', invokeError);
-        // Fall through to mock/dev fallback
+        console.error('Error invoking checkout session function:', invokeError);
+        // Re-throw to show error to user
+        if (invokeError instanceof Error) {
+          throw invokeError;
+        }
+        throw new Error('Failed to connect to payment service. Please check your connection and try again.');
       }
     }
 
@@ -103,7 +115,7 @@ export async function createCheckoutSession(
     // In production, return null if all services fail (graceful degradation)
     return null;
   } catch (error) {
-    // Never throw - always return null or fallback
+    // Log error for monitoring
     console.error('Unexpected error in createCheckoutSession:', error);
     try {
       errorMonitoring.captureException(error instanceof Error ? error : new Error('Failed to create checkout session'), {
@@ -116,14 +128,11 @@ export async function createCheckoutSession(
       console.error('Error monitoring also failed:', monitoringError);
     }
     
-    // Always return a fallback instead of throwing
-    if (import.meta.env.DEV) {
-      return {
-        sessionId: `mock_session_${Date.now()}`,
-        url: `/subscription/success?tier=${tier}&billing=${billingPeriod}`,
-      };
+    // Re-throw error so UI can show user-friendly message
+    if (error instanceof Error) {
+      throw error;
     }
-    return null;
+    throw new Error('Failed to create checkout session. Please try again or contact support.');
   }
 }
 

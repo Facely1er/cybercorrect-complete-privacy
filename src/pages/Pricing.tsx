@@ -306,22 +306,20 @@ const Pricing = () => {
                     const { createCheckoutSession } = await import('../services/subscriptionService');
                     const tier = plan.name.toLowerCase() as 'starter' | 'professional';
 
-                    // createCheckoutSession never throws - always returns null or session
                     const session = await createCheckoutSession(tier, billingPeriod);
 
                     if (session?.url) {
                       window.location.href = session.url;
                     } else {
-                      // Fallback: redirect to subscription page (service not configured or failed)
-                      logWarning('Checkout session not available, redirecting to subscription page');
-                      window.location.href = '/account/subscription';
+                      // Service not configured or failed
+                      logWarning('Checkout session not available');
+                      alert('Payment processing is currently unavailable. Please contact support or try again later.');
                     }
                   } catch (error) {
-                    // This should never happen since createCheckoutSession never throws,
-                    // but handle it gracefully just in case
-                    logError(error instanceof Error ? error : new Error('Unexpected error creating checkout session'), { context: 'Pricing' });
-                    // Fallback: redirect to subscription page
-                    window.location.href = '/account/subscription';
+                    // Show user-friendly error message
+                    const errorMessage = error instanceof Error ? error.message : 'Failed to start checkout. Please try again.';
+                    logError(error instanceof Error ? error : new Error('Error creating checkout session'), { context: 'Pricing' });
+                    alert(`Unable to process payment: ${errorMessage}\n\nPlease check your connection and try again, or contact support if the problem persists.`);
                   }
                 }}
               >
