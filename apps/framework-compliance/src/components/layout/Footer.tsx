@@ -9,11 +9,8 @@ import {
   BookOpen,
   HelpCircle,
   FileQuestion,
-  CircleDollarSign,
   Shield,
-  Lock,
-  AlertTriangle,
-  ShoppingCart
+  Lock
 } from 'lucide-react';
 import Logo from '../ui/Logo';
 import { useLocation } from 'react-router-dom';
