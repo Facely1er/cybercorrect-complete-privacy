@@ -45,70 +45,107 @@ const Footer: React.FC = () => {
     );
   }
 
-  // Redesigned compact footer for public routes
+  // Redesigned compact footer for public routes with refined styling
   return (
-    <footer className="bg-surface border-t border-support-gray dark:bg-dark-surface dark:border-dark-support">
-      <div className="container mx-auto px-6">
-        {/* Main Footer Content - Reduced to 2 rows */}
-        <div className="py-3 flex flex-col md:flex-row gap-6">
-          {/* Company Info - Left column */}
-          <div className="md:w-1/3">
-            <Link to="/" className="flex items-center">
-              <Logo size="medium" />
-            </Link>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Comprehensive privacy compliance solutions aligned with NIST 800-171 and the NIST Privacy Framework.
-            </p>
-          </div>
-          
-          {/* Navigation Links - Right columns */}
-          <div className="md:w-2/3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {/* Quick Links */}
-              <div>
-                <h3 className="text-sm font-semibold mb-2 text-foreground dark:text-dark-text">Quick Links</h3>
-                <ul className="space-y-1.5 text-sm">
-                  <li><Link to="/assessments/privacy-assessment" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><ClipboardCheck className="h-3.5 w-3.5 mr-1.5" />Privacy Assessment</Link></li>
-                  <li><Link to="/toolkit/gdpr-mapper" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Database className="h-3.5 w-3.5 mr-1.5" />GDPR Mapper</Link></li>
-                  <li><Link to="/toolkit/privacy-rights-manager" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Fingerprint className="h-3.5 w-3.5 mr-1.5" />Rights Manager</Link></li>
-                  <li><Link to="/toolkit/dpia-generator" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><FileCheck className="h-3.5 w-3.5 mr-1.5" />DPIA Generator</Link></li>
-                  <li><Link to="/toolkit/privacy-policy-generator" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><FileText className="h-3.5 w-3.5 mr-1.5" />Policy Generator</Link></li>
-                </ul>
-              </div>
-              
-              {/* Resources */}
-              <div>
-                <h3 className="text-sm font-semibold mb-2 text-foreground dark:text-dark-text">Resources</h3>
-                <ul className="space-y-1.5 text-sm">
-                  <li><Link to="/documentation" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><FileText className="h-3.5 w-3.5 mr-1.5" />Documentation</Link></li>
-                  <li><Link to="/guides" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><BookOpen className="h-3.5 w-3.5 mr-1.5" />Guides</Link></li>
-                  <li><Link to="/documentation/faqs" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><FileQuestion className="h-3.5 w-3.5 mr-1.5" />FAQs</Link></li>
-                  <li><Link to="/support" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><HelpCircle className="h-3.5 w-3.5 mr-1.5" />Support</Link></li>
-                  <li><Link to="/pricing" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><CircleDollarSign className="h-3.5 w-3.5 mr-1.5" />Pricing</Link></li>
-                  <li><Link to="/store" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><ShoppingCart className="h-3.5 w-3.5 mr-1.5" />Privacy Tools Store</Link></li>
-                </ul>
-              </div>
-              
-              {/* Company & Contact */}
-              <div>
-                <h3 className="text-sm font-semibold mb-2 text-foreground dark:text-dark-text">Company</h3>
-                <ul className="space-y-1.5 text-sm">
-                  <li><Link to="/privacy" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Shield className="h-3.5 w-3.5 mr-1.5" />Privacy Policy</Link></li>
-                  <li><Link to="/terms" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><Lock className="h-3.5 w-3.5 mr-1.5" />Terms of Service</Link></li>
-                  <li><Link to="/cookies" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><FileText className="h-3.5 w-3.5 mr-1.5" />Cookie Policy</Link></li>
-                  <li><Link to="/acceptable-use" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><AlertTriangle className="h-3.5 w-3.5 mr-1.5" />Acceptable Use Policy</Link></li>
-                  <li><Link to="/ecommerce" className="text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary flex items-center"><CircleDollarSign className="h-3.5 w-3.5 mr-1.5" />E-Commerce Policies</Link></li>
-                </ul>
+    <footer className="bg-muted/30 border-t">
+      <div className="container mx-auto px-4 py-6">
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Company Info */}
+            <div className="space-y-4">
+              <Link to="/" className="flex items-center space-x-3 group">
+                <Logo size="medium" />
+              </Link>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Comprehensive privacy compliance solutions aligned with NIST 800-171 and the NIST Privacy Framework.
+              </p>
+              <div className="pt-2">
+                <p className="text-xs text-muted-foreground">
+                  © {currentYear} ERMITS LLC. All rights reserved.
+                </p>
               </div>
             </div>
+            
+            {/* Quick Links */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-sm text-foreground mb-4">Quick Links</h3>
+              <ul className="space-y-3 text-sm">
+                <li>
+                  <Link to="/assessments/privacy-assessment" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
+                    <ClipboardCheck className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Privacy Assessment</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/toolkit/gdpr-mapper" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
+                    <Database className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>GDPR Mapper</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/toolkit/privacy-rights-manager" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
+                    <Fingerprint className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Rights Manager</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/toolkit/dpia-generator" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
+                    <FileCheck className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>DPIA Generator</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/toolkit/privacy-policy-generator" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
+                    <FileText className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Policy Generator</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            
+            {/* Resources & Legal */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-sm text-foreground mb-4">Resources & Legal</h3>
+              <ul className="space-y-3 text-sm">
+                <li>
+                  <Link to="/documentation" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
+                    <FileText className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Documentation</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/guides" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
+                    <BookOpen className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Guides</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/documentation/faqs" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
+                    <FileQuestion className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>FAQs</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/support" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
+                    <HelpCircle className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Support</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/privacy" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
+                    <Shield className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Privacy Policy</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/terms" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
+                    <Lock className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Terms of Service</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-
-        {/* Footer Bottom - Copyright & Legal */}
-        <div className="py-1.5 border-t border-support-gray dark:border-dark-support flex flex-col sm:flex-row justify-between items-center gap-2 text-xs">
-          <p className="text-muted-foreground">
-            &copy; {currentYear} ERMITS LLC. All rights reserved.
-          </p>
         </div>
       </div>
     </footer>

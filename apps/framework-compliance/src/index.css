@@ -82,55 +82,21 @@
   * {
     @apply border-border;
   }
-  
-  /* Prevent horizontal scroll globally */
-  html, body {
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+
+  html {
     @apply transition-colors duration-200;
     overflow-x: hidden;
-    max-width: 100vw;
-    position: relative;
-  }
-  
-  body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-  
-  /* Ensure all containers respect viewport width */
-  #root {
-    max-width: 100vw;
-    overflow-x: hidden;
-    position: relative;
-  }
-  
-  /* Prevent horizontal overflow on all elements */
-  * {
-    box-sizing: border-box;
-  }
-  
-  /* Ensure containers don't exceed viewport */
-  .container, [class*="container"] {
-    max-width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-  @media (min-width: 640px) {
-    .container, [class*="container"] {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-  
-  /* Ensure images and media don't cause overflow */
-  img, video, iframe, embed, object {
-    max-width: 100%;
-    height: auto;
   }
 
   .dark-mode-transition-disabled {
     transition: none !important;
   }
+  
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-medium leading-tight text-foreground;
@@ -154,73 +120,35 @@
 }
 
 @layer components {
-  /* Enhanced button styles for consistency */
-  .enhanced-button {
-    @apply transform hover:scale-105 hover:shadow-xl transition-all duration-500 hover:brightness-110;
-  }
-  
-  /* Consistent card hover effects */
-  .card-hover-lift {
-    @apply hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 hover:brightness-105;
-  }
-  
-  /* Gradient text utility */
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary via-secondary to-accent dark:from-primary dark:via-secondary dark:to-accent bg-clip-text text-transparent animate-gradient;
-  }
-  
-  /* Animated gradient background */
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient 3s ease infinite;
-  }
-  
-  @keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  
-  /* Consistent hero badge styling */
-  .hero-badge {
-    @apply px-6 py-3 rounded-full inline-flex items-center text-sm font-semibold tracking-wide uppercase shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm;
-  }
-  
-  /* Glass morphism effect */
-  .glass-effect {
-    @apply bg-white/20 dark:bg-black/20 backdrop-blur-md border border-white/30 dark:border-white/10;
-  }
-  
-  /* Enhanced glow effect */
-  .glow-effect {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3), 0 0 80px rgba(59, 130, 246, 0.1);
+  /* Text carousel animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  /* Score gradient utilities using design tokens */
-  .gradient-score-excellent {
-    @apply bg-gradient-to-r from-success to-success/80;
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
   }
 
-  .gradient-score-good {
-    @apply bg-gradient-to-r from-primary to-secondary;
+  .animate-fadeIn {
+    animation: fadeIn 0.6s ease-out forwards;
   }
 
-  .gradient-score-fair {
-    @apply bg-gradient-to-r from-warning to-warning/80;
-  }
-
-  .gradient-score-poor {
-    @apply bg-gradient-to-r from-destructive to-destructive/80;
-  }
-  
-  /* Section spacing consistency */
-  .section-padding {
-    @apply py-24;
-  }
-  
-  /* Title spacing consistency */
-  .section-title {
-    @apply text-3xl font-bold text-center mb-12 text-foreground;
+  .animate-fadeOut {
+    animation: fadeOut 0.6s ease-out forwards;
   }
 
   .dropdown-content {
@@ -228,48 +156,11 @@
   }
 
   .animate-in {
-    animation: animateIn 0.3s ease-out;
+    animation: animateIn 0.5s ease;
   }
 
   .animate-out {
-    animation: animateOut 0.3s ease-in;
-  }
-
-  @keyframes animateIn {
-    from {
-      opacity: 0;
-      transform: translateY(-8px) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  @keyframes animateOut {
-    from {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    to {
-      opacity: 0;
-      transform: translateY(-8px) scale(0.95);
-    }
-  }
-
-  .slide-up {
-    animation: slideUp 0.3s ease-out;
-  }
-
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    animation: animateOut 0.5s ease;
   }
   
   .page-transition {
@@ -291,35 +182,15 @@
   
   .nav-link.active {
     @apply text-primary;
-    background-color: rgba(59, 130, 246, 0.1);
+    background-color: rgba(42, 111, 127, 0.1);
     border-radius: 0.375rem;
   }
   
   /* Card hover effects */
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-2 dark:hover:shadow-xl dark:hover:border-primary/50;
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-2 dark:hover:shadow-none dark:hover:border-primary/50;
   }
 
-  /* Improved focus states for accessibility */
-  .focus-ring {
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
-  }
-
-  /* Smooth scroll behavior */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Improved text selection */
-  ::selection {
-    @apply bg-primary/20 text-foreground;
-  }
-
-  /* Loading spinner polish */
-  .loading-pulse {
-    @apply animate-pulse;
-  }
-  
   /* Button transitions */
   .btn-transition {
     @apply transition-all duration-300;
@@ -329,106 +200,8 @@
   .assessment-card {
     @apply border dark:border-muted bg-card shadow-sm dark:shadow-none hover:shadow-lg hover:-translate-y-2 dark:hover:shadow-none transition-all duration-300;
   }
-
-  /* Floating privacy icons animation */
-  .floating-icon {
-    /* Remove fixed duration - let inline styles control it */
-    animation-name: float;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    will-change: transform;
-    /* Performance optimization: contain layout, style, and paint */
-    contain: layout style paint;
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translate(0, 0) rotate(0deg);
-    }
-    25% {
-      transform: translate(20px, -30px) rotate(5deg);
-    }
-    50% {
-      transform: translate(-15px, -50px) rotate(-5deg);
-    }
-    75% {
-      transform: translate(25px, -20px) rotate(3deg);
-    }
-  }
-
-  /* Additional floating variations for more dynamic movement */
-  .floating-icon:nth-child(odd) {
-    animation-name: float-reverse;
-  }
-
-  @keyframes float-reverse {
-    0%, 100% {
-      transform: translate(0, 0) rotate(0deg);
-    }
-    25% {
-      transform: translate(-20px, -30px) rotate(-5deg);
-    }
-    50% {
-      transform: translate(15px, -50px) rotate(5deg);
-    }
-    75% {
-      transform: translate(-25px, -20px) rotate(-3deg);
-    }
-  }
-
-  /* Accessibility: Respect user's motion preferences */
-  @media (prefers-reduced-motion: reduce) {
-    .floating-icon {
-      animation: none;
-      transform: translate(0, 0) rotate(0deg);
-    }
-  }
 }
 
-@layer utilities {
-  /* Hide elements in portrait mode */
-  @media (orientation: portrait) {
-    .portrait-hidden {
-      display: none !important;
-    }
-  }
-  
-  /* Show elements only in landscape mode */
-  @media (orientation: landscape) {
-    .portrait-only {
-      display: none !important;
-    }
-  }
-  
-  /* Mobile-first responsive utilities */
-  .mobile-scroll-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-  }
-  
-  .mobile-scroll-container::-webkit-scrollbar {
-    height: 4px;
-  }
-  
-  .mobile-scroll-container::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  .mobile-scroll-container::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
-  }
-  
-  /* Prevent text truncation on mobile */
-  @media (max-width: 640px) {
-    .no-truncate-mobile {
-      white-space: normal !important;
-      overflow: visible !important;
-      text-overflow: clip !important;
-    }
-  }
-}
 
 /* Prevent flash of unstyled content when switching themes */
 .no-fouc {

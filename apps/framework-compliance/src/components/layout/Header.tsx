@@ -1,4 +1,4 @@
- import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { SunMoon, Moon, Menu, ChevronDown } from 'lucide-react';
 
@@ -13,7 +13,18 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+
+  // Handle scroll effect for sticky header
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleDropdown = (name: string) => {
     if (activeDropdown === name) {
@@ -39,8 +50,12 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 flex h-16 flex-shrink-0 border-b border-border bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 shadow-sm">
-      <div className="container mx-auto flex justify-between items-center px-2 sm:px-4 min-w-0 overflow-visible">
+    <header className={`fixed top-0 left-0 right-0 z-50 w-full border-b transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 shadow-sm border-border/50' 
+        : 'bg-background/80 backdrop-blur-sm border-transparent'
+    }`}>
+      <div className="container mx-auto flex justify-between items-center px-2 sm:px-4 min-w-0 overflow-visible h-16">
         <div className="flex items-center min-w-0 flex-shrink">
           <Link to="/" className="flex items-center focus-ring rounded-md p-1" aria-label="CyberCorrect Privacy Platform Home">
             <span className="text-base sm:text-xl font-semibold text-foreground transition-colors hover:text-primary truncate">CyberCorrect Privacy Platform</span>
