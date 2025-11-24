@@ -88,6 +88,53 @@ const Landing = () => {
               </Link>
             </div>
             
+            {/* Choose Your Role Section */}
+            <div className="mt-12 text-center">
+              <p className="text-lg text-white/90 dark:text-foreground mb-6 font-medium">New to Privacy Compliance? Choose Your Role</p>
+              <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
+                <Link to="/roles/data-protection-officer" className="no-underline">
+                  <Button 
+                    variant="outline"
+                    className="glass-effect text-white dark:text-foreground hover:bg-white/30 dark:hover:bg-primary/20 transition-all duration-300 border-white/30 dark:border-primary/30"
+                    aria-label="Data Protection Officer Journey"
+                  >
+                    <Users className="h-4 w-4 mr-2" />
+                    Data Protection Officer
+                  </Button>
+                </Link>
+                <Link to="/roles/privacy-officer" className="no-underline">
+                  <Button 
+                    variant="outline"
+                    className="glass-effect text-white dark:text-foreground hover:bg-white/30 dark:hover:bg-primary/20 transition-all duration-300 border-white/30 dark:border-primary/30"
+                    aria-label="Privacy Officer Journey"
+                  >
+                    <Shield className="h-4 w-4 mr-2" />
+                    Privacy Officer
+                  </Button>
+                </Link>
+                <Link to="/roles/legal-counsel" className="no-underline">
+                  <Button 
+                    variant="outline"
+                    className="glass-effect text-white dark:text-foreground hover:bg-white/30 dark:hover:bg-primary/20 transition-all duration-300 border-white/30 dark:border-primary/30"
+                    aria-label="Legal Counsel Journey"
+                  >
+                    <Scale className="h-4 w-4 mr-2" />
+                    Legal Counsel
+                  </Button>
+                </Link>
+                <Link to="/roles/data-steward" className="no-underline">
+                  <Button 
+                    variant="outline"
+                    className="glass-effect text-white dark:text-foreground hover:bg-white/30 dark:hover:bg-primary/20 transition-all duration-300 border-white/30 dark:border-primary/30"
+                    aria-label="Data Steward Journey"
+                  >
+                    <Database className="h-4 w-4 mr-2" />
+                    Data Steward
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
             {/* Quick Links Section */}
             <div className="mt-12 text-center">
               <p className="text-lg text-white/90 dark:text-foreground mb-6 font-medium">Popular Resources</p>
@@ -115,6 +162,14 @@ const Landing = () => {
                   aria-label="GDPR Guide"
                 >
                   GDPR Guide
+                </InternalLink>
+                <InternalLink 
+                  href="/documentation/getting-started" 
+                  variant="button" 
+                  className="glass-effect text-white dark:text-foreground hover:bg-white/30 dark:hover:bg-primary/20 transition-all duration-300"
+                  aria-label="Getting Started Guide"
+                >
+                  Getting Started
                 </InternalLink>
                 <InternalLink 
                   href="/pricing" 

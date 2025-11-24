@@ -164,7 +164,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       ]
     },
     {
-      name: 'Roles',
+      name: 'For Your Role',
       path: '/roles/data-protection-officer',
       icon: Users,
       dropdown: true,

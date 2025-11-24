@@ -20,93 +20,93 @@ const GettingStarted = () => {
   const guides = [
     {
       title: "Platform Overview",
-      description: "Learn about CyberCorrect's core features and capabilities",
+      description: "Learn about CyberCorrect's privacy compliance features and capabilities",
       steps: [
-        "Dashboard navigation",
-        "Key features overview",
+        "Privacy compliance platform overview",
+        "Key privacy tools and features",
         "User interface basics",
-        "Common workflows"
+        "Common privacy workflows"
       ],
       time: "15 mins",
       icon: Shield,
       path: "/documentation/platform-overview"
     },
     {
-      title: "First Risk Assessment",
-      description: "Complete your first risk assessment using NIST CSF framework",
+      title: "Privacy Assessment",
+      description: "Complete your first privacy assessment using NIST Privacy Framework",
       steps: [
-        "Risk identification",
-        "Impact analysis",
-        "Control evaluation",
-        "Treatment planning"
+        "Privacy gap identification",
+        "Compliance scoring across frameworks",
+        "Privacy control evaluation",
+        "Remediation planning"
+      ],
+      time: "30-45 mins",
+      icon: FileText,
+      path: "/assessments/privacy-assessment"
+    },
+    {
+      title: "Privacy Tools Setup",
+      description: "Get started with essential privacy compliance tools",
+      steps: [
+        "DPIA Generator setup",
+        "Privacy Policy Generator",
+        "Data mapping tools",
+        "Privacy rights management"
       ],
       time: "30 mins",
-      icon: FileText,
-      path: "/documentation/quick-start"
-    },
-    {
-      title: "Security Controls Setup",
-      description: "Configure and implement security controls",
-      steps: [
-        "Control framework selection",
-        "Control mapping",
-        "Implementation guidance",
-        "Effectiveness monitoring"
-      ],
-      time: "45 mins",
       icon: Lock,
-      path: "/documentation/platform-overview"
+      path: "/toolkit"
     },
     {
-      title: "Dashboard Configuration",
-      description: "Customize your dashboard and reporting views",
+      title: "Privacy Project Management",
+      description: "Set up your privacy implementation project",
       steps: [
-        "Widget configuration",
-        "Metric selection",
-        "Report customization",
-        "Alert setup"
+        "Create privacy project",
+        "Define team roles (RACI)",
+        "Set up implementation roadmap",
+        "Configure evidence vault"
       ],
       time: "20 mins",
       icon: BarChart3,
-      path: "/documentation/understanding-dashboard"
+      path: "/project"
     },
     {
-      title: "User Management",
-      description: "Set up users, roles, and permissions",
+      title: "Role-Based Journey",
+      description: "Follow a guided journey based on your role",
       steps: [
-        "User roles overview",
-        "Permission configuration",
-        "Team setup",
-        "Access control"
+        "Choose your role (DPO, Privacy Officer, etc.)",
+        "View role-specific tools and workflows",
+        "Follow phase-by-phase implementation",
+        "Track your progress"
       ],
-      time: "25 mins",
+      time: "15 mins",
       icon: Users,
-      path: "/documentation/platform-overview"
+      path: "/documentation/getting-started"
     },
     {
-      title: "System Configuration",
-      description: "Configure system settings and integrations",
+      title: "Data Processing Mapping",
+      description: "Map your data processing activities for GDPR Article 30 compliance",
       steps: [
-        "General settings",
-        "Integration setup",
-        "Notification configuration",
-        "Backup settings"
+        "Identify data processing activities",
+        "Document legal basis",
+        "Map data flows",
+        "Create processing records"
       ],
-      time: "35 mins",
+      time: "45 mins",
       icon: Settings,
-      path: "/documentation/platform-overview"
+      path: "/toolkit/gdpr-mapper"
     },
     {
       title: "Subscription Features",
-      description: "Set up automated notifications, reports, and compliance monitoring",
+      description: "Set up automated privacy compliance monitoring and reporting",
       steps: [
-        "Configure notification preferences",
-        "Set up automated reports",
-        "Schedule compliance assessments",
+        "Configure privacy compliance notifications",
+        "Set up automated compliance reports",
+        "Schedule privacy assessments",
         "Enable compliance health monitoring"
       ],
       time: "20 mins",
-      icon: BarChart3,
+      icon: Bell,
       path: "/notifications"
     }
   ];
@@ -114,9 +114,9 @@ const GettingStarted = () => {
   return (
     <div className="py-20">
       <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold mb-4 text-foreground">Getting Started with CyberCorrect</h1>
+        <h1 className="text-4xl font-bold mb-4 text-foreground">Getting Started with CyberCorrect Privacy Platform</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Follow these guides to set up and start using CyberCorrect effectively
+          Follow these guides to set up and start using CyberCorrect for privacy compliance effectively
         </p>
       </div>
 
