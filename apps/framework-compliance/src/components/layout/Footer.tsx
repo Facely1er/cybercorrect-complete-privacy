@@ -129,6 +129,28 @@ const Footer: React.FC = () => {
                   </Link>
                 </li>
                 <li>
+                  <a 
+                    href={import.meta.env.VITE_MARKETING_SITE_URL || 'https://cybercorrect.com'} 
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Shield className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Marketing Site</span>
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://portal.cybercorrect.com'} 
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Fingerprint className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Privacy Portal</span>
+                  </a>
+                </li>
+                <li>
                   <Link to="/privacy" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
                     <Shield className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
                     <span>Privacy Policy</span>

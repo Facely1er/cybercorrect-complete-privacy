@@ -178,6 +178,28 @@ export function Footer() {
               <h3 className="font-semibold text-sm text-foreground mb-4">Legal & Support</h3>
               <ul className="space-y-3 text-sm">
                 <li>
+                  <a 
+                    href={import.meta.env.VITE_MARKETING_SITE_URL || 'https://cybercorrect.com'} 
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Shield className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Marketing Site</span>
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://app.cybercorrect.com'} 
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Database className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Framework Compliance</span>
+                  </a>
+                </li>
+                <li>
                   <Link to="/terms" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
                     <FileText className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
                     <span>Terms of Service</span>
