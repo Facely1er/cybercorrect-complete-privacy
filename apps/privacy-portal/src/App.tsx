@@ -157,28 +157,28 @@ function App() {
                   </Suspense>
                 } />
                 <Route path="/legal" element={<LegalPage />} />
-                {/* Policy routes - redirect to centralized policies hosted on framework-compliance */}
+                {/* Policy routes - redirect to centralized policies on framework-compliance */}
                 <Route path="/terms" element={
                   <Navigate 
-                    to={`${import.meta.env.VITE_POLICIES_BASE_URL || import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/terms`} 
+                    to={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/terms`} 
                     replace 
                   />
                 } />
                 <Route path="/privacy-policy" element={
                   <Navigate 
-                    to={`${import.meta.env.VITE_POLICIES_BASE_URL || import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/privacy`} 
+                    to={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/privacy`} 
                     replace 
                   />
                 } />
                 <Route path="/acceptable-use-policy" element={
                   <Navigate 
-                    to={`${import.meta.env.VITE_POLICIES_BASE_URL || import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/acceptable-use`} 
+                    to={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/acceptable-use`} 
                     replace 
                   />
                 } />
                 <Route path="/cookie-policy" element={
                   <Navigate 
-                    to={`${import.meta.env.VITE_POLICIES_BASE_URL || import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/cookies`} 
+                    to={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/cookies`} 
                     replace 
                   />
                 } />
