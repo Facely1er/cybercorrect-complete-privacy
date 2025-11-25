@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, BarChart3, User, Settings, LogOut, FileText, ChevronDown } from 'lucide-react';
+import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, BarChart3, User, Settings, LogOut, FileText, ChevronDown, FileCheck, Database } from 'lucide-react';
 
 import { Button } from '../ui/Button';
 import { NotificationBell } from '../notifications/NotificationBell';
@@ -111,20 +111,33 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                     {activeDropdown === item.name.toLowerCase() && (
                       <div className="absolute left-0 mt-2 w-56 bg-popover rounded-lg shadow-xl border border-border backdrop-blur-sm z-[60]">
                         <div className="py-1">
-                          {dropdownLinks.map(link => (
-                            <Link
-                              key={link.name}
-                              to={link.path}
-                              className={`flex items-center px-4 py-2.5 text-sm rounded-md transition-colors ${
-                                location.pathname === link.path 
-                                  ? 'text-primary bg-primary/10 font-medium' 
-                                  : 'text-foreground hover:bg-accent hover:text-accent-foreground'
-                              }`}
-                              onClick={() => setActiveDropdown(null)}
-                            >
-                              {link.name}
-                            </Link>
-                          ))}
+                          {dropdownLinks.map(link => {
+                            // Get icon for dropdown link
+                            let DropdownIcon = ClipboardCheck;
+                            if (item.name === 'Toolkit') {
+                              if (link.name.includes('GDPR')) DropdownIcon = Database;
+                              else if (link.name.includes('DPIA')) DropdownIcon = FileCheck;
+                              else if (link.name.includes('Policy')) DropdownIcon = FileText;
+                            } else if (item.name === 'Results') {
+                              if (link.name.includes('Results')) DropdownIcon = BarChart3;
+                              else DropdownIcon = FileText;
+                            }
+                            return (
+                              <Link
+                                key={link.name}
+                                to={link.path}
+                                className={`flex items-center px-4 py-2.5 text-sm rounded-md transition-colors ${
+                                  location.pathname === link.path 
+                                    ? 'text-primary bg-primary/10 font-medium' 
+                                    : 'text-foreground hover:bg-accent hover:text-accent-foreground'
+                                }`}
+                                onClick={() => setActiveDropdown(null)}
+                              >
+                                <DropdownIcon className="w-4 h-4 mr-2 flex-shrink-0" />
+                                {link.name}
+                              </Link>
+                            );
+                          })}
                         </div>
                       </div>
                     )}

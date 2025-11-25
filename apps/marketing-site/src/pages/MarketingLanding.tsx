@@ -11,7 +11,9 @@ import {
   Lock,
   BarChart3,
   Zap,
-  FileText
+  FileText,
+  Menu,
+  HelpCircle
 } from 'lucide-react';
 
 const MarketingLanding = () => {
@@ -22,36 +24,72 @@ const MarketingLanding = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <Shield className="h-6 w-6 text-primary" />
-              <span className="text-xl font-bold text-foreground">CyberCorrect</span>
+        <div className="container mx-auto px-4">
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo and Brand */}
+            <div className="flex items-center">
+              <a href="/" className="flex items-center space-x-2">
+                <img 
+                  src="/cybercorrect.png" 
+                  alt="CyberCorrect" 
+                  className="h-16 w-16"
+                />
+                <div className="hidden sm:flex sm:flex-col font-bold leading-tight">
+                  <span className="text-sm">CyberCorrect™</span>
+                  <span className="text-xs font-medium">Marketing Site</span>
+                  <span className="text-xs font-normal text-muted-foreground">by ERMITS</span>
+                </div>
+              </a>
             </div>
-            <nav className="hidden md:flex items-center space-x-6">
-              <a href="#solutions" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                Solutions
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-2">
+              <a 
+                href="#solutions" 
+                className="flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm"
+              >
+                <Database className="w-4 h-4 flex-shrink-0" />
+                <span className="whitespace-nowrap">Solutions</span>
               </a>
-              <a href="#features" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                Features
+              <a 
+                href="#features" 
+                className="flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm"
+              >
+                <Zap className="w-4 h-4 flex-shrink-0" />
+                <span className="whitespace-nowrap">Features</span>
               </a>
-              <a href="#about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                About
+              <a 
+                href="#about" 
+                className="flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm"
+              >
+                <HelpCircle className="w-4 h-4 flex-shrink-0" />
+                <span className="whitespace-nowrap">About</span>
               </a>
             </nav>
-            <div className="flex items-center space-x-4">
+
+            {/* Right side actions */}
+            <div className="hidden md:flex items-center space-x-2">
               <a 
                 href={privacyPortalUrl}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm"
               >
-                For Individuals
+                <User className="w-4 h-4 flex-shrink-0" />
+                <span className="whitespace-nowrap">For Individuals</span>
               </a>
               <a 
                 href={frameworkComplianceUrl}
-                className="px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 bg-primary text-primary-foreground shadow-sm hover:bg-primary/90"
               >
-                For Organizations
+                <Building2 className="w-4 h-4 flex-shrink-0" />
+                <span className="whitespace-nowrap">For Organizations</span>
               </a>
+            </div>
+
+            {/* Mobile menu button - can be added later if needed */}
+            <div className="md:hidden">
+              <button className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                <Menu className="h-6 w-6" />
+              </button>
             </div>
           </div>
         </div>
@@ -310,7 +348,7 @@ const MarketingLanding = () => {
 
       {/* Footer */}
       <footer className="bg-muted/30 border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="container mx-auto px-4 py-12">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="space-y-4">
               <div className="flex items-center space-x-3 group">
