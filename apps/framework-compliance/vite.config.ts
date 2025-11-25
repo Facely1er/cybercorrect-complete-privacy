@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
-      outDir: '../../dist/framework-compliance',
+      outDir: 'dist',
       // Use inline source maps in development for better debugging, no source maps in production
       sourcemap: mode === 'production' ? false : 'inline',
       // Performance optimizations
