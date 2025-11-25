@@ -12,7 +12,6 @@ import {
   Shield,
   Lock
 } from 'lucide-react';
-import Logo from '../ui/Logo';
 import { useLocation } from 'react-router-dom';
 
 const Footer: React.FC = () => {
@@ -51,7 +50,16 @@ const Footer: React.FC = () => {
             {/* Company Info */}
             <div className="space-y-4">
               <Link to="/" className="flex items-center space-x-3 group">
-                <Logo size="medium" />
+                <img 
+                  src="/cybercorrect.png" 
+                  alt="CyberCorrect" 
+                  className="h-12 w-12 flex-shrink-0"
+                />
+                <div className="flex flex-col space-y-1">
+                  <span className="font-bold text-sm leading-tight group-hover:text-primary transition-colors">CyberCorrect™</span>
+                  <span className="font-medium text-xs leading-tight text-muted-foreground">Framework Compliance</span>
+                  <span className="text-xs text-muted-foreground leading-tight">by ERMITS</span>
+                </div>
               </Link>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Comprehensive privacy compliance solutions aligned with NIST 800-171 and the NIST Privacy Framework.

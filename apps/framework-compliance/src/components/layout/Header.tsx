@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { SunMoon, Moon, Menu, ChevronDown } from 'lucide-react';
+import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, BarChart3, User, Settings, LogOut, FileText, ChevronDown } from 'lucide-react';
 
 import { Button } from '../ui/Button';
 import { NotificationBell } from '../notifications/NotificationBell';
@@ -14,6 +14,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const location = useLocation();
 
   // Handle scroll effect for sticky header
@@ -49,229 +50,215 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
     { name: 'Privacy Recommendations', path: '/privacy-recommendations' },
   ];
 
+  const navigation = [
+    { name: 'Home', href: '/', icon: Home },
+    { name: 'Assessments', href: '/assessments/privacy-assessment', icon: ClipboardCheck },
+    { name: 'Toolkit', href: '/toolkit', icon: Wrench },
+    { name: 'Results', href: '/privacy-results', icon: BarChart3 },
+  ];
+
+  const isActivePath = (path: string) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
+  };
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 w-full border-b transition-all duration-300 ${
       isScrolled 
         ? 'bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 shadow-sm border-border/50' 
         : 'bg-background/80 backdrop-blur-sm border-transparent'
     }`}>
-      <div className="container mx-auto flex justify-between items-center px-2 sm:px-4 min-w-0 overflow-visible h-16">
-        <div className="flex items-center min-w-0 flex-shrink">
-          <Link to="/" className="flex items-center focus-ring rounded-md p-1" aria-label="CyberCorrect Privacy Platform Home">
-            <span className="text-base sm:text-xl font-semibold text-foreground transition-colors hover:text-primary truncate">CyberCorrect Privacy Platform</span>
-          </Link>
-        </div>
-        
-        <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4 overflow-visible">
-          {/* Main Navigation */}
-          <div className="relative overflow-visible">
-            <button 
-              className={`flex items-center text-foreground hover:text-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
-                location.pathname.includes('assessment') ? 'text-primary' : ''
-              }`}
-              onClick={() => toggleDropdown('assessments')}
-              aria-expanded={activeDropdown === 'assessments'}
-              aria-haspopup="true"
-              aria-label="Assessments menu"
-            >
-              <span className="hidden sm:inline">Assessments</span>
-              <span className="sm:hidden">Assess</span>
-              <ChevronDown className={`ml-0.5 sm:ml-1 h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-200 ${activeDropdown === 'assessments' ? 'transform rotate-180' : ''}`} aria-hidden="true" />
-            </button>
-            
-            {activeDropdown === 'assessments' && (
-              <div className="absolute left-0 mt-2 w-56 bg-popover rounded-lg shadow-xl border border-border backdrop-blur-sm animate-in slide-up z-[60]">
-                <div className="py-1">
-                  {assessmentLinks.map(link => (
-                    <Link
-                      key={link.name}
-                      to={link.path}
-                      className={`flex items-center px-4 py-2.5 text-sm rounded-md transition-colors focus-ring ${
-                        location.pathname === link.path 
-                          ? 'text-primary bg-primary/10 font-medium' 
-                          : 'text-foreground hover:bg-accent hover:text-accent-foreground'
-                      }`}
-                      onClick={() => setActiveDropdown(null)}
-                      aria-label={link.name}
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
-                </div>
+      <div className="container mx-auto px-4">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo and Brand */}
+          <div className="flex items-center">
+            <Link to="/" className="flex items-center space-x-2">
+              <img 
+                src="/cybercorrect.png" 
+                alt="CyberCorrect" 
+                className="h-16 w-16"
+              />
+              <div className="hidden sm:flex sm:flex-col font-bold leading-tight">
+                <span className="text-sm">CyberCorrect™</span>
+                <span className="text-xs font-medium">Framework Compliance</span>
+                <span className="text-xs font-normal text-muted-foreground">by ERMITS</span>
               </div>
-            )}
+            </Link>
           </div>
 
-          <div className="relative overflow-visible">
-            <button 
-              className={`flex items-center text-foreground hover:text-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
-                location.pathname.includes('mapper') || location.pathname.includes('generator') ? 'text-primary' : ''
-              }`}
-              onClick={() => toggleDropdown('tools')}
-              aria-expanded={activeDropdown === 'tools'}
-              aria-haspopup="true"
-              aria-label="Toolkit menu"
-            >
-              Toolkit
-              <ChevronDown className={`ml-0.5 sm:ml-1 h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-200 ${activeDropdown === 'tools' ? 'transform rotate-180' : ''}`} aria-hidden="true" />
-            </button>
-            
-            {activeDropdown === 'tools' && (
-              <div className="absolute left-0 mt-2 w-56 bg-popover rounded-lg shadow-xl border border-border backdrop-blur-sm animate-in slide-up z-[60]">
-                <div className="py-1">
-                  {toolLinks.map(link => (
-                    <Link
-                      key={link.name}
-                      to={link.path}
-                      className={`flex items-center px-4 py-2.5 text-sm rounded-md transition-colors focus-ring ${
-                        location.pathname === link.path 
-                          ? 'text-primary bg-primary/10 font-medium' 
-                          : 'text-foreground hover:bg-accent hover:text-accent-foreground'
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-2">
+            {navigation.map((item) => {
+              const Icon = item.icon;
+              // Handle dropdown items
+              if (item.name === 'Assessments' || item.name === 'Toolkit' || item.name === 'Results') {
+                const dropdownLinks = item.name === 'Assessments' ? assessmentLinks : 
+                                      item.name === 'Toolkit' ? toolLinks : resultLinks;
+                return (
+                  <div key={item.name} className="relative">
+                    <button
+                      onClick={() => toggleDropdown(item.name.toLowerCase())}
+                      className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                        isActivePath(item.href)
+                          ? 'bg-primary text-primary-foreground shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
                       }`}
-                      onClick={() => setActiveDropdown(null)}
-                      aria-label={link.name}
                     >
-                      {link.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+                      <Icon className="w-4 h-4 flex-shrink-0" />
+                      <span className="whitespace-nowrap">{item.name}</span>
+                      <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === item.name.toLowerCase() ? 'transform rotate-180' : ''}`} />
+                    </button>
+                    {activeDropdown === item.name.toLowerCase() && (
+                      <div className="absolute left-0 mt-2 w-56 bg-popover rounded-lg shadow-xl border border-border backdrop-blur-sm z-[60]">
+                        <div className="py-1">
+                          {dropdownLinks.map(link => (
+                            <Link
+                              key={link.name}
+                              to={link.path}
+                              className={`flex items-center px-4 py-2.5 text-sm rounded-md transition-colors ${
+                                location.pathname === link.path 
+                                  ? 'text-primary bg-primary/10 font-medium' 
+                                  : 'text-foreground hover:bg-accent hover:text-accent-foreground'
+                              }`}
+                              onClick={() => setActiveDropdown(null)}
+                            >
+                              {link.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    isActivePath(item.href)
+                      ? 'bg-primary text-primary-foreground shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
+                  }`}
+                >
+                  <Icon className="w-4 h-4 flex-shrink-0" />
+                  <span className="whitespace-nowrap">{item.name}</span>
+                </Link>
+              );
+            })}
+          </nav>
 
-          <div className="relative overflow-visible">
-            <button 
-              className={`flex items-center text-foreground hover:text-primary px-1.5 sm:px-2 md:px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors focus-ring ${
-                location.pathname.includes('results') || location.pathname.includes('recommendations') ? 'text-primary' : ''
-              }`}
-              onClick={() => toggleDropdown('results')}
-              aria-expanded={activeDropdown === 'results'}
-              aria-haspopup="true"
-              aria-label="Results menu"
-            >
-              Results
-              <ChevronDown className={`ml-0.5 sm:ml-1 h-3 w-3 sm:h-4 sm:w-4 transition-transform duration-200 ${activeDropdown === 'results' ? 'transform rotate-180' : ''}`} aria-hidden="true" />
-            </button>
-            
-            {activeDropdown === 'results' && (
-              <div className="absolute left-0 mt-2 w-56 bg-popover rounded-lg shadow-xl border border-border backdrop-blur-sm animate-in slide-up z-[60]">
-                <div className="py-1">
-                  {resultLinks.map(link => (
-                    <Link
-                      key={link.name}
-                      to={link.path}
-                      className={`flex items-center px-4 py-2.5 text-sm rounded-md transition-colors focus-ring ${
-                        location.pathname === link.path 
-                          ? 'text-primary bg-primary/10 font-medium' 
-                          : 'text-foreground hover:bg-accent hover:text-accent-foreground'
-                      }`}
-                      onClick={() => setActiveDropdown(null)}
-                      aria-label={link.name}
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-        
-        <div className="flex items-center md:ml-6 space-x-1 sm:space-x-2 md:space-x-3 flex-shrink-0">
-          <div className="portrait-hidden">
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label="Toggle mobile menu"
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+
+          {/* Right side actions */}
+          <div className="hidden md:flex items-center space-x-2">
             <NotificationBell />
-          </div>
-          <div className="portrait-hidden">
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full text-foreground hover:bg-accent h-9 w-9 sm:h-10 sm:w-10"
+              className="rounded-full text-foreground hover:bg-accent h-9 w-9"
               onClick={toggleDarkMode}
               aria-label="Toggle dark mode"
             >
               {darkMode ? (
-                <SunMoon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
+                <SunMoon className="h-4 w-4" />
               ) : (
-                <Moon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
+                <Moon className="h-4 w-4" />
               )}
             </Button>
+            
+            {/* User Menu */}
+            <div className="relative">
+              <button
+                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                className="flex items-center space-x-1 p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                <User className="w-5 h-5" />
+                <span className="hidden sm:inline text-sm">Account</span>
+              </button>
+
+              {isUserMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-popover border border-border rounded-md shadow-lg py-1 z-50">
+                  <Link
+                    to="/profile"
+                    className="flex items-center px-4 py-2 text-sm hover:bg-accent transition-colors"
+                    onClick={() => setIsUserMenuOpen(false)}
+                  >
+                    <User className="w-4 h-4 mr-2" />
+                    Profile
+                  </Link>
+                  <Link
+                    to="/settings"
+                    className="flex items-center px-4 py-2 text-sm hover:bg-accent transition-colors"
+                    onClick={() => setIsUserMenuOpen(false)}
+                  >
+                    <Settings className="w-4 h-4 mr-2" />
+                    Settings
+                  </Link>
+                  <hr className="my-1" />
+                  <Link
+                    to="/login"
+                    className="flex items-center px-4 py-2 text-sm hover:bg-accent transition-colors"
+                    onClick={() => setIsUserMenuOpen(false)}
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
-          
-          <button
-            type="button"
-            className="md:hidden inline-flex items-center justify-center p-1.5 sm:p-2 rounded-md text-foreground hover:text-primary focus-ring transition-colors flex-shrink-0"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-expanded={mobileMenuOpen}
-            aria-label={mobileMenuOpen ? "Close main menu" : "Open main menu"}
-          >
-            <Menu className="block h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
-          </button>
-        </div>
       </div>
       
-      {/* Mobile menu */}
-      <div
-        className={`md:hidden absolute top-16 left-0 right-0 bg-background/98 backdrop-blur-md border-b border-border transition-all duration-300 ease-in-out overflow-hidden shadow-lg ${mobileMenuOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'}`}
-      >
-        <div className="px-4 py-3 space-y-1 overflow-y-auto max-h-[calc(80vh-4rem)]">
-          <div className="py-2 border-b border-border">
-            <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Assessments</div>
-            {assessmentLinks.map(link => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`block px-3 py-2.5 text-sm rounded-md transition-colors focus-ring ${
-                  location.pathname === link.path 
-                    ? 'text-primary bg-primary/10 font-medium' 
-                    : 'text-foreground hover:bg-accent hover:text-accent-foreground'
-                }`}
-                onClick={() => setMobileMenuOpen(false)}
-                aria-label={link.name}
-              >
-                {link.name}
-              </Link>
-            ))}
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border/50 py-4">
+            <nav className="flex flex-col space-y-2">
+              {navigation.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      isActivePath(item.href)
+                        ? 'bg-primary text-primary-foreground shadow-sm'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Icon className="w-4 h-4 flex-shrink-0" />
+                    <span>{item.name}</span>
+                  </Link>
+                );
+              })}
+            </nav>
+            
+            {/* Mobile User Actions */}
+            <div className="border-t border-border/50 pt-4 mt-4">
+              <div className="flex items-center justify-between px-4 py-3">
+                <div className="flex items-center space-x-3">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="rounded-full"
+                    onClick={toggleDarkMode}
+                  >
+                    {darkMode ? <SunMoon className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                  </Button>
+                  <NotificationBell />
+                </div>
+              </div>
+            </div>
           </div>
-          
-          <div className="py-2 border-b border-border">
-            <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Toolkit</div>
-            {toolLinks.map(link => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`block px-3 py-2.5 text-sm rounded-md transition-colors focus-ring ${
-                  location.pathname === link.path 
-                    ? 'text-primary bg-primary/10 font-medium' 
-                    : 'text-foreground hover:bg-accent hover:text-accent-foreground'
-                }`}
-                onClick={() => setMobileMenuOpen(false)}
-                aria-label={link.name}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
-          
-          <div className="py-2">
-            <div className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Results</div>
-            {resultLinks.map(link => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`block px-3 py-2.5 text-sm rounded-md transition-colors focus-ring ${
-                  location.pathname === link.path 
-                    ? 'text-primary bg-primary/10 font-medium' 
-                    : 'text-foreground hover:bg-accent hover:text-accent-foreground'
-                }`}
-                onClick={() => setMobileMenuOpen(false)}
-                aria-label={link.name}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
+        )}
     </header>
   );
 };

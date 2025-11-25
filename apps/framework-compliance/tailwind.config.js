@@ -82,8 +82,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
-        'enhanced': "0 20px 40px -12px rgba(42, 111, 127, 0.25), 0 8px 16px -8px rgba(42, 111, 127, 0.15)",
-        'glow': "0 0 30px rgba(58, 156, 168, 0.8), 0 0 60px rgba(58, 156, 168, 0.4)",
+        'enhanced': "0 10px 25px -5px rgba(42, 111, 127, 0.2), 0 8px 10px -6px rgba(42, 111, 127, 0.1)",
+        'glow': "0 0 20px rgba(58, 156, 168, 0.6)",
         'glass': "0 8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
         '2xl': "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
       },

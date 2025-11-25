@@ -10,7 +10,8 @@ import {
   Database,
   Lock,
   BarChart3,
-  Zap
+  Zap,
+  FileText
 } from 'lucide-react';
 
 const MarketingLanding = () => {
@@ -308,70 +309,114 @@ const MarketingLanding = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-muted/30">
+      <footer className="bg-muted/30 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Shield className="h-6 w-6 text-primary" />
-                <span className="text-lg font-bold text-foreground">CyberCorrect</span>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3 group">
+                <img 
+                  src="/cybercorrect.png" 
+                  alt="CyberCorrect" 
+                  className="h-12 w-12 flex-shrink-0"
+                />
+                <div className="flex flex-col space-y-1">
+                  <span className="font-bold text-sm leading-tight group-hover:text-primary transition-colors">CyberCorrect™</span>
+                  <span className="text-xs text-muted-foreground leading-tight">by ERMITS</span>
+                </div>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 Comprehensive privacy compliance solutions for organizations and individuals.
               </p>
+              <div className="pt-2">
+                <p className="text-xs text-muted-foreground">
+                  © {new Date().getFullYear()} ERMITS LLC. All rights reserved.
+                </p>
+              </div>
             </div>
             
-            <div>
-              <h4 className="font-semibold mb-4 text-foreground">Products</h4>
-              <ul className="space-y-2 text-sm">
+            <div className="space-y-4">
+              <h3 className="font-semibold text-sm text-foreground mb-4">Products</h3>
+              <ul className="space-y-3 text-sm">
                 <li>
-                  <a href={frameworkComplianceUrl} className="text-muted-foreground hover:text-foreground transition-colors">
-                    Framework Compliance
+                  <a 
+                    href={frameworkComplianceUrl} 
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Database className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Framework Compliance</span>
                   </a>
                 </li>
                 <li>
-                  <a href={privacyPortalUrl} className="text-muted-foreground hover:text-foreground transition-colors">
-                    Privacy Portal
+                  <a 
+                    href={privacyPortalUrl} 
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <User className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Privacy Portal</span>
                   </a>
                 </li>
               </ul>
             </div>
             
-            <div>
-              <h4 className="font-semibold mb-4 text-foreground">Resources</h4>
-              <ul className="space-y-2 text-sm">
+            <div className="space-y-4">
+              <h3 className="font-semibold text-sm text-foreground mb-4">Resources</h3>
+              <ul className="space-y-3 text-sm">
                 <li>
-                  <a href={`${frameworkComplianceUrl}/documentation`} className="text-muted-foreground hover:text-foreground transition-colors">
-                    Documentation
+                  <a 
+                    href={`${frameworkComplianceUrl}/documentation`} 
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FileText className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Documentation</span>
                   </a>
                 </li>
                 <li>
-                  <a href={`${frameworkComplianceUrl}/pricing`} className="text-muted-foreground hover:text-foreground transition-colors">
-                    Pricing
+                  <a 
+                    href={`${frameworkComplianceUrl}/pricing`} 
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <BarChart3 className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Pricing</span>
                   </a>
                 </li>
               </ul>
             </div>
             
-            <div>
-              <h4 className="font-semibold mb-4 text-foreground">Legal</h4>
-              <ul className="space-y-2 text-sm">
+            <div className="space-y-4">
+              <h3 className="font-semibold text-sm text-foreground mb-4">Legal</h3>
+              <ul className="space-y-3 text-sm">
                 <li>
-                  <a href={`${frameworkComplianceUrl}/privacy`} className="text-muted-foreground hover:text-foreground transition-colors">
-                    Privacy Policy
+                  <a 
+                    href={`${frameworkComplianceUrl}/privacy`} 
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Shield className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Privacy Policy</span>
                   </a>
                 </li>
                 <li>
-                  <a href={`${frameworkComplianceUrl}/terms`} className="text-muted-foreground hover:text-foreground transition-colors">
-                    Terms of Service
+                  <a 
+                    href={`${frameworkComplianceUrl}/terms`} 
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FileText className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Terms of Service</span>
                   </a>
                 </li>
               </ul>
             </div>
-          </div>
-          
-          <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} ERMITS LLC. All rights reserved.</p>
           </div>
         </div>
       </footer>

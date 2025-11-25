@@ -177,11 +177,11 @@
   
   /* Styling for navlinks */
   .nav-link {
-    @apply text-foreground hover:text-primary transition-all duration-300;
+    @apply text-foreground hover:text-primary-teal transition-all duration-300;
   }
   
   .nav-link.active {
-    @apply text-primary;
+    @apply text-primary-teal dark:text-dark-primary;
     background-color: rgba(42, 111, 127, 0.1);
     border-radius: 0.375rem;
   }
