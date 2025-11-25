@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, HelpCircle, Mail, CheckCircle, AlertCircle, Database, Eye, UserCheck, BarChart3, FileText } from 'lucide-react';
+import { Shield, HelpCircle, Mail, CheckCircle, AlertCircle, Database, Eye, UserCheck, BarChart3, FileText, Lock, Cookie } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useLocalUser } from '../../hooks/useLocalUser';
 import { useBrand } from '../../hooks/useBrand';
@@ -68,7 +68,7 @@ export function Footer() {
     <footer className="bg-muted/30 border-t">
       <div className="container mx-auto px-4 py-6">
         <div className="space-y-6">
-          <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${isHROrAdmin ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}>
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${isHROrAdmin ? 'lg:grid-cols-5' : 'lg:grid-cols-4'}`}>
             {/* Brand */}
             <div className="space-y-4">
               <Link to="/" className="flex items-center space-x-3 group">
@@ -173,9 +173,60 @@ export function Footer() {
               </div>
             )}
             
-            {/* Legal & Support */}
+            {/* Legal */}
             <div className="space-y-4">
-              <h3 className="font-semibold text-sm text-foreground mb-4">Legal & Support</h3>
+              <h3 className="font-semibold text-sm text-foreground mb-4">Legal</h3>
+              <ul className="space-y-3 text-sm">
+                <li>
+                  <a 
+                    href={`${import.meta.env.VITE_POLICIES_BASE_URL || import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/privacy`}
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Shield className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Privacy Policy</span>
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={`${import.meta.env.VITE_POLICIES_BASE_URL || import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/terms`}
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Lock className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Terms of Service</span>
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={`${import.meta.env.VITE_POLICIES_BASE_URL || import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/cookies`}
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Cookie className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Cookie Policy</span>
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={`${import.meta.env.VITE_POLICIES_BASE_URL || import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/acceptable-use`}
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Shield className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Acceptable Use Policy</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Support & Resources */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-sm text-foreground mb-4">Support & Resources</h3>
               <ul className="space-y-3 text-sm">
                 <li>
                   <a 
@@ -198,18 +249,6 @@ export function Footer() {
                     <Database className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
                     <span>Framework Compliance</span>
                   </a>
-                </li>
-                <li>
-                  <Link to="/terms" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
-                    <FileText className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
-                    <span>Terms of Service</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/privacy-policy" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">
-                    <Shield className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
-                    <span>Privacy Policy</span>
-                  </Link>
                 </li>
                 <li>
                   <Link to="/legal" className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group">

@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../www.medisoluce.com"
+		},
+		{
+			"path": "../edusoluceportal-main"
 		}
 	],
 	"settings": {}

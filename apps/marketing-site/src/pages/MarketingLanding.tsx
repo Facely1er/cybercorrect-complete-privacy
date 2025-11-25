@@ -15,7 +15,8 @@ import {
   FileText,
   Menu,
   X,
-  HelpCircle
+  HelpCircle,
+  Cookie
 } from 'lucide-react';
 
 const MarketingLanding = () => {
@@ -504,8 +505,30 @@ const MarketingLanding = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <FileText className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <Lock className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
                     <span>Terms of Service</span>
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={`${frameworkComplianceUrl}/cookies`} 
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Cookie className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Cookie Policy</span>
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href={`${frameworkComplianceUrl}/acceptable-use`} 
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Shield className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
+                    <span>Acceptable Use Policy</span>
                   </a>
                 </li>
               </ul>

@@ -65,20 +65,20 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 w-full border-b transition-all duration-300 ${
       isScrolled 
-        ? 'bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 shadow-sm border-border/50' 
-        : 'bg-background/80 backdrop-blur-sm border-transparent'
+        ? 'bg-background/95 backdrop-blur-[48px] supports-[backdrop-filter]:bg-background/95 shadow-[0_20px_25px_-5px_rgb(0_0_0_/_0.1),0_8px_10px_-6px_rgb(0_0_0_/_0.1)] border-border/50' 
+        : 'bg-background/95 backdrop-blur-[48px] border-border/50'
     }`}>
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+      <div className="container mx-auto px-4 py-2">
+        <div className="flex h-12 items-center justify-between gap-2">
           {/* Logo and Brand */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
+          <div className="flex items-center flex-shrink-0">
+            <Link to="/" className="flex items-center gap-1.5">
               <img 
                 src="/cybercorrect.png" 
                 alt="CyberCorrect" 
-                className="h-16 w-16"
+                className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg flex-shrink-0"
               />
-              <div className="hidden sm:flex sm:flex-col font-bold leading-tight">
+              <div className="hidden sm:flex sm:flex-col font-bold leading-tight min-w-0">
                 <span className="text-sm">CyberCorrect™</span>
                 <span className="text-xs font-medium">Framework Compliance</span>
                 <span className="text-xs font-normal text-muted-foreground">by ERMITS</span>
@@ -87,7 +87,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-2">
+          <nav className="hidden md:flex items-center gap-1 flex-1 justify-center">
             {navigation.map((item) => {
               const Icon = item.icon;
               // Handle dropdown items
@@ -98,15 +98,18 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                   <div key={item.name} className="relative">
                     <button
                       onClick={() => toggleDropdown(item.name.toLowerCase())}
-                      className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      className={`relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-all duration-500 ${
                         isActivePath(item.href)
-                          ? 'bg-primary text-primary-foreground shadow-sm'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
+                          ? 'text-primary'
+                          : 'text-muted-foreground hover:text-primary'
                       }`}
                     >
                       <Icon className="w-4 h-4 flex-shrink-0" />
                       <span className="whitespace-nowrap">{item.name}</span>
                       <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === item.name.toLowerCase() ? 'transform rotate-180' : ''}`} />
+                      <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-primary via-primary/80 to-primary rounded-full transition-all duration-300 ${
+                        isActivePath(item.href) ? 'w-full' : 'w-0 hover:w-full'
+                      }`} />
                     </button>
                     {activeDropdown === item.name.toLowerCase() && (
                       <div className="absolute left-0 mt-2 w-56 bg-popover rounded-lg shadow-xl border border-border backdrop-blur-sm z-[60]">
@@ -148,14 +151,17 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-all duration-500 ${
                     isActivePath(item.href)
-                      ? 'bg-primary text-primary-foreground shadow-sm'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
+                      ? 'text-primary'
+                      : 'text-muted-foreground hover:text-primary'
                   }`}
                 >
                   <Icon className="w-4 h-4 flex-shrink-0" />
                   <span className="whitespace-nowrap">{item.name}</span>
+                  <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-primary via-primary/80 to-primary rounded-full transition-all duration-300 ${
+                    isActivePath(item.href) ? 'w-full' : 'w-0 hover:w-full'
+                  }`} />
                 </Link>
               );
             })}
@@ -171,12 +177,12 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           </button>
 
           {/* Right side actions */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center gap-2 flex-shrink-0">
             <NotificationBell />
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full text-foreground hover:bg-accent h-9 w-9"
+              className="rounded-full text-foreground hover:bg-accent h-8 w-8"
               onClick={toggleDarkMode}
               aria-label="Toggle dark mode"
             >
@@ -191,9 +197,9 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             <div className="relative">
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="flex items-center space-x-1 p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="flex items-center gap-1.5 px-2 py-1.5 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
-                <User className="w-5 h-5" />
+                <User className="w-4 h-4" />
                 <span className="hidden sm:inline text-sm">Account</span>
               </button>
 

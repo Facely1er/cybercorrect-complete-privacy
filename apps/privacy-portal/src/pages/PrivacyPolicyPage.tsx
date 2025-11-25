@@ -18,7 +18,7 @@ export function PrivacyPolicyPage() {
             </Link>
             <h1 className="text-4xl font-bold mb-2">MASTER PRIVACY POLICY</h1>
             <p className="text-muted-foreground text-lg">
-              <strong>Effective Date:</strong> October 31, 2025 | <strong>Last Updated:</strong> October 31, 2025
+              <strong>Effective Date:</strong> November 19, 2025 | <strong>Last Updated:</strong> October 31, 2025
             </p>
           </div>
 
@@ -26,7 +26,7 @@ export function PrivacyPolicyPage() {
             {/* Introduction */}
             <section className="border-b pb-8">
               <p className="text-muted-foreground leading-relaxed text-base mb-4">
-                ERMITS LLC ("ERMITS," "we," "our," or "us") is committed to protecting your privacy through a Privacy-First Architecture that ensures you maintain control over your data. This Privacy Policy explains how we collect, use, disclose, and safeguard information when you use our Services.
+                ERMITS LLC ("ERMITS," "we," "our," or "us") is committed to protecting your privacy through a Privacy-First Architecture that ensures you maintain control over your data. This Privacy Policy explains how we collect, use, disclose, and safeguard information when you use our Services across all ERMITS product lines.
               </p>
               <p className="text-muted-foreground leading-relaxed text-base">
                 By using our Services, you consent to the data practices described in this policy. If you do not agree with this Privacy Policy, please do not use our Services.

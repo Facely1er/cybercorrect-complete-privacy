@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { ArrowLeft, Check, CreditCard, Lock, ShoppingCart, Loader2, AlertCircle } from 'lucide-react';
@@ -368,10 +368,18 @@ const Checkout = () => {
                     )}
                   </Button>
 
+                  <div className="space-y-2">
                   <p className="text-xs text-muted-foreground text-center">
                     By completing this purchase, you agree to our{' '}
-                    <a href="/terms" className="text-primary hover:underline">Terms of Service</a>
+                      <Link to="/terms" className="text-primary hover:underline">Terms of Service</Link>
+                      {', '}
+                      <Link to="/ecommerce" className="text-primary hover:underline">E-Commerce Policies</Link>
+                      {', '}
+                      <Link to="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
+                      {', and '}
+                      <Link to="/acceptable-use" className="text-primary hover:underline">Acceptable Use Policy</Link>
                   </p>
+                  </div>
 
                   {/* Security Badges */}
                   <div className="pt-4 border-t border-border">
