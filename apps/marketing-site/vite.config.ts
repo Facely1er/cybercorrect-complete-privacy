@@ -11,7 +11,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: '../../dist/marketing-site',
+    outDir: 'dist',
     sourcemap: false,
     emptyOutDir: true,
     commonjsOptions: {

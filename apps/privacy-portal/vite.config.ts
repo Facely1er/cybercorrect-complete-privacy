@@ -24,7 +24,7 @@ export default defineConfig({
     }),
     // Bundle analyzer (only in build mode)
     process.env.ANALYZE === 'true' && visualizer({
-      filename: '../../dist/privacy-portal/bundle-analysis.html',
+      filename: './dist/bundle-analysis.html',
       open: true,
       gzipSize: true,
       brotliSize: true
@@ -37,7 +37,7 @@ export default defineConfig({
   },
   base: '/',
   build: {
-    outDir: '../../dist/privacy-portal',
+    outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: process.env.NODE_ENV === 'development',
     emptyOutDir: true,
