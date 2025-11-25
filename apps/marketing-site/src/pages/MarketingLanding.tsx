@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { 
   ArrowRight, 
   Shield, 
@@ -13,12 +14,20 @@ import {
   Zap,
   FileText,
   Menu,
+  X,
   HelpCircle
 } from 'lucide-react';
 
 const MarketingLanding = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const frameworkComplianceUrl = import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com';
   const privacyPortalUrl = import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com';
+
+  const navigation = [
+    { name: 'Solutions', href: '#solutions', icon: Database },
+    { name: 'Features', href: '#features', icon: Zap },
+    { name: 'About', href: '#about', icon: HelpCircle },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -85,13 +94,59 @@ const MarketingLanding = () => {
               </a>
             </div>
 
-            {/* Mobile menu button - can be added later if needed */}
-            <div className="md:hidden">
-              <button className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                <Menu className="h-6 w-6" />
-              </button>
-            </div>
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Toggle mobile menu"
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
+
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            <div className="md:hidden border-t border-border/50 py-4">
+              <nav className="flex flex-col space-y-2">
+                {navigation.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <Icon className="w-4 h-4 flex-shrink-0" />
+                      <span>{item.name}</span>
+                    </a>
+                  );
+                })}
+              </nav>
+              
+              {/* Mobile Actions */}
+              <div className="border-t border-border/50 pt-4 mt-4">
+                <div className="space-y-2">
+                  <a
+                    href={privacyPortalUrl}
+                    className="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <User className="w-4 h-4 flex-shrink-0" />
+                    <span>For Individuals</span>
+                  </a>
+                  <a
+                    href={frameworkComplianceUrl}
+                    className="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 bg-primary text-primary-foreground shadow-sm"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <Building2 className="w-4 h-4 flex-shrink-0" />
+                    <span>For Organizations</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </header>
 
