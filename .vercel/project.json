@@ -3,10 +3,9 @@
   "orgId": "your-org-id",
   "settings": {
     "framework": "vite",
-    "buildCommand": "npm run build",
-    "outputDirectory": "dist",
-    "installCommand": "npm install",
-    "rootDirectory": "cybercorrect-complete-privacy"
+    "buildCommand": "npm run build --workspace=@cybercorrect/framework-compliance",
+    "outputDirectory": "dist/framework-compliance",
+    "installCommand": "npm install"
   }
 }
 
