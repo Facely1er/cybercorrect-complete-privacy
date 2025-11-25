@@ -1,6 +1,7 @@
 {
-  "buildCommand": "npm run build:framework",
-  "outputDirectory": "dist/framework-compliance",
+  "buildCommand": "npm run build --workspace=@cybercorrect/framework-compliance",
+  "outputDirectory": "apps/framework-compliance/dist",
+  "installCommand": "npm install",
   "rewrites": [
     {
       "source": "/assets/(.*)",
