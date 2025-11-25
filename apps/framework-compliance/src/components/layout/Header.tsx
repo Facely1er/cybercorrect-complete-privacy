@@ -228,50 +228,51 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
               )}
             </div>
           </div>
-      </div>
-      
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-border/50 py-4">
-            <nav className="flex flex-col space-y-2">
-              {navigation.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                      isActivePath(item.href)
-                        ? 'bg-primary text-primary-foreground shadow-sm'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <Icon className="w-4 h-4 flex-shrink-0" />
-                    <span>{item.name}</span>
-                  </Link>
-                );
-              })}
-            </nav>
-            
-            {/* Mobile User Actions */}
-            <div className="border-t border-border/50 pt-4 mt-4">
-              <div className="flex items-center justify-between px-4 py-3">
-                <div className="flex items-center space-x-3">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-full"
-                    onClick={toggleDarkMode}
-                  >
-                    {darkMode ? <SunMoon className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-                  </Button>
-                  <NotificationBell />
+          
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <div className="md:hidden border-t border-border/50 py-4">
+              <nav className="flex flex-col space-y-2">
+                {navigation.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                        isActivePath(item.href)
+                          ? 'bg-primary text-primary-foreground shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
+                      }`}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <Icon className="w-4 h-4 flex-shrink-0" />
+                      <span>{item.name}</span>
+                    </Link>
+                  );
+                })}
+              </nav>
+              
+              {/* Mobile User Actions */}
+              <div className="border-t border-border/50 pt-4 mt-4">
+                <div className="flex items-center justify-between px-4 py-3">
+                  <div className="flex items-center space-x-3">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="rounded-full"
+                      onClick={toggleDarkMode}
+                    >
+                      {darkMode ? <SunMoon className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                    </Button>
+                    <NotificationBell />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
+      </div>
     </header>
   );
 };
