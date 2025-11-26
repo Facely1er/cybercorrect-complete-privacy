@@ -19,6 +19,7 @@
     "lint": "npm run lint --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "test:run": "npm run test:run --workspaces --if-present",
+    "test:production": "node scripts/production-test.js",
     "install:all": "npm install"
   },
   "devDependencies": {
