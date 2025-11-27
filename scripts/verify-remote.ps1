@@ -1,6 +1,6 @@
 # PowerShell script to verify remote repository configuration
 
-Write-Host "🔍 Verifying CyberCorrect Remote Repository Configuration" -ForegroundColor Cyan
+Write-Host "Verifying CyberCorrect Remote Repository Configuration" -ForegroundColor Cyan
 Write-Host ""
 
 # Function to find Git executable
@@ -31,10 +31,10 @@ function Find-Git {
 $gitPath = Find-Git
 
 if (-not $gitPath) {
-    Write-Host "⚠️  Git not found in PATH - checking config file directly" -ForegroundColor Yellow
+    Write-Host "Git not found in PATH - checking config file directly" -ForegroundColor Yellow
     Write-Host ""
 } else {
-    Write-Host "✅ Git found: $gitPath" -ForegroundColor Green
+    Write-Host "Git found: $gitPath" -ForegroundColor Green
     Write-Host ""
 }
 
@@ -42,21 +42,21 @@ if (-not $gitPath) {
 $repoPath = Join-Path $PSScriptRoot ".."
 Set-Location $repoPath
 
-Write-Host "📁 Repository: $repoPath" -ForegroundColor Cyan
+Write-Host "Repository: $repoPath" -ForegroundColor Cyan
 Write-Host ""
 
 # Read config file directly
 $configPath = Join-Path $repoPath ".git\config"
 if (Test-Path $configPath) {
-    Write-Host "📄 Reading .git\config..." -ForegroundColor Cyan
+    Write-Host "Reading .git\config..." -ForegroundColor Cyan
     $configContent = Get-Content $configPath -Raw
     
     # Extract remote URL
     if ($configContent -match '\[remote "origin"\][\s\S]*?url = ([^\r\n]+)') {
         $remoteUrl = $matches[1].Trim()
-        Write-Host "✅ Remote URL found: $remoteUrl" -ForegroundColor Green
+        Write-Host "Remote URL found: $remoteUrl" -ForegroundColor Green
     } else {
-        Write-Host "❌ No remote 'origin' found in config" -ForegroundColor Red
+        Write-Host "No remote 'origin' found in config" -ForegroundColor Red
     }
     
     # Extract branch tracking
@@ -64,7 +64,7 @@ if (Test-Path $configPath) {
         $branchName = $matches[1]
         $remoteName = $matches[2].Trim()
         $mergeRef = $matches[3].Trim()
-        Write-Host "✅ Branch tracking: $branchName → $remoteName/$mergeRef" -ForegroundColor Green
+        Write-Host "Branch tracking: $branchName -> $remoteName/$mergeRef" -ForegroundColor Green
     }
     
     Write-Host ""
@@ -72,7 +72,7 @@ if (Test-Path $configPath) {
 
 # If Git is available, run git commands
 if ($gitPath) {
-    Write-Host "🔍 Running Git verification commands..." -ForegroundColor Cyan
+    Write-Host "Running Git verification commands..." -ForegroundColor Cyan
     Write-Host ""
     
     # Check remotes
@@ -88,41 +88,41 @@ if ($gitPath) {
     Write-Host ""
     
     # Test connection
-    Write-Host "🧪 Testing remote connection..." -ForegroundColor Cyan
+    Write-Host "Testing remote connection..." -ForegroundColor Cyan
     $fetchTest = & $gitPath fetch origin --dry-run 2>&1
     
     if ($LASTEXITCODE -eq 0) {
-        Write-Host "✅ Remote connection successful!" -ForegroundColor Green
+        Write-Host "Remote connection successful!" -ForegroundColor Green
     } else {
-        Write-Host "⚠️  Remote connection test failed or requires authentication" -ForegroundColor Yellow
+        Write-Host "Remote connection test failed or requires authentication" -ForegroundColor Yellow
         Write-Host $fetchTest
     }
     Write-Host ""
 }
 
 # Summary
-Write-Host ("=" * 60) -ForegroundColor Gray
+$separator = "=" * 60
+Write-Host $separator -ForegroundColor Gray
 Write-Host "Configuration Summary" -ForegroundColor Cyan
-Write-Host ("=" * 60) -ForegroundColor Gray
+Write-Host $separator -ForegroundColor Gray
 Write-Host ""
 
 if (Test-Path $configPath) {
     $configContent = Get-Content $configPath -Raw
     
     if ($configContent -match '\[remote "origin"\]') {
-        Write-Host "✅ Remote 'origin' is configured" -ForegroundColor Green
+        Write-Host "Remote 'origin' is configured" -ForegroundColor Green
     } else {
-        Write-Host "❌ Remote 'origin' is NOT configured" -ForegroundColor Red
+        Write-Host "Remote 'origin' is NOT configured" -ForegroundColor Red
     }
     
     if ($configContent -match '\[branch "main"\]') {
-        Write-Host "✅ Branch 'main' tracking is configured" -ForegroundColor Green
+        Write-Host "Branch 'main' tracking is configured" -ForegroundColor Green
     } else {
-        Write-Host "⚠️  Branch 'main' tracking may not be configured" -ForegroundColor Yellow
+        Write-Host "Branch 'main' tracking may not be configured" -ForegroundColor Yellow
     }
 }
 
 Write-Host ""
 Write-Host "If you need to fix the remote, run:" -ForegroundColor Cyan
-Write-Host '  .\scripts\fix-remote.ps1' -ForegroundColor Gray
-
+Write-Host "  .\scripts\fix-remote.ps1" -ForegroundColor Gray
