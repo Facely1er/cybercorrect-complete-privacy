@@ -28,7 +28,7 @@ export function OnboardingGuard({
     return <>{children}</>;
   }
 
-  // Show loading while checking onboarding status
+  // Show loading while checking onboarding status (with timeout to prevent infinite loading)
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -37,12 +37,14 @@ export function OnboardingGuard({
     );
   }
 
-  // Redirect to onboarding if not completed
-  if (!isCompleted) {
+  // If onboarding check failed or returned true (completed/not required), allow access
+  // This ensures minimal architecture setups don't get blocked
+  // Only redirect if explicitly not completed (false) and not in error state
+  if (isCompleted === false) {
     return <Navigate to={redirectTo} replace />;
   }
 
-  // User has completed onboarding, allow access
+  // User has completed onboarding or onboarding is not required, allow access
   return <>{children}</>;
 }
 

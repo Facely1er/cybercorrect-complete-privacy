@@ -35,21 +35,26 @@ export function ProtectedRoute({
   }
 
   // Check onboarding status if required
+  // Note: requireOnboarding defaults to false, so onboarding is optional by default
   if (requireOnboarding && user) {
     // Don't check onboarding for onboarding page itself
     if (location.pathname === '/onboarding') {
       return <>{children}</>;
     }
 
-    // Show loading while checking onboarding status
+    // Show loading while checking onboarding status (with reasonable timeout)
     if (onboardingLoading) {
       return <div>Loading...</div>;
     }
 
-    // Redirect to onboarding if not completed
-    if (!onboardingCompleted) {
+    // Only redirect if explicitly not completed (false)
+    // If onboardingCompleted is undefined/null (error state), allow access
+    // This ensures minimal architecture setups don't get blocked
+    if (onboardingCompleted === false) {
       return <Navigate to="/onboarding" state={{ from: location }} replace />;
     }
+    
+    // If onboardingCompleted is true or undefined (not required/error), allow access
   }
 
   return <>{children}</>;

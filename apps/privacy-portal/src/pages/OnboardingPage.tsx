@@ -40,10 +40,15 @@ export function OnboardingPage() {
   }, [user?.id, onboardingInitialized]);
 
   // Check if onboarding is already completed
+  // Also handle case where onboarding check fails (allows access to prevent blocking)
   useEffect(() => {
-    if (!isLoading && isCompleted) {
-      // Redirect to dashboard if onboarding is already completed
-      navigate('/privacy/dashboard', { replace: true });
+    if (!isLoading) {
+      // If completed or if check failed (undefined), allow access to dashboard
+      // Only block if explicitly not completed (false)
+      if (isCompleted !== false) {
+        // Redirect to dashboard if onboarding is already completed or not required
+        navigate('/privacy/dashboard', { replace: true });
+      }
     }
   }, [isLoading, isCompleted, navigate]);
 
@@ -62,8 +67,14 @@ export function OnboardingPage() {
         await refreshProgress();
         navigate('/privacy/dashboard', { replace: true });
       } catch (error) {
-        console.error('Error completing onboarding:', error);
+        console.warn('Error completing onboarding, redirecting anyway:', error);
+        // Even if marking complete fails, allow navigation to prevent blocking
+        // This ensures minimal architecture setups don't get stuck
+        navigate('/privacy/dashboard', { replace: true });
       }
+    } else {
+      // If no user, still allow navigation
+      navigate('/privacy/dashboard', { replace: true });
     }
   };
 

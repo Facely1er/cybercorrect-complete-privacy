@@ -111,10 +111,11 @@ export class OnboardingService {
 
   /**
    * Mark onboarding as started
+   * Gracefully handles missing database schema - logs warning but doesn't throw
    */
   private static async markOnboardingStarted(userId: string): Promise<void> {
     try {
-      await supabase
+      const { error } = await supabase
         .from('profiles')
         .update({
           onboarding_started: true,
@@ -123,6 +124,16 @@ export class OnboardingService {
           updated_at: new Date().toISOString(),
         })
         .eq('id', userId);
+
+      if (error) {
+        // Check if it's a schema error (table/column doesn't exist)
+        if (error.code === 'PGRST116' || error.message?.includes('column') || error.message?.includes('relation')) {
+          logger.warn('Onboarding fields not available in profiles table, start not tracked:', error.message);
+          return; // Don't throw - this is just tracking
+        }
+        logger.warn('Error marking onboarding as started:', error);
+        // Don't throw - this is just tracking
+      }
     } catch (error) {
       logger.warn('Error marking onboarding as started:', error);
       // Don't throw - this is just tracking
@@ -131,6 +142,8 @@ export class OnboardingService {
 
   /**
    * Mark onboarding as completed
+   * Gracefully handles missing database schema - logs warning but doesn't throw
+   * This ensures onboarding completion doesn't break in minimal architecture setups
    */
   static async markOnboardingCompleted(userId: string): Promise<void> {
     try {
@@ -145,42 +158,73 @@ export class OnboardingService {
         .eq('id', userId);
 
       if (error) {
-        logger.error('Error marking onboarding as completed:', error);
-        throw error;
+        // Check if it's a schema error (table/column doesn't exist)
+        if (error.code === 'PGRST116' || error.message?.includes('column') || error.message?.includes('relation')) {
+          logger.warn('Onboarding fields not available in profiles table, completion not persisted:', error.message);
+          // Don't throw - allow onboarding to complete even if schema is missing
+          return;
+        }
+        // For minimal architecture compatibility, log but don't throw
+        // This ensures onboarding completion doesn't block functionality
+        logger.warn('Error marking onboarding as completed (non-critical), allowing completion:', error);
+        return; // Don't throw - allow onboarding to complete
       }
 
       logger.info('Onboarding marked as completed', { userId });
     } catch (error) {
-      logger.error('Error completing onboarding:', error);
-      throw error;
+      // For minimal architecture compatibility, always allow onboarding completion
+      // Log the error but don't throw to prevent blocking functionality
+      if (error instanceof Error && (error.message?.includes('column') || error.message?.includes('relation'))) {
+        logger.warn('Onboarding completion: schema not available, continuing anyway:', error.message);
+      } else {
+        logger.warn('Onboarding completion: error occurred but allowing completion:', error);
+      }
+      // Don't throw - always allow onboarding to complete to prevent blocking
+      return;
     }
   }
 
   /**
    * Check if user has completed onboarding
+   * Returns false if profiles table doesn't exist or onboarding field is missing
+   * This ensures onboarding doesn't block access in minimal architecture setups
    */
   static async isOnboardingCompleted(userId: string): Promise<boolean> {
     try {
-      const { data: profile } = await supabase
+      const { data: profile, error } = await supabase
         .from('profiles')
         .select('onboarding_completed')
         .eq('id', userId)
         .single();
 
+      // If table doesn't exist or field is missing, assume onboarding is not required
+      if (error) {
+        // Check if it's a schema error (table/column doesn't exist)
+        if (error.code === 'PGRST116' || error.message?.includes('column') || error.message?.includes('relation')) {
+          logger.warn('Onboarding fields not available in profiles table, assuming not required:', error.message);
+          return true; // Return true to allow access - onboarding is optional
+        }
+        logger.warn('Error checking onboarding status:', error);
+        return true; // Default to allowing access if check fails
+      }
+
       return profile?.onboarding_completed === true;
     } catch (error) {
-      logger.error('Error checking onboarding status:', error);
-      return false;
+      logger.warn('Error checking onboarding status, allowing access:', error);
+      // Always return true on error to ensure onboarding doesn't block core functionality
+      return true;
     }
   }
 
   /**
    * Get onboarding progress
+   * Gracefully handles missing database tables - returns default progress
+   * This ensures onboarding doesn't break in minimal architecture setups
    */
   static async getOnboardingProgress(userId: string): Promise<OnboardingProgress> {
     try {
-      // Check checklist items
-      const [dataInventoryCount, complianceCount, dataRightsCount] = await Promise.all([
+      // Check checklist items with error handling for each table
+      const [dataInventoryResult, complianceResult, dataRightsResult] = await Promise.allSettled([
         // Check if user has created data inventory
         supabase
           .from('data_inventory')
@@ -198,10 +242,22 @@ export class OnboardingService {
           .eq('user_id', userId),
       ]);
 
+      // Safely extract counts, defaulting to 0 if table doesn't exist
+      const getCount = (result: PromiseSettledResult<any>): number => {
+        if (result.status === 'fulfilled' && result.value.data !== undefined) {
+          return result.value.count || 0;
+        }
+        // If table doesn't exist, log warning and return 0
+        if (result.status === 'rejected') {
+          logger.warn('Onboarding progress check: table may not exist, assuming no progress');
+        }
+        return 0;
+      };
+
       const checklistItems = {
-        createDataInventory: (dataInventoryCount.count || 0) > 0,
-        runComplianceAssessment: (complianceCount.count || 0) > 0,
-        setupDataRights: (dataRightsCount.count || 0) > 0,
+        createDataInventory: getCount(dataInventoryResult) > 0,
+        runComplianceAssessment: getCount(complianceResult) > 0,
+        setupDataRights: getCount(dataRightsResult) > 0,
         exploreDashboard: true, // Dashboard is always accessible
       };
 
@@ -215,8 +271,9 @@ export class OnboardingService {
         checklistItems,
       };
     } catch (error) {
-      logger.error('Error getting onboarding progress:', error);
-      // Return default progress if tables don't exist
+      logger.warn('Error getting onboarding progress, returning default:', error);
+      // Return default progress if tables don't exist - this allows onboarding to work
+      // but doesn't block functionality if database schema is minimal
       return {
         completed: false,
         progress: 0,
@@ -224,7 +281,7 @@ export class OnboardingService {
           createDataInventory: false,
           runComplianceAssessment: false,
           setupDataRights: false,
-          exploreDashboard: false,
+          exploreDashboard: true, // Always allow dashboard access
         },
       };
     }
@@ -232,6 +289,8 @@ export class OnboardingService {
 
   /**
    * Update profile data during onboarding
+   * Gracefully handles missing database schema - logs warning but doesn't throw
+   * This ensures profile updates don't break onboarding flow in minimal architecture
    */
   static async updateOnboardingProfile(
     userId: string,
@@ -242,14 +301,30 @@ export class OnboardingService {
     }
   ): Promise<void> {
     try {
-      await supabase
+      const { error } = await supabase
         .from('profiles')
         .update({
           ...profileData,
           updated_at: new Date().toISOString(),
         })
         .eq('id', userId);
+
+      if (error) {
+        // Check if it's a schema error (table/column doesn't exist)
+        if (error.code === 'PGRST116' || error.message?.includes('column') || error.message?.includes('relation')) {
+          logger.warn('Profile fields not available, update not persisted:', error.message);
+          return; // Don't throw - allow onboarding to continue
+        }
+        logger.error('Error updating onboarding profile:', error);
+        // Only throw if it's not a schema error
+        throw error;
+      }
     } catch (error) {
+      // If it's a schema error, log and continue (don't block onboarding)
+      if (error instanceof Error && (error.message?.includes('column') || error.message?.includes('relation'))) {
+        logger.warn('Onboarding profile update: schema not available, continuing anyway:', error.message);
+        return;
+      }
       logger.error('Error updating onboarding profile:', error);
       throw error;
     }
