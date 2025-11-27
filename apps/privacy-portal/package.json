@@ -24,7 +24,8 @@
     "test:build": "npm run type-check && npm run lint && npm run build",
     "health": "curl -f http://localhost:4174/api/health.json || exit 1",
     "setup:backend": "node scripts/setup-backend.js",
-    "setup:check": "npm run setup:backend"
+    "setup:check": "npm run setup:backend",
+    "verify:connection": "node scripts/verify-connection.js"
   },
   "dependencies": {
     "@sentry/react": "^10.19.0",
