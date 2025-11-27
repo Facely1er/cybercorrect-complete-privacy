@@ -34,6 +34,7 @@ import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { SettingsPage } from './pages/SettingsPage';
 import { PersonaSelectionPage } from './pages/PersonaSelectionPage';
+import { OnboardingPage } from './pages/OnboardingPage';
 
 // Privacy portal pages - lazy loaded for better performance
 const DataRightsExercisePage = lazy(() => import('./pages/DataRightsExercisePage').then(m => ({ default: m.DataRightsExercisePage })));
@@ -188,6 +189,13 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                 <Route path="/unauthorized" element={<UnauthorizedPage />} />
+                
+                {/* Onboarding */}
+                <Route path="/onboarding" element={
+                  <ProtectedRoute>
+                    <OnboardingPage />
+                  </ProtectedRoute>
+                } />
                 
                 {/* Protected Routes */}
                 <Route path="/profile" element={

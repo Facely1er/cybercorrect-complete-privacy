@@ -27,7 +27,10 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
+    // Explicitly set root to current directory (app folder)
     root: __dirname,
+    // Explicitly define public directory
+    publicDir: path.resolve(__dirname, './public'),
     plugins,
     resolve: {
       alias: {
@@ -35,7 +38,8 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
-      outDir: 'dist',
+      // Explicitly set output directory (separate from source)
+      outDir: path.resolve(__dirname, './dist'),
       // Use inline source maps in development for better debugging, no source maps in production
       sourcemap: mode === 'production' ? false : 'inline',
       // Performance optimizations

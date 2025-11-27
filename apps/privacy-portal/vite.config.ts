@@ -4,7 +4,10 @@ import path from 'path';
 import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
+  // Explicitly set root to current directory (app folder)
   root: __dirname,
+  // Explicitly define source directory
+  publicDir: path.resolve(__dirname, './public'),
   plugins: [
     react({
       // Enable React Fast Refresh
@@ -37,7 +40,9 @@ export default defineConfig({
   },
   base: '/',
   build: {
-    outDir: 'dist',
+    // Explicitly set output directory (separate from source)
+    outDir: path.resolve(__dirname, './dist'),
+    // Source directory is implicitly ./src (relative to root)
     assetsDir: 'assets',
     sourcemap: process.env.NODE_ENV === 'development',
     emptyOutDir: true,
