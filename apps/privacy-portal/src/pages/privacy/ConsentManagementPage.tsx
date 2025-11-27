@@ -20,6 +20,7 @@ import { Badge } from '../../components/ui/Badge';
 import { Breadcrumb } from '../../components/ui/Breadcrumb';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { localStorageService } from '../../services/localStorageService';
+import { logger } from '../../utils/logger';
 
 export function ConsentManagementPage() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -36,7 +37,10 @@ export function ConsentManagementPage() {
         const consents = await localStorageService.getConsentRecords();
         setConsentRecords(Array.isArray(consents) ? consents : []);
       } catch (error) {
-        console.error('Error loading consent records:', error);
+        logger.error('Error loading consent records', error, {
+          component: 'ConsentManagementPage',
+          operation: 'loadConsentRecords'
+        });
         setConsentRecords([]);
       } finally {
         setLoading(false);

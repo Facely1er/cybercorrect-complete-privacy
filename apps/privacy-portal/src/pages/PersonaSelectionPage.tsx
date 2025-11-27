@@ -15,6 +15,7 @@ import {
 import { useBrand } from '../hooks/useBrand';
 import { useLocalUser } from '../hooks/useLocalUser';
 import { usePersona } from '../hooks/usePersona';
+import { logger } from '../utils/logger';
 
 interface PersonaOption {
   id: string;
@@ -134,7 +135,11 @@ export function PersonaSelectionPage() {
         navigate(`/persona/${selectedPersona}/onboarding`);
       }
     } catch (error) {
-      console.error('Error selecting persona:', error);
+      logger.error('Error selecting persona', error, {
+        component: 'PersonaSelectionPage',
+        operation: 'handlePersonaSelect',
+        personaId: selectedPersona
+      });
     } finally {
       setIsLoading(false);
     }

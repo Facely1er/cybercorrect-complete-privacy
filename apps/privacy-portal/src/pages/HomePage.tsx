@@ -27,6 +27,7 @@ import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { localStorageService } from '../services/localStorageService';
 import { useBrand } from '../hooks/useBrand';
+import { logger } from '../utils/logger';
 import { TextCarousel } from '../components/common/TextCarousel';
 
 // TypeScript interfaces
@@ -87,7 +88,10 @@ export function HomePage() {
         setPrivacyIncidents(incidents || []);
         setVendorAssessments(vendors || []);
       } catch (error) {
-        console.error('Error loading data:', error);
+        logger.error('Error loading data', error, {
+          component: 'HomePage',
+          operation: 'loadData'
+        });
         // Set empty arrays as fallback
         setDataRightsRequests([]);
         setPrivacyIncidents([]);

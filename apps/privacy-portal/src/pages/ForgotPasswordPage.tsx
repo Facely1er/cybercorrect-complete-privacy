@@ -5,6 +5,7 @@ import { Button } from '../components/ui/Button';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { supabase } from '../lib/supabase';
 import { useBrand } from '../hooks/useBrand';
+import { logger } from '../utils/logger';
 
 export function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -38,7 +39,11 @@ export function ForgotPasswordPage() {
         setEmail(''); // Clear email field after successful submission
       }
     } catch (err) {
-      console.error('Password reset error:', err);
+      logger.error('Password reset error', err, {
+        component: 'ForgotPasswordPage',
+        operation: 'handleSubmit',
+        email
+      });
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setLoading(false);

@@ -20,6 +20,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Ta
 
 import { northAmericanRegulations } from '../../data/northAmericanRegulations';
 import { localStorageService } from '../../services/localStorageService';
+import { logger } from '../../utils/logger';
 
 export function ComplianceObligationsPage() {
   const location = useLocation();
@@ -54,7 +55,10 @@ export function ComplianceObligationsPage() {
         const obligations = await localStorageService.getComplianceObligations();
         setComplianceObligations(Array.isArray(obligations) ? obligations : []);
       } catch (error) {
-        console.error('Error loading compliance obligations:', error);
+        logger.error('Error loading compliance obligations', error, {
+          component: 'ComplianceObligationsPage',
+          operation: 'loadComplianceObligations'
+        });
         setComplianceObligations([]);
       } finally {
         setLoading(false);

@@ -15,6 +15,7 @@ import {
 import { Button } from '../components/ui/Button';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { useUser } from '../hooks/useSupabase';
+import { logger } from '../utils/logger';
 
 export function ProfilePage() {
   const { user, profile, updateProfile, loading: userLoading } = useUser();
@@ -80,7 +81,11 @@ export function ProfilePage() {
         }, 3000);
       }
     } catch (err) {
-      console.error('Error updating profile:', err);
+      logger.error('Error updating profile', err, {
+        component: 'ProfilePage',
+        operation: 'handleSave',
+        userId: user?.id
+      });
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setIsSaving(false);

@@ -82,7 +82,11 @@ export function SettingsPage() {
         }, 3000);
       }
     } catch (err) {
-      console.error('Error updating settings:', err);
+      logger.error('Error updating settings', err, {
+        component: 'SettingsPage',
+        operation: 'handleSave',
+        userId: user?.id
+      });
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setIsSaving(false);

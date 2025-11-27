@@ -30,6 +30,7 @@ import { Badge } from '../components/ui/Badge';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { localStorageService } from '../services/localStorageService';
 import { ProgressTracker } from '../common/ProgressTracker';
+import { logger } from '../utils/logger';
 
 export function StakeholderDutiesPage() {
   const [selectedRole, setSelectedRole] = useState<string>('all');
@@ -46,7 +47,10 @@ export function StakeholderDutiesPage() {
         setDutyProgress(savedProgress);
         setCompletedDuties(savedCompleted);
       } catch (error) {
-        console.error('Error loading data from localStorage:', error);
+        logger.error('Error loading data from localStorage', error, {
+          component: 'StakeholderDutiesPage',
+          operation: 'loadData'
+        });
         // Set defaults if loading fails
         setDutyProgress({});
         setCompletedDuties([]);
@@ -64,7 +68,11 @@ export function StakeholderDutiesPage() {
     try {
       await localStorageService.setItem('duty_progress', newProgress);
     } catch (error) {
-      console.error('Error saving duty progress:', error);
+      logger.error('Error saving duty progress', error, {
+        component: 'StakeholderDutiesPage',
+        operation: 'updateDutyProgress',
+        dutyId
+      });
     }
     
     // Mark as completed if 100%
@@ -75,7 +83,11 @@ export function StakeholderDutiesPage() {
       try {
         await localStorageService.setItem('completed_duties', newCompleted);
       } catch (error) {
-        console.error('Error saving completed duties:', error);
+        logger.error('Error saving completed duties', error, {
+          component: 'StakeholderDutiesPage',
+          operation: 'saveCompletedDuties',
+          dutyId
+        });
       }
     }
   };
@@ -868,7 +880,11 @@ export function StakeholderDutiesPage() {
                         try {
                           await localStorageService.setItem('completed_duties', newCompleted);
                         } catch (error) {
-                          console.error('Error saving completed duties:', error);
+                          logger.error('Error saving completed duties', error, {
+                            component: 'StakeholderDutiesPage',
+                            operation: 'removeCompletedDuty',
+                            dutyId: duty.id
+                          });
                         }
                         await updateDutyProgress(duty.id, 75);
                       }}

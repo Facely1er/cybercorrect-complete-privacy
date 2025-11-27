@@ -16,6 +16,7 @@ import { Button } from '../components/ui/Button';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { useUser } from '../hooks/useSupabase';
 import { useBrand } from '../hooks/useBrand';
+import { logger } from '../utils/logger';
 
 export function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -93,7 +94,11 @@ export function RegisterPage() {
         }, 3000);
       }
     } catch (err) {
-      console.error('Registration error:', err);
+      logger.error('Registration error', err, {
+        component: 'RegisterPage',
+        operation: 'handleRegister',
+        email: formData.email
+      });
       setError('An unexpected error occurred during registration. Please try again.');
     } finally {
       setLoading(false);

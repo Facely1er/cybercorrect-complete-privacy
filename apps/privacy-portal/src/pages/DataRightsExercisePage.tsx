@@ -20,6 +20,7 @@ import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { DataRightsForm } from '../components/privacy/DataRightsForm';
 import { localStorageService } from '../services/localStorageService';
 import { DataRightsRequest } from '../types/storage';
+import { logger } from '../utils/logger';
 
 export function DataRightsExercisePage() {
   const [selectedRequestType, setSelectedRequestType] = useState<string>('');
@@ -36,7 +37,10 @@ export function DataRightsExercisePage() {
       const requests = await localStorageService.getDataRightsRequests();
       setMyRequests(requests || []);
     } catch (err) {
-      console.error('Failed to load data rights requests:', err);
+      logger.error('Failed to load data rights requests', err, {
+        component: 'DataRightsExercisePage',
+        operation: 'loadDataRightsRequests'
+      });
       setError('Failed to load your requests. Please try again.');
       setMyRequests([]);
     } finally {
