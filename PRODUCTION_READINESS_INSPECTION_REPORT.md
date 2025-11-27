@@ -501,7 +501,7 @@ VITE_ENABLE_ANALYTICS=true
 
 **Cross-App URLs (for monorepo):**
 ```bash
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
 VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
 ```

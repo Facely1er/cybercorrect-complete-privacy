@@ -21,7 +21,7 @@ import {
 
 const MarketingLanding = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const frameworkComplianceUrl = import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com';
+  const frameworkComplianceUrl = import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com';
   const privacyPortalUrl = import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com';
 
   const navigation = [

@@ -179,7 +179,7 @@ export function Footer() {
               <ul className="space-y-3 text-sm">
                 <li>
                   <a 
-                    href={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/privacy`}
+                    href={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/privacy`}
                     className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -190,7 +190,7 @@ export function Footer() {
                 </li>
                 <li>
                   <a 
-                    href={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/terms`}
+                    href={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/terms`}
                     className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -201,7 +201,7 @@ export function Footer() {
                 </li>
                 <li>
                   <a 
-                    href={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/cookies`}
+                    href={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/cookies`}
                     className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -212,7 +212,7 @@ export function Footer() {
                 </li>
                 <li>
                   <a 
-                    href={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'}/acceptable-use`}
+                    href={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/acceptable-use`}
                     className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -241,7 +241,7 @@ export function Footer() {
                 </li>
                 <li>
                   <a 
-                    href={import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.app.cybercorrect.com'} 
+                    href={import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'} 
                     className="text-muted-foreground hover:text-foreground flex items-center gap-3 transition-colors duration-200 group"
                     target="_blank"
                     rel="noopener noreferrer"

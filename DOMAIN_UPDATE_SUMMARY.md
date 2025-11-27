@@ -4,7 +4,7 @@
 
 ### Domain Structure
 - **Marketing Site**: `www.cybercorrect.com`
-- **Framework Compliance**: `www.app.cybercorrect.com`
+- **Framework Compliance**: `www.platform.cybercorrect.com`
 - **Privacy Portal**: `www.portal.cybercorrect.com`
 
 ## Files Updated
@@ -35,7 +35,7 @@ All environment variables now use the www. subdomain structure:
 
 **Marketing Site** (`apps/marketing-site/.env`)
 ```env
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
 VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 ```
 
@@ -48,15 +48,15 @@ VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 **Privacy Portal** (`apps/privacy-portal/.env`)
 ```env
 VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
 ```
 
 ## Fallback URLs in Code
 
 All fallback URLs in the code have been updated:
-- Marketing Site fallbacks: `www.app.cybercorrect.com`, `www.portal.cybercorrect.com`
+- Marketing Site fallbacks: `www.platform.cybercorrect.com`, `www.portal.cybercorrect.com`
 - Framework Compliance fallbacks: `www.cybercorrect.com`, `www.portal.cybercorrect.com`
-- Privacy Portal fallbacks: `www.cybercorrect.com`, `www.app.cybercorrect.com`
+- Privacy Portal fallbacks: `www.cybercorrect.com`, `www.platform.cybercorrect.com`
 
 ## Next Steps
 
@@ -71,17 +71,17 @@ All fallback URLs in the code have been updated:
 
 ### Vercel Deployment Checklist
 - [ ] Marketing Site deployed to `www.cybercorrect.com`
-- [ ] Framework Compliance deployed to `www.app.cybercorrect.com`
+- [ ] Framework Compliance deployed to `www.platform.cybercorrect.com`
 - [ ] Privacy Portal deployed to `www.portal.cybercorrect.com`
 
 ### DNS Configuration Checklist
 - [ ] `www.cybercorrect.com` → Marketing Site (CNAME or A record)
-- [ ] `www.app.cybercorrect.com` → Framework Compliance (CNAME or A record)
+- [ ] `www.platform.cybercorrect.com` → Framework Compliance (CNAME or A record)
 - [ ] `www.portal.cybercorrect.com` → Privacy Portal (CNAME or A record)
 
 ### Production Testing Checklist
 - [ ] Marketing site loads at `https://www.cybercorrect.com`
-- [ ] Framework Compliance loads at `https://www.app.cybercorrect.com`
+- [ ] Framework Compliance loads at `https://www.platform.cybercorrect.com`
 - [ ] Privacy Portal loads at `https://www.portal.cybercorrect.com`
 - [ ] Cross-link: Marketing → Framework Compliance works
 - [ ] Cross-link: Marketing → Privacy Portal works
@@ -108,7 +108,7 @@ All fallback URLs in the code have been updated:
    - Output directory: `dist/marketing-site`
    - Install command: `npm install` (from root)
 5. Add environment variables:
-   - `VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com`
+   - `VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com`
    - `VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com`
 6. Add domain: `www.cybercorrect.com`
 7. Deploy
@@ -123,7 +123,7 @@ All fallback URLs in the code have been updated:
 4. Add/update environment variables:
    - `VITE_MARKETING_SITE_URL=https://www.cybercorrect.com`
    - `VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com`
-5. Add domain: `www.app.cybercorrect.com`
+5. Add domain: `www.platform.cybercorrect.com`
 6. Deploy
 
 ### Step 3: Deploy Privacy Portal
@@ -135,7 +135,7 @@ All fallback URLs in the code have been updated:
    - Output directory: `dist/privacy-portal`
 4. Add/update environment variables:
    - `VITE_MARKETING_SITE_URL=https://www.cybercorrect.com`
-   - `VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com`
+   - `VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com`
 5. Add domain: `www.portal.cybercorrect.com`
 6. Deploy
 
@@ -149,7 +149,7 @@ For each domain, add DNS records in your domain registrar:
 - Type: A
 - Value: [Vercel provided IP addresses]
 
-**www.app.cybercorrect.com**
+**www.platform.cybercorrect.com**
 - Type: CNAME
 - Name: www.app
 - Value: [Vercel provided CNAME]
@@ -172,7 +172,7 @@ npm run verify:production
 ### Step 6: Test Cross-Links
 Manually test each cross-link:
 1. Visit `https://www.cybercorrect.com`
-2. Click link to Framework Compliance → Should go to `https://www.app.cybercorrect.com`
+2. Click link to Framework Compliance → Should go to `https://www.platform.cybercorrect.com`
 3. Click link to Privacy Portal → Should go to `https://www.portal.cybercorrect.com`
 4. Repeat from each site to verify bidirectional links
 

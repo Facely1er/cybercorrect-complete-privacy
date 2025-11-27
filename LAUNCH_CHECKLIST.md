@@ -52,7 +52,7 @@ npm install
 
 **apps/marketing-site/.env**
 ```env
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
 VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 ```
 
@@ -65,7 +65,7 @@ VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 **apps/privacy-portal/.env** (add if not exists)
 ```env
 VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
 ```
 
 ### Step 3: Test Locally
@@ -99,7 +99,7 @@ ls dist/privacy-portal
 4. Output directory: `dist/marketing-site`
 5. Install command: `npm install` (from root)
 6. Environment variables:
-   - `VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com`
+   - `VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com`
    - `VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com`
 7. Domain: `www.cybercorrect.com` (root domain)
 
@@ -111,7 +111,7 @@ ls dist/privacy-portal
 5. Environment variables:
    - `VITE_MARKETING_SITE_URL=https://www.cybercorrect.com`
    - `VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com`
-6. Domain: `www.app.cybercorrect.com`
+6. Domain: `www.platform.cybercorrect.com`
 
 #### Privacy Portal (Subdomain)
 1. Existing Vercel project
@@ -120,19 +120,19 @@ ls dist/privacy-portal
 4. Output directory: `dist/privacy-portal`
 5. Environment variables:
    - `VITE_MARKETING_SITE_URL=https://www.cybercorrect.com`
-   - `VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com`
+   - `VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com`
 6. Domain: `www.portal.cybercorrect.com`
 
 ### Step 6: DNS Configuration
 - ✅ Configure `www.cybercorrect.com` → Marketing Site
-- ✅ Configure `www.app.cybercorrect.com` → Framework Compliance
+- ✅ Configure `www.platform.cybercorrect.com` → Framework Compliance
 - ✅ Configure `www.portal.cybercorrect.com` → Privacy Portal
 
 ### Step 7: Post-Deployment Verification
 
 #### Domain Verification
 - [ ] Marketing site loads at `https://www.cybercorrect.com`
-- [ ] Framework Compliance loads at `https://www.app.cybercorrect.com`
+- [ ] Framework Compliance loads at `https://www.platform.cybercorrect.com`
 - [ ] Privacy Portal loads at `https://www.portal.cybercorrect.com`
 - [ ] SSL certificates active for all domains
 - [ ] No mixed content warnings

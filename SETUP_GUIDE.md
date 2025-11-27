@@ -18,7 +18,7 @@ node scripts/setup-env-files.js
 
 Create `apps/marketing-site/.env`:
 ```env
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
 VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 ```
 
@@ -31,7 +31,7 @@ VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 Create `apps/privacy-portal/.env` (or add to existing):
 ```env
 VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
 ```
 
 ### 3. Test Locally

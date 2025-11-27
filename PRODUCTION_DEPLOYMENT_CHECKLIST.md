@@ -40,7 +40,7 @@ VITE_SUPABASE_URL=https://your-project-id.supabase.co
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 
 # Optional
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
 VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
 VITE_STRIPE_PUBLISHABLE_KEY=pk_live_xxxxxxxxxxxxx
@@ -55,7 +55,7 @@ VITE_SUPABASE_URL=https://your-project-id.supabase.co
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 
 # Optional
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
 VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
 ```
@@ -64,7 +64,7 @@ VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
 
 ```bash
 # Optional
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
 VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 ```
 

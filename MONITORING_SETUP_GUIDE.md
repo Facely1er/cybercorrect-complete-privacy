@@ -98,7 +98,7 @@ Monitor these metrics for each workspace:
 
 ### URLs to Monitor
 
-- Framework Compliance App: `https://www.app.cybercorrect.com`
+- Framework Compliance App: `https://www.platform.cybercorrect.com`
 - Privacy Portal: `https://www.portal.cybercorrect.com`
 - Marketing Site: `https://www.cybercorrect.com`
 

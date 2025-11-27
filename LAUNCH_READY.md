@@ -60,7 +60,7 @@ Edit the `.env` files in each app directory with your actual production URLs:
 
 **apps/marketing-site/.env**
 ```env
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
 VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 ```
 
@@ -73,7 +73,7 @@ VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 **apps/privacy-portal/.env**
 ```env
 VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.app.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
 ```
 
 ### 2. Test Locally
@@ -115,7 +115,7 @@ ls dist/privacy-portal
 #### Framework Compliance (Subdomain)
 1. Update existing Vercel project
 2. Add environment variables in Vercel dashboard
-3. Domain: `www.app.cybercorrect.com`
+3. Domain: `www.platform.cybercorrect.com`
 
 #### Privacy Portal (Subdomain)
 1. Update existing Vercel project
@@ -126,7 +126,7 @@ ls dist/privacy-portal
 
 #### Domain Verification
 - [ ] Marketing site loads at `https://www.cybercorrect.com`
-- [ ] Framework Compliance loads at `https://www.app.cybercorrect.com`
+- [ ] Framework Compliance loads at `https://www.platform.cybercorrect.com`
 - [ ] Privacy Portal loads at `https://www.portal.cybercorrect.com`
 - [ ] SSL certificates active for all domains
 - [ ] No mixed content warnings
@@ -178,10 +178,10 @@ ls dist/privacy-portal
 
 ```
 www.cybercorrect.com (Marketing Site)
-  ├── Links to → www.app.cybercorrect.com
+  ├── Links to → www.platform.cybercorrect.com
   └── Links to → www.portal.cybercorrect.com
 
-www.app.cybercorrect.com (Framework Compliance)
+www.platform.cybercorrect.com (Framework Compliance)
   ├── Keeps own Landing.tsx (B2B focused)
   ├── Links to → www.cybercorrect.com
   └── Links to → www.portal.cybercorrect.com
@@ -189,7 +189,7 @@ www.app.cybercorrect.com (Framework Compliance)
 www.portal.cybercorrect.com (Privacy Portal)
   ├── Keeps own HomePage.tsx (B2C focused)
   ├── Links to → www.cybercorrect.com
-  └── Links to → www.app.cybercorrect.com
+  └── Links to → www.platform.cybercorrect.com
 ```
 
 ## 🔧 Development Commands
