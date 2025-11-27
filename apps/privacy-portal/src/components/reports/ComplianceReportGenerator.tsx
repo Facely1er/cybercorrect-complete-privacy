@@ -16,6 +16,7 @@ export function ComplianceReportGenerator({ organizationId }: ComplianceReportGe
   const [isGenerating, setIsGenerating] = useState(false);
   const [startDate, setStartDate] = useState('2024-10-01');
   const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
+  const { addNotification } = useNotifications();
 
   const reportTypes = [
     { id: 'quarterly', name: 'Quarterly Compliance Report', description: 'Comprehensive quarterly compliance status' },
@@ -50,9 +51,33 @@ export function ComplianceReportGenerator({ organizationId }: ComplianceReportGe
         regulations: selectedRegulations,
         generatedBy: 'Privacy Compliance Team'
       });
+      
+      addNotification({
+        type: 'success',
+        title: 'Report Generated',
+        message: 'Compliance report has been generated successfully.',
+        timestamp: Date.now(),
+        read: false,
+        category: 'compliance'
+      });
     } catch (error) {
-      console.error('Error generating PDF report:', error);
-      alert('Failed to generate PDF report. Please try again.');
+      logger.error('Error generating PDF compliance report', error, {
+        component: 'ComplianceReportGenerator',
+        operation: 'generateReport',
+        organizationId,
+        reportType,
+        regulations: selectedRegulations
+      });
+      
+      const errorMessage = 'Failed to generate PDF report. Please try again.';
+      addNotification({
+        type: 'error',
+        title: 'Report Generation Failed',
+        message: errorMessage,
+        timestamp: Date.now(),
+        read: false,
+        category: 'compliance'
+      });
     } finally {
       setIsGenerating(false);
     }
