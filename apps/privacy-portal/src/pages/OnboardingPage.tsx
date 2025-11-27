@@ -13,11 +13,14 @@ import { OnboardingService } from '../services/onboardingService';
 import { WelcomeScreen } from '../components/onboarding/WelcomeScreen';
 import { OnboardingChecklist } from '../components/onboarding/OnboardingChecklist';
 import { LoadingState } from '../common/LoadingState';
+import { logger } from '../utils/logger';
+import { useNotifications } from '../hooks/useNotifications';
 
 export function OnboardingPage() {
   const { user } = useUser();
   const navigate = useNavigate();
   const { isLoading, isCompleted, refreshProgress } = useOnboarding();
+  const { addNotification } = useNotifications();
   const [showWelcome, setShowWelcome] = useState(true);
   const [onboardingInitialized, setOnboardingInitialized] = useState(false);
 
@@ -29,8 +32,12 @@ export function OnboardingPage() {
           await OnboardingService.completeOnboarding(user.id);
           setOnboardingInitialized(true);
         } catch (error) {
-          console.error('Error initializing onboarding:', error);
-          // Continue even if initialization fails
+          logger.error('Error initializing onboarding', error, {
+            component: 'OnboardingPage',
+            operation: 'initializeOnboarding',
+            userId: user.id
+          });
+          // Continue even if initialization fails, but log the error
           setOnboardingInitialized(true);
         }
       }
@@ -67,9 +74,22 @@ export function OnboardingPage() {
         await refreshProgress();
         navigate('/privacy/dashboard', { replace: true });
       } catch (error) {
-        console.warn('Error completing onboarding, redirecting anyway:', error);
+        logger.error('Error completing onboarding, redirecting anyway', error, {
+          component: 'OnboardingPage',
+          operation: 'handleChecklistComplete',
+          userId: user.id
+        });
+        
         // Even if marking complete fails, allow navigation to prevent blocking
         // This ensures minimal architecture setups don't get stuck
+        addNotification({
+          type: 'warning',
+          title: 'Onboarding',
+          message: 'Onboarding completion could not be saved, but you can continue.',
+          timestamp: Date.now(),
+          read: false,
+          category: 'system'
+        });
         navigate('/privacy/dashboard', { replace: true });
       }
     } else {

@@ -146,7 +146,7 @@ export const searchQuerySchema = z.object({
     .min(1, 'Search query is required')
     .max(100, 'Query too long')
     .transform(sanitizeString),
-  filters: z.record(z.string(), z.any()).optional(),
+  filters: z.record(z.string(), z.unknown()).optional(),
   page: z.number().min(1).max(1000).optional(),
   limit: z.number().min(1).max(100).optional()
 });

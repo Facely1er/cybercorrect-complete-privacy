@@ -22,8 +22,10 @@ import { Badge } from '../../components/ui/Badge';
 import { Breadcrumb } from '../../components/ui/Breadcrumb';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { localStorageService } from '../../services/localStorageService';
+import { useBrand } from '../../hooks/useBrand';
 
 export function DataRightsPortalPage() {
+  const { brand } = useBrand();
   const [activeTab, setActiveTab] = useState('overview');
   const [showRequestForm, setShowRequestForm] = useState(false);
   const [requestType, setRequestType] = useState('');
@@ -491,7 +493,7 @@ export function DataRightsPortalPage() {
               <div>
                 <h3 className="font-medium mb-2">Privacy Office</h3>
                 <div className="text-sm text-muted-foreground space-y-1">
-                  <p>Email: privacy@yourcompany.com</p>
+                  <p>Email: {brand.contact.privacyEmail}</p>
                   <p>Phone: (240) 599-0102</p>
                   <p>Hours: Monday-Friday, 8 AM - 5 PM</p>
                 </div>
@@ -499,7 +501,7 @@ export function DataRightsPortalPage() {
               <div>
                 <h3 className="font-medium mb-2">Employee Records Office</h3>
                 <div className="text-sm text-muted-foreground space-y-1">
-                  <p>Email: records@yourcompany.com</p>
+                  <p>Email: {brand.contact.supportEmail}</p>
                   <p>Phone: (240) 599-0102 </p>
                   <p>Hours: Monday-Friday, 9 AM - 4 PM</p>
                 </div>

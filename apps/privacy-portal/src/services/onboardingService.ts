@@ -243,7 +243,7 @@ export class OnboardingService {
       ]);
 
       // Safely extract counts, defaulting to 0 if table doesn't exist
-      const getCount = (result: PromiseSettledResult<any>): number => {
+      const getCount = (result: PromiseSettledResult<{ count?: number; data?: unknown }>): number => {
         if (result.status === 'fulfilled' && result.value.data !== undefined) {
           return result.value.count || 0;
         }

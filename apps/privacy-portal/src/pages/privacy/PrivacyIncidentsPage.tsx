@@ -23,8 +23,10 @@ import { Badge } from '../../components/ui/Badge';
 import { Breadcrumb } from '../../components/ui/Breadcrumb';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { localStorageService } from '../../services/localStorageService';
+import { useBrand } from '../../hooks/useBrand';
 
 export function PrivacyIncidentsPage() {
+  const { brand } = useBrand();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [privacyIncidents, setPrivacyIncidents] = useState<unknown[]>([]);
   const [loading, setLoading] = useState(true);
@@ -448,7 +450,7 @@ export function PrivacyIncidentsPage() {
                     <div className="space-y-1 text-sm text-muted-foreground">
                       <div className="flex items-center gap-2">
                         <Mail className="h-4 w-4" />
-                        <span>privacy@yourcompany.com</span>
+                        <span>{brand.contact.privacyEmail}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Phone className="h-4 w-4" />
@@ -461,7 +463,7 @@ export function PrivacyIncidentsPage() {
                     <div className="space-y-1 text-sm text-muted-foreground">
                       <div className="flex items-center gap-2">
                         <Mail className="h-4 w-4" />
-                        <span>security@yourcompany.com</span>
+                        <span>{brand.contact.supportEmail}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Phone className="h-4 w-4" />

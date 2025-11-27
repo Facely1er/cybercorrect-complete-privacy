@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../hooks/useSupabase';
 import { OnboardingService, type OnboardingProgress } from '../../services/onboardingService';
 import { supabase } from '../../lib/supabase';
+import { logger } from '../../utils/logger';
 
 interface ChecklistItem {
   id: string;
@@ -77,7 +78,11 @@ export const OnboardingChecklist: React.FC = () => {
         })
       );
     } catch (error) {
-      console.error('Error checking completion status:', error);
+      logger.error('Error checking onboarding completion status', error, {
+        component: 'OnboardingChecklist',
+        operation: 'checkCompletionStatus',
+        userId: user?.id
+      });
     }
   }, [user]);
 
@@ -100,7 +105,11 @@ export const OnboardingChecklist: React.FC = () => {
         try {
           await OnboardingService.markOnboardingCompleted(user.id);
         } catch (error) {
-          console.error('Error marking onboarding complete:', error);
+          logger.error('Error marking onboarding complete', error, {
+            component: 'OnboardingChecklist',
+            operation: 'markComplete',
+            userId: user.id
+          });
         }
       }
     };
