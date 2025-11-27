@@ -3,6 +3,8 @@ import { Download, FileText, Shield, AlertTriangle } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import { pdfReportService } from '../../services/pdfReportService';
+import { useNotifications } from '../../hooks/useNotifications';
+import { logger } from '../../utils/logger';
 
 interface ComplianceReportGeneratorProps {
   organizationId: string;

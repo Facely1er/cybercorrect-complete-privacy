@@ -1,14 +1,15 @@
-// Production-safe logging utility
-import { environment } from '../config/environment';
+// Production-safe logging utility with Sentry integration
+import { environment, appConfig } from '../config/environment';
+import { reportError, reportMessage, addBreadcrumb } from '../services/sentryService';
 
 type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
-// interface LogEntry {
-//   level: LogLevel;
-//   message: string;
-//   data?: Record<string, unknown>;
-//   timestamp: string;
-// }
+interface LogContext {
+  userId?: string;
+  operation?: string;
+  component?: string;
+  [key: string]: unknown;
+}
 
 class Logger {
   private isProduction: boolean;
@@ -40,7 +41,7 @@ class Logger {
     return `${prefix} ${message}`;
   }
 
-  private log(level: LogLevel, message: string, data?: Record<string, unknown>): void {
+  private log(level: LogLevel, message: string, data?: Record<string, unknown>, context?: LogContext): void {
     if (!this.shouldLog(level)) {
       return;
     }
@@ -62,22 +63,47 @@ class Logger {
         console.error(formattedMessage);
         break;
     }
+
+    // Send to Sentry for errors and warnings in production
+    if (appConfig.errorReporting.enabled) {
+      if (level === 'error') {
+        const error = data?.error instanceof Error 
+          ? data.error 
+          : new Error(message);
+        reportError(error, { ...data, ...context });
+      } else if (level === 'warn' && this.isProduction) {
+        reportMessage(message, 'warning', { ...data, ...context });
+      }
+      
+      // Add breadcrumb for all logs
+      addBreadcrumb(message, context?.component || 'app', level, { ...data, ...context });
+    }
   }
 
-  debug(message: string, data?: Record<string, unknown>): void {
-    this.log('debug', message, data);
+  debug(message: string, data?: Record<string, unknown>, context?: LogContext): void {
+    this.log('debug', message, data, context);
   }
 
-  info(message: string, data?: Record<string, unknown>): void {
-    this.log('info', message, data);
+  info(message: string, data?: Record<string, unknown>, context?: LogContext): void {
+    this.log('info', message, data, context);
   }
 
-  warn(message: string, data?: Record<string, unknown>): void {
-    this.log('warn', message, data);
+  warn(message: string, data?: Record<string, unknown>, context?: LogContext): void {
+    this.log('warn', message, data, context);
   }
 
-  error(message: string, data?: Record<string, unknown>): void {
-    this.log('error', message, data);
+  error(message: string, error?: Error | unknown, context?: LogContext): void {
+    const errorData: Record<string, unknown> = {};
+    
+    if (error instanceof Error) {
+      errorData.error = error;
+      errorData.errorMessage = error.message;
+      errorData.errorStack = error.stack;
+    } else if (error) {
+      errorData.error = error;
+    }
+    
+    this.log('error', message, errorData, context);
   }
 
   // Special method for service worker logs (always show in production)
@@ -92,6 +118,9 @@ class Logger {
   // Method for security events (always log)
   security(message: string, data?: Record<string, unknown>): void {
     console.warn(`[SECURITY] ${message}`, data);
+    if (appConfig.errorReporting.enabled) {
+      reportMessage(`Security Event: ${message}`, 'warning', data);
+    }
   }
 
   // Method for performance metrics

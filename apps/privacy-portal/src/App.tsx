@@ -8,6 +8,7 @@ import { ErrorBoundary } from './common/ErrorBoundary';
 import { ProtectedRoute, AdminRoute, HRRoute } from './components/auth/ProtectedRoute';
 import { initializeAccessibility } from './utils/accessibility';
 import { LoadingState } from './common/LoadingState';
+import { logger } from './utils/logger';
 
 // Layout components
 import { Header } from './components/layout/Header';
@@ -104,7 +105,7 @@ const WorkflowStepWrapper = () => {
       workflowId={workflowId || ""} 
       onStepComplete={(stepId: string, data: Record<string, unknown>) => {
         // Handle step completion
-        console.log('Step completed:', stepId, data);
+        logger.info('Step completed', { stepId, data }, { component: 'WorkflowStep', operation: 'stepComplete' });
       }} 
       onStepBack={() => {
         navigate(`/persona/${personaId}/dashboard`);

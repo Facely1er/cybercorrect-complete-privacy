@@ -5,6 +5,8 @@ import { Button } from '../ui/Button';
 import { useLocalUser } from '../../hooks/useLocalUser';
 import { useBrand } from '../../hooks/useBrand';
 import { useAuth } from '../../hooks/useAuthContext';
+import { useNotifications } from '../../hooks/useNotifications';
+import { logger } from '../../utils/logger';
 
 export function Footer() {
   const [email, setEmail] = useState('');
@@ -14,6 +16,7 @@ export function Footer() {
   const { localUser, saveNewsletterSubscription } = useLocalUser();
   const { brand } = useBrand();
   const { userRole } = useAuth();
+  const { addNotification } = useNotifications();
   
   // Check if user has HR or Admin access
   const isHROrAdmin = userRole === 'administrator' || userRole === 'hr_staff';
@@ -58,8 +61,21 @@ export function Footer() {
         });
         localStorage.setItem('newsletter_subscriptions', JSON.stringify(subscribedEmails));
       } catch (error) {
-        console.error('Error saving subscription:', error);
-        setSubscriptionError('Failed to save your subscription. Please try again.');
+        logger.error('Error saving newsletter subscription', error, {
+          component: 'Footer',
+          operation: 'saveNewsletterSubscription',
+          userId: localUser?.id
+        });
+        const errorMessage = 'Failed to save your subscription. Please try again.';
+        setSubscriptionError(errorMessage);
+        addNotification({
+          type: 'error',
+          title: 'Subscription Failed',
+          message: errorMessage,
+          timestamp: Date.now(),
+          read: false,
+          category: 'system'
+        });
       }
     }, 1500);
   };
