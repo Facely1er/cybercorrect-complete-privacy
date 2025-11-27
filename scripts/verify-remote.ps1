@@ -101,9 +101,9 @@ if ($gitPath) {
 }
 
 # Summary
-Write-Host "=" * 60 -ForegroundColor Gray
+Write-Host ("=" * 60) -ForegroundColor Gray
 Write-Host "Configuration Summary" -ForegroundColor Cyan
-Write-Host "=" * 60 -ForegroundColor Gray
+Write-Host ("=" * 60) -ForegroundColor Gray
 Write-Host ""
 
 if (Test-Path $configPath) {
@@ -124,5 +124,5 @@ if (Test-Path $configPath) {
 
 Write-Host ""
 Write-Host "If you need to fix the remote, run:" -ForegroundColor Cyan
-Write-Host "  .\scripts\fix-remote.ps1" -ForegroundColor Gray
+Write-Host '  .\scripts\fix-remote.ps1' -ForegroundColor Gray
 
