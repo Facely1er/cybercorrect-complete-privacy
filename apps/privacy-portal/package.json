@@ -51,7 +51,7 @@
     "jspdf-autotable": "^5.0.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.6.0",
+    "@eslint/js": "^9.39.1",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
@@ -63,21 +63,21 @@
     "@vitejs/plugin-react": "^4.3.1",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
-    "autoprefixer": "^10.4.19",
+    "autoprefixer": "^10.4.22",
     "babel-plugin-transform-remove-console": "^6.9.4",
-    "eslint": "^9.6.0",
+    "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.7",
+    "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^15.8.0",
     "jest-axe": "^10.0.0",
-    "jsdom": "^27.0.0",
+    "jsdom": "^27.2.0",
     "postcss": "^8.4.39",
     "rollup-plugin-visualizer": "^5.12.0",
     "tailwindcss": "^3.4.4",
     "terser": "^5.43.1",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^8.0.0",
-    "vite": "^7.1.4",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.0",
+    "vite": "^5.4.21",
     "vitest": "^3.2.4"
   }
 }

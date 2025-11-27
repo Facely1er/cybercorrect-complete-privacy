@@ -27,7 +27,7 @@
     "install:all": "npm install"
   },
   "devDependencies": {
-    "typescript": "^5.5.3"
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=18.0.0",
