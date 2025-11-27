@@ -1,0 +1,53 @@
+import { lazy } from 'react';
+import { Navigate } from 'react-router-dom';
+
+const TemplateStore = lazy(() => import('../pages/monetization/TemplateStore'));
+const CreditsManager = lazy(() => import('../pages/monetization/CreditsManager'));
+const OneTimeStore = lazy(() => import('../pages/OneTimeStore'));
+const PurchaseSuccess = lazy(() => import('../pages/PurchaseSuccess'));
+const ActivateLicense = lazy(() => import('../pages/ActivateLicense'));
+const Checkout = lazy(() => import('../pages/Checkout'));
+
+export const monetizationRoutes = [
+  {
+    path: 'monetization/templates',
+    element: TemplateStore,
+    lazy: true,
+  },
+  {
+    path: 'monetization/credits',
+    element: CreditsManager,
+    lazy: true,
+  },
+  {
+    path: 'store',
+    element: OneTimeStore,
+    lazy: true,
+  },
+  {
+    path: 'one-time-products',
+    element: OneTimeStore,
+    lazy: true,
+  },
+  {
+    path: 'products',
+    element: OneTimeStore,
+    lazy: true,
+  },
+  {
+    path: 'checkout',
+    element: Checkout,
+    lazy: true,
+  },
+  {
+    path: 'store/success',
+    element: PurchaseSuccess,
+    lazy: true,
+  },
+  {
+    path: 'activate-license',
+    element: ActivateLicense,
+    lazy: true,
+  },
+];
+

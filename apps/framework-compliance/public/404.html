@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberCorrect Privacy Platform</title>
+  <script>
+    // GitHub Pages SPA fallback
+    // Redirect to index.html with the current path as a query parameter
+    const path = window.location.pathname;
+    const search = window.location.search;
+    const hash = window.location.hash;
+    const url = path + search + hash;
+    
+    // Redirect to index.html with the path
+    window.location.replace('/index.html' + (url !== '/' ? '?redirect=' + encodeURIComponent(url) : ''));
+  </script>
+</head>
+<body>
+  <noscript>
+    <p>Please enable JavaScript to use this application.</p>
+    <p><a href="/">Go to homepage</a></p>
+  </noscript>
+</body>
+</html>
+
