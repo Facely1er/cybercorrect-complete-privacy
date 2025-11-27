@@ -91,8 +91,7 @@ export default defineConfig(({ mode }) => {
         entryFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]'
       }
-    },
-    chunkSizeWarningLimit: 1000
+    }
   },
   server: {
     port: 5173,
