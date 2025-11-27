@@ -22,6 +22,7 @@ import { Breadcrumb } from '../../components/ui/Breadcrumb';
 import { northAmericanRegulations } from '../../data/northAmericanRegulations';
 import { DataExportImport } from '../../components/common/DataExportImport';
 import { localStorageService } from '../../services/localStorageService';
+import { logger } from '../../utils/logger';
 
 export function PrivacyDashboardPage() {
   const [dataRightsRequests, setDataRightsRequests] = React.useState<unknown[]>([]);
@@ -56,7 +57,10 @@ export function PrivacyDashboardPage() {
         setConsentRecords(Array.isArray(consents) ? consents : []);
         setComplianceObligations(Array.isArray(obligations) ? obligations : []);
       } catch (error) {
-        console.error('Error loading dashboard data:', error);
+        logger.error('Error loading dashboard data', error, {
+          component: 'PrivacyDashboardPage',
+          operation: 'loadDashboardData'
+        });
         setDataRightsRequests([]);
         setPrivacyIncidents([]);
         setVendorAssessments([]);

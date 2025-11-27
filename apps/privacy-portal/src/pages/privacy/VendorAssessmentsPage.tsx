@@ -25,6 +25,7 @@ import { Badge } from '../../components/ui/Badge';
 import { Breadcrumb } from '../../components/ui/Breadcrumb';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { localStorageService } from '../../services/localStorageService';
+import { logger } from '../../utils/logger';
 
 export function VendorAssessmentsPage() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -41,7 +42,10 @@ export function VendorAssessmentsPage() {
         const vendors = await localStorageService.getVendorAssessments();
         setVendorAssessments(Array.isArray(vendors) ? vendors : []);
       } catch (error) {
-        console.error('Error loading vendor assessments:', error);
+        logger.error('Error loading vendor assessments', error, {
+          component: 'VendorAssessmentsPage',
+          operation: 'loadVendorAssessments'
+        });
         setVendorAssessments([]);
       } finally {
         setLoading(false);

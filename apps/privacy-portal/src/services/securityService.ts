@@ -1,5 +1,6 @@
 // Security service for rate limiting, CSRF protection, and security headers
 import { environment } from '../config/environment';
+import { logger } from '../utils/logger';
 
 // Rate limiting configuration
 interface RateLimitConfig {
@@ -269,19 +270,19 @@ class SecurityService {
 
   // Security audit logging
   logSecurityEvent(event: string, details: Record<string, unknown>): void {
-    if (environment.production) {
-      console.warn(`[SECURITY] ${event}:`, {
-        timestamp: new Date().toISOString(),
-        userAgent: typeof window !== 'undefined' ? navigator.userAgent : 'server',
-        details
-      });
-    }
+    logger.security(`Security event: ${event}`, {
+      timestamp: new Date().toISOString(),
+      userAgent: typeof window !== 'undefined' ? navigator.userAgent : 'server',
+      ...details
+    });
   }
 
   // API request signing for sensitive operations
   signRequest(data: unknown, secret: string): string {
-    // Use secret parameter to avoid unused variable warning
-    console.log('Signing request with secret length:', secret.length);
+    logger.debug('Signing request', { secretLength: secret.length }, {
+      component: 'securityService',
+      operation: 'signRequest'
+    });
     const payload = JSON.stringify(data);
     const timestamp = Date.now().toString();
     const message = `${payload}${timestamp}`;

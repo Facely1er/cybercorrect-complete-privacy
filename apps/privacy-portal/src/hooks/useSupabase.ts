@@ -1,6 +1,7 @@
 // src/hooks/useSupabase.ts
 import { useState, useEffect } from 'react'
 import { supabase, type Profile } from '../lib/supabase'
+import { logger } from '../utils/logger'
 
 // Check if Supabase is properly configured
 const isSupabaseConfigured = () => {
@@ -26,7 +27,10 @@ export function useUser() {
       try {
         // Check if Supabase is properly configured
         if (!isSupabaseConfigured()) {
-          console.warn('Supabase is not configured. Running in demo mode.');
+          logger.warn('Supabase is not configured. Running in demo mode.', {}, {
+            component: 'useSupabase',
+            operation: 'loadSession'
+          });
           setUser(null);
           setProfile(null);
           setLoading(false);
@@ -49,7 +53,10 @@ export function useUser() {
           setLoading(false)
         }
       } catch (err) {
-        console.error('Error loading session:', err)
+        logger.error('Error loading session', err, {
+          component: 'useSupabase',
+          operation: 'loadSession'
+        });
         setError(err)
         setLoading(false)
       }
@@ -79,7 +86,10 @@ export function useUser() {
         }
       };
     } catch (err) {
-      console.error('Error setting up auth state change listener:', err)
+      logger.error('Error setting up auth state change listener', err, {
+        component: 'useSupabase',
+        operation: 'setupAuthListener'
+      });
       setError(err)
       setLoading(false)
       return () => {};
@@ -96,20 +106,31 @@ export function useUser() {
         .maybeSingle();
 
       if (status === 401) {
-        console.error('Unauthorized: Invalid API key or session');
+        logger.error('Unauthorized: Invalid API key or session', new Error('Authentication error'), {
+          component: 'useSupabase',
+          operation: 'fetchProfile',
+          userId
+        });
         setError(new Error('Authentication error: Please check your Supabase credentials.'));
         setLoading(false);
         return;
       }
       
       if (error) {
-        console.error('Error fetching profile:', error);
+        logger.error('Error fetching profile', error, {
+          component: 'useSupabase',
+          operation: 'fetchProfile',
+          userId
+        });
         setError(error)
       } else if (data) {
         setProfile(data)
         setLoading(false)
       } else {
-        console.warn('No profile data found for user');
+        logger.warn('No profile data found for user', { userId }, {
+          component: 'useSupabase',
+          operation: 'fetchProfile'
+        });
         setLoading(false)
       }
     } catch (err) {

@@ -4,6 +4,8 @@ import { Mail, Phone, MapPin, Clock, Send, MessageCircle, HelpCircle, Bug, BookO
 import { Button } from '../components/ui/Button';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { useBrand } from '../hooks/useBrand';
+import { logger } from '../utils/logger';
+import { useNotifications } from '../hooks/useNotifications';
 
 export function ContactPage() {
   const [formData, setFormData] = React.useState({
@@ -18,12 +20,24 @@ export function ContactPage() {
   });
 
   const { brand } = useBrand();
+  const { addNotification } = useNotifications();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! We\'ll get back to you within 24 hours.');
+    logger.info('Contact form submitted', { formData: { ...formData, message: '[redacted]' } }, {
+      component: 'ContactPage',
+      operation: 'handleSubmit'
+    });
+    
+    addNotification({
+      type: 'success',
+      title: 'Message Sent',
+      message: 'Thank you for your message! We\'ll get back to you within 24 hours.',
+      timestamp: Date.now(),
+      read: false,
+      category: 'system'
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

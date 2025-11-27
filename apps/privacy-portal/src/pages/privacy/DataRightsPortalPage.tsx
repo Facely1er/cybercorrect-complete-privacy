@@ -23,6 +23,7 @@ import { Breadcrumb } from '../../components/ui/Breadcrumb';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { localStorageService } from '../../services/localStorageService';
 import { useBrand } from '../../hooks/useBrand';
+import { logger } from '../../utils/logger';
 
 export function DataRightsPortalPage() {
   const { brand } = useBrand();
@@ -40,7 +41,10 @@ export function DataRightsPortalPage() {
         const requests = await localStorageService.getDataRightsRequests();
         setDataRightsRequests(Array.isArray(requests) ? requests : []);
       } catch (error) {
-        console.error('Error loading data rights requests:', error);
+        logger.error('Error loading data rights requests', error, {
+          component: 'DataRightsPortalPage',
+          operation: 'loadDataRightsRequests'
+        });
         setDataRightsRequests([]);
       } finally {
         setLoading(false);

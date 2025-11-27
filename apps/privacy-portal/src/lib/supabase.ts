@@ -1,5 +1,6 @@
 // src/lib/supabase.ts
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { logger } from '../utils/logger';
 
 // Get environment variables directly to avoid circular dependency
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
@@ -8,7 +9,10 @@ const isProduction = import.meta.env.PROD;
 
 // Log warning if environment variables are missing but don't fail
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('Supabase environment variables are missing. Some features will be disabled.');
+  logger.warn('Supabase environment variables are missing. Some features will be disabled.', {}, {
+    component: 'supabase',
+    operation: 'initialize'
+  });
 }
 
 // Create client with fallback for missing config

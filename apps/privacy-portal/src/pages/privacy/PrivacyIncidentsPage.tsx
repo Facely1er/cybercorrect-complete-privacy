@@ -24,6 +24,7 @@ import { Breadcrumb } from '../../components/ui/Breadcrumb';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { localStorageService } from '../../services/localStorageService';
 import { useBrand } from '../../hooks/useBrand';
+import { logger } from '../../utils/logger';
 
 export function PrivacyIncidentsPage() {
   const { brand } = useBrand();
@@ -39,7 +40,10 @@ export function PrivacyIncidentsPage() {
         const incidents = await localStorageService.getPrivacyIncidents();
         setPrivacyIncidents(Array.isArray(incidents) ? incidents : []);
       } catch (error) {
-        console.error('Error loading privacy incidents:', error);
+        logger.error('Error loading privacy incidents', error, {
+          component: 'PrivacyIncidentsPage',
+          operation: 'loadPrivacyIncidents'
+        });
         setPrivacyIncidents([]);
       } finally {
         setLoading(false);

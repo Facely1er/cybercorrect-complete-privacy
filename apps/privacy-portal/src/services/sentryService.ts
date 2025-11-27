@@ -1,11 +1,15 @@
 // Sentry error reporting service
 import * as Sentry from '@sentry/react';
 import { environment, appConfig } from '../config/environment';
+import { logger } from '../utils/logger';
 
 // Initialize Sentry
 export function initializeSentry() {
   if (!appConfig.errorReporting.enabled || !appConfig.errorReporting.sentryDsn) {
-    console.log('Sentry error reporting is disabled or DSN not configured');
+    logger.info('Sentry error reporting is disabled or DSN not configured', {}, {
+      component: 'sentryService',
+      operation: 'initializeSentry'
+    });
     return;
   }
 
@@ -73,7 +77,10 @@ export function initializeSentry() {
     environment: environment.environment
   });
 
-  console.log('Sentry error reporting initialized');
+  logger.info('Sentry error reporting initialized', {}, {
+    component: 'sentryService',
+    operation: 'initializeSentry'
+  });
 }
 
 // Error reporting functions
