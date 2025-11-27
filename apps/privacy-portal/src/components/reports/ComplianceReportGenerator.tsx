@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Download, FileText, Shield } from 'lucide-react';
+import { Download, FileText, Shield, AlertTriangle } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
+import { pdfReportService } from '../../services/pdfReportService';
 
 interface ComplianceReportGeneratorProps {
   organizationId: string;
@@ -11,6 +12,8 @@ export function ComplianceReportGenerator({ organizationId }: ComplianceReportGe
   const [reportType, setReportType] = useState('quarterly');
   const [selectedRegulations, setSelectedRegulations] = useState<string[]>(['ferpa', 'coppa']);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [startDate, setStartDate] = useState('2024-10-01');
+  const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
 
   const reportTypes = [
     { id: 'quarterly', name: 'Quarterly Compliance Report', description: 'Comprehensive quarterly compliance status' },
@@ -32,28 +35,25 @@ export function ComplianceReportGenerator({ organizationId }: ComplianceReportGe
   const handleGenerateReport = async () => {
     setIsGenerating(true);
     
-    // Simulate report generation
-    setTimeout(() => {
-      setIsGenerating(false);
+    try {
+      // Generate professional PDF report
+      const reportTitle = reportTypes.find(rt => rt.id === reportType)?.name || 'Compliance Report';
       
-      // Create a mock PDF download
-      const reportData = {
-        type: reportType,
+      await pdfReportService.generateComplianceReport({
+        reportType,
+        reportTitle,
+        organizationId,
+        startDate,
+        endDate,
         regulations: selectedRegulations,
-        generated: new Date().toISOString(),
-        organizationId
-      };
-      
-      const blob = new Blob([JSON.stringify(reportData, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `compliance-report-${reportType}-${new Date().toISOString().split('T')[0]}.json`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }, 2000);
+        generatedBy: 'Privacy Compliance Team'
+      });
+    } catch (error) {
+      console.error('Error generating PDF report:', error);
+      alert('Failed to generate PDF report. Please try again.');
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const handleRegulationToggle = (regulationId: string) => {
@@ -137,7 +137,8 @@ export function ComplianceReportGenerator({ organizationId }: ComplianceReportGe
               <input
                 type="date"
                 className="w-full px-3 py-2 border border-input rounded-md bg-background"
-                defaultValue="2024-10-01"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
               />
             </div>
             <div>
@@ -145,7 +146,8 @@ export function ComplianceReportGenerator({ organizationId }: ComplianceReportGe
               <input
                 type="date"
                 className="w-full px-3 py-2 border border-input rounded-md bg-background"
-                defaultValue={new Date().toISOString().split('T')[0]}
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
               />
             </div>
           </div>
