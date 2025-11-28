@@ -11,7 +11,9 @@ import {
   Target,
   BarChart3,
   AlertCircle,
-  Zap
+  Zap,
+  Download,
+  ExternalLink
 } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -304,6 +306,7 @@ export function ComplianceObligationsPage() {
                   value={selectedRegulation}
                   onChange={(e) => setSelectedRegulation(e.target.value)}
                   className="w-full px-3 py-2 border border-input rounded-md bg-background"
+                  aria-label="Filter by regulation"
                 >
                   <option value="all">All Regulations</option>
                   {northAmericanRegulations.map(reg => (
@@ -317,6 +320,7 @@ export function ComplianceObligationsPage() {
                   value={selectedStatus}
                   onChange={(e) => setSelectedStatus(e.target.value)}
                   className="w-full px-3 py-2 border border-input rounded-md bg-background"
+                  aria-label="Filter by status"
                 >
                   <option value="all">All Status</option>
                   <option value="pending">Pending</option>

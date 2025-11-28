@@ -13,7 +13,8 @@ import {
   AlertTriangle,
   Eye,
   Edit,
-  RefreshCw
+  RefreshCw,
+  Search
 } from 'lucide-react';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -272,6 +273,7 @@ export function ConsentManagementPage() {
                   value={selectedConsentType}
                   onChange={(e) => setSelectedConsentType(e.target.value)}
                   className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                  aria-label="Filter by consent type"
                 >
                   <option value="all">All Consent Types</option>
                   {consentTypes.map(type => (
@@ -284,6 +286,7 @@ export function ConsentManagementPage() {
                   value={selectedStatus}
                   onChange={(e) => setSelectedStatus(e.target.value)}
                   className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                  aria-label="Filter by status"
                 >
                   <option value="all">All Status</option>
                   <option value="active">Active</option>

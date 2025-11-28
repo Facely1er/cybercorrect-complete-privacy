@@ -157,6 +157,7 @@ export function ProfilePage() {
                     className="absolute bottom-0 right-0 bg-primary-700 text-white p-2 rounded-full hover:bg-primary-800 transition-colors"
                     onClick={() => document.getElementById('avatar-url')?.focus()}
                     type="button"
+                    aria-label="Change avatar photo"
                   >
                     <CameraIcon className="h-4 w-4" />
                   </button>

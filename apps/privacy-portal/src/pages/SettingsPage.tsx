@@ -19,6 +19,7 @@ import { Button } from '../components/ui/Button';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { useUser } from '../hooks/useSupabase';
 import { useTheme } from '../hooks/useTheme';
+import { logger } from '../utils/logger';
 
 export function SettingsPage() {
   const { user, profile, signOut, updateProfile, loading: userLoading } = useUser();
@@ -240,6 +241,7 @@ export function SettingsPage() {
                         className="sr-only peer"
                         checked={settings.notifications.email}
                         onChange={() => handleNotificationToggle('email', !settings.notifications.email)}
+                        aria-label="Toggle email notifications"
                       />
                       <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"></div>
                     </label>
@@ -263,6 +265,7 @@ export function SettingsPage() {
                         className="sr-only peer"
                         checked={settings.notifications.push}
                         onChange={() => handleNotificationToggle('push', !settings.notifications.push)}
+                        aria-label="Toggle push notifications"
                       />
                       <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"></div>
                     </label>
@@ -292,6 +295,7 @@ export function SettingsPage() {
                           }
                         }));
                       }}
+                      aria-label="Select digest frequency"
                     >
                       <option value="daily">Daily</option>
                       <option value="weekly">Weekly</option>
@@ -329,6 +333,7 @@ export function SettingsPage() {
                       className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-transparent"
                       value={settings.privacy.profileVisibility}
                       onChange={(e) => handlePrivacyToggle('profileVisibility', e.target.value)}
+                      aria-label="Select profile visibility"
                     >
                       <option value="private">Only Me</option>
                       <option value="institution">My Institution</option>
@@ -354,6 +359,7 @@ export function SettingsPage() {
                         className="sr-only peer"
                         checked={settings.privacy.activityTracking}
                         onChange={() => handlePrivacyToggle('activityTracking', !settings.privacy.activityTracking)}
+                        aria-label="Toggle activity tracking"
                       />
                       <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"></div>
                     </label>
