@@ -1,0 +1,262 @@
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { User, Settings, LogOut, Home, Database, Eye, UserCheck, FileText, HelpCircle, Menu, X } from 'lucide-react';
+import { ThemeToggle } from '../ui/ThemeToggle';
+import { NotificationDropdown } from '../notifications/NotificationDropdown';
+import { useAuth } from '../../hooks/useAuthContext';
+import { useBrand } from '../../hooks/useBrand';
+
+export const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const { user, profile, signOut } = useAuth();
+  const { brand } = useBrand();
+
+  // Handle scroll effect for sticky header
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  const navigation = [
+    { name: 'Home', href: '/', icon: Home },
+    { name: 'Privacy Portal', href: '/privacy', icon: Database },
+    { name: 'Exercise Data Rights', href: '/data-rights', icon: Eye },
+    { name: 'My Privacy Duties', href: '/stakeholder-duties', icon: UserCheck },
+    { name: 'How It Works', href: '/how-it-works', icon: HelpCircle },
+  ];
+
+  const isActivePath = (path: string) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
+  };
+
+  return (
+    <header className={`fixed top-0 left-0 right-0 z-50 w-full border-b transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 shadow-sm border-border/50' 
+        : 'bg-background/80 backdrop-blur-sm border-transparent'
+    }`}>
+      <div className="container mx-auto px-4">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo and Brand */}
+          <div className="flex items-center">
+            <Link to="/" className="flex items-center space-x-2">
+              <img 
+                src="/logos/cybercorrect-logo.png" 
+                alt={brand.logo.alt} 
+                className="h-16 w-16"
+              />
+              <div className="hidden sm:flex sm:flex-col font-bold leading-tight">
+                <span className="text-sm">{brand.companyNameWithTM}</span>
+                <span className="text-xs font-medium">{brand.tagline}</span>
+                <span className="text-xs font-normal text-muted-foreground">by {brand.legal.companyName}</span>
+              </div>
+            </Link>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-2">
+            {navigation.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    isActivePath(item.href)
+                      ? 'bg-primary text-primary-foreground shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
+                  }`}
+                >
+                  <Icon className="w-4 h-4 flex-shrink-0" />
+                  <span className="whitespace-nowrap">{item.name}</span>
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label="Toggle mobile menu"
+          >
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+
+          {/* Right side actions */}
+          <div className="hidden md:flex items-center space-x-2">
+            <ThemeToggle />
+            <NotificationDropdown />
+            
+            {/* User Menu */}
+            <div className="relative">
+              <button
+                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                className="flex items-center space-x-1 p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                <User className="w-5 h-5" />
+                <span className="hidden sm:inline text-sm">
+                  {user ? (profile?.full_name || user.email?.split('@')[0] || 'Account') : 'Account'}
+                </span>
+              </button>
+
+              {isUserMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-popover border border-border rounded-md shadow-lg py-1 z-50">
+                  {user ? (
+                    <>
+                      <Link
+                        to="/profile"
+                        className="flex items-center px-4 py-2 text-sm hover:bg-accent transition-colors"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        <User className="w-4 h-4 mr-2" />
+                        Profile
+                      </Link>
+                      <Link
+                        to="/settings"
+                        className="flex items-center px-4 py-2 text-sm hover:bg-accent transition-colors"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        <Settings className="w-4 h-4 mr-2" />
+                        Settings
+                      </Link>
+                      <hr className="my-1" />
+                      <button
+                        onClick={async () => {
+                          setIsUserMenuOpen(false);
+                          await signOut();
+                        }}
+                        className="flex items-center px-4 py-2 text-sm hover:bg-accent transition-colors w-full text-left"
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Sign Out
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        to="/login"
+                        className="flex items-center px-4 py-2 text-sm hover:bg-accent transition-colors"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        <User className="w-4 h-4 mr-2" />
+                        Sign In
+                      </Link>
+                      <Link
+                        to="/register"
+                        className="flex items-center px-4 py-2 text-sm hover:bg-accent transition-colors"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        <FileText className="w-4 h-4 mr-2" />
+                        Register
+                      </Link>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden border-t border-border/50 py-4">
+            <nav className="flex flex-col space-y-2">
+              {navigation.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      isActivePath(item.href)
+                        ? 'bg-primary text-primary-foreground shadow-sm'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <Icon className="w-4 h-4 flex-shrink-0" />
+                    <span>{item.name}</span>
+                  </Link>
+                );
+              })}
+            </nav>
+            
+            {/* Mobile User Actions */}
+            <div className="border-t border-border/50 pt-4 mt-4">
+              <div className="flex items-center justify-between px-4 py-3">
+                <div className="flex items-center space-x-3">
+                  <ThemeToggle />
+                  <NotificationDropdown />
+                </div>
+                <div className="flex items-center space-x-2">
+                  <User className="w-5 h-5 text-gray-700 dark:text-gray-200 flex-shrink-0" />
+                  <span className="text-sm text-gray-700 dark:text-gray-200 font-medium">
+                    {user ? (profile?.full_name || user.email?.split('@')[0] || 'Account') : 'Account'}
+                  </span>
+                </div>
+              </div>
+              
+              {user ? (
+                <div className="space-y-2 mt-3">
+                  <Link
+                    to="/profile"
+                    className="flex items-center space-x-3 px-4 py-3 text-sm hover:bg-accent transition-all duration-200 rounded-lg"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <User className="w-4 h-4 flex-shrink-0" />
+                    <span>Profile</span>
+                  </Link>
+                  <Link
+                    to="/settings"
+                    className="flex items-center space-x-3 px-4 py-3 text-sm hover:bg-accent transition-all duration-200 rounded-lg"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <Settings className="w-4 h-4 flex-shrink-0" />
+                    <span>Settings</span>
+                  </Link>
+                  <button
+                    onClick={async () => {
+                      setIsMenuOpen(false);
+                      await signOut();
+                    }}
+                    className="flex items-center space-x-3 px-4 py-3 text-sm hover:bg-accent transition-all duration-200 rounded-lg w-full text-left"
+                  >
+                    <LogOut className="w-4 h-4 flex-shrink-0" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-2 mt-3">
+                  <Link
+                    to="/login"
+                    className="flex items-center space-x-3 px-4 py-3 text-sm hover:bg-accent transition-all duration-200 rounded-lg"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <User className="w-4 h-4 flex-shrink-0" />
+                    <span>Sign In</span>
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="flex items-center space-x-3 px-4 py-3 text-sm hover:bg-accent transition-all duration-200 rounded-lg"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <FileText className="w-4 h-4 flex-shrink-0" />
+                    <span>Register</span>
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+};

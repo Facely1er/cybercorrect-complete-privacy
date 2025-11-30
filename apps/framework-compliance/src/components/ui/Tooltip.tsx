@@ -1,0 +1,65 @@
+import React, { useState } from 'react';
+import { Info } from 'lucide-react';
+
+interface TooltipProps {
+  content: string | React.ReactNode;
+  children?: React.ReactNode;
+  className?: string;
+  position?: 'top' | 'bottom' | 'left' | 'right';
+}
+
+export const Tooltip: React.FC<TooltipProps> = ({
+  content,
+  children,
+  className = '',
+  position = 'top'
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const positionClasses = {
+    top: 'bottom-full left-1/2 transform -translate-x-1/2 mb-2',
+    bottom: 'top-full left-1/2 transform -translate-x-1/2 mt-2',
+    left: 'right-full top-1/2 transform -translate-y-1/2 mr-2',
+    right: 'left-full top-1/2 transform -translate-y-1/2 ml-2'
+  };
+
+  const arrowClasses = {
+    top: 'top-full left-1/2 transform -translate-x-1/2 border-t-popover border-l-transparent border-r-transparent border-b-transparent',
+    bottom: 'bottom-full left-1/2 transform -translate-x-1/2 border-b-popover border-l-transparent border-r-transparent border-t-transparent',
+    left: 'left-full top-1/2 transform -translate-y-1/2 border-l-popover border-t-transparent border-b-transparent border-r-transparent',
+    right: 'right-full top-1/2 transform -translate-y-1/2 border-r-popover border-t-transparent border-b-transparent border-l-transparent'
+  };
+
+  return (
+    <div
+      className={`relative inline-block ${className}`}
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+      onFocus={() => setIsVisible(true)}
+      onBlur={() => setIsVisible(false)}
+    >
+      {children || (
+        <Info
+          className="h-4 w-4 text-muted-foreground cursor-help"
+          aria-label="Information"
+        />
+      )}
+      {isVisible && (
+        <div
+          className={`absolute z-50 w-64 p-2 bg-popover border rounded shadow-lg text-xs text-popover-foreground ${positionClasses[position]}`}
+          role="tooltip"
+        >
+          {typeof content === 'string' ? (
+            <p>{content}</p>
+          ) : (
+            content
+          )}
+          <div
+            className={`absolute w-0 h-0 border-4 ${arrowClasses[position]}`}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+

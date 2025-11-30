@@ -1,0 +1,142 @@
+/* Exact CSS Variables from src/styles/variables.css */
+:root {
+  /* Colors - Light Theme */
+  --color-primary: 10 35 66;
+  --color-accent: 255 107 53;
+  --color-accent-dark: 229 90 41;
+  --color-background: 255 255 255;
+  --color-background-secondary: 249 250 251;
+  --color-text: 17 24 39;
+  --color-text-secondary: 107 114 128;
+  --color-card: 255 255 255;
+  --color-card-hover: 243 244 246;
+  --color-border: 229 231 235;
+  --color-primary-dark: 30 58 95;
+  --color-success: 76 175 80;
+  --color-warning: 255 193 7;
+  --color-danger: 244 67 54;
+  --color-light-blue: 232 241 249;
+  --color-secondary: 107 114 128;
+  --color-muted: 156 163 175;
+  --color-muted-foreground: 107 114 128;
+  --color-popover: 255 255 255;
+  --color-popover-foreground: 17 24 39;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-xxl: 3rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 5%);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+}
+
+.dark {
+  /* Colors - Dark Theme */
+  --color-primary: 17 24 39;
+  --color-accent: 255 107 53;
+  --color-accent-dark: 229 90 41;
+  --color-background: 15 23 42;
+  --color-background-secondary: 30 41 59;
+  --color-text: 226 232 240;
+  --color-text-secondary: 186 193 205;
+  --color-card: 30 41 59;
+  --color-card-hover: 51 65 85;
+  --color-border: 51 65 85;
+  --color-primary-dark: 226 232 240;
+  --color-success: 76 175 80;
+  --color-warning: 255 193 7;
+  --color-danger: 244 67 54;
+  --color-light-blue: 30 41 59;
+  --color-secondary: 156 163 175;
+  --color-muted: 71 85 105;
+  --color-muted-foreground: 156 163 175;
+  --color-popover: 30 41 59;
+  --color-popover-foreground: 226 232 240;
+
+  /* Dark mode specific shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 30%);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 40%), 0 1px 2px -1px rgb(0 0 0 / 40%);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 40%), 0 2px 4px -2px rgb(0 0 0 / 40%);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 40%), 0 4px 6px -4px rgb(0 0 0 / 40%);
+}
+
+/* Base Styles - Matching React App */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-text));
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: rgb(var(--color-text));
+  line-height: 1.2;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+a {
+  transition: color 200ms;
+  text-decoration: none;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--color-background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-border));
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-text-secondary));
+}
+
+/* Text Selection */
+::selection {
+  background: rgb(var(--color-accent) / 0.2);
+  color: inherit;
+}
+
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

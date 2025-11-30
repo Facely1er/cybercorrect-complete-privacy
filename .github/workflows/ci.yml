@@ -1,0 +1,134 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint-and-type-check:
+    name: Lint and Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint framework-compliance
+        run: npm run lint --workspace=@cybercorrect/framework-compliance
+        continue-on-error: false
+
+      - name: Lint privacy-portal
+        run: npm run lint --workspace=@cybercorrect/privacy-portal
+        continue-on-error: false
+
+      - name: Type check framework-compliance
+        run: npm run type-check --workspace=@cybercorrect/framework-compliance
+        continue-on-error: false
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        workspace:
+          - '@cybercorrect/framework-compliance'
+          - '@cybercorrect/privacy-portal'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test:run --workspace=${{ matrix.workspace }}
+
+      - name: Generate coverage report
+        run: npm run test:coverage --workspace=${{ matrix.workspace }}
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./apps/*/coverage/coverage-final.json
+          flags: ${{ matrix.workspace }}
+          name: ${{ matrix.workspace }}
+        continue-on-error: true
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        workspace:
+          - '@cybercorrect/framework-compliance'
+          - '@cybercorrect/privacy-portal'
+          - '@cybercorrect/marketing-site'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build --workspace=${{ matrix.workspace }}
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ matrix.workspace }}
+          path: dist/
+          retention-days: 7
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        run: npm audit --audit-level=moderate
+        continue-on-error: true
+
+      - name: Check for known vulnerabilities
+        run: |
+          npm audit --json > audit.json || true
+          if [ -s audit.json ]; then
+            echo "Vulnerabilities found. Review audit.json for details."
+            cat audit.json
+          fi

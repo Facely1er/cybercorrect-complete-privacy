@@ -1,0 +1,37 @@
+{
+  "name": "cybercorrect-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:framework": "npm run dev --workspace=@cybercorrect/framework-compliance",
+    "dev:portal": "npm run dev --workspace=@cybercorrect/privacy-portal",
+    "dev:marketing": "npm run dev --workspace=@cybercorrect/marketing-site",
+    "dev:all": "npm run dev:framework & npm run dev:portal & npm run dev:marketing",
+    "build:framework": "npm run build --workspace=@cybercorrect/framework-compliance",
+    "build:portal": "npm run build --workspace=@cybercorrect/privacy-portal",
+    "build:marketing": "npm run build --workspace=@cybercorrect/marketing-site",
+    "build:all": "npm run build:framework && npm run build:portal && npm run build:marketing",
+    "build:from-source": "node scripts/build-from-source.js",
+    "build:from-source:portal": "node scripts/build-from-source.js privacy-portal",
+    "build:from-source:framework": "node scripts/build-from-source.js framework-compliance",
+    "build:from-source:marketing": "node scripts/build-from-source.js marketing-site",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:run": "npm run test:run --workspaces --if-present",
+    "test:production": "node scripts/production-test.js",
+    "install:all": "npm install"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
+
