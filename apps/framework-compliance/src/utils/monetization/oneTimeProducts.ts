@@ -280,6 +280,70 @@ export const ONE_TIME_PRODUCTS: OneTimeProduct[] = [
     refundPolicy: 'standard', // All sales final except as provided in Refund & Cancellation Policy
     updatePolicy: 'Template updates released monthly. All updates included.',
     supportLevel: 'email'
+  },
+  {
+    id: 'compliance-toolkit',
+    name: 'Compliance Framework Templates',
+    tagline: 'Multi-framework compliance templates',
+    description: 'Downloadable compliance templates for NIST, ISO 27001, SOC 2, HIPAA, GDPR, CMMC, and PCI-DSS frameworks',
+    longDescription: `The Compliance Framework Templates provide comprehensive, ready-to-use templates for major compliance frameworks.
+    Includes gap analysis worksheets, control mapping matrices, evidence collection checklists, and audit preparation guides.
+    Perfect for compliance teams, auditors, and organizations preparing for certifications. All templates are customizable and work offline.`,
+    category: 'toolkit',
+    price: 199,
+    licenseType: 'lifetime',
+    deploymentModel: 'localStorage',
+    features: [
+      'Multi-framework gap analysis worksheets',
+      'Control mapping matrices (50+ pre-mapped controls)',
+      'Maturity assessment templates',
+      'Risk-based prioritization frameworks',
+      'Evidence collection checklists by framework',
+      'Documentation templates',
+      'Evidence repository organization guides',
+      'Audit trail templates',
+      'Pre-audit readiness checklists',
+      'Auditor interview preparation guides',
+      'Evidence validation workflows',
+      'Remediation tracking templates',
+      'Compliance program charter templates',
+      'Continuous monitoring frameworks',
+      'Control testing procedures',
+      'Compliance reporting templates',
+      'CyberCorrect setup guides',
+      'Workflow configuration templates',
+      'Automation setup instructions',
+      'Dashboard customization guides',
+      'Export to PDF, Word, Excel',
+      'All v1.x updates included'
+    ],
+    includedTools: [
+      'Gap Analysis Templates',
+      'Control Mapping Matrix',
+      'Evidence Collection Checklists',
+      'Audit Preparation Guides',
+      'Compliance Program Templates'
+    ],
+    limitations: [
+      'No automated compliance tracking',
+      'No cloud sync',
+      'No team collaboration',
+      'Manual framework updates'
+    ],
+    targetAudience: [
+      'Compliance teams preparing for audits',
+      'Security consultants',
+      'Organizations seeking certifications',
+      'Audit preparation teams'
+    ],
+    technicalRequirements: [
+      'Modern web browser',
+      'JavaScript enabled',
+      'Minimum 50MB free storage'
+    ],
+    refundPolicy: 'standard',
+    updatePolicy: 'Framework updates released quarterly. All v1.x updates included.',
+    supportLevel: 'email'
   }
 ];
 

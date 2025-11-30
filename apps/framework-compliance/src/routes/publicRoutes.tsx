@@ -12,6 +12,7 @@ import Demo from '../pages/Demo';
 import Login from '../pages/Login';
 import UserProfile from '../pages/UserProfile';
 import Integrations from '../pages/Integrations';
+import ComplianceToolkit from '../pages/ComplianceToolkit';
 
 // Lazy loaded public pages
 const Profile = lazy(() => import('../pages/account/Profile'));
@@ -31,6 +32,7 @@ export const publicRoutes = [
   { path: 'cookies', element: Cookies },
   { path: 'acceptable-use', element: AcceptableUse },
   { path: 'ecommerce', element: ECommerce },
+  { path: 'products/compliance-toolkit', element: ComplianceToolkit },
   { path: 'account', element: () => <Navigate to="/account/profile" replace /> },
   { path: 'account/profile', element: Profile, lazy: true },
   { path: 'account/settings', element: Settings, lazy: true },
