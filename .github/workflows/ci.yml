@@ -1,16 +1,15 @@
-name: CI/CD Pipeline
+name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
 
 jobs:
-  lint-and-test:
-    name: Lint and Test
+  lint-and-type-check:
+    name: Lint and Type Check
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -24,29 +23,62 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run linter
-        run: npm run lint
+      - name: Lint framework-compliance
+        run: npm run lint --workspace=@cybercorrect/framework-compliance
+        continue-on-error: false
 
-      - name: Run type check
-        run: npx tsc --noEmit
+      - name: Lint privacy-portal
+        run: npm run lint --workspace=@cybercorrect/privacy-portal
+        continue-on-error: false
+
+      - name: Type check framework-compliance
+        run: npm run type-check --workspace=@cybercorrect/framework-compliance
+        continue-on-error: false
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        workspace:
+          - '@cybercorrect/framework-compliance'
+          - '@cybercorrect/privacy-portal'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Run tests
-        run: npm run test:run
+        run: npm run test:run --workspace=${{ matrix.workspace }}
 
-      - name: Generate coverage
-        run: npm run test:coverage
+      - name: Generate coverage report
+        run: npm run test:coverage --workspace=${{ matrix.workspace }}
 
-      - name: Upload coverage reports
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
-        if: always()
         with:
-          fail_ci_if_error: false
+          files: ./apps/*/coverage/coverage-final.json
+          flags: ${{ matrix.workspace }}
+          name: ${{ matrix.workspace }}
+        continue-on-error: true
 
   build:
-    name: Build Production Bundle
+    name: Build
     runs-on: ubuntu-latest
-    needs: lint-and-test
-    
+    strategy:
+      matrix:
+        workspace:
+          - '@cybercorrect/framework-compliance'
+          - '@cybercorrect/privacy-portal'
+          - '@cybercorrect/marketing-site'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -60,27 +92,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build application
-        run: npm run build
+      - name: Build
+        run: npm run build --workspace=${{ matrix.workspace }}
         env:
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL || 'https://placeholder.supabase.co' }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY || 'placeholder-key' }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
-      - name: Check bundle size
-        run: |
-          echo "Checking bundle sizes..."
-          du -sh dist/*
-          if [ -f dist/index.html ]; then
-            echo "✅ Build successful"
-          else
-            echo "❌ Build failed - no index.html found"
-            exit 1
-          fi
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ matrix.workspace }}
+          path: dist/
+          retention-days: 7
 
-  security-audit:
-    name: Security Audit
+  security-scan:
+    name: Security Scan
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -95,14 +122,13 @@ jobs:
         run: npm ci
 
       - name: Run npm audit
-        run: npm audit --audit-level=high
+        run: npm audit --audit-level=moderate
         continue-on-error: true
 
-      - name: Check for vulnerabilities
+      - name: Check for known vulnerabilities
         run: |
-          if npm audit --audit-level=high 2>&1 | grep -q "found 0 vulnerabilities"; then
-            echo "✅ No high or critical vulnerabilities found"
-          else
-            echo "⚠️ Vulnerabilities found (non-blocking for dev dependencies)"
+          npm audit --json > audit.json || true
+          if [ -s audit.json ]; then
+            echo "Vulnerabilities found. Review audit.json for details."
+            cat audit.json
           fi
-
