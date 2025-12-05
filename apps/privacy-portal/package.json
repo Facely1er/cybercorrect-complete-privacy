@@ -38,7 +38,7 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.10.1",
     "tailwind-merge": "^2.4.0",
-    "zod": "^3.23.8",
+    "zod": "^4.1.13",
     "jspdf": "^3.0.2",
     "jspdf-autotable": "^5.0.2"
   },
