@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
+import { addCyberCorrectHeader, addCyberCorrectFooter } from './logoUtils';
 
 declare module 'jspdf' {
   interface jsPDF {
@@ -68,21 +69,11 @@ interface PrivacyGapAnalysisPdfData {
   };
 }
 
-export const generatePrivacyGapAnalysisPdf = (data: PrivacyGapAnalysisPdfData): void => {
+export const generatePrivacyGapAnalysisPdf = async (data: PrivacyGapAnalysisPdfData): Promise<void> => {
   const doc = new jsPDF();
-  let y = 20;
-
-  // Header
-  doc.setFontSize(20);
-  doc.setTextColor(40, 40, 40);
-  doc.text(data.metadata.title, 105, y, { align: 'center' });
-  y += 10;
-
-  // Subtitle
-  doc.setFontSize(12);
-  doc.setTextColor(100, 100, 100);
-  doc.text(`Framework: ${data.executiveSummary.frameworkName}`, 105, y, { align: 'center' });
-  y += 10;
+  
+  // Add header with logo
+  let y = await addCyberCorrectHeader(doc, data.metadata.title, `Framework: ${data.executiveSummary.frameworkName}`);
 
   // Metadata
   doc.setFontSize(10);
@@ -253,16 +244,8 @@ export const generatePrivacyGapAnalysisPdf = (data: PrivacyGapAnalysisPdfData): 
     }
   }
 
-  // Footer
-  const pageCount = doc.getNumberOfPages ? doc.getNumberOfPages() : 1;
-  doc.setFontSize(8);
-  doc.setTextColor(150, 150, 150);
-  for (let i = 1; i <= pageCount; i++) {
-    doc.setPage(i);
-    doc.text(`Page ${i} of ${pageCount}`, 105, 285, { align: 'center' });
-    doc.text(data.metadata.generatedBy, 20, 285);
-    doc.text(`${new Date().toISOString().split('T')[0]}`, 190, 285, { align: 'right' });
-  }
+  // Add footer with branding
+  addCyberCorrectFooter(doc, data.metadata.reportId);
 
   // Save the PDF
   const filename = `privacy-gap-analysis-${new Date().toISOString().split('T')[0]}.pdf`;

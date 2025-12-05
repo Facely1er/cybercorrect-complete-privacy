@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
+import { addCyberCorrectHeader, addCyberCorrectFooter } from './logoUtils';
 
 // Extend jsPDF with autotable plugin
 declare module 'jspdf' {
@@ -39,21 +40,11 @@ export interface EvidenceItem {
   }[];
 }
 
-export const generateEvidencePdf = (evidenceItems: EvidenceItem[], filename?: string): void => {
+export const generateEvidencePdf = async (evidenceItems: EvidenceItem[], filename?: string): Promise<void> => {
   const doc = new jsPDF();
-  let y = 20;
-
-  // Header
-  doc.setFontSize(20);
-  doc.setTextColor(40, 40, 40);
-  doc.text('Evidence Vault Export', 105, y, { align: 'center' });
-  y += 10;
-
-  // Add export date
-  doc.setFontSize(10);
-  doc.setTextColor(100, 100, 100);
-  doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 105, y, { align: 'center' });
-  y += 15;
+  
+  // Add header with logo
+  let y = await addCyberCorrectHeader(doc, 'Evidence Vault Export', `Generated on: ${new Date().toLocaleDateString()}`);
 
   // Summary section
   doc.setFontSize(14);
@@ -221,15 +212,8 @@ export const generateEvidencePdf = (evidenceItems: EvidenceItem[], filename?: st
   });
 
   // Add footer
-  const pageCount = doc.getNumberOfPages ? doc.getNumberOfPages() : 1;
-  doc.setFontSize(8);
-  doc.setTextColor(150, 150, 150);
-  for (let i = 1; i <= pageCount; i++) {
-    doc.setPage(i);
-    doc.text(`Page ${i} of ${pageCount}`, 105, 290, { align: 'center' });
-    doc.text('CyberCorrect Privacy Platform - Evidence Vault', 20, 290);
-    doc.text(`${new Date().toISOString().split('T')[0]}`, 190, 290, { align: 'right' });
-  }
+  // Add footer with branding
+  addCyberCorrectFooter(doc);
 
   // Save the PDF
   const exportFilename = filename || `evidence-vault-${new Date().toISOString().split('T')[0]}.pdf`;

@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
+import { addCyberCorrectHeader, addCyberCorrectFooter } from './logoUtils';
 
 // Extend jsPDF with autotable plugin
 
@@ -55,27 +56,17 @@ interface RecommendationItem {
   steps: string[];
 }
 
-export const generateResultsPdf = (
+export const generateResultsPdf = async (
   title: string,
   overallScore: number,
   sectionScores: SectionScore[],
   date: string,
   filename = 'assessment-results.pdf'
-) => {
+): Promise<void> => {
   const doc = new jsPDF();
-  let y = 20;
-
-  // Add title
-  doc.setFontSize(20);
-  doc.setTextColor(40, 40, 40);
-  doc.text(title, 105, y, { align: 'center' });
-  y += 10;
-
-  // Add date
-  doc.setFontSize(10);
-  doc.setTextColor(100, 100, 100);
-  doc.text(`Generated on: ${date}`, 105, y, { align: 'center' });
-  y += 20;
+  
+  // Add header with logo
+  let y = await addCyberCorrectHeader(doc, title, `Generated on: ${date}`);
 
   // Add overall score
   doc.setFontSize(16);
@@ -145,41 +136,23 @@ export const generateResultsPdf = (
   const splitSummary = doc.splitTextToSize(summaryText, 170);
   doc.text(splitSummary, 20, y);
 
-  // Add footer
-  const pageCount = doc.getNumberOfPages ? doc.getNumberOfPages() : 1;
-  doc.setFontSize(8);
-  doc.setTextColor(150, 150, 150);
-  for(let i = 1; i <= pageCount; i++) {
-    doc.setPage(i);
-    doc.text(`Page ${i} of ${pageCount}`, 105, 290, { align: 'center' });
-    doc.text('CyberCorrect Privacy Platform Assessment Report', 20, 290);
-    doc.text(`${new Date().toISOString().split('T')[0]}`, 190, 290, { align: 'right' });
-  }
+  // Add footer with branding
+  addCyberCorrectFooter(doc);
 
   // Save the PDF
   doc.save(filename);
 };
 
-export const generateRecommendationsPdf = (
+export const generateRecommendationsPdf = async (
   title: string,
   recommendations: RecommendationItem[],
   date: string, 
   filename = 'recommendations.pdf'
-) => {
+): Promise<void> => {
   const doc = new jsPDF();
-  let y = 20;
-
-  // Add title
-  doc.setFontSize(20);
-  doc.setTextColor(40, 40, 40);
-  doc.text(title, 105, y, { align: 'center' });
-  y += 10;
-
-  // Add date
-  doc.setFontSize(10);
-  doc.setTextColor(100, 100, 100);
-  doc.text(`Generated on: ${date}`, 105, y, { align: 'center' });
-  y += 20;
+  
+  // Add header with logo
+  let y = await addCyberCorrectHeader(doc, title, `Generated on: ${date}`);
 
   // Group recommendations by priority for the summary
   const criticalCount = recommendations.filter(r => r.priority === 'critical').length;
@@ -266,16 +239,8 @@ export const generateRecommendationsPdf = (
     }
   }
 
-  // Add footer
-  const pageCount = doc.getNumberOfPages ? doc.getNumberOfPages() : 1;
-  doc.setFontSize(8);
-  doc.setTextColor(150, 150, 150);
-  for(let i = 1; i <= pageCount; i++) {
-    doc.setPage(i);
-    doc.text(`Page ${i} of ${pageCount}`, 105, 290, { align: 'center' });
-    doc.text('CyberCorrect Privacy Platform Recommendations', 20, 290);
-    doc.text(`${new Date().toISOString().split('T')[0]}`, 190, 290, { align: 'right' });
-  }
+  // Add footer with branding
+  addCyberCorrectFooter(doc);
 
   // Save the PDF
   doc.save(filename);

@@ -5,6 +5,8 @@ export * from './generateEvidencePdf';
 export * from './generateExportPdf';
 export * from './generateGdprMappingPdf';
 export * from './generatePrivacyGapAnalysisPdf';
+export * from './generateDpiaPdf';
 export * from './html2canvasPdf';
 export * from './generateWord';
+export * from './logoUtils';
 

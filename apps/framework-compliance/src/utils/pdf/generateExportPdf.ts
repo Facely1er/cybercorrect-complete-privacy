@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
+import { addCyberCorrectHeader, addCyberCorrectFooter } from './logoUtils';
 
 declare module 'jspdf' {
   interface jsPDF {
@@ -34,7 +35,7 @@ interface SummaryData {
 /**
  * Generic PDF generator for data exports
  */
-export const generateDataExportPdf = (
+export const generateDataExportPdf = async (
   metadata: ExportMetadata,
   summary: SummaryData,
   tableData: {
@@ -43,22 +44,11 @@ export const generateDataExportPdf = (
     title?: string;
   }[],
   filename: string
-): void => {
+): Promise<void> => {
   const doc = new jsPDF();
-  let y = 20;
-
-  // Header
-  doc.setFontSize(20);
-  doc.setTextColor(40, 40, 40);
-  doc.text(metadata.title, 105, y, { align: 'center' });
-  y += 10;
-
-  if (metadata.subtitle) {
-    doc.setFontSize(14);
-    doc.setTextColor(100, 100, 100);
-    doc.text(metadata.subtitle, 105, y, { align: 'center' });
-    y += 10;
-  }
+  
+  // Add header with logo
+  let y = await addCyberCorrectHeader(doc, metadata.title, metadata.subtitle);
 
   // Metadata
   doc.setFontSize(10);
@@ -118,16 +108,8 @@ export const generateDataExportPdf = (
     y = (doc.lastAutoTable?.finalY || y) + 15;
   });
 
-  // Footer
-  const pageCount = doc.getNumberOfPages ? doc.getNumberOfPages() : 1;
-  doc.setFontSize(8);
-  doc.setTextColor(150, 150, 150);
-  for (let i = 1; i <= pageCount; i++) {
-    doc.setPage(i);
-    doc.text(`Page ${i} of ${pageCount}`, 105, 285, { align: 'center' });
-    doc.text(metadata.generatedBy || 'CyberCorrect Privacy Platform', 20, 285);
-    doc.text(`${new Date().toISOString().split('T')[0]}`, 190, 285, { align: 'right' });
-  }
+  // Add footer with branding
+  addCyberCorrectFooter(doc, metadata.reportId);
 
   doc.save(filename);
 };

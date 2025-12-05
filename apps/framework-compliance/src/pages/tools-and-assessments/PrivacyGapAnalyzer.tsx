@@ -328,7 +328,7 @@ const PrivacyGapAnalyzer = () => {
       // Small delay to show loading state
       await new Promise(resolve => setTimeout(resolve, 100));
       
-      generatePrivacyGapAnalysisPdf({
+      await generatePrivacyGapAnalysisPdf({
         metadata: {
           title: 'Privacy Gap Analysis Report',
           timestamp: new Date().toISOString(),

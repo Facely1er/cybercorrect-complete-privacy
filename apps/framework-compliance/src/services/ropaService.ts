@@ -403,7 +403,7 @@ export function exportToCSV(activities: ProcessingActivity[]): string {
 /**
  * Export processing activities to PDF
  */
-export function exportToPDF(activities: ProcessingActivity[]): void {
+export async function exportToPDF(activities: ProcessingActivity[]): Promise<void> {
   const mappingData = {
     metadata: {
       title: 'GDPR Data Processing Mapping',
@@ -429,7 +429,7 @@ export function exportToPDF(activities: ProcessingActivity[]): void {
     },
   };
 
-  generateGdprMappingPdf(mappingData);
+  await generateGdprMappingPdf(mappingData);
 }
 
 /**

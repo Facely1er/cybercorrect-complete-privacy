@@ -14,6 +14,7 @@ import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/storage';
 import { createDpia } from '../../services/dpiaService';
 import { logError, logWarning } from '../../utils/common/logger';
+import { generateDpiaPdf } from '../../utils/pdf';
 
 type DpiaFormData = {
   projectName: string;
@@ -77,8 +78,19 @@ const DpiaGenerator = () => {
 
   const handleGenerate = async () => {
     try {
-      const dpiaContent = generateDpiaContent();
-      downloadDpia(dpiaContent);
+      // Generate PDF with logo
+      await generateDpiaPdf({
+        projectName: formData.projectName,
+        dataController: formData.dataController,
+        processingPurpose: formData.processingPurpose,
+        legalBasis: formData.legalBasis,
+        dataCategories: formData.dataCategories,
+        dataSubjects: formData.dataSubjects,
+        riskLevel: formData.riskLevel,
+        safeguards: formData.safeguards,
+        assessmentDate: new Date().toLocaleDateString(),
+        assessor: 'System Generated'
+      });
       
       // Optionally save to database
       try {
@@ -151,63 +163,6 @@ const DpiaGenerator = () => {
     toast.success('Form cleared', 'DPIA form has been reset');
   };
 
-  const generateDpiaContent = () => {
-    return `
-DATA PROTECTION IMPACT ASSESSMENT (DPIA)
-
-1. PROJECT OVERVIEW
-Project Name: ${formData.projectName || '[Project Name]'}
-Data Controller: ${formData.dataController || '[Organization Name]'}
-Date of Assessment: ${new Date().toLocaleDateString()}
-Assessed by: [Assessor Name]
-
-2. DESCRIPTION OF PROCESSING
-Processing Purpose: ${formData.processingPurpose || '[Processing Purpose]'}
-Legal Basis: ${formData.legalBasis || '[Legal Basis]'}
-
-3. NECESSITY AND PROPORTIONALITY ASSESSMENT
-[Detailed assessment of necessity and proportionality]
-
-4. DATA SUBJECTS AND PERSONAL DATA
-Categories of Data Subjects: ${formData.dataSubjects.join(', ') || '[Data Subject Categories]'}
-Categories of Personal Data: ${formData.dataCategories.join(', ') || '[Data Categories]'}
-
-5. PRIVACY RISK ASSESSMENT
-Risk Level: ${formData.riskLevel || '[Risk Level]'}
-Identified Risks:
-- Risk to individual privacy rights
-- Risk of unauthorized processing
-- Risk of data breach or loss
-
-6. MEASURES TO ADDRESS RISKS
-Safeguards and Controls:
-${formData.safeguards.length > 0 ? formData.safeguards.map((s: string) => `- ${s}`).join('\n') : '- [Safeguards to be implemented]'}
-
-7. CONSULTATION AND APPROVAL
-DPO Consultation: [Date and outcome]
-Stakeholder Consultation: [Details]
-Final Approval: [Approval details]
-
-8. MONITORING AND REVIEW
-Review Date: [Next review date]
-Monitoring Procedures: [Ongoing monitoring approach]
-
-This DPIA was generated using CyberCorrect Privacy Platform's automated DPIA generator. 
-Please review and customize based on your specific processing activities.
-
-Generated: ${new Date().toLocaleDateString()}
-    `;
-  };
-
-  const downloadDpia = (content: string) => {
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `dpia-${formData.projectName.replace(/\s+/g, '-').toLowerCase() || 'generated'}-${new Date().toISOString().split('T')[0]}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
 
   return (
     <div className="page-container">

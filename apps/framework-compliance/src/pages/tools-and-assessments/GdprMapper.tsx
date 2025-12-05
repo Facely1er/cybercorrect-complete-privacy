@@ -160,7 +160,7 @@ const GdprMapper = () => {
         URL.revokeObjectURL(url);
         toast.success("Mapping exported", "GDPR processing mapping has been exported as CSV");
       } else if (format === 'pdf') {
-        exportToPDF(activities);
+        await exportToPDF(activities);
         toast.success("Mapping exported", "GDPR processing mapping has been exported as PDF");
       } else {
         // JSON export
