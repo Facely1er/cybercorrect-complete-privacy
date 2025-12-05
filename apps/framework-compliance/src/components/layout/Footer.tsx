@@ -71,6 +71,9 @@ const Footer: React.FC = () => {
               <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
                 © {currentYear} ERMITS. All rights reserved.
               </p>
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
+                © {currentYear} ERMITS. All rights reserved.
+              </p>
             </div>
             
             {/* Quick Links */}
