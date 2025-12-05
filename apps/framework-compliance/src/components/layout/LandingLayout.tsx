@@ -13,7 +13,8 @@ import {
   ArrowRight,
   Eye,
   ChevronDown,
-  Sparkles
+  Sparkles,
+  Puzzle as PuzzlePiece
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
@@ -155,18 +156,9 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       icon: Home
     },
     {
-      name: 'Features',
-      path: '/features',
-      icon: Sparkles,
-      dropdown: true,
-      dropdownItems: [
-        { name: 'Platform Overview', path: '/documentation/platform-overview' }
-      ]
-    },
-    {
-      name: 'For Your Role',
-      path: '/roles/data-protection-officer',
-      icon: Users,
+      name: 'Compliance',
+      path: '/compliance',
+      icon: PuzzlePiece,
       dropdown: true,
       dropdownItems: [
         { name: 'Data Protection Officer', path: '/roles/data-protection-officer' },
@@ -200,8 +192,8 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   return (
     <div className={`min-h-screen flex flex-col ${darkMode ? 'dark' : ''} bg-surface dark:bg-dark-bg`}>
       <nav className={`fixed top-0 left-0 right-0 z-20 bg-surface/90 dark:bg-dark-surface/90 backdrop-blur-md transition-all duration-300 ${isScrolled ? 'py-1' : 'py-1'}`}>
-        <div className="container mx-auto px-2 sm:px-4 max-w-full">
-          <div className="flex justify-between items-center h-14 gap-2 sm:gap-4 min-w-0">
+        <div className="container mx-auto px-2 sm:px-4 max-w-full overflow-visible">
+          <div className="flex justify-between items-center h-14 gap-2 sm:gap-4 min-w-0 overflow-visible">
             {/* Column 1: Logo (left) */}
             <div className="flex items-center flex-shrink-0 min-w-0">
               <Link to="/" className="flex items-center min-w-0">
@@ -210,31 +202,31 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
             </div>
             
             {/* Column 2: Navigation (center) */}
-            <div className="hidden lg:flex items-center flex-1 justify-center min-w-0">
+            <div className="hidden lg:flex items-center flex-1 justify-center min-w-0 overflow-visible">
                 {mainNavItems?.map((item: NavItem) => {
                   if (item.dropdown) {
                     return (
                       <div 
                         key={item.name} 
-                        className="relative flex items-center"
+                        className="relative flex items-center overflow-visible"
                       >
-                        <div className="flex items-center">
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleDropdown(item.name, e);
-                            }}
-                            className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium cursor-pointer ${location.pathname === item.path || item.dropdownItems?.some(di => location.pathname === di.path) ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
-                            aria-expanded={activeDropdown === item.name}
-                            aria-haspopup="true"
-                            aria-label={`Toggle ${item.name} menu`}
-                          >
-                            <item.icon className="mr-2 h-4 w-4" />
-                            {item.name}
-                            <ChevronDown className={`ml-1 h-3 w-3 transition-transform ${activeDropdown === item.name ? 'transform rotate-180' : ''}`} />
-                          </button>
-                        </div>
+                        <Link
+                          to={item.path}
+                          className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
+                        >
+                          <item.icon className="mr-2 h-4 w-4" />
+                          {item.name}
+                        </Link>
+                        <button
+                          type="button"
+                          className="flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-1 py-2"
+                          onClick={(e) => toggleDropdown(item.name, e)}
+                          aria-expanded={activeDropdown === item.name}
+                          aria-haspopup="true"
+                          aria-label={`Toggle ${item.name} menu`}
+                        >
+                          <ChevronDown className={`h-3 w-3 transition-transform ${activeDropdown === item.name ? 'transform rotate-180' : ''}`} />
+                        </button>
                         
                         {activeDropdown === item.name && (
                           <div 
@@ -259,7 +251,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                                   }`}
                                   onClick={() => setActiveDropdown(null)}
                                 >
-                                  {item.name === 'Features' ? 'Features Overview' : 'Overview'}
+                                  Overview
                                 </Link>
                               )}
                               {item.dropdownItems?.map((dropdownItem: { name: string; path: string }) => (
@@ -366,10 +358,14 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
               if (item.dropdown) {
                 return (
                   <div key={item.name}>
-                    <div className="px-3 py-2 text-sm font-medium text-foreground dark:text-dark-text">
-                      <item.icon className="mr-3 h-5 w-5 inline" />
+                    <Link
+                      to={item.path}
+                      className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${location.pathname === item.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <item.icon className="mr-3 h-5 w-5" />
                       {item.name}
-                    </div>
+                    </Link>
                     {/* Only show overview link if the main path is different from all dropdown items */}
                     {!item.dropdownItems?.some(dropdownItem => dropdownItem.path === item.path) && (
                       <Link
@@ -377,7 +373,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                         className={`flex items-center px-6 py-2 text-base font-medium rounded-md ${location.pathname === item.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
                         onClick={() => setMobileMenuOpen(false)}
                       >
-                        {item.name === 'Features' ? 'Features Overview' : 'Overview'}
+                        Overview
                       </Link>
                     )}
                     {item.dropdownItems?.map((dropdownItem: { name: string; path: string }) => (

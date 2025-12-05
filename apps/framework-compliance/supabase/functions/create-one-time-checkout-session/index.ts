@@ -115,8 +115,16 @@ serve(async (req) => {
     );
   } catch (error) {
     console.error('Error creating checkout session:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    const errorDetails = error instanceof Error && 'type' in error ? (error as any).type : undefined;
+    
+    // Return more detailed error information
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: 'Failed to create checkout session',
+        message: errorMessage,
+        details: errorDetails,
+      }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
