@@ -13,12 +13,14 @@ import NotFound from '../pages/NotFound';
 
 // Helper to render route with Suspense if lazy
 const renderRoute = (route: any, parentPath = ''): React.ReactNode => {
-  const fullPath = parentPath ? `${parentPath}${route.path}` : route.path;
+  // Handle absolute paths (starting with /) - strip leading slash for nested routes
+  const normalizedPath = route.path.startsWith('/') ? route.path.slice(1) : route.path;
+  const fullPath = parentPath ? `${parentPath}${normalizedPath}` : normalizedPath;
   
   if (route.children) {
     const ParentComponent = route.element;
     return (
-      <Route key={fullPath} path={route.path} element={<ParentComponent />}>
+      <Route key={fullPath} path={normalizedPath} element={<ParentComponent />}>
         {route.children.map((child: any) => renderRoute(child, fullPath))}
       </Route>
     );
@@ -29,7 +31,7 @@ const renderRoute = (route: any, parentPath = ''): React.ReactNode => {
     return (
       <Route
         key={fullPath}
-        path={route.path}
+        path={normalizedPath}
         element={
           <Suspense fallback={<LoadingSpinner />}>
             <LazyComponent />
@@ -43,7 +45,7 @@ const renderRoute = (route: any, parentPath = ''): React.ReactNode => {
   return (
     <Route
       key={fullPath}
-      path={route.path}
+      path={normalizedPath}
       element={<Component />}
     />
   );
