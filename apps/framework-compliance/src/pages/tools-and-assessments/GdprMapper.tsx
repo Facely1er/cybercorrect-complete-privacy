@@ -17,7 +17,8 @@ import {
   Globe,
   Shield,
   AlertTriangle,
-  Info
+  Info,
+  Trash2
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/storage';
@@ -28,7 +29,6 @@ import {
   deleteProcessingActivity,
   exportToCSV,
   exportToPDF,
-  validateProcessingActivity,
   type ProcessingActivity,
 } from '../../services/ropaService';
 
@@ -72,21 +72,67 @@ const GdprMapper = () => {
     }
   };
 
-  const handleAddActivity = () => {
-    const newActivity: ProcessingActivity = {
-      id: `activity-${Date.now()}`,
-      name: 'New Processing Activity',
-      purpose: '',
-      legalBasis: 'Consent',
-      dataTypes: [],
-      dataSubjects: [],
-      recipients: [],
-      retentionPeriod: '',
-      riskLevel: 'medium'
-    };
-    setActivities(prev => [...prev, newActivity]);
-    setSelectedActivity(newActivity.id);
-    toast.success('Activity Added', 'New processing activity has been added');
+  const handleAddActivity = async () => {
+    try {
+      setSaving(true);
+      const newActivity = await createProcessingActivity({
+        name: 'New Processing Activity',
+        purpose: '',
+        legalBasis: 'consent',
+        dataTypes: [],
+        dataSubjects: [],
+        recipients: [],
+        retentionPeriod: '',
+        riskLevel: 'medium',
+        dataController: 'Your Organization',
+        createdBy: 'Current User', // TODO: Get from auth context
+      });
+      
+      setActivities(prev => [...prev, newActivity]);
+      setSelectedActivity(newActivity.id || null);
+      toast.success('Activity Added', 'New processing activity has been added');
+    } catch (error) {
+      console.error('Error creating activity:', error);
+      toast.error('Create failed', error instanceof Error ? error.message : 'Failed to create processing activity');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // TODO: Implement edit functionality with a form/modal
+  // const handleUpdateActivity = async (id: string, updates: Partial<ProcessingActivity>) => {
+  //   try {
+  //     setSaving(true);
+  //     const updated = await updateProcessingActivity(id, updates);
+  //     setActivities(prev => prev.map(a => a.id === id ? updated : a));
+  //     toast.success('Activity Updated', 'Processing activity has been updated');
+  //   } catch (error) {
+  //     console.error('Error updating activity:', error);
+  //     toast.error('Update failed', error instanceof Error ? error.message : 'Failed to update processing activity');
+  //   } finally {
+  //     setSaving(false);
+  //   }
+  // };
+
+  const handleDeleteActivity = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this processing activity?')) {
+      return;
+    }
+
+    try {
+      setSaving(true);
+      await deleteProcessingActivity(id);
+      setActivities(prev => prev.filter(a => a.id !== id));
+      if (selectedActivity === id) {
+        setSelectedActivity(null);
+      }
+      toast.success('Activity Deleted', 'Processing activity has been deleted');
+    } catch (error) {
+      console.error('Error deleting activity:', error);
+      toast.error('Delete failed', error instanceof Error ? error.message : 'Failed to delete processing activity');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const getMappingData = () => {
@@ -101,31 +147,50 @@ const GdprMapper = () => {
       compliance: {
         framework: 'GDPR',
         articles: ['Article 6', 'Article 30', 'Article 32'],
-        dpiaRequired: activities.some(a => a.riskLevel === 'high')
+        dpiaRequired: activities.some(a => a.riskLevel === 'high' || a.riskLevel === 'critical' || a.dpiaRequired)
       }
     };
   };
 
-  const handleExportMapping = (format: 'json' | 'pdf' = 'json') => {
-    const mappingData = getMappingData();
+  const handleExportMapping = async (format: 'json' | 'pdf' | 'csv' = 'json') => {
+    if (activities.length === 0) {
+      toast.error('No data', 'No processing activities to export');
+      return;
+    }
 
-    if (format === 'json') {
-      const blob = new Blob([JSON.stringify(mappingData, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `gdpr-processing-mapping-${new Date().toISOString().split('T')[0]}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-      toast.success("Mapping exported", "GDPR processing mapping has been exported as JSON");
-    } else if (format === 'pdf') {
-      try {
-        generateGdprMappingPdf(mappingData);
+    try {
+      setIsExporting(true);
+
+      if (format === 'csv') {
+        const csv = exportToCSV(activities);
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `ropa-records-${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+        toast.success("Mapping exported", "GDPR processing mapping has been exported as CSV");
+      } else if (format === 'pdf') {
+        exportToPDF(activities);
         toast.success("Mapping exported", "GDPR processing mapping has been exported as PDF");
-      } catch (error) {
-        console.error('Error generating PDF:', error);
-        toast.error("Export failed", "Failed to generate PDF export. Please try again.");
+      } else {
+        // JSON export
+        const mappingData = getMappingData();
+        const blob = new Blob([JSON.stringify(mappingData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `gdpr-processing-mapping-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        toast.success("Mapping exported", "GDPR processing mapping has been exported as JSON");
       }
+    } catch (error) {
+      console.error('Error exporting:', error);
+      toast.error("Export failed", "Failed to export. Please try again.");
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -139,13 +204,20 @@ const GdprMapper = () => {
   };
 
   const getLegalBasisColor = (basis: string) => {
+    const normalizedBasis = basis.replace(/_/g, ' ').toLowerCase();
     const colors: Record<string, string> = {
-      'Consent': 'bg-primary/10 text-primary',
-      'Contract': 'bg-success/10 text-success',
-      'Legal Obligation': 'bg-accent/10 text-accent',
-      'Legitimate Interest': 'bg-warning/10 text-warning'
+      'consent': 'bg-primary/10 text-primary',
+      'contract': 'bg-success/10 text-success',
+      'legal obligation': 'bg-accent/10 text-accent',
+      'vital interests': 'bg-destructive/10 text-destructive',
+      'public task': 'bg-blue-500/10 text-blue-500',
+      'legitimate interests': 'bg-warning/10 text-warning'
     };
-    return colors[basis] || 'bg-muted text-muted-foreground';
+    return colors[normalizedBasis] || 'bg-muted text-muted-foreground';
+  };
+  
+  const formatLegalBasis = (basis: string) => {
+    return basis.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   };
 
   return (
@@ -161,15 +233,19 @@ const GdprMapper = () => {
             <p className="text-muted-foreground">Map and document personal data processing activities for GDPR compliance</p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={handleAddActivity}>
+            <Button variant="outline" onClick={handleAddActivity} disabled={saving || loading}>
               <Plus className="h-4 w-4 mr-2" />
               Add Activity
             </Button>
-            <Button variant="outline" onClick={() => handleExportMapping('json')}>
+            <Button variant="outline" onClick={() => handleExportMapping('csv')} disabled={isExporting || activities.length === 0}>
+              <Download className="h-4 w-4 mr-2" />
+              Export CSV
+            </Button>
+            <Button variant="outline" onClick={() => handleExportMapping('json')} disabled={isExporting || activities.length === 0}>
               <Download className="h-4 w-4 mr-2" />
               Export JSON
             </Button>
-            <Button onClick={() => handleExportMapping('pdf')}>
+            <Button onClick={() => handleExportMapping('pdf')} disabled={isExporting || activities.length === 0}>
               <Download className="h-4 w-4 mr-2" />
               Export PDF
             </Button>
@@ -188,8 +264,21 @@ const GdprMapper = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {activities.map((activity) => (
+              {loading ? (
+                <div className="text-center py-8">
+                  <p className="text-muted-foreground">Loading processing activities...</p>
+                </div>
+              ) : activities.length === 0 ? (
+                <div className="text-center py-8">
+                  <p className="text-muted-foreground mb-4">No processing activities yet</p>
+                  <Button variant="outline" onClick={handleAddActivity}>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Your First Activity
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {activities.map((activity) => (
                   <Card 
                     key={activity.id} 
                     className={`cursor-pointer transition-all hover:shadow-md ${
@@ -208,7 +297,7 @@ const GdprMapper = () => {
                             {activity.riskLevel.toUpperCase()} RISK
                           </span>
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${getLegalBasisColor(activity.legalBasis)}`}>
-                            {activity.legalBasis}
+                            {formatLegalBasis(activity.legalBasis)}
                           </span>
                         </div>
                       </div>
@@ -244,8 +333,9 @@ const GdprMapper = () => {
                       </div>
                     </CardContent>
                   </Card>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -276,9 +366,30 @@ const GdprMapper = () => {
                         <div>
                           <h4 className="font-medium mb-2">Legal Basis</h4>
                           <span className={`px-2 py-1 rounded text-xs font-medium ${getLegalBasisColor(activity.legalBasis)}`}>
-                            {activity.legalBasis}
+                            {formatLegalBasis(activity.legalBasis)}
                           </span>
                         </div>
+                        
+                        {activity.description && (
+                          <div>
+                            <h4 className="font-medium mb-2">Description</h4>
+                            <p className="text-sm text-muted-foreground">{activity.description}</p>
+                          </div>
+                        )}
+                        
+                        {activity.dataController && (
+                          <div>
+                            <h4 className="font-medium mb-2">Data Controller</h4>
+                            <p className="text-sm text-muted-foreground">{activity.dataController}</p>
+                          </div>
+                        )}
+                        
+                        {activity.retentionPeriod && (
+                          <div>
+                            <h4 className="font-medium mb-2">Retention Period</h4>
+                            <p className="text-sm text-muted-foreground">{activity.retentionPeriod}</p>
+                          </div>
+                        )}
                         
                         <div>
                           <h4 className="font-medium mb-2">Personal Data Categories</h4>
@@ -316,12 +427,26 @@ const GdprMapper = () => {
                           </div>
                         </div>
                         
-                        <div className="pt-4">
-                          <Button variant="outline" className="w-full">
-                            <Edit className="h-4 w-4 mr-2" />
-                            Edit Activity
-                          </Button>
-                        </div>
+                         <div className="pt-4 space-y-2">
+                           <Button 
+                             variant="outline" 
+                             className="w-full" 
+                             disabled={saving}
+                             onClick={() => toast.info('Coming soon', 'Edit functionality will be available in a future update')}
+                           >
+                             <Edit className="h-4 w-4 mr-2" />
+                             Edit Activity
+                           </Button>
+                           <Button 
+                             variant="outline" 
+                             className="w-full text-destructive hover:text-destructive" 
+                             onClick={() => activity.id && handleDeleteActivity(activity.id)}
+                             disabled={saving}
+                           >
+                             <Trash2 className="h-4 w-4 mr-2" />
+                             Delete Activity
+                           </Button>
+                         </div>
                       </>
                     );
                   })()}

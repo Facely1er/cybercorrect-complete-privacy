@@ -97,6 +97,9 @@ npm install
 ```
 
 3. Set up environment variables:
+
+**Note:** CyberCorrect shares the same Supabase database instance with CyberCaution and CyberSoluce. Use the shared Supabase project credentials.
+
 ```bash
 # Create .env file with Supabase credentials
 # See scripts/create-env-file.md for instructions

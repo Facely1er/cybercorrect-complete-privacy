@@ -24,73 +24,51 @@ import { secureStorage } from '../../utils/storage';
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { required, email, minLength, combine } from '../../utils/validation';
-
-interface DataSubjectRequest {
-  id: string;
-  type: 'access' | 'rectification' | 'erasure' | 'portability' | 'restriction' | 'objection';
-  status: 'pending' | 'in_progress' | 'completed' | 'rejected';
-  submittedDate: string;
-  dueDate: string;
-  requesterName: string;
-  requesterEmail: string;
-  description: string;
-  priority: 'high' | 'medium' | 'low';
-  assignedTo: string;
-  completedDate?: string;
-  responseNotes?: string;
-}
+import {
+  getDataSubjectRequests,
+  createDataSubjectRequest,
+  updateDataSubjectRequest,
+  exportToCSV,
+  calculateSLADeadline,
+  getMostUrgentSLA,
+  type DataSubjectRequest,
+} from '../../services/dsarService';
 
 const PrivacyRightsManager = () => {
-  const [requests, setRequests] = useState<DataSubjectRequest[]>(() => {
-    const saved = secureStorage.getItem<DataSubjectRequest[]>('privacy_rights_requests');
-    return saved || [
-      {
-        id: 'DSR-001',
-        type: 'access',
-        status: 'pending',
-        submittedDate: '2024-01-15',
-        dueDate: '2024-02-14',
-        requesterName: 'John Smith',
-        requesterEmail: 'john.smith@email.com',
-        description: 'Request for access to all personal data held by the organization',
-        priority: 'medium',
-        assignedTo: 'Data Protection Officer'
-      },
-      {
-        id: 'DSR-002',
-        type: 'erasure',
-        status: 'in_progress',
-        submittedDate: '2024-01-10',
-        dueDate: '2024-02-09',
-        requesterName: 'Jane Doe',
-        requesterEmail: 'jane.doe@email.com',
-        description: 'Request for deletion of account and all associated personal data',
-        priority: 'high',
-        assignedTo: 'Data Steward'
-      },
-      {
-        id: 'DSR-003',
-        type: 'portability',
-        status: 'completed',
-        submittedDate: '2024-01-05',
-        dueDate: '2024-02-04',
-        requesterName: 'Bob Johnson',
-        requesterEmail: 'bob.johnson@email.com',
-        description: 'Request for data export in machine-readable format',
-        priority: 'low',
-        assignedTo: 'IT Administrator',
-        completedDate: '2024-01-20',
-        responseNotes: 'Data export provided via secure email'
-      }
-    ];
-  });
-
-  const [selectedRequest, setSelectedRequest] = useState<string | null>(() =>
-    secureStorage.getItem('privacy_rights_selected_request', null)
-  );
+  const [requests, setRequests] = useState<DataSubjectRequest[]>([]);
+  const [selectedRequest, setSelectedRequest] = useState<string | null>(null);
   const [showNewRequest, setShowNewRequest] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [saving, setSaving] = useState(false);
   const newRequestFormRef = useRef<HTMLDivElement>(null);
+
+  // Load requests on mount
+  useEffect(() => {
+    loadRequests();
+  }, []);
+
+  // Save selected request to localStorage for persistence
+  useEffect(() => {
+    if (selectedRequest) {
+      secureStorage.setItem('privacy_rights_selected_request', selectedRequest);
+    }
+  }, [selectedRequest]);
+
+  const loadRequests = async () => {
+    try {
+      const loaded = await getDataSubjectRequests();
+      setRequests(loaded);
+      
+      // Restore selected request from localStorage
+      const savedSelected = secureStorage.getItem<string | null>('privacy_rights_selected_request', null);
+      if (savedSelected && loaded.some(r => r.id === savedSelected)) {
+        setSelectedRequest(savedSelected);
+      }
+    } catch (error) {
+      console.error('Error loading requests:', error);
+      toast.error('Load failed', 'Failed to load data subject requests. Please refresh the page.');
+    }
+  };
 
   // Confirmation dialog state
   const [confirmDialog, setConfirmDialog] = useState<{
@@ -102,7 +80,7 @@ const PrivacyRightsManager = () => {
   
   // New request form state
   const [newRequest, setNewRequest] = useState<Partial<DataSubjectRequest>>({
-    type: 'access',
+    requestType: 'access',
     requesterName: '',
     requesterEmail: '',
     description: '',
@@ -117,16 +95,6 @@ const PrivacyRightsManager = () => {
     description?: string;
   }>({});
 
-  // Auto-save requests and selection
-  useEffect(() => {
-    secureStorage.setItem('privacy_rights_requests', requests);
-  }, [requests]);
-
-  useEffect(() => {
-    if (selectedRequest) {
-      secureStorage.setItem('privacy_rights_selected_request', selectedRequest);
-    }
-  }, [selectedRequest]);
 
   const getRequestTypeColor = (type: string) => {
     const colors: Record<string, string> = {
@@ -162,7 +130,7 @@ const PrivacyRightsManager = () => {
     }
   };
 
-  const handleStatusUpdate = (requestId: string, newStatus: DataSubjectRequest['status']) => {
+  const handleStatusUpdate = async (requestId: string, newStatus: DataSubjectRequest['status']) => {
     // Show confirmation dialog for rejected status
     if (newStatus === 'rejected') {
       setConfirmDialog({
@@ -173,36 +141,55 @@ const PrivacyRightsManager = () => {
       return;
     }
 
-    // For other statuses, update immediately
-    setRequests(prev => prev.map(req =>
-      req.id === requestId ? { ...req, status: newStatus } : req
-    ));
-    toast.success('Status updated', `Request ${requestId} status changed to ${newStatus}`);
+    // For other statuses, update via service
+    try {
+      setSaving(true);
+      const updates: Partial<DataSubjectRequest> = { status: newStatus };
+      
+      // Set completed date if status is completed
+      if (newStatus === 'completed') {
+        updates.completedDate = new Date().toISOString().split('T')[0];
+      }
+
+      const updated = await updateDataSubjectRequest(requestId, updates);
+      setRequests(prev => prev.map(req => req.id === requestId ? updated : req));
+      toast.success('Status updated', `Request ${updated.requestId} status changed to ${newStatus}`);
+    } catch (error) {
+      console.error('Error updating status:', error);
+      toast.error('Update failed', error instanceof Error ? error.message : 'Failed to update request status');
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const handleConfirmStatusChange = () => {
+  const handleConfirmStatusChange = async () => {
     if (!confirmDialog) return;
 
-    setRequests(prev => prev.map(req =>
-      req.id === confirmDialog.requestId
-        ? {
-            ...req,
-            status: confirmDialog.status,
-            responseNotes: confirmDialog.status === 'rejected' && rejectionReason
-              ? rejectionReason
-              : req.responseNotes
-          }
-        : req
-    ));
+    try {
+      setSaving(true);
+      const updates: Partial<DataSubjectRequest> = {
+        status: confirmDialog.status,
+      };
+      
+      if (confirmDialog.status === 'rejected' && rejectionReason) {
+        updates.notes = rejectionReason;
+      }
 
-    toast.success(
-      'Request Rejected',
-      `Request ${confirmDialog.requestId} has been rejected${rejectionReason ? ' with reason provided' : ''}`
-    );
+      const updated = await updateDataSubjectRequest(confirmDialog.requestId, updates);
+      setRequests(prev => prev.map(req => req.id === confirmDialog.requestId ? updated : req));
 
-    // Reset state
-    setConfirmDialog(null);
-    setRejectionReason('');
+      toast.success(
+        'Request Rejected',
+        `Request ${confirmDialog.requestId} has been rejected${rejectionReason ? ' with reason provided' : ''}`
+      );
+    } catch (error) {
+      console.error('Error rejecting request:', error);
+      toast.error('Update failed', error instanceof Error ? error.message : 'Failed to reject request');
+    } finally {
+      setSaving(false);
+      setConfirmDialog(null);
+      setRejectionReason('');
+    }
   };
 
   // Validate individual field
@@ -260,7 +247,7 @@ const PrivacyRightsManager = () => {
     }
   };
 
-  const handleCreateRequest = () => {
+  const handleCreateRequest = async () => {
     // Validate all fields
     const nameValid = validateField('requesterName', newRequest.requesterName || '');
     const emailValid = validateField('requesterEmail', newRequest.requesterEmail || '');
@@ -271,71 +258,92 @@ const PrivacyRightsManager = () => {
       return;
     }
 
-    const newId = `DSR-${String(requests.length + 1).padStart(3, '0')}`;
-    const today = new Date();
-    const dueDate = new Date(today);
-    dueDate.setDate(today.getDate() + 30); // 30 days from now
+    try {
+      setSaving(true);
+      const today = new Date().toISOString().split('T')[0];
+      
+      const newRequestItem = await createDataSubjectRequest({
+        requestType: newRequest.requestType!,
+        status: 'submitted',
+        priority: newRequest.priority!,
+        requesterName: newRequest.requesterName!,
+        requesterEmail: newRequest.requesterEmail!,
+        description: newRequest.description!,
+        applicableRegulations: ['GDPR'], // Default to GDPR, can be made configurable
+        submittedDate: today,
+        assignedTo: newRequest.assignedTo || 'Data Protection Officer',
+      });
 
-    const newRequestItem: DataSubjectRequest = {
-      id: newId,
-      type: newRequest.type!,
-      status: 'pending',
-      submittedDate: today.toISOString().split('T')[0],
-      dueDate: dueDate.toISOString().split('T')[0],
-      requesterName: newRequest.requesterName!,
-      requesterEmail: newRequest.requesterEmail!,
-      description: newRequest.description!,
-      priority: newRequest.priority!,
-      assignedTo: newRequest.assignedTo || 'Data Protection Officer'
-    };
-
-    setRequests(prev => [...prev, newRequestItem]);
-    setShowNewRequest(false);
-    setNewRequest({
-      type: 'access',
-      requesterName: '',
-      requesterEmail: '',
-      description: '',
-      priority: 'medium',
-      assignedTo: 'Data Protection Officer'
-    });
-    setFormErrors({});
-    toast.success('Request Created', `New data subject request ${newId} has been created`);
+      setRequests(prev => [...prev, newRequestItem]);
+      setShowNewRequest(false);
+      setNewRequest({
+        requestType: 'access',
+        requesterName: '',
+        requesterEmail: '',
+        description: '',
+        priority: 'medium',
+        assignedTo: 'Data Protection Officer'
+      });
+      setFormErrors({});
+      toast.success('Request Created', `New data subject request ${newRequestItem.requestId} has been created`);
+    } catch (error) {
+      console.error('Error creating request:', error);
+      toast.error('Create failed', error instanceof Error ? error.message : 'Failed to create request');
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const handleExportReport = async (format: 'json' | 'pdf' = 'json') => {
+  const handleExportReport = async (format: 'json' | 'pdf' | 'csv' = 'json') => {
+    if (requests.length === 0) {
+      toast.error('No data', 'No data subject requests to export');
+      return;
+    }
+
     setIsExporting(true);
     try {
-      // Simulate export delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const pendingRequests = requests.filter(r => r.status === 'pending').length;
-      const inProgressRequests = requests.filter(r => r.status === 'in_progress').length;
-      const completedRequests = requests.filter(r => r.status === 'completed').length;
-      
-      const exportData = {
-        metadata: {
-          timestamp: new Date().toISOString(),
-          reportId: `PRR-${Date.now()}`,
-          version: '1.0'
-        },
-        summary: {
-          totalRequests: requests.length,
-          pendingRequests,
-          completedRequests,
-          averageProcessingTime: '15 days'
-        },
-        requests: requests.map(r => ({
-          id: r.id,
-          type: r.type,
-          requesterName: r.requesterName,
-          status: r.status,
-          submittedDate: r.submittedDate,
-          completedDate: r.completedDate
-        }))
-      };
+      if (format === 'csv') {
+        const csv = exportToCSV(requests);
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `dsar-requests-${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+        toast.success('Report Exported', 'Data subject rights report has been exported as CSV');
+      } else if (format === 'json') {
+        const pendingRequests = requests.filter(r => r.status === 'submitted' || r.status === 'acknowledged').length;
+        const inProgressRequests = requests.filter(r => r.status === 'in_progress').length;
+        const completedRequests = requests.filter(r => r.status === 'completed').length;
+        
+        const exportData = {
+          metadata: {
+            timestamp: new Date().toISOString(),
+            reportId: `PRR-${Date.now()}`,
+            version: '1.0'
+          },
+          summary: {
+            totalRequests: requests.length,
+            pendingRequests,
+            inProgressRequests,
+            completedRequests,
+          },
+          requests: requests.map(r => ({
+            id: r.id,
+            requestId: r.requestId,
+            type: r.requestType,
+            requesterName: r.requesterName,
+            requesterEmail: r.requesterEmail,
+            status: r.status,
+            priority: r.priority,
+            submittedDate: r.submittedDate,
+            dueDate: r.dueDate,
+            completedDate: r.completedDate,
+            applicableRegulations: r.applicableRegulations,
+          }))
+        };
 
-      if (format === 'json') {
         const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -346,6 +354,41 @@ const PrivacyRightsManager = () => {
         toast.success('Report Exported', 'Data subject rights report has been exported successfully');
       } else if (format === 'pdf') {
         const { generatePrivacyRightsPdf } = await import('../../utils/pdf');
+        const completedRequests = requests.filter(r => r.status === 'completed');
+        const totalDays = completedRequests.reduce((sum, r) => {
+          if (r.submittedDate && r.completedDate) {
+            const submitted = new Date(r.submittedDate);
+            const completed = new Date(r.completedDate);
+            return sum + Math.ceil((completed.getTime() - submitted.getTime()) / (1000 * 60 * 60 * 24));
+          }
+          return sum;
+        }, 0);
+        const averageProcessingTime = completedRequests.length > 0 
+          ? `${Math.round(totalDays / completedRequests.length)} days`
+          : '0 days';
+        
+        const exportData = {
+          metadata: {
+            timestamp: new Date().toISOString(),
+            reportId: `PRR-${Date.now()}`,
+            version: '1.0'
+          },
+          summary: {
+            totalRequests: requests.length,
+            pendingRequests: requests.filter(r => r.status === 'submitted' || r.status === 'acknowledged').length,
+            completedRequests: completedRequests.length,
+            averageProcessingTime,
+          },
+          requests: requests.map(r => ({
+            id: r.id || '',
+            requestId: r.requestId,
+            type: r.requestType,
+            requesterName: r.requesterName,
+            status: r.status,
+            submittedDate: r.submittedDate,
+            completedDate: r.completedDate
+          }))
+        };
         generatePrivacyRightsPdf(exportData);
         toast.success('Report Exported', 'PDF report downloaded');
       }
@@ -383,7 +426,20 @@ const PrivacyRightsManager = () => {
               <Plus className="h-4 w-4 mr-2" />
               New Request
             </Button>
-            <Button variant="outline" onClick={() => handleExportReport('json')} disabled={isExporting}>
+            <Button variant="outline" onClick={() => handleExportReport('csv')} disabled={isExporting || requests.length === 0}>
+              {isExporting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Exporting...
+                </>
+              ) : (
+                <>
+                  <Download className="h-4 w-4 mr-2" />
+                  Export CSV
+                </>
+              )}
+            </Button>
+            <Button variant="outline" onClick={() => handleExportReport('json')} disabled={isExporting || requests.length === 0}>
               {isExporting ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -396,7 +452,7 @@ const PrivacyRightsManager = () => {
                 </>
               )}
             </Button>
-            <Button variant="outline" onClick={() => handleExportReport('pdf')} disabled={isExporting} className="border-primary text-primary hover:bg-primary/10 dark:hover:bg-primary/20">
+            <Button variant="outline" onClick={() => handleExportReport('pdf')} disabled={isExporting || requests.length === 0} className="border-primary text-primary hover:bg-primary/10 dark:hover:bg-primary/20">
               {isExporting ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -421,7 +477,7 @@ const PrivacyRightsManager = () => {
               <div>
                 <p className="text-sm text-muted-foreground">Pending</p>
                 <p className="text-3xl font-bold text-warning">
-                  {requests.filter(req => req.status === 'pending').length}
+                  {requests.filter(req => req.status === 'submitted' || req.status === 'acknowledged').length}
                 </p>
               </div>
               <Clock className="h-8 w-8 text-warning" />
@@ -501,29 +557,33 @@ const PrivacyRightsManager = () => {
                       className={`cursor-pointer transition-all hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary ${
                         selectedRequest === request.id ? 'ring-2 ring-primary' : ''
                       }`}
-                      onClick={() => setSelectedRequest(request.id)}
-                      onKeyDown={(e) => handleCardKeyDown(e, request.id)}
+                      onClick={() => setSelectedRequest(request.id || null)}
+                      onKeyDown={(e) => handleCardKeyDown(e, request.id || '')}
                       tabIndex={0}
                       role="button"
-                      aria-label={`Select request ${request.id} from ${request.requesterName}`}
+                      aria-label={`Select request ${request.id || 'unknown'} from ${request.requesterName}`}
                     >
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center gap-3">
-                          <span className="font-mono text-sm font-semibold text-primary">{request.id}</span>
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium flex items-center ${getRequestTypeColor(request.type)}`}>
-                            {getRequestTypeIcon(request.type)}
-                            <span className="ml-1 capitalize">{request.type}</span>
+                          <span className="font-mono text-sm font-semibold text-primary">{request.requestId || request.id}</span>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium flex items-center ${getRequestTypeColor(request.requestType)}`}>
+                            {getRequestTypeIcon(request.requestType)}
+                            <span className="ml-1 capitalize">{request.requestType}</span>
                           </span>
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(request.status)}`}>
                             {request.status.replace('_', ' ').toUpperCase()}
                           </span>
                         </div>
                         <div className="text-right text-sm">
-                          <div className="font-semibold text-foreground">Due: {new Date(request.dueDate).toLocaleDateString()}</div>
-                          <div className="text-muted-foreground">
-                            {Math.ceil((new Date(request.dueDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} days left
-                          </div>
+                          {request.dueDate && (
+                            <>
+                              <div className="font-semibold text-foreground">Due: {new Date(request.dueDate).toLocaleDateString()}</div>
+                              <div className="text-muted-foreground">
+                                {Math.ceil((new Date(request.dueDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} days left
+                              </div>
+                            </>
+                          )}
                         </div>
                       </div>
                       
@@ -568,14 +628,14 @@ const PrivacyRightsManager = () => {
                     return (
                       <>
                         <div>
-                          <h3 className="font-semibold text-foreground mb-2">{request.id}</h3>
+                          <h3 className="font-semibold text-foreground mb-2">{request.requestId || request.id}</h3>
                           <p className="text-sm text-muted-foreground">{request.description}</p>
                         </div>
                         
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
                             <span className="text-muted-foreground">Type:</span>
-                            <div className="font-medium capitalize">{request.type}</div>
+                            <div className="font-medium capitalize">{request.requestType}</div>
                           </div>
                           <div>
                             <span className="text-muted-foreground">Priority:</span>
@@ -606,15 +666,53 @@ const PrivacyRightsManager = () => {
                         </div>
                         
                         <div>
+                          <h4 className="font-medium mb-2">SLA Information</h4>
+                          <div className="space-y-2 text-sm">
+                            {(() => {
+                              const slaInfo = calculateSLADeadline(request.submittedDate, request.applicableRegulations);
+                              const mostUrgent = getMostUrgentSLA(slaInfo);
+                              if (mostUrgent) {
+                                return (
+                                  <>
+                                    <div className="flex justify-between">
+                                      <span className="text-muted-foreground">Deadline:</span>
+                                      <span className="font-medium">{new Date(mostUrgent.dueDate).toLocaleDateString()}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span className="text-muted-foreground">Days Remaining:</span>
+                                      <span className={`font-medium ${mostUrgent.isOverdue ? 'text-destructive' : mostUrgent.daysRemaining <= 7 ? 'text-warning' : 'text-success'}`}>
+                                        {mostUrgent.daysRemaining} days
+                                      </span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span className="text-muted-foreground">Regulation:</span>
+                                      <span className="font-medium">{mostUrgent.regulation}</span>
+                                    </div>
+                                    {mostUrgent.isOverdue && (
+                                      <div className="mt-2 p-2 bg-destructive/10 text-destructive rounded text-xs">
+                                        <AlertTriangle className="h-3 w-3 inline mr-1" />
+                                        Overdue - Immediate action required
+                                      </div>
+                                    )}
+                                  </>
+                                );
+                              }
+                              return null;
+                            })()}
+                          </div>
+                        </div>
+
+                        <div>
                           <h4 className="font-medium mb-2">Status Actions</h4>
                           <div className="space-y-2">
-                            {['pending', 'in_progress', 'completed', 'rejected'].map(status => (
+                            {['submitted', 'acknowledged', 'in_progress', 'completed', 'rejected'].map(status => (
                               <Button
                                 key={status}
                                 variant={request.status === status ? 'default' : 'outline'}
                                 size="sm"
                                 className="w-full"
-                                onClick={() => handleStatusUpdate(request.id, status as 'pending' | 'in_progress' | 'completed' | 'rejected')}
+                                onClick={() => handleStatusUpdate(request.id!, status as DataSubjectRequest['status'])}
+                                disabled={saving}
                               >
                                 {status.replace('_', ' ').toUpperCase()}
                               </Button>
@@ -665,13 +763,15 @@ const PrivacyRightsManager = () => {
             <CardContent>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2">
+                  <label htmlFor="request-type-select" className="block text-sm font-medium mb-2">
                     Request Type <span className="text-destructive">*</span>
                   </label>
                   <select
+                    id="request-type-select"
+                    title="Select request type"
                     className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    value={newRequest.type}
-                    onChange={(e) => setNewRequest({ ...newRequest, type: e.target.value as DataSubjectRequest['type'] })}
+                    value={newRequest.requestType}
+                    onChange={(e) => setNewRequest({ ...newRequest, requestType: e.target.value as DataSubjectRequest['requestType'] })}
                   >
                     <option value="access">Access</option>
                     <option value="rectification">Rectification</option>
@@ -697,8 +797,7 @@ const PrivacyRightsManager = () => {
                     onChange={(e) => handleFieldChange('requesterName', e.target.value)}
                     onBlur={() => handleFieldBlur('requesterName')}
                     placeholder="Enter requester's name"
-                    aria-invalid={!!formErrors.requesterName}
-                    aria-describedby={formErrors.requesterName ? 'requesterName-error' : undefined}
+                    {...(formErrors.requesterName && { 'aria-invalid': true, 'aria-describedby': 'requesterName-error' })}
                   />
                   {formErrors.requesterName && (
                     <p id="requesterName-error" className="text-destructive text-sm mt-1 flex items-center">
@@ -723,8 +822,7 @@ const PrivacyRightsManager = () => {
                     onChange={(e) => handleFieldChange('requesterEmail', e.target.value)}
                     onBlur={() => handleFieldBlur('requesterEmail')}
                     placeholder="Enter requester's email"
-                    aria-invalid={!!formErrors.requesterEmail}
-                    aria-describedby={formErrors.requesterEmail ? 'requesterEmail-error' : undefined}
+                    {...(formErrors.requesterEmail && { 'aria-invalid': true, 'aria-describedby': 'requesterEmail-error' })}
                   />
                   {formErrors.requesterEmail && (
                     <p id="requesterEmail-error" className="text-destructive text-sm mt-1 flex items-center">
@@ -748,8 +846,7 @@ const PrivacyRightsManager = () => {
                     onChange={(e) => handleFieldChange('description', e.target.value)}
                     onBlur={() => handleFieldBlur('description')}
                     placeholder="Describe the data subject request..."
-                    aria-invalid={!!formErrors.description}
-                    aria-describedby={formErrors.description ? 'description-error' : undefined}
+                    {...(formErrors.description && { 'aria-invalid': true, 'aria-describedby': 'description-error' })}
                   />
                   {formErrors.description && (
                     <p id="description-error" className="text-destructive text-sm mt-1 flex items-center">
@@ -761,8 +858,10 @@ const PrivacyRightsManager = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Priority</label>
+                    <label htmlFor="priority-select" className="block text-sm font-medium mb-2">Priority</label>
                     <select
+                      id="priority-select"
+                      title="Select priority level"
                       className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
                       value={newRequest.priority}
                       onChange={(e) => setNewRequest({ ...newRequest, priority: e.target.value as DataSubjectRequest['priority'] })}

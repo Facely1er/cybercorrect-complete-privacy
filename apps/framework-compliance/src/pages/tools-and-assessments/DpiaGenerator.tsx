@@ -12,21 +12,33 @@ import {
 import { Link } from 'react-router-dom';
 import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/storage';
+import { createDpia } from '../../services/dpiaService';
+
+type DpiaFormData = {
+  projectName: string;
+  dataController: string;
+  processingPurpose: string;
+  legalBasis: string;
+  dataCategories: string[];
+  dataSubjects: string[];
+  riskLevel: string;
+  safeguards: string[];
+};
 
 const DpiaGenerator = () => {
   usePageTitle('DPIA Generator');
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState(() => {
-    const savedData = secureStorage.getItem('dpia_form_data');
+  const [formData, setFormData] = useState<DpiaFormData>(() => {
+    const savedData = secureStorage.getItem<DpiaFormData>('dpia_form_data');
     return savedData || {
       projectName: '',
       dataController: '',
       processingPurpose: '',
       legalBasis: '',
-      dataCategories: [] as string[],
-      dataSubjects: [] as string[],
+      dataCategories: [],
+      dataSubjects: [],
       riskLevel: '',
-      safeguards: [] as string[]
+      safeguards: []
     };
   });
 
@@ -62,10 +74,64 @@ const DpiaGenerator = () => {
     }
   ];
 
-  const handleGenerate = () => {
-    const dpiaContent = generateDpiaContent();
-    downloadDpia(dpiaContent);
-    toast.success('DPIA generated', 'Data Protection Impact Assessment has been generated and downloaded');
+  const handleGenerate = async () => {
+    try {
+      const dpiaContent = generateDpiaContent();
+      downloadDpia(dpiaContent);
+      
+      // Optionally save to database
+      try {
+        const today = new Date().toISOString().split('T')[0];
+        const dueDate = new Date();
+        dueDate.setMonth(dueDate.getMonth() + 3); // 3 months from now
+        
+        // Create DPIA record
+        await createDpia({
+          title: formData.projectName || 'Generated DPIA',
+          description: formData.processingPurpose || '',
+          processingActivity: formData.processingPurpose || '',
+          dataController: formData.dataController || '',
+          status: 'draft',
+          priority: 'medium',
+          riskLevel: (formData.riskLevel as 'low' | 'medium' | 'high' | 'critical') || 'medium',
+          createdDate: today,
+          dueDate: dueDate.toISOString().split('T')[0],
+          assessor: 'System Generated',
+          dataSubjects: formData.dataSubjects || [],
+          dataTypes: formData.dataCategories || [],
+          purposes: formData.processingPurpose ? [formData.processingPurpose] : [],
+          legalBasis: formData.legalBasis ? [formData.legalBasis] : [],
+          dataSources: [],
+          recipients: [],
+          risks: [],
+          measures: {
+            technical: [],
+            organizational: formData.safeguards || [],
+            legal: [],
+          },
+          consultation: {
+            dpo: false,
+            stakeholders: false,
+            public: false,
+            authorities: false,
+          },
+          approval: {
+            dpo: false,
+            management: false,
+            legal: false,
+          },
+        });
+        
+        toast.success('DPIA saved', 'DPIA has been generated, downloaded, and saved to your DPIA Manager');
+      } catch (saveError) {
+        // If save fails, still show success for download
+        console.warn('Failed to save DPIA to database:', saveError);
+        toast.success('DPIA generated', 'Data Protection Impact Assessment has been generated and downloaded');
+      }
+    } catch (error) {
+      console.error('Error generating DPIA:', error);
+      toast.error('Generation failed', 'Failed to generate DPIA. Please try again.');
+    }
   };
 
   const handleClearForm = () => {
@@ -114,7 +180,7 @@ Identified Risks:
 
 6. MEASURES TO ADDRESS RISKS
 Safeguards and Controls:
-${formData.safeguards.map(s => `- ${s}`).join('\n') || '- [Safeguards to be implemented]'}
+${formData.safeguards.length > 0 ? formData.safeguards.map((s: string) => `- ${s}`).join('\n') : '- [Safeguards to be implemented]'}
 
 7. CONSULTATION AND APPROVAL
 DPO Consultation: [Date and outcome]
@@ -252,8 +318,10 @@ Generated: ${new Date().toLocaleDateString()}
               {currentStep === 2 && (
                 <div className="space-y-6">
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Legal Basis for Processing</label>
+                    <label htmlFor="legal-basis-select" className="text-sm font-medium mb-2 block">Legal Basis for Processing</label>
                     <select
+                      id="legal-basis-select"
+                      title="Select legal basis for processing"
                       className="w-full p-3 border border-border rounded-md bg-background"
                       value={formData.legalBasis}
                       onChange={(e) => setFormData(prev => ({ ...prev, legalBasis: e.target.value }))}
@@ -290,7 +358,7 @@ Generated: ${new Date().toLocaleDateString()}
                               } else {
                                 setFormData(prev => ({
                                   ...prev,
-                                  dataCategories: prev.dataCategories.filter(c => c !== category)
+                                  dataCategories: prev.dataCategories.filter((c: string) => c !== category)
                                 }));
                               }
                             }}
@@ -322,7 +390,7 @@ Generated: ${new Date().toLocaleDateString()}
                               } else {
                                 setFormData(prev => ({
                                   ...prev,
-                                  dataSubjects: prev.dataSubjects.filter(s => s !== subject)
+                                  dataSubjects: prev.dataSubjects.filter((s: string) => s !== subject)
                                 }));
                               }
                             }}
@@ -388,7 +456,7 @@ Generated: ${new Date().toLocaleDateString()}
                               } else {
                                 setFormData(prev => ({
                                   ...prev,
-                                  safeguards: prev.safeguards.filter(s => s !== safeguard)
+                                  safeguards: prev.safeguards.filter((s: string) => s !== safeguard)
                                 }));
                               }
                             }}

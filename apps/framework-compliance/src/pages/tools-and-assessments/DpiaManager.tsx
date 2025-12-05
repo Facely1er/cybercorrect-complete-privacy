@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -6,8 +6,12 @@ import { Badge } from '../../components/ui/Badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { toast } from '../../components/ui/Toaster';
-import { storageAdapter } from '../../utils/storage';
 import { EmptyState } from '../../components/ui/EmptyState';
+import {
+  getDpias,
+  exportToCSV,
+  type DPIA,
+} from '../../services/dpiaService';
 import { 
   FileText,
   AlertTriangle,
@@ -20,64 +24,28 @@ import {
   BarChart3,
   AlertCircle,
   Info,
-  Shield,
   ArrowLeft
 } from 'lucide-react';
 
-interface DPIA {
-  id: string;
-  title: string;
-  description: string;
-  processingActivity: string;
-  dataController: string;
-  dataProcessor: string;
-  status: 'draft' | 'in_progress' | 'review' | 'approved' | 'rejected';
-  priority: 'low' | 'medium' | 'high' | 'critical';
-  riskLevel: 'low' | 'medium' | 'high' | 'critical';
-  createdDate: string;
-  dueDate: string;
-  lastUpdated: string;
-  assessor: string;
-  reviewer: string;
-  dataSubjects: string[];
-  dataTypes: string[];
-  purposes: string[];
-  legalBasis: string[];
-  retentionPeriod: string;
-  dataSources: string[];
-  recipients: string[];
-  transfers: {
-    country: string;
-    adequacy: boolean;
-    safeguards: string[];
-  }[];
-  risks: {
-    type: string;
-    description: string;
-    likelihood: 'low' | 'medium' | 'high';
-    impact: 'low' | 'medium' | 'high';
-    mitigation: string;
-    residualRisk: 'low' | 'medium' | 'high';
-  }[];
-  measures: {
-    technical: string[];
-    organizational: string[];
-    legal: string[];
-  };
-  consultation: {
-    dpo: boolean;
-    stakeholders: boolean;
-    public: boolean;
-    authorities: boolean;
-  };
-  approval: {
-    dpo: boolean;
-    management: boolean;
-    legal: boolean;
-    date: string;
-  };
-  nextReview: string;
-}
+// Using DPIA type from dpiaService
+
+// Progress bar component to avoid inline styles
+const ProgressBar = ({ percentage, colorClass }: { percentage: number; colorClass: string }) => {
+  const barRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (barRef.current) {
+      barRef.current.style.setProperty('--progress-width', `${percentage}%`);
+    }
+  }, [percentage]);
+
+  return (
+    <div 
+      ref={barRef}
+      className={`h-2 rounded-full transition-all duration-300 progress-bar-fill ${colorClass}`}
+    />
+  );
+};
 
 const DpiaManager = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -92,22 +60,18 @@ const DpiaManager = () => {
     loadDpias();
   }, []);
 
-  const loadDpias = () => {
+  const loadDpias = async () => {
     try {
       setLoading(true);
-      const loaded = storageAdapter.getDpias();
-      setDpias(Array.isArray(loaded) ? loaded : []);
+      const loaded = await getDpias();
+      setDpias(loaded);
     } catch (error) {
       console.error('Error loading DPIAs:', error);
+      toast.error('Load failed', 'Failed to load DPIAs. Please refresh the page.');
       setDpias([]);
     } finally {
       setLoading(false);
     }
-  };
-
-  const saveDpias = (updated: DPIA[]) => {
-    storageAdapter.setDpias(updated);
-    setDpias(updated);
   };
 
   const filteredDpias = dpias.filter(dpia => {
@@ -197,24 +161,8 @@ const DpiaManager = () => {
         URL.revokeObjectURL(url);
         toast.success('Export successful', 'JSON report downloaded');
       } else if (format === 'csv') {
-        const csvRows: string[] = [];
-        csvRows.push('Title,Processing Activity,Status,Priority,Risk Level,Assessor,Reviewer,Due Date');
-        
-        dpias.forEach(dpia => {
-          csvRows.push([
-            dpia.title,
-            dpia.processingActivity,
-            dpia.status,
-            dpia.priority,
-            dpia.riskLevel,
-            dpia.assessor,
-            dpia.reviewer,
-            dpia.dueDate
-          ].join(','));
-        });
-
-        const csvContent = csvRows.join('\n');
-        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const csv = exportToCSV(dpias);
+        const blob = new Blob([csv], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -224,7 +172,19 @@ const DpiaManager = () => {
         toast.success('Export successful', 'CSV report downloaded');
       } else if (format === 'pdf') {
         const { generateDpiaPdf } = await import('../../utils/pdf');
-        generateDpiaPdf(reportData);
+        const pdfReportData = {
+          metadata: reportData.metadata,
+          summary: reportData.summary,
+          dpias: dpias.map(dpia => ({
+            title: dpia.title,
+            processingActivity: dpia.processingActivity,
+            riskLevel: dpia.riskLevel,
+            status: dpia.status,
+            createdDate: dpia.createdDate,
+            lastUpdated: dpia.lastUpdated || dpia.createdDate
+          }))
+        };
+        generateDpiaPdf(pdfReportData);
         toast.success('Export successful', 'PDF report downloaded');
       }
     } catch (error) {
@@ -264,7 +224,8 @@ const DpiaManager = () => {
         </p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <div className="space-y-6">
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="dpias">All DPIAs</TabsTrigger>
@@ -359,13 +320,13 @@ const DpiaManager = () => {
                         </span>
                       </div>
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                        <div 
-                          className={`h-2 rounded-full transition-all duration-300 ${
+                        <ProgressBar 
+                          percentage={percentage}
+                          colorClass={
                             risk === 'critical' ? 'bg-red-500' :
                             risk === 'high' ? 'bg-orange-500' :
                             risk === 'medium' ? 'bg-yellow-500' : 'bg-green-500'
-                          }`}
-                          style={{ width: `${percentage}%` }}
+                          }
                         />
                       </div>
                     </div>
@@ -416,10 +377,14 @@ const DpiaManager = () => {
             <CardContent className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div>
+                  <label htmlFor="dpia-status-filter" className="sr-only">Filter by status</label>
                   <select
+                    id="dpia-status-filter"
+                    title="Filter DPIAs by status"
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    aria-label="Filter DPIAs by status"
                   >
                     <option value="all">All Status</option>
                     <option value="draft">Draft</option>
@@ -430,10 +395,14 @@ const DpiaManager = () => {
                   </select>
                 </div>
                 <div>
+                  <label htmlFor="dpia-priority-filter" className="sr-only">Filter by priority</label>
                   <select
+                    id="dpia-priority-filter"
+                    title="Filter DPIAs by priority"
                     value={selectedPriority}
                     onChange={(e) => setSelectedPriority(e.target.value)}
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    aria-label="Filter DPIAs by priority"
                   >
                     <option value="all">All Priorities</option>
                     <option value="low">Low</option>
@@ -443,10 +412,14 @@ const DpiaManager = () => {
                   </select>
                 </div>
                 <div>
+                  <label htmlFor="dpia-risk-filter" className="sr-only">Filter by risk level</label>
                   <select
+                    id="dpia-risk-filter"
+                    title="Filter DPIAs by risk level"
                     value={selectedRisk}
                     onChange={(e) => setSelectedRisk(e.target.value)}
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    aria-label="Filter DPIAs by risk level"
                   >
                     <option value="all">All Risk Levels</option>
                     <option value="low">Low</option>
@@ -682,6 +655,7 @@ const DpiaManager = () => {
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 };

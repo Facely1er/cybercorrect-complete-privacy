@@ -1,12 +1,11 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Recommendations from '../../components/assessment/Recommendations';
+import Recommendations, { RecommendationItem } from '../../components/assessment/Recommendations';
 import { generateRecommendationsPdf } from '../../utils/pdf';
 
 const DataClassificationRecommendations = () => {
   const navigate = useNavigate();
   
-  const mockRecommendations = [
+  const mockRecommendations: RecommendationItem[] = [
     {
       id: "cui1",
       title: "Implement System Security Plan for CUI Environment",

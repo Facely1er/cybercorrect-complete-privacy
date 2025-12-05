@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -6,8 +6,12 @@ import { Badge } from '../../components/ui/Badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { toast } from '../../components/ui/Toaster';
-import { storageAdapter } from '../../utils/storage';
 import { EmptyState } from '../../components/ui/EmptyState';
+import {
+  getPrivacyIncidents,
+  exportToCSV,
+  type PrivacyIncident,
+} from '../../services/incidentService';
 import { 
   AlertTriangle,
   Shield,
@@ -15,55 +19,15 @@ import {
   AlertCircle,
   FileText,
   Users,
-  Calendar,
   Plus,
   Eye,
   Edit,
   Download,
-  ExternalLink,
-  Phone,
-  Mail,
   Building,
   ArrowLeft
 } from 'lucide-react';
 
-interface PrivacyIncident {
-  id: string;
-  title: string;
-  description: string;
-  type: 'data_breach' | 'unauthorized_access' | 'data_loss' | 'privacy_violation' | 'consent_violation' | 'vendor_incident';
-  severity: 'low' | 'medium' | 'high' | 'critical';
-  status: 'reported' | 'investigating' | 'contained' | 'resolved' | 'closed';
-  reportedDate: string;
-  detectedDate: string;
-  containedDate?: string;
-  resolvedDate?: string;
-  reportedBy: string;
-  assignedTo: string;
-  affectedDataSubjects: number;
-  affectedDataTypes: string[];
-  affectedSystems: string[];
-  rootCause: string;
-  impact: string;
-  mitigation: string[];
-  regulatoryNotifications: {
-    gdpr: { notified: boolean; date?: string; authority?: string; };
-    ccpa: { notified: boolean; date?: string; authority?: string; };
-    hipaa: { notified: boolean; date?: string; authority?: string; };
-    other: { notified: boolean; date?: string; authority?: string; };
-  };
-  dataSubjectNotifications: {
-    required: boolean;
-    sent: boolean;
-    date?: string;
-    method?: string;
-  };
-  lessonsLearned: string[];
-  preventiveMeasures: string[];
-  relatedIncidents: string[];
-  documents: string[];
-  notes: string;
-}
+// Using PrivacyIncident type from incidentService
 
 const IncidentResponseManager = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -73,7 +37,6 @@ const IncidentResponseManager = () => {
   const [privacyIncidents, setPrivacyIncidents] = useState<PrivacyIncident[]>([]);
   const [loading, setLoading] = useState(true);
   const [isExporting, setIsExporting] = useState(false);
-  const [showIncidentForm, setShowIncidentForm] = useState(false);
 
   const incidentTypes = [
     { id: 'data_breach', name: 'Data Breach', color: 'red', icon: <Shield className="h-4 w-4" /> },
@@ -88,22 +51,18 @@ const IncidentResponseManager = () => {
     loadPrivacyIncidents();
   }, []);
 
-  const loadPrivacyIncidents = () => {
+  const loadPrivacyIncidents = async () => {
     try {
       setLoading(true);
-      const loaded = storageAdapter.getPrivacyIncidents();
-      setPrivacyIncidents(Array.isArray(loaded) ? loaded : []);
+      const loaded = await getPrivacyIncidents();
+      setPrivacyIncidents(loaded);
     } catch (error) {
       console.error('Error loading privacy incidents:', error);
+      toast.error('Load failed', 'Failed to load privacy incidents. Please refresh the page.');
       setPrivacyIncidents([]);
     } finally {
       setLoading(false);
     }
-  };
-
-  const savePrivacyIncidents = (updated: PrivacyIncident[]) => {
-    storageAdapter.setPrivacyIncidents(updated);
-    setPrivacyIncidents(updated);
   };
 
   const filteredIncidents = privacyIncidents.filter(incident => {
@@ -182,24 +141,8 @@ const IncidentResponseManager = () => {
         URL.revokeObjectURL(url);
         toast.success('Export successful', 'JSON report downloaded');
       } else if (format === 'csv') {
-        const csvRows: string[] = [];
-        csvRows.push('Title,Type,Severity,Status,Reported Date,Detected Date,Affected Data Subjects,Assigned To');
-        
-        privacyIncidents.forEach(incident => {
-          csvRows.push([
-            incident.title,
-            incident.type,
-            incident.severity,
-            incident.status,
-            incident.reportedDate,
-            incident.detectedDate,
-            incident.affectedDataSubjects.toString(),
-            incident.assignedTo
-          ].join(','));
-        });
-
-        const csvContent = csvRows.join('\n');
-        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const csv = exportToCSV(privacyIncidents);
+        const blob = new Blob([csv], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -249,7 +192,8 @@ const IncidentResponseManager = () => {
         </p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <div className="space-y-6">
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
           <TabsTrigger value="incidents">All Incidents</TabsTrigger>
@@ -384,10 +328,13 @@ const IncidentResponseManager = () => {
             <CardContent className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div>
+                  <label htmlFor="incident-type-filter" className="sr-only">Filter by incident type</label>
                   <select
+                    id="incident-type-filter"
                     value={selectedType}
                     onChange={(e) => setSelectedType(e.target.value)}
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    aria-label="Filter incidents by type"
                   >
                     <option value="all">All Types</option>
                     {incidentTypes.map(type => (
@@ -396,10 +343,13 @@ const IncidentResponseManager = () => {
                   </select>
                 </div>
                 <div>
+                  <label htmlFor="incident-severity-filter" className="sr-only">Filter by severity</label>
                   <select
+                    id="incident-severity-filter"
                     value={selectedSeverity}
                     onChange={(e) => setSelectedSeverity(e.target.value)}
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    aria-label="Filter incidents by severity"
                   >
                     <option value="all">All Severities</option>
                     <option value="low">Low</option>
@@ -409,10 +359,13 @@ const IncidentResponseManager = () => {
                   </select>
                 </div>
                 <div>
+                  <label htmlFor="incident-status-filter" className="sr-only">Filter by status</label>
                   <select
+                    id="incident-status-filter"
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    aria-label="Filter incidents by status"
                   >
                     <option value="all">All Status</option>
                     <option value="reported">Reported</option>
@@ -423,7 +376,7 @@ const IncidentResponseManager = () => {
                   </select>
                 </div>
                 <div className="flex gap-2">
-                  <Button className="flex-1" onClick={() => setShowIncidentForm(true)}>
+                  <Button className="flex-1" onClick={() => toast.info('Coming soon', 'Incident form will be available in a future update')}>
                     <Plus className="h-4 w-4 mr-2" />
                     Report Incident
                   </Button>
@@ -492,29 +445,33 @@ const IncidentResponseManager = () => {
                         </div>
 
                         {/* Regulatory Notifications */}
-                        <div className="mb-4">
-                          <span className="font-medium text-sm">Regulatory Notifications:</span>
-                          <div className="flex flex-wrap gap-2 mt-2">
-                            {Object.entries(incident.regulatoryNotifications).map(([framework, notification]) => (
-                              <div key={framework} className="flex items-center gap-1">
-                                {notification.notified ? (
-                                  <CheckCircle className="h-4 w-4 text-green-500" />
-                                ) : (
-                                  <AlertTriangle className="h-4 w-4 text-red-500" />
-                                )}
-                                <span className="text-xs uppercase">{framework}</span>
-                              </div>
-                            ))}
+                        {incident.regulatoryNotifications && (
+                          <div className="mb-4">
+                            <span className="font-medium text-sm">Regulatory Notifications:</span>
+                            <div className="flex flex-wrap gap-2 mt-2">
+                              {Object.entries(incident.regulatoryNotifications).map(([framework, notification]) => (
+                                notification && (
+                                  <div key={framework} className="flex items-center gap-1">
+                                    {notification.notified ? (
+                                      <CheckCircle className="h-4 w-4 text-green-500" />
+                                    ) : (
+                                      <AlertTriangle className="h-4 w-4 text-red-500" />
+                                    )}
+                                    <span className="text-xs uppercase">{framework}</span>
+                                  </div>
+                                )
+                              ))}
+                            </div>
                           </div>
-                        </div>
+                        )}
 
                         {/* Data Subject Notifications */}
-                        {incident.dataSubjectNotifications.required && (
+                        {incident.dataSubjectNotifications?.required && (
                           <div className="mb-4">
                             <span className="font-medium text-sm">Data Subject Notifications: </span>
                             {incident.dataSubjectNotifications.sent ? (
                               <Badge className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
-                                Sent on {incident.dataSubjectNotifications.date}
+                                Sent on {incident.dataSubjectNotifications.date || 'N/A'}
                               </Badge>
                             ) : (
                               <Badge className="bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">
@@ -554,7 +511,7 @@ const IncidentResponseManager = () => {
                     Use this form to report privacy incidents, data breaches, or compliance violations.
                     All incidents are tracked and managed through the incident response workflow.
                   </p>
-                  <Button onClick={() => setShowIncidentForm(true)}>
+                  <Button onClick={() => toast.info('Coming soon', 'Incident form will be available in a future update')}>
                     <Plus className="h-4 w-4 mr-2" />
                     Open Incident Form
                   </Button>
@@ -648,6 +605,7 @@ const IncidentResponseManager = () => {
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 };

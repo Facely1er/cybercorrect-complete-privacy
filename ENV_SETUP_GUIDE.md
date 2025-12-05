@@ -13,10 +13,19 @@ VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key-here
 ```
 
+### Important: Shared Database Architecture
+
+**CyberCorrect shares the same Supabase database instance with CyberCaution and CyberSoluce.** 
+
+- All CyberCorrect tables use the `cc_privacy_` prefix (e.g., `cc_privacy_dpias`, `cc_privacy_consent_records`)
+- The same Supabase project URL and keys are used across all ERMITS products
+- Row-Level Security (RLS) policies ensure data isolation between products and users
+- When setting up environment variables, use the **shared Supabase project credentials**
+
 ### How to Get Supabase Credentials
 
 1. Go to [Supabase Dashboard](https://app.supabase.com)
-2. Select your project (or create a new one)
+2. Select the **shared ERMITS project** (used by CyberCorrect, CyberCaution, and CyberSoluce)
 3. Go to **Settings** → **API**
 4. Copy the following:
    - **Project URL** → Use for `VITE_SUPABASE_URL`

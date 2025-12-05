@@ -200,6 +200,11 @@
   .assessment-card {
     @apply border dark:border-muted bg-card shadow-sm dark:shadow-none hover:shadow-lg hover:-translate-y-2 dark:hover:shadow-none transition-all duration-300;
   }
+
+  /* Progress bar with dynamic width */
+  .progress-bar-fill {
+    width: var(--progress-width, 0%);
+  }
 }
 
 

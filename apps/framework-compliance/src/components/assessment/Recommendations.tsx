@@ -18,7 +18,7 @@ import {
   File
 } from 'lucide-react';
 
-interface RecommendationItem {
+export interface RecommendationItem {
   id: string;
   title: string;
   description: string;

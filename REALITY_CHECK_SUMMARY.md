@@ -1,14 +1,30 @@
 # CyberCorrect Reality Check Summary
 
+> **Last Updated:** January 2025  
+> **Status:** Partially Complete - Automated tasks done, manual verification pending
+
+## 📋 Document Status
+
+This document tracks the current state of CyberCorrect setup and verification tasks. It has been updated to remove outdated information and reflect the current project structure.
+
+**Recent Updates:**
+- Removed reference to `pnpm-lock.yaml` (project uses npm)
+- Clarified `.env.example` status (documentation exists, files need manual creation)
+- Updated tool routes to match actual route structure
+- Added reference to related documentation files
+- Expanded migration instructions with multiple options
+
+---
+
 ## ✅ Completed Tasks
 
 ### 1. Local Build + Dev Sanity
-- ✅ Cleaned `node_modules`, `pnpm-lock.yaml`, and `package-lock.json`
+- ✅ Cleaned `node_modules` and `package-lock.json`
 - ✅ Ran `npm install` successfully
 - ✅ Ran `npm run build:all` - **BUILD PASSES** with no TypeScript errors
-  - framework-compliance: Built successfully (17.53s)
-  - privacy-portal: Built successfully (6.94s)
-  - marketing-site: Built successfully (1.81s)
+  - framework-compliance: Built successfully
+  - privacy-portal: Built successfully
+  - marketing-site: Built successfully
   - Note: Some chunk size warnings (vendor chunks > 1000KB) - acceptable for now
 
 ### 2. Dependency Cleanup
@@ -26,9 +42,10 @@
 - ✅ Added test dependencies to marketing-site package.json
 
 ### 4. Environment Configuration
-- ✅ Created `.env.example` files (template for required env vars)
-  - Root `.env.example` with all common variables
-  - App-specific examples documented in `ENV_SETUP_GUIDE.md`
+- ✅ Environment variable documentation created
+  - `ENV_SETUP_GUIDE.md` contains setup instructions
+  - Required variables documented: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
+  - Note: `.env` files need to be created manually (not committed to git)
 
 ### 5. Deployment Configuration Review
 - ✅ Verified Vercel configuration exists:
@@ -54,26 +71,44 @@
 - [ ] Get credentials from: https://app.supabase.com → Your Project → Settings → API
 
 ### 3. Supabase Migrations
-- [ ] Run migrations:
+**Important:** CyberCorrect shares the same Supabase database with CyberCaution and CyberSoluce. All tables use the `cc_privacy_` prefix to avoid conflicts.
+
+- [ ] Run migrations using one of these methods:
   ```bash
+  # Option 1: Using npm script (requires Supabase CLI)
   cd apps/framework-compliance
   npm run migrate:apply
-  # or
+  
+  # Option 2: Using Supabase CLI directly
   supabase db push
+  
+  # Option 3: Manual SQL execution via Supabase Dashboard
+  # See APPLY_MIGRATIONS.md for detailed instructions
   ```
-- [ ] Verify migrations in `apps/privacy-portal/supabase/migrations/` and `apps/framework-compliance/supabase/migrations/`
+- [ ] Migration files exist in:
+  - `apps/framework-compliance/supabase/migrations/` (10 migration files)
+  - `apps/privacy-portal/supabase/migrations/` (10 migration files)
+- [ ] Verify table prefixes:
+  - All CyberCorrect tables should have `cc_privacy_` prefix
+  - Check that tables don't conflict with CyberCaution/CyberSoluce tables
 - [ ] Test Supabase connection in dev:
   - Tools that save/load data
   - Dashboards that query analytics
   - Confirm: no "relation does not exist" or 500s
+  - Verify RLS policies are working correctly
 
 ### 4. Tool-by-Tool Reality Check
-For each major tool, manually test:
+For each major tool, manually test (routes are under `/toolkit/`):
 - [ ] **DPIA Generator** (`/toolkit/dpia-generator`)
   - Add/edit/delete entries
   - Export (JSON/TXT/PDF)
   - Refresh page - verify persistence
   
+- [ ] **DPIA Manager** (`/toolkit/dpia-manager`)
+  - Manage existing DPIAs
+  - View/edit/delete DPIA records
+  - Refresh page - verify persistence
+
 - [ ] **GDPR Mapper** (`/toolkit/gdpr-mapper`)
   - Add/edit/delete entries
   - Export functionality
@@ -84,8 +119,9 @@ For each major tool, manually test:
   - Export functionality
   - Refresh page - verify persistence
 
-- [ ] **POAM Generator** (`/toolkit/poam-generator`)
-  - Add/edit/delete entries
+- [ ] **Privacy Rights Manager** (`/toolkit/privacy-rights-manager`)
+  - Create/manage data subject requests
+  - Update request status
   - Export functionality
   - Refresh page - verify persistence
 
@@ -93,6 +129,13 @@ For each major tool, manually test:
   - Add/edit/delete entries
   - Export functionality
   - Refresh page - verify persistence
+
+- [ ] **Other Toolkit Tools** (verify as needed):
+  - Privacy Gap Analyzer (`/toolkit/privacy-gap-analyzer`)
+  - Privacy Policy Generator (`/toolkit/privacy-policy-generator`)
+  - Consent Management (`/toolkit/consent-management`)
+  - Incident Response Manager (`/toolkit/incident-response-manager`)
+  - Service Provider Manager (`/toolkit/service-provider-manager`)
 
 ### 5. Deployment
 - [ ] Configure environment variables in Vercel dashboard:
@@ -118,13 +161,18 @@ For each major tool, manually test:
 ### Known Issues
 - None identified during automated checks
 - Manual testing required to verify actual functionality
+- See `FUTURE_ENHANCEMENTS.md` for planned improvements
+- See `ISSUES_REPORT.md` for code quality issues to address
+- See `REMAINING_UI_UX_ISSUES.md` for UI/UX improvements needed
 
 ### Next Steps
-1. Set up Supabase project and get credentials
-2. Run dev servers and verify all apps load correctly
-3. Apply migrations to Supabase
-4. Test each tool manually
-5. Deploy to Vercel with proper environment variables
+1. **Set up Supabase project** and get credentials (see `ENV_SETUP_GUIDE.md`)
+2. **Create `.env` files** in each app directory with Supabase credentials
+3. **Run dev servers** (`npm run dev:all`) and verify all apps load correctly
+4. **Apply migrations** to Supabase (see `APPLY_MIGRATIONS.md` for detailed steps)
+5. **Test each tool manually** to verify functionality and data persistence
+6. **Deploy to Vercel** with proper environment variables configured
+7. **Review enhancement tasks** in `FUTURE_ENHANCEMENTS.md` for post-launch improvements
 
 ## 🔧 Quick Reference
 
