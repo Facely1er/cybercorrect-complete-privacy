@@ -26,6 +26,7 @@ import {
   Info,
   ArrowLeft
 } from 'lucide-react';
+import { logError } from '../../utils/common/logger';
 
 // Using DPIA type from dpiaService
 
@@ -66,7 +67,7 @@ const DpiaManager = () => {
       const loaded = await getDpias();
       setDpias(loaded);
     } catch (error) {
-      console.error('Error loading DPIAs:', error);
+      logError(error instanceof Error ? error : new Error('Error loading DPIAs'), { component: 'DpiaManager' });
       toast.error('Load failed', 'Failed to load DPIAs. Please refresh the page.');
       setDpias([]);
     } finally {
@@ -188,7 +189,7 @@ const DpiaManager = () => {
         toast.success('Export successful', 'PDF report downloaded');
       }
     } catch (error) {
-      console.error('Export failed:', error);
+      logError(error instanceof Error ? error : new Error('Export failed'), { component: 'DpiaManager', operation: 'export' });
       toast.error('Export failed', 'Please try again');
     } finally {
       setIsExporting(false);
@@ -197,7 +198,7 @@ const DpiaManager = () => {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-6">
+      <div className="page-container">
         <Breadcrumbs className="mb-6" />
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
@@ -210,21 +211,21 @@ const DpiaManager = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="page-container">
       <Breadcrumbs className="mb-6" />
       
-      <div className="mb-6">
-        <Link to="/toolkit" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-4">
+      <div className="page-header">
+        <Link to="/toolkit" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-4">
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Toolkit
         </Link>
-        <h1 className="text-3xl font-bold mb-2 text-foreground">DPIA Manager</h1>
-        <p className="text-muted-foreground">
+        <h1 className="page-title">DPIA Manager</h1>
+        <p className="page-description">
           Enhanced Data Protection Impact Assessment management with lifecycle tracking
         </p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -234,73 +235,75 @@ const DpiaManager = () => {
           <TabsTrigger value="guidance">Guidance</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview" className="space-y-6">
+        <TabsContent value="overview" className="space-y-8">
           {/* Key Metrics */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                    <FileText className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+          <div className="page-section">
+            <h2 className="section-title">Overview</h2>
+            <div className="responsive-grid-4">
+              <Card className="modern-card">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <FileText className="h-6 w-6 text-primary" />
+                    </div>
+                    <span className="text-2xl font-bold">{totalDpias}</span>
                   </div>
-                  <span className="text-2xl font-bold">{totalDpias}</span>
-                </div>
-                <h3 className="font-semibold mb-1">Total DPIAs</h3>
-                <p className="text-sm text-muted-foreground">All assessments</p>
-              </CardContent>
-            </Card>
+                  <h3 className="font-semibold mb-1">Total DPIAs</h3>
+                  <p className="text-sm text-muted-foreground">All assessments</p>
+                </CardContent>
+              </Card>
 
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                    <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+              <Card className="modern-card">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-2 bg-success/10 rounded-lg">
+                      <CheckCircle className="h-6 w-6 text-success" />
+                    </div>
+                    <span className="text-2xl font-bold text-success">
+                      {completedDpias}
+                    </span>
                   </div>
-                  <span className="text-2xl font-bold text-green-600 dark:text-green-400">
-                    {completedDpias}
-                  </span>
-                </div>
-                <h3 className="font-semibold mb-1">Completed</h3>
-                <p className="text-sm text-muted-foreground">Approved assessments</p>
-              </CardContent>
-            </Card>
+                  <h3 className="font-semibold mb-1">Completed</h3>
+                  <p className="text-sm text-muted-foreground">Approved assessments</p>
+                </CardContent>
+              </Card>
 
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
-                    <Clock className="h-6 w-6 text-amber-600 dark:text-amber-400" />
+              <Card className="modern-card">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-2 bg-warning/10 rounded-lg">
+                      <Clock className="h-6 w-6 text-warning" />
+                    </div>
+                    <span className="text-2xl font-bold text-warning">
+                      {inProgressDpias}
+                    </span>
                   </div>
-                  <span className="text-2xl font-bold text-amber-600 dark:text-amber-400">
-                    {inProgressDpias}
-                  </span>
-                </div>
-                <h3 className="font-semibold mb-1">In Progress</h3>
-                <p className="text-sm text-muted-foreground">Under review</p>
-              </CardContent>
-            </Card>
+                  <h3 className="font-semibold mb-1">In Progress</h3>
+                  <p className="text-sm text-muted-foreground">Under review</p>
+                </CardContent>
+              </Card>
 
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-                    <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-400" />
+              <Card className="modern-card">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-2 bg-destructive/10 rounded-lg">
+                      <AlertTriangle className="h-6 w-6 text-destructive" />
+                    </div>
+                    <span className="text-2xl font-bold text-destructive">
+                      {highRiskDpias}
+                    </span>
                   </div>
-                  <span className="text-2xl font-bold text-red-600 dark:text-red-400">
-                    {highRiskDpias}
-                  </span>
-                </div>
-                <h3 className="font-semibold mb-1">High Risk</h3>
-                <p className="text-sm text-muted-foreground">Require attention</p>
-              </CardContent>
-            </Card>
+                  <h3 className="font-semibold mb-1">High Risk</h3>
+                  <p className="text-sm text-muted-foreground">Require attention</p>
+                </CardContent>
+              </Card>
           </div>
 
           {/* Risk Distribution */}
-          <Card>
+          <Card className="modern-card">
             <CardContent className="p-6">
-              <h2 className="text-xl font-semibold mb-4 flex items-center">
-                <BarChart3 className="h-5 w-5 mr-2 text-blue-500" />
+              <h2 className="section-title flex items-center">
+                <BarChart3 className="h-5 w-5 mr-2 text-primary" />
                 Risk Level Distribution
               </h2>
               <div className="space-y-4">
@@ -339,7 +342,7 @@ const DpiaManager = () => {
           {/* High Priority DPIAs */}
           <Card>
             <CardContent className="p-6">
-              <h2 className="text-xl font-semibold mb-4">High Priority DPIAs</h2>
+              <h2 className="section-title">High Priority DPIAs</h2>
               <div className="space-y-4">
                 {dpias
                   .filter(d => d.priority === 'high' || d.priority === 'critical' || d.riskLevel === 'high' || d.riskLevel === 'critical')

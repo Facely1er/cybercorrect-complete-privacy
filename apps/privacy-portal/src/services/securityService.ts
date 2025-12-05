@@ -189,7 +189,7 @@ class SecurityHeadersService {
   }
 
   private getCSPHeader(): string {
-    const baseUrl = environment.appUrl || 'http://localhost:5173';
+    const baseUrl = environment.appUrl || (typeof window !== 'undefined' ? window.location.origin : 'https://portal.cybercorrect.com');
     const supabaseUrl = environment.supabaseUrl || 'https://placeholder.supabase.co';
     
     return [

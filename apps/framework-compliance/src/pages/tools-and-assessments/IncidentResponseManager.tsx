@@ -12,6 +12,7 @@ import {
   exportToCSV,
   type PrivacyIncident,
 } from '../../services/incidentService';
+import { logError } from '../../utils/common/logger';
 import { 
   AlertTriangle,
   Shield,
@@ -57,7 +58,7 @@ const IncidentResponseManager = () => {
       const loaded = await getPrivacyIncidents();
       setPrivacyIncidents(loaded);
     } catch (error) {
-      console.error('Error loading privacy incidents:', error);
+      logError(error instanceof Error ? error : new Error('Error loading privacy incidents'), { component: 'IncidentResponseManager' });
       toast.error('Load failed', 'Failed to load privacy incidents. Please refresh the page.');
       setPrivacyIncidents([]);
     } finally {
@@ -156,7 +157,7 @@ const IncidentResponseManager = () => {
         toast.success('Export successful', 'PDF report downloaded');
       }
     } catch (error) {
-      console.error('Export failed:', error);
+      logError(error instanceof Error ? error : new Error('Export failed'), { component: 'IncidentResponseManager', operation: 'export' });
       toast.error('Export failed', 'Please try again');
     } finally {
       setIsExporting(false);
@@ -165,7 +166,7 @@ const IncidentResponseManager = () => {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-6">
+      <div className="page-container">
         <Breadcrumbs className="mb-6" />
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
@@ -178,16 +179,16 @@ const IncidentResponseManager = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="page-container">
       <Breadcrumbs className="mb-6" />
       
-      <div className="mb-6">
-        <Link to="/toolkit" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-4">
+      <div className="page-header">
+        <Link to="/toolkit" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-4">
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Toolkit
         </Link>
-        <h1 className="text-3xl font-bold mb-2 text-foreground">Incident Response Manager</h1>
-        <p className="text-muted-foreground">
+        <h1 className="page-title">Incident Response Manager</h1>
+        <p className="page-description">
           Track and manage privacy incidents, data breaches, and compliance violations
         </p>
       </div>

@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/storage';
 import { createDpia } from '../../services/dpiaService';
+import { logError, logWarning } from '../../utils/common/logger';
 
 type DpiaFormData = {
   projectName: string;
@@ -125,11 +126,11 @@ const DpiaGenerator = () => {
         toast.success('DPIA saved', 'DPIA has been generated, downloaded, and saved to your DPIA Manager');
       } catch (saveError) {
         // If save fails, still show success for download
-        console.warn('Failed to save DPIA to database:', saveError);
+        logWarning('Failed to save DPIA to database', { error: saveError, component: 'DpiaGenerator' });
         toast.success('DPIA generated', 'Data Protection Impact Assessment has been generated and downloaded');
       }
     } catch (error) {
-      console.error('Error generating DPIA:', error);
+      logError(error instanceof Error ? error : new Error('Error generating DPIA'), { component: 'DpiaGenerator' });
       toast.error('Generation failed', 'Failed to generate DPIA. Please try again.');
     }
   };
@@ -209,26 +210,22 @@ Generated: ${new Date().toLocaleDateString()}
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <Link to="/toolkit" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-4">
+    <div className="page-container">
+      <div className="page-header">
+        <Link to="/toolkit" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-4">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Toolkit
         </Link>
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">DPIA Generator</h1>
-            <p className="text-muted-foreground">
-              Generate GDPR-compliant Data Protection Impact Assessments
-            </p>
-          </div>
-        </div>
+        <h1 className="page-title">DPIA Generator</h1>
+        <p className="page-description">
+          Generate GDPR-compliant Data Protection Impact Assessments
+        </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Progress Steps */}
         <div className="lg:col-span-1">
-          <Card className="sticky top-4">
+          <Card className="modern-card sticky top-4">
             <CardHeader>
               <CardTitle className="flex items-center">
                 <Target className="h-5 w-5 mr-2 text-primary" />

@@ -24,6 +24,7 @@ import { secureStorage } from '../../utils/storage';
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { required, email, minLength, combine } from '../../utils/validation';
+import { logError } from '../../utils/common/logger';
 import {
   getDataSubjectRequests,
   createDataSubjectRequest,
@@ -65,7 +66,7 @@ const PrivacyRightsManager = () => {
         setSelectedRequest(savedSelected);
       }
     } catch (error) {
-      console.error('Error loading requests:', error);
+      logError(error instanceof Error ? error : new Error('Error loading requests'), { component: 'PrivacyRightsManager' });
       toast.error('Load failed', 'Failed to load data subject requests. Please refresh the page.');
     }
   };
@@ -155,7 +156,7 @@ const PrivacyRightsManager = () => {
       setRequests(prev => prev.map(req => req.id === requestId ? updated : req));
       toast.success('Status updated', `Request ${updated.requestId} status changed to ${newStatus}`);
     } catch (error) {
-      console.error('Error updating status:', error);
+      logError(error instanceof Error ? error : new Error('Error updating status'), { component: 'PrivacyRightsManager', operation: 'updateStatus' });
       toast.error('Update failed', error instanceof Error ? error.message : 'Failed to update request status');
     } finally {
       setSaving(false);
@@ -183,7 +184,7 @@ const PrivacyRightsManager = () => {
         `Request ${confirmDialog.requestId} has been rejected${rejectionReason ? ' with reason provided' : ''}`
       );
     } catch (error) {
-      console.error('Error rejecting request:', error);
+      logError(error instanceof Error ? error : new Error('Error rejecting request'), { component: 'PrivacyRightsManager', operation: 'rejectRequest' });
       toast.error('Update failed', error instanceof Error ? error.message : 'Failed to reject request');
     } finally {
       setSaving(false);
@@ -287,7 +288,7 @@ const PrivacyRightsManager = () => {
       setFormErrors({});
       toast.success('Request Created', `New data subject request ${newRequestItem.requestId} has been created`);
     } catch (error) {
-      console.error('Error creating request:', error);
+      logError(error instanceof Error ? error : new Error('Error creating request'), { component: 'PrivacyRightsManager', operation: 'createRequest' });
       toast.error('Create failed', error instanceof Error ? error.message : 'Failed to create request');
     } finally {
       setSaving(false);
@@ -408,16 +409,16 @@ const PrivacyRightsManager = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <Link to="/toolkit" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-4">
+    <div className="page-container">
+      <div className="page-header">
+        <Link to="/toolkit" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-4">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Toolkit
         </Link>
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Privacy Rights Manager</h1>
-            <p className="text-muted-foreground">
+            <h1 className="page-title">Privacy Rights Manager</h1>
+            <p className="page-description">
               Manage data subject rights requests and ensure timely compliance
             </p>
           </div>

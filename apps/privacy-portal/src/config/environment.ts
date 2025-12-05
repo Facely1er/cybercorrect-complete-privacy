@@ -4,7 +4,7 @@
 const requiredEnvVars = {
   VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
   VITE_SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY,
-  VITE_APP_URL: import.meta.env.VITE_APP_URL || (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173'),
+  VITE_APP_URL: import.meta.env.VITE_APP_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://portal.cybercorrect.com'),
   VITE_ENVIRONMENT: import.meta.env.VITE_ENVIRONMENT || 'development'
 };
 

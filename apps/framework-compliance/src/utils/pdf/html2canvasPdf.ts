@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import { logError, logWarning } from '../common/logger';
 
 // Generate PDF from HTML element using HTML2Canvas
 export const generatePdfFromElement = async (
@@ -47,7 +48,7 @@ export const generatePdfFromElement = async (
 
     pdf.save(filename);
   } catch (error) {
-    console.error('Error generating PDF from element:', error);
+    logError(error instanceof Error ? error : new Error('Error generating PDF from element'), { component: 'html2canvasPdf' });
     throw error;
   }
 };
@@ -68,7 +69,7 @@ export const generatePdfFromElements = async (
   for (const elementId of elementIds) {
     const element = document.getElementById(elementId);
     if (!element) {
-      console.warn(`Element with id "${elementId}" not found, skipping...`);
+      logWarning(`Element with id "${elementId}" not found, skipping...`, { component: 'html2canvasPdf', elementId });
       continue;
     }
 
@@ -105,7 +106,7 @@ export const generatePdfFromElements = async (
         heightLeft -= pageHeight;
       }
     } catch (error) {
-      console.error(`Error generating PDF from element ${elementId}:`, error);
+      logError(error instanceof Error ? error : new Error(`Error generating PDF from element ${elementId}`), { component: 'html2canvasPdf', elementId });
       throw error;
     }
   }

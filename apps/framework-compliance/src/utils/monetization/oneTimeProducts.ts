@@ -1,6 +1,8 @@
 // One-Time Product Catalog for LocalStorage Privacy Tools
 // These products are sold with lifetime licenses and work entirely offline
 
+import { logError } from '../common/logger';
+
 export type OneTimeProductCategory = 'toolkit' | 'assessment' | 'gdpr' | 'templates' | 'bundle';
 export type ProductLicenseType = 'lifetime' | 'annual';
 export type ProductDeploymentModel = 'localStorage' | 'standalone' | 'hybrid';
@@ -460,7 +462,7 @@ export class LicenseManager {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(purchases));
       return true;
     } catch (error) {
-      console.error('Failed to import licenses:', error);
+      logError(error instanceof Error ? error : new Error('Failed to import licenses'), { component: 'OneTimeProducts' });
       return false;
     }
   }

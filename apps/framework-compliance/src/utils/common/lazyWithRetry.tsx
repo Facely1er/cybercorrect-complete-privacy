@@ -44,7 +44,12 @@ export function lazyWithRetry<T extends ComponentType<any>>(
       const importError = error as Error;
       
       // Log the error
-      console.error(`Failed to load dynamic import (attempt ${retryCount + 1}/${maxRetries + 1}):`, importError);
+      logError(importError, { 
+        component: 'lazyWithRetry',
+        retryCount,
+        maxRetries,
+        attempt: retryCount + 1
+      });
       
       // Report to error monitoring
       errorMonitoring.captureException(importError, {

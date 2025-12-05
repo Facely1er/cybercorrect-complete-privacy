@@ -117,8 +117,9 @@ serve(async (req) => {
     // Build form data for Stripe API
     const formData = new URLSearchParams();
     formData.append('mode', 'subscription');
-    formData.append('success_url', `${Deno.env.get('SITE_URL') || 'http://localhost:5173'}/subscription/success?session_id={CHECKOUT_SESSION_ID}`);
-    formData.append('cancel_url', `${Deno.env.get('SITE_URL') || 'http://localhost:5173'}/subscription`);
+    const siteUrl = Deno.env.get('SITE_URL') || Deno.env.get('VITE_APP_URL') || 'https://app.cybercorrect.com';
+    formData.append('success_url', `${siteUrl}/subscription/success?session_id={CHECKOUT_SESSION_ID}`);
+    formData.append('cancel_url', `${siteUrl}/subscription`);
     formData.append('line_items[0][price]', priceId);
     formData.append('line_items[0][quantity]', '1');
     

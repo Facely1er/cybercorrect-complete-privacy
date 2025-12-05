@@ -1,5 +1,6 @@
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, Table, TableRow, TableCell, WidthType } from 'docx';
 import { saveAs } from 'file-saver';
+import { logError } from '../common/logger';
 
 export interface SSPExportData {
   metadata: {
@@ -205,7 +206,7 @@ export const generateSSPWordDocument = async (data: SSPExportData): Promise<void
     saveAs(blob, filename);
     
   } catch (error) {
-    console.error('Error generating Word document:', error);
+    logError(error instanceof Error ? error : new Error('Error generating Word document'), { component: 'generateWord' });
     throw error;
   }
 };

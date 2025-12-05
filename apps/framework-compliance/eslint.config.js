@@ -32,6 +32,15 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      // Prevent console statements in application code (allow in scripts and logger files)
+      'no-console': ['warn', { 
+        allow: ['warn', 'error'] // Allow console.warn and console.error only in logger files
+      }],
+      // Enforce better type safety
+      '@typescript-eslint/no-explicit-any': ['warn', {
+        ignoreRestArgs: false,
+        fixToUnknown: false,
+      }],
     },
   }
 );

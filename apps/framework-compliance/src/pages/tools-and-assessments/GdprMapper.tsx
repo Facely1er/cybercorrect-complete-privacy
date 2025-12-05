@@ -31,6 +31,7 @@ import {
   exportToPDF,
   type ProcessingActivity,
 } from '../../services/ropaService';
+import { logError } from '../../utils/common/logger';
 
 const GdprMapper = () => {
   usePageTitle('GDPR Mapper');
@@ -65,7 +66,7 @@ const GdprMapper = () => {
         setSelectedActivity(savedSelected);
       }
     } catch (error) {
-      console.error('Error loading activities:', error);
+      logError(error instanceof Error ? error : new Error('Error loading activities'), { component: 'GdprMapper' });
       toast.error('Load failed', 'Failed to load processing activities. Please refresh the page.');
     } finally {
       setLoading(false);
@@ -92,7 +93,7 @@ const GdprMapper = () => {
       setSelectedActivity(newActivity.id || null);
       toast.success('Activity Added', 'New processing activity has been added');
     } catch (error) {
-      console.error('Error creating activity:', error);
+      logError(error instanceof Error ? error : new Error('Error creating activity'), { component: 'GdprMapper', operation: 'createActivity' });
       toast.error('Create failed', error instanceof Error ? error.message : 'Failed to create processing activity');
     } finally {
       setSaving(false);
@@ -100,19 +101,6 @@ const GdprMapper = () => {
   };
 
   // TODO: Implement edit functionality with a form/modal
-  // const handleUpdateActivity = async (id: string, updates: Partial<ProcessingActivity>) => {
-  //   try {
-  //     setSaving(true);
-  //     const updated = await updateProcessingActivity(id, updates);
-  //     setActivities(prev => prev.map(a => a.id === id ? updated : a));
-  //     toast.success('Activity Updated', 'Processing activity has been updated');
-  //   } catch (error) {
-  //     console.error('Error updating activity:', error);
-  //     toast.error('Update failed', error instanceof Error ? error.message : 'Failed to update processing activity');
-  //   } finally {
-  //     setSaving(false);
-  //   }
-  // };
 
   const handleDeleteActivity = async (id: string) => {
     if (!confirm('Are you sure you want to delete this processing activity?')) {
@@ -128,7 +116,7 @@ const GdprMapper = () => {
       }
       toast.success('Activity Deleted', 'Processing activity has been deleted');
     } catch (error) {
-      console.error('Error deleting activity:', error);
+      logError(error instanceof Error ? error : new Error('Error deleting activity'), { component: 'GdprMapper', operation: 'deleteActivity' });
       toast.error('Delete failed', error instanceof Error ? error.message : 'Failed to delete processing activity');
     } finally {
       setSaving(false);
@@ -187,7 +175,7 @@ const GdprMapper = () => {
         toast.success("Mapping exported", "GDPR processing mapping has been exported as JSON");
       }
     } catch (error) {
-      console.error('Error exporting:', error);
+      logError(error instanceof Error ? error : new Error('Error exporting'), { component: 'GdprMapper', operation: 'export' });
       toast.error("Export failed", "Failed to export. Please try again.");
     } finally {
       setIsExporting(false);
@@ -221,16 +209,16 @@ const GdprMapper = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <Link to="/toolkit" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-4">
+    <div className="page-container">
+      <div className="page-header">
+        <Link to="/toolkit" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-4">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Toolkit
         </Link>
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold mb-2 text-foreground">GDPR Data Processing Mapper</h1>
-            <p className="text-muted-foreground">Map and document personal data processing activities for GDPR compliance</p>
+            <h1 className="page-title">GDPR Data Processing Mapper</h1>
+            <p className="page-description">Map and document personal data processing activities for GDPR compliance</p>
           </div>
           <div className="flex gap-2">
             <Button variant="outline" onClick={handleAddActivity} disabled={saving || loading}>

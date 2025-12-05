@@ -340,7 +340,7 @@ async function handleOneTimePurchase(supabase: any, session: any) {
   }
 
   // Build success URL with license keys
-  const siteUrl = Deno.env.get('SITE_URL') || 'http://localhost:5173';
+  const siteUrl = Deno.env.get('SITE_URL') || Deno.env.get('VITE_APP_URL') || 'https://app.cybercorrect.com';
   const licenseParams = licenseKeys
     .map(l => `${l.productId}-${l.licenseKey}`)
     .join(',');
@@ -392,7 +392,7 @@ async function sendLicenseKeysEmail(
   licenseKeys: Array<{ productId: string; licenseKey: string; productName: string }>,
   activationUrl: string
 ) {
-  const siteUrl = Deno.env.get('SITE_URL') || 'http://localhost:5173';
+  const siteUrl = Deno.env.get('SITE_URL') || Deno.env.get('VITE_APP_URL') || 'https://app.cybercorrect.com';
   
   // Build email content
   const licenseList = licenseKeys

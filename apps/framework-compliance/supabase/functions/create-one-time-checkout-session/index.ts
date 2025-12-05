@@ -49,8 +49,9 @@ serve(async (req) => {
     // Build line items for Stripe API (form-encoded format)
     const formData = new URLSearchParams();
     formData.append('mode', 'payment');
-    formData.append('success_url', successUrl || `${Deno.env.get('SITE_URL') || 'http://localhost:5173'}/store/success?session_id={CHECKOUT_SESSION_ID}`);
-    formData.append('cancel_url', cancelUrl || `${Deno.env.get('SITE_URL') || 'http://localhost:5173'}/store`);
+    const siteUrl = Deno.env.get('SITE_URL') || Deno.env.get('VITE_APP_URL') || 'https://app.cybercorrect.com';
+    formData.append('success_url', successUrl || `${siteUrl}/store/success?session_id={CHECKOUT_SESSION_ID}`);
+    formData.append('cancel_url', cancelUrl || `${siteUrl}/store`);
     
     if (email) {
       formData.append('customer_email', email);
