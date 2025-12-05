@@ -1,10 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-
 import { InternalLink} from '../components/ui/InternalLinkingHelper';
 import { usePageTitle } from '../hooks/usePageTitle';
+import RecommendedTools from '../components/assessment/RecommendedTools';
+import { secureStorage } from '../utils/storage';
 
 import { 
   Eye,
@@ -23,6 +24,24 @@ import {
 
 const AssessmentHub = () => {
   usePageTitle('Assessment Hub');
+  const location = useLocation();
+  const [assessmentResults, setAssessmentResults] = useState<any>(null);
+
+  // Check for assessment results from location state or storage
+  useEffect(() => {
+    // First check location state (if coming from assessment completion)
+    if (location.state?.assessmentResults) {
+      setAssessmentResults(location.state.assessmentResults);
+      // Also save to storage for future visits
+      secureStorage.setItem('last_privacy_assessment_results', location.state.assessmentResults);
+    } else {
+      // Check storage for previous assessment results
+      const storedResults = secureStorage.getItem('last_privacy_assessment_results');
+      if (storedResults) {
+        setAssessmentResults(storedResults);
+      }
+    }
+  }, [location.state]);
 
   // Compact page header (replaces hero)
   const headerSection = (
@@ -44,6 +63,13 @@ const AssessmentHub = () => {
       {headerSection}
       <div className="container mx-auto px-4 py-8">
 
+      {/* Personalized Recommendations - Phase 3: Guided Action */}
+      {assessmentResults && (
+        <div className="mb-12">
+          <RecommendedTools assessmentResults={assessmentResults} />
+        </div>
+      )}
+
       {/* Privacy Assessment */}
       <div className="mb-16">
         <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Privacy Assessment</h2>
@@ -64,6 +90,14 @@ const AssessmentHub = () => {
               <p className="text-muted-foreground mb-6">
                 Evaluate your privacy program against the NIST Privacy Framework with intelligent gap analysis and remediation planning.
               </p>
+              
+              {/* Phase 2: Light signup messaging */}
+              <div className="mb-6 p-3 bg-success/10 border border-success/20 rounded-lg">
+                <p className="text-sm text-foreground">
+                  <CheckCircle className="h-4 w-4 inline mr-2 text-success" />
+                  <strong>Free to start</strong> - No credit card required. Get your privacy posture score in minutes.
+                </p>
+              </div>
               
               <div className="mb-6">
                 <h4 className="font-semibold mb-3 text-foreground">What You'll Get:</h4>

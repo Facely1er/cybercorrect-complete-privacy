@@ -167,27 +167,46 @@ const MarketingLanding = () => {
               <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent"> Made Simple</span>
             </h1>
             
-            <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
               Comprehensive privacy solutions for organizations and individuals. 
               Streamline compliance, protect data rights, and build trust with automated privacy management.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {/* Primary CTAs - Phase 1: Awareness & Trust */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
               <a 
-                href={frameworkComplianceUrl}
+                href={`${frameworkComplianceUrl}/assessment-hub`}
                 className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground rounded-lg text-lg font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl"
               >
-                <Building2 className="mr-2 h-5 w-5" />
-                For Organizations
+                <Eye className="mr-2 h-5 w-5" />
+                Start Free Privacy Assessment
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
               <a 
-                href={privacyPortalUrl}
+                href={`${frameworkComplianceUrl}/login`}
                 className="inline-flex items-center justify-center px-8 py-4 bg-background border-2 border-primary text-primary rounded-lg text-lg font-semibold hover:bg-primary/5 transition-all"
               >
-                <User className="mr-2 h-5 w-5" />
-                For Individuals
+                <Shield className="mr-2 h-5 w-5" />
+                Log In
                 <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
+            </div>
+
+            {/* Secondary CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a 
+                href={frameworkComplianceUrl}
+                className="inline-flex items-center justify-center px-6 py-3 bg-muted text-foreground rounded-lg text-base font-medium hover:bg-muted/80 transition-all"
+              >
+                <Building2 className="mr-2 h-4 w-4" />
+                For Organizations
+              </a>
+              <a 
+                href={privacyPortalUrl}
+                className="inline-flex items-center justify-center px-6 py-3 bg-muted text-foreground rounded-lg text-base font-medium hover:bg-muted/80 transition-all"
+              >
+                <User className="mr-2 h-4 w-4" />
+                For Individuals
               </a>
             </div>
           </div>

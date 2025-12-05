@@ -4,6 +4,7 @@ import { AssessmentResults } from '../../components/assessment/AssessmentResults
 import { generateResultsPdf } from '../../utils/pdf';
 import { Loader2 } from 'lucide-react';
 import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
+import RecommendedTools from '../../components/assessment/RecommendedTools';
 
 const PrivacyResults = () => {
   const navigate = useNavigate();
@@ -84,6 +85,9 @@ const PrivacyResults = () => {
           </div>
         </div>
       </div>
+
+      {/* Personalized Tool Recommendations - Phase 3: Guided Action */}
+      <RecommendedTools assessmentResults={assessmentResults} />
 
       <div className="mt-8 flex justify-end">
         <div className="flex gap-4">
