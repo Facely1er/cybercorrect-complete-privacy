@@ -73,6 +73,14 @@ const PersonaGuidanceSystem = lazy(() => import('./components/persona/PersonaGui
 const WorkflowStepComponent = lazy(() => import('./components/persona/workflow/WorkflowStepComponent').then(m => ({ default: m.WorkflowStepComponent })));
 import { personaWorkflowService } from './services/personaWorkflowService';
 
+// Component to redirect to external framework compliance URLs
+const ExternalRedirect = ({ url }: { url: string }) => {
+  useEffect(() => {
+    window.location.href = url;
+  }, [url]);
+  return null;
+};
+
 // Wrapper components for routing
 const PersonaGuidanceWrapper = () => {
   const { personaId } = useParams<{ personaId: string }>();
@@ -161,27 +169,23 @@ function App() {
                 <Route path="/legal" element={<LegalPage />} />
                 {/* Policy routes - redirect to centralized policies on framework-compliance */}
                 <Route path="/terms" element={
-                  <Navigate 
-                    to={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/terms`} 
-                    replace 
+                  <ExternalRedirect 
+                    url={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/terms`} 
                   />
                 } />
                 <Route path="/privacy-policy" element={
-                  <Navigate 
-                    to={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/privacy`} 
-                    replace 
+                  <ExternalRedirect 
+                    url={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/privacy`} 
                   />
                 } />
                 <Route path="/acceptable-use-policy" element={
-                  <Navigate 
-                    to={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/acceptable-use`} 
-                    replace 
+                  <ExternalRedirect 
+                    url={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/acceptable-use`} 
                   />
                 } />
                 <Route path="/cookie-policy" element={
-                  <Navigate 
-                    to={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/cookies`} 
-                    replace 
+                  <ExternalRedirect 
+                    url={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/cookies`} 
                   />
                 } />
 
