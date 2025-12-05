@@ -442,7 +442,10 @@ const MarketingLanding = () => {
               </p>
               <div className="pt-2">
                 <p className="text-xs text-muted-foreground">
-                  © {new Date().getFullYear()} ERMITS LLC. All rights reserved.
+                  CyberCorrect™ v1.0 – Privacy & Data Rights Operations
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  © {new Date().getFullYear()} ERMITS. All rights reserved.
                 </p>
               </div>
             </div>

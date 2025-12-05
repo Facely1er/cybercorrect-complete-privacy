@@ -25,9 +25,10 @@ const Footer: React.FC = () => {
       <footer className="bg-surface border-t border-support-gray dark:bg-dark-surface dark:border-dark-support py-2">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-xs text-muted-foreground">
-              &copy; {currentYear} ERMITS LLC. All rights reserved.
-            </p>
+            <div className="text-xs text-muted-foreground">
+              <div>CyberCorrect™ v1.0 – Privacy & Data Rights Operations</div>
+              <div className="mt-1">© {currentYear} ERMITS. All rights reserved.</div>
+            </div>
             <div className="flex mt-2 md:mt-0 space-x-4">
               <Link to="/documentation" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Documentation</Link>
               <Link to="/support" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Support</Link>
@@ -65,7 +66,10 @@ const Footer: React.FC = () => {
                 Comprehensive privacy compliance solutions aligned with NIST 800-171 and the NIST Privacy Framework.
               </p>
               <p className="text-[10px] sm:text-xs text-muted-foreground pt-1">
-                © {currentYear} ERMITS LLC. All rights reserved.
+                CyberCorrect™ v1.0 – Privacy & Data Rights Operations
+              </p>
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
+                © {currentYear} ERMITS. All rights reserved.
               </p>
             </div>
             

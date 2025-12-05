@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { AssessmentResults } from '../../components/assessment/AssessmentResults';
 import { generateResultsPdf } from '../../utils/pdf';
-import { Loader2 } from 'lucide-react';
+import { Loader2, AlertTriangle } from 'lucide-react';
 import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
 import RecommendedTools from '../../components/assessment/RecommendedTools';
 
@@ -113,6 +113,14 @@ const PrivacyResults = () => {
             </button>
           </Link>
         </div>
+      </div>
+
+      {/* Guardrail Disclaimer */}
+      <div className="mt-8 bg-muted/50 border border-border rounded-lg p-4">
+        <p className="text-sm text-muted-foreground text-center">
+          <AlertTriangle className="w-4 h-4 inline-block mr-2" />
+          This tool assists with privacy compliance planning and documentation. It does not constitute legal advice.
+        </p>
       </div>
     </div>
   );

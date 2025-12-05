@@ -104,7 +104,10 @@ export function Footer() {
               </p>
               <div className="pt-2">
                 <p className="text-xs text-muted-foreground">
-                  © 2025 ERMITS LLC. All rights reserved.
+                  CyberCorrect™ v1.0 – Privacy & Data Rights Operations
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  © 2025 ERMITS. All rights reserved.
                 </p>
               </div>
             </div>
