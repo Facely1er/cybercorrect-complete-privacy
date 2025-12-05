@@ -10,12 +10,12 @@ const Checkout = lazy(() => import('../pages/Checkout'));
 
 export const monetizationRoutes = [
   {
-    path: 'monetization/templates',
+    path: '/monetization/templates',
     element: TemplateStore,
     lazy: true,
   },
   {
-    path: 'monetization/credits',
+    path: '/monetization/credits',
     element: CreditsManager,
     lazy: true,
   },
@@ -40,7 +40,7 @@ export const monetizationRoutes = [
     lazy: true,
   },
   {
-    path: 'store/success',
+    path: '/store/success',
     element: PurchaseSuccess,
     lazy: true,
   },

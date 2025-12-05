@@ -43,7 +43,7 @@ export const assessmentRoutes = [
     lazy: true,
   },
   {
-    path: 'assessments/scheduled',
+    path: '/assessments/scheduled',
     element: ScheduledAssessments,
     lazy: true,
   },

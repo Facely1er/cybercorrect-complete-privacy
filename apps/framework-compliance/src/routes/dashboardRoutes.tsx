@@ -23,7 +23,7 @@ export const dashboardRoutes = [
     element: () => <Navigate to="/dashboard/compliance-health" replace />,
   },
   {
-    path: 'dashboard/compliance-health',
+    path: '/dashboard/compliance-health',
     element: ComplianceHealthDashboard,
     lazy: true,
   },
@@ -32,7 +32,7 @@ export const dashboardRoutes = [
     element: () => <Navigate to="/reports/automated" replace />,
   },
   {
-    path: 'reports/automated',
+    path: '/reports/automated',
     element: AutomatedReports,
     lazy: true,
   },
@@ -47,7 +47,7 @@ export const dashboardRoutes = [
     lazy: true,
   },
   {
-    path: 'dashboard/progress',
+    path: '/dashboard/progress',
     element: ProgressTracking,
     lazy: true,
   },

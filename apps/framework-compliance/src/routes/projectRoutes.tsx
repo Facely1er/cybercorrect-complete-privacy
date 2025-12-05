@@ -23,22 +23,22 @@ export const projectRoutes = [
     lazy: true,
   },
   {
-    path: 'project/roadmap',
+    path: '/project/roadmap',
     element: PrivacyRoadmap,
     lazy: true,
   },
   {
-    path: 'project/raci',
+    path: '/project/raci',
     element: PrivacyRaci,
     lazy: true,
   },
   {
-    path: 'project/wbs',
+    path: '/project/wbs',
     element: PrivacyWbs,
     lazy: true,
   },
   {
-    path: 'project/evidence',
+    path: '/project/evidence',
     element: EvidenceVault,
     lazy: true,
   },
