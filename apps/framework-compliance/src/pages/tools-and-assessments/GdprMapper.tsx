@@ -21,43 +21,56 @@ import {
 } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/storage';
-import { generateGdprMappingPdf } from '../../utils/pdf';
-
-interface ProcessingActivity {
-  id: string;
-  name: string;
-  purpose: string;
-  legalBasis: string;
-  dataTypes: string[];
-  dataSubjects: string[];
-  recipients: string[];
-  retentionPeriod: string;
-  riskLevel: 'low' | 'medium' | 'high';
-}
+import {
+  getProcessingActivities,
+  createProcessingActivity,
+  updateProcessingActivity,
+  deleteProcessingActivity,
+  exportToCSV,
+  exportToPDF,
+  validateProcessingActivity,
+  type ProcessingActivity,
+} from '../../services/ropaService';
 
 const GdprMapper = () => {
   usePageTitle('GDPR Mapper');
   
-  const [activities, setActivities] = useState<ProcessingActivity[]>(() => {
-    const saved = secureStorage.getItem<ProcessingActivity[]>('gdpr_activities');
-    return saved || [];
-  });
+  const [activities, setActivities] = useState<ProcessingActivity[]>([]);
+  const [selectedActivity, setSelectedActivity] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
 
-  const [selectedActivity, setSelectedActivity] = useState<string | null>(() => 
-    secureStorage.getItem('gdpr_selected_activity', null)
-  );
+  // Load activities on mount
+  useEffect(() => {
+    loadActivities();
+  }, []);
 
-  // Save selected activity
+  // Save selected activity to localStorage for persistence
   useEffect(() => {
     if (selectedActivity) {
       secureStorage.setItem('gdpr_selected_activity', selectedActivity);
     }
   }, [selectedActivity]);
 
-  // Save activities whenever they change
-  useEffect(() => {
-    secureStorage.setItem('gdpr_activities', activities);
-  }, [activities]);
+  const loadActivities = async () => {
+    try {
+      setLoading(true);
+      const loaded = await getProcessingActivities();
+      setActivities(loaded);
+      
+      // Restore selected activity from localStorage
+      const savedSelected = secureStorage.getItem<string | null>('gdpr_selected_activity', null);
+      if (savedSelected && loaded.some(a => a.id === savedSelected)) {
+        setSelectedActivity(savedSelected);
+      }
+    } catch (error) {
+      console.error('Error loading activities:', error);
+      toast.error('Load failed', 'Failed to load processing activities. Please refresh the page.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleAddActivity = () => {
     const newActivity: ProcessingActivity = {
