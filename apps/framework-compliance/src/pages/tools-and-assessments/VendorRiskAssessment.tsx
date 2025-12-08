@@ -82,19 +82,19 @@ const VendorRiskAssessment = () => {
 
   const getRiskBadge = (riskLevel: string) => {
     const className = 
-      riskLevel === 'critical' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' :
-      riskLevel === 'high' ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300' :
-      riskLevel === 'medium' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' :
-      'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300';
+      riskLevel === 'critical' ? 'bg-destructive/10 text-destructive' :
+      riskLevel === 'high' ? 'bg-warning/10 text-warning' :
+      riskLevel === 'medium' ? 'bg-warning/10 text-warning' :
+      'bg-success/10 text-success';
     
     return <Badge className={className}>{riskLevel.charAt(0).toUpperCase() + riskLevel.slice(1)}</Badge>;
   };
 
   const getComplianceBadge = (status: string) => {
     const className = 
-      status === 'compliant' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-      status === 'review_needed' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' :
-      'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300';
+      status === 'compliant' ? 'bg-success/10 text-success' :
+      status === 'review_needed' ? 'bg-warning/10 text-warning' :
+      'bg-destructive/10 text-destructive';
     
     return <Badge className={className}>{status.replace('_', ' ')}</Badge>;
   };
@@ -229,8 +229,8 @@ const VendorRiskAssessment = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                    <Building className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <Building className="h-6 w-6 text-primary" />
                   </div>
                   <span className="text-2xl font-bold">{totalVendors}</span>
                 </div>
@@ -242,10 +242,10 @@ const VendorRiskAssessment = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                    <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  <div className="p-2 bg-success/10 rounded-lg">
+                    <CheckCircle className="h-6 w-6 text-success" />
                   </div>
-                  <span className="text-2xl font-bold text-green-600 dark:text-green-400">
+                  <span className="text-2xl font-bold text-success">
                     {compliantVendors}
                   </span>
                 </div>
@@ -257,10 +257,10 @@ const VendorRiskAssessment = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-                    <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-400" />
+                  <div className="p-2 bg-destructive/10 rounded-lg">
+                    <AlertTriangle className="h-6 w-6 text-destructive" />
                   </div>
-                  <span className="text-2xl font-bold text-red-600 dark:text-red-400">
+                  <span className="text-2xl font-bold text-destructive">
                     {highRiskVendors}
                   </span>
                 </div>
@@ -289,7 +289,7 @@ const VendorRiskAssessment = () => {
           <Card>
             <CardContent className="p-6">
               <h2 className="text-xl font-semibold mb-4 flex items-center">
-                <BarChart3 className="h-5 w-5 mr-2 text-blue-500" />
+                <BarChart3 className="h-5 w-5 mr-2 text-primary" />
                 Risk Level Distribution
               </h2>
               <div className="space-y-4">
@@ -311,9 +311,9 @@ const VendorRiskAssessment = () => {
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                         <div 
                           className={`h-2 rounded-full transition-all duration-300 ${
-                            risk === 'critical' ? 'bg-red-500' :
-                            risk === 'high' ? 'bg-orange-500' :
-                            risk === 'medium' ? 'bg-yellow-500' : 'bg-green-500'
+                            risk === 'critical' ? 'bg-destructive' :
+                            risk === 'high' ? 'bg-warning' :
+                            risk === 'medium' ? 'bg-warning' : 'bg-success'
                           }`}
                           style={{ width: `${percentage}%` }}
                         />
@@ -446,9 +446,9 @@ const VendorRiskAssessment = () => {
                               <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                 <div 
                                   className={`h-2 rounded-full ${
-                                    vendor.assessmentScore >= 90 ? 'bg-green-500' :
-                                    vendor.assessmentScore >= 75 ? 'bg-yellow-500' :
-                                    vendor.assessmentScore >= 60 ? 'bg-orange-500' : 'bg-red-500'
+                                    vendor.assessmentScore >= 90 ? 'bg-success' :
+                                    vendor.assessmentScore >= 75 ? 'bg-warning' :
+                                    vendor.assessmentScore >= 60 ? 'bg-warning' : 'bg-destructive'
                                   }`}
                                   style={{ width: `${vendor.assessmentScore}%` }}
                                 />
@@ -503,7 +503,7 @@ const VendorRiskAssessment = () => {
                             <span className="font-medium text-sm">Security Certifications:</span>
                             <div className="flex flex-wrap gap-2 mt-2">
                               {vendor.securityCertifications.map((cert, index) => (
-                                <span key={index} className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-2 py-1 rounded flex items-center gap-1">
+                                <span key={index} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded flex items-center gap-1">
                                   <Award className="h-3 w-3" />
                                   {cert}
                                 </span>
@@ -516,25 +516,25 @@ const VendorRiskAssessment = () => {
                         <div className="grid grid-cols-3 gap-4 text-sm mb-4">
                           <div className="flex items-center gap-2">
                             {vendor.privacyPolicyReviewed ? (
-                              <CheckCircle className="h-4 w-4 text-green-500" />
+                              <CheckCircle className="h-4 w-4 text-success" />
                             ) : (
-                              <AlertTriangle className="h-4 w-4 text-red-500" />
+                              <AlertTriangle className="h-4 w-4 text-destructive" />
                             )}
                             <span>Privacy Policy</span>
                           </div>
                           <div className="flex items-center gap-2">
                             {vendor.dpaSigned ? (
-                              <CheckCircle className="h-4 w-4 text-green-500" />
+                              <CheckCircle className="h-4 w-4 text-success" />
                             ) : (
-                              <AlertTriangle className="h-4 w-4 text-red-500" />
+                              <AlertTriangle className="h-4 w-4 text-destructive" />
                             )}
                             <span>DPA Signed</span>
                           </div>
                           <div className="flex items-center gap-2">
                             {vendor.employeeDataAccess ? (
-                              <AlertTriangle className="h-4 w-4 text-amber-500" />
+                              <AlertTriangle className="h-4 w-4 text-warning" />
                             ) : (
-                              <CheckCircle className="h-4 w-4 text-green-500" />
+                              <CheckCircle className="h-4 w-4 text-success" />
                             )}
                             <span>Employee Data Access</span>
                           </div>
@@ -599,7 +599,7 @@ const VendorRiskAssessment = () => {
           <Card>
             <CardContent className="p-6">
               <h2 className="text-xl font-semibold mb-4 flex items-center">
-                <Calendar className="h-5 w-5 mr-2 text-green-500" />
+                <Calendar className="h-5 w-5 mr-2 text-success" />
                 Upcoming Assessments
               </h2>
               <div className="space-y-4">

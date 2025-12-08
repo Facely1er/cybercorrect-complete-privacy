@@ -159,21 +159,21 @@ const ServiceProviderManager = () => {
 
   const getStatusBadge = (status: string) => {
     const className = 
-      status === 'active' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-      status === 'pending' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' :
-      status === 'expired' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' :
-      status === 'terminated' ? 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300' :
-      'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300';
+      status === 'active' ? 'bg-success/10 text-success' :
+      status === 'pending' ? 'bg-warning/10 text-warning' :
+      status === 'expired' ? 'bg-destructive/10 text-destructive' :
+      status === 'terminated' ? 'bg-muted text-muted-foreground' :
+      'bg-primary/10 text-primary';
     
     return <Badge className={className}>{status.replace('_', ' ')}</Badge>;
   };
 
   const getRiskBadge = (risk: string) => {
     const className = 
-      risk === 'critical' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' :
-      risk === 'high' ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300' :
-      risk === 'medium' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' :
-      'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300';
+      risk === 'critical' ? 'bg-destructive/10 text-destructive' :
+      risk === 'high' ? 'bg-warning/10 text-warning' :
+      risk === 'medium' ? 'bg-warning/10 text-warning' :
+      'bg-success/10 text-success';
     
     return <Badge className={className}>{risk.charAt(0).toUpperCase() + risk.slice(1)} Risk</Badge>;
   };
@@ -310,8 +310,8 @@ const ServiceProviderManager = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                    <Building className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <Building className="h-6 w-6 text-primary" />
                   </div>
                   <span className="text-2xl font-bold">{totalProviders}</span>
                 </div>
@@ -323,10 +323,10 @@ const ServiceProviderManager = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                    <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  <div className="p-2 bg-success/10 rounded-lg">
+                    <CheckCircle className="h-6 w-6 text-success" />
                   </div>
-                  <span className="text-2xl font-bold text-green-600 dark:text-green-400">
+                  <span className="text-2xl font-bold text-success">
                     {activeProviders}
                   </span>
                 </div>
@@ -338,10 +338,10 @@ const ServiceProviderManager = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-                    <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-400" />
+                  <div className="p-2 bg-destructive/10 rounded-lg">
+                    <AlertTriangle className="h-6 w-6 text-destructive" />
                   </div>
-                  <span className="text-2xl font-bold text-red-600 dark:text-red-400">
+                  <span className="text-2xl font-bold text-destructive">
                     {highRiskProviders}
                   </span>
                 </div>
@@ -353,10 +353,10 @@ const ServiceProviderManager = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                    <Award className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                  <div className="p-2 bg-accent/10 rounded-lg">
+                    <Award className="h-6 w-6 text-accent" />
                   </div>
-                  <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                  <span className="text-2xl font-bold text-accent">
                     {averageComplianceScore}
                   </span>
                 </div>
@@ -370,7 +370,7 @@ const ServiceProviderManager = () => {
           <Card>
             <CardContent className="p-6">
               <h2 className="text-xl font-semibold mb-4 flex items-center">
-                <BarChart3 className="h-5 w-5 mr-2 text-blue-500" />
+                <BarChart3 className="h-5 w-5 mr-2 text-primary" />
                 Providers by Category
               </h2>
               <div className="space-y-4">
@@ -548,9 +548,9 @@ const ServiceProviderManager = () => {
                             {Object.entries(provider.compliance).map(([framework, compliant]) => (
                               <div key={framework} className="flex items-center gap-1">
                                 {compliant ? (
-                                  <CheckCircle className="h-4 w-4 text-green-500" />
+                                  <CheckCircle className="h-4 w-4 text-success" />
                                 ) : (
-                                  <AlertTriangle className="h-4 w-4 text-red-500" />
+                                  <AlertTriangle className="h-4 w-4 text-destructive" />
                                 )}
                                 <span className="text-xs uppercase">{framework}</span>
                               </div>
@@ -564,7 +564,7 @@ const ServiceProviderManager = () => {
                             <span className="font-medium text-sm">Security Certifications:</span>
                             <div className="flex flex-wrap gap-2 mt-2">
                               {provider.security.certifications.map((cert, index) => (
-                                <span key={index} className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-2 py-1 rounded flex items-center gap-1">
+                                <span key={index} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded flex items-center gap-1">
                                   <Award className="h-3 w-3" />
                                   {cert}
                                 </span>
@@ -605,10 +605,10 @@ const ServiceProviderManager = () => {
                           <h3 className="font-medium">{provider.name}</h3>
                           <Badge variant="info">{provider.agreement.type}</Badge>
                           <Badge className={
-                            provider.agreement.status === 'approved' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-                            provider.agreement.status === 'under_review' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' :
-                            provider.agreement.status === 'expired' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' :
-                            'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300'
+                            provider.agreement.status === 'approved' ? 'bg-success/10 text-success' :
+                            provider.agreement.status === 'under_review' ? 'bg-warning/10 text-warning' :
+                            provider.agreement.status === 'expired' ? 'bg-destructive/10 text-destructive' :
+                            'bg-muted text-muted-foreground'
                           }>
                             {provider.agreement.status.replace('_', ' ')}
                           </Badge>

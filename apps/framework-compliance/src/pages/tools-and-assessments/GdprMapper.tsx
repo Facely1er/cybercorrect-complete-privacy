@@ -198,7 +198,7 @@ const GdprMapper = () => {
       'contract': 'bg-success/10 text-success',
       'legal obligation': 'bg-accent/10 text-accent',
       'vital interests': 'bg-destructive/10 text-destructive',
-      'public task': 'bg-blue-500/10 text-blue-500',
+      'public task': 'bg-primary/10 text-primary',
       'legitimate interests': 'bg-warning/10 text-warning'
     };
     return colors[normalizedBasis] || 'bg-muted text-muted-foreground';

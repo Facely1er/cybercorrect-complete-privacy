@@ -196,7 +196,7 @@ const DpiaGenerator = () => {
                       currentStep === step.id 
                         ? 'bg-primary text-white' 
                         : currentStep > step.id 
-                        ? 'bg-green-100 text-green-800' 
+                        ? 'bg-success/10 text-success' 
                         : 'bg-muted text-muted-foreground'
                     }`}
                     onClick={() => setCurrentStep(step.id)}
@@ -373,8 +373,8 @@ const DpiaGenerator = () => {
                           <CardContent className="p-3">
                             <div className="flex items-center">
                               <div className={`w-4 h-4 rounded-full mr-3 ${
-                                risk.id === 'low' ? 'bg-green-500' :
-                                risk.id === 'medium' ? 'bg-yellow-500' : 'bg-red-500'
+                                risk.id === 'low' ? 'bg-success' :
+                                risk.id === 'medium' ? 'bg-warning' : 'bg-destructive'
                               }`}></div>
                               <div>
                                 <div className="font-medium">{risk.label}</div>

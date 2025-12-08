@@ -75,20 +75,20 @@ const IncidentResponseManager = () => {
 
   const getSeverityBadge = (severity: string) => {
     const className = 
-      severity === 'critical' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' :
-      severity === 'high' ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300' :
-      severity === 'medium' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' :
-      'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300';
+      severity === 'critical' ? 'bg-destructive/10 text-destructive' :
+      severity === 'high' ? 'bg-warning/10 text-warning' :
+      severity === 'medium' ? 'bg-warning/10 text-warning' :
+      'bg-success/10 text-success';
     
     return <Badge className={className}>{severity.charAt(0).toUpperCase() + severity.slice(1)}</Badge>;
   };
 
   const getStatusBadge = (status: string) => {
     const className = 
-      status === 'resolved' || status === 'closed' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-      status === 'contained' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' :
-      status === 'investigating' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' :
-      'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300';
+      status === 'resolved' || status === 'closed' ? 'bg-success/10 text-success' :
+      status === 'contained' ? 'bg-primary/10 text-primary' :
+      status === 'investigating' ? 'bg-warning/10 text-warning' :
+      'bg-destructive/10 text-destructive';
     
     return <Badge className={className}>{status.charAt(0).toUpperCase() + status.slice(1)}</Badge>;
   };
@@ -208,8 +208,8 @@ const IncidentResponseManager = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                    <FileText className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <FileText className="h-6 w-6 text-primary" />
                   </div>
                   <span className="text-2xl font-bold">{totalIncidents}</span>
                 </div>
@@ -221,10 +221,10 @@ const IncidentResponseManager = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
-                    <AlertTriangle className="h-6 w-6 text-amber-600 dark:text-amber-400" />
+                  <div className="p-2 bg-warning/10 rounded-lg">
+                    <AlertTriangle className="h-6 w-6 text-warning" />
                   </div>
-                  <span className="text-2xl font-bold text-amber-600 dark:text-amber-400">
+                  <span className="text-2xl font-bold text-warning">
                     {openIncidents}
                   </span>
                 </div>
@@ -236,10 +236,10 @@ const IncidentResponseManager = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                    <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  <div className="p-2 bg-success/10 rounded-lg">
+                    <CheckCircle className="h-6 w-6 text-success" />
                   </div>
-                  <span className="text-2xl font-bold text-green-600 dark:text-green-400">
+                  <span className="text-2xl font-bold text-success">
                     {resolvedIncidents}
                   </span>
                 </div>
@@ -251,10 +251,10 @@ const IncidentResponseManager = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-                    <AlertCircle className="h-6 w-6 text-red-600 dark:text-red-400" />
+                  <div className="p-2 bg-destructive/10 rounded-lg">
+                    <AlertCircle className="h-6 w-6 text-destructive" />
                   </div>
-                  <span className="text-2xl font-bold text-red-600 dark:text-red-400">
+                  <span className="text-2xl font-bold text-destructive">
                     {highSeverityIncidents}
                   </span>
                 </div>
@@ -454,9 +454,9 @@ const IncidentResponseManager = () => {
                                 notification && (
                                   <div key={framework} className="flex items-center gap-1">
                                     {notification.notified ? (
-                                      <CheckCircle className="h-4 w-4 text-green-500" />
+                                      <CheckCircle className="h-4 w-4 text-success" />
                                     ) : (
-                                      <AlertTriangle className="h-4 w-4 text-red-500" />
+                                      <AlertTriangle className="h-4 w-4 text-destructive" />
                                     )}
                                     <span className="text-xs uppercase">{framework}</span>
                                   </div>
@@ -471,11 +471,11 @@ const IncidentResponseManager = () => {
                           <div className="mb-4">
                             <span className="font-medium text-sm">Data Subject Notifications: </span>
                             {incident.dataSubjectNotifications.sent ? (
-                              <Badge className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
+                              <Badge className="bg-success/10 text-success">
                                 Sent on {incident.dataSubjectNotifications.date || 'N/A'}
                               </Badge>
                             ) : (
-                              <Badge className="bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">
+                              <Badge className="bg-destructive/10 text-destructive">
                                 Pending
                               </Badge>
                             )}
@@ -506,9 +506,9 @@ const IncidentResponseManager = () => {
             <CardContent className="p-6">
               <h2 className="text-xl font-semibold mb-4">Report New Incident</h2>
               <div className="space-y-4">
-                <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-                  <h3 className="font-medium text-blue-900 dark:text-blue-300 mb-2">Incident Reporting Form</h3>
-                  <p className="text-sm text-blue-800 dark:text-blue-400 mb-4">
+                <div className="bg-primary/10 border border-primary/20 rounded-lg p-4">
+                  <h3 className="font-medium text-primary mb-2">Incident Reporting Form</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
                     Use this form to report privacy incidents, data breaches, or compliance violations.
                     All incidents are tracked and managed through the incident response workflow.
                   </p>
@@ -530,7 +530,7 @@ const IncidentResponseManager = () => {
                       'Regulatory notification requirements'
                     ].map((item, index) => (
                       <li key={index} className="flex items-start gap-2">
-                        <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="h-4 w-4 text-success flex-shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -567,7 +567,7 @@ const IncidentResponseManager = () => {
                         Timeframe: {item.timeframe}
                       </div>
                     </div>
-                    <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-success flex-shrink-0" />
                   </div>
                 ))}
               </div>

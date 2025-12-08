@@ -84,31 +84,31 @@ const DpiaManager = () => {
 
   const getStatusBadge = (status: string) => {
     const className = 
-      status === 'approved' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-      status === 'review' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' :
-      status === 'in_progress' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' :
-      status === 'draft' ? 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300' :
-      'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300';
+      status === 'approved' ? 'bg-success/10 text-success' :
+      status === 'review' ? 'bg-primary/10 text-primary' :
+      status === 'in_progress' ? 'bg-warning/10 text-warning' :
+      status === 'draft' ? 'bg-muted text-muted-foreground' :
+      'bg-destructive/10 text-destructive';
     
     return <Badge className={className}>{status.replace('_', ' ')}</Badge>;
   };
 
   const getPriorityBadge = (priority: string) => {
     const className = 
-      priority === 'critical' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' :
-      priority === 'high' ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300' :
-      priority === 'medium' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' :
-      'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300';
+      priority === 'critical' ? 'bg-destructive/10 text-destructive' :
+      priority === 'high' ? 'bg-warning/10 text-warning' :
+      priority === 'medium' ? 'bg-warning/10 text-warning' :
+      'bg-success/10 text-success';
     
     return <Badge className={className}>{priority.charAt(0).toUpperCase() + priority.slice(1)}</Badge>;
   };
 
   const getRiskBadge = (risk: string) => {
     const className = 
-      risk === 'critical' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' :
-      risk === 'high' ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300' :
-      risk === 'medium' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300' :
-      'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300';
+      risk === 'critical' ? 'bg-destructive/10 text-destructive' :
+      risk === 'high' ? 'bg-warning/10 text-warning' :
+      risk === 'medium' ? 'bg-warning/10 text-warning' :
+      'bg-success/10 text-success';
     
     return <Badge className={className}>{risk.charAt(0).toUpperCase() + risk.slice(1)} Risk</Badge>;
   };
@@ -298,6 +298,7 @@ const DpiaManager = () => {
                 </CardContent>
               </Card>
           </div>
+          </div>
 
           {/* Risk Distribution */}
           <Card className="modern-card">
@@ -326,9 +327,9 @@ const DpiaManager = () => {
                         <ProgressBar 
                           percentage={percentage}
                           colorClass={
-                            risk === 'critical' ? 'bg-red-500' :
-                            risk === 'high' ? 'bg-orange-500' :
-                            risk === 'medium' ? 'bg-yellow-500' : 'bg-green-500'
+                            risk === 'critical' ? 'bg-destructive' :
+                            risk === 'high' ? 'bg-warning' :
+                            risk === 'medium' ? 'bg-warning' : 'bg-success'
                           }
                         />
                       </div>
@@ -596,7 +597,7 @@ const DpiaManager = () => {
                       <h3 className="font-medium mb-1">{item.title}</h3>
                       <p className="text-sm text-muted-foreground">{item.description}</p>
                     </div>
-                    <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
+                    <CheckCircle className="h-5 w-5 text-success flex-shrink-0" />
                   </div>
                 ))}
               </div>
@@ -609,12 +610,12 @@ const DpiaManager = () => {
             <CardContent className="p-6">
               <h2 className="text-xl font-semibold mb-4">When is a DPIA Required?</h2>
               <div className="space-y-4">
-                <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                <div className="bg-primary/10 border border-primary/20 rounded-lg p-4">
                   <div className="flex items-start gap-3">
-                    <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                    <Info className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                     <div>
-                      <h3 className="font-medium text-blue-900 dark:text-blue-300 mb-2">GDPR Article 35 Requirements</h3>
-                      <p className="text-sm text-blue-800 dark:text-blue-400">
+                      <h3 className="font-medium text-primary mb-2">GDPR Article 35 Requirements</h3>
+                      <p className="text-sm text-muted-foreground">
                         A DPIA is required when processing is likely to result in a high risk to the rights and freedoms of natural persons, 
                         particularly when using new technologies or processing special categories of data.
                       </p>
@@ -634,19 +635,19 @@ const DpiaManager = () => {
                       'Cross-border transfers to countries without adequacy decisions'
                     ].map((item, index) => (
                       <li key={index} className="flex items-start gap-2 text-sm">
-                        <AlertCircle className="h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                        <AlertCircle className="h-4 w-4 text-warning flex-shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
+                <div className="bg-warning/10 border border-warning/20 rounded-lg p-4">
                   <div className="flex items-start gap-3">
-                    <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                    <AlertTriangle className="h-5 w-5 text-warning flex-shrink-0 mt-0.5" />
                     <div>
-                      <h3 className="font-medium text-amber-900 dark:text-amber-300 mb-2">Important Note</h3>
-                      <p className="text-sm text-amber-800 dark:text-amber-400">
+                      <h3 className="font-medium text-warning mb-2">Important Note</h3>
+                      <p className="text-sm text-muted-foreground">
                         If a DPIA indicates that processing would result in a high risk in the absence of measures taken 
                         by the controller to mitigate the risk, the controller must consult the supervisory authority before processing.
                       </p>
