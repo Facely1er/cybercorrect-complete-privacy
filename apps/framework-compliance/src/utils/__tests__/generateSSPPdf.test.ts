@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { generateSSPPdf } from '../generateSSPPdf'
+import { generateSSPPdf } from '../pdf/generateSSPPdf'
 
 // Mock jsPDF
 const mockPdf = {

@@ -5,18 +5,29 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from '../../context/AuthContext'
 
 // Mock Supabase
-const mockSupabase = {
-  auth: {
-    signInWithPassword: vi.fn(),
-    signUp: vi.fn(),
-    signOut: vi.fn(),
-    getSession: vi.fn(),
-    onAuthStateChange: vi.fn(),
-  },
-}
+vi.mock('../../lib/supabase', () => {
+  const mockSupabase = {
+    auth: {
+      signInWithPassword: vi.fn(),
+      signUp: vi.fn(),
+      signOut: vi.fn(),
+      getSession: vi.fn(),
+      onAuthStateChange: vi.fn(),
+    },
+  }
+  return {
+    supabase: mockSupabase,
+  }
+})
 
-vi.mock('../../lib/supabase', () => ({
-  supabase: mockSupabase,
+// Mock storage adapter to avoid hoisting issues
+vi.mock('../../utils/storage/storageAdapter', () => ({
+  storageAdapter: {
+    get: vi.fn(),
+    set: vi.fn(),
+    remove: vi.fn(),
+    clear: vi.fn(),
+  },
 }))
 
 const AuthProviderWrapper = ({ children }: { children: React.ReactNode }) => (

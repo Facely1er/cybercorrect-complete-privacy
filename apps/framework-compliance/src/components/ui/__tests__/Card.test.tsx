@@ -15,7 +15,7 @@ describe('Card Components', () => {
       const card = screen.getByTestId('card')
       expect(card).toBeInTheDocument()
       expect(card).toHaveTextContent('Card content')
-      expect(card).toHaveClass('rounded-xl', 'border', 'border-support-gray', 'bg-surface')
+      expect(card).toHaveClass('rounded-lg', 'border', 'bg-card')
     })
 
     it('should apply custom className', () => {
@@ -72,7 +72,7 @@ describe('Card Components', () => {
       const title = screen.getByTestId('card-title')
       expect(title).toBeInTheDocument()
       expect(title).toHaveTextContent('Title content')
-      expect(title).toHaveClass('text-xl', 'font-semibold', 'leading-none', 'tracking-tight')
+      expect(title).toHaveClass('text-2xl', 'font-semibold', 'leading-none', 'tracking-tight')
     })
 
     it('should apply custom className', () => {

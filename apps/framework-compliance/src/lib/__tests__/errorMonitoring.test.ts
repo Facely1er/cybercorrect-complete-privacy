@@ -81,9 +81,9 @@ describe('Error Monitoring Service', () => {
     vi.resetModules()
     const { errorMonitoring } = await import('../errorMonitoring')
     const message = 'Test message'
-    const context = { level: 'info' }
+    const context = { extra: 'data' }
     
-    errorMonitoring.captureMessage(message, context)
+    errorMonitoring.captureMessage(message, 'info', context)
     
     expect(consoleSpy).toHaveBeenCalledWith('[INFO] Test message', context)
     

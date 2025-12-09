@@ -15,10 +15,16 @@ vi.mock('react-router-dom', async () => {
 
 // Mock lucide-react icons
 vi.mock('lucide-react', () => ({
+  Home: () => <div data-testid="home-icon" />,
   SunMoon: () => <div data-testid="sun-moon-icon" />,
   Moon: () => <div data-testid="moon-icon" />,
   Menu: () => <div data-testid="menu-icon" />,
   ChevronDown: () => <div data-testid="chevron-down-icon" />,
+  Wrench: () => <div data-testid="wrench-icon" />,
+  FileText: () => <div data-testid="file-text-icon" />,
+  Settings: () => <div data-testid="settings-icon" />,
+  User: () => <div data-testid="user-icon" />,
+  LogOut: () => <div data-testid="log-out-icon" />,
 }))
 
 const renderHeader = (props = {}) => {

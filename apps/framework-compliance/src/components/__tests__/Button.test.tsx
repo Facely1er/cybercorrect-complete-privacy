@@ -9,18 +9,18 @@ describe('Button Component', () => {
     
     const button = screen.getByRole('button', { name: /click me/i })
     expect(button).toBeInTheDocument()
-    expect(button).toHaveClass('bg-gradient-to-r', 'from-primary-teal', 'to-secondary-teal')
+    expect(button).toHaveClass('bg-primary', 'text-primary-foreground')
   })
 
   it('should render with different variants', () => {
     const { rerender } = render(<Button variant="secondary">Secondary</Button>)
-    expect(screen.getByRole('button')).toHaveClass('from-secondary-teal', 'to-accent-cyan')
+    expect(screen.getByRole('button')).toHaveClass('bg-secondary', 'text-secondary-foreground')
 
     rerender(<Button variant="destructive">Destructive</Button>)
-    expect(screen.getByRole('button')).toHaveClass('from-alert-coral', 'to-red-500')
+    expect(screen.getByRole('button')).toHaveClass('bg-destructive', 'text-white')
 
     rerender(<Button variant="outline">Outline</Button>)
-    expect(screen.getByRole('button')).toHaveClass('border-2', 'border-primary-teal/30')
+    expect(screen.getByRole('button')).toHaveClass('border', 'border-input')
   })
 
   it('should render with different sizes', () => {

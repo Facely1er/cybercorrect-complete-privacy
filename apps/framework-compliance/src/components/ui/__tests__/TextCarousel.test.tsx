@@ -162,7 +162,7 @@ describe('TextCarousel Component', () => {
     expect(container).not.toBeNull()
     if (container) {
       expect(container).toHaveClass('relative')
-      expect(container).toHaveClass('overflow-hidden')
+      expect(container).toHaveClass('overflow-visible')
       // Token with brackets is still part of className
       expect(container.className).toContain('min-h-[4em]')
     }

@@ -1,12 +1,12 @@
-import { describe, it, expect, beforeEach } from 'vitest'
-import { testPDFExport, testWordExport } from '../exportTest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { testPDFExport, testWordExport } from '../reporting/exportTest'
 
 // Mock the dependencies
-vi.mock('../generateSSPPdf', () => ({
+vi.mock('../pdf/generateSSPPdf', () => ({
   generateSSPPdf: vi.fn()
 }))
 
-vi.mock('../generateWord', () => ({
+vi.mock('../pdf/generateWord', () => ({
   generateSSPWordDocument: vi.fn()
 }))
 
@@ -22,7 +22,7 @@ describe('exportTest utility', () => {
 
   describe('testPDFExport', () => {
     it('should return true when PDF export succeeds', async () => {
-      const { generateSSPPdf } = await import('../generateSSPPdf')
+      const { generateSSPPdf } = await import('../pdf/generateSSPPdf')
       vi.mocked(generateSSPPdf).mockImplementation(() => {})
 
       const result = testPDFExport()
@@ -34,7 +34,7 @@ describe('exportTest utility', () => {
     })
 
     it('should return false when PDF export fails', async () => {
-      const { generateSSPPdf } = await import('../generateSSPPdf')
+      const { generateSSPPdf } = await import('../pdf/generateSSPPdf')
       const testError = new Error('PDF generation failed')
       vi.mocked(generateSSPPdf).mockImplementation(() => {
         throw testError
@@ -49,7 +49,7 @@ describe('exportTest utility', () => {
     })
 
     it('should handle different types of errors', async () => {
-      const { generateSSPPdf } = await import('../generateSSPPdf')
+      const { generateSSPPdf } = await import('../pdf/generateSSPPdf')
       const testError = new TypeError('Invalid data type')
       vi.mocked(generateSSPPdf).mockImplementation(() => {
         throw testError
@@ -64,7 +64,7 @@ describe('exportTest utility', () => {
 
   describe('testWordExport', () => {
     it('should return true when Word export succeeds', async () => {
-      const { generateSSPWordDocument } = await import('../generateWord')
+      const { generateSSPWordDocument } = await import('../pdf/generateWord')
       vi.mocked(generateSSPWordDocument).mockResolvedValue(undefined)
 
       const result = await testWordExport()
@@ -76,7 +76,7 @@ describe('exportTest utility', () => {
     })
 
     it('should return false when Word export fails', async () => {
-      const { generateSSPWordDocument } = await import('../generateWord')
+      const { generateSSPWordDocument } = await import('../pdf/generateWord')
       const testError = new Error('Word generation failed')
       vi.mocked(generateSSPWordDocument).mockRejectedValue(testError)
 
@@ -89,7 +89,7 @@ describe('exportTest utility', () => {
     })
 
     it('should handle async errors', async () => {
-      const { generateSSPWordDocument } = await import('../generateWord')
+      const { generateSSPWordDocument } = await import('../pdf/generateWord')
       const testError = new Error('Network error')
       vi.mocked(generateSSPWordDocument).mockRejectedValue(testError)
 
@@ -100,7 +100,7 @@ describe('exportTest utility', () => {
     })
 
     it('should handle timeout errors', async () => {
-      const { generateSSPWordDocument } = await import('../generateWord')
+      const { generateSSPWordDocument } = await import('../pdf/generateWord')
       const testError = new Error('Request timeout')
       vi.mocked(generateSSPWordDocument).mockRejectedValue(testError)
 
@@ -113,7 +113,7 @@ describe('exportTest utility', () => {
 
   describe('test data validation', () => {
     it('should use valid test data structure', async () => {
-      const { generateSSPPdf } = await import('../generateSSPPdf')
+      const { generateSSPPdf } = await import('../pdf/generateSSPPdf')
       vi.mocked(generateSSPPdf).mockImplementation((data) => {
         // Verify the test data structure
         expect(data).toHaveProperty('metadata')
@@ -150,7 +150,7 @@ describe('exportTest utility', () => {
 
   describe('console output', () => {
     it('should log appropriate messages for PDF export', async () => {
-      const { generateSSPPdf } = await import('../generateSSPPdf')
+      const { generateSSPPdf } = await import('../pdf/generateSSPPdf')
       vi.mocked(generateSSPPdf).mockImplementation(() => {})
 
       testPDFExport()
@@ -161,7 +161,7 @@ describe('exportTest utility', () => {
     })
 
     it('should log appropriate messages for Word export', async () => {
-      const { generateSSPWordDocument } = await import('../generateWord')
+      const { generateSSPWordDocument } = await import('../pdf/generateWord')
       vi.mocked(generateSSPWordDocument).mockResolvedValue(undefined)
 
       await testWordExport()
@@ -174,7 +174,7 @@ describe('exportTest utility', () => {
 
   describe('error handling', () => {
     it('should catch and handle synchronous errors in PDF export', async () => {
-      const { generateSSPPdf } = await import('../generateSSPPdf')
+      const { generateSSPPdf } = await import('../pdf/generateSSPPdf')
       vi.mocked(generateSSPPdf).mockImplementation(() => {
         throw new Error('Synchronous error')
       })
@@ -186,7 +186,7 @@ describe('exportTest utility', () => {
     })
 
     it('should catch and handle asynchronous errors in Word export', async () => {
-      const { generateSSPWordDocument } = await import('../generateWord')
+      const { generateSSPWordDocument } = await import('../pdf/generateWord')
       vi.mocked(generateSSPWordDocument).mockRejectedValue(new Error('Asynchronous error'))
 
       const result = await testWordExport()

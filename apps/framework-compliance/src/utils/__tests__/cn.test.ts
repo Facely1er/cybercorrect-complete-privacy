@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { cn } from '../cn'
+import { cn } from '../common/cn'
 
 // Mock clsx and tailwind-merge
 vi.mock('clsx', () => ({

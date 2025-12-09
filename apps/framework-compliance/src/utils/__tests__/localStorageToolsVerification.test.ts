@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { secureStorage, setUserData, getUserData, setProjectData, getProjectData, setAppSetting, getAppSetting } from '../secureStorage'
+import { secureStorage, setUserData, getUserData, setProjectData, getProjectData, setAppSetting, getAppSetting } from '../storage/secureStorage'
 
 // Mock error monitoring
 vi.mock('../../lib/errorMonitoring', () => ({

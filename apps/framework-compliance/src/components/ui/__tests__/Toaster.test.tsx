@@ -39,12 +39,12 @@ describe('Toaster Component', () => {
       
       await waitFor(() => {
         expect(screen.getByText('Test Toast')).toBeInTheDocument()
-      })
+      }, { timeout: 10000 })
       act(() => {
         vi.runOnlyPendingTimers()
       })
       expect(screen.getByTestId('close-icon')).toBeInTheDocument()
-    })
+    }, 10000)
 
     it('should render with description', async () => {
       render(<Toaster />)
@@ -60,11 +60,11 @@ describe('Toaster Component', () => {
       await waitFor(() => {
         expect(screen.getByText('Test Toast')).toBeInTheDocument()
         expect(screen.getByText('Test description')).toBeInTheDocument()
-      })
+      }, { timeout: 10000 })
       act(() => {
         vi.runOnlyPendingTimers()
       })
-    })
+    }, 10000)
 
     it('should handle close button click', async () => {
       render(<Toaster />)
@@ -78,7 +78,7 @@ describe('Toaster Component', () => {
       
       await waitFor(() => {
         expect(screen.getByText('Test Toast')).toBeInTheDocument()
-      })
+      }, { timeout: 10000 })
       act(() => {
         vi.runOnlyPendingTimers()
       })

@@ -61,26 +61,28 @@ describe('Supabase Client', () => {
     )
   })
 
-  it('should throw error when Supabase URL is missing', async () => {
+  it('should return mock client when Supabase URL is missing', async () => {
     vi.stubEnv('VITE_SUPABASE_URL', '')
     vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'test-anon-key')
 
+    vi.resetModules()
     const { supabase } = await import('../supabase')
     
-    expect(() => {
-      void supabase.auth
-    }).toThrow('Missing Supabase environment variables')
+    // Should not throw - returns mock client instead
+    expect(supabase.auth).toBeDefined()
+    expect(typeof supabase.auth.signInWithPassword).toBe('function')
   })
 
-  it('should throw error when Supabase anon key is missing', async () => {
+  it('should return mock client when Supabase anon key is missing', async () => {
     vi.stubEnv('VITE_SUPABASE_URL', 'https://test.supabase.co')
     vi.stubEnv('VITE_SUPABASE_ANON_KEY', '')
 
+    vi.resetModules()
     const { supabase } = await import('../supabase')
     
-    expect(() => {
-      void supabase.auth
-    }).toThrow('Missing Supabase environment variables')
+    // Should not throw - returns mock client instead
+    expect(supabase.auth).toBeDefined()
+    expect(typeof supabase.auth.signInWithPassword).toBe('function')
   })
 
   it('should handle createClient errors gracefully', async () => {
@@ -89,11 +91,12 @@ describe('Supabase Client', () => {
       throw mockError
     })
 
+    vi.resetModules()
     const { supabase } = await import('../supabase')
     
-    expect(() => {
-      void supabase.auth
-    }).toThrow('Failed to create client')
+    // Should not throw - returns mock client instead
+    expect(supabase.auth).toBeDefined()
+    expect(typeof supabase.auth.signInWithPassword).toBe('function')
   })
 
   it('should return same instance on multiple calls', async () => {

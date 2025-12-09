@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { generateResultsPdf, generateRecommendationsPdf } from '../generatePdf'
+import { generateResultsPdf, generateRecommendationsPdf } from '../pdf/generatePdf'
 
 // Mock jsPDF
 const mockPdf = {
@@ -229,7 +229,16 @@ describe('generateRecommendationsPdf', () => {
 
   it('should use custom filename when provided', () => {
     const title = 'Test Recommendations'
-    const recommendations = []
+    const recommendations: Array<{
+      id: string;
+      title: string;
+      description: string;
+      priority: string;
+      category: string;
+      effort: string;
+      timeframe: string;
+      steps: string[];
+    }> = []
     const date = '2025-01-30'
     const customFilename = 'custom-recommendations.pdf'
 
