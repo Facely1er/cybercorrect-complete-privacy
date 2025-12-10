@@ -281,15 +281,16 @@ Comprehensive library of 50+ privacy policies and templates.
 
 ## 4. Product Bundles (One-Time)
 
-### **Complete Privacy Suite - $599 (Save $248)**
-Includes all 4 one-time products above.
+### **Complete Privacy Suite - $699 (Save $246)**
+Includes all 5 one-time products above.
 - Privacy Toolkit Pro ($299)
 - Compliance Assessment Suite ($149)
 - GDPR Complete Kit ($199)
 - Policy & Template Library ($99)
-- **Total Value:** $847
-- **Bundle Price:** $599
-- **Savings:** $248 (29%)
+- Compliance Framework Templates ($199)
+- **Total Value:** $945
+- **Bundle Price:** $699
+- **Savings:** $246 (26%)
 
 ### **Consultant Bundle - $399 (Save $49)**
 - Privacy Toolkit Pro ($299)
@@ -321,7 +322,8 @@ Includes all 4 one-time products above.
    - Assessment Suite: $149
    - GDPR Kit: $199
    - Template Library: $99
-   - Bundles: $249-$599
+   - Compliance Framework Templates: $199
+   - Bundles: $249-$699
 
 3. **Add-On Revenue (Tertiary)**
    - Premium templates: $99-$199 each

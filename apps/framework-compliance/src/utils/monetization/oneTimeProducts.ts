@@ -354,15 +354,16 @@ export const PRODUCT_BUNDLES: ProductBundle[] = [
   {
     id: 'complete-privacy-suite',
     name: 'Complete Privacy Suite',
-    description: 'All four one-time products in one comprehensive package. Everything you need for complete privacy compliance.',
+    description: 'All five one-time products in one comprehensive package. Everything you need for complete privacy compliance.',
     products: [
       'privacy-toolkit-pro',
       'compliance-assessment-suite',
       'gdpr-complete-kit',
-      'policy-template-library'
+      'policy-template-library',
+      'compliance-toolkit'
     ],
-    price: 599,
-    savings: 248, // Original total: $847
+    price: 699,
+    savings: 246, // Original total: $945 ($299 + $149 + $199 + $99 + $199)
     category: 'bundle'
   },
   {

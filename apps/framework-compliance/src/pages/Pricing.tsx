@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { CheckCircle, ArrowRight, XCircle, Check, ChevronDown, ChevronUp, ShoppingBag, Zap } from 'lucide-react';
-import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES } from '../utils/monetization';
-import { UnifiedProductCatalog, getAllSubscriptions } from '../utils/monetization';
+import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES, getAllSubscriptions } from '../utils/monetization';
+import { UnifiedProductCatalog } from '../utils/monetization';
 import { logWarning, logError } from '../utils/common';
 
 const Pricing = () => {
@@ -17,121 +17,26 @@ const Pricing = () => {
     setBillingPeriod(prev => prev === 'monthly' ? 'annual' : 'monthly');
   };
 
-  const plans = [
-    {
-      name: "Free",
-      description: "Perfect for individuals and students learning about privacy compliance",
-      price: "0",
-      billing: "forever",
-      free: true,
-      features: [
-        "1 privacy assessment per month",
-        "Privacy Gap Analyzer (view-only)",
-        "3 basic templates (Privacy Policy, Cookie Policy, Terms)",
-        "3 exports per month (JSON/CSV)",
-        "Data mapping tool (up to 5 data flows)",
-        "Manual risk tracking (up to 25 risks)",
-        "Evidence vault (100MB storage)",
-        "Basic compliance score dashboard",
-        "In-app notifications (weekly digest)",
-        "Community forum access",
-        "All educational content & tutorials",
-        "LocalStorage only (no cloud sync)",
-        "No team collaboration"
-      ]
-    },
-    {
-      name: "Starter",
-      description: "Perfect for small teams starting their privacy compliance journey",
-      price: billingPeriod === "monthly" ? "49" : "39",
-      billing: "per user/month",
-      features: [
-        "Everything in Free, plus:",
-        "Multi-regulation privacy assessments",
-        "Essential privacy controls coverage",
-        "Up to 100 risks tracked",
-        "5 compliance templates",
-        "10 exports per month (PDF, Word, JSON, CSV)",
-        "Monthly automated compliance reports",
-        "Weekly compliance status emails",
-        "Quarterly executive summaries (automated)",
-        "Scheduled assessments (up to 2 per quarter)",
-        "Compliance health score tracking",
-        "Basic progress dashboard",
-        "Email & in-app notifications",
-        "Email support (48hr response)",
-        "2 privacy frameworks",
-        "Basic risk analytics"
-      ]
-    },
-    {
-      name: "Professional",
-      description: "Complete privacy compliance suite for growing organizations",
-      price: billingPeriod === "monthly" ? "99" : "79",
-      billing: "per user/month",
-      popular: true,
-      features: [
-        "Everything in Starter, plus:",
-        "Full privacy framework coverage",
-        "Unlimited risk tracking",
-        "20+ compliance templates",
-        "Unlimited exports (PDF, Word, JSON, CSV, Excel)",
-        "Automated compliance planning",
-        "Unlimited custom reports",
-        "Daily compliance health digest",
-        "Weekly automated compliance reports",
-        "Monthly comprehensive reports (automated)",
-        "Quarterly executive dashboards (automated)",
-        "Unlimited scheduled assessments",
-        "Real-time risk alerts (all priorities)",
-        "Custom notification rules",
-        "Multi-channel notifications (Email, SMS, Slack)",
-        "Regulatory change alerts (24-hour)",
-        "Regulatory intelligence dashboard",
-        "Predictive compliance analytics",
-        "Advanced progress analytics",
-        "Compliance velocity metrics",
-        "Priority support (24hr response)",
-        "Up to 5 privacy frameworks",
-        "Advanced analytics & dashboards",
-        "Custom workflows",
-        "API access",
-        "Quarterly privacy reviews"
-      ]
-    },
-    {
-      name: "Enterprise",
-      description: "White-glove privacy compliance support for large organizations",
-      price: "Contact us",
-      billing: "custom pricing",
-      features: [
-        "Everything in Professional",
-        "Real-time compliance monitoring",
-        "Daily compliance briefings (automated)",
-        "Weekly detailed reports (automated)",
-        "Monthly executive reports (board-ready)",
-        "Continuous automated assessments",
-        "Custom notification workflows",
-        "Role-based notification routing",
-        "ITSM integration (Jira, ServiceNow)",
-        "Executive dashboard alerts",
-        "Predictive compliance analytics",
-        "Anomaly detection",
-        "Industry benchmarking",
-        "Regulatory intelligence dashboard",
-        "Privacy consultant collaboration tools",
-        "White-glove implementation support",
-        "Unlimited compliance frameworks",
-        "Custom privacy control mapping",
-        "Dedicated compliance specialist",
-        "On-premise deployment option",
-        "Custom integrations",
-        "24/7 dedicated support with SLA",
-        "Custom feature development",
-        "Training and certification programs"
-      ]
-    }
-  ];
+  // Get subscription plans from catalog
+  const subscriptionProducts = getAllSubscriptions();
+  
+  // Convert subscription products to plan format for display
+  const plans = subscriptionProducts.map(product => ({
+    name: product.name,
+    description: product.description,
+    price: product.tier === 'free' 
+      ? "0" 
+      : product.tier === 'enterprise'
+      ? "Contact us"
+      : billingPeriod === "monthly" 
+        ? product.monthlyPrice.toString() 
+        : product.annualPrice.toString(),
+    billing: product.billing,
+    free: product.tier === 'free',
+    popular: product.popular || false,
+    tier: product.tier,
+    features: product.features
+  }));
 
   // Feature comparison data for detailed comparison table
   const featureCategories = [
@@ -217,17 +122,17 @@ const Pricing = () => {
             Monthly
           </span>
           <button 
-            className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+              billingPeriod === 'annual' ? 'bg-primary' : 'bg-muted'
+            }`}
             onClick={toggleBillingPeriod}
-            style={{ 
-              backgroundColor: billingPeriod === 'annual' ? 'var(--primary)' : 'var(--muted)' 
-            }}
+            aria-label={`Switch to ${billingPeriod === 'monthly' ? 'annual' : 'monthly'} billing`}
+            title={`Switch to ${billingPeriod === 'monthly' ? 'annual' : 'monthly'} billing`}
           >
             <span
-              className="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
-              style={{
-                transform: billingPeriod === 'annual' ? 'translateX(1.25rem)' : 'translateX(0.25rem)'
-              }}
+              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                billingPeriod === 'annual' ? 'translate-x-[1.25rem]' : 'translate-x-[0.25rem]'
+              }`}
             />
           </button>
           <span className={`text-sm ${billingPeriod === 'annual' ? 'font-medium text-foreground' : 'text-muted-foreground'}`}>
@@ -304,7 +209,12 @@ const Pricing = () => {
 
                   try {
                     const { createCheckoutSession } = await import('../services/subscriptionService');
-                    const tier = plan.name.toLowerCase() as 'starter' | 'professional';
+                    const tier = plan.tier as 'starter' | 'professional' | 'enterprise';
+
+                    if (tier === 'enterprise') {
+                      window.location.href = "mailto:sales@cybercorrect.com?subject=Enterprise Plan Inquiry";
+                      return;
+                    }
 
                     const session = await createCheckoutSession(tier, billingPeriod);
 
@@ -382,7 +292,7 @@ const Pricing = () => {
                     </span>
                     <span className="text-success font-medium">Save ${bundle.savings}</span>
                   </div>
-                  <p className="text-sm text-muted-foreground">Includes all 4 premium tools + lifetime updates</p>
+                  <p className="text-sm text-muted-foreground">Includes all 5 premium tools + lifetime updates</p>
                 </div>
                 <div>
                   <Button
