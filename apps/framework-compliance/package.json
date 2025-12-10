@@ -30,7 +30,9 @@
     "stripe:quick": "tsx scripts/quick-stripe-setup.ts",
     "stripe:prices": "tsx scripts/get-stripe-price-ids.ts",
     "stripe:run": "tsx scripts/run-stripe-setup-with-keys.ts",
-    "stripe:direct": "tsx scripts/setup-stripe-direct.ts"
+    "stripe:direct": "tsx scripts/setup-stripe-direct.ts",
+    "stripe:verify": "tsx scripts/verify-stripe-setup-status.ts",
+    "stripe:auto": "tsx scripts/complete-stripe-setup-automated.ts"
   },
   "dependencies": {
     "@sentry/react": "^10.20.0",
