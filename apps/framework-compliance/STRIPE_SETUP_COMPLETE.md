@@ -139,9 +139,19 @@ npx supabase link --project-ref achowlksgmwuvfbvjfrt
 
 ## 🔍 Verify Setup
 
-Run this command to check current status:
+### Check Setup Status
 ```powershell
 npm run stripe:verify
+```
+
+### Test Integration (After Setup)
+```powershell
+npm run stripe:test
+```
+
+### Interactive Checklist
+```powershell
+npm run stripe:checklist
 ```
 
 ---
