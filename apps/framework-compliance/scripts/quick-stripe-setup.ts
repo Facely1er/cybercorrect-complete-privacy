@@ -190,7 +190,7 @@ async function main() {
     if (!secret.value) continue;
     
     try {
-      execSync(`supabase secrets set ${secret.name}=${secret.value}`, { 
+      execSync(`npx supabase secrets set ${secret.name}=${secret.value}`, { 
         stdio: 'pipe',
         encoding: 'utf-8',
       });
@@ -212,7 +212,7 @@ async function main() {
   let deployCount = 0;
   for (const func of functions) {
     try {
-      execSync(`supabase functions deploy ${func}`, {
+      execSync(`npx supabase functions deploy ${func}`, {
         stdio: 'pipe',
         encoding: 'utf-8',
         cwd: join(process.cwd(), 'supabase'),

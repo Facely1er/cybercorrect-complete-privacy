@@ -73,7 +73,7 @@ function validatePriceId(priceId: string | undefined): boolean {
 
 function checkSupabaseCLI(): boolean {
   try {
-    execSync('supabase --version', { stdio: 'pipe' });
+    execSync('npx supabase --version', { stdio: 'pipe' });
     return true;
   } catch {
     return false;
@@ -82,7 +82,7 @@ function checkSupabaseCLI(): boolean {
 
 function setEdgeFunctionSecret(secretName: string, secretValue: string, functionName?: string): boolean {
   try {
-    const command = `supabase secrets set ${secretName}=${secretValue}`;
+    const command = `npx supabase secrets set ${secretName}=${secretValue}`;
     execSync(command, { 
       encoding: 'utf-8',
       stdio: 'pipe',
@@ -97,7 +97,7 @@ function setEdgeFunctionSecret(secretName: string, secretValue: string, function
 
 function deployEdgeFunction(functionName: string): boolean {
   try {
-    const command = `supabase functions deploy ${functionName}`;
+    const command = `npx supabase functions deploy ${functionName}`;
     execSync(command, { 
       encoding: 'utf-8',
       stdio: 'pipe',
@@ -229,17 +229,18 @@ async function main() {
     logStep({
       name: 'Supabase CLI',
       status: 'failed',
-      message: 'Not installed',
+      message: 'Not available',
     });
-    console.error('\n❌ Error: Supabase CLI not found');
-    console.error('   Install: npm install -g supabase');
-    console.error('   Or visit: https://supabase.com/docs/guides/cli');
+    console.error('\n❌ Error: Supabase CLI not available');
+    console.error('   Using npx supabase (no installation required)');
+    console.error('   If this fails, install: https://github.com/supabase/cli#install-the-cli');
     process.exit(1);
   }
 
   logStep({
     name: 'Supabase CLI',
     status: 'success',
+    message: 'Available via npx',
   });
 
   // Step 1: Create/Update .env file
