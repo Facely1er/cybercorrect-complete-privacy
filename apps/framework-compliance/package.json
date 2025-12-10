@@ -25,7 +25,10 @@
     "verify:deployment": "tsx scripts/verify-post-deployment.ts",
     "configure:secrets": "tsx scripts/configure-edge-function-secrets-cli.ts",
     "verify:stripe": "tsx scripts/verify-stripe-integration.ts",
-    "stripe:configure": "tsx scripts/configure-stripe-secrets.ts"
+    "stripe:configure": "tsx scripts/configure-stripe-secrets.ts",
+    "stripe:setup": "tsx scripts/complete-stripe-setup.ts",
+    "stripe:quick": "tsx scripts/quick-stripe-setup.ts",
+    "stripe:prices": "tsx scripts/get-stripe-price-ids.ts"
   },
   "dependencies": {
     "@sentry/react": "^10.20.0",
