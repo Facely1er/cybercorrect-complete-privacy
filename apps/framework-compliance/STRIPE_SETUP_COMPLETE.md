@@ -159,21 +159,293 @@ npm run stripe:checklist
 ## 🆘 Troubleshooting
 
 ### Webhook not receiving events
-- Verify webhook URL is correct
-- Check webhook secret is set correctly
-- Verify function is deployed
-- Check Supabase function logs
+
+**Symptoms:**
+- No events appear in Stripe Dashboard → Webhooks → Recent events
+- Subscription/payment status not updating in database
+
+**Solutions:**
+1. **Verify webhook URL is correct:**
+   - Must be: `https://achowlksgmwuvfbvjfrt.supabase.co/functions/v1/stripe-webhook`
+   - Check for typos or extra slashes
+   - Ensure using HTTPS (not HTTP)
+
+2. **Check webhook secret is set correctly:**
+   - Go to Supabase Dashboard → Edge Functions → `stripe-webhook` → Secrets
+   - Verify `STRIPE_WEBHOOK_SECRET` exists and starts with `whsec_`
+   - Re-copy from Stripe Dashboard if needed (Webhooks → Your endpoint → Signing secret)
+
+3. **Verify function is deployed:**
+   - Check Supabase Dashboard → Edge Functions
+   - `stripe-webhook` should show "Active" status
+   - If not, click "Deploy" button
+
+4. **Check Supabase function logs:**
+   - Go to Supabase Dashboard → Edge Functions → `stripe-webhook` → Logs
+   - Look for errors or failed requests
+   - Check for authentication or validation errors
+
+5. **Test webhook manually:**
+   - In Stripe Dashboard → Webhooks → Your endpoint
+   - Click "Send test webhook"
+   - Select event type (e.g., `checkout.session.completed`)
+   - Check if it appears in Supabase logs
+
+6. **Verify webhook events are selected:**
+   - Stripe Dashboard → Webhooks → Your endpoint → Events
+   - Must include: `checkout.session.completed`, `customer.subscription.*`, `invoice.payment_*`
 
 ### Checkout not working
-- Verify `VITE_STRIPE_PUBLISHABLE_KEY` is in `.env`
-- Check browser console for errors
-- Verify Edge Functions are deployed
-- Check function logs in Supabase Dashboard
+
+**Symptoms:**
+- "Get Started" button doesn't redirect to Stripe
+- Checkout page shows errors
+- Payment fails immediately
+
+**Solutions:**
+1. **Verify `VITE_STRIPE_PUBLISHABLE_KEY` is in `.env`:**
+   ```bash
+   # Check .env file exists and contains:
+   VITE_STRIPE_PUBLISHABLE_KEY=pk_live_...
+   ```
+   - Must start with `pk_live_` (production) or `pk_test_` (test mode)
+   - No quotes around the value
+   - No trailing spaces
+
+2. **Check browser console for errors:**
+   - Open browser DevTools (F12) → Console tab
+   - Look for Stripe-related errors
+   - Common issues:
+     - "Stripe is not defined" → Check if Stripe script is loaded
+     - "Invalid API key" → Verify publishable key is correct
+     - CORS errors → Check Edge Function CORS settings
+
+3. **Verify Edge Functions are deployed:**
+   - Supabase Dashboard → Edge Functions
+   - Both `create-checkout-session` and `create-one-time-checkout-session` must be "Active"
+   - If not, click "Deploy" for each
+
+4. **Check function logs in Supabase Dashboard:**
+   - Edge Functions → `create-checkout-session` → Logs
+   - Look for errors when checkout is initiated
+   - Common errors:
+     - Missing secrets
+     - Invalid price IDs
+     - Database connection issues
+
+5. **Verify network requests:**
+   - Browser DevTools → Network tab
+   - Filter by "checkout" or "stripe"
+   - Check if requests to Edge Functions are successful (status 200)
+   - If 401/403: Check authentication
+   - If 500: Check function logs
+
+6. **Test with Stripe test mode:**
+   - Temporarily switch to test keys
+   - Use test card: `4242 4242 4242 4242`
+   - This helps isolate if issue is with live keys
 
 ### Secrets not working
-- Verify secrets are set for the correct function
-- Check secret names match exactly (case-sensitive)
-- Verify no extra spaces in secret values
+
+**Symptoms:**
+- Edge Functions return errors about missing variables
+- "Undefined" errors in function logs
+- Functions fail to authenticate with Stripe
+
+**Solutions:**
+1. **Verify secrets are set for the correct function:**
+   - Each Edge Function has its own secrets
+   - `create-checkout-session` needs: `STRIPE_SECRET_KEY`, `STRIPE_PRICE_*`, `SUPABASE_*`, `SITE_URL`
+   - `create-one-time-checkout-session` needs: `STRIPE_SECRET_KEY`, `SUPABASE_*`, `SITE_URL`
+   - `stripe-webhook` needs: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `SUPABASE_*`, `SITE_URL`
+
+2. **Check secret names match exactly (case-sensitive):**
+   - `STRIPE_SECRET_KEY` (not `stripe_secret_key` or `STRIPE_SECRET`)
+   - `STRIPE_WEBHOOK_SECRET` (not `WEBHOOK_SECRET`)
+   - `SUPABASE_URL` (not `SUPABASE_URL_` or `supabase_url`)
+
+3. **Verify no extra spaces in secret values:**
+   - When copying from documentation, ensure no leading/trailing spaces
+   - Check for hidden characters
+   - Re-type if necessary
+
+4. **Verify secrets are set (not just saved):**
+   - In Supabase Dashboard, secrets should show as "Set"
+   - If showing as "Not set", click and add them again
+   - After setting, wait a few seconds for propagation
+
+5. **Check secret format:**
+   - `STRIPE_SECRET_KEY` should start with `sk_live_` or `sk_test_`
+   - `STRIPE_WEBHOOK_SECRET` should start with `whsec_`
+   - `SUPABASE_URL` should be full URL with `https://`
+   - `SUPABASE_SERVICE_ROLE_KEY` should be a JWT token
+
+6. **Redeploy functions after setting secrets:**
+   - Sometimes functions need to be redeployed to pick up new secrets
+   - Click "Deploy" again after setting secrets
+
+### Subscription not activating after payment
+
+**Symptoms:**
+- Payment succeeds in Stripe
+- User doesn't get access to subscription features
+- Database shows no subscription record
+
+**Solutions:**
+1. **Check webhook is receiving events:**
+   - Stripe Dashboard → Webhooks → Recent events
+   - Should see `checkout.session.completed` event
+   - If missing, see "Webhook not receiving events" above
+
+2. **Verify webhook handler is updating database:**
+   - Check Supabase Dashboard → Table Editor → `subscriptions` table
+   - Should see new record after payment
+   - If not, check webhook function logs
+
+3. **Check user authentication:**
+   - Ensure user is logged in when completing checkout
+   - Check if `user_id` is being passed correctly to checkout session
+
+4. **Verify database permissions:**
+   - Check RLS (Row Level Security) policies on `subscriptions` table
+   - Service role key should bypass RLS, but verify
+
+### Edge Function deployment fails
+
+**Symptoms:**
+- "Deploy" button shows error
+- Functions show as "Failed" or "Error"
+
+**Solutions:**
+1. **Check function code for syntax errors:**
+   - Review function files in `supabase/functions/`
+   - Ensure all imports are correct
+   - Check for TypeScript compilation errors
+
+2. **Verify dependencies:**
+   - Check `supabase/functions/*/deno.json` or `import_map.json`
+   - Ensure all required packages are listed
+
+3. **Check Supabase project status:**
+   - Verify project is active and not paused
+   - Check if you have deployment permissions
+
+4. **Review deployment logs:**
+   - Supabase Dashboard → Edge Functions → Deployment history
+   - Look for specific error messages
+
+### Price ID not found errors
+
+**Symptoms:**
+- Error: "No such price: price_..."
+- Checkout fails with price-related errors
+
+**Solutions:**
+1. **Verify price IDs are correct:**
+   - Check Stripe Dashboard → Products → Your product → Pricing
+   - Copy the exact Price ID
+   - Ensure using live price IDs (not test mode)
+
+2. **Check price IDs in secrets:**
+   - Verify `STRIPE_PRICE_STARTER_MONTHLY` and `STRIPE_PRICE_PROFESSIONAL_MONTHLY` are set
+   - Ensure they match the Price IDs in Stripe Dashboard
+
+3. **Verify price is active:**
+   - In Stripe Dashboard, ensure price is not archived
+   - Check if price is in correct currency
+
+### CORS errors
+
+**Symptoms:**
+- Browser console shows CORS errors
+- Requests to Edge Functions fail with CORS policy errors
+
+**Solutions:**
+1. **Check Edge Function CORS headers:**
+   - Functions should include CORS headers in responses
+   - Verify `Access-Control-Allow-Origin` includes your site URL
+
+2. **Verify SITE_URL is correct:**
+   - Check `SITE_URL` secret matches your actual domain
+   - Should be: `https://www.platform.cybercorrect.com`
+   - No trailing slash
+
+3. **Check if using correct domain:**
+   - Ensure frontend is making requests from allowed origin
+   - Verify domain matches exactly (including www or not)
+
+---
+
+## 📊 Monitoring & Maintenance
+
+### Daily Checks
+
+1. **Monitor Stripe Dashboard:**
+   - Check for failed payments
+   - Review webhook delivery status
+   - Monitor subscription cancellations
+
+2. **Check Supabase Function Logs:**
+   - Review error rates
+   - Monitor response times
+   - Check for authentication failures
+
+3. **Verify Database Updates:**
+   - Ensure subscriptions table is updating correctly
+   - Check for orphaned records
+   - Verify payment records are being created
+
+### Weekly Maintenance
+
+1. **Review Webhook Events:**
+   - Stripe Dashboard → Webhooks → Recent events
+   - Check for failed deliveries
+   - Review error patterns
+
+2. **Audit Secret Rotation:**
+   - Check if any secrets need rotation
+   - Verify all secrets are still valid
+   - Update documentation if keys change
+
+3. **Test Checkout Flow:**
+   - Perform test subscription purchase
+   - Verify webhook receives events
+   - Confirm database updates correctly
+
+### Common Error Messages & Solutions
+
+| Error Message | Cause | Solution |
+|--------------|-------|----------|
+| `No such price: price_...` | Price ID doesn't exist or is incorrect | Verify price ID in Stripe Dashboard and update secret |
+| `Invalid API Key provided` | Wrong Stripe secret key | Check `STRIPE_SECRET_KEY` secret is correct |
+| `Webhook signature verification failed` | Wrong webhook secret | Re-copy `STRIPE_WEBHOOK_SECRET` from Stripe Dashboard |
+| `Function not found` | Edge Function not deployed | Deploy function in Supabase Dashboard |
+| `Missing required parameter` | Secret not set | Add missing secret to Edge Function |
+| `CORS policy: No 'Access-Control-Allow-Origin'` | CORS misconfiguration | Check `SITE_URL` secret and function CORS headers |
+| `Database connection failed` | Supabase credentials wrong | Verify `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` |
+| `User not authenticated` | User not logged in | Ensure user is authenticated before checkout |
+
+### Health Check Endpoints
+
+You can create simple health check endpoints to verify setup:
+
+1. **Check Edge Function Status:**
+   ```bash
+   curl https://achowlksgmwuvfbvjfrt.supabase.co/functions/v1/stripe-webhook \
+     -H "Authorization: Bearer YOUR_ANON_KEY"
+   ```
+
+2. **Verify Secrets (via function logs):**
+   - Deploy a test function that logs secret names (not values)
+   - Check logs to confirm secrets are accessible
+
+### Alerting Setup
+
+Consider setting up alerts for:
+- Failed webhook deliveries (Stripe Dashboard → Webhooks → Settings)
+- High error rates in Supabase function logs
+- Payment failures exceeding threshold
+- Subscription cancellations spike
 
 ---
 
@@ -186,8 +458,23 @@ npm run stripe:checklist
 - [ ] Test subscription checkout
 - [ ] Test one-time purchase checkout
 - [ ] Verify webhook receives events
+- [ ] Monitor function logs for errors
+- [ ] Verify database updates correctly
+- [ ] Test with real payment (small amount)
+- [ ] Document any custom configurations
+
+---
+
+## 📚 Additional Resources
+
+- **Stripe Dashboard:** https://dashboard.stripe.com
+- **Supabase Dashboard:** https://app.supabase.com/project/achowlksgmwuvfbvjfrt
+- **Stripe API Docs:** https://stripe.com/docs/api
+- **Supabase Edge Functions:** https://supabase.com/docs/guides/functions
 
 ---
 
 **Ready to launch!** 🚀
+
+*If you encounter any issues not covered here, check the function logs first, then review Stripe webhook events for clues.*
 
