@@ -27,6 +27,14 @@ packages/*/dist
 .env.development.local
 .env.test.local
 
+# Secret configuration files - NEVER commit these
+*secrets*.json
+*secrets*.config.*
+*secret*.json
+stripe-secrets-config.json
+*-secrets.json
+*.secret.*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
