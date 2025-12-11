@@ -465,12 +465,268 @@ Consider setting up alerts for:
 
 ---
 
+## 🔒 Security Best Practices
+
+### Secret Management
+
+1. **Never commit secrets to Git:**
+   - All secrets should be in Supabase Dashboard only
+   - Use `.env.example` for documentation (with placeholder values)
+   - Add `.env` to `.gitignore`
+
+2. **Rotate keys regularly:**
+   - Rotate Stripe keys every 90 days (or per company policy)
+   - Update all secrets in Supabase Dashboard when rotating
+   - Test thoroughly after rotation
+
+3. **Use environment-specific keys:**
+   - Separate test and production keys
+   - Never use production keys in development
+   - Use Stripe test mode for local development
+
+4. **Limit access:**
+   - Only grant Supabase Dashboard access to necessary team members
+   - Use Stripe's team access controls
+   - Audit who has access to secrets
+
+### Webhook Security
+
+1. **Always verify webhook signatures:**
+   - The `stripe-webhook` function should verify signatures
+   - Never process webhooks without signature verification
+   - Use the `STRIPE_WEBHOOK_SECRET` for verification
+
+2. **Use HTTPS only:**
+   - All webhook endpoints must use HTTPS
+   - Never use HTTP for production webhooks
+   - Stripe requires HTTPS for webhooks
+
+3. **Idempotency:**
+   - Handle duplicate webhook events gracefully
+   - Use Stripe event IDs to prevent duplicate processing
+   - Check if event was already processed before acting
+
+### API Key Security
+
+1. **Restrict API key permissions:**
+   - Use Stripe's API key restrictions if available
+   - Limit keys to specific IP addresses if possible
+   - Use read-only keys where appropriate
+
+2. **Monitor key usage:**
+   - Review Stripe Dashboard → API logs regularly
+   - Set up alerts for unusual activity
+   - Rotate keys immediately if compromised
+
+---
+
+## 🔄 Rollback Procedures
+
+### If Setup Fails
+
+1. **Revert Edge Functions:**
+   - Supabase Dashboard → Edge Functions → Deployment history
+   - Click "Revert" to previous working version
+   - Or redeploy from local code if needed
+
+2. **Remove Secrets:**
+   - Supabase Dashboard → Edge Functions → Secrets
+   - Remove incorrectly configured secrets
+   - Re-add with correct values
+
+3. **Disable Webhook:**
+   - Stripe Dashboard → Webhooks → Your endpoint
+   - Click "Disable" to stop events
+   - Fix issues, then re-enable
+
+### If Payment Issues Occur
+
+1. **Switch to Test Mode:**
+   - Temporarily use test keys
+   - Update `VITE_STRIPE_PUBLISHABLE_KEY` in `.env`
+   - Update `STRIPE_SECRET_KEY` in Supabase
+   - Test thoroughly before switching back
+
+2. **Disable Checkout Temporarily:**
+   - Comment out checkout buttons in frontend
+   - Or add feature flag to disable checkout
+   - Investigate issues without affecting users
+
+3. **Manual Subscription Management:**
+   - Use Stripe Dashboard to manually create subscriptions if needed
+   - Update database manually if webhook fails
+   - Document any manual interventions
+
+---
+
+## 🧪 Testing Strategies
+
+### Pre-Production Testing
+
+1. **Test Mode Setup:**
+   ```bash
+   # Use test keys in .env
+   VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...
+   ```
+
+2. **Test Cards:**
+   - Success: `4242 4242 4242 4242`
+   - Decline: `4000 0000 0000 0002`
+   - 3D Secure: `4000 0025 0000 3155`
+   - More: https://stripe.com/docs/testing
+
+3. **Test Scenarios:**
+   - ✅ Successful subscription checkout
+   - ✅ Successful one-time purchase
+   - ✅ Failed payment handling
+   - ✅ Subscription cancellation
+   - ✅ Webhook event processing
+   - ✅ Database updates
+
+### Production Testing
+
+1. **Small Test Purchase:**
+   - Make a real purchase with small amount
+   - Verify webhook receives event
+   - Check database updates
+   - Refund test purchase
+
+2. **Monitor First Real Transactions:**
+   - Watch Stripe Dashboard in real-time
+   - Monitor Supabase function logs
+   - Verify database records
+   - Check user access is granted correctly
+
+3. **Load Testing:**
+   - Test with multiple simultaneous checkouts
+   - Verify webhook handles concurrent events
+   - Check database performance
+   - Monitor function response times
+
+### Automated Testing
+
+Consider adding automated tests for:
+- Edge Function deployment
+- Secret configuration validation
+- Webhook signature verification
+- Database update logic
+- Error handling
+
+---
+
+## 🚀 Performance Optimization
+
+### Edge Function Optimization
+
+1. **Reduce Cold Starts:**
+   - Keep functions warm with periodic pings
+   - Minimize dependencies
+   - Use connection pooling for database
+
+2. **Optimize Response Times:**
+   - Cache price IDs and configuration
+   - Minimize database queries
+   - Use async operations where possible
+
+3. **Monitor Performance:**
+   - Track function execution times
+   - Set up alerts for slow responses
+   - Optimize based on metrics
+
+### Database Optimization
+
+1. **Index Subscription Tables:**
+   - Index `user_id` for fast lookups
+   - Index `stripe_customer_id` for webhook processing
+   - Index `status` for filtering
+
+2. **Query Optimization:**
+   - Use efficient queries in webhook handler
+   - Batch database operations when possible
+   - Avoid N+1 query problems
+
+---
+
+## 📋 Quick Reference Commands
+
+### Supabase CLI
+
+```powershell
+# Login
+npx supabase login
+
+# Link project
+npx supabase link --project-ref achowlksgmwuvfbvjfrt
+
+# Set secret
+npx supabase secrets set KEY=value
+
+# Deploy function
+npx supabase functions deploy function-name
+
+# View logs
+npx supabase functions logs function-name
+
+# List functions
+npx supabase functions list
+```
+
+### Verification Commands
+
+```powershell
+# Check if secrets are set (via function)
+# Deploy a test function that lists secret names
+
+# Test webhook endpoint
+curl -X POST https://achowlksgmwuvfbvjfrt.supabase.co/functions/v1/stripe-webhook \
+  -H "Content-Type: application/json" \
+  -d '{"test": true}'
+```
+
+### Stripe CLI (Optional)
+
+```bash
+# Install Stripe CLI
+# https://stripe.com/docs/stripe-cli
+
+# Listen to webhooks locally
+stripe listen --forward-to localhost:54321/functions/v1/stripe-webhook
+
+# Trigger test events
+stripe trigger checkout.session.completed
+```
+
+---
+
 ## 📚 Additional Resources
 
 - **Stripe Dashboard:** https://dashboard.stripe.com
 - **Supabase Dashboard:** https://app.supabase.com/project/achowlksgmwuvfbvjfrt
 - **Stripe API Docs:** https://stripe.com/docs/api
 - **Supabase Edge Functions:** https://supabase.com/docs/guides/functions
+- **Stripe Testing:** https://stripe.com/docs/testing
+- **Stripe Webhooks Guide:** https://stripe.com/docs/webhooks
+- **Supabase Functions Guide:** https://supabase.com/docs/guides/functions
+
+---
+
+## 🎯 Next Steps After Setup
+
+1. **Immediate (Day 1):**
+   - Complete all checklist items
+   - Test with small real purchase
+   - Monitor first transactions closely
+
+2. **Short-term (Week 1):**
+   - Set up monitoring and alerts
+   - Document any custom configurations
+   - Train team on troubleshooting
+
+3. **Ongoing:**
+   - Weekly review of webhook events
+   - Monthly audit of secrets
+   - Quarterly security review
+   - Regular performance monitoring
 
 ---
 
