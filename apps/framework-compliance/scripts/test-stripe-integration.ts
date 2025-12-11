@@ -8,7 +8,7 @@ import { createClient } from '@supabase/supabase-js';
 const SUPABASE_URL = 'https://achowlksgmwuvfbvjfrt.supabase.co';
 const SUPABASE_SERVICE_ROLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I';
 
-async function testEdgeFunction(functionName: string): Promise<boolean> {
+async function testEdgeFunction(functionName: string): Promise<{ available: boolean; status?: number; error?: string }> {
   try {
     const response = await fetch(`${SUPABASE_URL}/functions/v1/${functionName}`, {
       method: 'OPTIONS',
@@ -17,13 +17,13 @@ async function testEdgeFunction(functionName: string): Promise<boolean> {
       },
     });
 
-    if (response.ok || response.status === 200) {
-      return true;
+    if (response.ok || response.status === 200 || response.status === 204) {
+      return { available: true, status: response.status };
     }
-    return false;
+    return { available: false, status: response.status, error: `HTTP ${response.status}` };
   } catch (error) {
-    console.error(`Error testing ${functionName}:`, error);
-    return false;
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return { available: false, error: errorMessage };
   }
 }
 
