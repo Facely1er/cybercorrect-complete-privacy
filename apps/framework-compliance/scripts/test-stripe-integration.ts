@@ -3,6 +3,7 @@
  * Verifies that Stripe integration is working correctly
  */
 
+/* eslint-disable no-console */
 import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_URL = 'https://achowlksgmwuvfbvjfrt.supabase.co';
@@ -42,32 +43,66 @@ async function main() {
     'stripe-webhook'
   ];
 
-  const results: Record<string, boolean> = {};
+  const results: Record<string, { available: boolean; status?: number; error?: string }> = {};
   
   for (const func of functions) {
-    const available = await testEdgeFunction(func);
-    results[func] = available;
-    console.log(`${available ? '✅' : '❌'} ${func}: ${available ? 'Available' : 'Not available or not deployed'}`);
+    const result = await testEdgeFunction(func);
+    results[func] = result;
+    if (result.available) {
+      console.log(`✅ ${func}: Available (Status: ${result.status || 'OK'})`);
+    } else {
+      console.log(`❌ ${func}: Not available`);
+      if (result.status) {
+        console.log(`   HTTP Status: ${result.status}`);
+      }
+      if (result.error) {
+        console.log(`   Error: ${result.error}`);
+      }
+      console.log(`   → Check if function is deployed in Supabase Dashboard`);
+    }
   }
 
   // Test database connection
   console.log('\n📊 Testing Database Connection:');
   try {
-    const { data, error } = await supabase.from('users').select('count').limit(1);
-    if (error && error.code !== 'PGRST116') { // PGRST116 = table not found, which is OK
-      console.log('⚠️  Database connection issue:', error.message);
+    const { error } = await supabase.from('users').select('count').limit(1);
+    if (error) {
+      if (error.code === 'PGRST116') {
+        // Table not found is OK - might not exist yet
+        console.log('⚠️  Database connection OK (users table not found - this is OK)');
+      } else {
+        console.log(`⚠️  Database connection issue: ${error.message} (Code: ${error.code})`);
+      }
     } else {
       console.log('✅ Database connection successful');
     }
   } catch (error) {
-    console.log('❌ Database connection failed');
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.log(`❌ Database connection failed: ${errorMessage}`);
+  }
+  
+  // Test subscriptions table (if it exists)
+  console.log('\n💳 Testing Subscriptions Table:');
+  try {
+    const { error } = await supabase.from('subscriptions').select('count').limit(1);
+    if (error) {
+      if (error.code === 'PGRST116') {
+        console.log('⚠️  Subscriptions table not found - ensure migrations are applied');
+      } else {
+        console.log(`⚠️  Subscriptions table issue: ${error.message}`);
+      }
+    } else {
+      console.log('✅ Subscriptions table accessible');
+    }
+  } catch {
+    console.log('⚠️  Could not access subscriptions table');
   }
 
   // Summary
   console.log('\n' + '='.repeat(70));
   console.log('\n📊 Test Results:\n');
   
-  const allFunctionsAvailable = Object.values(results).every(r => r);
+  const allFunctionsAvailable = Object.values(results).every(r => r.available);
   
   if (allFunctionsAvailable) {
     console.log('✅ All Edge Functions are available');
@@ -76,12 +111,24 @@ async function main() {
     console.log('   1. Test subscription checkout flow');
     console.log('   2. Test one-time purchase checkout flow');
     console.log('   3. Verify webhook receives events in Stripe Dashboard');
+    console.log('   4. Check Supabase function logs for any warnings');
   } else {
     console.log('⚠️  Some Edge Functions are not available');
     console.log('\n📝 Action Required:');
-    console.log('   1. Deploy Edge Functions in Supabase Dashboard');
-    console.log('   2. Verify secrets are set correctly');
-    console.log('   3. Check function logs for errors');
+    console.log('   1. Go to: https://app.supabase.com/project/achowlksgmwuvfbvjfrt/edge-functions');
+    console.log('   2. Deploy missing Edge Functions');
+    console.log('   3. Verify secrets are set correctly for each function');
+    console.log('   4. Check function logs for errors');
+    console.log('   5. See STRIPE_SETUP_COMPLETE.md for detailed troubleshooting');
+    
+    // List which functions are missing
+    const missingFunctions = Object.entries(results)
+      .filter(([, result]) => !result.available)
+      .map(([name]) => name);
+    
+    if (missingFunctions.length > 0) {
+      console.log(`\n   Missing functions: ${missingFunctions.join(', ')}`);
+    }
   }
 
   console.log('\n' + '='.repeat(70));

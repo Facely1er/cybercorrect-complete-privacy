@@ -3,6 +3,7 @@
  * Uses Supabase Management API to set secrets directly
  */
 
+/* eslint-disable no-console */
 import { writeFileSync, existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
