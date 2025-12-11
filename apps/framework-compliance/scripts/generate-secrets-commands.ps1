@@ -8,9 +8,22 @@ $PRICE_STARTER_ANNUAL = "price_[YOUR_PRICE_ID_HERE]"
 $PRICE_PROFESSIONAL_MONTHLY = "price_[YOUR_PRICE_ID_HERE]"
 $PRICE_PROFESSIONAL_ANNUAL = "price_[YOUR_PRICE_ID_HERE]"
 
-$SUPABASE_URL = "https://achowlksgmwuvfbvjfrt.supabase.co"
-$SUPABASE_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I"
-$SITE_URL = "https://www.platform.cybercorrect.com"
+# SECURITY: Never hardcode secrets. Use environment variables or placeholders.
+# Set these variables from environment or replace with your actual values before running
+$SUPABASE_URL = $env:SUPABASE_URL
+if (-not $SUPABASE_URL) {
+    $SUPABASE_URL = "https://[YOUR_PROJECT_REF].supabase.co"
+}
+
+$SUPABASE_SERVICE_ROLE_KEY = $env:SUPABASE_SERVICE_ROLE_KEY
+if (-not $SUPABASE_SERVICE_ROLE_KEY) {
+    $SUPABASE_SERVICE_ROLE_KEY = "[YOUR_SERVICE_ROLE_KEY_HERE]"
+}
+
+$SITE_URL = $env:SITE_URL
+if (-not $SITE_URL) {
+    $SITE_URL = "https://[YOUR_SITE_URL_HERE]"
+}
 
 Write-Host "`n🔐 Supabase Secrets Commands`n" -ForegroundColor Cyan
 Write-Host "=" * 70
