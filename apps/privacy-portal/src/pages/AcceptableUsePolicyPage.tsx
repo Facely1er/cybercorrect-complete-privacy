@@ -18,7 +18,7 @@ export function AcceptableUsePolicyPage() {
             </Link>
             <h1 className="text-4xl font-bold mb-2">ACCEPTABLE USE POLICY</h1>
             <p className="text-muted-foreground text-lg">
-              <strong>Effective Date:</strong> October 31, 2025 | <strong>Last Updated:</strong> October 31, 2025
+              <strong>Effective Date:</strong> October 31, 2025 | <strong>Last Updated:</strong> December 13, 2025
             </p>
           </div>
 

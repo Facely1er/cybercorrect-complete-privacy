@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Mail, Shield, Scale, AlertTriangle } from 'lucide-react';
 import { Button } from '../components/ui/Button';
@@ -18,7 +17,7 @@ export function TermsPage() {
             </Link>
             <h1 className="text-4xl font-bold mb-2">MASTER TERMS OF SERVICE</h1>
             <p className="text-muted-foreground text-lg">
-              <strong>Effective Date:</strong> October 31, 2025 | <strong>Last Updated:</strong> October 31, 2025
+              <strong>Effective Date:</strong> November 19, 2025 | <strong>Last Updated:</strong> December 13, 2025
             </p>
           </div>
 
@@ -48,6 +47,15 @@ export function TermsPage() {
                       </ul>
                     </div>
                     <div>
+                      <h4 className="font-semibold mb-2">CyberSoluce™ Brand Products:</h4>
+                      <ul className="list-disc pl-6 text-muted-foreground space-y-1">
+                        <li>Enhanced Asset Inventory Management Platform</li>
+                        <li>Dependency-aware asset visibility and management</li>
+                        <li>Focus signals for attention areas</li>
+                        <li>Service funneling guidance</li>
+                      </ul>
+                    </div>
+                    <div>
                       <h4 className="font-semibold mb-2">CyberCertitude™ Brand Products:</h4>
                       <ul className="list-disc pl-6 text-muted-foreground space-y-1">
                         <li>CMMC 2.0 Level 1 Implementation Suite</li>
@@ -74,6 +82,16 @@ export function TermsPage() {
                         <li>RansomCheck (Ransomware readiness assessment)</li>
                         <li>Security Toolkit (Comprehensive cybersecurity assessment platform)</li>
                         <li>RiskProfessional (CISA-aligned security assessments)</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-2">SocialCaution Brand Products:</h4>
+                      <ul className="list-disc pl-6 text-muted-foreground space-y-1">
+                        <li>Personalized Privacy Platform with AI-powered persona detection</li>
+                        <li>Privacy Exposure Index for online services</li>
+                        <li>Service Catalog with risk profiles</li>
+                        <li>Adaptive privacy resources and tools</li>
+                        <li>Digital footprint analysis</li>
                       </ul>
                     </div>
                   </div>

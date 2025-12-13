@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Mail, Shield, Lock, Database, Globe, Users } from 'lucide-react';
 import { Button } from '../components/ui/Button';
@@ -18,7 +17,7 @@ export function PrivacyPolicyPage() {
             </Link>
             <h1 className="text-4xl font-bold mb-2">MASTER PRIVACY POLICY</h1>
             <p className="text-muted-foreground text-lg">
-              <strong>Effective Date:</strong> November 19, 2025 | <strong>Last Updated:</strong> October 31, 2025
+              <strong>Effective Date:</strong> November 19, 2025 | <strong>Last Updated:</strong> December 13, 2025
             </p>
           </div>
 
@@ -110,6 +109,12 @@ export function PrivacyPolicyPage() {
                       </thead>
                       <tbody className="text-muted-foreground">
                         <tr>
+                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2"><strong>CyberSoluce Asset Inventory</strong></td>
+                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Client-side with optional sync</td>
+                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Local, self-managed, or ERMITS cloud</td>
+                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">AES-256-GCM E2EE</td>
+                        </tr>
+                        <tr>
                           <td className="border border-gray-300 dark:border-gray-700 px-4 py-2"><strong>TechnoSoluce SBOM Analyzer</strong></td>
                           <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">100% client-side</td>
                           <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Local browser storage only</td>
@@ -138,6 +143,12 @@ export function PrivacyPolicyPage() {
                           <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Client-side with optional sync</td>
                           <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Local, self-managed, or ERMITS cloud</td>
                           <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">AES-256-GCM E2EE</td>
+                        </tr>
+                        <tr>
+                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2"><strong>SocialCaution</strong></td>
+                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">100% client-side</td>
+                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Local browser storage only</td>
+                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Optional local encryption</td>
                         </tr>
                       </tbody>
                     </table>
