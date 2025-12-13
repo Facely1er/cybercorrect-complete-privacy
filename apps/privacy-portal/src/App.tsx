@@ -21,10 +21,6 @@ import { HowItWorksPage } from './pages/HowItWorks';
 import { ContactPage } from './pages/ContactPage';
 import { FAQPage } from './pages/FAQPage';
 import { LegalPage } from './pages/LegalPage';
-import { TermsPage } from './pages/TermsPage';
-import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
-import { AcceptableUsePolicyPage } from './pages/AcceptableUsePolicyPage';
-import { CookiePolicyPage } from './pages/CookiePolicyPage';
 import { PrivacyPortalPage } from './pages/PrivacyPortalPage';
 import { UnauthorizedPage } from './pages/UnauthorizedPage';
 
@@ -407,10 +403,10 @@ function App() {
 
             <Footer />
           </div>
-            </NotificationProvider>
-          </PersonaProvider>
-        </AuthProvider>
-      </ThemeProvider>
+              </NotificationProvider>
+            </PersonaProvider>
+          </AuthProvider>
+        </ThemeProvider>
     </ErrorBoundary>
   );
 }

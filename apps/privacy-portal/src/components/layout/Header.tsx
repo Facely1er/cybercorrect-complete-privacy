@@ -103,7 +103,7 @@ export const Header = () => {
               >
                 <User className="w-5 h-5" />
                 <span className="hidden sm:inline text-sm">
-                  {user ? (profile?.full_name || user.email?.split('@')[0] || 'Account') : 'Account'}
+                  {user ? (String(profile?.full_name || user.email?.split('@')[0] || 'Account')) : 'Account'}
                 </span>
               </button>
 
@@ -199,7 +199,7 @@ export const Header = () => {
                 <div className="flex items-center space-x-2">
                   <User className="w-5 h-5 text-gray-700 dark:text-gray-200 flex-shrink-0" />
                   <span className="text-sm text-gray-700 dark:text-gray-200 font-medium">
-                    {user ? (profile?.full_name || user.email?.split('@')[0] || 'Account') : 'Account'}
+                    {user ? (String(profile?.full_name || user.email?.split('@')[0] || 'Account')) : 'Account'}
                   </span>
                 </div>
               </div>

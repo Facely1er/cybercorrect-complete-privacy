@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
   Shield, 
@@ -64,14 +64,14 @@ export function HomePage() {
   };
 
   // Carousel messages for hero section
-  const heroMessages = [
+  const heroMessages = useMemo(() => [
     brand.description,
+    "Workplace privacy compliance platform for employees, HR, and employers",
     "Empower employees and job prospects to understand their workplace privacy rights under employment laws",
     "Streamline HR compliance management for employers and privacy officers",
     "Provide self-service tools for exercising employee data access, correction, and deletion rights",
-    "Enable HR teams to fulfill workplace privacy duties with confidence",
-    "Transform workplace privacy compliance from complex burden to transparent, manageable process"
-  ];
+    "Enable HR teams to fulfill workplace privacy duties with confidence"
+  ], [brand.description]);
 
   // Load data from localStorage for recent activity
   useEffect(() => {
@@ -104,7 +104,7 @@ export function HomePage() {
     loadData();
   }, []);
 
-  const stakeholderCategories = [
+  const stakeholderCategories = useMemo(() => [
     {
       id: 'employees-job-prospects',
       title: 'Employees & Job Prospects',
@@ -181,15 +181,20 @@ export function HomePage() {
       ],
       color: 'amber',
     }
-  ];
+  ], []);
 
-  const dataRightsTypes = [
+  const dataRightsTypes = useMemo(() => [
     {
       id: 'access',
       title: 'Right to Access',
       description: 'View or obtain copies of personal employment and HR data',
       icon: <Eye className="h-6 w-6 text-blue-600" />,
-      examples: ['Payroll records', 'Performance reviews', 'Benefits information', 'Disciplinary records'],
+      examples: [
+        'Payroll records',
+        'Performance reviews',
+        'Benefits information',
+        'Disciplinary records'
+      ],
       regulations: ['ADA', 'EEOC', 'CCPA', 'GDPR'],
       timeline: '30-45 days'
     },
@@ -198,7 +203,12 @@ export function HomePage() {
       title: 'Right to Correction',
       description: 'Request correction of inaccurate or incomplete employment information',
       icon: <Edit className="h-6 w-6 text-green-600" />,
-      examples: ['Performance corrections', 'Contact updates', 'Record amendments', 'Benefits corrections'],
+      examples: [
+        'Performance corrections',
+        'Contact updates',
+        'Record amendments',
+        'Benefits corrections'
+      ],
       regulations: ['ADA', 'EEOC', 'CCPA', 'GDPR'],
       timeline: '30-45 days'
     },
@@ -207,7 +217,12 @@ export function HomePage() {
       title: 'Right to Deletion',
       description: 'Request removal of personal employment information when legally permissible',
       icon: <Trash2 className="h-6 w-6 text-red-600" />,
-      examples: ['Old application data', 'Unnecessary records', 'Marketing preferences', 'Outdated information'],
+      examples: [
+        'Old application data',
+        'Unnecessary records',
+        'Marketing preferences',
+        'Outdated information'
+      ],
       regulations: ['CCPA', 'GDPR', 'Employment Privacy Laws'],
       timeline: '30 days'
     },
@@ -216,18 +231,23 @@ export function HomePage() {
       title: 'Right to Portability',
       description: 'Receive employment data in portable format for transfer',
       icon: <Download className="h-6 w-6 text-purple-600" />,
-      examples: ['Work history', 'Performance data', 'Training records', 'Benefits information'],
+      examples: [
+        'Work history',
+        'Performance data',
+        'Training records',
+        'Benefits information'
+      ],
       regulations: ['GDPR', 'CCPA', 'Employment Privacy Laws'],
       timeline: '30 days'
     }
-  ];
+  ], []);
 
-  const privacyCompliance = [
+  const privacyCompliance = useMemo(() => [
     { regulation: 'ADA', coverage: 'All employees & applicants', icon: <Shield className="h-5 w-5" /> },
     { regulation: 'EEOC', coverage: 'Workplace privacy rights', icon: <Users className="h-5 w-5" /> },
     { regulation: 'CCPA', coverage: 'California residents', icon: <Lock className="h-5 w-5" /> },
     { regulation: 'GDPR', coverage: 'EU data subjects', icon: <Globe className="h-5 w-5" /> }
-  ];
+  ], []);
 
   // Generate recent activity from real data
   const formatTimestamp = (dateString: string): string => {
@@ -241,11 +261,11 @@ export function HomePage() {
     return date.toLocaleDateString();
   };
 
-  const recentActivity = isLoading ? [] : [
+  const recentActivity = useMemo(() => isLoading ? [] : [
     ...(dataRightsRequests || []).slice(0, 2).map(req => ({
       type: 'data_request',
       title: `${req.type.charAt(0).toUpperCase() + req.type.slice(1)} Request`,
-      description: `Data rights request submitted`,
+      description: 'Data rights request submitted',
       timestamp: formatTimestamp(req.submittedAt),
       status: req.status,
       stakeholder: 'family'
@@ -266,9 +286,9 @@ export function HomePage() {
       status: vendor.complianceStatus,
       stakeholder: 'admin'
     }))
-  ].slice(0, 4);
+  ].slice(0, 4), [isLoading, dataRightsRequests, privacyIncidents, vendorAssessments]);
 
-  const privacyManagementFeatures = [
+  const privacyManagementFeatures = useMemo(() => [
     {
       icon: <FileText className="h-6 w-6 text-blue-600" />,
       title: 'Data Rights Management',
@@ -305,7 +325,7 @@ export function HomePage() {
       description: 'Generate insights and compliance reports',
       link: '/privacy/analytics'
     }
-  ];
+  ], []);
 
   return (
     <>
@@ -319,7 +339,7 @@ export function HomePage() {
         <div className="relative container mx-auto px-4 text-center">
           <div className="inline-flex items-center justify-center bg-white/10 text-white rounded-full px-6 py-3 mb-8">
             <Database className="h-5 w-5 mr-2" />
-            <span className="text-sm font-medium">{brand.description}</span>
+            <span className="text-sm font-medium">Workplace Privacy Compliance Platform</span>
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
