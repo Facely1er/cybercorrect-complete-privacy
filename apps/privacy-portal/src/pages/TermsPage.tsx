@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Mail, Shield, Scale, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, Mail, Scale, AlertTriangle } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 
@@ -23,171 +23,296 @@ export function TermsPage() {
 
           <div className="bg-card rounded-lg border p-8 space-y-12 prose prose-lg max-w-none">
             {/* Introduction */}
-            <section className="border-b pb-8">
-              <p className="text-muted-foreground leading-relaxed text-base mb-4">
+            <div className="bg-gray-50 dark:bg-gray-800/50 border-l-4 border-primary p-6 rounded-r-lg mb-8">
+              <p className="text-muted-foreground leading-relaxed text-base">
                 By accessing or using any ERMITS LLC ("ERMITS," "we," "our," or "us") products, platforms, or services (collectively, the "Services"), you ("User," "you," or "your") agree to be bound by these Master Terms of Service ("Terms"). If you do not agree to these Terms, do not use our Services.
               </p>
-            </section>
+            </div>
 
             {/* Section 1: Scope and Applicability */}
             <section>
-              <h2 className="text-2xl font-semibold mb-4">1. Scope and Applicability</h2>
+              <h2 id="section-1" className="text-2xl font-bold mb-6 pb-3 border-b">1. SCOPE AND APPLICABILITY</h2>
               
               <div className="space-y-4">
-                <div>
-                  <h3 className="text-xl font-semibold mb-3">1.1 Scope and Applicability</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-3">
-                    These Terms govern your use of all ERMITS products, including but not limited to:
-                  </p>
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="font-semibold mb-2">TechnoSoluce™ Brand Products:</h4>
-                      <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-                        <li>SBOM Analyzer - Software supply chain security and vulnerability analysis</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">CyberSoluce™ Brand Products:</h4>
-                      <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-                        <li>Enhanced Asset Inventory Management Platform</li>
-                        <li>Dependency-aware asset visibility and management</li>
-                        <li>Focus signals for attention areas</li>
-                        <li>Service funneling guidance</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">CyberCertitude™ Brand Products:</h4>
-                      <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-                        <li>CMMC 2.0 Level 1 Implementation Suite</li>
-                        <li>CMMC 2.0 Level 2 Compliance Platform</li>
-                        <li>Original Toolkit (localStorage-based compliance management)</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">VendorSoluce™ Brand Products:</h4>
-                      <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-                        <li>Supply Chain Risk Management Platform</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">CyberCorrect™ Brand Products:</h4>
-                      <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-                        <li>Privacy Portal (Workplace privacy compliance)</li>
-                        <li>Privacy Platform (Multi-regulation privacy compliance automation)</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">CyberCaution™ Brand Products:</h4>
-                      <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-                        <li>RansomCheck (Ransomware readiness assessment)</li>
-                        <li>Security Toolkit (Comprehensive cybersecurity assessment platform)</li>
-                        <li>RiskProfessional (CISA-aligned security assessments)</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">SocialCaution Brand Products:</h4>
-                      <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-                        <li>Personalized Privacy Platform with AI-powered persona detection</li>
-                        <li>Privacy Exposure Index for online services</li>
-                        <li>Service Catalog with risk profiles</li>
-                        <li>Adaptive privacy resources and tools</li>
-                        <li>Digital footprint analysis</li>
-                      </ul>
-                    </div>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  These Terms govern your use of all ERMITS products, including but not limited to:
+                </p>
+                <div className="bg-gray-50 dark:bg-gray-800/30 rounded-lg p-6 space-y-6">
+                  <div className="border-l-4 border-blue-500 pl-4">
+                    <p className="font-bold mb-2">TechnoSoluce™ Brand Products:</p>
+                    <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
+                      <li>SBOM Analyzer - Software supply chain security and vulnerability analysis</li>
+                    </ul>
                   </div>
-                  <p className="text-muted-foreground leading-relaxed mt-3">
-                    Product-specific terms may apply as set forth in Product-Specific Addendums.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-3">1.2 Definitions</h3>
-                  <div className="space-y-2 text-muted-foreground">
-                    <p><strong>"Privacy-First Architecture"</strong> means ERMITS' system design philosophy ensuring that user data is processed locally whenever possible, with optional encrypted cloud synchronization, pseudonymized telemetry, and zero-knowledge data handling principles.</p>
-                    <p><strong>"User Data"</strong> means any information, content, files, or materials that you upload, submit, generate, or process through the Services.</p>
-                    <p><strong>"Controlled Unclassified Information" or "CUI"</strong> means information that requires safeguarding or dissemination controls pursuant to federal law, regulations, or government-wide policies.</p>
-                    <p><strong>"Federal Contract Information" or "FCI"</strong> means information not intended for public release that is provided by or generated for the U.S. Government under a contract.</p>
-                    <p><strong>"Beta Products"</strong> means Services explicitly marked as "Beta," "Preview," "Early Access," or similar designations indicating pre-release or testing status.</p>
+                  <div className="border-l-4 border-indigo-500 pl-4">
+                    <p className="font-bold mb-2">CyberSoluce™ Brand Products:</p>
+                    <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
+                      <li>Enhanced Asset Inventory Management Platform</li>
+                      <li>Dependency-aware asset visibility and management</li>
+                      <li>Focus signals for attention areas</li>
+                      <li>Service funneling guidance</li>
+                    </ul>
+                  </div>
+                  <div className="border-l-4 border-yellow-500 pl-4">
+                    <p className="font-bold mb-2">CyberCertitude™ Brand Products:</p>
+                    <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
+                      <li>CMMC 2.0 Level 1 Implementation Suite</li>
+                      <li>CMMC 2.0 Level 2 Compliance Platform</li>
+                      <li>Original Toolkit (localStorage-based compliance management)</li>
+                    </ul>
+                  </div>
+                  <div className="border-l-4 border-orange-500 pl-4">
+                    <p className="font-bold mb-2">VendorSoluce™ Brand Products:</p>
+                    <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
+                      <li>Supply Chain Risk Management Platform</li>
+                    </ul>
+                  </div>
+                  <div className="border-l-4 border-green-500 pl-4">
+                    <p className="font-bold mb-2">CyberCorrect™ Brand Products:</p>
+                    <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
+                      <li>Privacy Portal (Workplace privacy compliance)</li>
+                      <li>Privacy Platform (Multi-regulation privacy compliance automation)</li>
+                    </ul>
+                  </div>
+                  <div className="border-l-4 border-blue-500 pl-4">
+                    <p className="font-bold mb-2">CyberCaution™ Brand Products:</p>
+                    <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
+                      <li>RansomCheck (Ransomware readiness assessment)</li>
+                      <li>Security Toolkit (Comprehensive cybersecurity assessment platform)</li>
+                      <li>RiskProfessional (CISA-aligned security assessments)</li>
+                    </ul>
+                  </div>
+                  <div className="border-l-4 border-indigo-500 pl-4">
+                    <p className="font-bold mb-2">SocialCaution Brand Products:</p>
+                    <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
+                      <li>Personalized Privacy Platform with AI-powered persona detection</li>
+                      <li>Privacy Exposure Index for online services</li>
+                      <li>Service Catalog with risk profiles</li>
+                      <li>Adaptive privacy resources and tools</li>
+                      <li>Digital footprint analysis</li>
+                    </ul>
                   </div>
                 </div>
+                <p className="text-muted-foreground leading-relaxed italic">
+                  Product-specific terms may apply as set forth in Product-Specific Addendums.
+                </p>
+              </div>
+            </section>
 
-                <div>
-                  <h3 className="text-xl font-semibold mb-3">1.3 Eligibility and Account Requirements</h3>
-                  <div className="space-y-3 text-muted-foreground">
-                    <p><strong>Age Requirement:</strong> You must be at least 18 years of age to use the Services. By using the Services, you represent and warrant that you meet this age requirement.</p>
-                    <p><strong>Authority:</strong> If you are using the Services on behalf of an organization, you represent and warrant that you have the authority to bind that organization to these Terms.</p>
-                    <div>
-                      <p className="font-semibold mb-2">Account Security:</p>
-                      <p>You are responsible for:</p>
-                      <ul className="list-disc pl-6 space-y-1 mt-2">
-                        <li>Maintaining the confidentiality of your account credentials</li>
-                        <li>All activities that occur under your account</li>
-                        <li>Notifying ERMITS immediately of any unauthorized access or security breach</li>
-                        <li>Using strong, unique passwords and enabling multi-factor authentication where available</li>
-                      </ul>
-                    </div>
-                    <p><strong>Accurate Information:</strong> You agree to provide accurate, current, and complete information during registration and to update such information to maintain its accuracy.</p>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-3 flex items-center">
-                    <Shield className="h-5 w-5 mr-2 text-primary" />
-                    1.4 Privacy-First Architecture and Data Handling
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed mb-3">
-                    ERMITS implements a Privacy-First Architecture across all products, built on the following principles:
-                  </p>
-                  <div className="space-y-3">
-                    <div>
-                      <h4 className="font-semibold mb-2">1.4.1 Client-Side Processing</h4>
-                      <p className="text-muted-foreground leading-relaxed">
-                        All core computational functions (assessments, SBOM analysis, risk scoring, compliance evaluations) are performed locally within your browser or self-managed environment whenever technically feasible.
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">1.4.2 Data Sovereignty Options</h4>
-                      <p className="text-muted-foreground leading-relaxed mb-2">You have multiple deployment and storage options:</p>
-                      <div className="ml-4">
-                        <p className="font-semibold mb-1">Local Storage Options:</p>
-                        <ul className="list-disc pl-6 text-muted-foreground space-y-1 mb-3">
-                          <li>Browser-based local storage (IndexedDB, localStorage)</li>
-                          <li>Desktop application with local file storage</li>
-                          <li>On-premises deployment (Enterprise customers)</li>
-                        </ul>
-                        <p className="font-semibold mb-1">Cloud Storage Options:</p>
-                        <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-                          <li>Self-managed cloud infrastructure (you control the environment)</li>
-                          <li>ERMITS-managed cloud (Supabase or alternative providers)</li>
-                          <li>Hybrid deployment (local processing with optional encrypted sync)</li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">1.4.4 Zero-Knowledge Principles</h4>
-                      <p className="text-muted-foreground leading-relaxed mb-2">When using ERMITS-managed cloud services with encryption enabled:</p>
-                      <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-                        <li>Data is encrypted client-side using AES-256-GCM via WebCrypto</li>
-                        <li>Encryption keys are derived from your credentials and never transmitted to ERMITS</li>
-                        <li>ERMITS administrators cannot decrypt your data</li>
-                        <li>You are solely responsible for maintaining access to your encryption keys</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">1.4.5 Data Minimization</h4>
-                      <p className="text-muted-foreground leading-relaxed mb-2">ERMITS collects only the minimum data necessary for service functionality:</p>
-                      <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-                        <li><strong>Never Collected:</strong> Raw SBOM files, assessment content, CUI, FCI, proprietary business data, or detailed vulnerability findings remain under your exclusive control</li>
-                        <li><strong>Optionally Collected:</strong> Account information (name, email, company) for authentication and billing</li>
-                        <li><strong>Pseudonymized Telemetry:</strong> Anonymous performance metrics using irreversible cryptographic hashing (opt-in or opt-out based on product)</li>
-                      </ul>
-                    </div>
-                  </div>
+            {/* Section 2: Definitions */}
+            <section>
+              <h2 id="section-2" className="text-2xl font-bold mb-6 pb-3 border-b">2. DEFINITIONS</h2>
+              
+              <div className="bg-gray-50 dark:bg-gray-800/30 rounded-lg p-6 space-y-4">
+                <div className="space-y-3">
+                  <p className="mb-3"><strong className="text-primary">"Privacy-First Architecture"</strong> <span className="text-muted-foreground">means ERMITS' system design philosophy ensuring that user data is processed locally whenever possible, with optional encrypted cloud synchronization, pseudonymized telemetry, and zero-knowledge data handling principles.</span></p>
+                  
+                  <p className="mb-3"><strong className="text-primary">"User Data"</strong> <span className="text-muted-foreground">means any information, content, files, or materials that you upload, submit, generate, or process through the Services.</span></p>
+                  
+                  <p className="mb-3"><strong className="text-primary">"Controlled Unclassified Information" or "CUI"</strong> <span className="text-muted-foreground">means information that requires safeguarding or dissemination controls pursuant to federal law, regulations, or government-wide policies.</span></p>
+                  
+                  <p className="mb-3"><strong className="text-primary">"Federal Contract Information" or "FCI"</strong> <span className="text-muted-foreground">means information not intended for public release that is provided by or generated for the U.S. Government under a contract.</span></p>
+                  
+                  <p className="mb-3"><strong className="text-primary">"Beta Products"</strong> <span className="text-muted-foreground">means Services explicitly marked as "Beta," "Preview," "Early Access," or similar designations indicating pre-release or testing status.</span></p>
+                  
+                  <p className="mb-3"><strong className="text-primary">"Privacy Persona"</strong> <span className="text-muted-foreground">means the AI-determined privacy profile classification assigned by SocialCaution based on user assessment responses, used to personalize privacy recommendations and resources.</span></p>
+                  
+                  <p className="mb-3"><strong className="text-primary">"Privacy Exposure Index"</strong> <span className="text-muted-foreground">means SocialCaution's quantified privacy risk score (0-100) for online services based on publicly available data, privacy policies, and service characteristics.</span></p>
                 </div>
               </div>
             </section>
 
-            {/* Section 1.5: License Grant and Restrictions */}
+            {/* Section 3: Eligibility and Account Requirements */}
+            <section>
+              <h2 id="section-3" className="text-2xl font-bold mb-6 pb-3 border-b">3. ELIGIBILITY AND ACCOUNT REQUIREMENTS</h2>
+              
+              <div className="space-y-6">
+                <div className="bg-gray-50 dark:bg-gray-800/30 rounded-lg p-5 border-l-4 border-blue-500">
+                  <p className="font-bold mb-3">Age Requirement:</p>
+                  <p className="text-muted-foreground leading-relaxed">You must be at least 18 years of age to use the Services. By using the Services, you represent and warrant that you meet this age requirement.</p>
+                </div>
+
+                <div className="bg-gray-50 dark:bg-gray-800/30 rounded-lg p-5 border-l-4 border-indigo-500">
+                  <p className="font-bold mb-3">Authority:</p>
+                  <p className="text-muted-foreground leading-relaxed">If you are using the Services on behalf of an organization, you represent and warrant that you have the authority to bind that organization to these Terms.</p>
+                </div>
+
+                <div className="bg-gray-50 dark:bg-gray-800/30 rounded-lg p-5 border-l-4 border-yellow-500">
+                  <p className="font-bold mb-3">Account Security:</p>
+                  <p className="text-muted-foreground mb-3">You are responsible for:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Maintaining the confidentiality of your account credentials</li>
+                    <li>All activities that occur under your account</li>
+                    <li>Notifying ERMITS immediately of any unauthorized access or security breach</li>
+                    <li>Using strong, unique passwords and enabling multi-factor authentication where available</li>
+                  </ul>
+                </div>
+
+                <div className="bg-gray-50 dark:bg-gray-800/30 rounded-lg p-5 border-l-4 border-orange-500">
+                  <p className="font-bold mb-3">Accurate Information:</p>
+                  <p className="text-muted-foreground leading-relaxed">You agree to provide accurate, current, and complete information during registration and to update such information to maintain its accuracy.</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 4: Privacy-First Architecture and Data Handling */}
+            <section>
+              <h2 id="section-4" className="text-2xl font-bold mb-6 pb-3 border-b">4. PRIVACY-FIRST ARCHITECTURE AND DATA HANDLING</h2>
+              
+              <p className="text-muted-foreground leading-relaxed mb-4">ERMITS implements a Privacy-First Architecture across all products, built on the following principles:</p>
+              
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">4.1 Client-Side Processing</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    All core computational functions (assessments, SBOM analysis, risk scoring, compliance evaluations, privacy persona detection) are performed locally within your browser or self-managed environment whenever technically feasible.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">4.2 Data Sovereignty Options</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">You have multiple deployment and storage options:</p>
+                  
+                  <p className="font-semibold mt-4 mb-2">Local Storage Options:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Browser-based local storage (IndexedDB, localStorage)</li>
+                    <li>Desktop application with local file storage</li>
+                    <li>On-premises deployment (Enterprise customers)</li>
+                  </ul>
+                  
+                  <p className="font-semibold mt-4 mb-2">Cloud Storage Options:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Self-managed cloud infrastructure (you control the environment)</li>
+                    <li>ERMITS-managed cloud (Supabase or alternative providers)</li>
+                    <li>Hybrid deployment (local processing with optional encrypted sync)</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">4.3 Data Residency</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">For cloud-managed options, data residency is determined by:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Your selected deployment region</li>
+                    <li>Applicable compliance requirements</li>
+                    <li>Service infrastructure location (disclosed per product)</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">4.4 Zero-Knowledge Principles</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">When using ERMITS-managed cloud services with encryption enabled:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Data is encrypted client-side using AES-256-GCM via WebCrypto</li>
+                    <li>Encryption keys are derived from your credentials and never transmitted to ERMITS</li>
+                    <li>ERMITS administrators cannot decrypt your data</li>
+                    <li>You are solely responsible for maintaining access to your encryption keys</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">4.5 Data Minimization</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">ERMITS collects only the minimum data necessary for service functionality:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li><strong>Never Collected:</strong> Raw SBOM files, assessment content, CUI, FCI, proprietary business data, or detailed vulnerability findings remain under your exclusive control</li>
+                    <li><strong>Optionally Collected:</strong> Account information (name, email, company) for authentication and billing</li>
+                    <li><strong>Pseudonymized Telemetry:</strong> Anonymous performance metrics using irreversible cryptographic hashing (opt-in or opt-out based on product)</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 5: License Grant and Restrictions */}
+            <section>
+              <h2 id="section-5" className="text-2xl font-bold mb-6 pb-3 border-b">5. LICENSE GRANT AND RESTRICTIONS</h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">5.1 License to Use Services</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Subject to your compliance with these Terms, ERMITS grants you a limited, non-exclusive, non-transferable, revocable license to access and use the Services for your internal business or personal purposes.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">5.2 License Restrictions</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">You may not:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Modify, copy, distribute, transmit, display, perform, reproduce, publish, license, create derivative works from, transfer, or sell any information, software, products, or services obtained from the Services</li>
+                    <li>Reverse engineer, decompile, disassemble, or attempt to discover source code or underlying algorithms (except to the extent such restriction is prohibited by applicable law)</li>
+                    <li>Remove, obscure, or alter any proprietary rights notices</li>
+                    <li>Use the Services to develop competing products or services</li>
+                    <li>Access the Services through automated means (bots, scrapers) without prior written authorization</li>
+                    <li>Attempt to circumvent security measures or gain unauthorized access</li>
+                    <li>Use the Services in any way that violates applicable laws or regulations</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">5.3 Open-Source Components</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Certain Services incorporate open-source software components licensed under MIT, Apache 2.0, BSD, or similar licenses. These components remain subject to their original license terms, which are available in the respective source code repositories. Your rights to such open-source components are governed by their respective licenses, not these Terms.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 6: User Data Ownership and Responsibilities */}
+            <section>
+              <h2 id="section-6" className="text-2xl font-bold mb-6 pb-3 border-b">6. USER DATA OWNERSHIP AND RESPONSIBILITIES</h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">6.1 User Data Ownership</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    You retain all ownership rights in your User Data. ERMITS does not claim any ownership or intellectual property rights in your User Data.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">6.2 User Data License to ERMITS</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">You grant ERMITS a limited license to your User Data solely to the extent necessary to:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Provide the Services to you</li>
+                    <li>Perform technical operations (backup, recovery, security monitoring)</li>
+                    <li>Comply with legal obligations</li>
+                  </ul>
+                  <p className="text-muted-foreground leading-relaxed mt-3">
+                    This license terminates when you delete your User Data or terminate your account, except for:
+                  </p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground mt-2">
+                    <li>Data retained for legal or regulatory compliance purposes</li>
+                    <li>Pseudonymized analytics data that cannot be reverse-engineered to identify you</li>
+                    <li>Backup copies maintained for disaster recovery (deleted within 90 days of account termination)</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">6.3 User Data Responsibilities</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">You are solely responsible for:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>The accuracy, quality, and legality of your User Data</li>
+                    <li>The means by which you acquired User Data</li>
+                    <li>Compliance with all applicable laws regarding User Data processing</li>
+                    <li>Maintaining appropriate security controls for your User Data</li>
+                    <li>Backup and disaster recovery of locally-stored data</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">6.4 Prohibited Data</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">You may not upload, transmit, or process through the Services:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Malware, viruses, or malicious code</li>
+                    <li>Content that infringes intellectual property rights</li>
+                    <li>Illegally obtained data or trade secrets</li>
+                    <li>Personal data of minors without appropriate consent</li>
+                    <li>Data in violation of applicable export control laws</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 7: Acceptable Use */}
             <section>
               <h2 className="text-2xl font-semibold mb-4">1.5 License Grant and Restrictions</h2>
               
