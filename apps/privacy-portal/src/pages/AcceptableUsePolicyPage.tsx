@@ -184,6 +184,17 @@ export function AcceptableUsePolicyPage() {
                     </ul>
                   </div>
                 </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">3.2 Security Tool Use</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">Authorized use of security tools and malware samples:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Security professionals may use Services to analyze malware samples and vulnerabilities</li>
+                    <li>Analysis must be conducted in isolated environments</li>
+                    <li>Malicious code must not be executed against ERMITS infrastructure or other users</li>
+                    <li>Results of security research may not be used for illegal purposes</li>
+                  </ul>
+                </div>
               </div>
             </section>
 
@@ -214,6 +225,86 @@ export function AcceptableUsePolicyPage() {
                     <li>Fail to report cyber incidents involving CUI within required timeframes (72 hours to DoD)</li>
                     <li>Store CUI on unauthorized systems or in unauthorized locations</li>
                     <li>Transmit CUI over unsecured channels without encryption</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 5: Resource Limits and Fair Use */}
+            <section>
+              <h2 className="text-2xl font-semibold mb-4">5. RESOURCE LIMITS AND FAIR USE</h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">5.1 Resource Quotas</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">Services include resource limits based on your subscription tier:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li><strong>API Rate Limits:</strong> Requests per minute/hour/day</li>
+                    <li><strong>Storage Limits:</strong> Total data storage allocation</li>
+                    <li><strong>Concurrent Users:</strong> Maximum simultaneous users</li>
+                    <li><strong>File Upload Limits:</strong> Maximum file size and quantity</li>
+                    <li><strong>Bandwidth Limits:</strong> Data transfer quotas</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">5.2 Fair Use</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">You agree to use resources reasonably and not to:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Significantly exceed your allocated resource quotas</li>
+                    <li>Use automated tools to generate excessive requests</li>
+                    <li>Store unnecessary or redundant data</li>
+                    <li>Hoard resources to the detriment of other users</li>
+                    <li>Circumvent usage tracking or metering</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">5.3 Consequences of Excessive Use</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">ERMITS may, at its discretion:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Throttle or rate-limit excessive usage</li>
+                    <li>Suspend access until usage returns to normal levels</li>
+                    <li>Request upgrade to higher-tier subscription</li>
+                    <li>Charge overage fees for excessive usage (with prior notice)</li>
+                    <li>Terminate accounts engaging in persistent abuse</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 6: Reporting Violations */}
+            <section>
+              <h2 className="text-2xl font-semibold mb-4">6. REPORTING VIOLATIONS</h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">6.1 How to Report</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">If you become aware of violations of this AUP:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li><strong>Email:</strong> <a href="mailto:legal@ermits.com" className="text-primary hover:underline">legal@ermits.com</a> (Subject: "AUP Violation Report")</li>
+                    <li><strong>Include:</strong> Detailed description, evidence, affected accounts/systems</li>
+                    <li><strong>Confidential:</strong> Reports are treated confidentially</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">6.2 Good Faith Reporting</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">ERMITS will not take adverse action against users who:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Report violations in good faith</li>
+                    <li>Discover violations in the course of authorized security research</li>
+                    <li>Report their own accidental violations and take corrective action</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">6.3 False Reports</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">Making false or malicious reports is prohibited and may result in:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Account suspension or termination</li>
+                    <li>Legal action for damages</li>
+                    <li>Reporting to law enforcement if appropriate</li>
                   </ul>
                 </div>
               </div>
@@ -274,9 +365,99 @@ export function AcceptableUsePolicyPage() {
                         <li>Reporting to authorities if required</li>
                       </ul>
                     </div>
+                    <div>
+                      <h4 className="font-semibold mb-2">Legal Action:</h4>
+                      <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                        <li>Pursuit of damages for harm caused</li>
+                        <li>Injunctive relief to prevent ongoing violations</li>
+                        <li>Cooperation with law enforcement investigations</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">7.3 Appeals</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">If you believe an enforcement action was made in error:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Contact <a href="mailto:legal@ermits.com" className="text-primary hover:underline">legal@ermits.com</a> (Subject: "AUP Enforcement Appeal")</li>
+                    <li>Provide detailed explanation and evidence</li>
+                    <li>ERMITS will review and respond within 10 business days</li>
+                    <li>Decision is final and at ERMITS' sole discretion</li>
+                  </ul>
+                </div>
               </div>
+            </section>
+
+            {/* Section 8: Cooperation with Law Enforcement */}
+            <section>
+              <h2 className="text-2xl font-semibold mb-4">8. COOPERATION WITH LAW ENFORCEMENT</h2>
+              
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">8.1 Legal Requests</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">ERMITS will cooperate with lawful requests from:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Law enforcement agencies</li>
+                    <li>Regulatory authorities</li>
+                    <li>Court orders and subpoenas</li>
+                    <li>National security investigations</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">8.2 User Notification</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">When legally permitted, ERMITS will:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Notify affected users of legal requests</li>
+                    <li>Provide reasonable time to challenge requests</li>
+                    <li>Disclose only information required by law</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">8.3 Emergency Situations</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-2">In emergencies involving imminent threat to life or serious bodily harm:</p>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>ERMITS may disclose information without prior notice</li>
+                    <li>Users will be notified after emergency resolution</li>
+                    <li>Disclosure limited to minimum necessary</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 9: Third-Party Services and Integrations */}
+            <section>
+              <h2 className="text-2xl font-semibold mb-4">9. THIRD-PARTY SERVICES AND INTEGRATIONS</h2>
+              
+              <p className="text-muted-foreground leading-relaxed mb-4">When using third-party integrations through ERMITS Services:</p>
+              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                <li>You are subject to third-party acceptable use policies</li>
+                <li>ERMITS is not responsible for third-party service violations</li>
+                <li>Violations of third-party policies may result in integration termination</li>
+                <li>You must comply with all applicable third-party terms</li>
+              </ul>
+            </section>
+
+            {/* Section 10: Updates to This Policy */}
+            <section>
+              <h2 className="text-2xl font-semibold mb-4">10. UPDATES TO THIS POLICY</h2>
+              
+              <p className="text-muted-foreground leading-relaxed mb-4">ERMITS may update this AUP to reflect:</p>
+              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                <li>Evolving security threats and abuse patterns</li>
+                <li>Legal and regulatory changes</li>
+                <li>New Services or features</li>
+                <li>Industry best practices</li>
+              </ul>
+              
+              <p className="font-semibold mt-4 mb-2">Notification:</p>
+              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                <li>Material changes: 30 days' advance notice</li>
+                <li>Non-material changes: Effective immediately upon posting</li>
+                <li>Continued use constitutes acceptance</li>
+              </ul>
             </section>
 
             {/* Section 11: Contact Information */}
@@ -286,21 +467,21 @@ export function AcceptableUsePolicyPage() {
                 11. Contact Information
               </h2>
               
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 space-y-4">
+              <div className="space-y-4">
                 <div>
-                  <h3 className="font-semibold mb-2">AUP Violation Reports:</h3>
-                  <p className="text-muted-foreground">Email: contact@ermits.com</p>
-                  <p className="text-muted-foreground">Subject: "AUP Violation Report"</p>
+                  <p className="font-semibold mt-4 mb-2">AUP Violation Reports:</p>
+                  <p className="text-muted-foreground">Email: <a href="mailto:legal@ermits.com" className="text-primary hover:underline">legal@ermits.com</a><br />
+                  Subject: "AUP Violation Report"</p>
                 </div>
                 <div>
-                  <h3 className="font-semibold mb-2">AUP Questions:</h3>
-                  <p className="text-muted-foreground">Email: contact@ermits.com</p>
-                  <p className="text-muted-foreground">Subject: "AUP Inquiry"</p>
+                  <p className="font-semibold mt-4 mb-2">AUP Questions:</p>
+                  <p className="text-muted-foreground">Email: <a href="mailto:legal@ermits.com" className="text-primary hover:underline">legal@ermits.com</a><br />
+                  Subject: "AUP Inquiry"</p>
                 </div>
                 <div>
-                  <h3 className="font-semibold mb-2">Appeals:</h3>
-                  <p className="text-muted-foreground">Email: contact@ermits.com</p>
-                  <p className="text-muted-foreground">Subject: "AUP Enforcement Appeal"</p>
+                  <p className="font-semibold mt-4 mb-2">Appeals:</p>
+                  <p className="text-muted-foreground">Email: <a href="mailto:legal@ermits.com" className="text-primary hover:underline">legal@ermits.com</a><br />
+                  Subject: "AUP Enforcement Appeal"</p>
                 </div>
               </div>
             </section>
