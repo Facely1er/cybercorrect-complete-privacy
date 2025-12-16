@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useChatbot } from '../components/chat/ChatbotProvider';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
-import TextCarousel from '../components/ui/TextCarousel';
 import { HeroHeadingCarousel } from '../components/ui/HeroHeadingCarousel';
 import { InternalLink } from '../components/ui/InternalLinkingHelper';
 import FloatingPrivacyIcons from '../components/ui/FloatingPrivacyIcons';
@@ -346,7 +345,7 @@ const Landing = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               <Card className="card-hover text-center border border-border dark:border-dark-support">
                 <CardContent className="p-8 md:p-10">
                   <div className="w-16 h-16 bg-primary/10 dark:bg-dark-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
@@ -359,6 +358,23 @@ const Landing = () => {
                   <Link to="/roles/data-protection-officer" className="no-underline">
                     <Button variant="outline" size="lg" className="w-full" aria-label="View DPO Workflow">
                       DPO Workflow
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+
+              <Card className="card-hover text-center border border-border dark:border-dark-support">
+                <CardContent className="p-8 md:p-10">
+                  <div className="w-16 h-16 bg-primary/10 dark:bg-dark-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                    <Shield className="w-8 h-8 text-primary dark:text-dark-primary" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-4 text-foreground dark:text-dark-text">Privacy Officers</h3>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                    Develop and implement privacy strategies, coordinate cross-functional privacy initiatives, and ensure organizational compliance.
+                  </p>
+                  <Link to="/roles/privacy-officer" className="no-underline">
+                    <Button variant="outline" size="lg" className="w-full" aria-label="View Privacy Officer Workflow">
+                      Privacy Officer Workflow
                     </Button>
                   </Link>
                 </CardContent>
