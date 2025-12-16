@@ -358,8 +358,8 @@ const Landing = () => {
               </Link>
               <Button 
                 size="lg" 
-                variant="ghost"
-                className="text-background border-2 border-background/30 hover:bg-background/20 hover:border-background shadow-lg backdrop-blur-sm px-8"
+                variant="outline"
+                className="bg-white/10 text-white border-2 border-white hover:bg-white hover:text-primary shadow-lg backdrop-blur-sm px-8"
                 onClick={handleGuideMe}
                 aria-label="Talk to an Expert"
               >
