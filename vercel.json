@@ -1,5 +1,4 @@
 {
-  "_comment": "This file is not used when deploying from apps/framework-compliance folder. See apps/framework-compliance/vercel.json for the actual deployment config.",
   "buildCommand": "npm run build --workspace=@cybercorrect/framework-compliance",
   "outputDirectory": "dist/framework-compliance",
   "installCommand": "npm install",
