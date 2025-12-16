@@ -156,11 +156,12 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       icon: Home
     },
     {
-      name: 'Compliance',
+      name: 'Role Journeys',
       path: '/compliance',
-      icon: PuzzlePiece,
+      icon: Users,
       dropdown: true,
       dropdownItems: [
+        { name: 'All Journeys', path: '/compliance' },
         { name: 'Data Protection Officer', path: '/roles/data-protection-officer' },
         { name: 'Legal Counsel', path: '/roles/legal-counsel' },
         { name: 'Data Steward', path: '/roles/data-steward' },
