@@ -35,8 +35,8 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
     }
   };
 
-  const complianceLinks = [
-    { name: 'Overview', path: '/compliance' },
+  const roleJourneyLinks = [
+    { name: 'All Journeys', path: '/compliance' },
     { name: 'Data Protection Officer', path: '/roles/data-protection-officer' },
     { name: 'Legal Counsel', path: '/roles/legal-counsel' },
     { name: 'Data Steward', path: '/roles/data-steward' },
@@ -60,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
 
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
-    { name: 'Compliance', href: '/compliance', icon: Shield },
+    { name: 'Role Journeys', href: '/compliance', icon: Users },
     { name: 'Assessments', href: '/assessments/privacy-assessment', icon: ClipboardCheck },
     { name: 'Toolkit', href: '/toolkit', icon: Wrench },
     { name: 'Results', href: '/privacy-results', icon: BarChart3 },
@@ -100,8 +100,8 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             {navigation.map((item) => {
               const Icon = item.icon;
               // Handle dropdown items
-              if (item.name === 'Compliance' || item.name === 'Assessments' || item.name === 'Toolkit' || item.name === 'Results') {
-                const dropdownLinks = item.name === 'Compliance' ? complianceLinks :
+              if (item.name === 'Role Journeys' || item.name === 'Assessments' || item.name === 'Toolkit' || item.name === 'Results') {
+                const dropdownLinks = item.name === 'Role Journeys' ? roleJourneyLinks :
                                       item.name === 'Assessments' ? assessmentLinks : 
                                       item.name === 'Toolkit' ? toolLinks : resultLinks;
                 return (
@@ -124,8 +124,8 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                           {dropdownLinks.map(link => {
                             // Get icon for dropdown link
                             let DropdownIcon = ClipboardCheck;
-                            if (item.name === 'Compliance') {
-                              if (link.name === 'Overview') DropdownIcon = Home;
+                            if (item.name === 'Role Journeys') {
+                              if (link.name === 'All Journeys') DropdownIcon = Users;
                               else if (link.name.includes('Data Protection')) DropdownIcon = Eye;
                               else if (link.name.includes('Legal')) DropdownIcon = Scale;
                               else if (link.name.includes('Data Steward')) DropdownIcon = Database;
