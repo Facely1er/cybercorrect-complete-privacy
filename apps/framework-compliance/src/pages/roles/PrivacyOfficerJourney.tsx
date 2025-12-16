@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { 
@@ -14,10 +14,22 @@ import {
   Users,
   Target,
   AlertTriangle,
-  Database
+  Database,
+  Sparkles
 } from 'lucide-react';
 
+interface AssessmentCustomization {
+  overallScore: number;
+  weakAreas: string[];
+  strongAreas: string[];
+  priorityLevel: 'critical' | 'high' | 'moderate' | 'maintenance';
+  customSteps: { phase: string; focus: string; priority: 'high' | 'medium' | 'low' }[];
+}
+
 const PrivacyOfficerJourney = () => {
+  const location = useLocation();
+  const customization: AssessmentCustomization | null = location.state?.customization;
+  const fromAssessment = location.state?.fromAssessment;
   const journeySteps = [
     {
       phase: 'Assessment',
@@ -155,6 +167,82 @@ const PrivacyOfficerJourney = () => {
         </div>
       </section>
 
+      {/* Personalized Assessment Banner */}
+      {fromAssessment && customization && (
+        <section className="py-8 bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 border-b border-border">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <Card className="border-2 border-primary/20 bg-white/80 dark:bg-dark-surface/80 backdrop-blur">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10">
+                      <Sparkles className="w-8 h-8 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-xl font-bold text-foreground">Your Personalized Privacy Officer Journey</h3>
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          customization.priorityLevel === 'critical' ? 'bg-destructive/10 text-destructive' :
+                          customization.priorityLevel === 'high' ? 'bg-warning/10 text-warning' :
+                          customization.priorityLevel === 'moderate' ? 'bg-primary/10 text-primary' :
+                          'bg-success/10 text-success'
+                        }`}>
+                          {customization.priorityLevel === 'critical' ? 'Critical Priority' :
+                           customization.priorityLevel === 'high' ? 'High Priority' :
+                           customization.priorityLevel === 'moderate' ? 'Moderate Priority' : 'Maintenance Mode'}
+                        </span>
+                      </div>
+                      <p className="text-muted-foreground mb-4">
+                        Based on your assessment score of <strong className="text-foreground">{customization.overallScore}%</strong>, 
+                        we've customized your privacy officer journey to focus on your specific compliance gaps.
+                      </p>
+                      
+                      {customization.weakAreas.length > 0 && (
+                        <div className="space-y-2">
+                          <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                            <AlertTriangle className="w-4 h-4 text-warning" />
+                            Priority Focus Areas:
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                            {customization.weakAreas.map((area, index) => (
+                              <span 
+                                key={index}
+                                className="px-3 py-1 bg-warning/10 text-warning text-sm rounded-full border border-warning/20"
+                              >
+                                {area}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      
+                      {customization.strongAreas.length > 0 && (
+                        <div className="mt-4 space-y-2">
+                          <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                            <CheckCircle className="w-4 h-4 text-success" />
+                            Your Strengths:
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                            {customization.strongAreas.map((area, index) => (
+                              <span 
+                                key={index}
+                                className="px-3 py-1 bg-success/10 text-success text-sm rounded-full border border-success/20"
+                              >
+                                {area}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Journey Steps */}
       <section className="py-20 bg-white dark:bg-dark-surface">
         <div className="container mx-auto px-4">
@@ -164,7 +252,9 @@ const PrivacyOfficerJourney = () => {
                 Your Privacy Compliance Journey
               </h2>
               <p className="text-xl text-muted-foreground">
-                Four phases to comprehensive privacy compliance
+                {fromAssessment 
+                  ? 'Steps prioritized based on your assessment results' 
+                  : 'Four phases to comprehensive privacy compliance'}
               </p>
             </div>
 
