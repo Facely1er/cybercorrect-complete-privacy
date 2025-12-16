@@ -172,7 +172,7 @@ const DpiaManager = () => {
         URL.revokeObjectURL(url);
         toast.success('Export successful', 'CSV report downloaded');
       } else if (format === 'pdf') {
-        const { generateDpiaPdf } = await import('../../utils/pdf');
+        const { generateDpiaManagerPdf } = await import('../../utils/pdf');
         const pdfReportData = {
           metadata: reportData.metadata,
           summary: reportData.summary,
@@ -185,7 +185,7 @@ const DpiaManager = () => {
             lastUpdated: dpia.lastUpdated || dpia.createdDate
           }))
         };
-        generateDpiaPdf(pdfReportData);
+        generateDpiaManagerPdf(pdfReportData);
         toast.success('Export successful', 'PDF report downloaded');
       }
     } catch (error) {

@@ -742,7 +742,7 @@ export const generateConsentManagementPdf = (data: {
 /**
  * Generate PDF for DPIA Manager
  */
-export const generateDpiaPdf = (data: {
+export const generateDpiaManagerPdf = (data: {
   metadata: { timestamp: string; reportId: string; version: string };
   summary: {
     totalDpias: number;
