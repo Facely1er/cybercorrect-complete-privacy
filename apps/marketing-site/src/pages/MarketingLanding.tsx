@@ -39,7 +39,7 @@ const MarketingLanding = () => {
       <span className="text-foreground">Automate Your </span>
       <span className="text-primary">Privacy</span>
       <br className="hidden sm:block" />
-      <span className="text-primary">Compliance Journey</span>
+      <span className="text-primary">by Design</span>
     </h1>
   ];
 

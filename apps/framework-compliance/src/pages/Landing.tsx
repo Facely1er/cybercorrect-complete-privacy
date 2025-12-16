@@ -34,7 +34,7 @@ const Landing = () => {
       <span className="text-foreground dark:text-dark-text">Automate Your </span>
       <span className="text-primary dark:text-dark-primary">Privacy</span>
       <br className="hidden sm:block" />
-      <span className="text-primary dark:text-dark-primary">Compliance Journey</span>
+      <span className="text-primary dark:text-dark-primary">by Design</span>
     </h1>
   ];
 
