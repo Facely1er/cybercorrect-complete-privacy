@@ -486,27 +486,64 @@ export function TermsPage() {
             <section>
               <h2 id="section-11" className="text-2xl font-bold mb-6 pb-3 border-b">11. ACCEPTABLE USE</h2>
               
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                You agree to use the Services only for lawful purposes and in accordance with these Terms. Prohibited uses include but are not limited to:
+              </p>
+
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-xl font-semibold mb-3">1.5.1 License to Use Services</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Subject to your compliance with these Terms, ERMITS grants you a limited, non-exclusive, non-transferable, revocable license to access and use the Services for your internal business or personal purposes.
-                  </p>
+                  <h3 className="text-xl font-semibold mb-3">11.1 Illegal Activities</h3>
+                  <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+                    <li>Violating any applicable laws, regulations, or third-party rights</li>
+                    <li>Engaging in fraud, money laundering, or other criminal activities</li>
+                    <li>Facilitating illegal activities or transactions</li>
+                  </ul>
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-semibold mb-3">1.5.2 License Restrictions</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-2">You may not:</p>
-                  <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-                    <li>Modify, copy, distribute, transmit, display, perform, reproduce, publish, license, create derivative works from, transfer, or sell any information, software, products, or services obtained from the Services</li>
-                    <li>Reverse engineer, decompile, disassemble, or attempt to discover source code or underlying algorithms (except to the extent such restriction is prohibited by applicable law)</li>
-                    <li>Remove, obscure, or alter any proprietary rights notices</li>
-                    <li>Use the Services to develop competing products or services</li>
-                    <li>Access the Services through automated means (bots, scrapers) without prior written authorization</li>
-                    <li>Attempt to circumvent security measures or gain unauthorized access</li>
-                    <li>Use the Services in any way that violates applicable laws or regulations</li>
+                  <h3 className="text-xl font-semibold mb-3">11.2 Security Violations</h3>
+                  <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+                    <li>Attempting to gain unauthorized access to Services or user accounts</li>
+                    <li>Interfering with or disrupting Services or servers</li>
+                    <li>Introducing malware, viruses, or harmful code</li>
+                    <li>Circumventing security measures or authentication mechanisms</li>
+                    <li>Conducting security testing without prior written authorization</li>
                   </ul>
                 </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-3">11.3 Harmful Content</h3>
+                  <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+                    <li>Uploading or transmitting malicious software</li>
+                    <li>Distributing spam, phishing, or unsolicited communications</li>
+                    <li>Hosting or distributing pirated or illegal content</li>
+                    <li>Processing data in violation of applicable privacy laws</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-3">11.4 Abuse and Misuse</h3>
+                  <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+                    <li>Using Services to harass, threaten, or harm others</li>
+                    <li>Impersonating others or misrepresenting affiliation</li>
+                    <li>Collecting user information without consent</li>
+                    <li>Exceeding rate limits or resource quotas</li>
+                    <li>Using Services for cryptocurrency mining without authorization</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-3">11.5 Competitive Use</h3>
+                  <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+                    <li>Using Services to develop competing products</li>
+                    <li>Benchmarking for competitive analysis without consent</li>
+                    <li>Reverse engineering (except as permitted by law)</li>
+                  </ul>
+                </div>
+
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Detailed acceptable use provisions are set forth in the Acceptable Use Policy.
+                </p>
               </div>
             </section>
 

@@ -159,7 +159,7 @@ export function AcceptableUsePolicyPage() {
                   <div>
                     <h4 className="font-semibold mb-2">Permitted Activities:</h4>
                     <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-                      <li>Responsibly report vulnerabilities to contact@ermits.com</li>
+                      <li>Responsibly report vulnerabilities to legal@ermits.com</li>
                       <li>Conduct good-faith security research on your own accounts</li>
                       <li>Test security features within scope of your own data</li>
                     </ul>

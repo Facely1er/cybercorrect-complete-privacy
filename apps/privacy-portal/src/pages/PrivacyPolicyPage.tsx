@@ -90,7 +90,7 @@ export function PrivacyPolicyPage() {
                       <p className="font-bold mb-2">CyberCorrect™:</p>
                       <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
                         <li>Privacy Portal (workplace privacy compliance)</li>
-                        <li>Privacy Platform (multi-regulation privacy management)</li>
+                        <li>Privacy Platform (multi-regulation privacy compliance automation)</li>
                         <li>Data subject rights management</li>
                       </ul>
                     </div>
@@ -713,41 +713,41 @@ export function PrivacyPolicyPage() {
             <section>
               <h2 id="section-13" className="text-2xl font-bold mb-6 pb-3 border-b">13. UPDATES TO THIS PRIVACY POLICY</h2>
               
-              <div className="space-y-4">
-                <div>
-                  <h3 className="text-xl font-semibold mb-3">10.1 CUI and FCI Handling</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-3">
-                    For users handling Controlled Unclassified Information (CUI) or Federal Contract Information (FCI):
-                  </p>
-                  <div>
-                    <h4 className="font-semibold mb-2">Privacy-First Architecture Benefits:</h4>
-                    <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-                      <li>CUI/FCI is processed client-side and never transmitted to ERMITS</li>
-                      <li>Zero-knowledge encryption ensures ERMITS cannot access CUI/FCI</li>
-                      <li>Local storage options eliminate cloud transmission of sensitive data</li>
-                      <li>Users maintain complete control over CUI/FCI data</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Section 11: Updates to This Privacy Policy */}
-            <section>
-              <h2 className="text-2xl font-semibold mb-4">11. Updates to This Privacy Policy</h2>
-              
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div>
                   <h3 className="text-xl font-semibold mb-4">13.1 Policy Updates</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-3">
+                  <p className="text-muted-foreground leading-relaxed mb-4">
                     We may update this Privacy Policy periodically to reflect:
                   </p>
-                  <ul className="list-disc pl-6 text-muted-foreground space-y-1">
+                  <ul className="list-disc pl-6 text-muted-foreground space-y-2">
                     <li>Changes in data practices or Services</li>
+                    <li>New product launches or features</li>
                     <li>Legal or regulatory developments</li>
                     <li>Technological improvements</li>
                     <li>User feedback and industry best practices</li>
                   </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">13.2 Notification of Changes</h3>
+                  <div className="bg-gray-50 dark:bg-gray-800/30 rounded-lg p-6">
+                    <p className="font-bold text-foreground mb-3">Material Changes:</p>
+                    <p className="text-muted-foreground mb-2">For significant changes affecting your rights or data practices:</p>
+                    <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
+                      <li><strong>30 Days' Advance Notice:</strong> Email notification and in-app announcement</li>
+                      <li><strong>Prominent Display:</strong> Notice displayed on website and in Services</li>
+                      <li><strong>Opt-Out Option:</strong> Option to export data and close account before changes take effect</li>
+                      <li><strong>Continued Use:</strong> Continued use after effective date constitutes acceptance</li>
+                    </ul>
+
+                    <p className="font-bold text-foreground mt-4 mb-2">Non-Material Changes:</p>
+                    <p className="text-muted-foreground mb-2">For clarifications, formatting, or minor updates:</p>
+                    <ul className="list-disc pl-6 space-y-1 text-muted-foreground">
+                      <li>Update "Last Updated" date at top of policy</li>
+                      <li>Changes effective immediately upon posting</li>
+                      <li>No advance notice required</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </section>

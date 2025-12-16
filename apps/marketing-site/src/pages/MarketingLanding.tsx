@@ -18,11 +18,30 @@ import {
   HelpCircle,
   Cookie
 } from 'lucide-react';
+import { HeroHeadingCarousel } from '../components/HeroHeadingCarousel';
 
 const MarketingLanding = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const frameworkComplianceUrl = import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com';
   const privacyPortalUrl = import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com';
+
+  // Hero heading carousel items
+  const heroHeadings = [
+    // Heading 1: Current privacy compliance focus
+    <h1 key="heading-1" className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
+      <span className="text-foreground">Stop Losing Sleep Over </span>
+      <span className="text-primary">Privacy</span>
+      <br className="hidden sm:block" />
+      <span className="text-primary">Compliance</span>
+    </h1>,
+    // Heading 2: Automated solution focus
+    <h1 key="heading-2" className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
+      <span className="text-foreground">Automate Your </span>
+      <span className="text-primary">Privacy</span>
+      <br className="hidden sm:block" />
+      <span className="text-primary">Compliance Journey</span>
+    </h1>
+  ];
 
   const navigation = [
     { name: 'Solutions', href: '#solutions', icon: Database },
@@ -155,18 +174,22 @@ const MarketingLanding = () => {
       <section className="relative py-20 sm:py-32 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/5">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
+            {/* Badge with Shield Icon */}
             <div className="inline-block mb-6">
-              <span className="bg-primary/10 text-primary border border-primary/20 text-sm px-4 py-2 rounded-full">
-                <Shield className="w-4 h-4 mr-2 inline" />
+              <span className="bg-primary/10 text-primary border border-primary/20 text-sm px-4 py-2 rounded-full inline-flex items-center">
+                <Shield className="w-4 h-4 mr-2 flex-shrink-0" />
                 Avoid Fines. Build Trust. Stay Compliant.
               </span>
             </div>
             
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-foreground">
-              Stop Losing Sleep Over
-              <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent"> Privacy Compliance</span>
-            </h1>
+            {/* Main Headline - Carousel with 2 headings */}
+            <HeroHeadingCarousel 
+              headings={heroHeadings}
+              interval={5000}
+              className="min-h-[120px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center"
+            />
             
+            {/* Supporting Paragraph */}
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
               Regulatory fines can reach millions. Data breaches destroy trust. Manual compliance processes drain resources. 
               Get automated privacy compliance that protects your business, reduces risk, and saves your team hundreds of hours.
