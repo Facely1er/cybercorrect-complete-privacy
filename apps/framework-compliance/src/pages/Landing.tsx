@@ -118,9 +118,9 @@ const Landing = () => {
       </section>
 
       {/* How It Works - Moved up for better flow */}
-      <section className="section-padding bg-background dark:bg-dark-surface">
+      <section className="py-16 md:py-24 bg-muted/30 dark:bg-dark-support/10">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <h2 className="section-title text-3xl md:text-4xl">
               How It Works
             </h2>
@@ -175,9 +175,9 @@ const Landing = () => {
       </section>
 
       {/* Outcome-Based Entry Points */}
-      <section className="section-padding bg-background dark:bg-dark-surface">
+      <section className="py-16 md:py-24 bg-background dark:bg-dark-surface">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <h2 className="section-title text-3xl md:text-4xl">
               What Do You Need to Achieve?
             </h2>
@@ -186,7 +186,7 @@ const Landing = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {[
               {
                 icon: Target,
@@ -256,7 +256,7 @@ const Landing = () => {
           </div>
 
           {/* Universal CTA - No role selection required */}
-          <div className="text-center mt-12">
+          <div className="text-center mt-16 pt-8 border-t border-border/50 dark:border-dark-support/50">
             <p className="text-muted-foreground mb-4">Not sure where to start?</p>
             <Link to="/assessments/privacy-assessment" className="no-underline">
               <Button size="lg" variant="outline" className="px-8">
@@ -269,10 +269,10 @@ const Landing = () => {
       </section>
 
       {/* Privacy Team Roles */}
-      <section className="section-padding bg-muted/30 dark:bg-dark-support/10">
+      <section className="py-16 md:py-24 bg-muted/30 dark:bg-dark-support/10">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
+            <div className="text-center mb-16">
               <h2 className="section-title text-3xl md:text-4xl">
                 Privacy Team Roles
               </h2>
@@ -281,7 +281,7 @@ const Landing = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
                   icon: Eye,
