@@ -334,7 +334,7 @@ const Landing = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-r from-primary via-secondary to-accent dark:from-dark-primary dark:via-dark-primary dark:to-dark-primary">
+      <section className="py-16 md:py-20 bg-gradient-to-r from-primary to-primary/80 dark:from-dark-primary dark:to-dark-primary">
         <div className="container mx-auto px-4">
           <div className="text-center text-primary-foreground max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -359,7 +359,7 @@ const Landing = () => {
               <Button 
                 size="lg" 
                 variant="outline"
-                className="bg-white/10 text-white border-2 border-white hover:bg-white hover:text-primary shadow-lg backdrop-blur-sm px-8"
+                className="bg-white text-primary border-2 border-white hover:bg-white/90 shadow-lg px-8"
                 onClick={handleGuideMe}
                 aria-label="Talk to an Expert"
               >
