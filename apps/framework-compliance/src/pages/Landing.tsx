@@ -24,10 +24,10 @@ const Landing = () => {
   const heroHeadings = [
     // Heading 1: Current privacy compliance focus
     <h1 key="heading-1" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-foreground dark:text-dark-text">
-      <span className="text-foreground dark:text-dark-text">Stop Losing Sleep Over </span>
-      <span className="text-primary dark:text-dark-primary">Privacy</span>
+      <span className="text-foreground dark:text-dark-text">Stop Losing Sleep</span>
       <br className="hidden sm:block" />
-      <span className="text-primary dark:text-dark-primary">Compliance</span>
+      <span className="text-foreground dark:text-dark-text">Over </span>
+      <span className="text-primary dark:text-dark-primary">Privacy Compliance</span>
     </h1>,
     // Heading 2: Automated solution focus
     <h1 key="heading-2" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-foreground dark:text-dark-text">
