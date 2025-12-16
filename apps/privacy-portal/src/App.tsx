@@ -166,22 +166,22 @@ function App() {
                 {/* Policy routes - redirect to centralized policies on framework-compliance */}
                 <Route path="/terms" element={
                   <ExternalRedirect 
-                    url={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/terms`} 
+                    url={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.cybercorrect.com'}/terms`} 
                   />
                 } />
                 <Route path="/privacy-policy" element={
                   <ExternalRedirect 
-                    url={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/privacy`} 
+                    url={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.cybercorrect.com'}/privacy`} 
                   />
                 } />
                 <Route path="/acceptable-use-policy" element={
                   <ExternalRedirect 
-                    url={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/acceptable-use`} 
+                    url={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.cybercorrect.com'}/acceptable-use`} 
                   />
                 } />
                 <Route path="/cookie-policy" element={
                   <ExternalRedirect 
-                    url={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com'}/cookies`} 
+                    url={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.cybercorrect.com'}/cookies`} 
                   />
                 } />
 

@@ -22,7 +22,7 @@ import { HeroHeadingCarousel } from '../components/HeroHeadingCarousel';
 
 const MarketingLanding = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const frameworkComplianceUrl = import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com';
+  const frameworkComplianceUrl = import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.cybercorrect.com';
   const privacyPortalUrl = import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com';
 
   // Hero heading carousel items

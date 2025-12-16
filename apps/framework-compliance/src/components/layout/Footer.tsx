@@ -142,15 +142,13 @@ const Footer: React.FC = () => {
                   </Link>
                 </li>
                 <li>
-                  <a 
-                    href={import.meta.env.VITE_MARKETING_SITE_URL || 'https://www.cybercorrect.com'} 
+                  <Link 
+                    to="/"
                     className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
                   >
                     <Shield className="h-3 w-3 flex-shrink-0" />
-                    <span>Marketing Site</span>
-                  </a>
+                    <span>Home</span>
+                  </Link>
                 </li>
                 <li>
                   <a 

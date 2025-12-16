@@ -3,6 +3,7 @@ import { useChatbot } from '../components/chat/ChatbotProvider';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
 import TextCarousel from '../components/ui/TextCarousel';
+import { HeroHeadingCarousel } from '../components/ui/HeroHeadingCarousel';
 import { InternalLink } from '../components/ui/InternalLinkingHelper';
 import FloatingPrivacyIcons from '../components/ui/FloatingPrivacyIcons';
 import { 
@@ -17,8 +18,25 @@ import {
 } from 'lucide-react';
 
 const Landing = () => {
-
   const { openChatbot } = useChatbot();
+
+  // Hero heading carousel items
+  const heroHeadings = [
+    // Heading 1: Current privacy compliance focus
+    <h1 key="heading-1" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-foreground dark:text-dark-text">
+      <span className="text-foreground dark:text-dark-text">Stop Losing Sleep Over </span>
+      <span className="text-primary dark:text-dark-primary">Privacy</span>
+      <br className="hidden sm:block" />
+      <span className="text-primary dark:text-dark-primary">Compliance</span>
+    </h1>,
+    // Heading 2: Automated solution focus
+    <h1 key="heading-2" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-foreground dark:text-dark-text">
+      <span className="text-foreground dark:text-dark-text">Automate Your </span>
+      <span className="text-primary dark:text-dark-primary">Privacy</span>
+      <br className="hidden sm:block" />
+      <span className="text-primary dark:text-dark-primary">Compliance Journey</span>
+    </h1>
+  ];
 
 
 
@@ -31,59 +49,49 @@ const Landing = () => {
   return (
     <div className="min-h-screen bg-surface dark:bg-dark-bg">
       {/* Hero Section */}
-      <section className="relative py-16 sm:py-20 md:py-32 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
+      <section className="relative py-20 sm:py-32 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/5 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
         <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-30 dark:opacity-20"></div>
         <FloatingPrivacyIcons />
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="text-center max-w-5xl mx-auto">
-            {/* Platform Badge */}
-            <div className="inline-block mb-6 sm:mb-8 animate-fade-in">
-              <span className="hero-badge bg-primary/10 text-primary dark:bg-dark-primary/10 dark:text-dark-primary border border-primary/20 dark:border-dark-primary/20 text-xs sm:text-sm px-4 sm:px-6 py-2 sm:py-3">
-                <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 inline" aria-hidden="true" />
-                Privacy Compliance Platform
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-4xl mx-auto">
+            {/* Badge with Shield Icon */}
+            <div className="inline-block mb-6">
+              <span className="bg-primary/10 text-primary dark:bg-dark-primary/10 dark:text-dark-primary border border-primary/20 dark:border-dark-primary/20 text-sm px-4 py-2 rounded-full inline-flex items-center">
+                <Shield className="w-4 h-4 mr-2 flex-shrink-0" />
+                Avoid Fines. Build Trust. Stay Compliant.
               </span>
             </div>
-
-            {/* Main Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 text-foreground dark:text-dark-text px-2">
-              Privacy by <span className="bg-gradient-to-r from-primary via-secondary to-accent dark:from-dark-primary dark:via-dark-primary dark:to-dark-primary bg-clip-text text-transparent">Design</span>
-            </h1>
             
-            <div className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground dark:text-gray-400 mb-12 sm:mb-16 max-w-3xl mx-auto px-2 sm:px-4">
-              <TextCarousel 
-                items={[
-                  "Global privacy compliance made simple: GDPR, CCPA, NIST Privacy Framework, and more. Collaborative project management for teams or streamlined workflows for solo users.",
-                  "Transform your privacy program with intelligent assessments, automated DPIAs, and comprehensive project management tools.",
-                  "From data mapping to breach notification - complete privacy compliance solutions with role-based collaboration and evidence management.",
-                  "Streamline privacy documentation, automate compliance processes, and maintain audit-ready evidence across all privacy regulations."
-                ]}
-                interval={5000}
-              />
-            </div>
+            {/* Main Headline - Carousel with 2 headings */}
+            <HeroHeadingCarousel 
+              headings={heroHeadings}
+              interval={5000}
+              className="min-h-[120px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center"
+            />
+            
+            {/* Supporting Paragraph */}
+            <p className="text-xl text-muted-foreground dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Regulatory fines can reach millions. Data breaches destroy trust. Manual compliance processes drain resources. 
+              Get automated privacy compliance that protects your business, reduces risk, and saves your team hundreds of hours.
+            </p>
 
-            {/* Quick CTA */}
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center w-full max-w-2xl mx-auto px-4">
-              <Link to="/assessments/privacy-assessment" className="no-underline w-full sm:w-auto">
-                <Button 
-                  size="xl"
-                  variant="default"
-                  className="enhanced-button shadow-lg w-full sm:w-auto"
-                  aria-label="Start Privacy Assessment"
-                >
-                  <Eye className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" aria-hidden="true" />
-                  <span className="whitespace-normal">Start Privacy Assessment</span>
-                </Button>
+            {/* Primary CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+              <Link 
+                to="/assessments/privacy-assessment"
+                className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground rounded-lg text-lg font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl"
+              >
+                <Eye className="mr-2 h-5 w-5" />
+                Start Free Privacy Assessment
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
-              <Link to="/project" className="no-underline w-full sm:w-auto">
-                <Button 
-                  size="xl"
-                  variant="outline"
-                  className="bg-background/90 backdrop-blur-sm border-2 border-primary/30 hover:bg-primary hover:text-primary-foreground shadow-lg w-full sm:w-auto"
-                  aria-label="Start Privacy Project"
-                >
-                  <Users className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" aria-hidden="true" />
-                  <span className="whitespace-normal">Start Privacy Project</span>
-                </Button>
+              <Link 
+                to="/login"
+                className="inline-flex items-center justify-center px-8 py-4 bg-background dark:bg-dark-surface border-2 border-primary text-primary rounded-lg text-lg font-semibold hover:bg-primary/5 transition-all"
+              >
+                <Shield className="mr-2 h-5 w-5" />
+                Log In
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </div>
             

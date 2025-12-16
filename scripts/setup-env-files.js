@@ -14,17 +14,17 @@ const __dirname = dirname(__filename);
 const rootDir = join(__dirname, '..');
 
 const envTemplates = {
-  'apps/marketing-site/.env': `# Marketing Site Environment Variables
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
+  'apps/marketing-site/.env': `# Marketing Site Environment Variables (Deprecated - no longer used)
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.cybercorrect.com
 VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 `,
-  'apps/framework-compliance/.env': `# Framework Compliance Environment Variables
+  'apps/framework-compliance/.env': `# Framework Compliance Environment Variables (Main Site)
 VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
 VITE_PRIVACY_PORTAL_URL=https://www.portal.cybercorrect.com
 `,
   'apps/privacy-portal/.env': `# Privacy Portal Environment Variables
 VITE_MARKETING_SITE_URL=https://www.cybercorrect.com
-VITE_FRAMEWORK_COMPLIANCE_URL=https://www.platform.cybercorrect.com
+VITE_FRAMEWORK_COMPLIANCE_URL=https://www.cybercorrect.com
 `
 };
 

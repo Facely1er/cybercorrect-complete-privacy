@@ -20,7 +20,7 @@ const ExternalRedirect = ({ url }: { url: string }) => {
 };
 
 function App() {
-  const frameworkComplianceUrl = import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.platform.cybercorrect.com';
+  const frameworkComplianceUrl = import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.cybercorrect.com';
 
   return (
     <BrowserRouter>
