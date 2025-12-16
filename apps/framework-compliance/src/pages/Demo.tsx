@@ -33,7 +33,7 @@ const Demo = () => {
   
   // Demo step control with auto-play
   useEffect(() => {
-    let timer = null;
+    let timer: NodeJS.Timeout | null = null;
     
     if (playing) {
       timer = setTimeout(() => {
@@ -387,7 +387,7 @@ const Demo = () => {
                     <div className="text-sm text-muted-foreground">75% Compliant</div>
                   </div>
                   <div className="w-full bg-muted h-2 mt-1 rounded-full overflow-hidden">
-                    <div className="bg-primary h-full" style={{width: '75%'}}></div>
+                    <div className="bg-primary h-full w-3/4"></div>
                   </div>
                 </div>
                 
@@ -533,7 +533,7 @@ const Demo = () => {
       
       {/* Call to Action */}
       <div className="mt-8 p-6 bg-primary/5 rounded-lg text-center">
-        <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Ready to streamline your compliance journey?</h3>
+        <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Ready to streamline your compliance journey?</h3>
         <p className="mb-6 text-lg text-muted-foreground">Experience the full power of CyberCorrect Privacy Platform with a personalized demo or comprehensive assessment.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" variant="outline" onClick={handleGuideMe} className="border-2 hover:shadow-lg transform hover:scale-105 transition-all duration-300">

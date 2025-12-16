@@ -129,7 +129,7 @@ const DataStewardJourney = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Data <span className="bg-gradient-to-r from-success to-primary dark:from-success dark:to-primary bg-clip-text text-transparent">Stewardship</span> Excellence
+              Data <span className="bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 bg-clip-text text-transparent">Stewardship</span> Excellence
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
               Master data management for privacy compliance with comprehensive data stewardship tools

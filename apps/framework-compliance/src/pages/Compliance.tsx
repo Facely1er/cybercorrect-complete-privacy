@@ -102,7 +102,7 @@ const Compliance = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Role-Based <span className="bg-gradient-to-r from-primary to-secondary dark:from-primary dark:to-secondary bg-clip-text text-transparent">Compliance</span> Journeys
+              Role-Based <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Compliance</span> Journeys
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
               Tailored compliance pathways for every privacy professional in your organization

@@ -132,7 +132,7 @@ const LegalCounselJourney = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Privacy <span className="bg-gradient-to-r from-accent to-secondary dark:from-accent dark:to-secondary bg-clip-text text-transparent">Legal</span> Excellence
+              Privacy <span className="bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">Legal</span> Excellence
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
               Navigate complex privacy laws with comprehensive legal tools and frameworks

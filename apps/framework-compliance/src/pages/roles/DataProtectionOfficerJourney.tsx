@@ -132,7 +132,7 @@ const DataProtectionOfficerJourney = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Privacy <span className="bg-gradient-to-r from-primary to-secondary dark:from-primary dark:to-secondary bg-clip-text text-transparent">Leadership</span> Excellence
+              Privacy <span className="bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400 bg-clip-text text-transparent">Leadership</span> Excellence
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
               Lead your organization's privacy program with comprehensive tools for global privacy compliance
