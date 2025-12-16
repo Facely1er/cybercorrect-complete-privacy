@@ -208,7 +208,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                     Profile
                   </Link>
                   <Link
-                    to="/settings"
+                    to="/account/settings"
                     className="flex items-center px-4 py-2 text-sm hover:bg-accent transition-colors"
                     onClick={() => setIsUserMenuOpen(false)}
                   >
