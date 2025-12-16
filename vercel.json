@@ -1,6 +1,6 @@
 {
   "buildCommand": "npm run build --workspace=@cybercorrect/framework-compliance",
-  "outputDirectory": "dist/framework-compliance",
+  "outputDirectory": "apps/framework-compliance/dist",
   "installCommand": "npm install",
   "rewrites": [
     {
