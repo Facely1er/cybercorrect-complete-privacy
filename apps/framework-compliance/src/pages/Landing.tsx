@@ -11,6 +11,7 @@ import {
   Database,
   Target,
   Users,
+  Scale,
   FileCheck,
   CheckCircle,
   Clock,
@@ -116,136 +117,59 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Privacy Focus Areas - Outcome Focused */}
+      {/* How It Works - Moved up for better flow */}
       <section className="section-padding bg-background dark:bg-dark-surface">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <h2 className="section-title text-3xl md:text-4xl">
-              Comprehensive Privacy Coverage
+              How It Works
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              One platform to manage compliance across multiple frameworks and regulations
+              Four simple steps to privacy compliance
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              {
-                id: 'regulatory-compliance',
-                title: 'Regulatory Compliance',
-                subtitle: 'GDPR, CCPA, PIPEDA & More',
-                description: 'Stay compliant with global privacy regulations through automated assessments, gap analysis, and remediation guidance.',
-                icon: Eye,
-                color: 'from-primary to-secondary',
-                path: '/assessments/privacy-assessment',
-                cta: 'Assess Compliance',
-                stats: { value: '5+', label: 'Regulations covered' }
-              },
-              {
-                id: 'data-management',
-                title: 'Data Management',
-                subtitle: 'Mapping, Inventory & Governance',
-                description: 'Understand where your data lives, how it flows, and ensure proper controls are in place throughout its lifecycle.',
-                icon: Database,
-                color: 'from-secondary to-accent',
-                path: '/toolkit/gdpr-mapper',
-                cta: 'Map Your Data',
-                stats: { value: 'Auto', label: 'Data flow tracking' }
-              },
-              {
-                id: 'risk-framework',
-                title: 'Risk Framework',
-                subtitle: 'NIST Privacy Framework Aligned',
-                description: 'Implement structured privacy governance with risk assessment, continuous monitoring, and stakeholder reporting.',
-                icon: Shield,
-                color: 'from-success to-primary',
-                path: '/assessments/privacy-assessment',
-                cta: 'Evaluate Risk',
-                stats: { value: '5', label: 'Framework functions' }
-              }
-            ].map((area) => (
-              <Card key={area.id} className="card-hover-lift relative overflow-hidden group border border-border dark:border-dark-support">
-                <div className={`absolute inset-0 bg-gradient-to-br ${area.color} opacity-5 group-hover:opacity-10 transition-opacity duration-500`} aria-hidden="true"></div>
-                <CardContent className="relative p-8">
-                  <div className="flex items-start mb-6">
-                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${area.color} flex items-center justify-center mr-4 shadow-lg flex-shrink-0`}>
-                      <area.icon className="w-7 h-7 text-white" aria-hidden="true" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-xl font-bold text-foreground dark:text-dark-text mb-1">{area.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{area.subtitle}</p>
-                    </div>
+          <div className="max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-4 gap-8">
+              {[
+                {
+                  step: '1',
+                  title: 'Assess',
+                  description: 'Answer questions about your organization and current privacy practices',
+                  icon: Eye
+                },
+                {
+                  step: '2',
+                  title: 'Discover',
+                  description: 'Get personalized insights, compliance scores, and priority recommendations',
+                  icon: Target
+                },
+                {
+                  step: '3',
+                  title: 'Act',
+                  description: 'Use our toolkit to address gaps and build your compliance program',
+                  icon: FileCheck
+                },
+                {
+                  step: '4',
+                  title: 'Maintain',
+                  description: 'Monitor progress and prove compliance to stakeholders',
+                  icon: BarChart3
+                }
+              ].map((phase, index) => (
+                <div key={index} className="text-center relative">
+                  <div className="w-16 h-16 bg-primary/10 dark:bg-dark-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
+                    <phase.icon className="w-8 h-8 text-primary dark:text-dark-primary" aria-hidden="true" />
                   </div>
-                  
-                  <p className="text-muted-foreground mb-6 leading-relaxed text-sm">{area.description}</p>
-                  
-                  <div className="flex items-center justify-between mb-6 p-3 bg-muted/50 dark:bg-dark-support/30 rounded-lg">
-                    <div className="text-sm text-muted-foreground">{area.stats.label}</div>
-                    <div className="text-lg font-bold text-primary dark:text-dark-primary">{area.stats.value}</div>
-                  </div>
-                  
-                  <Link to={area.path} className="no-underline">
-                    <Button 
-                      variant="default"
-                      className="w-full group-hover:shadow-xl transition-all duration-300"
-                      aria-label={area.cta}
-                    >
-                      <span>{area.cta}</span>
-                      <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Privacy Management Benefits */}
-      <section className="section-padding bg-muted/30 dark:bg-dark-support/10">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-20">
-            <h2 className="section-title text-3xl md:text-4xl">
-              Your Complete Privacy Journey
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              From privacy assessment to ongoing program management
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            {[
-              {
-                icon: Target,
-                title: 'Privacy Assessment',
-                description: 'Comprehensive privacy posture evaluation against global regulations and frameworks'
-              },
-              {
-                icon: Users,
-                title: 'Team Collaboration',
-                description: 'Role-based project management with RACI matrices and collaborative workflows'
-              },
-              {
-                icon: FileCheck,
-                title: 'Evidence Management',
-                description: 'Centralized evidence vault with audit-ready documentation and compliance tracking'
-              },
-              {
-                icon: Shield,
-                title: 'Continuous Monitoring',
-                description: 'Ongoing privacy program monitoring with automated alerts and compliance dashboards'
-              }
-            ].map((benefit, index) => (
-              <Card key={index} className="card-hover text-center border border-border dark:border-dark-support">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-primary/10 dark:bg-dark-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
-                    <benefit.icon className="w-8 h-8 text-primary dark:text-dark-primary" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-4 text-foreground dark:text-dark-text">{benefit.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{benefit.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+                  {index < 3 && (
+                    <div className="absolute top-8 left-[60%] w-[80%] h-0.5 bg-primary/20 dark:bg-dark-primary/20 hidden md:block" aria-hidden="true" />
+                  )}
+                  <div className="text-xs font-semibold text-primary dark:text-dark-primary mb-1">Step {phase.step}</div>
+                  <h3 className="text-lg font-bold mb-2 text-foreground dark:text-dark-text">{phase.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{phase.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -344,64 +268,72 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* How It Works - Universal journey */}
+      {/* Privacy Team Roles */}
       <section className="section-padding bg-muted/30 dark:bg-dark-support/10">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="section-title text-3xl md:text-4xl">
-              How It Works
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              One simple process that adapts to your needs
-            </p>
-          </div>
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="section-title text-3xl md:text-4xl">
+                Privacy Team Roles
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Specialized workflows for every privacy professional
+              </p>
+            </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-4 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 {
-                  step: '1',
-                  title: 'Assess',
-                  description: 'Answer questions about your organization and current practices',
-                  icon: Eye
+                  icon: Eye,
+                  title: 'Data Protection Officer',
+                  description: 'Lead privacy programs, conduct DPIAs, and oversee compliance across global regulations.',
+                  path: '/roles/data-protection-officer',
+                  cta: 'DPO Journey'
                 },
                 {
-                  step: '2',
-                  title: 'Discover',
-                  description: 'Get personalized insights, scores, and priority recommendations',
-                  icon: Target
+                  icon: Shield,
+                  title: 'Privacy Officer',
+                  description: 'Develop privacy strategies, coordinate initiatives, and ensure organizational compliance.',
+                  path: '/roles/privacy-officer',
+                  cta: 'Privacy Officer Journey'
                 },
                 {
-                  step: '3',
-                  title: 'Act',
-                  description: 'Use our toolkit to address gaps and build your program',
-                  icon: FileCheck
+                  icon: Scale,
+                  title: 'Legal Counsel',
+                  description: 'Review policies, assess legal risks, and ensure regulatory compliance across jurisdictions.',
+                  path: '/roles/legal-counsel',
+                  cta: 'Legal Journey'
                 },
                 {
-                  step: '4',
-                  title: 'Maintain',
-                  description: 'Monitor progress and prove compliance to stakeholders',
-                  icon: BarChart3
+                  icon: Database,
+                  title: 'Data Steward',
+                  description: 'Manage data inventories, processing records, and maintain privacy controls.',
+                  path: '/roles/data-steward',
+                  cta: 'Data Steward Journey'
                 }
-              ].map((phase, index) => (
-                <div key={index} className="text-center relative">
-                  <div className="w-16 h-16 bg-primary/10 dark:bg-dark-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
-                    <phase.icon className="w-8 h-8 text-primary dark:text-dark-primary" aria-hidden="true" />
-                  </div>
-                  {index < 3 && (
-                    <div className="absolute top-8 left-[60%] w-[80%] h-0.5 bg-primary/20 dark:bg-dark-primary/20 hidden md:block" aria-hidden="true" />
-                  )}
-                  <div className="text-xs font-semibold text-primary dark:text-dark-primary mb-1">Step {phase.step}</div>
-                  <h3 className="text-lg font-bold mb-2 text-foreground dark:text-dark-text">{phase.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{phase.description}</p>
-                </div>
+              ].map((role, index) => (
+                <Card key={index} className="card-hover text-center border border-border dark:border-dark-support">
+                  <CardContent className="p-6">
+                    <div className="w-14 h-14 bg-primary/10 dark:bg-dark-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
+                      <role.icon className="w-7 h-7 text-primary dark:text-dark-primary" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-lg font-bold mb-3 text-foreground dark:text-dark-text">{role.title}</h3>
+                    <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{role.description}</p>
+                    <Link to={role.path} className="no-underline">
+                      <Button variant="outline" className="w-full" aria-label={role.cta}>
+                        {role.cta}
+                        <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Final CTA - Universal */}
+      {/* Final CTA */}
       <section className="py-16 md:py-20 bg-gradient-to-r from-primary via-secondary to-accent dark:from-dark-primary dark:via-dark-primary dark:to-dark-primary">
         <div className="container mx-auto px-4">
           <div className="text-center text-primary-foreground max-w-3xl mx-auto">
