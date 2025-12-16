@@ -46,3 +46,5 @@ stripe-secrets-config.json
 *.sln
 *.sw?
 .env
+
+.vercel
