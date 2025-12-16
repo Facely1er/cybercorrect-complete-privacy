@@ -47,6 +47,15 @@ const Terms = () => {
                   </ul>
                 </div>
                 <div>
+                  <strong className="text-foreground">CyberSoluce™ Brand Products:</strong>
+                  <ul className="list-disc ml-6 mt-1 space-y-1 text-muted-foreground">
+                    <li>Enhanced Asset Inventory Management Platform</li>
+                    <li>Dependency-aware asset visibility and management</li>
+                    <li>Focus signals for attention areas</li>
+                    <li>Service funneling guidance</li>
+                  </ul>
+                </div>
+                <div>
                   <strong className="text-foreground">CyberCertitude™ Brand Products:</strong>
                   <ul className="list-disc ml-6 mt-1 space-y-1 text-muted-foreground">
                     <li>CMMC 2.0 Level 1 Implementation Suite</li>
@@ -73,23 +82,6 @@ const Terms = () => {
                     <li>RansomCheck (Ransomware readiness assessment)</li>
                     <li>Security Toolkit (Comprehensive cybersecurity assessment platform)</li>
                     <li>RiskProfessional (CISA-aligned security assessments)</li>
-                  </ul>
-                </div>
-                <div>
-                  <strong className="text-foreground">ERMITS Advisory + STEEL™ Brand Products and Services:</strong>
-                  <ul className="list-disc ml-6 mt-1 space-y-1 text-muted-foreground">
-                    <li>STEEL™ Assessment Platform (Strategic Threat & Enterprise Evaluation Layer)</li>
-                    <li>STEEL™ Premium Assessment ($29 digital product)</li>
-                    <li>vCISO Starter Kit ($299 digital product)</li>
-                    <li>Executive Dashboard Template ($79 digital product)</li>
-                    <li>Compliance Toolkit (digital product)</li>
-                    <li>Incident Response Toolkit (digital product)</li>
-                    <li>Vendor Risk Toolkit (digital product)</li>
-                    <li>Premium Toolkits (subscription-based digital products)</li>
-                    <li>STEEL Strategic Assessment Services ($25,000-$125,000 custom pricing)</li>
-                    <li>On-Demand Advisory Services (custom pricing)</li>
-                    <li>Compliance Advisory Services (custom pricing)</li>
-                    <li>Virtual CISO (vCISO) Services (custom pricing)</li>
                   </ul>
                 </div>
                 <div>

@@ -48,12 +48,12 @@ const Privacy = () => {
                   
                   <div className="space-y-3">
                     <div>
-                      <strong className="text-foreground text-sm">ERMITS Advisory + STEEL™:</strong>
+                      <strong className="text-foreground text-sm">CyberSoluce™:</strong>
                       <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-1">
-                        <li>Strategic cybersecurity assessments and advisory services</li>
-                        <li>STEEL™ (Strategic Threat & Enterprise Evaluation Layer) framework assessments</li>
-                        <li>vCISO services and security consulting</li>
-                        <li>Compliance advisory and implementation services</li>
+                        <li>Enhanced Asset Inventory Management Platform</li>
+                        <li>Dependency-aware visibility into asset inventory</li>
+                        <li>Focus signals for attention areas</li>
+                        <li>Service funneling guidance toward appropriate ERMITS services</li>
                       </ul>
                     </div>
                     
