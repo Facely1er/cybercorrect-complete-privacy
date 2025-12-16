@@ -7,6 +7,9 @@ const Documentation = lazy(() => import('../pages/resources/Documentation'));
 const Guides = lazy(() => import('../pages/resources/Guides'));
 const Support = lazy(() => import('../pages/resources/Support'));
 
+// Compliance Hub
+const Compliance = lazy(() => import('../pages/Compliance'));
+
 // Documentation Pages
 import GdprGuide from '../pages/resources/documentation/GdprGuide';
 import AssessmentGuide from '../pages/resources/documentation/AssessmentGuide';
@@ -44,6 +47,11 @@ import DataProcessingRecordViewer from '../pages/resources/viewers/DataProcessin
 import BreachNotificationViewer from '../pages/resources/viewers/BreachNotificationViewer';
 
 export const resourcesRoutes = [
+  {
+    path: 'compliance',
+    element: Compliance,
+    lazy: true,
+  },
   {
     path: 'resources-landing',
     element: ResourcesLanding,
