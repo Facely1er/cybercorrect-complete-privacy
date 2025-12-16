@@ -14,7 +14,7 @@ const ECommerce = () => {
             ERMITS LLC - Subscription, Payment, Refund & Cancellation Terms
           </p>
           <p className="text-sm text-muted-foreground">
-            <strong>Version:</strong> 1.0 | <strong>Effective Date:</strong> November 19, 2025 | <strong>Last Updated:</strong> November 19, 2025
+            <strong>Version:</strong> 1.0 | <strong>Effective Date:</strong> October 31, 2025 | <strong>Last Updated:</strong> December 13, 2025
           </p>
         </div>
 
@@ -43,7 +43,7 @@ const ECommerce = () => {
                 1. SUBSCRIPTION & PAYMENT TERMS
               </h2>
               <p className="text-sm text-muted-foreground mb-6">
-                <strong>Effective Date:</strong> November 19, 2025 | <strong>Last Updated:</strong> November 19, 2025
+                <strong>Effective Date:</strong> October 31, 2025 | <strong>Last Updated:</strong> December 13, 2025
               </p>
 
               <div className="space-y-6">
@@ -645,7 +645,7 @@ const ECommerce = () => {
                 2. REFUND & CANCELLATION POLICY
               </h2>
               <p className="text-sm text-muted-foreground mb-6">
-                <strong>Effective Date:</strong> November 19, 2025 | <strong>Last Updated:</strong> November 19, 2025
+                <strong>Effective Date:</strong> October 31, 2025 | <strong>Last Updated:</strong> December 13, 2025
               </p>
 
               <div className="space-y-6">
@@ -934,7 +934,7 @@ const ECommerce = () => {
         </div>
 
         <div className="mt-8 text-center">
-          <p className="text-sm text-muted-foreground mb-2">Last Updated: November 19, 2025</p>
+          <p className="text-sm text-muted-foreground mb-2">Last Updated: December 13, 2025</p>
           <div className="space-x-4 mt-4">
             <Link to="/terms">
               <Button variant="outline">Terms of Service</Button>

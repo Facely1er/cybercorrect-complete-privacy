@@ -14,7 +14,7 @@ const Cookies = () => {
             ERMITS LLC uses cookies and similar technologies when you use our Services
           </p>
           <p className="text-sm text-muted-foreground">
-            <strong>Effective Date:</strong> October 31, 2025 | <strong>Last Updated:</strong> October 31, 2025
+            <strong>Effective Date:</strong> October 31, 2025 | <strong>Last Updated:</strong> December 13, 2025
           </p>
         </div>
 
@@ -825,7 +825,7 @@ const Cookies = () => {
         </div>
 
         <div className="mt-8 text-center">
-          <p className="text-sm text-muted-foreground mb-2">Last Updated: October 31, 2025</p>
+          <p className="text-sm text-muted-foreground mb-2">Last Updated: December 13, 2025</p>
           <div className="space-x-4 mt-4">
             <Link to="/privacy">
               <Button variant="outline">Privacy Policy</Button>

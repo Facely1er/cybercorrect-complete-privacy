@@ -14,7 +14,7 @@ const Privacy = () => {
             ERMITS LLC is committed to protecting your privacy through a Privacy-First Architecture
           </p>
           <p className="text-sm text-muted-foreground">
-            <strong>Effective Date:</strong> November 19, 2025 | <strong>Last Updated:</strong> October 31, 2025
+            <strong>Effective Date:</strong> October 31, 2025 | <strong>Last Updated:</strong> December 13, 2025
           </p>
         </div>
 
@@ -1545,7 +1545,7 @@ const Privacy = () => {
               
               <div className="space-y-3 text-muted-foreground">
                 <p><strong>Effective Date:</strong> October 31, 2025</p>
-                <p><strong>Last Updated:</strong> November 19, 2025</p>
+                <p><strong>Last Updated:</strong> December 13, 2025</p>
                 <p className="mt-4">
                   <strong>By using ERMITS Services, you acknowledge that you have read, understood, and agree to be bound by this Privacy Policy.</strong>
                 </p>
@@ -1558,7 +1558,7 @@ const Privacy = () => {
         </div>
 
         <div className="mt-8 text-center">
-          <p className="text-sm text-muted-foreground mb-2">Last Updated: October 31, 2025</p>
+          <p className="text-sm text-muted-foreground mb-2">Last Updated: December 13, 2025</p>
           <div className="space-x-4 mt-4">
             <Link to="/terms">
               <Button variant="outline">Terms of Service</Button>
