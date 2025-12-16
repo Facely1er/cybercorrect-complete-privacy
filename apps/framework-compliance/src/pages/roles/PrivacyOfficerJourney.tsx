@@ -53,8 +53,8 @@ const PrivacyOfficerJourney = () => {
       description: 'Monitor your privacy program with real-time insights and metrics',
       duration: 'Ongoing',
       tools: [
-        { name: 'Privacy Dashboard', path: '/app/privacy-dashboard', icon: BarChart3 },
-        { name: 'Data Subject Requests', path: '/app/dsr-management', icon: Users }
+        { name: 'Privacy Dashboard', path: '/project', icon: BarChart3 },
+        { name: 'Data Subject Requests', path: '/toolkit/privacy-rights-manager', icon: Users }
       ],
       outcomes: [
         'Real-time compliance monitoring',
