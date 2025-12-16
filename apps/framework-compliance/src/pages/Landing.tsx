@@ -20,21 +20,21 @@ import {
 const Landing = () => {
   const { openChatbot } = useChatbot();
 
-  // Hero heading carousel items - Universal messaging
+  // Hero heading carousel items
   const heroHeadings = [
-    // Heading 1: Universal value proposition
+    // Heading 1: Current privacy compliance focus
     <h1 key="heading-1" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-foreground dark:text-dark-text">
-      <span className="text-foreground dark:text-dark-text">Privacy Compliance</span>
+      <span className="text-foreground dark:text-dark-text">Stop Losing Sleep</span>
       <br className="hidden sm:block" />
-      <span className="text-primary dark:text-dark-primary">Made Manageable</span>
+      <span className="text-foreground dark:text-dark-text">Over </span>
+      <span className="text-primary dark:text-dark-primary">Privacy Compliance</span>
     </h1>,
-    // Heading 2: Outcome-focused
+    // Heading 2: Automated solution focus
     <h1 key="heading-2" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-foreground dark:text-dark-text">
-      <span className="text-foreground dark:text-dark-text">From Risk to </span>
-      <span className="text-primary dark:text-dark-primary">Confidence</span>
+      <span className="text-foreground dark:text-dark-text">Automate Your </span>
+      <span className="text-primary dark:text-dark-primary">Privacy</span>
       <br className="hidden sm:block" />
-      <span className="text-foreground dark:text-dark-text">in </span>
-      <span className="text-primary dark:text-dark-primary">30 Minutes</span>
+      <span className="text-primary dark:text-dark-primary">by Design</span>
     </h1>
   ];
 
@@ -58,7 +58,7 @@ const Landing = () => {
             <div className="inline-block mb-6">
               <span className="bg-primary/10 text-primary dark:bg-dark-primary/10 dark:text-dark-primary border border-primary/20 dark:border-dark-primary/20 text-sm px-4 py-2 rounded-full inline-flex items-center">
                 <Shield className="w-4 h-4 mr-2 flex-shrink-0" />
-                Trusted by Privacy Teams Worldwide
+                Avoid Fines. Build Trust. Stay Compliant.
               </span>
             </div>
             
@@ -69,9 +69,10 @@ const Landing = () => {
               className="min-h-[120px] sm:min-h-[140px] md:min-h-[160px] flex items-center justify-center"
             />
             
-            {/* Supporting Paragraph - Universal messaging */}
+            {/* Supporting Paragraph */}
             <p className="text-xl text-muted-foreground dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Whether you're assessing risk, building a program, or proving compliance to stakeholders—we help you get there faster with less complexity.
+              Regulatory fines can reach millions. Data breaches destroy trust. Manual compliance processes drain resources. 
+              Get automated privacy compliance that protects your business, reduces risk, and saves your team hundreds of hours.
             </p>
 
             {/* Single Universal CTA */}
