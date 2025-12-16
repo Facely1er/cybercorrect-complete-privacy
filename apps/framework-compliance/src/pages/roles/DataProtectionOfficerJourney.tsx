@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { 
@@ -12,10 +12,25 @@ import {
   FileText,
   Shield,
   Database,
-  Building
+  Building,
+  Sparkles,
+  AlertTriangle,
+  ArrowRight
 } from 'lucide-react';
 
+interface AssessmentCustomization {
+  overallScore: number;
+  weakAreas: string[];
+  strongAreas: string[];
+  priorityLevel: 'critical' | 'high' | 'moderate' | 'maintenance';
+  customSteps: { phase: string; focus: string; priority: 'high' | 'medium' | 'low' }[];
+}
+
 const DataProtectionOfficerJourney = () => {
+  const location = useLocation();
+  const assessmentResults = location.state?.assessmentResults;
+  const customization: AssessmentCustomization | null = location.state?.customization;
+  const fromAssessment = location.state?.fromAssessment;
   const journeySteps = [
     {
       phase: 'Assessment',

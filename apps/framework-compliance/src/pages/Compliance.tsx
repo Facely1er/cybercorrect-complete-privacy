@@ -13,7 +13,10 @@ import {
   FileText,
   Lock,
   ExternalLink,
-  Users
+  Users,
+  Sparkles,
+  ClipboardCheck,
+  Route
 } from 'lucide-react';
 
 const Compliance = () => {
@@ -130,6 +133,84 @@ const Compliance = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Assessment-First Flow Section */}
+      <section className="py-16 bg-white dark:bg-dark-surface border-b border-border">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <span className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <Sparkles className="w-4 h-4" />
+                Personalized Experience
+              </span>
+              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+                How It Works
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Start with an assessment to get a personalized compliance journey tailored to your role and organizational gaps
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Step 1 */}
+              <div className="relative">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <ClipboardCheck className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="absolute top-8 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-primary/50 to-transparent hidden md:block"></div>
+                  <span className="inline-block bg-primary text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 1</span>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">Take Assessment</h3>
+                  <p className="text-muted-foreground text-sm">
+                    Complete the Privacy Assessment to evaluate your current compliance posture across key areas
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="relative">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <Target className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="absolute top-8 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-secondary/50 to-transparent hidden md:block"></div>
+                  <span className="inline-block bg-secondary text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 2</span>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">Get Recommendation</h3>
+                  <p className="text-muted-foreground text-sm">
+                    Receive a personalized role-based journey recommendation based on your assessment results
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="relative">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <Route className="w-8 h-8 text-white" />
+                  </div>
+                  <span className="inline-block bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 3</span>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">Follow Your Journey</h3>
+                  <p className="text-muted-foreground text-sm">
+                    Access customized tools, workflows, and resources prioritized by your specific compliance gaps
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <Link to="/assessments/privacy-assessment">
+                <Button size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white shadow-lg">
+                  <Sparkles className="mr-2 h-5 w-5" />
+                  Start Your Personalized Journey
+                </Button>
+              </Link>
+              <p className="text-sm text-muted-foreground mt-3">
+                Takes approximately 15-20 minutes • Get instant recommendations
+              </p>
             </div>
           </div>
         </div>
