@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, BarChart3, User, Settings, LogOut, FileText, ChevronDown, FileCheck, Database } from 'lucide-react';
+import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, BarChart3, User, Settings, LogOut, FileText, ChevronDown, FileCheck, Database, Users, ExternalLink } from 'lucide-react';
 
 import { Button } from '../ui/Button';
 import { NotificationBell } from '../notifications/NotificationBell';
@@ -172,6 +172,19 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
 
           {/* Right side actions */}
           <div className="hidden md:flex items-center gap-2 flex-shrink-0">
+            {/* Privacy Portal Link */}
+            <a
+              href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-primary/10 text-primary hover:bg-primary/20 rounded-full transition-all duration-200 border border-primary/20 hover:border-primary/30"
+              title="Open Privacy Portal for Stakeholders"
+            >
+              <Users className="w-3.5 h-3.5" />
+              <span className="hidden lg:inline">Privacy Portal</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+            
             <NotificationBell />
             <Button
               variant="ghost"
@@ -252,6 +265,23 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                   );
                 })}
               </nav>
+              
+              {/* Privacy Portal - Mobile */}
+              <div className="border-t border-border/50 pt-4 mt-4">
+                <a
+                  href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between px-4 py-3 mx-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <div className="flex items-center gap-2">
+                    <Users className="w-4 h-4" />
+                    <span className="font-medium text-sm">Privacy Portal</span>
+                  </div>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
               
               {/* Mobile User Actions */}
               <div className="border-t border-border/50 pt-4 mt-4">

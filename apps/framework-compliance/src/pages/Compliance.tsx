@@ -11,7 +11,9 @@ import {
   CheckCircle,
   Target,
   FileText,
-  Lock
+  Lock,
+  ExternalLink,
+  Users
 } from 'lucide-react';
 
 const Compliance = () => {
@@ -80,10 +82,17 @@ const Compliance = () => {
   ];
 
   const quickStartTools = [
-    { name: 'Privacy Assessment', path: '/assessments/privacy-assessment', icon: Eye, description: 'Evaluate your compliance posture' },
-    { name: 'GDPR Mapper', path: '/toolkit/gdpr-mapper', icon: Database, description: 'Map your data processing activities' },
-    { name: 'DPIA Generator', path: '/toolkit/dpia-generator', icon: FileText, description: 'Create impact assessments' },
-    { name: 'Policy Generator', path: '/toolkit/privacy-policy-generator', icon: Shield, description: 'Generate compliant policies' }
+    { name: 'Privacy Assessment', path: '/assessments/privacy-assessment', icon: Eye, description: 'Evaluate your compliance posture', external: false },
+    { name: 'GDPR Mapper', path: '/toolkit/gdpr-mapper', icon: Database, description: 'Map your data processing activities', external: false },
+    { name: 'DPIA Generator', path: '/toolkit/dpia-generator', icon: FileText, description: 'Create impact assessments', external: false },
+    { name: 'Policy Generator', path: '/toolkit/privacy-policy-generator', icon: Shield, description: 'Generate compliant policies', external: false },
+    { 
+      name: 'Privacy Portal', 
+      path: import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com',
+      icon: Users, 
+      description: 'Self-service data rights & stakeholder portal',
+      external: true 
+    }
   ];
 
   return (
@@ -171,6 +180,115 @@ const Compliance = () => {
         </div>
       </section>
 
+      {/* Privacy Portal CTA Section */}
+      <section className="py-16 bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5 dark:from-dark-primary/5 dark:via-dark-secondary/5 dark:to-dark-primary/5">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <Card className="border-2 border-primary/20 shadow-xl overflow-hidden">
+              <CardContent className="p-0">
+                <div className="grid md:grid-cols-2 gap-0">
+                  {/* Left side - Info */}
+                  <div className="p-8 md:p-10">
+                    <div className="inline-flex items-center gap-2 bg-primary/10 text-primary dark:bg-primary/20 px-3 py-1 rounded-full text-sm font-medium mb-4">
+                      <Users className="w-4 h-4" />
+                      Self-Service Portal
+                    </div>
+                    <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+                      Privacy Portal for Stakeholders
+                    </h2>
+                    <p className="text-lg text-muted-foreground mb-6">
+                      Extend your compliance program by empowering all stakeholders to participate in privacy compliance. 
+                      The Privacy Portal democratizes privacy rights and duties across your entire organization.
+                    </p>
+                    
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <p className="font-medium">Data Subject Rights Exercise</p>
+                          <p className="text-sm text-muted-foreground">GDPR, CCPA, EEOC compliant request handling</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <p className="font-medium">Stakeholder Privacy Duties</p>
+                          <p className="text-sm text-muted-foreground">Role-based privacy responsibility tracking</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <p className="font-medium">Incident Reporting & Management</p>
+                          <p className="text-sm text-muted-foreground">Streamlined privacy breach reporting</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <a 
+                      href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block"
+                    >
+                      <Button size="lg" className="enhanced-button group">
+                        Access Privacy Portal
+                        <ExternalLink className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </a>
+                  </div>
+
+                  {/* Right side - Features */}
+                  <div className="bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/5 dark:to-secondary/5 p-8 md:p-10 flex flex-col justify-center">
+                    <h3 className="text-xl font-bold mb-6 text-foreground dark:text-dark-text">
+                      Who Uses the Privacy Portal?
+                    </h3>
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3 bg-white/80 dark:bg-dark-surface/80 p-3 rounded-lg">
+                        <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Shield className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-sm">Administrators</p>
+                          <p className="text-xs text-muted-foreground">Institution-wide oversight</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3 bg-white/80 dark:bg-dark-surface/80 p-3 rounded-lg">
+                        <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Lock className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-sm">Privacy Officers</p>
+                          <p className="text-xs text-muted-foreground">Data protection management</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3 bg-white/80 dark:bg-dark-surface/80 p-3 rounded-lg">
+                        <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <UserCheck className="w-5 h-5 text-green-600 dark:text-green-400" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-sm">Staff Members</p>
+                          <p className="text-xs text-muted-foreground">Daily privacy practices</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3 bg-white/80 dark:bg-dark-surface/80 p-3 rounded-lg">
+                        <div className="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Users className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-sm">Employees & Families</p>
+                          <p className="text-xs text-muted-foreground">Exercise data rights</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Quick Start Tools */}
       <section className="py-20 bg-gray-50 dark:bg-dark-support/5">
         <div className="container mx-auto px-4">
@@ -184,20 +302,39 @@ const Compliance = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {quickStartTools.map((tool, index) => (
-                <Link key={index} to={tool.path} className="block">
-                  <Card className="h-full hover:shadow-lg transition-all duration-200 hover:-translate-y-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+              {quickStartTools.map((tool, index) => {
+                const cardContent = (
+                  <Card className={`h-full hover:shadow-lg transition-all duration-200 hover:-translate-y-1 ${tool.external ? 'border-2 border-primary/30' : ''}`}>
                     <CardContent className="p-5 text-center">
                       <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center mx-auto mb-3">
                         <tool.icon className="w-6 h-6 text-primary" />
                       </div>
-                      <h3 className="font-semibold mb-1 text-foreground">{tool.name}</h3>
+                      <h3 className="font-semibold mb-1 text-foreground flex items-center justify-center gap-1">
+                        {tool.name}
+                        {tool.external && <ExternalLink className="w-3 h-3" />}
+                      </h3>
                       <p className="text-sm text-muted-foreground">{tool.description}</p>
                     </CardContent>
                   </Card>
-                </Link>
-              ))}
+                );
+
+                return tool.external ? (
+                  <a 
+                    key={index} 
+                    href={tool.path} 
+                    className="block"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {cardContent}
+                  </a>
+                ) : (
+                  <Link key={index} to={tool.path} className="block">
+                    {cardContent}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>

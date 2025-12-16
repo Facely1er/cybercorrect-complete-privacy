@@ -16,6 +16,9 @@ import {
   CheckCircle,
   Clock,
   BarChart3,
+  ExternalLink,
+  Lock,
+  UserCheck,
 } from 'lucide-react';
 
 const Landing = () => {
@@ -329,6 +332,131 @@ const Landing = () => {
                 </Card>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Privacy Portal Section */}
+      <section className="py-16 md:py-20 bg-muted/30 dark:bg-dark-support/10">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary dark:bg-primary/20 px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <Users className="w-4 h-4" />
+                Extend Your Compliance Program
+              </div>
+              <h2 className="section-title text-3xl md:text-4xl mb-4">
+                Empower Your Entire Organization
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                While CyberCorrect provides professional compliance tools, our <strong>Privacy Portal</strong> extends privacy rights and duties to all stakeholders
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-10">
+              {/* Framework Compliance */}
+              <Card className="border-2 border-primary/30 dark:border-primary/20">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center">
+                      <Shield className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-foreground dark:text-dark-text">Framework Compliance</h3>
+                      <p className="text-xs text-muted-foreground">Professional Compliance Tools</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Expert tools for DPOs, legal counsel, and compliance professionals
+                  </p>
+                  <ul className="space-y-2">
+                    {[
+                      'Privacy gap analysis & risk scoring',
+                      'DPIA generation & GDPR mapping',
+                      'Policy generation & compliance reports',
+                      'Multi-framework assessments'
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm">
+                        <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+
+              {/* Privacy Portal */}
+              <Card className="border-2 border-secondary/30 dark:border-secondary/20 bg-gradient-to-br from-secondary/5 to-primary/5">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-secondary/10 dark:bg-secondary/20 rounded-lg flex items-center justify-center">
+                      <Users className="w-6 h-6 text-secondary dark:text-secondary" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-foreground dark:text-dark-text">Privacy Portal</h3>
+                      <p className="text-xs text-muted-foreground">Self-Service for All Stakeholders</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Democratize privacy compliance across your organization
+                  </p>
+                  <ul className="space-y-2 mb-6">
+                    {[
+                      'Data rights exercise (GDPR/CCPA/EEOC)',
+                      'Role-based privacy duties tracking',
+                      'Privacy incident reporting',
+                      'Consent & preference management'
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm">
+                        <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" className="w-full group border-2">
+                      Access Privacy Portal
+                      <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </a>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Who Uses What */}
+            <Card className="border border-border/50">
+              <CardContent className="p-6">
+                <h3 className="text-center text-lg font-bold mb-6 text-foreground dark:text-dark-text">
+                  Choose the Right Platform for Your Role
+                </h3>
+                <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="text-center p-4 rounded-lg bg-primary/5 dark:bg-primary/10">
+                    <Shield className="w-8 h-8 text-primary mx-auto mb-2" />
+                    <p className="font-semibold text-sm mb-1">DPO / Legal</p>
+                    <p className="text-xs text-muted-foreground">→ Framework Compliance</p>
+                  </div>
+                  <div className="text-center p-4 rounded-lg bg-secondary/5 dark:bg-secondary/10">
+                    <Lock className="w-8 h-8 text-secondary mx-auto mb-2" />
+                    <p className="font-semibold text-sm mb-1">Privacy Officers</p>
+                    <p className="text-xs text-muted-foreground">→ Privacy Portal</p>
+                  </div>
+                  <div className="text-center p-4 rounded-lg bg-secondary/5 dark:bg-secondary/10">
+                    <UserCheck className="w-8 h-8 text-secondary mx-auto mb-2" />
+                    <p className="font-semibold text-sm mb-1">Staff Members</p>
+                    <p className="text-xs text-muted-foreground">→ Privacy Portal</p>
+                  </div>
+                  <div className="text-center p-4 rounded-lg bg-secondary/5 dark:bg-secondary/10">
+                    <Users className="w-8 h-8 text-secondary mx-auto mb-2" />
+                    <p className="font-semibold text-sm mb-1">Employees & Families</p>
+                    <p className="text-xs text-muted-foreground">→ Privacy Portal</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
