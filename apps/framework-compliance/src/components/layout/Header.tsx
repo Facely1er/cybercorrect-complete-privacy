@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, BarChart3, User, Settings, LogOut, FileText, ChevronDown, FileCheck, Database, Users, ExternalLink } from 'lucide-react';
+import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, BarChart3, User, Settings, LogOut, FileText, ChevronDown, FileCheck, Database, Users, ExternalLink, Shield, Eye, Scale, UserCheck } from 'lucide-react';
 
 import { Button } from '../ui/Button';
 import { NotificationBell } from '../notifications/NotificationBell';
@@ -35,6 +35,14 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
     }
   };
 
+  const complianceLinks = [
+    { name: 'Overview', path: '/compliance' },
+    { name: 'Data Protection Officer', path: '/roles/data-protection-officer' },
+    { name: 'Legal Counsel', path: '/roles/legal-counsel' },
+    { name: 'Data Steward', path: '/roles/data-steward' },
+    { name: 'Privacy Officer', path: '/roles/privacy-officer' },
+  ];
+
   const assessmentLinks = [
     { name: 'Privacy Assessment', path: '/assessments/privacy-assessment' },
   ];
@@ -52,6 +60,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
 
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
+    { name: 'Compliance', href: '/compliance', icon: Shield },
     { name: 'Assessments', href: '/assessments/privacy-assessment', icon: ClipboardCheck },
     { name: 'Toolkit', href: '/toolkit', icon: Wrench },
     { name: 'Results', href: '/privacy-results', icon: BarChart3 },
@@ -91,8 +100,9 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             {navigation.map((item) => {
               const Icon = item.icon;
               // Handle dropdown items
-              if (item.name === 'Assessments' || item.name === 'Toolkit' || item.name === 'Results') {
-                const dropdownLinks = item.name === 'Assessments' ? assessmentLinks : 
+              if (item.name === 'Compliance' || item.name === 'Assessments' || item.name === 'Toolkit' || item.name === 'Results') {
+                const dropdownLinks = item.name === 'Compliance' ? complianceLinks :
+                                      item.name === 'Assessments' ? assessmentLinks : 
                                       item.name === 'Toolkit' ? toolLinks : resultLinks;
                 return (
                   <div key={item.name} className="relative">
@@ -114,7 +124,13 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                           {dropdownLinks.map(link => {
                             // Get icon for dropdown link
                             let DropdownIcon = ClipboardCheck;
-                            if (item.name === 'Toolkit') {
+                            if (item.name === 'Compliance') {
+                              if (link.name === 'Overview') DropdownIcon = Home;
+                              else if (link.name.includes('Data Protection')) DropdownIcon = Eye;
+                              else if (link.name.includes('Legal')) DropdownIcon = Scale;
+                              else if (link.name.includes('Data Steward')) DropdownIcon = Database;
+                              else if (link.name.includes('Privacy Officer')) DropdownIcon = UserCheck;
+                            } else if (item.name === 'Toolkit') {
                               if (link.name.includes('GDPR')) DropdownIcon = Database;
                               else if (link.name.includes('DPIA')) DropdownIcon = FileCheck;
                               else if (link.name.includes('Policy')) DropdownIcon = FileText;

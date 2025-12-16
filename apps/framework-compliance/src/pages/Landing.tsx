@@ -16,9 +16,6 @@ import {
   CheckCircle,
   Clock,
   BarChart3,
-  ExternalLink,
-  Lock,
-  UserCheck,
 } from 'lucide-react';
 
 const Landing = () => {
@@ -346,14 +343,14 @@ const Landing = () => {
                 Extend Your Compliance Program
               </div>
               <h2 className="section-title text-3xl md:text-4xl mb-4">
-                Empower Your Entire Organization
+                Empower Your Entire Workforce
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 While CyberCorrect provides professional compliance tools, our <strong>Privacy Portal</strong> extends privacy rights and duties to all stakeholders
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-10">
+            <div className="grid md:grid-cols-2 gap-8">
               {/* Framework Compliance */}
               <Card className="border-2 border-primary/30 dark:border-primary/20">
                 <CardContent className="p-6">
@@ -420,43 +417,12 @@ const Landing = () => {
                   >
                     <Button variant="outline" className="w-full group border-2">
                       Access Privacy Portal
-                      <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </a>
                 </CardContent>
               </Card>
             </div>
-
-            {/* Who Uses What */}
-            <Card className="border border-border/50">
-              <CardContent className="p-6">
-                <h3 className="text-center text-lg font-bold mb-6 text-foreground dark:text-dark-text">
-                  Choose the Right Platform for Your Role
-                </h3>
-                <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="text-center p-4 rounded-lg bg-primary/5 dark:bg-primary/10">
-                    <Shield className="w-8 h-8 text-primary mx-auto mb-2" />
-                    <p className="font-semibold text-sm mb-1">DPO / Legal</p>
-                    <p className="text-xs text-muted-foreground">→ Framework Compliance</p>
-                  </div>
-                  <div className="text-center p-4 rounded-lg bg-secondary/5 dark:bg-secondary/10">
-                    <Lock className="w-8 h-8 text-secondary mx-auto mb-2" />
-                    <p className="font-semibold text-sm mb-1">Privacy Officers</p>
-                    <p className="text-xs text-muted-foreground">→ Privacy Portal</p>
-                  </div>
-                  <div className="text-center p-4 rounded-lg bg-secondary/5 dark:bg-secondary/10">
-                    <UserCheck className="w-8 h-8 text-secondary mx-auto mb-2" />
-                    <p className="font-semibold text-sm mb-1">Staff Members</p>
-                    <p className="text-xs text-muted-foreground">→ Privacy Portal</p>
-                  </div>
-                  <div className="text-center p-4 rounded-lg bg-secondary/5 dark:bg-secondary/10">
-                    <Users className="w-8 h-8 text-secondary mx-auto mb-2" />
-                    <p className="font-semibold text-sm mb-1">Employees & Families</p>
-                    <p className="text-xs text-muted-foreground">→ Privacy Portal</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
