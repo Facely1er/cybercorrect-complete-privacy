@@ -5,6 +5,7 @@ import { generateResultsPdf } from '../../utils/pdf';
 import { Loader2, AlertTriangle } from 'lucide-react';
 import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
 import RecommendedTools from '../../components/assessment/RecommendedTools';
+import RecommendedJourney from '../../components/assessment/RecommendedJourney';
 
 const PrivacyResults = () => {
   const navigate = useNavigate();
@@ -85,6 +86,9 @@ const PrivacyResults = () => {
           </div>
         </div>
       </div>
+
+      {/* Personalized Role-Based Journey Recommendation */}
+      <RecommendedJourney assessmentResults={assessmentResults} />
 
       {/* Personalized Tool Recommendations - Phase 3: Guided Action */}
       <RecommendedTools assessmentResults={assessmentResults} />
