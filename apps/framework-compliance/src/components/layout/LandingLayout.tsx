@@ -11,7 +11,8 @@ import {
   Home,
   ArrowRight,
   Puzzle as PuzzlePiece,
-  CreditCard
+  CreditCard,
+  Route
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
@@ -109,9 +110,9 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       icon: PuzzlePiece
     },
     {
-      name: 'Roles',
+      name: 'Your Journey',
       path: '/compliance',
-      icon: Users
+      icon: Route
     },
     {
       name: 'Toolkit',
