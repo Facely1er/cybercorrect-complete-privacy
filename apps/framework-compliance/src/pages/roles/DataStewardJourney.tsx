@@ -137,15 +137,15 @@ const DataStewardJourney = () => {
             <div className="inline-block mb-6">
               <span className="bg-success/10 text-success dark:bg-dark-primary/10 dark:text-dark-primary px-4 py-2 rounded-full inline-flex items-center text-sm font-medium">
                 <Database className="w-4 h-4 mr-2" />
-                Data Steward Journey
+                Data Governance Journey
               </span>
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Data <span className="bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 bg-clip-text text-transparent">Stewardship</span> Excellence
+              Your Data <span className="bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 bg-clip-text text-transparent">Governance</span> Journey
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              Master data management for privacy compliance with comprehensive data stewardship tools
+              A structured path for data management excellence with comprehensive governance tools and workflows
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

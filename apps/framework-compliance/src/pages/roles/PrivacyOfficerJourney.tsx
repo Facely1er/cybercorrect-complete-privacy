@@ -138,15 +138,15 @@ const PrivacyOfficerJourney = () => {
             <div className="inline-block mb-6">
               <span className="bg-primary/10 text-primary dark:bg-dark-primary/10 dark:text-dark-primary px-4 py-2 rounded-full inline-flex items-center text-sm font-medium">
                 <Eye className="w-4 h-4 mr-2" />
-                Privacy Officer Journey
+                Privacy Operations Journey
               </span>
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Privacy <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Compliance</span> Made Simple
+              Your Privacy <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Operations</span> Journey
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              Your complete journey from privacy assessment to ongoing compliance management
+              A structured path for day-to-day privacy compliance with practical tools and workflows
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

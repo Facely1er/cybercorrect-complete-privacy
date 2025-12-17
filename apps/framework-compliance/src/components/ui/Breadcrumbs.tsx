@@ -120,12 +120,13 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     'breach-response-guide': 'Incident & Breach Management',
     'breach-notification': 'Incident & Breach Management',
     
-    // Role Journey pages
-    'roles': 'Role-Based Workflows',
-    'data-protection-officer': 'Data Protection Officer',
-    'legal-counsel': 'Legal Counsel',
-    'data-steward': 'Data Steward',
-    'privacy-officer': 'Privacy Officer',
+    // Compliance Journey pages
+    'roles': 'Compliance Journeys',
+    'compliance': 'Your Journey',
+    'data-protection-officer': 'Privacy Leadership Journey',
+    'legal-counsel': 'Legal Compliance Journey',
+    'data-steward': 'Data Governance Journey',
+    'privacy-officer': 'Privacy Operations Journey',
     
     // Template Viewers
     'viewers': 'Templates',

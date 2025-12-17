@@ -139,15 +139,15 @@ const LegalCounselJourney = () => {
             <div className="inline-block mb-6">
               <span className="bg-accent/10 text-accent dark:bg-dark-primary/10 dark:text-dark-primary px-4 py-2 rounded-full inline-flex items-center text-sm font-medium">
                 <Scale className="w-4 h-4 mr-2" />
-                Legal Counsel Journey
+                Legal Compliance Journey
               </span>
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Privacy <span className="bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">Legal</span> Excellence
+              Your Legal <span className="bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">Compliance</span> Journey
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              Navigate complex privacy laws with comprehensive legal tools and frameworks
+              A structured path for navigating privacy laws with comprehensive legal tools and regulatory frameworks
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
