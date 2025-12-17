@@ -3,7 +3,7 @@ import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { AlertTriangle, CheckCircle, Circle, Info, ArrowLeft, ArrowRight, Save } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import AssessmentStartScreen, { SectionInfo } from '../../components/assessment/AssessmentStartScreen';
+import AssessmentStartScreen, { SectionInfo, AssessmentMode } from '../../components/assessment/AssessmentStartScreen';
 import { RelatedContent } from '../../components/ui/InternalLinkingHelper';
 import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
 import { secureStorage } from '../../utils/storage/secureStorage';
@@ -16,6 +16,7 @@ const PrivacyAssessment = () => {
   const [showStartScreen, setShowStartScreen] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
+  const [assessmentMode, setAssessmentMode] = useState<AssessmentMode>('individual');
 
   const STORAGE_KEY = 'privacy_assessment_progress';
 
@@ -26,6 +27,7 @@ const PrivacyAssessment = () => {
       currentSection: number;
       lastSaved: string;
       showStartScreen: boolean;
+      assessmentMode?: AssessmentMode;
     }>(STORAGE_KEY);
 
     if (savedData) {
@@ -33,6 +35,7 @@ const PrivacyAssessment = () => {
       setCurrentSection(savedData.currentSection || 0);
       setShowStartScreen(savedData.showStartScreen !== undefined ? savedData.showStartScreen : true);
       setLastSaved(savedData.lastSaved ? new Date(savedData.lastSaved) : null);
+      setAssessmentMode(savedData.assessmentMode || 'individual');
       
       // Only show restoration message if they have actual progress (not just started)
       const hasProgress = Object.keys(savedData.answers || {}).length > 0;
@@ -54,6 +57,7 @@ const PrivacyAssessment = () => {
         answers,
         currentSection,
         showStartScreen,
+        assessmentMode,
         lastSaved: new Date().toISOString()
       };
 
