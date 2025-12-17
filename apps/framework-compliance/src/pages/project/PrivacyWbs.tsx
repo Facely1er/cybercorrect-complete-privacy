@@ -336,30 +336,29 @@ const PrivacyWbs = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Work Breakdown Structure</h1>
-            <p className="text-muted-foreground">
-              Hierarchical decomposition of privacy implementation work
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <Button 
-              variant={selectedView === 'tree' ? 'default' : 'outline'}
-              onClick={() => setSelectedView('tree')}
-            >
-              Tree View
-            </Button>
-            <Button 
-              variant={selectedView === 'table' ? 'default' : 'outline'}
-              onClick={() => setSelectedView('table')}
-            >
-              Table View
-            </Button>
-            <Button variant="outline">
-              <Download className="h-4 w-4 mr-2" />
-              Export
-            </Button>
-          </div>
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">Work Breakdown Structure</h1>
+          <p className="text-muted-foreground">
+            Hierarchical decomposition of privacy implementation work
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <Button 
+            variant={selectedView === 'tree' ? 'default' : 'outline'}
+            onClick={() => setSelectedView('tree')}
+          >
+            Tree View
+          </Button>
+          <Button 
+            variant={selectedView === 'table' ? 'default' : 'outline'}
+            onClick={() => setSelectedView('table')}
+          >
+            Table View
+          </Button>
+          <Button variant="outline">
+            <Download className="h-4 w-4 mr-2" />
+            Export
+          </Button>
         </div>
       </div>
 
