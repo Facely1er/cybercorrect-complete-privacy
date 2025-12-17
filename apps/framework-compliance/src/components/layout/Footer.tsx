@@ -55,10 +55,10 @@ const Footer: React.FC = () => {
                 alt="CyberCorrect" 
                 className="h-10 w-10 flex-shrink-0 rounded-lg"
               />
-              <div className="flex flex-col">
+              <div className="flex flex-col leading-tight">
                 <span className="font-bold text-sm leading-tight group-hover:text-primary transition-colors">CyberCorrect™</span>
                 <span className="font-medium text-xs leading-tight text-muted-foreground">Privacy Platform</span>
-                <span className="text-xs text-muted-foreground leading-tight">by ERMITS</span>
+                <span className="text-[10px] leading-tight text-muted-foreground">by ERMITS</span>
               </div>
             </Link>
             <p className="text-xs text-muted-foreground leading-snug">

@@ -56,10 +56,10 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                 alt="CyberCorrect" 
                 className="h-16 w-16"
               />
-              <div className="hidden sm:flex sm:flex-col font-bold leading-tight">
-                <span className="text-sm">CyberCorrect™</span>
+              <div className="hidden sm:flex sm:flex-col leading-tight">
+                <span className="text-xs font-bold">CyberCorrect™</span>
                 <span className="text-xs font-medium">Privacy Platform</span>
-                <span className="text-xs font-normal text-muted-foreground">by ERMITS</span>
+                <span className="text-[10px] font-normal text-muted-foreground">by ERMITS</span>
               </div>
             </Link>
           </div>
