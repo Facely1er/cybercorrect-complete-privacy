@@ -14,7 +14,7 @@
 
 import { execSync } from 'child_process';
 
-const PROJECT_REF = 'achowlksgmwuvfbvjfrt';
+const PROJECT_REF = 'dfklqsdfycwjlcasfciu'; // CORE_REVENUE
 
 const FUNCTIONS = [
   'create-checkout-session',

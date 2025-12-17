@@ -19,7 +19,7 @@ This guide will help you complete the Supabase configuration for CyberCorrect, i
 ## 📋 Prerequisites
 
 - Access to Supabase Dashboard: https://app.supabase.com
-- Project: `achowlksgmwuvfbvjfrt`
+- Project: **CORE_REVENUE** (`dfklqsdfycwjlcasfciu`)
 - Stripe keys (already provided)
 
 ---
@@ -28,7 +28,7 @@ This guide will help you complete the Supabase configuration for CyberCorrect, i
 
 ### Option A: Via Supabase Dashboard (Recommended)
 
-1. **Go to:** https://app.supabase.com/project/achowlksgmwuvfbvjfrt/functions
+1. **Go to:** https://supabase.com/dashboard/project/dfklqsdfycwjlcasfciu/functions
 
 2. **Deploy each function:**
 
@@ -58,7 +58,7 @@ cd apps/framework-compliance
 npx supabase login
 
 # Link project
-npx supabase link --project-ref achowlksgmwuvfbvjfrt
+npx supabase link --project-ref dfklqsdfycwjlcasfciu
 
 # Deploy functions
 npx supabase functions deploy create-checkout-session
@@ -75,7 +75,7 @@ npx supabase functions deploy check-regulatory-updates
 
 ## 🔑 Step 2: Configure Edge Function Secrets
 
-**Go to:** https://app.supabase.com/project/achowlksgmwuvfbvjfrt/settings/functions
+**Go to:** https://supabase.com/dashboard/project/dfklqsdfycwjlcasfciu/settings/functions
 
 For each function, click on it → **Settings** tab → **Secrets** section → **Add new secret**
 
@@ -119,7 +119,7 @@ For each function, click on it → **Settings** tab → **Secrets** section → 
 
 | Secret Name | Secret Value |
 |------------|--------------|
-| `SUPABASE_URL` | `https://achowlksgmwuvfbvjfrt.supabase.co` |
+| `SUPABASE_URL` | `https://dfklqsdfycwjlcasfciu.supabase.co` |
 | `SUPABASE_SERVICE_ROLE_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I` |
 
 **Optional (if using SendGrid):**
@@ -132,7 +132,7 @@ For each function, click on it → **Settings** tab → **Secrets** section → 
 
 | Secret Name | Secret Value |
 |------------|--------------|
-| `SUPABASE_URL` | `https://achowlksgmwuvfbvjfrt.supabase.co` |
+| `SUPABASE_URL` | `https://dfklqsdfycwjlcasfciu.supabase.co` |
 | `SUPABASE_SERVICE_ROLE_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I` |
 
 ---
@@ -145,7 +145,7 @@ For each function, click on it → **Settings** tab → **Secrets** section → 
 
 3. **Endpoint URL:**
    ```
-   https://achowlksgmwuvfbvjfrt.supabase.co/functions/v1/stripe-webhook
+   https://dfklqsdfycwjlcasfciu.supabase.co/functions/v1/stripe-webhook
    ```
 
 4. **Select events to listen to:**
@@ -199,7 +199,7 @@ After completing all steps, verify:
 
 ### Test Edge Functions
 
-1. **Go to:** https://app.supabase.com/project/achowlksgmwuvfbvjfrt/functions
+1. **Go to:** https://supabase.com/dashboard/project/dfklqsdfycwjlcasfciu/functions
 
 2. **Test `create-checkout-session`:**
    - Click on the function
@@ -258,9 +258,9 @@ Once all steps are complete:
 
 ## 📚 Quick Links
 
-- **Supabase Dashboard:** https://app.supabase.com/project/achowlksgmwuvfbvjfrt
-- **Edge Functions:** https://app.supabase.com/project/achowlksgmwuvfbvjfrt/functions
-- **Function Secrets:** https://app.supabase.com/project/achowlksgmwuvfbvjfrt/settings/functions
+- **Supabase Dashboard:** https://supabase.com/dashboard/project/dfklqsdfycwjlcasfciu
+- **Edge Functions:** https://supabase.com/dashboard/project/dfklqsdfycwjlcasfciu/functions
+- **Function Secrets:** https://supabase.com/dashboard/project/dfklqsdfycwjlcasfciu/settings/functions
 - **Stripe Dashboard:** https://dashboard.stripe.com
 - **Stripe Webhooks:** https://dashboard.stripe.com/webhooks
 
