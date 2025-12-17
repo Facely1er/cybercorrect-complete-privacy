@@ -294,67 +294,67 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
               )}
             </div>
           </div>
-          
-          {/* Mobile Navigation */}
-          {mobileMenuOpen && (
-            <div className="md:hidden border-t border-border/50 py-4">
-              <nav className="flex flex-col space-y-2">
-                {navigation.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        isActivePath(item.href)
-                          ? 'bg-primary text-primary-foreground shadow-sm'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
-                      }`}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <Icon className="w-4 h-4 flex-shrink-0" />
-                      <span>{item.name}</span>
-                    </Link>
-                  );
-                })}
-              </nav>
-              
-              {/* Privacy Portal - Mobile */}
-              <div className="border-t border-border/50 pt-4 mt-4">
-                <a
-                  href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between px-4 py-3 mx-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <div className="flex items-center gap-2">
-                    <Users className="w-4 h-4" />
-                    <span className="font-medium text-sm">Privacy Portal</span>
-                  </div>
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
-              
-              {/* Mobile User Actions */}
-              <div className="border-t border-border/50 pt-4 mt-4">
-                <div className="flex items-center justify-between px-4 py-3">
-                  <div className="flex items-center space-x-3">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="rounded-full"
-                      onClick={toggleDarkMode}
-                    >
-                      {darkMode ? <SunMoon className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-                    </Button>
-                    <NotificationBell />
-                  </div>
+        </div>
+        
+        {/* Mobile Navigation - Outside the flex container */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border/50 py-4">
+            <nav className="flex flex-col space-y-2">
+              {navigation.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      isActivePath(item.href)
+                        ? 'bg-primary text-primary-foreground shadow-sm'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Icon className="w-4 h-4 flex-shrink-0" />
+                    <span>{item.name}</span>
+                  </Link>
+                );
+              })}
+            </nav>
+            
+            {/* Privacy Portal - Mobile */}
+            <div className="border-t border-border/50 pt-4 mt-4">
+              <a
+                href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between px-4 py-3 mx-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <div className="flex items-center gap-2">
+                  <Users className="w-4 h-4" />
+                  <span className="font-medium text-sm">Privacy Portal</span>
+                </div>
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </div>
+            
+            {/* Mobile User Actions */}
+            <div className="border-t border-border/50 pt-4 mt-4">
+              <div className="flex items-center justify-between px-4 py-3">
+                <div className="flex items-center space-x-3">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="rounded-full"
+                    onClick={toggleDarkMode}
+                  >
+                    {darkMode ? <SunMoon className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                  </Button>
+                  <NotificationBell />
                 </div>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </header>
   );
