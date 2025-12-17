@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, CardTitle, CardDescription } from '../ui/Card';
+import { Card, CardContent, CardTitle, CardDescription, CardHeader } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { 
   CheckCircle, 
@@ -15,7 +15,13 @@ import {
   Users, 
   Network, 
   Database, 
-  File
+  File,
+  FileText,
+  BookOpen,
+  ExternalLink,
+  Copy,
+  Lightbulb,
+  Target
 } from 'lucide-react';
 
 export interface RecommendationItem {
@@ -32,6 +38,10 @@ export interface RecommendationItem {
     title: string;
     url: string;
   }[];
+  template?: string;
+  implementationGuide?: string;
+  successCriteria?: string[];
+  commonPitfalls?: string[];
 }
 
 interface RecommendationsProps {
@@ -190,6 +200,52 @@ const Recommendations: React.FC<RecommendationsProps> = ({
         </div>
       </div>
 
+      {/* Implementation Resources Section */}
+      <Card className="mb-6 border-primary/20 bg-primary/5">
+        <CardHeader>
+          <CardTitle className="text-lg font-bold text-foreground flex items-center gap-2">
+            <BookOpen className="h-5 w-5 text-primary" />
+            Implementation Resources & Support
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 bg-background rounded-lg border border-border">
+              <FileText className="h-8 w-8 text-primary mb-3" />
+              <h4 className="font-semibold text-foreground mb-2">Templates & Tools</h4>
+              <p className="text-sm text-muted-foreground mb-3">
+                Download ready-to-use templates for policies, assessments, and documentation
+              </p>
+              <Button variant="outline" size="sm" className="w-full">
+                Browse Templates
+              </Button>
+            </div>
+
+            <div className="p-4 bg-background rounded-lg border border-border">
+              <BookOpen className="h-8 w-8 text-secondary mb-3" />
+              <h4 className="font-semibold text-foreground mb-2">Implementation Guides</h4>
+              <p className="text-sm text-muted-foreground mb-3">
+                Access detailed step-by-step guides for each recommendation
+              </p>
+              <Button variant="outline" size="sm" className="w-full">
+                View Guides
+              </Button>
+            </div>
+
+            <div className="p-4 bg-background rounded-lg border border-border">
+              <Users className="h-8 w-8 text-success-green mb-3" />
+              <h4 className="font-semibold text-foreground mb-2">Expert Support</h4>
+              <p className="text-sm text-muted-foreground mb-3">
+                Get help from compliance experts to accelerate your implementation
+              </p>
+              <Button variant="outline" size="sm" className="w-full">
+                Contact Support
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <div className="space-y-6">
         {Object.entries(groupedRecommendations).length === 0 ? (
           <Card className="border border-support-gray dark:border-dark-support text-center p-12">
@@ -263,11 +319,95 @@ const Recommendations: React.FC<RecommendationsProps> = ({
                           </ol>
                         </div>
                         
+                        {/* Success Criteria */}
+                        {item.successCriteria && item.successCriteria.length > 0 && (
+                          <div className="mb-4">
+                            <div className="flex items-center mb-2">
+                              <Target className="h-4 w-4 mr-2 text-success-green dark:text-dark-success" />
+                              <span className="font-medium text-sm text-foreground dark:text-dark-text">Success Criteria</span>
+                            </div>
+                            <ul className="space-y-1">
+                              {item.successCriteria.map((criteria, index) => (
+                                <li key={index} className="flex items-start gap-2 text-sm">
+                                  <CheckCircle className="h-4 w-4 text-success-green dark:text-dark-success mt-0.5 flex-shrink-0" />
+                                  <span className="text-muted-foreground">{criteria}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Common Pitfalls */}
+                        {item.commonPitfalls && item.commonPitfalls.length > 0 && (
+                          <div className="mb-4 p-3 bg-warning/5 border border-warning/20 rounded-lg">
+                            <div className="flex items-center mb-2">
+                              <Lightbulb className="h-4 w-4 mr-2 text-warning" />
+                              <span className="font-medium text-sm text-foreground dark:text-dark-text">Common Pitfalls to Avoid</span>
+                            </div>
+                            <ul className="space-y-1">
+                              {item.commonPitfalls.map((pitfall, index) => (
+                                <li key={index} className="flex items-start gap-2 text-sm">
+                                  <AlertTriangle className="h-4 w-4 text-warning mt-0.5 flex-shrink-0" />
+                                  <span className="text-muted-foreground">{pitfall}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Template/Guide Section */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                          {item.template && (
+                            <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg">
+                              <div className="flex items-center justify-between mb-2">
+                                <div className="flex items-center gap-2">
+                                  <FileText className="h-4 w-4 text-primary dark:text-dark-primary" />
+                                  <span className="font-medium text-sm text-foreground dark:text-dark-text">Template Available</span>
+                                </div>
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    navigator.clipboard.writeText(item.template || '');
+                                  }}
+                                >
+                                  <Copy className="h-3 w-3" />
+                                </Button>
+                              </div>
+                              <p className="text-xs text-muted-foreground">
+                                Click to copy starter template
+                              </p>
+                            </div>
+                          )}
+
+                          {item.implementationGuide && (
+                            <a
+                              href={item.implementationGuide}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="p-3 bg-secondary/5 border border-secondary/20 rounded-lg hover:bg-secondary/10 transition-colors"
+                            >
+                              <div className="flex items-center justify-between mb-2">
+                                <div className="flex items-center gap-2">
+                                  <BookOpen className="h-4 w-4 text-secondary" />
+                                  <span className="font-medium text-sm text-foreground dark:text-dark-text">Implementation Guide</span>
+                                </div>
+                                <ExternalLink className="h-3 w-3 text-muted-foreground" />
+                              </div>
+                              <p className="text-xs text-muted-foreground">
+                                Step-by-step tutorial
+                              </p>
+                            </a>
+                          )}
+                        </div>
+
                         {item.references.length > 0 && (
                           <div>
                             <div className="flex items-center mb-2">
                               <File className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary" />
-                              <span className="font-medium text-sm text-foreground dark:text-dark-text">References</span>
+                              <span className="font-medium text-sm text-foreground dark:text-dark-text">References & Resources</span>
                             </div>
                             <ul className="space-y-1">
                               {item.references.map((ref, index) => (
@@ -276,9 +416,11 @@ const Recommendations: React.FC<RecommendationsProps> = ({
                                     href={ref.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-primary-teal hover:underline dark:text-dark-primary"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="text-primary-teal hover:underline dark:text-dark-primary inline-flex items-center gap-1"
                                   >
                                     {ref.title}
+                                    <ExternalLink className="h-3 w-3" />
                                   </a>
                                 </li>
                               ))}

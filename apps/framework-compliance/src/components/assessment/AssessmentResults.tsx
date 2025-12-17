@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { PieChart, CheckCircle, AlertTriangle, Download, FileOutput, ArrowRight, Info } from 'lucide-react';
+import { PieChart, CheckCircle, AlertTriangle, Download, FileOutput, ArrowRight, Info, TrendingUp, Shield, Target, Clock, Zap, BookOpen, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface SectionScore {
@@ -52,6 +52,78 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
     if (score >= 40) return 'hsl(var(--warning))';
     return 'hsl(var(--destructive))';
   };
+
+  const getMaturityLevel = (score: number) => {
+    if (score >= 90) return { level: 'Optimized', description: 'Continuously improving and industry-leading compliance posture' };
+    if (score >= 80) return { level: 'Managed', description: 'Strong compliance program with defined processes' };
+    if (score >= 70) return { level: 'Defined', description: 'Documented procedures with some gaps remaining' };
+    if (score >= 50) return { level: 'Developing', description: 'Basic compliance framework in place' };
+    return { level: 'Initial', description: 'Significant gaps requiring immediate attention' };
+  };
+
+  const getIndustryBenchmark = (score: number) => {
+    // Industry benchmark data (these would typically come from real data)
+    const benchmarks = {
+      excellent: 85,
+      good: 70,
+      average: 55,
+      belowAverage: 40
+    };
+
+    if (score >= benchmarks.excellent) return { position: 'Top 10%', comparison: 'Well above industry average' };
+    if (score >= benchmarks.good) return { position: 'Top 30%', comparison: 'Above industry average' };
+    if (score >= benchmarks.average) return { position: 'Average', comparison: 'Meeting industry baseline' };
+    if (score >= benchmarks.belowAverage) return { position: 'Bottom 50%', comparison: 'Below industry average' };
+    return { position: 'Bottom 20%', comparison: 'Significant improvement needed' };
+  };
+
+  const getKeyInsights = (score: number, sectionScores: SectionScore[]) => {
+    const insights = [];
+    const lowestSection = [...sectionScores].sort((a, b) => a.percentage - b.percentage)[0];
+    const highestSection = [...sectionScores].sort((a, b) => b.percentage - a.percentage)[0];
+
+    if (highestSection.percentage >= 80) {
+      insights.push({
+        type: 'strength',
+        icon: CheckCircle,
+        title: 'Strong Foundation',
+        message: `Your ${highestSection.title} practices are exemplary at ${highestSection.percentage}%. This provides a solid foundation to build upon.`
+      });
+    }
+
+    if (lowestSection.percentage < 60) {
+      insights.push({
+        type: 'urgent',
+        icon: AlertTriangle,
+        title: 'Priority Gap Identified',
+        message: `Your ${lowestSection.title} area scored ${lowestSection.percentage}% and requires immediate attention to reduce compliance risk.`
+      });
+    }
+
+    const gapCount = sectionScores.filter(s => s.percentage < 70).length;
+    if (gapCount > 0) {
+      insights.push({
+        type: 'action',
+        icon: Target,
+        title: 'Action Items',
+        message: `${gapCount} area${gapCount > 1 ? 's need' : ' needs'} improvement. Prioritize based on risk and regulatory requirements.`
+      });
+    }
+
+    return insights;
+  };
+
+  const getEstimatedEffort = (score: number) => {
+    if (score >= 80) return { time: '1-2 months', effort: 'Low', description: 'Fine-tuning and documentation' };
+    if (score >= 60) return { time: '3-6 months', effort: 'Moderate', description: 'Focused improvements in key areas' };
+    if (score >= 40) return { time: '6-12 months', effort: 'Significant', description: 'Comprehensive program development' };
+    return { time: '12+ months', effort: 'Extensive', description: 'Full privacy program implementation' };
+  };
+
+  const maturityLevel = getMaturityLevel(data.overallScore);
+  const benchmark = getIndustryBenchmark(data.overallScore);
+  const insights = getKeyInsights(data.overallScore, data.sectionScores);
+  const effort = getEstimatedEffort(data.overallScore);
 
   return (
     <div>
@@ -168,36 +240,262 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-            <Card>
+          {/* Enhanced Insights Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            <Card className="border-primary/20">
               <CardContent className="p-4">
-                <div className="text-center">
-                  <CheckCircle className="h-8 w-8 mx-auto mb-2 text-success" />
-                  <div className="text-lg font-bold text-foreground">Strengths</div>
-                  <div className="text-sm text-muted-foreground">Areas of good compliance</div>
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <TrendingUp className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium text-muted-foreground">Maturity Level</div>
+                    <div className="text-lg font-bold text-foreground">{maturityLevel.level}</div>
+                    <div className="text-xs text-muted-foreground mt-1">{maturityLevel.description}</div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-primary/20">
               <CardContent className="p-4">
-                <div className="text-center">
-                  <AlertTriangle className="h-8 w-8 mx-auto mb-2 text-warning" />
-                  <div className="text-lg font-bold text-foreground">Improvement Areas</div>
-                  <div className="text-sm text-muted-foreground">Areas requiring attention</div>
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                    <Shield className="h-5 w-5 text-secondary" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium text-muted-foreground">Industry Benchmark</div>
+                    <div className="text-lg font-bold text-foreground">{benchmark.position}</div>
+                    <div className="text-xs text-muted-foreground mt-1">{benchmark.comparison}</div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-primary/20">
               <CardContent className="p-4">
-                <div className="text-center">
-                  <FileOutput className="h-8 w-8 mx-auto mb-2 text-primary" />
-                  <div className="text-lg font-bold text-foreground">Documentation</div>
-                  <div className="text-sm text-muted-foreground">Evidence requirements</div>
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-warning/10 flex items-center justify-center flex-shrink-0">
+                    <Clock className="h-5 w-5 text-warning" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium text-muted-foreground">Estimated Effort</div>
+                    <div className="text-lg font-bold text-foreground">{effort.time}</div>
+                    <div className="text-xs text-muted-foreground mt-1">{effort.description}</div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
+
+            <Card className="border-primary/20">
+              <CardContent className="p-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center flex-shrink-0">
+                    <Zap className="h-5 w-5 text-success" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium text-muted-foreground">Quick Wins</div>
+                    <div className="text-lg font-bold text-foreground">{data.sectionScores.filter(s => s.percentage >= 65 && s.percentage < 80).length}</div>
+                    <div className="text-xs text-muted-foreground mt-1">Areas near completion</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Key Insights Section */}
+      {insights.length > 0 && (
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="text-xl font-bold text-foreground flex items-center gap-2">
+              <Info className="h-5 w-5 text-primary" />
+              Key Insights from Your Assessment
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {insights.map((insight, index) => {
+                const Icon = insight.icon;
+                const colorClass = insight.type === 'strength' ? 'border-success/30 bg-success/5' : 
+                                   insight.type === 'urgent' ? 'border-destructive/30 bg-destructive/5' : 
+                                   'border-primary/30 bg-primary/5';
+                const iconColor = insight.type === 'strength' ? 'text-success' : 
+                                 insight.type === 'urgent' ? 'text-destructive' : 
+                                 'text-primary';
+
+                return (
+                  <div key={index} className={`p-4 rounded-lg border-2 ${colorClass}`}>
+                    <div className="flex items-start gap-3">
+                      <Icon className={`h-5 w-5 ${iconColor} mt-0.5 flex-shrink-0`} />
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-1">{insight.title}</h4>
+                        <p className="text-sm text-muted-foreground">{insight.message}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Executive Summary Section */}
+      <Card className="mb-6 border-primary/20">
+        <CardHeader>
+          <CardTitle className="text-xl font-bold text-foreground flex items-center gap-2">
+            <FileOutput className="h-5 w-5 text-primary" />
+            Executive Summary
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="prose prose-sm max-w-none">
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              Your organization achieved an overall compliance score of <strong className="text-foreground">{data.overallScore}%</strong> on 
+              the {data.frameworkName} assessment, placing you in the <strong className="text-foreground">{benchmark.position}</strong> of 
+              organizations in terms of privacy maturity. This assessment identified both strengths and opportunities for improvement 
+              across {data.sectionScores.length} key privacy domains.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div className="bg-success/5 border border-success/20 rounded-lg p-4">
+                <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4 text-success" />
+                  Your Strengths
+                </h4>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  {data.sectionScores
+                    .filter(s => s.percentage >= 70)
+                    .map((section, idx) => (
+                      <li key={idx}>• {section.title} ({section.percentage}%)</li>
+                    ))}
+                  {data.sectionScores.filter(s => s.percentage >= 70).length === 0 && (
+                    <li className="text-warning">Continue building your compliance foundation</li>
+                  )}
+                </ul>
+              </div>
+
+              <div className="bg-warning/5 border border-warning/20 rounded-lg p-4">
+                <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4 text-warning" />
+                  Priority Focus Areas
+                </h4>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  {data.sectionScores
+                    .filter(s => s.percentage < 70)
+                    .sort((a, b) => a.percentage - b.percentage)
+                    .slice(0, 3)
+                    .map((section, idx) => (
+                      <li key={idx}>• {section.title} ({section.percentage}%) - 
+                        <span className={section.percentage < 50 ? 'text-destructive font-medium' : 'text-warning'}>
+                          {section.percentage < 50 ? ' Critical' : ' High Priority'}
+                        </span>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-4 p-4 bg-primary/5 border border-primary/20 rounded-lg">
+              <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                <Target className="h-4 w-4 text-primary" />
+                Recommended Next Steps
+              </h4>
+              <ol className="text-sm text-muted-foreground space-y-2 ml-4">
+                <li>1. Review the detailed gap analysis to understand specific deficiencies</li>
+                <li>2. Prioritize remediation efforts based on risk and regulatory requirements</li>
+                <li>3. Leverage recommended tools to address identified gaps systematically</li>
+                <li>4. Establish a timeline for closing critical gaps within {effort.time}</li>
+                <li>5. Schedule a follow-up assessment to measure progress</li>
+              </ol>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Learning Resources Section */}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle className="text-xl font-bold text-foreground flex items-center gap-2">
+            <BookOpen className="h-5 w-5 text-primary" />
+            Supporting Resources & Learning Materials
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a
+              href="https://www.nist.gov/privacy-framework"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 border-2 border-border hover:border-primary/50 rounded-lg transition-all group"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <h4 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
+                    NIST Privacy Framework Guide
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    Official framework documentation and implementation guidance
+                  </p>
+                </div>
+                <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
+              </div>
+            </a>
+
+            <Link
+              to="/resources/documentation/assessment-guide"
+              className="p-4 border-2 border-border hover:border-primary/50 rounded-lg transition-all group"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <h4 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
+                    Reading Assessment Results
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    Learn how to interpret scores and develop action plans
+                  </p>
+                </div>
+                <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
+              </div>
+            </Link>
+
+            <a
+              href="https://ico.org.uk/for-organisations/guide-to-data-protection/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 border-2 border-border hover:border-primary/50 rounded-lg transition-all group"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <h4 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
+                    ICO Data Protection Guide
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    Comprehensive GDPR compliance resources and templates
+                  </p>
+                </div>
+                <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
+              </div>
+            </a>
+
+            <Link
+              to="/toolkit"
+              className="p-4 border-2 border-border hover:border-primary/50 rounded-lg transition-all group"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <h4 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
+                    Privacy Compliance Toolkit
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    Access tools for DPIAs, policy generation, and more
+                  </p>
+                </div>
+                <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
+              </div>
+            </Link>
           </div>
         </CardContent>
       </Card>

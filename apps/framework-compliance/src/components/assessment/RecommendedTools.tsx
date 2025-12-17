@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent } from '../ui/Card';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Link } from 'react-router-dom';
 import { 
@@ -10,7 +10,13 @@ import {
   ArrowRight,
   Target,
   AlertTriangle,
-  CheckCircle
+  CheckCircle,
+  BookOpen,
+  Video,
+  FileText,
+  HelpCircle,
+  ExternalLink,
+  Clock
 } from 'lucide-react';
 
 interface SectionScore {

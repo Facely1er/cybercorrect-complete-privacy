@@ -1,12 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import { useChatbot } from '../components/chat/ChatbotProvider';
-import { useJourney } from '../context/useJourney';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
 import { HeroHeadingCarousel } from '../components/ui/HeroHeadingCarousel';
 import FloatingPrivacyIcons from '../components/ui/FloatingPrivacyIcons';
-import OnboardingFlow from '../components/onboarding/OnboardingFlow';
 import { 
   ArrowRight, 
   Shield, 
@@ -19,40 +16,17 @@ import {
   CheckCircle,
   Clock,
   BarChart3,
-  Sparkles,
-  PlayCircle
+  Sparkles
 } from 'lucide-react';
 
 const Landing = () => {
   useChatbot();
-  const { hasVisitedBefore } = useJourney();
-  const [showOnboarding, setShowOnboarding] = useState(false);
-
-  useEffect(() => {
-    // Show onboarding for first-time users after a short delay
-    if (!hasVisitedBefore) {
-      const timer = setTimeout(() => {
-        setShowOnboarding(true);
-      }, 1500);
-      return () => clearTimeout(timer);
-    }
-  }, [hasVisitedBefore]);
-
-  const handleCloseOnboarding = () => {
-    setShowOnboarding(false);
-  };
-
-  const handleOpenOnboarding = () => {
-    setShowOnboarding(true);
-  };
 
   // Hero heading carousel items
   const heroHeadings = [
     // Heading 1: Current privacy compliance focus
     <h1 key="heading-1" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-foreground dark:text-dark-text">
-      <span className="text-foreground dark:text-dark-text">Stop Losing Sleep</span>
-      <br className="hidden sm:block" />
-      <span className="text-foreground dark:text-dark-text">Over </span>
+      <span className="text-foreground dark:text-dark-text">Demystify </span>
       <span className="text-primary dark:text-dark-primary">Privacy Compliance</span>
     </h1>,
     // Heading 2: Automated solution focus
@@ -70,13 +44,6 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen bg-surface dark:bg-dark-bg">
-      {/* Onboarding Modal */}
-      <OnboardingFlow 
-        isVisible={showOnboarding} 
-        onClose={handleCloseOnboarding}
-        currentStep={0}
-      />
-
       {/* Hero Section */}
       <section className="relative py-20 sm:py-32 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/5 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
         <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-30 dark:opacity-20"></div>
@@ -104,7 +71,7 @@ const Landing = () => {
               Discover your compliance gaps and get a clear, prioritized action plan that reduces risk and saves hundreds of hours.
             </p>
 
-            {/* Primary CTA with Journey Guide */}
+            {/* Primary CTA */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Link 
                 to="/assessments/privacy-assessment"
@@ -114,16 +81,6 @@ const Landing = () => {
                 Start Your Journey — Free
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
-              <Button
-                size="lg"
-                variant="outline"
-                className="px-8 py-4 bg-background dark:bg-dark-surface border-2 border-primary text-primary rounded-lg text-lg font-semibold hover:bg-primary/5 transition-all"
-                onClick={handleOpenOnboarding}
-                aria-label="View Journey Guide"
-              >
-                <PlayCircle className="mr-2 h-5 w-5" />
-                View Journey Guide
-              </Button>
             </div>
             
             {/* Trust Indicators */}
@@ -271,10 +228,6 @@ const Landing = () => {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
-                <Button size="lg" variant="outline" onClick={handleOpenOnboarding} className="px-8">
-                  <PlayCircle className="mr-2 h-5 w-5" />
-                  View Interactive Guide
-                </Button>
               </div>
               <div className="flex flex-wrap justify-center gap-6 mt-6 text-sm text-muted-foreground">
                 <div className="flex items-center">

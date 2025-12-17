@@ -29,10 +29,8 @@ const MarketingLanding = () => {
   const heroHeadings = [
     // Heading 1: Current privacy compliance focus
     <h1 key="heading-1" className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
-      <span className="text-foreground">Stop Losing Sleep Over </span>
-      <span className="text-primary">Privacy</span>
-      <br className="hidden sm:block" />
-      <span className="text-primary">Compliance</span>
+      <span className="text-foreground">Demystify </span>
+      <span className="text-primary">Privacy Compliance</span>
     </h1>,
     // Heading 2: Automated solution focus
     <h1 key="heading-2" className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
