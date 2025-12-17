@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { useJourneyTool } from '../../hooks/useJourneyTool';
 import { 
   Database, 
   CheckCircle, 
@@ -82,6 +83,9 @@ interface PiiFlow {
 }
 
 const PiiDataFlowMapper = () => {
+  // Journey tracking - automatically marks tool as started on mount
+  const { markCompleted } = useJourneyTool('pii-data-flow-mapper');
+  
   const [nodes, setNodes] = useState<PiiNode[]>(() => {
     const saved = secureStorage.getItem<PiiNode[]>('pii_dataflow_nodes');
     return saved || [

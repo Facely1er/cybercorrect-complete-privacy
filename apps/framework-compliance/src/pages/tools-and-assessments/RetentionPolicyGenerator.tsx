@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+import { useJourneyTool } from '../../hooks/useJourneyTool';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { toast } from '../../components/ui/Toaster';
@@ -71,6 +72,10 @@ interface DataRecord {
 }
 
 const RetentionPolicyGenerator = () => {
+  // Journey tracking - automatically marks tool as started on mount
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { markCompleted } = useJourneyTool('retention-policy-generator');
+  
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
@@ -100,12 +105,14 @@ const RetentionPolicyGenerator = () => {
     }
   };
 
-  const savePolicies = (updatedPolicies: RetentionPolicy[]) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _savePolicies = (updatedPolicies: RetentionPolicy[]) => {
     storageAdapter.setRetentionPolicies(updatedPolicies);
     setPolicies(updatedPolicies);
   };
 
-  const saveDataRecords = (updatedRecords: DataRecord[]) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _saveDataRecords = (updatedRecords: DataRecord[]) => {
     storageAdapter.setDataRecords(updatedRecords);
     setDataRecords(updatedRecords);
   };
@@ -262,7 +269,8 @@ const RetentionPolicyGenerator = () => {
         </p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <div className="space-y-6">
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="policies">Policies</TabsTrigger>
@@ -466,6 +474,7 @@ const RetentionPolicyGenerator = () => {
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
+                    title="Filter by category"
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
                   >
                     <option value="all">All Categories</option>
@@ -480,6 +489,7 @@ const RetentionPolicyGenerator = () => {
                   <select
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
+                    title="Filter by status"
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
                   >
                     <option value="all">All Status</option>
@@ -493,6 +503,7 @@ const RetentionPolicyGenerator = () => {
                   <select
                     value={selectedCompliance}
                     onChange={(e) => setSelectedCompliance(e.target.value)}
+                    title="Filter by compliance status"
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
                   >
                     <option value="all">All Compliance</option>
@@ -784,6 +795,7 @@ const RetentionPolicyGenerator = () => {
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 };

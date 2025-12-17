@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+import { useJourneyTool } from '../../hooks/useJourneyTool';
+import JourneyProgressTracker from '../../components/onboarding/JourneyProgressTracker';
+import { useJourney } from '../../context/JourneyContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { toast } from '../../components/ui/Toaster';
@@ -43,6 +46,10 @@ interface ConsentRecord {
 }
 
 const ConsentManagement = () => {
+  // Journey tracking - automatically marks tool as started on mount
+  const { markCompleted } = useJourneyTool('consent-management');
+  const { currentStepIndex, completedSteps } = useJourney();
+  
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedConsentType, setSelectedConsentType] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
@@ -228,6 +235,12 @@ const ConsentManagement = () => {
 
   return (
     <div className="container mx-auto px-4 py-6">
+      <JourneyProgressTracker 
+        currentStepIndex={currentStepIndex}
+        completedSteps={completedSteps}
+        compact={true}
+        showNextAction={true}
+      />
       <Breadcrumbs className="mb-6" />
       
       <div className="mb-6">
@@ -399,6 +412,7 @@ const ConsentManagement = () => {
                   <select
                     value={selectedConsentType}
                     onChange={(e) => setSelectedConsentType(e.target.value)}
+                    title="Filter by consent type"
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
                   >
                     <option value="all">All Consent Types</option>
@@ -411,6 +425,7 @@ const ConsentManagement = () => {
                   <select
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
+                    title="Filter by status"
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
                   >
                     <option value="all">All Status</option>

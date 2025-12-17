@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 #!/usr/bin/env tsx
 /**
  * Configure Edge Function Secrets via Supabase CLI
@@ -130,4 +131,5 @@ async function main() {
 }
 
 main();
+
 

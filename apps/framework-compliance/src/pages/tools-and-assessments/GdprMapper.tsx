@@ -211,9 +211,11 @@ const GdprMapper = () => {
         a.click();
         URL.revokeObjectURL(url);
         toast.success("Mapping exported", "GDPR processing mapping has been exported as CSV");
+        markToolCompleted('gdpr-mapper');
       } else if (format === 'pdf') {
         await exportToPDF(activities);
         toast.success("Mapping exported", "GDPR processing mapping has been exported as PDF");
+        markToolCompleted('gdpr-mapper');
       } else {
         // JSON export
         const mappingData = getMappingData();
@@ -225,6 +227,7 @@ const GdprMapper = () => {
         a.click();
         URL.revokeObjectURL(url);
         toast.success("Mapping exported", "GDPR processing mapping has been exported as JSON");
+        markToolCompleted('gdpr-mapper');
       }
     } catch (error) {
       logError(error instanceof Error ? error : new Error('Error exporting'), { component: 'GdprMapper', operation: 'export' });

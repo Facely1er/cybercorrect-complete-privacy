@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+import { useJourneyTool } from '../../hooks/useJourneyTool';
+import JourneyProgressTracker from '../../components/onboarding/JourneyProgressTracker';
+import { useJourney } from '../../context/JourneyContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { toast } from '../../components/ui/Toaster';
 import { storageAdapter } from '../../utils/storage';
@@ -113,6 +116,11 @@ interface ServiceProvider {
 }
 
 const ServiceProviderManager = () => {
+  // Journey tracking - automatically marks tool as started on mount
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { markCompleted } = useJourneyTool('service-provider-manager');
+  const { currentStepIndex, completedSteps } = useJourney();
+  
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
@@ -275,6 +283,12 @@ const ServiceProviderManager = () => {
 
   return (
     <div className="space-y-6">
+      <JourneyProgressTracker 
+        currentStepIndex={currentStepIndex}
+        completedSteps={completedSteps}
+        compact={true}
+        showNextAction={true}
+      />
       <div>
         <h1 className="text-3xl font-bold mb-2 text-foreground">Service Provider Manager</h1>
         <p className="text-muted-foreground">
@@ -365,6 +379,7 @@ const ServiceProviderManager = () => {
                 {['cloud', 'analytics', 'marketing', 'payment', 'communication', 'security', 'other'].map((category) => {
                   const count = serviceProviders.filter(p => p.category === category).length;
                   const percentage = totalProviders > 0 ? Math.round((count / totalProviders) * 100) : 0;
+                  const progressStyle = { width: `${percentage}%` };
                   
                   return (
                     <div key={category} className="space-y-2">
@@ -381,9 +396,10 @@ const ServiceProviderManager = () => {
                       </div>
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                         {/* Dynamic width for category distribution */}
+                        {/* eslint-disable-next-line react/forbid-dom-props */}
                         <div 
                           className="bg-primary h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${percentage}%` } as React.CSSProperties}
+                          style={progressStyle}
                         />
                       </div>
                     </div>
@@ -657,6 +673,7 @@ const ServiceProviderManager = () => {
                   const compliant = relevantProviders.length;
                   const total = serviceProviders.length;
                   const percentage = total > 0 ? Math.round((compliant / total) * 100) : 0;
+                  const complianceStyle = { width: `${percentage}%` };
                   
                   return (
                     <div key={framework} className="space-y-2">
@@ -671,9 +688,10 @@ const ServiceProviderManager = () => {
                       </div>
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                         {/* Dynamic width for compliance stats */}
+                        {/* eslint-disable-next-line react/forbid-dom-props */}
                         <div 
                           className="bg-primary h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${percentage}%` } as React.CSSProperties}
+                          style={complianceStyle}
                         />
                       </div>
                     </div>

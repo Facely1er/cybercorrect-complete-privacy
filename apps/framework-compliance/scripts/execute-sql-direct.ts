@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 /**
  * Execute SQL directly using Supabase client with service role key
  * This attempts to execute SQL via the REST API
@@ -43,6 +44,7 @@ async function main() {
 }
 
 main().catch(console.error);
+
 
 
 

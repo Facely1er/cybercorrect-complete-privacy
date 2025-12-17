@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 /**
  * Execute Database Migrations via Supabase REST API
  * 
@@ -122,6 +123,7 @@ async function main() {
 }
 
 main().catch(console.error);
+
 
 
 

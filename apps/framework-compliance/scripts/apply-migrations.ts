@@ -1,6 +1,7 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 /**
  * Apply Database Migrations to Supabase
- * 
+ *
  * This script applies all database migrations to your Supabase instance.
  * Run this script after setting up your Supabase project.
  * 

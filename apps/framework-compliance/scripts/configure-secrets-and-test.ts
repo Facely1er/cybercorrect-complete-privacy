@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 /**
  * Configure Edge Function Secrets and Test Connection
  * 
@@ -170,4 +171,5 @@ async function main() {
 }
 
 main().catch(console.error);
+
 

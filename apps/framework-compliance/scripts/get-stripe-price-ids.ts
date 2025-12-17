@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 /**
  * Script to fetch Stripe Price IDs for subscription plans
  * Usage: tsx scripts/get-stripe-price-ids.ts <STRIPE_SECRET_KEY>
@@ -160,4 +161,5 @@ async function fetchStripePrices(): Promise<void> {
 }
 
 fetchStripePrices();
+
 

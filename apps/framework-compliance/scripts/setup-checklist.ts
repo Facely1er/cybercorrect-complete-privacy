@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 /**
  * Interactive Setup Checklist
  * Guides you through completing the Stripe setup
@@ -127,4 +128,5 @@ main().catch((error) => {
   rl.close();
   process.exit(1);
 });
+
 

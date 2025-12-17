@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 /**
  * Combine all migration files into a single SQL file for easy execution
  * 

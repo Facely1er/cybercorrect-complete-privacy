@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { useJourneyTool } from '../../hooks/useJourneyTool';
+import JourneyProgressTracker from '../../components/onboarding/JourneyProgressTracker';
+import { useJourney } from '../../context/JourneyContext';
 import { 
   FileText, 
   ArrowLeft, 
@@ -20,6 +23,9 @@ import { usePageTitle } from '../../hooks/usePageTitle';
 
 const PrivacyPolicyGenerator = () => {
   usePageTitle('Privacy Policy Generator');
+  // Journey tracking - automatically marks tool as started on mount
+  const { markCompleted } = useJourneyTool('privacy-policy-generator');
+  const { currentStepIndex, completedSteps } = useJourney();
   const [selectedRegulation, setSelectedRegulation] = useState(() => 
     secureStorage.getItem('policy_selected_regulation', 'gdpr')
   );
@@ -194,6 +200,12 @@ Last updated: ${new Date().toLocaleDateString()}
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <JourneyProgressTracker 
+        currentStepIndex={currentStepIndex}
+        completedSteps={completedSteps}
+        compact={true}
+        showNextAction={true}
+      />
       <div className="mb-6">
         <Link to="/toolkit" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-4">
           <ArrowLeft className="mr-2 h-4 w-4" />

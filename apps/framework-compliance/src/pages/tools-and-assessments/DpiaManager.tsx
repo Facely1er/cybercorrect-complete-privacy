@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+import { useJourneyTool } from '../../hooks/useJourneyTool';
+import JourneyProgressTracker from '../../components/onboarding/JourneyProgressTracker';
+import { useJourney } from '../../context/JourneyContext';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { toast } from '../../components/ui/Toaster';
 import { EmptyState } from '../../components/ui/EmptyState';
@@ -46,6 +49,11 @@ const ProgressBar = ({ percentage, colorClass }: { percentage: number; colorClas
 };
 
 const DpiaManager = () => {
+  // Journey tracking - automatically marks tool as started on mount
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { markCompleted } = useJourneyTool('dpia-manager');
+  const { currentStepIndex, completedSteps } = useJourney();
+  
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [selectedPriority, setSelectedPriority] = useState('all');
@@ -208,6 +216,12 @@ const DpiaManager = () => {
 
   return (
     <div className="page-container">
+      <JourneyProgressTracker 
+        currentStepIndex={currentStepIndex}
+        completedSteps={completedSteps}
+        compact={true}
+        showNextAction={true}
+      />
       <div className="page-header">
         <h1 className="page-title">DPIA Manager</h1>
         <p className="page-description">

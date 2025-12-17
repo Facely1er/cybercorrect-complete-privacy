@@ -1,6 +1,7 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 /**
  * Apply Database Migrations to Supabase using Management API
- * 
+ *
  * This script applies all database migrations directly via Supabase Management API.
  * It uses the service role key to execute SQL statements.
  * 

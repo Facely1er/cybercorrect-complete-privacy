@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 #!/usr/bin/env tsx
 /**
  * Verify Database Migrations Status
@@ -109,4 +110,5 @@ verifyMigrationsStatus()
     console.error('❌ Error verifying migrations:', error);
     process.exit(1);
   });
+
 

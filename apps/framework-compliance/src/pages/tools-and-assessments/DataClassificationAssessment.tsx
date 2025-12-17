@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { AlertTriangle, CheckCircle, Circle, Info, ArrowLeft, ArrowRight } from 'lucide-react';
+import { useJourneyTool } from '../../hooks/useJourneyTool';
 import { Link, useNavigate } from 'react-router-dom';
 import AssessmentStartScreen, { SectionInfo } from '../../components/assessment/AssessmentStartScreen';
 
 const DataClassificationAssessment = () => {
+  // Journey tracking - automatically marks tool as started on mount
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { markCompleted } = useJourneyTool('data-classification-assessment');
+  
   const navigate = useNavigate();
   const [currentSection, setCurrentSection] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});

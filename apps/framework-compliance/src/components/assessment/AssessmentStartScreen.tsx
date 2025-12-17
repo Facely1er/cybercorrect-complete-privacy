@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { Clock, BarChart2, CheckCircle, ArrowRight, Shield, Info, User, Users, Building2 } from 'lucide-react';
+import { Clock, BarChart2, CheckCircle, ArrowRight, Shield, Info, User, Building2 } from 'lucide-react';
 
 export interface SectionInfo {
   title: string;

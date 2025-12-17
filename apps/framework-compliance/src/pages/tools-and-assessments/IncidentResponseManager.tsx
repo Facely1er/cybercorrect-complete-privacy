@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+import { useJourneyTool } from '../../hooks/useJourneyTool';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { toast } from '../../components/ui/Toaster';
 import { EmptyState } from '../../components/ui/EmptyState';
@@ -29,6 +30,10 @@ import {
 // Using PrivacyIncident type from incidentService
 
 const IncidentResponseManager = () => {
+  // Journey tracking - automatically marks tool as started on mount
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { markCompleted } = useJourneyTool('incident-response-manager');
+  
   const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedType, setSelectedType] = useState('all');
   const [selectedSeverity, setSelectedSeverity] = useState('all');

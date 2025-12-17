@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 /**
  * Execute migrations by reading the combined SQL and providing execution instructions
  * Since automated execution requires special permissions, this script prepares everything
@@ -57,6 +58,7 @@ async function main() {
 }
 
 main().catch(console.error);
+
 
 
 

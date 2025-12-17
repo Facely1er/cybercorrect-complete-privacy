@@ -66,7 +66,7 @@ const getProgressVariantClass = (variant: 'critical' | 'high' | 'medium' | 'low'
 };
 
 const VendorRiskAssessment = () => {
-  useJourneyTool('vendor-risk-assessment');
+  const { markCompleted } = useJourneyTool('vendor-risk-assessment');
   const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedRiskLevel, setSelectedRiskLevel] = useState('all');
   const [selectedCompliance, setSelectedCompliance] = useState('all');
@@ -209,6 +209,7 @@ const VendorRiskAssessment = () => {
         a.click();
         URL.revokeObjectURL(url);
         toast.success('Export successful', 'JSON report downloaded');
+        markCompleted();
       } else if (format === 'csv') {
         const csvRows: string[] = [];
         csvRows.push('Vendor Name,Service Description,Risk Level,Compliance Status,Assessment Score,Last Assessment,Next Assessment,Regulations');
@@ -235,10 +236,12 @@ const VendorRiskAssessment = () => {
         a.click();
         URL.revokeObjectURL(url);
         toast.success('Export successful', 'CSV report downloaded');
+        markCompleted();
       } else if (format === 'pdf') {
         const { generateVendorRiskAssessmentPdf } = await import('../../utils/pdf');
         generateVendorRiskAssessmentPdf(reportData);
         toast.success('Export successful', 'PDF report downloaded');
+        markCompleted();
       }
     } catch (error) {
       console.error('Export failed:', error);

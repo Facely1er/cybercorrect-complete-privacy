@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 /**
  * Verify Stripe Setup Status
  * Checks what's configured and what's missing
@@ -91,4 +92,5 @@ main().catch((error) => {
   console.error('\n❌ Error:', error);
   process.exit(1);
 });
+
 

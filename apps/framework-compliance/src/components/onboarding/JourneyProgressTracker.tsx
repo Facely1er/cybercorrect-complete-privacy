@@ -34,6 +34,7 @@ const JourneyProgressTracker: React.FC<JourneyProgressTrackerProps> = ({
   const nextStep = steps[currentStepIndex + 1];
   const progressPercentage = Math.round(((currentStepIndex + 1) / steps.length) * 100);
   const completedCount = steps.filter(s => s.completed).length;
+  const progressBarStyle = { width: `${progressPercentage}%` };
 
   if (compact) {
     return (
@@ -132,9 +133,10 @@ const JourneyProgressTracker: React.FC<JourneyProgressTrackerProps> = ({
         {/* Overall Progress Bar */}
         <div className="mb-6">
           <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            {/* eslint-disable-next-line react/forbid-dom-props */}
             <div
               className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-500 ease-out"
-              style={{ width: `${progressPercentage}%` }}
+              style={progressBarStyle}
             />
           </div>
           <div className="flex justify-between mt-2 text-xs text-muted-foreground">

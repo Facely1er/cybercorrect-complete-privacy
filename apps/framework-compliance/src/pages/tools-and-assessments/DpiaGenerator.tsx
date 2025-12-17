@@ -30,7 +30,7 @@ type DpiaFormData = {
 
 const DpiaGenerator = () => {
   usePageTitle('DPIA Generator');
-  useJourneyTool('dpia-generator');
+  const { markCompleted } = useJourneyTool('dpia-generator');
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<DpiaFormData>(() => {
     const savedData = secureStorage.getItem<DpiaFormData>('dpia_form_data');
@@ -138,10 +138,12 @@ const DpiaGenerator = () => {
         });
         
         toast.success('DPIA saved', 'DPIA has been generated, downloaded, and saved to your DPIA Manager');
+        markCompleted();
       } catch (saveError) {
         // If save fails, still show success for download
         logWarning('Failed to save DPIA to database', { error: saveError, component: 'DpiaGenerator' });
         toast.success('DPIA generated', 'Data Protection Impact Assessment has been generated and downloaded');
+        markCompleted();
       }
     } catch (error) {
       logError(error instanceof Error ? error : new Error('Error generating DPIA'), { component: 'DpiaGenerator' });

@@ -10,7 +10,6 @@ import {
   ArrowRight, 
   Star, 
   CheckCircle,
-  AlertTriangle,
   Target,
   Sparkles
 } from 'lucide-react';

@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 /**
  * Configure Stripe Secrets for Supabase Edge Functions
  * 
@@ -186,4 +187,5 @@ main().catch((error) => {
   console.error('\n❌ Unexpected error:', error);
   process.exit(1);
 });
+
 

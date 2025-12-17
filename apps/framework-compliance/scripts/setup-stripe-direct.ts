@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 /**
  * Direct Stripe Setup using Supabase Management API
  * 
@@ -175,4 +176,5 @@ main().catch((error) => {
   console.error('\n❌ Error:', error);
   process.exit(1);
 });
+
 

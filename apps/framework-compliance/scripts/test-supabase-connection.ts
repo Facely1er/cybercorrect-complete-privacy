@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 /**
  * Test Supabase Connection
  * 
@@ -102,4 +103,5 @@ async function testConnection() {
 }
 
 testConnection().catch(console.error);
+
 

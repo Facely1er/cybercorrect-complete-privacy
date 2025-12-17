@@ -7,8 +7,7 @@ import {
   Flag, 
   Send, 
   CheckCircle,
-  User,
-  X
+  User
 } from 'lucide-react';
 import { CollaborationManager } from '../../utils/collaboration';
 import { QuestionComment } from '../../types/collaboration';

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { useJourneyTool } from '../../hooks/useJourneyTool';
 import { 
   Database, 
   CheckCircle, 
@@ -38,6 +39,9 @@ interface DataFlow {
 }
 
 const DataFlowMapper = () => {
+  // Journey tracking - automatically marks tool as started on mount
+  const { markCompleted } = useJourneyTool('data-flow-mapper');
+  
   const [nodes, setNodes] = useState<DataNode[]>(() => {
     const saved = secureStorage.getItem<DataNode[]>('dataflow_nodes');
     return saved || [
@@ -147,6 +151,7 @@ const DataFlowMapper = () => {
     URL.revokeObjectURL(url);
 
     toast.success("Map exported", "CUI data flow map has been exported successfully");
+    markCompleted();
   };
 
   const getNodeTypeColor = (type: string) => {

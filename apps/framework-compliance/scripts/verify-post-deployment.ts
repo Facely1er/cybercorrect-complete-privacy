@@ -1,3 +1,4 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-require-imports */
 #!/usr/bin/env tsx
 /**
  * Post-Deployment Verification Script
@@ -334,4 +335,5 @@ runChecks().catch((error) => {
   console.error('❌ Fatal error during verification:', error);
   process.exit(1);
 });
+
 

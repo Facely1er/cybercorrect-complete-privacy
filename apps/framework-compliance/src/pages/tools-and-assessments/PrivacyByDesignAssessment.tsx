@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
+import { useJourneyTool } from '../../hooks/useJourneyTool';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { toast } from '../../components/ui/Toaster';
 import { storageAdapter } from '../../utils/storage';
@@ -41,6 +42,10 @@ interface PrivacyByDesignAssessment {
 }
 
 const PrivacyByDesignAssessment = () => {
+  // Journey tracking - automatically marks tool as started on mount
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { markCompleted } = useJourneyTool('privacy-by-design-assessment');
+  
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [selectedCompliance, setSelectedCompliance] = useState('all');
@@ -337,6 +342,7 @@ const PrivacyByDesignAssessment = () => {
                   const avgScore = principleScores.length > 0
                     ? Math.round(principleScores.reduce((sum, s) => sum + s, 0) / principleScores.length)
                     : 0;
+                  const progressStyle = { width: `${avgScore}%` };
                   
                   return (
                     <div key={principle.id} className="space-y-2">
@@ -353,10 +359,11 @@ const PrivacyByDesignAssessment = () => {
                       </div>
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                         {/* Dynamic width for progress bar */}
+                        {/* eslint-disable-next-line react/forbid-dom-props */}
                         <div 
                           className="bg-primary h-2 rounded-full transition-all duration-300"
                           data-score={avgScore}
-                          style={{ width: `${avgScore}%` } as React.CSSProperties}
+                          style={progressStyle}
                         />
                       </div>
                       <p className="text-xs text-muted-foreground">{principle.description}</p>

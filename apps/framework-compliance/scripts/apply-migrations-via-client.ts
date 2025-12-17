@@ -1,6 +1,7 @@
+/* eslint-disable no-console, @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 /**
  * Apply Database Migrations to Supabase using Supabase Client
- * 
+ *
  * This script applies migrations by executing SQL via Supabase client.
  * 
  * Usage:
