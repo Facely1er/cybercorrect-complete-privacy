@@ -1,24 +1,34 @@
 import { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { AlertTriangle, CheckCircle, Circle, Info, ArrowLeft, ArrowRight, Save } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { AlertTriangle, CheckCircle, Circle, Info, ArrowLeft, ArrowRight, Save, Users } from 'lucide-react';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import AssessmentStartScreen, { SectionInfo, AssessmentMode } from '../../components/assessment/AssessmentStartScreen';
 import { RelatedContent } from '../../components/ui/InternalLinkingHelper';
 import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
+import { CollaborativeProgress } from '../../components/assessment/CollaborativeProgress';
+import { QuestionCollaboration } from '../../components/assessment/QuestionCollaboration';
 import { secureStorage } from '../../utils/storage/secureStorage';
+import { CollaborationManager } from '../../utils/collaboration';
 import { toast } from '../../components/ui/Toaster';
 
 const PrivacyAssessment = () => {
   const navigate = useNavigate();
+  const { sessionId } = useParams<{ sessionId?: string }>();
+  const [searchParams] = useSearchParams();
   const [currentSection, setCurrentSection] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showStartScreen, setShowStartScreen] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [assessmentMode, setAssessmentMode] = useState<AssessmentMode>('individual');
+  const [collaborationMode, setCollaborationMode] = useState(false);
+  const [collabSessionId, setCollabSessionId] = useState<string | null>(null);
 
   const STORAGE_KEY = 'privacy_assessment_progress';
+  
+  // Get current user from collaboration session
+  const currentUser = CollaborationManager.getCurrentUser();
 
   // Load saved progress on component mount
   useEffect(() => {
