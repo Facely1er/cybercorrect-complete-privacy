@@ -59,7 +59,7 @@ The database is ready! Now you need to:
 
 ## 📋 Migration Details
 
-- **Migration File:** `supabase/migrations/20250205000000_one_time_purchases.sql`
+- **Migration File:** `supabase/migrations/20251217000000_one_time_purchases.sql`
 - **Applied Date:** Already applied (table exists)
 - **Status:** ✅ Complete
 

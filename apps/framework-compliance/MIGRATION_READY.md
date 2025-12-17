@@ -2,7 +2,7 @@
 
 ## Migration File Created
 
-**File:** `supabase/migrations/20250205000000_one_time_purchases.sql`
+**File:** `supabase/migrations/20251217000000_one_time_purchases.sql`
 
 This migration creates the `cc_one_time_purchases` table needed for one-time product sales.
 
@@ -20,7 +20,7 @@ This migration creates the `cc_one_time_purchases` table needed for one-time pro
    - Click "SQL Editor" → "New query"
 
 3. **Copy Migration SQL**
-   - Open: `supabase/migrations/20250205000000_one_time_purchases.sql`
+   - Open: `supabase/migrations/20251217000000_one_time_purchases.sql`
    - Copy ALL contents
    - Paste into SQL Editor
 
@@ -38,7 +38,7 @@ This migration creates the `cc_one_time_purchases` table needed for one-time pro
 ## 📄 Migration SQL (Copy This)
 
 The complete SQL is in:
-- `supabase/migrations/20250205000000_one_time_purchases.sql`
+- `supabase/migrations/20251217000000_one_time_purchases.sql`
 - Also included in: `supabase/migrations/ALL_MIGRATIONS_COMBINED.sql`
 
 ---

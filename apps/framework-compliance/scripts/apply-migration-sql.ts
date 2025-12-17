@@ -65,7 +65,7 @@ async function main() {
 
   // Read and output the SQL
   try {
-    const migrationPath = join(__dirname, '..', 'supabase', 'migrations', '20250205000000_one_time_purchases.sql');
+    const migrationPath = join(__dirname, '..', 'supabase', 'migrations', '20251217000000_one_time_purchases.sql');
     const sql = readFileSync(migrationPath, 'utf-8');
     console.log(sql);
     console.log('');

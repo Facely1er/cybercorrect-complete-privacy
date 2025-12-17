@@ -2751,7 +2751,7 @@ CREATE TRIGGER update_policy_generators_updated_at
     EXECUTE FUNCTION update_updated_at_column();
 
 -- ============================================================================
--- Migration: 20250205000000_one_time_purchases.sql
+-- Migration: 20251217000000_one_time_purchases.sql
 -- ============================================================================
 
 /*

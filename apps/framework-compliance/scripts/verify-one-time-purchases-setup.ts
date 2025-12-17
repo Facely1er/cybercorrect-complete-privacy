@@ -49,7 +49,7 @@ async function verifyDatabase() {
           component: 'Database Table',
           status: '❌',
           message: 'cc_one_time_purchases table does not exist',
-          details: 'Run migration: 20250205000000_one_time_purchases.sql'
+          details: 'Run migration: 20251217000000_one_time_purchases.sql'
         });
       } else {
         results.push({

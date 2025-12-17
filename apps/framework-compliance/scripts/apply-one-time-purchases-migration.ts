@@ -76,10 +76,10 @@ async function applyMigration(): Promise<boolean> {
     }
 
     console.log('📄 Reading migration file...');
-    const migrationPath = join(__dirname, '..', 'supabase', 'migrations', '20250205000000_one_time_purchases.sql');
+    const migrationPath = join(__dirname, '..', 'supabase', 'migrations', '20251217000000_one_time_purchases.sql');
     const sql = readFileSync(migrationPath, 'utf-8');
     
-    console.log('🚀 Applying migration: 20250205000000_one_time_purchases.sql');
+    console.log('🚀 Applying migration: 20251217000000_one_time_purchases.sql');
     console.log('   This will create the cc_one_time_purchases table...\n');
 
     // Execute the SQL using Supabase REST API
@@ -191,7 +191,7 @@ async function main() {
   console.log('   3. Click "SQL Editor" in the left sidebar');
   console.log('   4. Click "New query"');
   console.log('   5. Copy the contents of:');
-  console.log('      apps/framework-compliance/supabase/migrations/20250205000000_one_time_purchases.sql');
+  console.log('      apps/framework-compliance/supabase/migrations/20251217000000_one_time_purchases.sql');
   console.log('   6. Paste into SQL Editor');
   console.log('   7. Click "Run" (or press Ctrl+Enter)\n');
   console.log('   Or use the combined migrations file:');
@@ -201,7 +201,7 @@ async function main() {
 
   // Show the SQL for easy copy-paste
   try {
-    const migrationPath = join(__dirname, '..', 'supabase', 'migrations', '20250205000000_one_time_purchases.sql');
+    const migrationPath = join(__dirname, '..', 'supabase', 'migrations', '20251217000000_one_time_purchases.sql');
     const sql = readFileSync(migrationPath, 'utf-8');
     console.log('📄 Migration SQL (for copy-paste):\n');
     console.log('─'.repeat(60));

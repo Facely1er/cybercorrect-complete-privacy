@@ -101,7 +101,7 @@ async function applyMigration(): Promise<boolean> {
   }
 
   console.log('📄 Reading migration file...');
-  const migrationPath = join(__dirname, '..', 'supabase', 'migrations', '20250205000000_one_time_purchases.sql');
+  const migrationPath = join(__dirname, '..', 'supabase', 'migrations', '20251217000000_one_time_purchases.sql');
   const sql = readFileSync(migrationPath, 'utf-8');
   
   console.log('🚀 Attempting to apply migration via Management API...\n');
@@ -129,7 +129,7 @@ async function applyMigration(): Promise<boolean> {
     console.log('   1. Go to: https://app.supabase.com');
     console.log('   2. Select your project');
     console.log('   3. Click "SQL Editor" → "New query"');
-    console.log('   4. Copy SQL from: supabase/migrations/20250205000000_one_time_purchases.sql');
+    console.log('   4. Copy SQL from: supabase/migrations/20251217000000_one_time_purchases.sql');
     console.log('   5. Paste and click "Run"\n');
     
     // Show the SQL

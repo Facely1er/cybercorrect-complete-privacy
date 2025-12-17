@@ -41,8 +41,8 @@ const migrations = [
   '20250202000004_combined_fixes.sql',
   '20250203000000_calendar_events.sql',
   '20250204000000_ropa_and_evidence_tables.sql',
-  '20250205000000_one_time_purchases.sql', // One-time purchases table
   '20250218000000_portal_beta_schema.sql',
+  '20251217000000_one_time_purchases.sql', // One-time purchases table
   '20250729162343_orange_band.sql',
 ];
 

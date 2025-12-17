@@ -121,7 +121,7 @@ If you prefer to apply all migrations at once:
 
 1. Open SQL Editor in Supabase Dashboard
 2. Open file: `apps/framework-compliance/supabase/migrations/ALL_MIGRATIONS_COMBINED.sql`
-3. Copy the section starting with `-- Migration: 20250205000000_one_time_purchases.sql`
+3. Copy the section starting with `-- Migration: 20251217000000_one_time_purchases.sql`
 4. Paste and run in SQL Editor
 
 ---

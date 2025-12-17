@@ -8,7 +8,7 @@ The migration file has been created and is ready to be applied to your Supabase 
 
 ## 📋 What Was Created
 
-1. ✅ **Migration File:** `supabase/migrations/20250205000000_one_time_purchases.sql`
+1. ✅ **Migration File:** `supabase/migrations/20251217000000_one_time_purchases.sql`
 2. ✅ **Added to Combined File:** `supabase/migrations/ALL_MIGRATIONS_COMBINED.sql`
 3. ✅ **Verification Script:** `scripts/verify-one-time-purchases-setup.ts`
 4. ✅ **Application Script:** `scripts/apply-one-time-purchases-migration.ts`
@@ -23,7 +23,7 @@ The migration file has been created and is ready to be applied to your Supabase 
 1. **Go to:** https://app.supabase.com
 2. **Select project:** achowlksgmwuvfbvjfrt
 3. **Click:** SQL Editor → New query
-4. **Copy SQL from:** `supabase/migrations/20250205000000_one_time_purchases.sql`
+4. **Copy SQL from:** `supabase/migrations/20251217000000_one_time_purchases.sql`
 5. **Paste and click:** Run (Ctrl+Enter)
 6. **Verify:** `npm run verify:one-time`
 
@@ -31,7 +31,7 @@ The migration file has been created and is ready to be applied to your Supabase 
 
 1. **Go to:** Supabase SQL Editor
 2. **Open:** `supabase/migrations/ALL_MIGRATIONS_COMBINED.sql`
-3. **Find section:** `-- Migration: 20250205000000_one_time_purchases.sql`
+3. **Find section:** `-- Migration: 20251217000000_one_time_purchases.sql`
 4. **Copy that section** and run it
 
 ### Method 3: CLI (If Supabase CLI is configured)

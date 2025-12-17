@@ -81,7 +81,7 @@ One-time purchase products are **95% ready for sale**. All code is implemented a
   - Sends success notifications
 
 ### 7. Database Migration
-- **File:** `apps/framework-compliance/supabase/migrations/20250205000000_one_time_purchases.sql`
+- **File:** `apps/framework-compliance/supabase/migrations/20251217000000_one_time_purchases.sql`
 - **Status:** ✅ Complete
 - **Features:**
   - `cc_one_time_purchases` table
@@ -164,7 +164,7 @@ One-time purchase products are **95% ready for sale**. All code is implemented a
 ## 📋 Deployment Checklist
 
 ### Step 1: Database Setup
-- [x] ✅ **Migration Applied:** `20250205000000_one_time_purchases.sql`
+- [x] ✅ **Migration Applied:** `20251217000000_one_time_purchases.sql`
   - Table `cc_one_time_purchases` exists in database
   - Verified via table existence check
 - [x] ✅ Verify table created: `cc_one_time_purchases` - **EXISTS**
@@ -233,7 +233,7 @@ One-time purchase products are **95% ready for sale**. All code is implemented a
 1. **Apply Database Migration**
    ```sql
    -- Option 1: Run individual migration in Supabase SQL Editor
-   -- File: apps/framework-compliance/supabase/migrations/20250205000000_one_time_purchases.sql
+   -- File: apps/framework-compliance/supabase/migrations/20251217000000_one_time_purchases.sql
    
    -- Option 2: Run combined migrations file
    -- File: apps/framework-compliance/supabase/migrations/ALL_MIGRATIONS_COMBINED.sql
