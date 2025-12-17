@@ -64,7 +64,7 @@ const Documentation = () => {
   return (
     <div className="py-20">
       <div className="max-w-7xl mx-auto px-6">
-        <Link to="/resources-landing" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-8">
+        <Link to="/resources" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-8">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Resources
         </Link>

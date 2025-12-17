@@ -4,37 +4,68 @@ import { Button } from '../../components/ui/Button';
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight,
+  ArrowLeft,
   Eye,
   Database,
   FileCheck,
-  Users
+  Users,
+  Shield,
+  FileText,
+  AlertTriangle
 } from 'lucide-react';
 
 const Guides = () => {
   const guides = [
-    // Privacy Guides
+    // Privacy Compliance Guides
     {
       title: 'Privacy Framework Guide',
-      description: 'Implement GDPR and CCPA compliance using privacy by design principles.',
+      description: 'Comprehensive guide to implementing NIST Privacy Framework and global privacy regulations.',
       icon: Eye,
-      category: 'Privacy Compliance',
-      link: '/assessments/privacy-assessment'
-    },
-    // CUI Protection Guides
-    {
-      title: 'Privacy Framework Guide',
-      description: 'Step-by-step guidance to implement privacy controls and best practices.',
-      icon: Database,
       category: 'Privacy Compliance',
       link: '/documentation/privacy-framework-guide'
     },
-    // Process Guides
+    {
+      title: 'Data Protection Guide',
+      description: 'Best practices for protecting personal data and ensuring data security.',
+      icon: Shield,
+      category: 'Privacy Compliance',
+      link: '/guides/data-protection'
+    },
+    {
+      title: 'Privacy by Design',
+      description: 'Implement privacy by design principles in your systems and processes.',
+      icon: Database,
+      category: 'Privacy Compliance',
+      link: '/guides/privacy-by-design'
+    },
+    {
+      title: 'Data Subject Rights',
+      description: 'Handle data subject access requests and privacy rights management.',
+      icon: Users,
+      category: 'Privacy Compliance',
+      link: '/guides/data-subject-rights'
+    },
+    // Security Management Guides
     {
       title: 'Incident Response Planning',
-      description: 'Create effective incident response procedures for security events.',
+      description: 'Create effective incident response procedures for security and privacy events.',
       icon: FileCheck,
       category: 'Security Management',
       link: '/documentation/incident-response-guide'
+    },
+    {
+      title: 'Breach Notification Guide',
+      description: 'Step-by-step guidance for handling and reporting data breaches.',
+      icon: AlertTriangle,
+      category: 'Security Management',
+      link: '/guides/breach-notification'
+    },
+    {
+      title: 'Privacy Impact Assessment',
+      description: 'Conduct thorough privacy impact assessments for new projects.',
+      icon: FileText,
+      category: 'Security Management',
+      link: '/guides/privacy-impact-assessment'
     }
   ];
 
@@ -49,6 +80,11 @@ const Guides = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+        <Link to="/resources" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-6">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to Resources
+        </Link>
+        
         <div className="mb-6">
           <h1 className="text-3xl font-bold mb-2 text-foreground">Implementation Guides</h1>
           <p className="text-muted-foreground mb-6">Step-by-step guides for implementing compliance requirements</p>

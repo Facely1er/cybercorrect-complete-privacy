@@ -3,7 +3,7 @@ import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Link } from 'react-router-dom';
 import { useChatbot } from '../../components/chat/ChatbotProvider';
-import { Mail, BookOpen, FileQuestion, ArrowRight, Shield, Notebook as Robot, Send, User, Building } from 'lucide-react';
+import { Mail, BookOpen, FileQuestion, ArrowRight, ArrowLeft, Shield, Notebook as Robot, Send, User, Building } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 
 const Support = () => {
@@ -90,9 +90,12 @@ const Support = () => {
   ];
 
   return (
-    <div className="py-20">
+    <div className="py-12">
       <div className="max-w-7xl mx-auto px-4">
-        
+        <Link to="/resources" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-8">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to Resources
+        </Link>
         
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4">Support Center</h1>
@@ -103,7 +106,7 @@ const Support = () => {
 
         <div className="mb-16">
           <h2 className="text-2xl font-bold text-center mb-8">Contact Support</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
             {supportOptions.map((option, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">

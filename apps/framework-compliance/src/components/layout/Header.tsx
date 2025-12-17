@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, BarChart3, User, Settings, LogOut, FileText, ChevronDown, FileCheck, Database, Users, ExternalLink, Shield, Eye, Scale, UserCheck, FolderKanban, Calendar, Target, Activity } from 'lucide-react';
+import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, BarChart3, User, Settings, LogOut, FileText, ChevronDown, FileCheck, Database, Users, ExternalLink, Shield, Eye, Scale, UserCheck, FolderKanban, Calendar, Target, Activity, BookOpen, HelpCircle, FileQuestion } from 'lucide-react';
 
 import { Button } from '../ui/Button';
 import { NotificationBell } from '../notifications/NotificationBell';
@@ -69,13 +69,21 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
     { name: 'Privacy Recommendations', path: '/privacy-recommendations' },
   ];
 
+  const resourceLinks = [
+    { name: 'Resources Overview', path: '/resources' },
+    { name: 'Documentation', path: '/documentation' },
+    { name: 'Implementation Guides', path: '/guides' },
+    { name: 'Support Center', path: '/support' },
+    { name: 'FAQs', path: '/documentation/faqs' },
+  ];
+
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
     { name: 'Role Journeys', href: '/compliance', icon: Users },
-    { name: 'Assessments', href: '/assessments/privacy-assessment', icon: ClipboardCheck },
+    { name: 'Assessments', href: '/assessment-hub', icon: ClipboardCheck },
     { name: 'Toolkit', href: '/toolkit', icon: Wrench },
     { name: 'Project', href: '/project', icon: FolderKanban },
-    { name: 'Results', href: '/privacy-results', icon: BarChart3 },
+    { name: 'Resources', href: '/resources', icon: BookOpen },
   ];
 
   const isActivePath = (path: string) => {
@@ -112,11 +120,12 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             {navigation.map((item) => {
               const Icon = item.icon;
               // Handle dropdown items
-              if (item.name === 'Role Journeys' || item.name === 'Assessments' || item.name === 'Toolkit' || item.name === 'Project' || item.name === 'Results') {
+              if (item.name === 'Role Journeys' || item.name === 'Assessments' || item.name === 'Toolkit' || item.name === 'Project' || item.name === 'Resources') {
                 const dropdownLinks = item.name === 'Role Journeys' ? roleJourneyLinks :
                                       item.name === 'Assessments' ? assessmentLinks : 
                                       item.name === 'Toolkit' ? toolLinks : 
-                                      item.name === 'Project' ? projectLinks : resultLinks;
+                                      item.name === 'Project' ? projectLinks : 
+                                      item.name === 'Resources' ? resourceLinks : resultLinks;
                 return (
                   <div key={item.name} className="relative">
                     <button
@@ -156,6 +165,12 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                               else if (link.name.includes('RACI')) DropdownIcon = Users;
                               else if (link.name.includes('Work Breakdown')) DropdownIcon = Target;
                               else if (link.name.includes('Evidence')) DropdownIcon = Database;
+                            } else if (item.name === 'Resources') {
+                              if (link.name === 'Resources Overview') DropdownIcon = BookOpen;
+                              else if (link.name.includes('Documentation')) DropdownIcon = FileText;
+                              else if (link.name.includes('Guides')) DropdownIcon = FileCheck;
+                              else if (link.name.includes('Support')) DropdownIcon = HelpCircle;
+                              else if (link.name.includes('FAQs')) DropdownIcon = FileQuestion;
                             } else if (item.name === 'Results') {
                               if (link.name.includes('Results')) DropdownIcon = BarChart3;
                               else DropdownIcon = FileText;

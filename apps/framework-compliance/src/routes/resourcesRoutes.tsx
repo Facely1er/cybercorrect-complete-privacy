@@ -52,6 +52,13 @@ export const resourcesRoutes = [
     element: Compliance,
     lazy: true,
   },
+  // Resources landing - primary path
+  {
+    path: 'resources',
+    element: ResourcesLanding,
+    lazy: true,
+  },
+  // Legacy path redirect support
   {
     path: 'resources-landing',
     element: ResourcesLanding,
