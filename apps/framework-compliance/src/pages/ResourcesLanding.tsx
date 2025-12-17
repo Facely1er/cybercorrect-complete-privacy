@@ -290,9 +290,9 @@ const ResourcesLanding = () => {
                 <Mail className="h-10 w-10 text-primary mx-auto mb-3" />
                 <h3 className="font-semibold mb-2 text-foreground">Email Support</h3>
                 <p className="text-sm text-muted-foreground mb-4">Response within 24 hours</p>
-                <Button variant="outline" className="w-full" asChild>
-                  <a href="mailto:support@cybercorrect.com">Send Email</a>
-                </Button>
+                <a href="mailto:support@cybercorrect.com" className="w-full">
+                  <Button variant="outline" className="w-full">Send Email</Button>
+                </a>
               </CardContent>
             </Card>
             
@@ -301,9 +301,9 @@ const ResourcesLanding = () => {
                 <HelpCircle className="h-10 w-10 text-primary mx-auto mb-3" />
                 <h3 className="font-semibold mb-2 text-foreground">Contact Us</h3>
                 <p className="text-sm text-muted-foreground mb-4">Detailed inquiries & sales</p>
-                <Button variant="outline" className="w-full" asChild>
-                  <Link to="/contact">Contact Form</Link>
-                </Button>
+                <Link to="/contact" className="w-full">
+                  <Button variant="outline" className="w-full">Contact Form</Button>
+                </Link>
               </CardContent>
             </Card>
           </div>

@@ -172,10 +172,10 @@ const Faqs = () => {
         <Button 
           variant="outline" 
           className="mb-8"
-          onClick={() => navigate('/documentation')}
+          onClick={() => navigate('/resources')}
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Documentation
+          Back to Resources
         </Button>
         
         <div className="text-center mb-16">
@@ -270,11 +270,11 @@ const Faqs = () => {
             Our support team is ready to help you with any questions you might have about CyberCorrect Privacy Platform.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button variant="outline" onClick={() => navigate('/support')}>
+            <Button variant="outline" onClick={() => navigate('/contact')}>
               <Users className="mr-2 h-4 w-4" />
               Contact Support
             </Button>
-            <Button variant="outline" onClick={() => navigate('/documentation')}>
+            <Button variant="outline" onClick={() => navigate('/resources')}>
               <FileText className="mr-2 h-4 w-4" />
               Browse Documentation
             </Button>

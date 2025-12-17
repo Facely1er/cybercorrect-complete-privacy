@@ -188,8 +188,10 @@ const Contact = () => {
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium mb-2 text-foreground">Department</label>
+                      <label htmlFor="department" className="block text-sm font-medium mb-2 text-foreground">Department</label>
                       <select
+                        id="department"
+                        title="Select department"
                         value={contactForm.department}
                         onChange={(e) => handleContactFormChange('department', e.target.value)}
                         className="w-full px-4 py-2.5 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
@@ -205,8 +207,10 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-foreground">Priority Level</label>
+                    <label htmlFor="priority" className="block text-sm font-medium mb-2 text-foreground">Priority Level</label>
                     <select
+                      id="priority"
+                      title="Select priority level"
                       value={contactForm.priority}
                       onChange={(e) => handleContactFormChange('priority', e.target.value)}
                       className="w-full px-4 py-2.5 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary text-foreground"

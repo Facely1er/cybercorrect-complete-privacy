@@ -111,10 +111,10 @@ const QuickStart = () => {
         <Button 
           variant="outline" 
           className="mb-8"
-          onClick={() => navigate('/documentation')}
+          onClick={() => navigate('/resources')}
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Documentation
+          Back to Resources
         </Button>
 
         <div className="text-center mb-16">
