@@ -9,6 +9,7 @@ const AssessmentHub = lazy(() => import('../pages/AssessmentHub'));
 // Assessment Tools
 const PrivacyAssessment = lazy(() => import('../pages/tools-and-assessments/PrivacyAssessment'));
 const PrivacyResults = lazy(() => import('../pages/tools-and-assessments/PrivacyResults'));
+const PrivacyResultsOrganizational = lazy(() => import('../pages/tools-and-assessments/PrivacyResultsOrganizational'));
 const PrivacyRecommendations = lazy(() => import('../pages/tools-and-assessments/PrivacyRecommendations'));
 
 // Scheduled Assessments
@@ -40,6 +41,11 @@ export const assessmentRoutes = [
   {
     path: 'privacy-results',
     element: PrivacyResults,
+    lazy: true,
+  },
+  {
+    path: 'privacy-results/organizational',
+    element: PrivacyResultsOrganizational,
     lazy: true,
   },
   {

@@ -729,7 +729,23 @@ const PrivacyAssessment = () => {
     // Clear saved progress since assessment is complete
     secureStorage.removeItem(STORAGE_KEY);
 
-    navigate('/privacy-results', { state: { assessmentResults: results } });
+    // Route to appropriate results page based on assessment mode
+    if (assessmentMode === 'organizational') {
+      navigate('/privacy-results/organizational', { 
+        state: { 
+          assessmentResults: results,
+          assessmentMode: 'organizational'
+        } 
+      });
+    } else {
+      // Individual mode - existing flow
+      navigate('/privacy-results', { 
+        state: { 
+          assessmentResults: results,
+          assessmentMode: 'individual'
+        } 
+      });
+    }
   };
 
   // Create a list of section info for the start screen
@@ -748,7 +764,10 @@ const PrivacyAssessment = () => {
         description="Evaluate your privacy program against the NIST Privacy Framework v1.1 (draft) aligned with NIST CSF 2.0"
         frameworkName="NIST Privacy Framework v1.1"
         sections={sectionInfoList}
-        onStart={() => setShowStartScreen(false)}
+        onStart={(mode) => {
+          setAssessmentMode(mode);
+          setShowStartScreen(false);
+        }}
       />
     );
   }

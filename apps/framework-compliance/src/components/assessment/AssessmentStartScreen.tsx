@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { Clock, BarChart2, CheckCircle, ArrowRight, Shield, Info } from 'lucide-react';
+import { Clock, BarChart2, CheckCircle, ArrowRight, Shield, Info, User, Users, Building2 } from 'lucide-react';
 
 export interface SectionInfo {
   title: string;
@@ -11,12 +11,14 @@ export interface SectionInfo {
   questionCount: number;
 }
 
+export type AssessmentMode = 'individual' | 'organizational';
+
 interface AssessmentStartScreenProps {
   title: string;
   description: string;
   frameworkName: string;
   sections: SectionInfo[];
-  onStart: () => void;
+  onStart: (mode: AssessmentMode) => void;
 }
 
 const AssessmentStartScreen: React.FC<AssessmentStartScreenProps> = ({
@@ -26,6 +28,7 @@ const AssessmentStartScreen: React.FC<AssessmentStartScreenProps> = ({
   sections,
   onStart
 }) => {
+  const [selectedMode, setSelectedMode] = useState<AssessmentMode | null>(null);
   const getTotalTime = () => {
     // Edge case: no sections
     if (sections.length === 0) {
@@ -92,6 +95,86 @@ const AssessmentStartScreen: React.FC<AssessmentStartScreenProps> = ({
             </span>
           </div>
         </div>
+
+        {/* Assessment Mode Selection */}
+        <Card className="mb-8 border-2 border-primary/20">
+          <CardContent className="p-6">
+            <h2 className="text-xl font-bold mb-2 text-foreground text-center">Choose Your Assessment Mode</h2>
+            <p className="text-sm text-muted-foreground mb-6 text-center">
+              Select how you'd like to receive your results and recommendations
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-4">
+              {/* Individual Mode */}
+              <button
+                onClick={() => setSelectedMode('individual')}
+                className={`p-6 rounded-lg border-2 transition-all text-left ${
+                  selectedMode === 'individual'
+                    ? 'border-primary bg-primary/5 shadow-md'
+                    : 'border-border hover:border-primary/50 hover:bg-muted/50'
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  <div className={`p-3 rounded-lg ${
+                    selectedMode === 'individual' 
+                      ? 'bg-primary text-primary-foreground' 
+                      : 'bg-muted text-muted-foreground'
+                  }`}>
+                    <User className="h-6 w-6" />
+                  </div>
+                  <div className="flex-grow">
+                    <h3 className="font-semibold text-lg mb-1">Individual Assessment</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Get a personalized role recommendation based on your privacy gaps
+                    </p>
+                    <ul className="text-xs text-muted-foreground space-y-1">
+                      <li>✓ Your optimal compliance journey</li>
+                      <li>✓ Role-specific tools and resources</li>
+                      <li>✓ Personalized action plan</li>
+                    </ul>
+                  </div>
+                  {selectedMode === 'individual' && (
+                    <CheckCircle className="h-6 w-6 text-primary flex-shrink-0" />
+                  )}
+                </div>
+              </button>
+              
+              {/* Organizational Mode */}
+              <button
+                onClick={() => setSelectedMode('organizational')}
+                className={`p-6 rounded-lg border-2 transition-all text-left ${
+                  selectedMode === 'organizational'
+                    ? 'border-primary bg-primary/5 shadow-md'
+                    : 'border-border hover:border-primary/50 hover:bg-muted/50'
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  <div className={`p-3 rounded-lg ${
+                    selectedMode === 'organizational' 
+                      ? 'bg-primary text-primary-foreground' 
+                      : 'bg-muted text-muted-foreground'
+                  }`}>
+                    <Building2 className="h-6 w-6" />
+                  </div>
+                  <div className="flex-grow">
+                    <h3 className="font-semibold text-lg mb-1">Organizational Assessment</h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Build your privacy team with role assignments and resource planning
+                    </p>
+                    <ul className="text-xs text-muted-foreground space-y-1">
+                      <li>✓ Complete team structure recommendations</li>
+                      <li>✓ Functional task assignments</li>
+                      <li>✓ Resource estimates and hiring priorities</li>
+                    </ul>
+                  </div>
+                  {selectedMode === 'organizational' && (
+                    <CheckCircle className="h-6 w-6 text-primary flex-shrink-0" />
+                  )}
+                </div>
+              </button>
+            </div>
+          </CardContent>
+        </Card>
 
         <Card className="mb-8">
           <CardContent className="p-6">
@@ -165,10 +248,26 @@ const AssessmentStartScreen: React.FC<AssessmentStartScreenProps> = ({
         </div>
 
         <div className="text-center">
-          <Button size="lg" onClick={onStart} className="px-8">
-            Start Assessment
-            <ArrowRight className="ml-2 h-4 w-4" />
+          <Button 
+            size="lg" 
+            onClick={() => selectedMode && onStart(selectedMode)} 
+            disabled={!selectedMode}
+            className="px-8"
+          >
+            {selectedMode ? (
+              <>
+                Start {selectedMode === 'individual' ? 'Individual' : 'Organizational'} Assessment
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </>
+            ) : (
+              'Select Assessment Mode Above'
+            )}
           </Button>
+          {!selectedMode && (
+            <p className="text-sm text-muted-foreground mt-2">
+              Please select an assessment mode to continue
+            </p>
+          )}
         </div>
       </div>
     </div>
