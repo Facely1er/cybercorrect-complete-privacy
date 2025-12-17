@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
+import JourneyProgressTracker from '../components/onboarding/JourneyProgressTracker';
+import OnboardingFlow from '../components/onboarding/OnboardingFlow';
 import { 
   Shield,
   Eye,
@@ -16,10 +19,12 @@ import {
   Users,
   Sparkles,
   ClipboardCheck,
-  Route
+  Route,
+  PlayCircle
 } from 'lucide-react';
 
 const Compliance = () => {
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const roleJourneys = [
     {
       title: 'Privacy Leadership Journey',
@@ -104,6 +109,13 @@ const Compliance = () => {
 
   return (
     <div className="min-h-screen bg-surface dark:bg-dark-bg">
+      {/* Onboarding Modal */}
+      <OnboardingFlow 
+        isVisible={showOnboarding} 
+        onClose={() => setShowOnboarding(false)}
+        currentStep={1}
+      />
+
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
         <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-50"></div>
@@ -131,13 +143,30 @@ const Compliance = () => {
                   <Eye className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Link to="/toolkit">
-                <Button size="lg" variant="outline" className="hover:-translate-y-1 transition-transform">
-                  Explore Toolkit
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="hover:-translate-y-1 transition-transform"
+                onClick={() => setShowOnboarding(true)}
+              >
+                <PlayCircle className="mr-2 h-5 w-5" />
+                View Journey Guide
+              </Button>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Journey Progress Tracker */}
+      <section className="py-8 bg-muted/30 dark:bg-dark-support/10">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <JourneyProgressTracker 
+              currentStepIndex={1}
+              completedSteps={[]}
+              compact={false}
+              showNextAction={true}
+            />
           </div>
         </div>
       </section>
