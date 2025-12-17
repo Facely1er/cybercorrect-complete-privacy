@@ -564,14 +564,14 @@ const PrivacyProjectDashboard = () => {
           <InternalLink href="/project/roadmap" variant="button" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
               View Roadmap
           </InternalLink>
-          <InternalLink href="/documentation/getting-started" variant="button" className="bg-gray-900 text-white hover:bg-gray-800">
-            Implementation Guide
+          <InternalLink href="/toolkit" variant="button" className="bg-gray-700 text-white hover:bg-gray-600">
+              Open Toolkit
           </InternalLink>
         </div>
       </div>
       
       {/* Add related content */}
-      <RelatedContent currentPath="/project" />
+      <RelatedContent currentPath="/project/dashboard" />
     </div>
   );
 };

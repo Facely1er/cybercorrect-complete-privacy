@@ -1,6 +1,9 @@
 import { lazy } from 'react';
 import { lazyWithRetry } from '../utils/common';
 
+// Project Management Landing Page
+const ProjectManagementLanding = lazy(() => import('../pages/project/ProjectManagementLanding'));
+
 const PrivacyProjectDashboard = lazyWithRetry(
   () => import('../pages/project/PrivacyProjectDashboard'),
   {
@@ -17,8 +20,15 @@ const PrivacyWbs = lazy(() => import('../pages/project/PrivacyWbs'));
 const EvidenceVault = lazy(() => import('../pages/project/EvidenceVault'));
 
 export const projectRoutes = [
+  // Project Management Landing (main entry point)
   {
     path: 'project',
+    element: ProjectManagementLanding,
+    lazy: true,
+  },
+  // Project Dashboard (working dashboard)
+  {
+    path: '/project/dashboard',
     element: PrivacyProjectDashboard,
     lazy: true,
   },

@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Link } from 'react-router-dom';
-import { useChatSupport } from '../../components/chat/ChatSupportProvider';
 import { useChatbot } from '../../components/chat/ChatbotProvider';
-import { MessageSquare, Mail, BookOpen, FileQuestion, ArrowRight, Shield, FileText, HelpCircle, Notebook as Robot, Send, User, Building } from 'lucide-react';
+import { Mail, BookOpen, FileQuestion, ArrowRight, Shield, Notebook as Robot, Send, User, Building } from 'lucide-react';
 import { toast } from '../../components/ui/Toaster';
 
 const Support = () => {
-  const { openChat } = useChatSupport();
   const { openChatbot } = useChatbot();
   
   const [contactForm, setContactForm] = useState({
@@ -50,14 +48,6 @@ const Support = () => {
   
   const supportOptions = [
     {
-      icon: MessageSquare,
-      title: "Live Chat Support",
-      description: "Get instant help from our support team",
-      action: "Start Chat",
-      availability: "24/7",
-      onClick: () => openChat()
-    },
-    {
       icon: Robot,
       title: "Interactive Guide Bot",
       description: "Get guided assistance with our interactive bot",
@@ -77,18 +67,25 @@ const Support = () => {
 
   const resources = [
     {
+      icon: BookOpen,
+      title: "Knowledge Base",
+      description: "Documentation, guides, and FAQs - everything you need",
+      articles: 350,
+      path: "/documentation"
+    },
+    {
       icon: FileQuestion,
       title: "FAQs",
-      description: "Find answers to common questions",
+      description: "Quick answers to common questions",
       articles: 100,
       path: "/documentation/faqs"
     },
     {
       icon: BookOpen,
-      title: "Knowledge Base",
-      description: "Browse our comprehensive knowledge base",
-      articles: 250,
-      path: "/documentation"
+      title: "Guides",
+      description: "Step-by-step tutorials and how-tos",
+      articles: 50,
+      path: "/guides"
     }
   ];
 
@@ -146,39 +143,6 @@ const Support = () => {
                 </CardContent>
               </Card>
             ))}
-          </div>
-        </div>
-
-        {/* Additional Support Section */}
-        <div className="mt-16 bg-muted/30 rounded-lg p-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <HelpCircle className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-4">Need More Specialized Support?</h2>
-            <p className="text-muted-foreground mb-6">
-              Our compliance experts are available for personalized consultations to help you navigate complex regulatory requirements.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Card>
-                <CardContent className="p-4">
-                  <FileText className="h-8 w-8 text-primary mx-auto mb-2" />
-                  <h3 className="font-medium">Compliance Documentation</h3>
-                  <p className="text-sm text-muted-foreground mb-3">Get expert help with your compliance documentation</p>
-                  <Link to="/documentation">
-                    <Button variant="outline" size="sm" className="w-full">Learn More</Button>
-                  </Link>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-4">
-                  <Shield className="h-8 w-8 text-primary mx-auto mb-2" />
-                  <h3 className="font-medium">Privacy Assessment</h3>
-                  <p className="text-sm text-muted-foreground mb-3">Schedule a comprehensive privacy assessment</p>
-                  <Link to="/assessments/privacy-assessment">
-                    <Button variant="outline" size="sm" className="w-full">Learn More</Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            </div>
           </div>
         </div>
 

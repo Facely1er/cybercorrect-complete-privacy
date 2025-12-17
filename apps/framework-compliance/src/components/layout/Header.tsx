@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, BarChart3, User, Settings, LogOut, FileText, ChevronDown, FileCheck, Database, Users, ExternalLink, Shield, Eye, Scale, UserCheck } from 'lucide-react';
+import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, BarChart3, User, Settings, LogOut, FileText, ChevronDown, FileCheck, Database, Users, ExternalLink, Shield, Eye, Scale, UserCheck, FolderKanban, Calendar, Target, Activity } from 'lucide-react';
 
 import { Button } from '../ui/Button';
 import { NotificationBell } from '../notifications/NotificationBell';
@@ -48,9 +48,20 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
   ];
 
   const toolLinks = [
+    { name: 'All Tools', path: '/toolkit' },
     { name: 'GDPR Mapper', path: '/toolkit/gdpr-mapper' },
     { name: 'DPIA Generator', path: '/toolkit/dpia-generator' },
     { name: 'Privacy Policy Generator', path: '/toolkit/privacy-policy-generator' },
+    { name: 'Privacy Gap Analyzer', path: '/toolkit/privacy-gap-analyzer' },
+  ];
+
+  const projectLinks = [
+    { name: 'Project Overview', path: '/project' },
+    { name: 'Project Dashboard', path: '/project/dashboard' },
+    { name: 'Roadmap', path: '/project/roadmap' },
+    { name: 'RACI Matrix', path: '/project/raci' },
+    { name: 'Work Breakdown', path: '/project/wbs' },
+    { name: 'Evidence Vault', path: '/project/evidence' },
   ];
 
   const resultLinks = [
@@ -63,6 +74,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
     { name: 'Role Journeys', href: '/compliance', icon: Users },
     { name: 'Assessments', href: '/assessments/privacy-assessment', icon: ClipboardCheck },
     { name: 'Toolkit', href: '/toolkit', icon: Wrench },
+    { name: 'Project', href: '/project', icon: FolderKanban },
     { name: 'Results', href: '/privacy-results', icon: BarChart3 },
   ];
 
@@ -100,10 +112,11 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             {navigation.map((item) => {
               const Icon = item.icon;
               // Handle dropdown items
-              if (item.name === 'Role Journeys' || item.name === 'Assessments' || item.name === 'Toolkit' || item.name === 'Results') {
+              if (item.name === 'Role Journeys' || item.name === 'Assessments' || item.name === 'Toolkit' || item.name === 'Project' || item.name === 'Results') {
                 const dropdownLinks = item.name === 'Role Journeys' ? roleJourneyLinks :
                                       item.name === 'Assessments' ? assessmentLinks : 
-                                      item.name === 'Toolkit' ? toolLinks : resultLinks;
+                                      item.name === 'Toolkit' ? toolLinks : 
+                                      item.name === 'Project' ? projectLinks : resultLinks;
                 return (
                   <div key={item.name} className="relative">
                     <button
@@ -131,9 +144,18 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                               else if (link.name.includes('Data Steward')) DropdownIcon = Database;
                               else if (link.name.includes('Privacy Officer')) DropdownIcon = UserCheck;
                             } else if (item.name === 'Toolkit') {
-                              if (link.name.includes('GDPR')) DropdownIcon = Database;
+                              if (link.name === 'All Tools') DropdownIcon = Wrench;
+                              else if (link.name.includes('GDPR')) DropdownIcon = Database;
                               else if (link.name.includes('DPIA')) DropdownIcon = FileCheck;
                               else if (link.name.includes('Policy')) DropdownIcon = FileText;
+                              else if (link.name.includes('Gap')) DropdownIcon = Target;
+                            } else if (item.name === 'Project') {
+                              if (link.name === 'Project Overview') DropdownIcon = FolderKanban;
+                              else if (link.name === 'Project Dashboard') DropdownIcon = Activity;
+                              else if (link.name.includes('Roadmap')) DropdownIcon = Calendar;
+                              else if (link.name.includes('RACI')) DropdownIcon = Users;
+                              else if (link.name.includes('Work Breakdown')) DropdownIcon = Target;
+                              else if (link.name.includes('Evidence')) DropdownIcon = Database;
                             } else if (item.name === 'Results') {
                               if (link.name.includes('Results')) DropdownIcon = BarChart3;
                               else DropdownIcon = FileText;

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { InternalLink, ContextualCTA } from '../components/ui/InternalLinkingHelper';
 import { usePageTitle } from '../hooks/usePageTitle';
+import CustomerJourneyMap from '../components/journey/CustomerJourneyMap';
+import { getJourneyStats } from '../utils/customerJourneyConfig';
 import { 
   Shield, 
   FileText, 
@@ -22,11 +24,16 @@ import {
   Calendar,
   Building,
   Target,
-  RefreshCw
+  RefreshCw,
+  Milestone,
+  LayoutGrid
 } from 'lucide-react';
 
 const Toolkit = () => {
   usePageTitle('Toolkit');
+  const [viewMode, setViewMode] = useState<'journey' | 'category'>('journey');
+  const stats = getJourneyStats();
+  
   // Main compliance tools organized by category
   const toolCategories = [
     {
@@ -271,20 +278,70 @@ const Toolkit = () => {
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4 text-foreground">Compliance Toolkit</h1>
-        <p className="text-xl text-muted-foreground max-w-3xl">
-          Comprehensive tools for assessment, documentation, and compliance management across multiple frameworks
-        </p>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold mb-2 text-foreground">Compliance Toolkit</h1>
+            <p className="text-xl text-muted-foreground max-w-3xl">
+              Comprehensive tools for assessment, documentation, and compliance management across multiple frameworks
+            </p>
+          </div>
+          
+          {/* View Mode Toggle */}
+          <div className="flex items-center gap-2 bg-muted rounded-lg p-1">
+            <Button
+              variant={viewMode === 'journey' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setViewMode('journey')}
+              className="flex items-center gap-2"
+            >
+              <Milestone className="h-4 w-4" />
+              Journey View
+            </Button>
+            <Button
+              variant={viewMode === 'category' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setViewMode('category')}
+              className="flex items-center gap-2"
+            >
+              <LayoutGrid className="h-4 w-4" />
+              Category View
+            </Button>
+          </div>
+        </div>
       </div>
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+        <Card className="border-l-4 border-l-red-600">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Critical Tools</p>
+                <p className="text-2xl font-bold text-red-600">{stats.byCriticality.critical}</p>
+              </div>
+              <AlertTriangle className="h-8 w-8 text-red-600" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-l-4 border-l-orange-600">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">High Priority</p>
+                <p className="text-2xl font-bold text-orange-600">{stats.byCriticality.high}</p>
+              </div>
+              <Target className="h-8 w-8 text-orange-600" />
+            </div>
+          </CardContent>
+        </Card>
+
         <Card className="border-l-4 border-l-blue-600">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Assessment Tools</p>
-                <p className="text-2xl font-bold text-blue-600">1</p>
+                <p className="text-sm font-medium text-muted-foreground">Medium Priority</p>
+                <p className="text-2xl font-bold text-blue-600">{stats.byCriticality.medium}</p>
               </div>
               <BarChart3 className="h-8 w-8 text-blue-600" />
             </div>
@@ -295,38 +352,28 @@ const Toolkit = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Documentation Tools</p>
-                <p className="text-2xl font-bold text-green-600">3</p>
+                <p className="text-sm font-medium text-muted-foreground">Total Tools</p>
+                <p className="text-2xl font-bold text-green-600">{stats.totalTools}</p>
               </div>
-              <FileText className="h-8 w-8 text-green-600" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-l-purple-600">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Mapping Tools</p>
-                <p className="text-2xl font-bold text-purple-600">3</p>
-              </div>
-              <Network className="h-8 w-8 text-purple-600" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-l-4 border-l-orange-600">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Templates</p>
-                <p className="text-2xl font-bold text-orange-600">6</p>
-              </div>
-              <BookOpen className="h-8 w-8 text-orange-600" />
+              <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
           </CardContent>
         </Card>
       </div>
+
+      {/* Customer Journey View */}
+      {viewMode === 'journey' && (
+        <div className="mb-12">
+          <CustomerJourneyMap 
+            showProgress={true}
+            completedToolIds={[]} // This would come from user's actual progress
+          />
+        </div>
+      )}
+
+      {/* Category View (Original) */}
+      {viewMode === 'category' && (
+        <>
 
       {/* Main Tools */}
       <div className="space-y-12">
@@ -507,6 +554,8 @@ const Toolkit = () => {
           </InternalLink>
         </div>
       </div>
+      </>
+      )}
     </div>
   );
 };
