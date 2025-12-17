@@ -20,6 +20,7 @@ import {
   Milestone,
   Activity
 } from 'lucide-react';
+import './ProjectManagementLanding.css';
 
 const ProjectManagementLanding = () => {
   usePageTitle('Privacy Project Management');
@@ -266,7 +267,7 @@ const ProjectManagementLanding = () => {
                 <div key={step.step} className="relative">
                   {/* Connection Line */}
                   {index < quickStartSteps.length - 1 && (
-                    <div className="hidden lg:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-primary/50 to-transparent z-0" style={{ width: 'calc(100% - 2rem)' }}></div>
+                    <div className="hidden lg:block absolute top-12 left-full h-0.5 bg-gradient-to-r from-primary/50 to-transparent z-0 connection-line"></div>
                   )}
                   
                   <Card className="relative z-10 h-full hover:shadow-lg transition-shadow">

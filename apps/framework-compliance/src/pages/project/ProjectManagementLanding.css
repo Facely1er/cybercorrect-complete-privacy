@@ -1,0 +1,5 @@
+/* Quick Start Steps - Connection Line */
+.connection-line {
+  width: calc(100% - 2rem);
+}
+
