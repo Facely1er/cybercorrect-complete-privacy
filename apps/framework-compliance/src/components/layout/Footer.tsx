@@ -31,11 +31,10 @@ const Footer: React.FC = () => {
               <div className="mt-1">© {currentYear} ERMITS. All rights reserved.</div>
             </div>
             <div className="flex mt-2 md:mt-0 space-x-4">
-              <Link to="/documentation" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Documentation</Link>
-              <Link to="/support" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Support</Link>
+              <Link to="/resources" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Resources</Link>
+              <Link to="/contact" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Contact</Link>
               <Link to="/privacy" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Privacy</Link>
               <Link to="/terms" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Terms</Link>
-              <Link to="/acceptable-use" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">AUP</Link>
             </div>
           </div>
         </div>
@@ -58,7 +57,7 @@ const Footer: React.FC = () => {
               />
               <div className="flex flex-col">
                 <span className="font-bold text-sm leading-tight group-hover:text-primary transition-colors">CyberCorrect™</span>
-                <span className="font-medium text-xs leading-tight text-muted-foreground">Framework Compliance</span>
+                <span className="font-medium text-xs leading-tight text-muted-foreground">Privacy Platform</span>
                 <span className="text-xs text-muted-foreground leading-tight">by ERMITS</span>
               </div>
             </Link>
@@ -119,19 +118,13 @@ const Footer: React.FC = () => {
               <li>
                 <Link to="/resources" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
                   <BookOpen className="h-3 w-3 flex-shrink-0" />
-                  <span>Resources Hub</span>
+                  <span>Docs & Guides</span>
                 </Link>
               </li>
               <li>
-                <Link to="/documentation" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <FileText className="h-3 w-3 flex-shrink-0" />
-                  <span>Documentation</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/support" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                <Link to="/contact" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
                   <HelpCircle className="h-3 w-3 flex-shrink-0" />
-                  <span>Support</span>
+                  <span>Contact Us</span>
                 </Link>
               </li>
               <li>

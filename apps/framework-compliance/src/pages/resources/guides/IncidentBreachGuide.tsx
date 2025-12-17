@@ -256,7 +256,7 @@ const IncidentBreachGuide = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Link to="/guides" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-6">
+      <Link to="/resources" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-6">
         <ArrowLeft className="mr-2 h-4 w-4" />
         Back to Guides
       </Link>

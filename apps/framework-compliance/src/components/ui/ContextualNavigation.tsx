@@ -32,7 +32,7 @@ export const ContextualNavigation: React.FC = () => {
         },
         related: [
           { text: "Project Manager", href: "/project", icon: Target },
-          { text: "Documentation", href: "/documentation", icon: BookOpen }
+          { text: "Resources", href: "/resources", icon: BookOpen }
         ]
       };
     }
@@ -52,7 +52,7 @@ export const ContextualNavigation: React.FC = () => {
         },
         related: [
           { text: "Privacy Assessment", href: "/assessments/privacy-assessment", icon: Eye },
-          { text: "Implementation Guides", href: "/guides", icon: BookOpen }
+          { text: "Resources", href: "/resources", icon: BookOpen }
         ]
       };
     }

@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
               />
               <div className="hidden sm:flex sm:flex-col font-bold leading-tight">
                 <span className="text-sm">CyberCorrect™</span>
-                <span className="text-xs font-medium">Framework Compliance</span>
+                <span className="text-xs font-medium">Privacy Platform</span>
                 <span className="text-xs font-normal text-muted-foreground">by ERMITS</span>
               </div>
             </Link>

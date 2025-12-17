@@ -4,9 +4,7 @@ import ChatInterface from '../pages/support/ChatInterface';
 
 // Resource Landing Pages
 const ResourcesLanding = lazy(() => import('../pages/ResourcesLanding'));
-const Documentation = lazy(() => import('../pages/resources/Documentation'));
-const Guides = lazy(() => import('../pages/resources/Guides'));
-const Support = lazy(() => import('../pages/resources/Support'));
+const Contact = lazy(() => import('../pages/Contact'));
 
 // Compliance Hub
 const Compliance = lazy(() => import('../pages/Compliance'));
@@ -50,32 +48,34 @@ export const resourcesRoutes = [
     element: Compliance,
     lazy: true,
   },
-  // Resources landing - primary path
+  // Resources - consolidated landing page
   {
     path: 'resources',
     element: ResourcesLanding,
     lazy: true,
   },
-  // Legacy path redirect support
+  // Contact page - separate from resources
+  {
+    path: 'contact',
+    element: Contact,
+    lazy: true,
+  },
+  // Legacy redirects to consolidated Resources page
   {
     path: 'resources-landing',
-    element: ResourcesLanding,
-    lazy: true,
+    element: () => <Navigate to="/resources" replace />,
   },
   {
     path: 'documentation',
-    element: Documentation,
-    lazy: true,
+    element: () => <Navigate to="/resources" replace />,
   },
   {
     path: 'guides',
-    element: Guides,
-    lazy: true,
+    element: () => <Navigate to="/resources" replace />,
   },
   {
     path: 'support',
-    element: Support,
-    lazy: true,
+    element: () => <Navigate to="/resources" replace />,
   },
   {
     path: '/support/chat',

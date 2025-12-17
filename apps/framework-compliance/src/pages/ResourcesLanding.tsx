@@ -1,187 +1,313 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
+import { useChatbot } from '../components/chat/ChatbotProvider';
 import { 
-  HelpCircle, 
   ArrowRight, 
   FileText, 
   BookOpen,
-  Users,
   Shield,
   AlertTriangle,
-  Scale
+  Users,
+  Eye,
+  Database,
+  ChevronDown,
+  ChevronUp,
+  Mail,
+  Bot,
+  HelpCircle,
+  Search,
+  Key
 } from 'lucide-react';
 
 const ResourcesLanding = () => {
-  // Documentation and guides - the core purpose of this page
-  const documentationCategories = [
+  const { openChatbot } = useChatbot();
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('all');
+
+  // All documentation and guides combined
+  const resourceCategories = [
     {
-      id: 'guides',
-      title: 'Implementation Guides',
-      description: 'Step-by-step guides for privacy compliance implementation',
-      icon: BookOpen,
-      path: '/guides',
+      id: 'privacy',
+      title: 'Privacy Compliance',
+      icon: Eye,
+      description: 'GDPR, CCPA, and privacy framework documentation',
       items: [
         { title: 'GDPR Implementation Guide', path: '/documentation/gdpr-implementation-guide' },
         { title: 'Privacy Framework Guide', path: '/documentation/privacy-framework-guide' },
-        { title: 'Data Subject Rights Guide', path: '/guides/data-subject-rights' }
+        { title: 'Data Subject Rights', path: '/guides/data-subject-rights' },
+        { title: 'Privacy by Design', path: '/guides/privacy-by-design' }
       ]
     },
     {
-      id: 'docs',
-      title: 'Documentation',
-      description: 'Platform documentation and reference materials',
-      icon: FileText,
-      path: '/documentation',
+      id: 'platform',
+      title: 'Platform Documentation',
+      icon: Database,
+      description: 'Platform guides and assessment documentation',
       items: [
         { title: 'Platform Overview', path: '/documentation/platform-overview' },
-        { title: 'FAQs', path: '/documentation/faqs' },
-        { title: 'Assessment Guide', path: '/documentation/assessment-guide' }
+        { title: 'Assessment Guide', path: '/documentation/assessment-guide' },
+        { title: 'Quick Start Guide', path: '/documentation/quick-start' }
       ]
     },
     {
       id: 'incident',
       title: 'Incident & Breach',
-      description: 'Response procedures and notification requirements',
       icon: AlertTriangle,
-      path: '/guides/incident-breach',
+      description: 'Response procedures and notification requirements',
       items: [
         { title: 'Incident Response Guide', path: '/guides/incident-breach' },
-        { title: 'Breach Notification Requirements', path: '/guides/incident-breach#notification' }
+        { title: 'Breach Notification', path: '/guides/incident-breach#notification' }
+      ]
+    },
+    {
+      id: 'templates',
+      title: 'Templates & Tools',
+      icon: FileText,
+      description: 'Policies, procedures, and compliance templates',
+      items: [
+        { title: 'Policy Generator', path: '/toolkit/privacy-policy-generator' },
+        { title: 'DPIA Template', path: '/toolkit/dpia-generator' },
+        { title: 'Control Implementation Guide', path: '/documentation/control-implementation-guide' }
       ]
     }
   ];
 
-  // Quick access cards for key resources
-  const quickAccessResources = [
+  // FAQ categories for filtering
+  const faqCategories = [
+    { id: 'all', name: 'All', icon: HelpCircle },
+    { id: 'general', name: 'General', icon: HelpCircle },
+    { id: 'security', name: 'Security', icon: Shield },
+    { id: 'data', name: 'Data', icon: Database },
+    { id: 'access', name: 'Access', icon: Key }
+  ];
+
+  // FAQs embedded directly
+  const faqs = [
     {
-      id: 'gdpr',
-      title: 'GDPR Compliance',
-      description: 'Complete guide to EU data protection compliance',
-      icon: Shield,
-      path: '/documentation/gdpr-implementation-guide'
+      question: 'What is CyberCorrect Privacy Platform?',
+      answer: 'CyberCorrect Privacy Platform is a comprehensive privacy compliance platform designed to help organizations achieve and maintain compliance with global privacy regulations including GDPR, CCPA, LGPD, PIPEDA, and the NIST Privacy Framework.',
+      category: 'general'
     },
     {
-      id: 'dsr',
-      title: 'Data Subject Rights',
-      description: 'Managing privacy rights requests',
-      icon: Users,
-      path: '/guides/data-subject-rights'
+      question: 'How do I start a privacy assessment?',
+      answer: 'Navigate to the Assessment page from the main menu, then click "Start Privacy Assessment". The assessment takes 30-45 minutes and covers all NIST Privacy Framework domains.',
+      category: 'general'
     },
     {
-      id: 'legal',
-      title: 'Legal Basis Guide',
-      description: 'Understanding lawful processing grounds',
-      icon: Scale,
-      path: '/documentation/privacy-framework-guide'
+      question: 'What frameworks does CyberCorrect support?',
+      answer: 'CyberCorrect supports NIST Privacy Framework, GDPR, CCPA/CPRA, LGPD, PIPEDA, and provides cross-framework mapping capabilities for comprehensive compliance management.',
+      category: 'general'
+    },
+    {
+      question: 'How secure is my data in CyberCorrect?',
+      answer: 'CyberCorrect implements robust security measures including data encryption at rest and in transit, multi-factor authentication, role-based access controls, regular security testing, and compliance with SOC 2 standards.',
+      category: 'security'
+    },
+    {
+      question: 'How does the GDPR Mapper tool work?',
+      answer: 'The GDPR Mapper tool allows you to map your data processing activities to GDPR requirements and NIST Privacy Framework controls. You can document data flows, identify lawful bases for processing, and generate Records of Processing Activities.',
+      category: 'data'
+    },
+    {
+      question: 'How do I manage user access?',
+      answer: 'Administrators can create user accounts, assign role-based permissions (Data Protection Officer, Privacy Officer, Legal Counsel, Data Steward), enforce multi-factor authentication, set password policies, and monitor user activity.',
+      category: 'access'
+    },
+    {
+      question: 'How do I handle a data breach?',
+      answer: 'Refer to our Incident & Breach Management guide for step-by-step response procedures, notification timelines (72 hours for GDPR), and regulatory reporting requirements across global regulations.',
+      category: 'security'
+    },
+    {
+      question: 'Can I export my compliance documentation?',
+      answer: 'Yes, all documentation generated in CyberCorrect can be exported in standard formats (PDF, Word, Excel) that are accepted by privacy auditors and regulators.',
+      category: 'data'
     }
   ];
 
+  // Filter FAQs based on category and search
+  const filteredFaqs = faqs.filter(faq => 
+    (activeCategory === 'all' || faq.category === activeCategory) && 
+    (searchQuery === '' || 
+      faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      faq.answer.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
+
   return (
     <div>
-      {/* Compact Page Header */}
+      {/* Page Header */}
       <section className="py-8 border-b border-border bg-surface dark:bg-dark-bg">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-semibold text-foreground">Resources</h1>
-            <p className="text-muted-foreground mt-2">Documentation, guides, and support for your privacy compliance journey</p>
+            <p className="text-muted-foreground mt-2">Documentation, guides, FAQs, and help for your privacy compliance journey</p>
           </div>
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-8">
-        {/* Quick Access Cards */}
-        <div className="mb-12">
-          <h2 className="text-xl font-semibold mb-6 text-foreground">Quick Access</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {quickAccessResources.map((resource) => (
-              <Link key={resource.id} to={resource.path}>
-                <Card className="hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border-0 shadow-md h-full">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0">
-                        <resource.icon className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">{resource.title}</h3>
-                        <p className="text-sm text-muted-foreground">{resource.description}</p>
-                      </div>
+      <div className="container mx-auto px-4 py-8 space-y-12">
+        
+        {/* Quick Access */}
+        <section>
+          <h2 className="text-xl font-semibold mb-4 text-foreground">Popular Resources</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { title: 'GDPR Guide', icon: Shield, path: '/documentation/gdpr-implementation-guide' },
+              { title: 'Data Subject Rights', icon: Users, path: '/guides/data-subject-rights' },
+              { title: 'Incident Response', icon: AlertTriangle, path: '/guides/incident-breach' },
+              { title: 'Platform Overview', icon: BookOpen, path: '/documentation/platform-overview' }
+            ].map((item) => (
+              <Link key={item.title} to={item.path}>
+                <Card className="hover:shadow-md hover:-translate-y-0.5 transition-all h-full">
+                  <CardContent className="p-4 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="h-5 w-5 text-primary" />
                     </div>
+                    <span className="font-medium text-foreground">{item.title}</span>
                   </CardContent>
                 </Card>
               </Link>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Documentation Categories */}
-        <div className="mb-12">
-          <h2 className="text-xl font-semibold mb-6 text-foreground">Browse by Category</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {documentationCategories.map((category) => (
-              <Card key={category.id} className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md">
+        {/* Documentation & Guides */}
+        <section>
+          <h2 className="text-xl font-semibold mb-4 text-foreground">Documentation & Guides</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {resourceCategories.map((category) => (
+              <Card key={category.id} className="hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mr-3">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                       <category.icon className="h-5 w-5 text-primary" />
                     </div>
-                    <h3 className="text-lg font-semibold text-foreground">{category.title}</h3>
+                    <div>
+                      <h3 className="font-semibold text-foreground">{category.title}</h3>
+                      <p className="text-sm text-muted-foreground">{category.description}</p>
+                    </div>
                   </div>
-                  
-                  <p className="text-muted-foreground mb-4 text-sm">{category.description}</p>
-                  
-                  <ul className="space-y-2 mb-4">
-                    {category.items.map((item, index) => (
-                      <li key={index}>
-                        <Link to={item.path} className="text-primary hover:text-primary/80 text-sm flex items-center">
-                          <ArrowRight className="h-3 w-3 mr-2 flex-shrink-0" />
+                  <ul className="space-y-2">
+                    {category.items.map((item, idx) => (
+                      <li key={idx}>
+                        <Link to={item.path} className="text-sm text-primary hover:underline flex items-center gap-1">
+                          <ArrowRight className="h-3 w-3" />
                           {item.title}
                         </Link>
                       </li>
                     ))}
                   </ul>
-                  
-                  <Link to={category.path}>
-                    <Button variant="outline" size="sm" className="w-full">
-                      View All
-                      <ArrowRight className="ml-2 h-3 w-3" />
-                    </Button>
-                  </Link>
                 </CardContent>
               </Card>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Support Section */}
-        <Card className="border-0 shadow-lg bg-muted/30 dark:bg-muted/10">
-          <CardContent className="p-8">
-            <div className="flex flex-col md:flex-row items-center gap-6">
-              <div className="w-16 h-16 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0">
-                <HelpCircle className="h-8 w-8 text-primary" />
-              </div>
-              <div className="flex-1 text-center md:text-left">
-                <h3 className="text-xl font-semibold mb-2 text-foreground">Need Help?</h3>
-                <p className="text-muted-foreground mb-4">
-                  Our support team is available to help with your compliance questions.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-                  <Link to="/support">
-                    <Button variant="default">
-                      Contact Support
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                  <Link to="/documentation/faqs">
-                    <Button variant="outline">
-                      View FAQs
-                    </Button>
-                  </Link>
-                </div>
-              </div>
+        {/* FAQs Section */}
+        <section>
+          <h2 className="text-xl font-semibold mb-4 text-foreground">Frequently Asked Questions</h2>
+          
+          {/* Search and Filter */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Search FAQs..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+              />
             </div>
-          </CardContent>
-        </Card>
+            <div className="flex flex-wrap gap-2">
+              {faqCategories.map(cat => (
+                <Button
+                  key={cat.id}
+                  variant={activeCategory === cat.id ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setActiveCategory(cat.id)}
+                >
+                  {cat.name}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* FAQ Accordion */}
+          <Card>
+            <CardContent className="p-0 divide-y divide-border">
+              {filteredFaqs.length > 0 ? (
+                filteredFaqs.map((faq, index) => (
+                  <div key={index}>
+                    <button
+                      className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-muted/50 transition-colors"
+                      onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                    >
+                      <span className="font-medium text-foreground pr-4">{faq.question}</span>
+                      {expandedFaq === index ? (
+                        <ChevronUp className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                      ) : (
+                        <ChevronDown className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                      )}
+                    </button>
+                    {expandedFaq === index && (
+                      <div className="px-6 pb-4 text-muted-foreground text-sm">
+                        {faq.answer}
+                      </div>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <div className="p-8 text-center">
+                  <HelpCircle className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
+                  <p className="text-muted-foreground">No FAQs found matching your search.</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* Help Options */}
+        <section>
+          <h2 className="text-xl font-semibold mb-4 text-foreground">Need Help?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="hover:shadow-md transition-shadow">
+              <CardContent className="p-6 text-center">
+                <Bot className="h-10 w-10 text-primary mx-auto mb-3" />
+                <h3 className="font-semibold mb-2 text-foreground">Guide Bot</h3>
+                <p className="text-sm text-muted-foreground mb-4">Get instant answers 24/7</p>
+                <Button variant="outline" className="w-full" onClick={() => openChatbot()}>
+                  Launch Guide
+                </Button>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover:shadow-md transition-shadow">
+              <CardContent className="p-6 text-center">
+                <Mail className="h-10 w-10 text-primary mx-auto mb-3" />
+                <h3 className="font-semibold mb-2 text-foreground">Email Support</h3>
+                <p className="text-sm text-muted-foreground mb-4">Response within 24 hours</p>
+                <Button variant="outline" className="w-full" asChild>
+                  <a href="mailto:support@cybercorrect.com">Send Email</a>
+                </Button>
+              </CardContent>
+            </Card>
+            
+            <Card className="hover:shadow-md transition-shadow">
+              <CardContent className="p-6 text-center">
+                <HelpCircle className="h-10 w-10 text-primary mx-auto mb-3" />
+                <h3 className="font-semibold mb-2 text-foreground">Contact Us</h3>
+                <p className="text-sm text-muted-foreground mb-4">Detailed inquiries & sales</p>
+                <Button variant="outline" className="w-full" asChild>
+                  <Link to="/contact">Contact Form</Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
       </div>
     </div>
   );
