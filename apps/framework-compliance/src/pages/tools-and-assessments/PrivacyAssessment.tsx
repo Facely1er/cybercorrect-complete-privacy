@@ -37,7 +37,7 @@ const PrivacyAssessment = () => {
       // Only show restoration message if they have actual progress (not just started)
       const hasProgress = Object.keys(savedData.answers || {}).length > 0;
       if (hasProgress) {
-        toast.success('Your progress has been restored', 'Continue where you left off', 3000);
+        toast.success('Your progress has been restored', 'Continue where you left off');
       }
     }
   }, []);
