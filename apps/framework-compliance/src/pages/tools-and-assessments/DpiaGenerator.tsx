@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { useJourneyTool } from '../../hooks/useJourneyTool';
 import { usePageTitle } from '../../hooks/usePageTitle';
 import { 
   Shield, 
@@ -29,6 +30,7 @@ type DpiaFormData = {
 
 const DpiaGenerator = () => {
   usePageTitle('DPIA Generator');
+  useJourneyTool('dpia-generator');
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<DpiaFormData>(() => {
     const savedData = secureStorage.getItem<DpiaFormData>('dpia_form_data');

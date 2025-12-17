@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { useJourneyTool } from '../../hooks/useJourneyTool';
 import { Badge } from '../../components/ui/Badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { toast } from '../../components/ui/Toaster';
@@ -65,6 +66,7 @@ const getProgressVariantClass = (variant: 'critical' | 'high' | 'medium' | 'low'
 };
 
 const VendorRiskAssessment = () => {
+  useJourneyTool('vendor-risk-assessment');
   const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedRiskLevel, setSelectedRiskLevel] = useState('all');
   const [selectedCompliance, setSelectedCompliance] = useState('all');

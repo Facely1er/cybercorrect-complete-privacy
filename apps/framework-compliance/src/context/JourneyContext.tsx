@@ -389,11 +389,10 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     }
 
     // Check if we should auto-advance journey steps
-    // Advance to step 2 (Act) when first tool is completed
-    if (completedToolIds.length === 0 && currentStepIndex < 2) {
-      setCurrentStep(2);
+    // Complete "Discover" step when first tool is used (auto-advances to "Act" step)
+    if (completedToolIds.length === 0 && currentStepIndex <= 1) {
       if (!completedSteps.includes('discover')) {
-        completeStep('discover');
+        completeStep('discover'); // This will auto-advance from index 1 to index 2 (Act)
       }
     }
 

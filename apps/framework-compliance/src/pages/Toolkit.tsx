@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
@@ -6,6 +6,7 @@ import { InternalLink, ContextualCTA } from '../components/ui/InternalLinkingHel
 import { usePageTitle } from '../hooks/usePageTitle';
 import CustomerJourneyMap from '../components/journey/CustomerJourneyMap';
 import { getJourneyStats } from '../utils/customerJourneyConfig';
+import { JourneyLayout } from '../layouts/JourneyLayout';
 import { 
   Shield, 
   FileText, 
@@ -24,7 +25,6 @@ import {
   Calendar,
   Building,
   Target,
-  RefreshCw,
   Milestone,
   LayoutGrid
 } from 'lucide-react';
@@ -275,9 +275,10 @@ const Toolkit = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Header */}
-      <div className="mb-8">
+    <JourneyLayout>
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="mb-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold mb-2 text-foreground">Compliance Toolkit</h1>
@@ -557,6 +558,7 @@ const Toolkit = () => {
       </>
       )}
     </div>
+    </JourneyLayout>
   );
 };
 

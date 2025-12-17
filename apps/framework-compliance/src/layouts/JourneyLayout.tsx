@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 import JourneyProgressTracker from '../components/onboarding/JourneyProgressTracker';
+import { useJourney } from '../context/JourneyContext';
 
 interface JourneyLayoutProps {
   children: ReactNode;
-  variant?: 'default' | 'compact';
   showProgress?: boolean;
 }
 
@@ -14,17 +14,22 @@ interface JourneyLayoutProps {
  * maintaining context about where they are in the compliance journey.
  * 
  * @param children - The page content to render
- * @param variant - Display variant: 'default' (full) or 'compact' (minimal)
  * @param showProgress - Whether to show the progress tracker (default: true)
  */
 export const JourneyLayout: React.FC<JourneyLayoutProps> = ({ 
   children, 
-  variant = 'compact',
   showProgress = true 
 }) => {
+  const { currentStepIndex, completedSteps } = useJourney();
+  
   return (
     <div className="space-y-6">
-      {showProgress && <JourneyProgressTracker variant={variant} />}
+      {showProgress && (
+        <JourneyProgressTracker 
+          currentStepIndex={currentStepIndex}
+          completedSteps={completedSteps}
+        />
+      )}
       {children}
     </div>
   );

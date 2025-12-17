@@ -20,6 +20,7 @@ import DataProtectionOfficerJourney from '../pages/roles/DataProtectionOfficerJo
 import LegalCounselJourney from '../pages/roles/LegalCounselJourney';
 import DataStewardJourney from '../pages/roles/DataStewardJourney';
 import PrivacyOfficerJourney from '../pages/roles/PrivacyOfficerJourney';
+import PortalBetaProgram from '../pages/PortalBetaProgram';
 
 // Lazy loaded public pages
 const Profile = lazy(() => import('../pages/account/Profile'));
@@ -32,6 +33,7 @@ export const publicRoutes = [
   { path: 'pricing', element: Pricing },
   { path: 'features', element: Features },
   { path: 'demo', element: Demo },
+  { path: 'portal-beta', element: PortalBetaProgram },
   { path: 'integrations', element: Integrations },
   { path: 'login', element: Login },
   { path: 'profile', element: UserProfile },

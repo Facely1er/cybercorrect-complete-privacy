@@ -8,6 +8,14 @@ CyberCorrect Privacy Platform is a compliance automation platform designed to si
 
 ## 🎯 Platform Capabilities
 
+### Guided Customer Journey
+- **4-Step Compliance Journey**: Structured path from initial assessment through ongoing maintenance (Assess → Discover → Act → Maintain)
+- **Automated Gap Generation**: Dynamic compliance gap identification based on assessment results across NIST Privacy Framework domains
+- **Intelligent Gap-Tool Linkage**: Automatic mapping of compliance gaps to recommended remediation tools with progress tracking
+- **Journey Progress Tracking**: Real-time visibility into compliance implementation progress with milestone celebrations and toast notifications
+- **Smart Auto-Advancement**: Intelligent journey progression based on gap closure rates (70% threshold) and tool usage patterns
+- **Integrated Progress Visibility**: Compact progress tracker seamlessly integrated across assessment results, toolkit, and dashboard pages
+
 ### Privacy Compliance Suite
 - **Multi-Regulation Privacy Assessment**: Evaluation against NIST Privacy Framework, GDPR, CCPA, LGPD, PIPEDA, and more
 - **Privacy Gap Analyzer**: Gap identification with risk-based prioritization and remediation planning
@@ -208,25 +216,44 @@ cybercorrect-complete-privacy/
 
 ## 🎓 Getting Started Workflow
 
-### For Privacy Professionals
+### Guided 4-Step Journey
 
-1. **Start with Privacy Assessment**
-   - Navigate to Assessment Hub
-   - Complete the privacy assessment (30-45 minutes)
-   - Review your multi-regulation compliance score
-   - Receive personalized remediation roadmap
+The platform guides you through a structured compliance journey:
 
-2. **Create Privacy Project**
-   - Launch Privacy Project Dashboard
-   - Set up team roles using RACI matrix
-   - Review implementation roadmap
-   - Begin tracking progress
+**1. Assess Your Current State**
+   - Complete the comprehensive privacy assessment (30-45 minutes)
+   - Evaluate your posture across NIST Privacy Framework domains
+   - Receive multi-regulation compliance scores (GDPR, CCPA, LGPD, PIPEDA)
+   - System automatically identifies compliance gaps
 
-3. **Use Compliance Tools**
+**2. Discover Your Compliance Gaps**
+   - View dynamically generated compliance gaps prioritized by risk
+   - Understand impact and timeline for each gap
+   - See recommended tools mapped to each gap
+   - Track gaps across 5 privacy domains (Govern, Identify, Control, Communicate, Protect)
+
+**3. Act on Recommendations**
+   - Use recommended tools to close compliance gaps
    - Generate DPIAs for high-risk processing
    - Create data processing maps (Article 30)
    - Generate privacy policies
    - Manage data subject rights requests
+   - System automatically tracks gap progress as you complete tools
+
+**4. Maintain Compliance**
+   - Monitor compliance health dashboard
+   - Track ongoing gap closure and tool usage
+   - Receive automated alerts and reminders
+   - Review periodic compliance reports
+   - Ensure continuous improvement
+
+### For Privacy Professionals (Advanced Setup)
+
+1. **Create Privacy Project**
+   - Launch Privacy Project Dashboard
+   - Set up team roles using RACI matrix
+   - Review implementation roadmap
+   - Begin tracking progress
 
 ### For Security Teams (Data Classification)
 

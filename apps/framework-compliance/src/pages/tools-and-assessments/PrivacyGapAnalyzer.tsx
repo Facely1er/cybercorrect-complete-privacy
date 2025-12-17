@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { useJourneyTool } from '@/hooks/useJourneyTool';
 import { 
   Eye, 
   ArrowLeft, 
@@ -52,6 +53,7 @@ interface PrivacyGap {
 
 const PrivacyGapAnalyzer = () => {
   usePageTitle('Privacy Gap Analyzer');
+  useJourneyTool('privacy-gap-analyzer');
   const location = useLocation();
   const navigate = useNavigate();
   const { assessmentResults, fromAssessment } = (location.state || {}) as { 
@@ -62,7 +64,7 @@ const PrivacyGapAnalyzer = () => {
   const [isExporting, setIsExporting] = useState(false);
 
   // Base privacy gaps - these are always shown
-  const basePrivacyGaps: PrivacyGap[] = [
+  const basePrivacyGaps: PrivacyGap[] = useMemo(() => [
     {
       id: 'GAP-001',
       title: 'Data Processing Records Incomplete',
@@ -123,7 +125,7 @@ const PrivacyGapAnalyzer = () => {
       framework: 'NIST Privacy Framework - CM.PO',
       nistSection: 'Communicate'
     }
-  ];
+  ], []);
 
   // Generate gaps from assessment results
   const assessmentBasedGaps = useMemo(() => {
@@ -276,7 +278,7 @@ const PrivacyGapAnalyzer = () => {
     });
     
     return combined;
-  }, [assessmentBasedGaps]);
+  }, [assessmentBasedGaps, basePrivacyGaps]);
 
   // Update compliance data based on assessment results
   const complianceData = useMemo(() => {

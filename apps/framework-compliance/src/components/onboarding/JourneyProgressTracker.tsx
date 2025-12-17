@@ -42,27 +42,27 @@ const JOURNEY_STEPS: JourneyStep[] = [
   },
   {
     id: 2,
-    key: 'journey',
-    title: 'Get Your Personalized Journey',
-    shortTitle: 'Journey',
+    key: 'discover',
+    title: 'Discover Your Compliance Gaps',
+    shortTitle: 'Discover',
     path: '/compliance',
     icon: Target,
     completed: false
   },
   {
     id: 3,
-    key: 'tools',
-    title: 'Use Compliance Tools',
-    shortTitle: 'Tools',
+    key: 'act',
+    title: 'Act on Recommendations',
+    shortTitle: 'Act',
     path: '/toolkit',
     icon: Wrench,
     completed: false
   },
   {
     id: 4,
-    key: 'track',
-    title: 'Track & Maintain',
-    shortTitle: 'Track',
+    key: 'maintain',
+    title: 'Maintain Compliance',
+    shortTitle: 'Maintain',
     path: '/dashboard/privacy',
     icon: BarChart3,
     completed: false

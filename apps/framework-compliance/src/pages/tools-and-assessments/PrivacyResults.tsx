@@ -10,6 +10,7 @@ import RecommendedTools from '../../components/assessment/RecommendedTools';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { useJourney } from '../../context/useJourney';
+import { JourneyLayout } from '../../layouts/JourneyLayout';
 
 const PrivacyResults = () => {
   const navigate = useNavigate();
@@ -101,16 +102,17 @@ const PrivacyResults = () => {
   }, [assessmentResults.sectionScores]);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <AssessmentFlowProgress 
-        currentStep="results" 
-        assessmentResults={assessmentResults}
-      />
-      <h1 className="text-3xl font-bold mb-6 text-foreground">Privacy Framework Assessment Results</h1>
-      
-      <AssessmentResults 
-        data={assessmentResults}
-        onExport={handleExport}
+    <JourneyLayout>
+      <div className="container mx-auto px-4 py-8">
+        <AssessmentFlowProgress 
+          currentStep="results" 
+          assessmentResults={assessmentResults}
+        />
+        <h1 className="text-3xl font-bold mb-6 text-foreground">Privacy Framework Assessment Results</h1>
+        
+        <AssessmentResults 
+          data={assessmentResults}
+          onExport={handleExport}
       />
       
       {/* Quick Wins Section */}
@@ -439,6 +441,7 @@ const PrivacyResults = () => {
         </p>
       </div>
     </div>
+    </JourneyLayout>
   );
 };
 

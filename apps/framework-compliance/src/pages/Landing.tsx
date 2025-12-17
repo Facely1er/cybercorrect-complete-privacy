@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useChatbot } from '../components/chat/ChatbotProvider';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
@@ -21,6 +21,7 @@ import {
 
 const Landing = () => {
   useChatbot();
+  const navigate = useNavigate();
 
   // Hero heading carousel items
   const heroHeadings = [
@@ -67,8 +68,8 @@ const Landing = () => {
             
             {/* Supporting Paragraph */}
             <p className="text-xl text-muted-foreground dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Regulatory fines can reach millions. Data breaches destroy trust. Manual compliance processes drain resources. 
-              Discover your compliance gaps and get a clear, prioritized action plan that reduces risk and saves hundreds of hours.
+              Whether you're a privacy professional or just got assigned "figure out compliance"—we guide you through it. 
+              Discover your compliance gaps and get a clear, prioritized action plan. No privacy expertise required.
             </p>
 
             {/* Primary CTA */}
@@ -87,11 +88,15 @@ const Landing = () => {
             <div className="flex flex-wrap justify-center gap-6 sm:gap-8 text-sm text-muted-foreground dark:text-gray-400">
               <div className="flex items-center">
                 <CheckCircle className="w-4 h-4 text-success mr-2 flex-shrink-0" />
+                No privacy expertise required
+              </div>
+              <div className="flex items-center">
+                <CheckCircle className="w-4 h-4 text-success mr-2 flex-shrink-0" />
                 No credit card required
               </div>
               <div className="flex items-center">
                 <Clock className="w-4 h-4 text-primary dark:text-dark-primary mr-2 flex-shrink-0" />
-                Results in 30 minutes
+                Results in 20 minutes
               </div>
               <div className="flex items-center">
                 <Shield className="w-4 h-4 text-primary dark:text-dark-primary mr-2 flex-shrink-0" />
@@ -348,13 +353,17 @@ const Landing = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="section-title text-3xl md:text-4xl">
-                Role-Based Compliance Guides
+                Built for Privacy Professionals
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                For teams with defined roles: Each guide provides specialized tools and workflows
+                (But You Don't Need to Be One)
+              </p>
+              <p className="text-base text-muted-foreground max-w-2xl mx-auto mt-4">
+                CyberCorrect is used by privacy professionals and compliance teams—but designed so 
+                <strong> anyone</strong> responsible for privacy compliance can use it effectively.
               </p>
               <p className="text-sm text-muted-foreground max-w-2xl mx-auto mt-2">
-                <strong>Note:</strong> After your assessment, you'll get a gap-based action plan that's already prioritized for you
+                <strong>Not sure where you fit?</strong> Take our assessment—we'll guide you regardless of your title.
               </p>
             </div>
 
@@ -362,35 +371,35 @@ const Landing = () => {
               {[
                 {
                   icon: Eye,
-                  title: 'Privacy Leadership Journey',
-                  subtitle: 'For DPOs & Privacy Leaders',
+                  title: 'Privacy Professionals',
+                  subtitle: 'e.g., DPOs, Privacy Officers',
                   description: 'Lead privacy programs, conduct DPIAs, and oversee compliance across global regulations.',
                   path: '/roles/data-protection-officer',
-                  cta: 'Explore Journey'
-                },
-                {
-                  icon: Shield,
-                  title: 'Privacy Operations Journey',
-                  subtitle: 'For Privacy Officers',
-                  description: 'Develop privacy strategies, coordinate initiatives, and ensure organizational compliance.',
-                  path: '/roles/privacy-officer',
-                  cta: 'Explore Journey'
+                  cta: 'Explore Guide'
                 },
                 {
                   icon: Scale,
-                  title: 'Legal Compliance Journey',
-                  subtitle: 'For Legal Counsel',
+                  title: 'Legal & Risk Teams',
+                  subtitle: 'e.g., Legal Counsel, Risk Managers',
                   description: 'Review policies, assess legal risks, and ensure regulatory compliance across jurisdictions.',
                   path: '/roles/legal-counsel',
-                  cta: 'Explore Journey'
+                  cta: 'Explore Guide'
                 },
                 {
                   icon: Database,
-                  title: 'Data Governance Journey',
-                  subtitle: 'For Data Stewards',
+                  title: 'Data & IT Teams',
+                  subtitle: 'e.g., Data Stewards, IT Managers',
                   description: 'Manage data inventories, processing records, and maintain privacy controls.',
                   path: '/roles/data-steward',
-                  cta: 'Explore Journey'
+                  cta: 'Explore Guide'
+                },
+                {
+                  icon: Users,
+                  title: 'Everyone Else',
+                  subtitle: 'Business owners, Operations, HR',
+                  description: 'Just got assigned privacy compliance? We guide you through everything step-by-step.',
+                  path: '/assessments/privacy-assessment',
+                  cta: 'Start Assessment'
                 }
               ].map((journey, index) => (
                 <Card key={index} className="card-hover text-center border border-border dark:border-dark-support">
@@ -411,6 +420,31 @@ const Landing = () => {
                 </Card>
               ))}
             </div>
+            
+            {/* Universal Fallback */}
+            <div className="text-center mt-16 pt-8 border-t border-border/50 dark:border-dark-support/50">
+              <Card className="max-w-2xl mx-auto bg-gradient-to-br from-primary/5 to-secondary/5 border-2 border-primary/20">
+                <CardContent className="p-8">
+                  <h3 className="text-2xl font-bold mb-4 text-foreground">
+                    Not Sure Where You Fit?
+                  </h3>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
+                    That's perfectly fine! Most people aren't sure at first. Start with our free assessment—we'll analyze your 
+                    situation and recommend the best path forward, regardless of your title or experience level.
+                  </p>
+                  <Link to="/assessments/privacy-assessment" className="no-underline">
+                    <Button size="lg" className="px-8">
+                      <Eye className="mr-2 h-5 w-5" />
+                      Start Free Assessment — We'll Guide You
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                  <p className="text-sm text-muted-foreground mt-4">
+                    No experience required. Takes 20 minutes. Instant results.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
@@ -420,15 +454,16 @@ const Landing = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary dark:bg-primary/20 px-4 py-2 rounded-full text-sm font-medium mb-4">
-                <Users className="w-4 h-4" />
-                Extend Your Compliance Program
+              <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200 px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <Sparkles className="w-4 h-4" />
+                NEW: Privacy Portal Beta Program
               </div>
               <h2 className="section-title text-3xl md:text-4xl mb-4">
-                Empower Your Entire Workforce
+                Extend Privacy to Your Entire Workforce
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                While CyberCorrect provides professional compliance tools, our <strong>Privacy Portal</strong> extends privacy rights and duties to all stakeholders
+                CyberCorrect Platform automates compliance for professionals. <strong>Privacy Portal</strong> (Beta) empowers 
+                employees, HR, and employers with self-service privacy rights and duties.
               </p>
             </div>
 
@@ -464,44 +499,70 @@ const Landing = () => {
                 </CardContent>
               </Card>
 
-              {/* Privacy Portal */}
-              <Card className="border-2 border-secondary/30 dark:border-secondary/20 bg-gradient-to-br from-secondary/5 to-primary/5">
+              {/* Privacy Portal - Multistakeholder Beta */}
+              <Card className="border-2 border-amber-400/50 dark:border-amber-600/30 bg-gradient-to-br from-amber-50/50 to-orange-50/50 dark:from-amber-900/10 dark:to-orange-900/10 relative overflow-hidden">
+                <div className="absolute top-0 right-0">
+                  <span className="inline-block bg-amber-400 text-amber-900 text-xs font-bold px-3 py-1 rounded-bl-lg">
+                    🧪 BETA
+                  </span>
+                </div>
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-secondary/10 dark:bg-secondary/20 rounded-lg flex items-center justify-center">
-                      <Users className="w-6 h-6 text-secondary dark:text-secondary" />
+                    <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center">
+                      <Users className="w-6 h-6 text-amber-600 dark:text-amber-400" />
                     </div>
                     <div>
                       <h3 className="text-lg font-bold text-foreground dark:text-dark-text">Privacy Portal</h3>
-                      <p className="text-xs text-muted-foreground">Self-Service for All Stakeholders</p>
+                      <p className="text-xs text-amber-600 dark:text-amber-400 font-semibold">Co-Create With Your Stakeholders</p>
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Democratize privacy compliance across your organization
+                    Extend Platform to your workforce. Build Portal WITH your employees, HR, compliance, and legal teams.
                   </p>
-                  <ul className="space-y-2 mb-6">
+                  
+                  {/* Stakeholder Cohorts */}
+                  <div className="grid grid-cols-2 gap-2 mb-4">
                     {[
-                      'Data rights exercise (GDPR/CCPA/EEOC)',
-                      'Role-based privacy duties tracking',
-                      'Privacy incident reporting',
-                      'Consent & preference management'
-                    ].map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-sm">
-                        <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
+                      { label: 'Employees', count: '250+' },
+                      { label: 'HR Teams', count: '75+' },
+                      { label: 'Compliance', count: '50+' },
+                      { label: 'Legal Reps', count: '25+' }
+                    ].map((cohort, idx) => (
+                      <div key={idx} className="bg-white/80 dark:bg-gray-800/80 rounded-lg p-2 text-center">
+                        <div className="text-xs text-muted-foreground">{cohort.label}</div>
+                        <div className="text-sm font-bold text-amber-600">{cohort.count} testers</div>
+                      </div>
                     ))}
-                  </ul>
-                  <a
-                    href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  </div>
+
+                  <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3 mb-4">
+                    <p className="text-xs font-semibold text-amber-900 dark:text-amber-200 mb-2">Beta Pricing (Locked Forever):</p>
+                    <div className="text-xs text-amber-800 dark:text-amber-300 space-y-1">
+                      <div className="flex justify-between">
+                        <span>Standard:</span>
+                        <span className="font-bold">+$99/mo</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Branded:</span>
+                        <span className="font-bold">+$149/mo</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>White-Label:</span>
+                        <span className="font-bold">+$249/mo</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <Button 
+                    className="w-full group bg-amber-500 hover:bg-amber-600 text-white border-0"
+                    onClick={() => navigate('/portal-beta')}
                   >
-                    <Button variant="outline" className="w-full group border-2">
-                      Access Privacy Portal
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </a>
+                    Learn About Beta Program
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                  <p className="text-xs text-center text-muted-foreground mt-2">
+                    Limited to 100 organizations • White-label ready
+                  </p>
                 </CardContent>
               </Card>
             </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageTitle } from '../../hooks/usePageTitle';
+import { JourneyLayout } from '../../layouts/JourneyLayout';
 import { 
   ArrowLeft, 
   TrendingUp, 
@@ -8,15 +9,13 @@ import {
   Minus,
   Activity,
   Target,
-  AlertTriangle,
-  CheckCircle,
   BarChart3,
   Calendar,
   RefreshCw
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { complianceHealthMonitor, ComplianceHealthScore, ScoreTrend } from '../../utils/compliance';
 import { toast } from '../../components/ui/Toaster';
 
@@ -30,10 +29,11 @@ export const ComplianceHealthDashboard: React.FC = () => {
   const [predictedScore, setPredictedScore] = useState<number | null>(null);
   const [selectedPeriod, setSelectedPeriod] = useState<'30d' | '60d' | '90d'>('30d');
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedFramework, setSelectedFramework] = useState<string | undefined>(undefined);
+  const [selectedFramework] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFramework, selectedPeriod]);
 
   const loadData = async () => {
@@ -159,9 +159,10 @@ export const ComplianceHealthDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-4">
+    <JourneyLayout>
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-6">
+          <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-4">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Dashboard
         </Link>
@@ -211,7 +212,7 @@ export const ComplianceHealthDashboard: React.FC = () => {
                       )}
                     </div>
                     <div className={`p-6 rounded-lg ${getScoreBgColor(currentScore.score)}`}>
-                      {currentScore.trend && getTrendIcon(currentScore.trend)}
+                      {currentScore.trend && getTrendIcon(currentScore.trend as 'improving' | 'stable' | 'declining')}
                     </div>
                   </div>
                 ) : (
@@ -257,9 +258,9 @@ export const ComplianceHealthDashboard: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center gap-2">
-                    {getTrendIcon(trend30d?.trend || 'unknown')}
+                    {getTrendIcon(trend30d?.trend || 'stable')}
                     <div>
-                      <div className={`text-2xl font-bold ${getTrendColor(trend30d?.trend || 'unknown')}`}>
+                      <div className={`text-2xl font-bold ${getTrendColor(trend30d?.trend || 'stable')}`}>
                         {trend30d?.changePercent ? `${trend30d.changePercent > 0 ? '+' : ''}${trend30d.changePercent.toFixed(1)}%` : '0%'}
                       </div>
                       <div className="text-xs text-muted-foreground">
@@ -276,9 +277,9 @@ export const ComplianceHealthDashboard: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center gap-2">
-                    {getTrendIcon(trend60d?.trend || 'unknown')}
+                    {getTrendIcon(trend60d?.trend || 'stable')}
                     <div>
-                      <div className={`text-2xl font-bold ${getTrendColor(trend60d?.trend || 'unknown')}`}>
+                      <div className={`text-2xl font-bold ${getTrendColor(trend60d?.trend || 'stable')}`}>
                         {trend60d?.changePercent ? `${trend60d.changePercent > 0 ? '+' : ''}${trend60d.changePercent.toFixed(1)}%` : '0%'}
                       </div>
                       <div className="text-xs text-muted-foreground">
@@ -295,9 +296,9 @@ export const ComplianceHealthDashboard: React.FC = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center gap-2">
-                    {getTrendIcon(trend90d?.trend || 'unknown')}
+                    {getTrendIcon(trend90d?.trend || 'stable')}
                     <div>
-                      <div className={`text-2xl font-bold ${getTrendColor(trend90d?.trend || 'unknown')}`}>
+                      <div className={`text-2xl font-bold ${getTrendColor(trend90d?.trend || 'stable')}`}>
                         {trend90d?.changePercent ? `${trend90d.changePercent > 0 ? '+' : ''}${trend90d.changePercent.toFixed(1)}%` : '0%'}
                       </div>
                       <div className="text-xs text-muted-foreground">
@@ -324,6 +325,7 @@ export const ComplianceHealthDashboard: React.FC = () => {
                       value={selectedPeriod}
                       onChange={(e) => setSelectedPeriod(e.target.value as '30d' | '60d' | '90d')}
                       className="text-sm border rounded px-2 py-1"
+                      aria-label="Select time period"
                     >
                       <option value="30d">30 Days</option>
                       <option value="60d">60 Days</option>
@@ -374,12 +376,12 @@ export const ComplianceHealthDashboard: React.FC = () => {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name, score }) => `${name}: ${score}`}
+                        label={(props: { name?: string; score?: number }) => `${props.name}: ${props.score}`}
                         outerRadius={80}
                         fill="hsl(var(--primary))"
                         dataKey="score"
                       >
-                        {frameworkData.map((entry, index) => (
+                        {frameworkData.map((_entry, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
@@ -428,8 +430,8 @@ export const ComplianceHealthDashboard: React.FC = () => {
                           <td className="p-2">
                             {score.trend && (
                               <span className="flex items-center gap-1">
-                                {getTrendIcon(score.trend)}
-                                <span className={getTrendColor(score.trend)}>
+                                {getTrendIcon(score.trend as 'improving' | 'stable' | 'declining')}
+                                <span className={getTrendColor(score.trend as 'improving' | 'stable' | 'declining')}>
                                   {score.trend}
                                 </span>
                               </span>
@@ -450,6 +452,7 @@ export const ComplianceHealthDashboard: React.FC = () => {
         </>
       )}
     </div>
+    </JourneyLayout>
   );
 };
 
