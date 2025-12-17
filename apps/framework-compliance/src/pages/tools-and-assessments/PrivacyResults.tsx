@@ -87,34 +87,79 @@ const PrivacyResults = () => {
         onExport={handleExport}
       />
       
+      {/* Gap-Based Priority Action Plan */}
       <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4 text-foreground">Key Findings</h2>
-        <div className="space-y-4">
-          <div className="p-4 bg-muted/30 dark:bg-muted/20 rounded-lg">
-            <h3 className="font-medium mb-2 text-foreground">Primary Risk Areas</h3>
-            <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-              <li>Data protection safeguards need improvement (60% compliance)</li>
-              <li>Data processing controls require enhancement (65% compliance)</li>
-              <li>Identification of privacy risks could be strengthened (73% compliance)</li>
-            </ul>
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+              <Target className="w-6 h-6 text-primary" />
+              Your Priority Action Plan
+            </h2>
+            <p className="text-muted-foreground mt-1">
+              Address these gaps in order of priority to reduce compliance risk
+            </p>
           </div>
-          
-          <div className="p-4 bg-muted/30 dark:bg-muted/20 rounded-lg">
-            <h3 className="font-medium mb-2 text-foreground">Strengths</h3>
-            <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-              <li>Strong governance structure for privacy (80% compliance)</li>
-              <li>Good communication practices with data subjects (70% compliance)</li>
-              <li>Effective inventory of data processing activities (part of 73% Identify compliance)</li>
-            </ul>
-          </div>
+          <Button onClick={handleViewCompliance} variant="outline">
+            View Full Gap Analysis
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
         </div>
+
+        {/* Display identified gaps */}
+        {identifiedGaps.length > 0 ? (
+          <div className="space-y-6">
+            {identifiedGaps.slice(0, 3).map((gap) => (
+              <GapPriorityCard
+                key={gap.id}
+                gap={gap}
+                onStartGap={handleStartGap}
+                showTools={true}
+              />
+            ))}
+            
+            {identifiedGaps.length > 3 && (
+              <Card className="border-2 border-primary/20">
+                <CardContent className="p-6 text-center">
+                  <p className="text-muted-foreground mb-4">
+                    {identifiedGaps.length - 3} more gaps identified. View your complete gap analysis to see all recommendations.
+                  </p>
+                  <Button onClick={handleViewCompliance}>
+                    View All {identifiedGaps.length} Gaps
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        ) : (
+          <Card className="border-2 border-green-300">
+            <CardContent className="p-6 text-center">
+              <div className="text-green-600 text-4xl mb-2">🎉</div>
+              <h3 className="text-lg font-bold text-foreground mb-2">
+                Excellent Compliance Posture!
+              </h3>
+              <p className="text-muted-foreground">
+                No critical gaps identified. Continue maintaining your compliance program.
+              </p>
+            </CardContent>
+          </Card>
+        )}
       </div>
 
-      {/* Personalized Role-Based Journey Recommendation */}
-      <RecommendedJourney assessmentResults={assessmentResults} />
-
-      {/* Personalized Tool Recommendations - Phase 3: Guided Action */}
-      <RecommendedTools assessmentResults={assessmentResults} />
+      {/* Secondary: Role-Based Journey Recommendation (Collapsed by default) */}
+      <details className="mt-8">
+        <summary className="cursor-pointer p-4 bg-muted/30 dark:bg-muted/20 rounded-lg hover:bg-muted/50 transition-colors">
+          <span className="font-semibold text-foreground">
+            Optional: Browse Role-Based Guides
+          </span>
+          <span className="text-sm text-muted-foreground ml-2">
+            (For teams with defined privacy roles)
+          </span>
+        </summary>
+        <div className="mt-4">
+          <RecommendedJourney assessmentResults={assessmentResults} />
+        </div>
+      </details>
 
       <div className="mt-8 flex justify-end">
         <div className="flex gap-4">

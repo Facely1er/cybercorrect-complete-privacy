@@ -4,6 +4,7 @@ import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import JourneyProgressTracker from '../components/onboarding/JourneyProgressTracker';
 import OnboardingFlow from '../components/onboarding/OnboardingFlow';
+import GapPriorityCard from '../components/gaps/GapPriorityCard';
 import { useJourney } from '../context/JourneyContext';
 import { 
   Shield,
@@ -21,12 +22,21 @@ import {
   Sparkles,
   ClipboardCheck,
   Route,
-  PlayCircle
+  PlayCircle,
+  TrendingUp,
+  AlertCircle
 } from 'lucide-react';
 
 const Compliance = () => {
   const [showOnboarding, setShowOnboarding] = useState(false);
-  const { currentStepIndex, completedSteps } = useJourney();
+  const { 
+    currentStepIndex, 
+    completedSteps, 
+    identifiedGaps, 
+    gapProgress,
+    markGapStarted,
+    hasCompletedAssessment
+  } = useJourney();
   const roleJourneys = [
     {
       title: 'Privacy Leadership Journey',
@@ -132,10 +142,13 @@ const Compliance = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Your <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Compliance</span> Journey
+              Your <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Compliance</span> Pathway
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              Get a personalized compliance roadmap based on your organization's gaps and priorities
+              {hasCompletedAssessment 
+                ? 'Close your compliance gaps with prioritized actions and clear guidance'
+                : 'Discover your compliance gaps and get a prioritized action plan'
+              }
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -173,10 +186,75 @@ const Compliance = () => {
         </div>
       </section>
 
-      {/* Assessment-First Flow Section */}
-      <section className="py-16 bg-white dark:bg-dark-surface border-b border-border">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
+      {/* Gap-Based Priority Section - Only show after assessment */}
+      {hasCompletedAssessment && identifiedGaps.length > 0 && (
+        <section className="py-16 bg-white dark:bg-dark-surface border-b border-border">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
+                  <Target className="w-4 h-4" />
+                  Gap-Based Action Plan
+                </div>
+                <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+                  Your Priority Compliance Gaps
+                </h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  Based on your assessment, focus on these areas to reduce risk and achieve compliance
+                </p>
+              </div>
+
+              {/* Gap Progress Stats */}
+              {gapProgress && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                  <Card>
+                    <CardContent className="p-4 text-center">
+                      <div className="text-3xl font-bold text-foreground">{gapProgress.totalGaps}</div>
+                      <div className="text-sm text-muted-foreground">Total Gaps</div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-2 border-red-200 dark:border-red-800">
+                    <CardContent className="p-4 text-center">
+                      <div className="text-3xl font-bold text-red-600">{gapProgress.criticalGapsRemaining}</div>
+                      <div className="text-sm text-muted-foreground">Critical Remaining</div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-2 border-orange-200 dark:border-orange-800">
+                    <CardContent className="p-4 text-center">
+                      <div className="text-3xl font-bold text-orange-600">{gapProgress.inProgressGaps}</div>
+                      <div className="text-sm text-muted-foreground">In Progress</div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-2 border-green-200 dark:border-green-800">
+                    <CardContent className="p-4 text-center">
+                      <div className="text-3xl font-bold text-green-600">{gapProgress.completedGaps}</div>
+                      <div className="text-sm text-muted-foreground">Completed</div>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
+
+              {/* Display Gaps */}
+              <div className="space-y-6">
+                {identifiedGaps.map((gap) => (
+                  <GapPriorityCard
+                    key={gap.id}
+                    gap={gap}
+                    onStartGap={markGapStarted}
+                    showTools={true}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Assessment-First Flow Section - Show if no assessment yet */}
+      {!hasCompletedAssessment && (
+        <section className="py-16 bg-white dark:bg-dark-surface border-b border-border">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <span className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
                 <Sparkles className="w-4 h-4" />
