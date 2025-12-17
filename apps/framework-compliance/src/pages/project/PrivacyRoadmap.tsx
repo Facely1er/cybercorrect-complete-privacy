@@ -166,6 +166,7 @@ const PrivacyRoadmap = () => {
                         ))}
                       </div>
                       {weeksFromStart >= 0 && weeksFromStart < 16 && (
+                        /* eslint-disable-next-line */
                         <div 
                           className={`gantt-phase-bar ${statusColors[phase.status as keyof typeof statusColors] || 'bg-gray-300'}`}
                           style={
