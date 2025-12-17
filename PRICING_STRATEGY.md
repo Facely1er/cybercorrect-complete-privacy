@@ -8,14 +8,14 @@
 
 ## Overview
 
-This document outlines the comprehensive pricing strategy for the CyberCorrect Privacy Compliance Platform, including free tier, subscription tiers, and one-time purchase products. All pricing aligns with ERMITS LLC e-commerce policies and privacy-first architecture principles.
+This document outlines the comprehensive pricing strategy for the CyberCorrect Privacy Compliance Platform, including free trial, subscription tiers, and one-time purchase products. All pricing aligns with ERMITS LLC e-commerce policies and privacy-first architecture principles.
 
 ---
 
-## 1. Free Tier - "Start Your Privacy Journey"
+## 1. Free Trial - "Start Your Privacy Journey"
 
 ### **Positioning**
-Gateway to the platform for individuals, students, and small businesses to evaluate privacy compliance tools before upgrading.
+14-day free trial for individuals, students, and small businesses to evaluate privacy compliance tools before upgrading to a paid plan.
 
 ### **Features**
 ✅ **Assessments & Analysis:**
@@ -52,11 +52,18 @@ Gateway to the platform for individuals, students, and small businesses to evalu
 ❌ No custom templates
 ❌ No cloud sync (localStorage only)
 
+### **Trial Duration**
+- **14 days** of full access to free tier features
+- No payment method required to start
+- Automatic conversion reminder before trial expires
+- After trial expires, upgrade required to continue using the platform
+
 ### **Strategic Rationale**
-1. **Showcase Value:** Users can experience core privacy compliance features
-2. **Natural Upgrade Points:** Limitations create friction at growth moments (more assessments, team needs, automation)
-3. **Build Trust:** Hands-on experience demonstrates platform capabilities
-4. **Privacy-First:** LocalStorage-only reinforces data control message
+1. **Showcase Value:** Users can experience core privacy compliance features risk-free
+2. **Conversion Focus:** Time-limited access creates urgency to evaluate and upgrade
+3. **Natural Upgrade Points:** Limitations create friction at growth moments (more assessments, team needs, automation)
+4. **Build Trust:** Hands-on experience demonstrates platform capabilities
+5. **Privacy-First:** LocalStorage-only reinforces data control message
 
 ### **Upgrade Path**
 "Unlock unlimited assessments and automated compliance monitoring" → Starter ($49/month)
@@ -359,9 +366,9 @@ Includes all 5 one-time products above.
 
 ### **Positioning Statements**
 
-**Free Tier:** "Start Your Privacy Compliance Journey"
+**Free Trial:** "Start Your Privacy Compliance Journey"
 - **For:** Individuals learning about privacy compliance, students, personal projects
-- **Value Prop:** Evaluate before buying
+- **Value Prop:** 14-day free trial to evaluate before buying
 
 **One-Time Products:** "Privacy Tools You Own Forever"
 - **For:** Consultants and one-time projects
@@ -379,13 +386,13 @@ Includes all 5 one-time products above.
 
 | Segment | % of Users | Pricing | LTV per User |
 |---------|------------|---------|--------------|
-| Free Tier | 70% | $0 | $0 (lead generation) |
-| One-Time | 15% | $200 avg | $30 per free user |
+| Free Trial | 70% | $0 (14-day trial) | $0 (lead generation) |
+| One-Time | 15% | $200 avg | $30 per trial user |
 | Starter | 8% | $588/year | $588 ARR |
 | Professional | 5% | $948/year | $948 ARR |
 | Enterprise | 2% | $3,000/year | $3,000 ARR |
 
-### **From 1,000 Free Users:**
+### **From 1,000 Trial Users:**
 
 **One-Time Sales:**
 - 150 users × $200 average = **$30,000**
@@ -411,10 +418,11 @@ Includes all 5 one-time products above.
 - Subscription auto-renewal with cancellation rights
 - 30 days notice for price changes
 
-✅ **Free Trials and Freemium:**
-- Free tier limitations clearly stated
-- ERMITS may modify free offerings anytime
-- No payment method required for free tier
+✅ **Free Trials:**
+- Free trial limitations clearly stated
+- 14-day trial duration clearly communicated
+- ERMITS may modify trial offerings anytime
+- No payment method required to start trial
 
 ### **Privacy Policy Compliance**
 
@@ -484,8 +492,8 @@ Includes all 5 one-time products above.
 ### **Key Performance Indicators**
 
 **Conversion Metrics:**
-- Free → Paid conversion rate: Target 15%
-- One-time product conversion: Target 10% of free users
+- Trial → Paid conversion rate: Target 15%
+- One-time product conversion: Target 10% of trial users
 - Subscription upgrade rate (Starter → Pro): Target 20%
 
 **Revenue Metrics:**
@@ -495,7 +503,8 @@ Includes all 5 one-time products above.
 - Customer Lifetime Value (LTV)
 
 **Engagement Metrics:**
-- Free tier activation rate
+- Trial activation rate
+- Trial-to-paid conversion rate
 - Feature usage by tier
 - Churn rate by tier
 - Support tickets by tier
@@ -505,7 +514,7 @@ Includes all 5 one-time products above.
 ## Conclusion
 
 This pricing strategy balances:
-1. **Free Tier:** Meaningful value for user acquisition and trust building
+1. **Free Trial:** 14-day trial period for user acquisition and trust building with conversion focus
 2. **One-Time Products:** Ownership model for privacy-conscious users
 3. **Subscriptions:** Recurring revenue from ongoing compliance needs
 

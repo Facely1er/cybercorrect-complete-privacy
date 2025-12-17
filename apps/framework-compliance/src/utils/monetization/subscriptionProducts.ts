@@ -27,12 +27,12 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
   {
     id: 'subscription-free',
     tier: 'free',
-    name: 'Free',
-    tagline: 'Perfect for individuals and students learning about privacy compliance',
-    description: 'Perfect for individuals and students learning about privacy compliance',
+    name: 'Free Trial',
+    tagline: '14-day free trial - Perfect for individuals and students learning about privacy compliance',
+    description: '14-day free trial - Perfect for individuals and students learning about privacy compliance',
     monthlyPrice: 0,
     annualPrice: 0,
-    billing: 'forever',
+    billing: '14-day trial',
     category: 'subscription',
     features: [
       '1 privacy assessment per month',

@@ -165,8 +165,8 @@ const Pricing = () => {
                   </span>
                 )}
                 {plan.free && (
-                  <span className="inline-block bg-success/10 text-success px-2 py-1 rounded text-xs font-semibold mb-3">
-                    FREE FOREVER
+                  <span className="inline-block bg-primary/10 text-primary px-2 py-1 rounded text-xs font-semibold mb-3">
+                    14-DAY FREE TRIAL
                   </span>
                 )}
                 <div className="flex items-end gap-2">
@@ -197,7 +197,7 @@ const Pricing = () => {
                 size="lg"
                 onClick={async () => {
                   if (plan.free) {
-                    navigate('/login');
+                    navigate('/signup');
                     return;
                   }
 
@@ -232,7 +232,7 @@ const Pricing = () => {
                   }
                 }}
               >
-                {plan.free ? "Get Started Free" : (plan.price === "Contact us" ? "Contact Sales" : "Subscribe Now")}
+                {plan.free ? "Start Free Trial" : (plan.price === "Contact us" ? "Contact Sales" : "Subscribe Now")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </CardContent>
