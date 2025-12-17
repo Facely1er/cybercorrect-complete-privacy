@@ -1,17 +1,76 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { AlertTriangle, CheckCircle, Circle, Info, ArrowLeft, ArrowRight } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Circle, Info, ArrowLeft, ArrowRight, Save } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import AssessmentStartScreen, { SectionInfo } from '../../components/assessment/AssessmentStartScreen';
 import { RelatedContent } from '../../components/ui/InternalLinkingHelper';
 import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
+import { secureStorage } from '../../utils/storage/secureStorage';
+import { toast } from '../../components/ui/Toaster';
 
 const PrivacyAssessment = () => {
   const navigate = useNavigate();
   const [currentSection, setCurrentSection] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showStartScreen, setShowStartScreen] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
+
+  const STORAGE_KEY = 'privacy_assessment_progress';
+
+  // Load saved progress on component mount
+  useEffect(() => {
+    const savedData = secureStorage.getItem<{
+      answers: Record<string, string>;
+      currentSection: number;
+      lastSaved: string;
+      showStartScreen: boolean;
+    }>(STORAGE_KEY);
+
+    if (savedData) {
+      setAnswers(savedData.answers || {});
+      setCurrentSection(savedData.currentSection || 0);
+      setShowStartScreen(savedData.showStartScreen !== undefined ? savedData.showStartScreen : true);
+      setLastSaved(savedData.lastSaved ? new Date(savedData.lastSaved) : null);
+      
+      // Only show restoration message if they have actual progress (not just started)
+      const hasProgress = Object.keys(savedData.answers || {}).length > 0;
+      if (hasProgress) {
+        toast.success('Your progress has been restored', 'Continue where you left off', 3000);
+      }
+    }
+  }, []);
+
+  // Autosave progress whenever answers or section changes
+  useEffect(() => {
+    // Don't save on initial render or if no answers yet
+    if (Object.keys(answers).length === 0) return;
+
+    const saveProgress = () => {
+      setIsSaving(true);
+      
+      const progressData = {
+        answers,
+        currentSection,
+        showStartScreen,
+        lastSaved: new Date().toISOString()
+      };
+
+      const success = secureStorage.setItem(STORAGE_KEY, progressData);
+      
+      if (success) {
+        setLastSaved(new Date());
+      }
+      
+      setIsSaving(false);
+    };
+
+    // Debounce autosave by 1 second
+    const timeoutId = setTimeout(saveProgress, 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [answers, currentSection, showStartScreen]);
 
   const sections = [
     {
@@ -529,6 +588,23 @@ const PrivacyAssessment = () => {
     }
   ];
 
+  // Format the last saved time in a user-friendly way
+  const formatLastSaved = (date: Date): string => {
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    
+    if (diffMins < 1) return 'just now';
+    if (diffMins === 1) return '1 minute ago';
+    if (diffMins < 60) return `${diffMins} minutes ago`;
+    
+    const diffHours = Math.floor(diffMins / 60);
+    if (diffHours === 1) return '1 hour ago';
+    if (diffHours < 24) return `${diffHours} hours ago`;
+    
+    return date.toLocaleDateString();
+  };
+
   const handleAnswer = (questionId: string, answer: string) => {
     setAnswers(prev => ({
       ...prev,
@@ -646,6 +722,9 @@ const PrivacyAssessment = () => {
       answers // Include answers for potential future use
     };
 
+    // Clear saved progress since assessment is complete
+    secureStorage.removeItem(STORAGE_KEY);
+
     navigate('/privacy-results', { state: { assessmentResults: results } });
   };
 
@@ -678,8 +757,25 @@ const PrivacyAssessment = () => {
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Assessments
         </Link>
-        <h1 className="text-3xl font-bold mb-2 text-foreground">Privacy Framework Assessment</h1>
-        <p className="text-muted-foreground mb-6">Based on the NIST Privacy Framework v1.1 (draft) aligned with NIST CSF 2.0 - five core functions</p>
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-3xl font-bold mb-2 text-foreground">Privacy Framework Assessment</h1>
+            <p className="text-muted-foreground mb-6">Based on the NIST Privacy Framework v1.1 (draft) aligned with NIST CSF 2.0 - five core functions</p>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            {isSaving ? (
+              <>
+                <Save className="h-4 w-4 animate-pulse text-primary" />
+                <span>Saving...</span>
+              </>
+            ) : lastSaved ? (
+              <>
+                <CheckCircle className="h-4 w-4 text-success" />
+                <span>Saved {formatLastSaved(lastSaved)}</span>
+              </>
+            ) : null}
+          </div>
+        </div>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
