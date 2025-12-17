@@ -1,219 +1,218 @@
-import React, { useEffect, useRef } from 'react';
-import { AlertTriangle, AlertCircle, Info, X } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from './Card';
-import { Button } from './Button';
-import { cn } from '../../utils/common';
+/**
+ * Reusable Confirmation Dialog Component
+ * 
+ * Used for confirming destructive actions like journey resets, data deletion, etc.
+ */
 
-export interface ConfirmDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+import React, { useState, useEffect } from 'react';
+import { AlertTriangle, Info, X } from 'lucide-react';
+import { Button } from './Button';
+import { Card, CardContent, CardHeader, CardTitle } from './Card';
+
+export interface ConfirmDialogOptions {
   title: string;
-  description: string;
-  confirmLabel?: string;
-  cancelLabel?: string;
-  onConfirm: () => void | Promise<void>;
-  variant?: 'destructive' | 'warning' | 'default';
-  loading?: boolean;
-  children?: React.ReactNode;
+  message: string;
+  confirmText?: string;
+  cancelText?: string;
+  variant?: 'danger' | 'warning' | 'info';
+  details?: string[];
+  requireExplicitConfirm?: boolean;
+}
+
+interface ConfirmDialogProps extends ConfirmDialogOptions {
+  isOpen: boolean;
+  onConfirm: () => void;
+  onCancel: () => void;
 }
 
 export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
-  open,
-  onOpenChange,
+  isOpen,
   title,
-  description,
-  confirmLabel = 'Confirm',
-  cancelLabel = 'Cancel',
+  message,
+  confirmText = 'Confirm',
+  cancelText = 'Cancel',
+  variant = 'danger',
+  details,
+  requireExplicitConfirm = false,
   onConfirm,
-  variant = 'default',
-  loading = false,
-  children
+  onCancel,
 }) => {
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const confirmButtonRef = useRef<HTMLButtonElement>(null);
+  const [confirmationText, setConfirmationText] = useState('');
+  const [isConfirming, setIsConfirming] = useState(false);
 
-  // Handle Escape key
   useEffect(() => {
-    if (!open) return;
-
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !loading) {
-        onOpenChange(false);
-      }
-    };
-
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [open, loading, onOpenChange]);
-
-  // Focus trap and initial focus
-  useEffect(() => {
-    if (!open || !dialogRef.current) return;
-
-    const dialog = dialogRef.current;
-    const focusableElements = dialog.querySelectorAll<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    // Focus the confirm button on open
-    setTimeout(() => confirmButtonRef.current?.focus(), 0);
-
-    const handleTab = (e: KeyboardEvent) => {
-      if (e.key !== 'Tab') return;
-
-      if (e.shiftKey) {
-        if (document.activeElement === firstElement) {
-          e.preventDefault();
-          lastElement?.focus();
-        }
-      } else {
-        if (document.activeElement === lastElement) {
-          e.preventDefault();
-          firstElement?.focus();
-        }
-      }
-    };
-
-    dialog.addEventListener('keydown', handleTab);
-    return () => dialog.removeEventListener('keydown', handleTab);
-  }, [open]);
-
-  // Prevent body scroll when dialog is open
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+    if (!isOpen) {
+      setConfirmationText('');
+      setIsConfirming(false);
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [open]);
+  }, [isOpen]);
 
-  const handleConfirm = async () => {
-    if (loading) return;
-    await onConfirm();
-  };
+  if (!isOpen) return null;
 
-  const handleCancel = () => {
-    if (loading) return;
-    onOpenChange(false);
-  };
-
-  const getIcon = () => {
-    switch (variant) {
-      case 'destructive':
-        return <AlertTriangle className="h-6 w-6 text-destructive" />;
-      case 'warning':
-        return <AlertCircle className="h-6 w-6 text-warning" />;
-      default:
-        return <Info className="h-6 w-6 text-primary" />;
+  const handleConfirm = () => {
+    if (requireExplicitConfirm && confirmationText.toLowerCase() !== 'confirm') {
+      return;
     }
+    setIsConfirming(true);
+    onConfirm();
   };
 
-  const getButtonVariant = () => {
-    switch (variant) {
-      case 'destructive':
-        return 'destructive';
-      case 'warning':
-        return 'warning';
-      default:
-        return 'default';
-    }
+  const variantConfig = {
+    danger: {
+      icon: AlertTriangle,
+      iconColor: 'text-red-600',
+      iconBg: 'bg-red-100 dark:bg-red-900/30',
+      buttonClass: 'bg-red-600 hover:bg-red-700 text-white',
+      borderColor: 'border-red-200 dark:border-red-800',
+    },
+    warning: {
+      icon: AlertTriangle,
+      iconColor: 'text-orange-600',
+      iconBg: 'bg-orange-100 dark:bg-orange-900/30',
+      buttonClass: 'bg-orange-600 hover:bg-orange-700 text-white',
+      borderColor: 'border-orange-200 dark:border-orange-800',
+    },
+    info: {
+      icon: Info,
+      iconColor: 'text-blue-600',
+      iconBg: 'bg-blue-100 dark:bg-blue-900/30',
+      buttonClass: 'bg-blue-600 hover:bg-blue-700 text-white',
+      borderColor: 'border-blue-200 dark:border-blue-800',
+    },
   };
 
-  if (!open) return null;
+  const config = variantConfig[variant];
+  const Icon = config.icon;
+
+  const isConfirmDisabled = requireExplicitConfirm && confirmationText.toLowerCase() !== 'confirm';
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-in fade-in duration-200"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="confirm-dialog-title"
-      aria-describedby="confirm-dialog-description"
-    >
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        onClick={handleCancel}
-        aria-hidden="true"
-      />
-
-      {/* Dialog Content */}
-      <Card
-        ref={dialogRef}
-        className={cn(
-          "relative w-full max-w-md animate-in zoom-in-95 duration-200",
-          variant === 'destructive' && "border-destructive/50",
-          variant === 'warning' && "border-warning/50"
-        )}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <CardHeader>
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex items-start gap-3 flex-1">
-              {getIcon()}
-              <CardTitle id="confirm-dialog-title" className="text-lg">
-                {title}
-              </CardTitle>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+      <div className="mx-4 max-w-lg w-full animate-in fade-in zoom-in duration-200">
+        <Card className={`border-2 ${config.borderColor} shadow-xl`}>
+          <CardHeader className="pb-3">
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-3">
+                <div className={`p-2 rounded-lg ${config.iconBg}`}>
+                  <Icon className={`w-6 h-6 ${config.iconColor}`} />
+                </div>
+                <CardTitle className="text-xl">{title}</CardTitle>
+              </div>
+              <button
+                onClick={onCancel}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                disabled={isConfirming}
+                aria-label="Close dialog"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-6 w-6 rounded-full flex-shrink-0 hover:bg-muted"
-              onClick={handleCancel}
-              disabled={loading}
-              aria-label="Close dialog"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
-        </CardHeader>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-foreground">{message}</p>
 
-        <CardContent className="space-y-4">
-          <p
-            id="confirm-dialog-description"
-            className="text-sm text-muted-foreground leading-relaxed"
-          >
-            {description}
-          </p>
+            {details && details.length > 0 && (
+              <div className="space-y-2">
+                <p className="text-sm font-semibold text-foreground">This action will:</p>
+                <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                  {details.map((detail, index) => (
+                    <li key={index}>{detail}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-          {/* Optional children for custom content (e.g., rejection reason textarea) */}
-          {children && <div className="space-y-2">{children}</div>}
+            {requireExplicitConfirm && (
+              <div className="space-y-2 pt-2">
+                <p className="text-sm text-muted-foreground">
+                  Type <span className="font-mono font-bold text-foreground">CONFIRM</span> to proceed:
+                </p>
+                <input
+                  type="text"
+                  value={confirmationText}
+                  onChange={(e) => setConfirmationText(e.target.value)}
+                  className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Type CONFIRM"
+                  autoFocus
+                  disabled={isConfirming}
+                />
+              </div>
+            )}
 
-          {/* Action Buttons */}
-          <div className="flex justify-end gap-3 pt-2">
-            <Button
-              variant="outline"
-              onClick={handleCancel}
-              disabled={loading}
-              size="sm"
-            >
-              {cancelLabel}
-            </Button>
-            <Button
-              ref={confirmButtonRef}
-              variant={getButtonVariant()}
-              onClick={handleConfirm}
-              disabled={loading}
-              size="sm"
-            >
-              {loading ? (
-                <>
-                  <div className="h-4 w-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                  Loading...
-                </>
-              ) : (
-                confirmLabel
-              )}
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+            <div className="flex gap-3 pt-4">
+              <Button
+                onClick={onCancel}
+                variant="outline"
+                className="flex-1"
+                disabled={isConfirming}
+              >
+                {cancelText}
+              </Button>
+              <Button
+                onClick={handleConfirm}
+                className={`flex-1 ${config.buttonClass}`}
+                disabled={isConfirmDisabled || isConfirming}
+              >
+                {isConfirming ? 'Processing...' : confirmText}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
+
+/**
+ * Hook to manage confirmation dialog state
+ */
+export function useConfirmDialog() {
+  const [dialogState, setDialogState] = useState<{
+    isOpen: boolean;
+    options: ConfirmDialogOptions;
+    resolve: ((value: boolean) => void) | null;
+  }>({
+    isOpen: false,
+    options: {
+      title: '',
+      message: '',
+    },
+    resolve: null,
+  });
+
+  const showConfirm = (options: ConfirmDialogOptions): Promise<boolean> => {
+    return new Promise((resolve) => {
+      setDialogState({
+        isOpen: true,
+        options,
+        resolve,
+      });
+    });
+  };
+
+  const handleConfirm = () => {
+    dialogState.resolve?.(true);
+    setDialogState({ isOpen: false, options: { title: '', message: '' }, resolve: null });
+  };
+
+  const handleCancel = () => {
+    dialogState.resolve?.(false);
+    setDialogState({ isOpen: false, options: { title: '', message: '' }, resolve: null });
+  };
+
+  const ConfirmDialogComponent = () => (
+    <ConfirmDialog
+      isOpen={dialogState.isOpen}
+      {...dialogState.options}
+      onConfirm={handleConfirm}
+      onCancel={handleCancel}
+    />
+  );
+
+  return {
+    showConfirm,
+    ConfirmDialogComponent,
+  };
+}
 
 export default ConfirmDialog;

@@ -151,6 +151,7 @@ export const GAP_SEVERITY_CONFIG: Record<GapSeverity, {
 };
 
 // Tool mappings by domain
+// Maps NIST Privacy Framework domains to specific compliance tools
 export const DOMAIN_TOOL_MAPPINGS: Record<GapDomain, {
   toolId: string;
   toolName: string;
@@ -162,38 +163,66 @@ export const DOMAIN_TOOL_MAPPINGS: Record<GapDomain, {
     {
       toolId: 'privacy-gap-analyzer',
       toolName: 'Privacy Gap Analyzer',
-      toolPath: '/toolkit/privacy-gap-analyzer',
+      toolPath: '/tools-and-assessments/privacy-gap-analyzer',
       solvesGap: 'Identifies governance gaps and creates action plan',
       estimatedTime: '30 min'
     },
     {
       toolId: 'privacy-policy-generator',
       toolName: 'Privacy Policy Generator',
-      toolPath: '/toolkit/privacy-policy-generator',
+      toolPath: '/tools-and-assessments/privacy-policy-generator',
       solvesGap: 'Creates compliant privacy policies',
       estimatedTime: '15 min'
+    },
+    {
+      toolId: 'dpia-manager',
+      toolName: 'DPIA Manager',
+      toolPath: '/tools-and-assessments/dpia-manager',
+      solvesGap: 'Manages privacy impact assessments',
+      estimatedTime: '20 min'
     }
   ],
   identify: [
     {
       toolId: 'gdpr-mapper',
       toolName: 'GDPR Data Mapper',
-      toolPath: '/toolkit/gdpr-mapper',
+      toolPath: '/tools-and-assessments/gdpr-mapper',
       solvesGap: 'Creates Article 30 processing records',
       estimatedTime: '25 min'
     },
     {
       toolId: 'pii-data-flow-mapper',
       toolName: 'PII Data Flow Mapper',
-      toolPath: '/toolkit/pii-data-flow-mapper',
+      toolPath: '/tools-and-assessments/pii-data-flow-mapper',
       solvesGap: 'Maps data flows and transfers',
+      estimatedTime: '30 min'
+    },
+    {
+      toolId: 'data-flow-mapper',
+      toolName: 'Data Flow Mapper',
+      toolPath: '/tools-and-assessments/data-flow-mapper',
+      solvesGap: 'Documents data processing flows',
       estimatedTime: '30 min'
     },
     {
       toolId: 'vendor-risk-assessment',
       toolName: 'Vendor Risk Assessment',
-      toolPath: '/toolkit/vendor-risk-assessment',
+      toolPath: '/tools-and-assessments/vendor-risk-assessment',
       solvesGap: 'Assesses third-party privacy risks',
+      estimatedTime: '25 min'
+    },
+    {
+      toolId: 'service-provider-manager',
+      toolName: 'Service Provider Manager',
+      toolPath: '/tools-and-assessments/service-provider-manager',
+      solvesGap: 'Manages third-party service providers',
+      estimatedTime: '20 min'
+    },
+    {
+      toolId: 'data-classification-assessment',
+      toolName: 'Data Classification Assessment',
+      toolPath: '/tools-and-assessments/data-classification-assessment',
+      solvesGap: 'Classifies data by sensitivity',
       estimatedTime: '25 min'
     }
   ],
@@ -201,60 +230,74 @@ export const DOMAIN_TOOL_MAPPINGS: Record<GapDomain, {
     {
       toolId: 'consent-management',
       toolName: 'Consent Management',
-      toolPath: '/toolkit/consent-management',
+      toolPath: '/tools-and-assessments/consent-management',
       solvesGap: 'Tracks consent and preferences',
       estimatedTime: '20 min'
     },
     {
       toolId: 'privacy-rights-manager',
       toolName: 'Privacy Rights Manager',
-      toolPath: '/toolkit/privacy-rights-manager',
+      toolPath: '/tools-and-assessments/privacy-rights-manager',
       solvesGap: 'Manages DSAR requests',
       estimatedTime: '30 min'
     },
     {
       toolId: 'retention-policy-generator',
       toolName: 'Retention Policy Generator',
-      toolPath: '/toolkit/retention-policy-generator',
+      toolPath: '/tools-and-assessments/retention-policy-generator',
       solvesGap: 'Creates data retention schedules',
       estimatedTime: '20 min'
+    },
+    {
+      toolId: 'privacy-maintenance-scheduler',
+      toolName: 'Privacy Maintenance Scheduler',
+      toolPath: '/tools-and-assessments/privacy-maintenance-scheduler',
+      solvesGap: 'Schedules ongoing compliance activities',
+      estimatedTime: '15 min'
     }
   ],
   communicate: [
     {
       toolId: 'privacy-policy-generator',
       toolName: 'Privacy Notice Generator',
-      toolPath: '/toolkit/privacy-policy-generator',
+      toolPath: '/tools-and-assessments/privacy-policy-generator',
       solvesGap: 'Creates transparent privacy notices',
       estimatedTime: '15 min'
     },
     {
       toolId: 'dpia-generator',
       toolName: 'DPIA Generator',
-      toolPath: '/toolkit/dpia-generator',
+      toolPath: '/tools-and-assessments/dpia-generator',
       solvesGap: 'Documents impact assessments',
       estimatedTime: '20 min'
+    },
+    {
+      toolId: 'data-broker-removal-manager',
+      toolName: 'Data Broker Removal Manager',
+      toolPath: '/tools-and-assessments/data-broker-removal-manager',
+      solvesGap: 'Manages data broker opt-outs',
+      estimatedTime: '15 min'
     }
   ],
   protect: [
     {
       toolId: 'privacy-settings-audit',
       toolName: 'Privacy Settings Audit',
-      toolPath: '/toolkit/privacy-settings-audit',
+      toolPath: '/tools-and-assessments/privacy-settings-audit',
       solvesGap: 'Reviews system privacy configurations',
       estimatedTime: '30 min'
     },
     {
       toolId: 'privacy-by-design-assessment',
       toolName: 'Privacy by Design Assessment',
-      toolPath: '/toolkit/privacy-by-design-assessment',
+      toolPath: '/tools-and-assessments/privacy-by-design-assessment',
       solvesGap: 'Evaluates privacy in system design',
       estimatedTime: '30 min'
     },
     {
       toolId: 'incident-response-manager',
       toolName: 'Incident Response Manager',
-      toolPath: '/toolkit/incident-response-manager',
+      toolPath: '/tools-and-assessments/incident-response-manager',
       solvesGap: 'Manages breach response',
       estimatedTime: '25 min'
     }

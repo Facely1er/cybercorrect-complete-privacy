@@ -11,6 +11,22 @@ import {
   type GapDomain
 } from '../utils/gapJourneyConfig';
 import { toast } from '../components/ui/Toaster';
+import {
+  JOURNEY_THRESHOLDS,
+  JOURNEY_ADVANCEMENT,
+  JOURNEY_NOTIFICATIONS,
+  JOURNEY_VALIDATION,
+  JOURNEY_STORAGE_KEYS,
+  JOURNEY_VERSION,
+} from '../config/journeyThresholds';
+import {
+  validateJourneyState,
+  recoverJourneyState,
+  exportJourneyData,
+  importJourneyData,
+  getValidationSummary,
+  type JourneyState as ValidationJourneyState,
+} from '../utils/journeyValidation';
 
 // Type for assessment results input
 interface AssessmentResultsInput {
@@ -35,7 +51,7 @@ export interface JourneyContextType {
   hasVisitedBefore: boolean;
   completeStep: (stepKey: string) => void;
   setCurrentStep: (stepIndex: number) => void;
-  resetJourney: () => void;
+  resetJourney: (skipConfirmation?: boolean) => Promise<boolean>;
   getProgress: () => number;
   
   // Gap-based journey tracking
@@ -54,6 +70,13 @@ export interface JourneyContextType {
   markToolCompleted: (toolId: string) => void;
   isToolCompleted: (toolId: string) => boolean;
   getGapCompletionPercentage: (domain: GapDomain) => number;
+  
+  // Journey export/import
+  exportJourney: () => string;
+  importJourney: (jsonData: string) => Promise<boolean>;
+  
+  // Journey validation
+  validateCurrentState: () => void;
 }
 
 const JourneyContext = createContext<JourneyContextType | undefined>(undefined);
@@ -62,17 +85,7 @@ interface JourneyProviderProps {
   children: ReactNode;
 }
 
-const STORAGE_KEYS = {
-  CURRENT_STEP: 'cybercorrect_journey_step',
-  COMPLETED_STEPS: 'cybercorrect_completed_steps',
-  VISITED: 'cybercorrect_visited',
-  ASSESSMENT_COMPLETED: 'cybercorrect_assessment_completed',
-  IDENTIFIED_GAPS: 'cybercorrect_identified_gaps',
-  COMPLETED_GAPS: 'cybercorrect_completed_gaps',
-  ASSESSMENT_RESULTS: 'cybercorrect_assessment_results',
-  COMPLETED_TOOLS: 'cybercorrect_completed_tools',
-  TOOL_USAGE_HISTORY: 'cybercorrect_tool_usage_history'
-};
+const STORAGE_KEYS = JOURNEY_STORAGE_KEYS;
 
 export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -89,7 +102,7 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
   const [completedToolIds, setCompletedToolIds] = useState<string[]>([]);
   const [toolUsageHistory, setToolUsageHistory] = useState<ToolUsage[]>([]);
 
-  // Load journey state from localStorage on mount
+  // Load journey state from localStorage on mount with validation
   useEffect(() => {
     try {
       const visited = localStorage.getItem(STORAGE_KEYS.VISITED);
@@ -105,36 +118,78 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
         setHasVisitedBefore(true);
       }
 
-      if (savedStep) {
-        setCurrentStepIndex(parseInt(savedStep, 10));
+      const stepIndex = savedStep ? parseInt(savedStep, 10) : 0;
+      const completed = savedCompleted ? JSON.parse(savedCompleted) : [];
+      const gaps = savedGaps ? JSON.parse(savedGaps) : [];
+      const completedGaps = savedCompletedGaps ? JSON.parse(savedCompletedGaps) : [];
+      const completedTools = savedCompletedTools ? JSON.parse(savedCompletedTools) : [];
+      const toolHistory = savedToolUsageHistory ? JSON.parse(savedToolUsageHistory) : [];
+
+      // Validate journey state if enabled
+      if (JOURNEY_VALIDATION.VALIDATE_ON_MOUNT && gaps.length > 0) {
+        const state: ValidationJourneyState = {
+          currentStepIndex: stepIndex,
+          completedSteps: completed,
+          identifiedGaps: gaps,
+          completedGapIds: completedGaps,
+          completedToolIds: completedTools,
+          hasCompletedAssessment: assessmentCompleted === 'true',
+          version: localStorage.getItem(STORAGE_KEYS.VERSION) || undefined,
+          startedAt: localStorage.getItem(STORAGE_KEYS.JOURNEY_STARTED_AT) || undefined,
+          lastUpdatedAt: localStorage.getItem(STORAGE_KEYS.LAST_UPDATED_AT) || undefined,
+        };
+
+        const validation = validateJourneyState(state);
+
+        if (!validation.valid) {
+          console.warn('Journey validation issues found:', getValidationSummary(validation));
+          
+          if (JOURNEY_VALIDATION.AUTO_RECOVER_ERRORS && validation.canRecover) {
+            const recovered = recoverJourneyState(state);
+            console.warn('Auto-recovered journey state');
+            
+            setCurrentStepIndex(recovered.currentStepIndex);
+            setCompletedSteps(recovered.completedSteps);
+            setIdentifiedGaps(recovered.identifiedGaps);
+            setCompletedGapIds(recovered.completedGapIds);
+            setCompletedToolIds(recovered.completedToolIds);
+            setHasCompletedAssessment(recovered.hasCompletedAssessment);
+            setToolUsageHistory(toolHistory);
+            
+            toast.info(
+              'Journey Recovered',
+              'We detected and fixed some inconsistencies in your journey data.',
+              JOURNEY_NOTIFICATIONS.SUCCESS_DURATION
+            );
+            return;
+          } else if (!validation.canRecover) {
+            toast.error(
+              'Journey Data Error',
+              'Critical errors found in journey data. Please restart your journey.',
+              JOURNEY_NOTIFICATIONS.ERROR_DURATION
+            );
+          }
+        }
       }
 
-      if (savedCompleted) {
-        setCompletedSteps(JSON.parse(savedCompleted));
-      }
+      // Load state normally if validation passed or disabled
+      setCurrentStepIndex(stepIndex);
+      setCompletedSteps(completed);
+      setIdentifiedGaps(gaps);
+      setCompletedGapIds(completedGaps);
+      setCompletedToolIds(completedTools);
+      setToolUsageHistory(toolHistory);
 
       if (assessmentCompleted) {
         setHasCompletedAssessment(true);
       }
-
-      if (savedGaps) {
-        const gaps = JSON.parse(savedGaps);
-        setIdentifiedGaps(gaps);
-      }
-
-      if (savedCompletedGaps) {
-        setCompletedGapIds(JSON.parse(savedCompletedGaps));
-      }
-
-      if (savedCompletedTools) {
-        setCompletedToolIds(JSON.parse(savedCompletedTools));
-      }
-
-      if (savedToolUsageHistory) {
-        setToolUsageHistory(JSON.parse(savedToolUsageHistory));
-      }
     } catch (error) {
       console.error('Error loading journey state:', error);
+      toast.error(
+        'Failed to Load Journey',
+        'Could not load your journey progress. Starting fresh.',
+        JOURNEY_NOTIFICATIONS.ERROR_DURATION
+      );
     }
   }, []);
 
@@ -147,6 +202,13 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       localStorage.setItem(STORAGE_KEYS.COMPLETED_GAPS, JSON.stringify(completedGapIds));
       localStorage.setItem(STORAGE_KEYS.COMPLETED_TOOLS, JSON.stringify(completedToolIds));
       localStorage.setItem(STORAGE_KEYS.TOOL_USAGE_HISTORY, JSON.stringify(toolUsageHistory));
+      localStorage.setItem(STORAGE_KEYS.VERSION, JOURNEY_VERSION);
+      localStorage.setItem(STORAGE_KEYS.LAST_UPDATED_AT, new Date().toISOString());
+      
+      // Set journey start time if not already set
+      if (!localStorage.getItem(STORAGE_KEYS.JOURNEY_STARTED_AT)) {
+        localStorage.setItem(STORAGE_KEYS.JOURNEY_STARTED_AT, new Date().toISOString());
+      }
       
       if (hasVisitedBefore) {
         localStorage.setItem(STORAGE_KEYS.VISITED, 'true');
@@ -157,6 +219,11 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       }
     } catch (error) {
       console.error('Error saving journey state:', error);
+      toast.error(
+        'Save Failed',
+        'Failed to save your journey progress. Your changes may not be persisted.',
+        JOURNEY_NOTIFICATIONS.ERROR_DURATION
+      );
     }
   }, [currentStepIndex, completedSteps, hasVisitedBefore, hasCompletedAssessment, identifiedGaps, completedGapIds, completedToolIds, toolUsageHistory]);
 
@@ -192,27 +259,62 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     }
   };
 
-  const resetJourney = () => {
-    setCurrentStepIndex(0);
-    setCompletedSteps([]);
-    setHasCompletedAssessment(false);
-    setIdentifiedGaps([]);
-    setCompletedGapIds([]);
-    setGapProgress(null);
-    setCompletedToolIds([]);
-    setToolUsageHistory([]);
-    
+  const resetJourney = async (skipConfirmation = false): Promise<boolean> => {
+    // Show confirmation dialog unless skipped
+    if (!skipConfirmation) {
+      const confirmed = await new Promise<boolean>((resolve) => {
+        const message = 'Are you sure you want to reset your journey? This will delete all progress, including:';
+        const details = [
+          `${completedSteps.length} completed steps`,
+          `${completedGapIds.length} closed gaps`,
+          `${completedToolIds.length} completed tools`,
+          'All assessment results',
+          'All journey history',
+        ];
+        
+        // Use native confirm for now - can be replaced with custom dialog
+        const result = window.confirm(
+          `${message}\n\n${details.map(d => `• ${d}`).join('\n')}\n\nThis action cannot be undone.`
+        );
+        resolve(result);
+      });
+
+      if (!confirmed) {
+        return false;
+      }
+    }
+
     try {
-      localStorage.removeItem(STORAGE_KEYS.CURRENT_STEP);
-      localStorage.removeItem(STORAGE_KEYS.COMPLETED_STEPS);
-      localStorage.removeItem(STORAGE_KEYS.ASSESSMENT_COMPLETED);
-      localStorage.removeItem(STORAGE_KEYS.IDENTIFIED_GAPS);
-      localStorage.removeItem(STORAGE_KEYS.COMPLETED_GAPS);
-      localStorage.removeItem(STORAGE_KEYS.ASSESSMENT_RESULTS);
-      localStorage.removeItem(STORAGE_KEYS.COMPLETED_TOOLS);
-      localStorage.removeItem(STORAGE_KEYS.TOOL_USAGE_HISTORY);
+      // Reset all state
+      setCurrentStepIndex(0);
+      setCompletedSteps([]);
+      setHasCompletedAssessment(false);
+      setIdentifiedGaps([]);
+      setCompletedGapIds([]);
+      setGapProgress(null);
+      setCompletedToolIds([]);
+      setToolUsageHistory([]);
+      
+      // Clear localStorage
+      Object.values(STORAGE_KEYS).forEach(key => {
+        localStorage.removeItem(key);
+      });
+      
+      toast.success(
+        'Journey Reset',
+        'Your journey has been reset. You can start fresh!',
+        JOURNEY_NOTIFICATIONS.SUCCESS_DURATION
+      );
+      
+      return true;
     } catch (error) {
       console.error('Error resetting journey state:', error);
+      toast.error(
+        'Reset Failed',
+        'Failed to reset journey. Please try again or contact support.',
+        JOURNEY_NOTIFICATIONS.ERROR_DURATION
+      );
+      return false;
     }
   };
 
@@ -222,21 +324,27 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
 
   // Journey completion logic - check if all steps are satisfied
   useEffect(() => {
+    const gapCompletionRate = identifiedGaps.length > 0 
+      ? completedGapIds.length / identifiedGaps.length 
+      : 0;
+    
     const allStepsCompleted =
       hasCompletedAssessment &&
       identifiedGaps.length > 0 &&
-      completedGapIds.length / identifiedGaps.length >= 0.7 &&
-      completedToolIds.length >= 5;
+      gapCompletionRate >= (JOURNEY_THRESHOLDS.GAP_COMPLETION_PERCENTAGE / 100) &&
+      completedToolIds.length >= JOURNEY_THRESHOLDS.MINIMUM_TOOLS_COMPLETED;
 
-    if (allStepsCompleted && !completedSteps.includes('maintain')) {
+    if (allStepsCompleted && !completedSteps.includes('maintain') && JOURNEY_ADVANCEMENT.AUTO_ADVANCE_ENABLED) {
       completeStep('maintain');
       
-      // Show celebration notification
-      toast.success(
-        '🎉 Journey Complete!', 
-        `Congratulations! You've closed ${completedGapIds.length} gaps using ${completedToolIds.length} tools. Your organization is now in maintenance mode.`,
-        7000
-      );
+      // Show celebration notification if enabled
+      if (JOURNEY_ADVANCEMENT.SHOW_MILESTONE_NOTIFICATIONS) {
+        toast.success(
+          '🎉 Journey Complete!', 
+          `Congratulations! You've closed ${completedGapIds.length} gaps using ${completedToolIds.length} tools. Your organization is now in maintenance mode.`,
+          JOURNEY_NOTIFICATIONS.MILESTONE_DURATION
+        );
+      }
     }
   }, [hasCompletedAssessment, identifiedGaps.length, completedGapIds.length, completedToolIds.length, completedSteps, completeStep]);
 
@@ -362,16 +470,19 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
         : 0;
 
       // If all tools for this gap are completed, mark gap as complete
-      if (completionPercentage === 100 && gap.status !== 'completed') {
+      if (completionPercentage >= JOURNEY_THRESHOLDS.GAP_COMPLETION_TOOL_THRESHOLD && gap.status !== 'completed') {
         markGapCompleted(gap.id);
         
-        // Show success notification
-        toast.success(
-          '✨ Gap Closed!', 
-          `Great work! You've completed all recommended actions for ${gap.domainTitle}.`
-        );
-      } else if (completionPercentage >= 50 && gap.status === 'not_started') {
-        // Mark gap as in progress if at least half the tools are complete
+        // Show success notification if enabled
+        if (JOURNEY_ADVANCEMENT.SHOW_GAP_CLOSURE_NOTIFICATIONS) {
+          toast.success(
+            '✨ Gap Closed!', 
+            `Great work! You've completed all recommended actions for ${gap.domainTitle}.`,
+            JOURNEY_NOTIFICATIONS.GAP_CLOSURE_DURATION
+          );
+        }
+      } else if (completionPercentage >= JOURNEY_THRESHOLDS.TOOL_PROGRESS_THRESHOLD && gap.status === 'not_started') {
+        // Mark gap as in progress if threshold of tools are complete
         markGapStarted(gap.id);
       }
     });
@@ -401,18 +512,21 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     const currentCompletedCount = completedGapIds.length + 
       relatedGaps.filter(g => g.recommendedTools?.every(t => newCompletedToolIds.includes(t))).length;
     
-    if (totalGaps > 0) {
+    if (totalGaps > 0 && JOURNEY_ADVANCEMENT.AUTO_ADVANCE_ENABLED) {
       const overallGapProgress = (currentCompletedCount / totalGaps) * 100;
 
-      // Auto-advance to step 4 (Maintain) when 70% of gaps are closed
-      if (overallGapProgress >= 70 && !completedSteps.includes('act')) {
+      // Auto-advance to step 4 (Maintain) when threshold of gaps are closed
+      if (overallGapProgress >= JOURNEY_THRESHOLDS.GAP_COMPLETION_PERCENTAGE && !completedSteps.includes('act')) {
         completeStep('act');
         
-        // Show journey progress notification
-        toast.info(
-          '🚀 Journey Progress', 
-          `Excellent work! Moving to Maintain phase. You've completed ${currentCompletedCount} of ${totalGaps} gaps (${overallGapProgress.toFixed(1)}%).`
-        );
+        // Show journey progress notification if enabled
+        if (JOURNEY_ADVANCEMENT.SHOW_MILESTONE_NOTIFICATIONS) {
+          toast.info(
+            '🚀 Journey Progress', 
+            `Excellent work! Moving to Maintain phase. You've completed ${currentCompletedCount} of ${totalGaps} gaps (${overallGapProgress.toFixed(1)}%).`,
+            JOURNEY_NOTIFICATIONS.SUCCESS_DURATION
+          );
+        }
       }
     }
   };
@@ -423,6 +537,109 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
 
   const getGapCompletionPercentage = (domain: GapDomain): number => {
     return calculateGapCompletionFromTools(domain, completedToolIds);
+  };
+
+  // Export journey data
+  const exportJourney = (): string => {
+    const state: ValidationJourneyState = {
+      currentStepIndex,
+      completedSteps,
+      identifiedGaps,
+      completedGapIds,
+      completedToolIds,
+      hasCompletedAssessment,
+      version: JOURNEY_VERSION,
+      startedAt: localStorage.getItem(STORAGE_KEYS.JOURNEY_STARTED_AT) || undefined,
+      lastUpdatedAt: new Date().toISOString(),
+    };
+    return exportJourneyData(state);
+  };
+
+  // Import journey data
+  const importJourney = async (jsonData: string): Promise<boolean> => {
+    try {
+      const result = importJourneyData(jsonData);
+      
+      if (result.error || !result.state) {
+        toast.error(
+          'Import Failed',
+          result.error || 'Invalid journey data format.',
+          JOURNEY_NOTIFICATIONS.ERROR_DURATION
+        );
+        return false;
+      }
+
+      if (result.validation && !result.validation.valid) {
+        const warnings = result.validation.warnings.length;
+        toast.warning(
+          'Import with Warnings',
+          `Journey imported with ${warnings} warning(s). Some data may have been corrected.`,
+          JOURNEY_NOTIFICATIONS.SUCCESS_DURATION
+        );
+      }
+
+      // Apply imported state
+      setCurrentStepIndex(result.state.currentStepIndex);
+      setCompletedSteps(result.state.completedSteps);
+      setIdentifiedGaps(result.state.identifiedGaps);
+      setCompletedGapIds(result.state.completedGapIds);
+      setCompletedToolIds(result.state.completedToolIds);
+      setHasCompletedAssessment(result.state.hasCompletedAssessment);
+
+      toast.success(
+        'Import Successful',
+        'Your journey data has been restored.',
+        JOURNEY_NOTIFICATIONS.SUCCESS_DURATION
+      );
+
+      return true;
+    } catch (error) {
+      console.error('Error importing journey:', error);
+      toast.error(
+        'Import Failed',
+        'An error occurred while importing journey data.',
+        JOURNEY_NOTIFICATIONS.ERROR_DURATION
+      );
+      return false;
+    }
+  };
+
+  // Validate current journey state
+  const validateCurrentState = () => {
+    const state: ValidationJourneyState = {
+      currentStepIndex,
+      completedSteps,
+      identifiedGaps,
+      completedGapIds,
+      completedToolIds,
+      hasCompletedAssessment,
+      version: localStorage.getItem(STORAGE_KEYS.VERSION) || undefined,
+      startedAt: localStorage.getItem(STORAGE_KEYS.JOURNEY_STARTED_AT) || undefined,
+      lastUpdatedAt: localStorage.getItem(STORAGE_KEYS.LAST_UPDATED_AT) || undefined,
+    };
+
+    const validation = validateJourneyState(state);
+    
+    if (!validation.valid) {
+      console.warn('Journey validation:', validation);
+      
+      if (JOURNEY_VALIDATION.SHOW_DETAILED_ERRORS) {
+        const summary = getValidationSummary(validation);
+        toast.warning('Journey Validation', summary, JOURNEY_NOTIFICATIONS.SUCCESS_DURATION);
+      }
+      
+      if (validation.canRecover && JOURNEY_VALIDATION.AUTO_RECOVER_ERRORS) {
+        const recovered = recoverJourneyState(state);
+        setCurrentStepIndex(recovered.currentStepIndex);
+        setCompletedSteps(recovered.completedSteps);
+        setIdentifiedGaps(recovered.identifiedGaps);
+        setCompletedGapIds(recovered.completedGapIds);
+        setCompletedToolIds(recovered.completedToolIds);
+        setHasCompletedAssessment(recovered.hasCompletedAssessment);
+      }
+    } else if (JOURNEY_VALIDATION.SHOW_DETAILED_ERRORS) {
+      toast.success('Validation Passed', 'Journey state is valid.', JOURNEY_NOTIFICATIONS.SUCCESS_DURATION);
+    }
   };
 
   const value: JourneyContextType = {
@@ -447,7 +664,12 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     markToolStarted,
     markToolCompleted,
     isToolCompleted,
-    getGapCompletionPercentage
+    getGapCompletionPercentage,
+    // Journey export/import
+    exportJourney,
+    importJourney,
+    // Journey validation
+    validateCurrentState
   };
 
   return (
