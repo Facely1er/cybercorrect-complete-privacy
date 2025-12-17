@@ -1,5 +1,4 @@
-import type { CSSProperties } from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, CSSProperties } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -9,6 +8,7 @@ import { complianceHealthMonitor } from '../../utils/compliance';
 import { notificationService, Notification } from '../../utils/compliance';
 import { logError } from '../../utils/common';
 import { usePageTitle } from '../../hooks/usePageTitle';
+import './PrivacyProjectDashboard.css';
 import { 
   Eye, 
   Users, 
