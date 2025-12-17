@@ -7,7 +7,6 @@ import {
   CheckCircle, 
   Clock, 
   AlertTriangle,
-  ArrowLeft,
   Edit,
   Download,
   ChevronRight,
