@@ -48,6 +48,11 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   const [hasVisitedBefore, setHasVisitedBefore] = useState(false);
   const [hasCompletedAssessment, setHasCompletedAssessment] = useState(false);
+  
+  // Gap-based journey state
+  const [identifiedGaps, setIdentifiedGaps] = useState<IdentifiedGap[]>([]);
+  const [completedGapIds, setCompletedGapIds] = useState<string[]>([]);
+  const [gapProgress, setGapProgress] = useState<GapJourneyProgress | null>(null);
 
   // Load journey state from localStorage on mount
   useEffect(() => {
@@ -56,6 +61,8 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       const savedStep = localStorage.getItem(STORAGE_KEYS.CURRENT_STEP);
       const savedCompleted = localStorage.getItem(STORAGE_KEYS.COMPLETED_STEPS);
       const assessmentCompleted = localStorage.getItem(STORAGE_KEYS.ASSESSMENT_COMPLETED);
+      const savedGaps = localStorage.getItem(STORAGE_KEYS.IDENTIFIED_GAPS);
+      const savedCompletedGaps = localStorage.getItem(STORAGE_KEYS.COMPLETED_GAPS);
 
       if (visited) {
         setHasVisitedBefore(true);
@@ -72,6 +79,15 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       if (assessmentCompleted) {
         setHasCompletedAssessment(true);
       }
+
+      if (savedGaps) {
+        const gaps = JSON.parse(savedGaps);
+        setIdentifiedGaps(gaps);
+      }
+
+      if (savedCompletedGaps) {
+        setCompletedGapIds(JSON.parse(savedCompletedGaps));
+      }
     } catch (error) {
       console.error('Error loading journey state:', error);
     }
@@ -82,6 +98,8 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     try {
       localStorage.setItem(STORAGE_KEYS.CURRENT_STEP, currentStepIndex.toString());
       localStorage.setItem(STORAGE_KEYS.COMPLETED_STEPS, JSON.stringify(completedSteps));
+      localStorage.setItem(STORAGE_KEYS.IDENTIFIED_GAPS, JSON.stringify(identifiedGaps));
+      localStorage.setItem(STORAGE_KEYS.COMPLETED_GAPS, JSON.stringify(completedGapIds));
       
       if (hasVisitedBefore) {
         localStorage.setItem(STORAGE_KEYS.VISITED, 'true');
@@ -93,7 +111,15 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     } catch (error) {
       console.error('Error saving journey state:', error);
     }
-  }, [currentStepIndex, completedSteps, hasVisitedBefore, hasCompletedAssessment]);
+  }, [currentStepIndex, completedSteps, hasVisitedBefore, hasCompletedAssessment, identifiedGaps, completedGapIds]);
+
+  // Calculate gap progress whenever gaps or completed gaps change
+  useEffect(() => {
+    if (identifiedGaps.length > 0) {
+      const progress = calculateGapJourneyProgress(identifiedGaps, completedGapIds);
+      setGapProgress(progress);
+    }
+  }, [identifiedGaps, completedGapIds]);
 
   const completeStep = (stepKey: string) => {
     if (!completedSteps.includes(stepKey)) {
@@ -123,11 +149,17 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     setCurrentStepIndex(0);
     setCompletedSteps([]);
     setHasCompletedAssessment(false);
+    setIdentifiedGaps([]);
+    setCompletedGapIds([]);
+    setGapProgress(null);
     
     try {
       localStorage.removeItem(STORAGE_KEYS.CURRENT_STEP);
       localStorage.removeItem(STORAGE_KEYS.COMPLETED_STEPS);
       localStorage.removeItem(STORAGE_KEYS.ASSESSMENT_COMPLETED);
+      localStorage.removeItem(STORAGE_KEYS.IDENTIFIED_GAPS);
+      localStorage.removeItem(STORAGE_KEYS.COMPLETED_GAPS);
+      localStorage.removeItem(STORAGE_KEYS.ASSESSMENT_RESULTS);
     } catch (error) {
       console.error('Error resetting journey state:', error);
     }
@@ -135,6 +167,52 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
 
   const getProgress = (): number => {
     return Math.round((completedSteps.length / JOURNEY_STEPS.length) * 100);
+  };
+
+  // Gap-based journey functions
+  const setAssessmentResults = (results: any) => {
+    try {
+      // Generate gaps from assessment
+      const gaps = generateGapsFromAssessment(results);
+      setIdentifiedGaps(gaps);
+      
+      // Save assessment results
+      localStorage.setItem(STORAGE_KEYS.ASSESSMENT_RESULTS, JSON.stringify(results));
+      
+      // Auto-advance to step 2 (Discover)
+      if (currentStepIndex === 0) {
+        setCurrentStep(1);
+        completeStep('assess');
+      }
+    } catch (error) {
+      console.error('Error setting assessment results:', error);
+    }
+  };
+
+  const markGapStarted = (gapId: string) => {
+    setIdentifiedGaps(prev => 
+      prev.map(gap => 
+        gap.id === gapId ? { ...gap, status: 'in_progress' as const } : gap
+      )
+    );
+  };
+
+  const markGapCompleted = (gapId: string) => {
+    setIdentifiedGaps(prev => 
+      prev.map(gap => 
+        gap.id === gapId ? { ...gap, status: 'completed' as const } : gap
+      )
+    );
+    
+    if (!completedGapIds.includes(gapId)) {
+      setCompletedGapIds(prev => [...prev, gapId]);
+    }
+  };
+
+  const getNextPriorityGap = (): IdentifiedGap | null => {
+    return identifiedGaps
+      .filter(gap => gap.status !== 'completed')
+      .sort((a, b) => a.priority - b.priority)[0] || null;
   };
 
   const value: JourneyContextType = {
@@ -145,7 +223,14 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     completeStep,
     setCurrentStep,
     resetJourney,
-    getProgress
+    getProgress,
+    identifiedGaps,
+    completedGapIds,
+    gapProgress,
+    setAssessmentResults,
+    markGapStarted,
+    markGapCompleted,
+    getNextPriorityGap
   };
 
   return (

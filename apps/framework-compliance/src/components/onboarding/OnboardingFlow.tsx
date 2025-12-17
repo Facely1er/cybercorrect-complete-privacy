@@ -50,32 +50,32 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
     },
     {
       id: 2,
-      title: 'Get Your Personalized Journey',
-      description: 'Receive a customized roadmap based on your specific compliance gaps',
+      title: 'Discover Your Priority Gaps',
+      description: 'See which compliance areas need attention first, ranked by severity and impact',
       icon: Target,
-      action: 'View Your Journey',
+      action: 'View Gap Analysis',
       path: '/compliance',
       duration: 'Instant',
       color: 'from-purple-500 to-pink-500',
       benefits: [
-        'Prioritized action items',
-        'Role-specific guidance',
-        'Phase-based workflows'
+        'Gaps ranked by severity',
+        'Clear action priorities',
+        'Risk impact analysis'
       ]
     },
     {
       id: 3,
-      title: 'Use Compliance Tools',
-      description: 'Access curated tools to address your compliance gaps efficiently',
+      title: 'Close Your Gaps',
+      description: 'Use recommended tools to address each gap, starting with the most critical',
       icon: Wrench,
-      action: 'Explore Toolkit',
+      action: 'Start Closing Gaps',
       path: '/toolkit',
       duration: 'Ongoing',
       color: 'from-green-500 to-emerald-500',
       benefits: [
-        '20+ specialized tools',
-        'Automated documentation',
-        'Export-ready reports'
+        'Tools matched to your gaps',
+        'Step-by-step guidance',
+        'Track gap closure progress'
       ]
     },
     {

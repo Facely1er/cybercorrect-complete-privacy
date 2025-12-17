@@ -1,16 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { AssessmentResults } from '../../components/assessment/AssessmentResults';
 import { generateResultsPdf } from '../../utils/pdf';
-import { Loader2, AlertTriangle } from 'lucide-react';
+import { Loader2, AlertTriangle, ArrowRight, Target } from 'lucide-react';
 import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
 import RecommendedTools from '../../components/assessment/RecommendedTools';
 import RecommendedJourney from '../../components/assessment/RecommendedJourney';
+import GapPriorityCard from '../../components/gaps/GapPriorityCard';
+import { Card, CardContent } from '../../components/ui/Card';
+import { Button } from '../../components/ui/Button';
+import { useJourney } from '../../context/JourneyContext';
+import { generateGapsFromAssessment } from '../../utils/gapJourneyConfig';
 
 const PrivacyResults = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isNavigating, setIsNavigating] = useState(false);
+  const { setAssessmentResults, identifiedGaps, markGapStarted } = useJourney();
   
   // Get assessment results from location state, or use mock data as fallback
   const assessmentResults = location.state?.assessmentResults || {
@@ -41,6 +47,13 @@ const PrivacyResults = () => {
     );
   };
 
+  // Generate and save gaps when assessment results are loaded
+  useEffect(() => {
+    if (assessmentResults && assessmentResults.sectionScores) {
+      setAssessmentResults(assessmentResults);
+    }
+  }, [assessmentResults, setAssessmentResults]);
+
   const handleViewGapAnalysis = () => {
     setIsNavigating(true);
     navigate('/toolkit/privacy-gap-analyzer', {
@@ -50,6 +63,16 @@ const PrivacyResults = () => {
         fromAssessment: true
       }
     });
+  };
+
+  const handleStartGap = (gapId: string) => {
+    markGapStarted(gapId);
+    // Navigate to compliance page where gaps are displayed
+    navigate('/compliance');
+  };
+
+  const handleViewCompliance = () => {
+    navigate('/compliance');
   };
   return (
     <div className="container mx-auto px-4 py-8">
