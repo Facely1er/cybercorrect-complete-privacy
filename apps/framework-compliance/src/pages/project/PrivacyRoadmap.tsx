@@ -153,6 +153,18 @@ const PrivacyRoadmap = () => {
                   pending: 'bg-gray-300'
                 };
                 
+                // Calculate positioning values
+                const leftPercent = `${(weeksFromStart / 16) * 100}%`;
+                const widthPercent = `${Math.min((duration / 16) * 100, (16 - weeksFromStart) / 16 * 100)}%`;
+                
+                // Ref callback to apply styles without using style attribute in JSX
+                const setBarRef = (node: HTMLDivElement | null) => {
+                  if (node) {
+                    node.style.setProperty('--bar-left', leftPercent);
+                    node.style.setProperty('--bar-width', widthPercent);
+                  }
+                };
+                
                 return (
                   <div key={phase.id} className="flex items-center mb-3 hover:bg-gray-50 dark:hover:bg-gray-800 p-2 rounded">
                     <div className="w-48 flex-shrink-0">
@@ -166,15 +178,9 @@ const PrivacyRoadmap = () => {
                         ))}
                       </div>
                       {weeksFromStart >= 0 && weeksFromStart < 16 && (
-                        /* eslint-disable-next-line */
                         <div 
+                          ref={setBarRef}
                           className={`gantt-phase-bar ${statusColors[phase.status as keyof typeof statusColors] || 'bg-gray-300'}`}
-                          style={
-                            {
-                              ['--bar-left' as string]: `${(weeksFromStart / 16) * 100}%`,
-                              ['--bar-width' as string]: `${Math.min((duration / 16) * 100, (16 - weeksFromStart) / 16 * 100)}%`
-                            } as React.CSSProperties
-                          }
                           onClick={() => handleViewDetails(phase)}
                           title={`${phase.name} - ${phase.duration}`}
                         >
