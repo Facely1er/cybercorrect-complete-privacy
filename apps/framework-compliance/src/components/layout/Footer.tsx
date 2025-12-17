@@ -10,7 +10,15 @@ import {
   HelpCircle,
   FileQuestion,
   Shield,
-  Lock
+  Lock,
+  Wrench,
+  FolderKanban,
+  BarChart3,
+  Calendar,
+  Users,
+  Target,
+  AlertTriangle,
+  Building
 } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 
@@ -42,146 +50,213 @@ const Footer: React.FC = () => {
     );
   }
 
-  // Redesigned compact footer for public routes with refined styling - 1/3 size optimized
+  // Redesigned footer with 5 columns for better organization
   return (
     <footer className="bg-muted/30 border-t border-border">
-      <div className="container mx-auto px-4 py-2 sm:py-3">
-        <div className="space-y-2">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {/* Company Info */}
-            <div className="space-y-2">
-              <Link to="/" className="flex items-center gap-2 group">
-                <img 
-                  src="/cybercorrect.png" 
-                  alt="CyberCorrect" 
-                  className="h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0 rounded-lg"
-                />
-                <div className="flex flex-col">
-                  <span className="font-bold text-xs sm:text-sm leading-tight group-hover:text-primary transition-colors">CyberCorrect™</span>
-                  <span className="font-medium text-[10px] sm:text-xs leading-tight text-muted-foreground">Framework Compliance</span>
-                  <span className="text-[10px] sm:text-xs text-muted-foreground leading-tight">by ERMITS</span>
-                </div>
-              </Link>
-              <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
-                Comprehensive privacy compliance solutions aligned with NIST 800-171 and the NIST Privacy Framework.
+      <div className="container mx-auto px-4 py-4 sm:py-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8">
+          {/* Company Info */}
+          <div className="col-span-2 md:col-span-1 space-y-3">
+            <Link to="/" className="flex items-center gap-2 group">
+              <img 
+                src="/cybercorrect.png" 
+                alt="CyberCorrect" 
+                className="h-10 w-10 flex-shrink-0 rounded-lg"
+              />
+              <div className="flex flex-col">
+                <span className="font-bold text-sm leading-tight group-hover:text-primary transition-colors">CyberCorrect™</span>
+                <span className="font-medium text-xs leading-tight text-muted-foreground">Framework Compliance</span>
+                <span className="text-xs text-muted-foreground leading-tight">by ERMITS</span>
+              </div>
+            </Link>
+            <p className="text-xs text-muted-foreground leading-snug">
+              Comprehensive privacy compliance solutions aligned with GDPR, CCPA, and the NIST Privacy Framework.
+            </p>
+            <div className="pt-2 space-y-1">
+              <p className="text-[10px] sm:text-xs text-muted-foreground">
+                CyberCorrect™ v1.0
               </p>
-              <p className="text-[10px] sm:text-xs text-muted-foreground pt-1">
-                CyberCorrect™ v1.0 – Privacy & Data Rights Operations
-              </p>
-              <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
+              <p className="text-[10px] sm:text-xs text-muted-foreground">
                 © {currentYear} ERMITS. All rights reserved.
               </p>
             </div>
-            
-            {/* Quick Links */}
-            <div className="space-y-2">
-              <h3 className="font-semibold text-xs sm:text-sm text-foreground mb-2">Quick Links</h3>
-              <ul className="space-y-1.5 text-xs sm:text-sm">
-                <li>
-                  <Link to="/assessments/privacy-assessment" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200">
-                    <ClipboardCheck className="h-3 w-3 flex-shrink-0" />
-                    <span>Privacy Assessment</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/toolkit/gdpr-mapper" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200">
-                    <Database className="h-3 w-3 flex-shrink-0" />
-                    <span>GDPR Mapper</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/toolkit/privacy-rights-manager" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200">
-                    <Fingerprint className="h-3 w-3 flex-shrink-0" />
-                    <span>Rights Manager</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/toolkit/dpia-generator" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200">
-                    <FileCheck className="h-3 w-3 flex-shrink-0" />
-                    <span>DPIA Generator</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/toolkit/privacy-policy-generator" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200">
-                    <FileText className="h-3 w-3 flex-shrink-0" />
-                    <span>Policy Generator</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            
-            {/* Resources */}
-            <div className="space-y-2">
-              <h3 className="font-semibold text-xs sm:text-sm text-foreground mb-2">Resources</h3>
-              <ul className="space-y-1.5 text-xs sm:text-sm">
-                <li>
-                  <Link to="/documentation" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200">
-                    <FileText className="h-3 w-3 flex-shrink-0" />
-                    <span>Documentation</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/guides" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200">
-                    <BookOpen className="h-3 w-3 flex-shrink-0" />
-                    <span>Guides</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/documentation/faqs" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200">
-                    <FileQuestion className="h-3 w-3 flex-shrink-0" />
-                    <span>FAQs</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/support" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200">
-                    <HelpCircle className="h-3 w-3 flex-shrink-0" />
-                    <span>Support</span>
-                  </Link>
-                </li>
-                <li>
-                  <a 
-                    href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'} 
-                    className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Fingerprint className="h-3 w-3 flex-shrink-0" />
-                    <span>Privacy Portal</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
+          </div>
+          
+          {/* Privacy Toolkit */}
+          <div className="space-y-2">
+            <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
+              <Wrench className="h-3.5 w-3.5 text-primary" />
+              Toolkit
+            </h3>
+            <ul className="space-y-1.5 text-xs">
+              <li>
+                <Link to="/toolkit" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <BarChart3 className="h-3 w-3 flex-shrink-0" />
+                  <span>All Tools</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/toolkit/privacy-gap-analyzer" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <Target className="h-3 w-3 flex-shrink-0" />
+                  <span>Gap Analyzer</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/toolkit/gdpr-mapper" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <Database className="h-3 w-3 flex-shrink-0" />
+                  <span>GDPR Mapper</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/toolkit/dpia-generator" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <FileCheck className="h-3 w-3 flex-shrink-0" />
+                  <span>DPIA Generator</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/toolkit/privacy-policy-generator" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <FileText className="h-3 w-3 flex-shrink-0" />
+                  <span>Policy Generator</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/toolkit/vendor-risk-assessment" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <Building className="h-3 w-3 flex-shrink-0" />
+                  <span>Vendor Risk</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-            {/* Legal */}
-            <div className="space-y-2">
-              <h3 className="font-semibold text-xs sm:text-sm text-foreground mb-2">Legal</h3>
-              <ul className="space-y-1.5 text-xs sm:text-sm">
-                <li>
-                  <Link to="/privacy" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200">
-                    <Shield className="h-3 w-3 flex-shrink-0" />
-                    <span>Privacy Policy</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/terms" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200">
-                    <Lock className="h-3 w-3 flex-shrink-0" />
-                    <span>Terms of Service</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/cookies" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200">
-                    <FileText className="h-3 w-3 flex-shrink-0" />
-                    <span>Cookie Policy</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/acceptable-use" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors duration-200">
-                    <Shield className="h-3 w-3 flex-shrink-0" />
-                    <span>Acceptable Use Policy</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          {/* Project Management */}
+          <div className="space-y-2">
+            <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
+              <FolderKanban className="h-3.5 w-3.5 text-primary" />
+              Project
+            </h3>
+            <ul className="space-y-1.5 text-xs">
+              <li>
+                <Link to="/project" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <FolderKanban className="h-3 w-3 flex-shrink-0" />
+                  <span>Overview</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/project/dashboard" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <BarChart3 className="h-3 w-3 flex-shrink-0" />
+                  <span>Dashboard</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/project/roadmap" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <Calendar className="h-3 w-3 flex-shrink-0" />
+                  <span>Roadmap</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/project/raci" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <Users className="h-3 w-3 flex-shrink-0" />
+                  <span>RACI Matrix</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/project/evidence" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <Shield className="h-3 w-3 flex-shrink-0" />
+                  <span>Evidence Vault</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+          
+          {/* Resources */}
+          <div className="space-y-2">
+            <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
+              <BookOpen className="h-3.5 w-3.5 text-primary" />
+              Resources
+            </h3>
+            <ul className="space-y-1.5 text-xs">
+              <li>
+                <Link to="/resources" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <BookOpen className="h-3 w-3 flex-shrink-0" />
+                  <span>Resources Hub</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/documentation" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <FileText className="h-3 w-3 flex-shrink-0" />
+                  <span>Documentation</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/guides" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <ClipboardCheck className="h-3 w-3 flex-shrink-0" />
+                  <span>Guides</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/guides/incident-breach" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <AlertTriangle className="h-3 w-3 flex-shrink-0" />
+                  <span>Incident Guide</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/documentation/faqs" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <FileQuestion className="h-3 w-3 flex-shrink-0" />
+                  <span>FAQs</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/support" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <HelpCircle className="h-3 w-3 flex-shrink-0" />
+                  <span>Support</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div className="space-y-2">
+            <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
+              <Shield className="h-3.5 w-3.5 text-primary" />
+              Legal
+            </h3>
+            <ul className="space-y-1.5 text-xs">
+              <li>
+                <Link to="/privacy" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <Shield className="h-3 w-3 flex-shrink-0" />
+                  <span>Privacy Policy</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <Lock className="h-3 w-3 flex-shrink-0" />
+                  <span>Terms of Service</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/cookies" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <FileText className="h-3 w-3 flex-shrink-0" />
+                  <span>Cookie Policy</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/acceptable-use" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <Shield className="h-3 w-3 flex-shrink-0" />
+                  <span>Acceptable Use</span>
+                </Link>
+              </li>
+              <li>
+                <a 
+                  href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'} 
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Fingerprint className="h-3 w-3 flex-shrink-0" />
+                  <span>Privacy Portal</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
