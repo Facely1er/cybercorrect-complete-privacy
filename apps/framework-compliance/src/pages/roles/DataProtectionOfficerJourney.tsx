@@ -142,15 +142,15 @@ const DataProtectionOfficerJourney = () => {
             <div className="inline-block mb-6">
               <span className="bg-primary/10 text-primary dark:bg-dark-primary/10 dark:text-dark-primary px-4 py-2 rounded-full inline-flex items-center text-sm font-medium">
                 <Eye className="w-4 h-4 mr-2" />
-                Data Protection Officer Journey
+                Privacy Leadership Journey
               </span>
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Privacy <span className="bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400 bg-clip-text text-transparent">Leadership</span> Excellence
+              Your Privacy <span className="bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400 bg-clip-text text-transparent">Leadership</span> Journey
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              Lead your organization's privacy program with comprehensive tools for global privacy compliance
+              A structured path for leading your organization's privacy program with phase-based guidance and comprehensive tools
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

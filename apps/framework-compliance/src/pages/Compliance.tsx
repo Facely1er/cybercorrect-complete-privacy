@@ -241,9 +241,10 @@ const Compliance = () => {
                       <div className={`w-14 h-14 bg-gradient-to-br ${role.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                         <role.icon className="w-7 h-7 text-white" />
                       </div>
-                      <h3 className="text-xl font-bold mb-2 text-foreground dark:text-dark-text group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-bold mb-1 text-foreground dark:text-dark-text group-hover:text-primary transition-colors">
                         {role.title}
                       </h3>
+                      <p className="text-xs text-primary mb-3">{role.subtitle}</p>
                       <p className="text-muted-foreground mb-4">{role.description}</p>
                       <div className="space-y-2">
                         {role.features.map((feature, featureIndex) => (
