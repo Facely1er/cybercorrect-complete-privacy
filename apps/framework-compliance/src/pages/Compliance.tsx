@@ -237,8 +237,8 @@ const Compliance = () => {
               {roleJourneys.map((role, index) => (
                 <Link key={index} to={role.path} className="block group">
                   <Card className="h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 hover:border-primary/30">
-                    <CardContent className="p-6">
-                      <div className={`w-14 h-14 bg-gradient-to-br ${role.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <CardContent className="p-6 text-center">
+                      <div className={`w-14 h-14 bg-gradient-to-br ${role.color} rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
                         <role.icon className="w-7 h-7 text-white" />
                       </div>
                       <h3 className="text-xl font-bold mb-1 text-foreground dark:text-dark-text group-hover:text-primary transition-colors">
@@ -248,13 +248,13 @@ const Compliance = () => {
                       <p className="text-muted-foreground mb-4">{role.description}</p>
                       <div className="space-y-2">
                         {role.features.map((feature, featureIndex) => (
-                          <div key={featureIndex} className="flex items-center text-sm">
+                          <div key={featureIndex} className="flex items-center justify-center text-sm">
                             <CheckCircle className="w-4 h-4 text-green-600 mr-2 flex-shrink-0" />
                             <span>{feature}</span>
                           </div>
                         ))}
                       </div>
-                      <div className="mt-6 flex items-center text-primary font-medium group-hover:translate-x-2 transition-transform">
+                      <div className="mt-6 flex items-center justify-center text-primary font-medium group-hover:translate-x-2 transition-transform">
                         Start Journey <ArrowRight className="ml-2 h-4 w-4" />
                       </div>
                     </CardContent>
