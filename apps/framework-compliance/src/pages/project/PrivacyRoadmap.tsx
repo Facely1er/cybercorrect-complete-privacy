@@ -168,10 +168,12 @@ const PrivacyRoadmap = () => {
                       {weeksFromStart >= 0 && weeksFromStart < 16 && (
                         <div 
                           className={`gantt-phase-bar ${statusColors[phase.status as keyof typeof statusColors] || 'bg-gray-300'}`}
-                          style={{
-                            ['--bar-left' as string]: `${(weeksFromStart / 16) * 100}%`,
-                            ['--bar-width' as string]: `${Math.min((duration / 16) * 100, (16 - weeksFromStart) / 16 * 100)}%`
-                          } as React.CSSProperties}
+                          style={
+                            {
+                              ['--bar-left' as string]: `${(weeksFromStart / 16) * 100}%`,
+                              ['--bar-width' as string]: `${Math.min((duration / 16) * 100, (16 - weeksFromStart) / 16 * 100)}%`
+                            } as React.CSSProperties
+                          }
                           onClick={() => handleViewDetails(phase)}
                           title={`${phase.name} - ${phase.duration}`}
                         >
