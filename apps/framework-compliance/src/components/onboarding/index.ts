@@ -1,4 +1,4 @@
 export { default as OnboardingFlow } from './OnboardingFlow';
-export { default as JourneyProgressTracker, JOURNEY_STEPS } from './JourneyProgressTracker';
-export type { JourneyStep } from './JourneyProgressTracker';
+export { default as JourneyProgressTracker } from './JourneyProgressTracker';
+export { JOURNEY_STEPS, type JourneyStep } from '../../config/journeySteps';
 

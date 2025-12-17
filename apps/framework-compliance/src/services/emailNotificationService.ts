@@ -27,14 +27,14 @@ export interface BetaApplicationEmail {
 export async function sendBetaApplicationConfirmation(
   data: BetaApplicationEmail
 ): Promise<{ success: boolean; error?: string }> {
-  console.log('[Email Service] Beta Application Confirmation:', {
+  console.warn('[Email Service] Beta Application Confirmation:', {
     to: data.email,
     name: data.name,
     organization: data.organizationName
   });
 
   if (import.meta.env.DEV) {
-    console.log(`
+    console.warn(`
 📧 MOCK EMAIL: Beta Application Confirmation
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 To: ${data.email}
@@ -76,13 +76,13 @@ The CyberCorrect Team
 export async function sendBetaApplicationAcceptance(
   data: BetaApplicationEmail & { onboardingLink: string }
 ): Promise<{ success: boolean; error?: string }> {
-  console.log('[Email Service] Beta Application Acceptance:', {
+  console.warn('[Email Service] Beta Application Acceptance:', {
     to: data.email,
     name: data.name
   });
 
   if (import.meta.env.DEV) {
-    console.log(`
+    console.warn(`
 📧 MOCK EMAIL: Beta Application Accepted
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 To: ${data.email}
@@ -129,13 +129,13 @@ The CyberCorrect Team
 export async function sendBetaApplicationRejection(
   data: BetaApplicationEmail & { reason?: string }
 ): Promise<{ success: boolean; error?: string }> {
-  console.log('[Email Service] Beta Application Rejection:', {
+  console.warn('[Email Service] Beta Application Rejection:', {
     to: data.email,
     name: data.name
   });
 
   if (import.meta.env.DEV) {
-    console.log(`
+    console.warn(`
 📧 MOCK EMAIL: Beta Application - Waitlist
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 To: ${data.email}
@@ -179,10 +179,10 @@ export async function sendAssessmentCompleteEmail(
   assessmentType: string,
   resultsLink: string
 ): Promise<{ success: boolean; error?: string }> {
-  console.log('[Email Service] Assessment Complete:', { email, assessmentType });
+  console.warn('[Email Service] Assessment Complete:', { email, assessmentType });
 
   if (import.meta.env.DEV) {
-    console.log(`
+    console.warn(`
 📧 MOCK EMAIL: Assessment Complete
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 To: ${email}
@@ -228,10 +228,10 @@ export async function sendSubscriptionConfirmation(
   tier: string,
   amount: number
 ): Promise<{ success: boolean; error?: string }> {
-  console.log('[Email Service] Subscription Confirmation:', { email, tier });
+  console.warn('[Email Service] Subscription Confirmation:', { email, tier });
 
   if (import.meta.env.DEV) {
-    console.log(`
+    console.warn(`
 📧 MOCK EMAIL: Subscription Confirmation
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 To: ${email}
@@ -279,10 +279,10 @@ export async function sendTrialExpiringReminder(
   name: string,
   daysRemaining: number
 ): Promise<{ success: boolean; error?: string }> {
-  console.log('[Email Service] Trial Expiring:', { email, daysRemaining });
+  console.warn('[Email Service] Trial Expiring:', { email, daysRemaining });
 
   if (import.meta.env.DEV) {
-    console.log(`
+    console.warn(`
 📧 MOCK EMAIL: Trial Expiring Reminder
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 To: ${email}
