@@ -318,11 +318,11 @@ const EvidenceVault = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Policies</p>
-                <p className="text-3xl font-bold text-blue-600">
+                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">
                   {evidenceItems.filter(item => item.type === 'policy').length}
                 </p>
               </div>
-              <Shield className="h-8 w-8 text-blue-600" />
+              <Shield className="h-8 w-8 text-blue-600 dark:text-blue-400" />
             </div>
           </CardContent>
         </Card>
@@ -332,11 +332,11 @@ const EvidenceVault = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Assessments</p>
-                <p className="text-3xl font-bold text-green-600">
+                <p className="text-3xl font-bold text-green-600 dark:text-green-400">
                   {evidenceItems.filter(item => item.type === 'assessment').length}
                 </p>
               </div>
-              <CheckCircle className="h-8 w-8 text-green-600" />
+              <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
           </CardContent>
         </Card>
@@ -497,7 +497,7 @@ const EvidenceVault = () => {
                           <div className="space-y-1">
                             {item.complianceFrameworks.map(framework => (
                               <div key={framework} className="text-sm">
-                                <CheckCircle className="h-3 w-3 text-green-600 inline mr-1" />
+                                <CheckCircle className="h-3 w-3 text-green-600 dark:text-green-400 inline mr-1" />
                                 {framework}
                               </div>
                             ))}
@@ -509,7 +509,7 @@ const EvidenceVault = () => {
                           <div className="space-y-1">
                             {item.linkedTasks.map(task => (
                               <div key={task} className="text-sm">
-                                <Link2 className="h-3 w-3 text-blue-600 inline mr-1" />
+                                <Link2 className="h-3 w-3 text-blue-600 dark:text-blue-400 inline mr-1" />
                                 Task {task}
                               </div>
                             ))}

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -13,14 +12,12 @@ import {
   CheckCircle,
   ArrowRight,
   Sparkles,
-  Clock,
   TrendingUp,
   ClipboardList,
   FolderKanban,
   Network,
   Shield,
   Milestone,
-  AlertTriangle,
   Activity
 } from 'lucide-react';
 
@@ -338,11 +335,11 @@ const ProjectManagementLanding = () => {
                 <div className="flex-shrink-0">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow text-center">
-                      <BarChart3 className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                      <BarChart3 className="h-8 w-8 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
                       <span className="text-sm font-medium">Assessments</span>
                     </div>
                     <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow text-center">
-                      <FileText className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                      <FileText className="h-8 w-8 text-green-600 dark:text-green-400 mx-auto mb-2" />
                       <span className="text-sm font-medium">Documentation</span>
                     </div>
                     <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow text-center">
@@ -350,7 +347,7 @@ const ProjectManagementLanding = () => {
                       <span className="text-sm font-medium">DPIAs</span>
                     </div>
                     <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow text-center">
-                      <Database className="h-8 w-8 text-orange-600 mx-auto mb-2" />
+                      <Database className="h-8 w-8 text-orange-600 dark:text-orange-400 mx-auto mb-2" />
                       <span className="text-sm font-medium">Evidence</span>
                     </div>
                   </div>

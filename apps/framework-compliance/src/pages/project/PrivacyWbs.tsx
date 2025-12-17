@@ -239,8 +239,8 @@ const PrivacyWbs = () => {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'completed': return <CheckCircle className="h-4 w-4 text-green-600" />;
-      case 'in_progress': return <Clock className="h-4 w-4 text-blue-600" />;
+      case 'completed': return <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />;
+      case 'in_progress': return <Clock className="h-4 w-4 text-blue-600 dark:text-blue-400" />;
       case 'not_started': return <AlertTriangle className="h-4 w-4 text-gray-400" />;
       default: return <Clock className="h-4 w-4 text-gray-400" />;
     }
@@ -248,10 +248,10 @@ const PrivacyWbs = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'text-green-600 bg-green-100';
-      case 'in_progress': return 'text-blue-600 bg-blue-100';
-      case 'not_started': return 'text-gray-600 bg-gray-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'completed': return 'text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30';
+      case 'in_progress': return 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30';
+      case 'not_started': return 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800';
+      default: return 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800';
     }
   };
 
@@ -387,11 +387,11 @@ const PrivacyWbs = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Completed</p>
-                <p className="text-3xl font-bold text-green-600">
+                <p className="text-3xl font-bold text-green-600 dark:text-green-400">
                   {wbsStructure.filter(item => item.status === 'completed').length}
                 </p>
               </div>
-              <CheckCircle className="h-8 w-8 text-green-600" />
+              <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
           </CardContent>
         </Card>
@@ -401,11 +401,11 @@ const PrivacyWbs = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">In Progress</p>
-                <p className="text-3xl font-bold text-blue-600">
+                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">
                   {wbsStructure.filter(item => item.status === 'in_progress').length}
                 </p>
               </div>
-              <Clock className="h-8 w-8 text-blue-600" />
+              <Clock className="h-8 w-8 text-blue-600 dark:text-blue-400" />
             </div>
           </CardContent>
         </Card>

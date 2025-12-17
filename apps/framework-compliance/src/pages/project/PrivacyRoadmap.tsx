@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { useProject } from '../../context/ProjectContext';
 import { secureStorage } from '../../utils/storage';
+import { toast } from '../../components/ui/Toaster';
 import { 
   Calendar, 
   CheckCircle, 
@@ -34,8 +35,20 @@ const PrivacyRoadmap = () => {
   const [viewMode, setViewMode] = useState<'timeline' | 'gantt'>('timeline');
   const [selectedPhase, setSelectedPhase] = useState<Phase | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  // setRoadmapPhases will be used when edit functionality is implemented
+  const [roadmapPhases] = useState<Phase[]>(() => {
+    const saved = secureStorage.getItem<Phase[]>('privacy_roadmap_phases');
+    return saved || [];
+  });
 
   const project = getCurrentProject();
+
+  // Auto-save roadmap phases
+  useEffect(() => {
+    if (roadmapPhases.length > 0) {
+      secureStorage.setItem('privacy_roadmap_phases', roadmapPhases);
+    }
+  }, [roadmapPhases]);
 
   if (!project) {
     return (
@@ -50,33 +63,21 @@ const PrivacyRoadmap = () => {
     );
   }
 
-  const [roadmapPhases, setRoadmapPhases] = useState<Phase[]>(() => {
-    const saved = secureStorage.getItem<Phase[]>('privacy_roadmap_phases');
-    return saved || [];
-  });
-
-  // Auto-save roadmap phases
-  useEffect(() => {
-    if (roadmapPhases.length > 0) {
-      secureStorage.setItem('privacy_roadmap_phases', roadmapPhases);
-    }
-  }, [roadmapPhases]);
-
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'text-green-600 bg-green-100';
-      case 'in_progress': return 'text-blue-600 bg-blue-100';
-      case 'pending': return 'text-gray-600 bg-gray-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'completed': return 'text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30';
+      case 'in_progress': return 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30';
+      case 'pending': return 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800';
+      default: return 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800';
     }
   };
 
   const getMilestoneIcon = (status: string) => {
     switch (status) {
-      case 'completed': return <CheckCircle className="h-4 w-4 text-green-600" />;
-      case 'in_progress': return <Clock className="h-4 w-4 text-blue-600" />;
-      case 'pending': return <AlertTriangle className="h-4 w-4 text-gray-600" />;
-      default: return <Clock className="h-4 w-4 text-gray-600" />;
+      case 'completed': return <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />;
+      case 'in_progress': return <Clock className="h-4 w-4 text-blue-600 dark:text-blue-400" />;
+      case 'pending': return <AlertTriangle className="h-4 w-4 text-gray-600 dark:text-gray-400" />;
+      default: return <Clock className="h-4 w-4 text-gray-600 dark:text-gray-400" />;
     }
   };
 
@@ -203,9 +204,9 @@ const PrivacyRoadmap = () => {
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-4 ${
-                        phase.status === 'completed' ? 'bg-green-100 text-green-600' :
-                        phase.status === 'in_progress' ? 'bg-blue-100 text-blue-600' :
-                        'bg-gray-100 text-gray-600'
+                        phase.status === 'completed' ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' :
+                        phase.status === 'in_progress' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' :
+                        'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400'
                       }`}>
                         {index + 1}
                       </div>
@@ -280,9 +281,7 @@ const PrivacyRoadmap = () => {
                           variant="outline" 
                           size="sm"
                           onClick={() => {
-                            // Team assignment functionality: Allows assigning team members to roadmap phases
-                            // Implementation will include user selection, role assignment, and notification system
-                            console.log('Assign team for phase:', phase.id);
+                            // Team assignment functionality - currently under development
                             toast.info('Team Assignment', 'Team assignment functionality is currently under development. This feature will allow you to assign team members to specific roadmap phases and send automated notifications.');
                           }}
                         >
@@ -362,23 +361,23 @@ const PrivacyRoadmap = () => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                 {roadmapPhases.reduce((sum, phase) => sum + parseDuration(phase.duration), 0)}
               </div>
               <div className="text-sm text-muted-foreground">Weeks Duration</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">{roadmapPhases.length}</div>
+              <div className="text-2xl font-bold text-green-600 dark:text-green-400">{roadmapPhases.length}</div>
               <div className="text-sm text-muted-foreground">Major Phases</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">
+              <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
                 {roadmapPhases.reduce((sum, phase) => sum + phase.milestones.length, 0)}
               </div>
               <div className="text-sm text-muted-foreground">Key Milestones</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">
+              <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
                 {roadmapPhases.reduce((sum, phase) => sum + phase.deliverables.length, 0)}
               </div>
               <div className="text-sm text-muted-foreground">Deliverables</div>

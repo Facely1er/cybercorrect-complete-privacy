@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { 
   ArrowRight,
   ArrowLeft,
   Clock,
-  Phone,
   FileText,
   AlertTriangle,
   CheckCircle,
@@ -16,8 +15,6 @@ import {
   Bell,
   Clipboard,
   Scale,
-  Mail,
-  Building,
   ChevronDown,
   ChevronUp
 } from 'lucide-react';
@@ -33,7 +30,6 @@ interface TimelineStep {
 }
 
 const IncidentBreachGuide = () => {
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<TabId>('detection');
   const [expandedSection, setExpandedSection] = useState<string | null>('gdpr');
 

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import type { CSSProperties } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -214,10 +215,10 @@ const PrivacyProjectDashboard = () => {
               </div>
               <Target className="h-8 w-8 text-primary" />
             </div>
-            <div className="w-full bg-muted h-2 rounded-full mt-2">
+            <div className="w-full bg-muted h-2 rounded-full mt-2 overflow-hidden">
               <div 
-                className="h-2 rounded-full bg-primary" 
-                style={{ width: `${project.overallProgress}%` }}
+                className="h-2 rounded-full bg-primary transition-all duration-300 progress-bar-fill"
+                style={{ '--progress-width': `${project.overallProgress}%` } as CSSProperties}
               />
             </div>
           </CardContent>
@@ -230,7 +231,7 @@ const PrivacyProjectDashboard = () => {
                 <p className="text-sm text-muted-foreground">Current Phase</p>
                 <p className="text-lg font-bold text-foreground capitalize">{project.currentPhase}</p>
               </div>
-              <Activity className="h-8 w-8 text-blue-600" />
+              <Activity className="h-8 w-8 text-blue-600 dark:text-blue-400" />
             </div>
           </CardContent>
         </Card>
@@ -242,7 +243,7 @@ const PrivacyProjectDashboard = () => {
                 <p className="text-sm text-muted-foreground">Team Members</p>
                 <p className="text-3xl font-bold text-foreground">{project.teamMembers.length || 1}</p>
               </div>
-              <Users className="h-8 w-8 text-green-600" />
+              <Users className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
           </CardContent>
         </Card>
@@ -256,7 +257,7 @@ const PrivacyProjectDashboard = () => {
                   {new Date(project.targetCompletionDate).toLocaleDateString()}
                 </p>
               </div>
-              <Calendar className="h-8 w-8 text-orange-600" />
+              <Calendar className="h-8 w-8 text-orange-600 dark:text-orange-400" />
             </div>
           </CardContent>
         </Card>
@@ -370,14 +371,14 @@ const PrivacyProjectDashboard = () => {
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center p-3 bg-muted/30 rounded-lg">
-                <CheckCircle className="h-5 w-5 text-green-600 mr-3" />
+                <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 mr-3" />
                 <div>
                   <p className="font-medium text-sm">Privacy Assessment completed</p>
                   <p className="text-xs text-muted-foreground">2 hours ago</p>
                 </div>
               </div>
               <div className="flex items-center p-3 bg-muted/30 rounded-lg">
-                <Activity className="h-5 w-5 text-blue-600 mr-3" />
+                <Activity className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-3" />
                 <div>
                   <p className="font-medium text-sm">GDPR data mapping updated</p>
                   <p className="text-xs text-muted-foreground">1 day ago</p>
@@ -558,7 +559,7 @@ const PrivacyProjectDashboard = () => {
           Begin with a privacy assessment to establish your baseline and identify implementation priorities.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
-          <InternalLink href="/assessments/privacy-assessment" variant="button" className="bg-white text-blue-600 hover:bg-gray-100">
+          <InternalLink href="/assessments/privacy-assessment" variant="button" className="bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700">
               Start Assessment
           </InternalLink>
           <InternalLink href="/project/roadmap" variant="button" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
