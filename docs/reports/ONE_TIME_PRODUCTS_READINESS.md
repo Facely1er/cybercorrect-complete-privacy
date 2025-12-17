@@ -165,9 +165,13 @@ One-time purchase products are **95% ready for sale**. All code is implemented a
 
 ### Step 1: Database Setup
 - [ ] Apply migration: `20250205000000_one_time_purchases.sql`
+  - **Option A:** Run individual migration file in Supabase SQL Editor
+  - **Option B:** Run `ALL_MIGRATIONS_COMBINED.sql` (includes all migrations)
+  - **Option C:** Use CLI: `supabase db push`
 - [ ] Verify table created: `cc_one_time_purchases`
 - [ ] Verify RLS policies active
 - [ ] Verify indexes created
+- [ ] Run verification: `npm run verify:one-time`
 
 ### Step 2: Stripe Setup
 - [ ] Create Stripe account (or use existing)
@@ -229,8 +233,20 @@ One-time purchase products are **95% ready for sale**. All code is implemented a
 
 1. **Apply Database Migration**
    ```sql
-   -- Run in Supabase SQL Editor
+   -- Option 1: Run individual migration in Supabase SQL Editor
    -- File: apps/framework-compliance/supabase/migrations/20250205000000_one_time_purchases.sql
+   
+   -- Option 2: Run combined migrations file
+   -- File: apps/framework-compliance/supabase/migrations/ALL_MIGRATIONS_COMBINED.sql
+   
+   -- Option 3: Use CLI
+   cd apps/framework-compliance
+   supabase db push
+   ```
+
+2. **Verify Setup**
+   ```bash
+   npm run verify:one-time
    ```
 
 2. **Configure Stripe**
