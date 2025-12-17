@@ -218,7 +218,7 @@ const PrivacyProjectDashboard = () => {
             <div className="w-full bg-muted h-2 rounded-full mt-2 overflow-hidden">
               <div 
                 className="h-2 rounded-full bg-primary transition-all duration-300 progress-bar-fill"
-                style={{ '--progress-width': `${project.overallProgress}%` } as CSSProperties}
+                style={{ width: `${project.overallProgress}%` }}
               />
             </div>
           </CardContent>
