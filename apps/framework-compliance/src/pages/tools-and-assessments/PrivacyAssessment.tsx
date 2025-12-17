@@ -32,6 +32,34 @@ const PrivacyAssessment = () => {
 
   // Load saved progress on component mount
   useEffect(() => {
+    // Check for collaboration session ID from URL
+    const urlSessionId = sessionId || searchParams.get('session');
+    
+    if (urlSessionId) {
+      // Load collaborative session
+      const session = CollaborationManager.getSession(urlSessionId);
+      if (session) {
+        setCollaborationMode(true);
+        setCollabSessionId(urlSessionId);
+        setAssessmentMode('organizational'); // Collaborative sessions are always organizational
+        setShowStartScreen(false);
+        
+        // Load answers from session
+        const sessionAnswers: Record<string, string> = {};
+        Object.entries(session.answers).forEach(([qId, data]) => {
+          if (data.value) {
+            sessionAnswers[qId] = data.value;
+          }
+        });
+        setAnswers(sessionAnswers);
+        setCurrentSection(session.currentSection || 0);
+        
+        toast.success('Joined collaborative session', `Welcome to ${session.name}`, 3000);
+        return;
+      }
+    }
+    
+    // Load regular saved progress
     const savedData = secureStorage.getItem<{
       answers: Record<string, string>;
       currentSection: number;
@@ -53,7 +81,7 @@ const PrivacyAssessment = () => {
         toast.success('Your progress has been restored', 'Continue where you left off');
       }
     }
-  }, []);
+  }, [sessionId, searchParams]);
 
   // Autosave progress whenever answers or section changes
   useEffect(() => {
@@ -63,18 +91,25 @@ const PrivacyAssessment = () => {
     const saveProgress = () => {
       setIsSaving(true);
       
-      const progressData = {
-        answers,
-        currentSection,
-        showStartScreen,
-        assessmentMode,
-        lastSaved: new Date().toISOString()
-      };
-
-      const success = secureStorage.setItem(STORAGE_KEY, progressData);
-      
-      if (success) {
+      if (collaborationMode && collabSessionId) {
+        // Save to collaborative session
+        CollaborationManager.updateCurrentSection(collabSessionId, currentSection);
         setLastSaved(new Date());
+      } else {
+        // Save to local storage
+        const progressData = {
+          answers,
+          currentSection,
+          showStartScreen,
+          assessmentMode,
+          lastSaved: new Date().toISOString()
+        };
+
+        const success = secureStorage.setItem(STORAGE_KEY, progressData);
+        
+        if (success) {
+          setLastSaved(new Date());
+        }
       }
       
       setIsSaving(false);
@@ -84,7 +119,7 @@ const PrivacyAssessment = () => {
     const timeoutId = setTimeout(saveProgress, 1000);
 
     return () => clearTimeout(timeoutId);
-  }, [answers, currentSection, showStartScreen]);
+  }, [answers, currentSection, showStartScreen, collaborationMode, collabSessionId]);
 
   const sections = [
     {
@@ -624,6 +659,16 @@ const PrivacyAssessment = () => {
       ...prev,
       [questionId]: answer
     }));
+    
+    // If in collaboration mode, save to collaborative session
+    if (collaborationMode && collabSessionId && currentUser) {
+      CollaborationManager.submitAnswer(
+        collabSessionId,
+        questionId,
+        answer,
+        currentUser.id
+      );
+    }
   };
 
   const calculateSectionScore = (sectionIndex: number) => {
@@ -792,7 +837,15 @@ const PrivacyAssessment = () => {
         </Link>
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-2 text-foreground">Privacy Framework Assessment</h1>
+            <h1 className="text-3xl font-bold mb-2 text-foreground">
+              Privacy Framework Assessment
+              {collaborationMode && (
+                <span className="ml-3 text-sm font-normal text-primary inline-flex items-center gap-1">
+                  <Users className="h-4 w-4" />
+                  Collaborative
+                </span>
+              )}
+            </h1>
             <p className="text-muted-foreground mb-6">Based on the NIST Privacy Framework v1.1 (draft) aligned with NIST CSF 2.0 - five core functions</p>
           </div>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -810,6 +863,11 @@ const PrivacyAssessment = () => {
           </div>
         </div>
       </div>
+      
+      {/* Collaborative Progress */}
+      {collaborationMode && collabSessionId && (
+        <CollaborativeProgress sessionId={collabSessionId} />
+      )}
       
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
         {sections.map((section, index) => {
@@ -869,6 +927,16 @@ const PrivacyAssessment = () => {
               </div>
               
               {renderAnswerButtons(question.id)}
+              
+              {/* Collaboration Features */}
+              {collaborationMode && collabSessionId && currentUser && (
+                <QuestionCollaboration
+                  sessionId={collabSessionId}
+                  questionId={question.id}
+                  currentUserId={currentUser.id}
+                  currentUserName={currentUser.name}
+                />
+              )}
             </div>
           ))}
         </div>
