@@ -101,8 +101,9 @@ const Integrations = () => {
               <div className="md:w-1/2">
                 <h2 className="text-2xl font-bold mb-4">Powerful Integration Framework</h2>
                 <p className="text-muted-foreground mb-6">
-                  Our flexible API and pre-built connectors make it easy to integrate your existing privacy and IT tools with CyberCorrect Privacy Platform.
+                  Connect your existing privacy and IT tools with CyberCorrect Privacy Platform through our integration framework.
                   Import data automatically, synchronize configurations, and maintain a single source of truth for compliance.
+                  Custom integrations available for Enterprise customers through professional services.
                 </p>
                 <div className="space-y-2">
                   <div className="flex items-start">
@@ -115,7 +116,7 @@ const Integrations = () => {
                   </div>
                   <div className="flex items-start">
                     <Check className="h-5 w-5 text-primary-teal mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Secure API with comprehensive documentation</span>
+                    <span>Integration framework with comprehensive documentation</span>
                   </div>
                   <div className="flex items-start">
                     <Check className="h-5 w-5 text-primary-teal mr-2 mt-0.5 flex-shrink-0" />
