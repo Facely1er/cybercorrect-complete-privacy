@@ -230,12 +230,10 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     if (allStepsCompleted && !completedSteps.includes('maintain')) {
       completeStep('maintain');
       
-      // Show celebration notification
-      console.log('🎉 Journey Complete! You\'re now in maintenance mode.', {
-        title: 'Congratulations!',
-        message: `You've completed your privacy compliance journey! ${completedGapIds.length} gaps closed, ${completedToolIds.length} tools used.`,
-        type: 'success',
-        confetti: true
+      // Show celebration notification (TODO: Replace with toast notification)
+      console.warn('Journey Complete: Maintenance mode activated', {
+        gapsClosed: completedGapIds.length,
+        toolsUsed: completedToolIds.length
       });
     }
   }, [hasCompletedAssessment, identifiedGaps.length, completedGapIds.length, completedToolIds.length, completedSteps, completeStep]);
@@ -365,11 +363,8 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       if (completionPercentage === 100 && gap.status !== 'completed') {
         markGapCompleted(gap.id);
         
-        // Show notification (using console for now, will be replaced with toast)
-        console.log(`🎉 Gap Closed: ${gap.domainTitle}`, {
-          message: 'Great work! You\'ve completed all recommended actions for this gap.',
-          type: 'success'
-        });
+        // Show notification (TODO: Replace with toast notification)
+        console.warn(`Gap Closed: ${gap.domainTitle}`);
       } else if (completionPercentage >= 50 && gap.status === 'not_started') {
         // Mark gap as in progress if at least half the tools are complete
         markGapStarted(gap.id);
@@ -408,7 +403,8 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       // Auto-advance to step 4 (Maintain) when 70% of gaps are closed
       if (overallGapProgress >= 70 && !completedSteps.includes('act')) {
         completeStep('act');
-        console.log('🎯 Journey Progress: Moving to Maintain phase', {
+        // Journey progress tracking (TODO: Replace with toast notification)
+        console.warn('Journey Progress: Moving to Maintain phase', {
           gapsCompleted: currentCompletedCount,
           totalGaps: totalGaps,
           percentage: overallGapProgress.toFixed(1)
@@ -457,6 +453,7 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useJourney = (): JourneyContextType => {
   const context = React.useContext(JourneyContext);
   if (context === undefined) {
