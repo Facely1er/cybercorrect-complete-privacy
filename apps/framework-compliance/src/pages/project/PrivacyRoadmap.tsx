@@ -19,6 +19,7 @@ import {
   X
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import './PrivacyRoadmap.css';
 
 type Phase = {
   id: string;
@@ -166,12 +167,11 @@ const PrivacyRoadmap = () => {
                       </div>
                       {weeksFromStart >= 0 && weeksFromStart < 16 && (
                         <div 
-                          className={`absolute h-6 top-1 rounded ${statusColors[phase.status as keyof typeof statusColors] || 'bg-gray-300'} flex items-center justify-center text-white text-xs font-medium cursor-pointer hover:opacity-80 transition-opacity`}
+                          className={`gantt-phase-bar ${statusColors[phase.status as keyof typeof statusColors] || 'bg-gray-300'}`}
                           style={{
-                            left: `${(weeksFromStart / 16) * 100}%`,
-                            width: `${Math.min((duration / 16) * 100, (16 - weeksFromStart) / 16 * 100)}%`,
-                            minWidth: '40px'
-                          }}
+                            ['--bar-left' as string]: `${(weeksFromStart / 16) * 100}%`,
+                            ['--bar-width' as string]: `${Math.min((duration / 16) * 100, (16 - weeksFromStart) / 16 * 100)}%`
+                          } as React.CSSProperties}
                           onClick={() => handleViewDetails(phase)}
                           title={`${phase.name} - ${phase.duration}`}
                         >

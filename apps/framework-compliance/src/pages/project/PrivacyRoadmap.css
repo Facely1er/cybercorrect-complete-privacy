@@ -1,0 +1,23 @@
+/* Gantt Chart Phase Bar Styles */
+.gantt-phase-bar {
+  position: absolute;
+  height: 1.5rem;
+  top: 0.25rem;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  left: var(--bar-left);
+  width: var(--bar-width);
+  min-width: 40px;
+}
+
+.gantt-phase-bar:hover {
+  opacity: 0.8;
+}
+
