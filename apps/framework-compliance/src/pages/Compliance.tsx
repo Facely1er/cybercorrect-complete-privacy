@@ -4,6 +4,7 @@ import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import JourneyProgressTracker from '../components/onboarding/JourneyProgressTracker';
 import OnboardingFlow from '../components/onboarding/OnboardingFlow';
+import { useJourney } from '../context/JourneyContext';
 import { 
   Shield,
   Eye,
@@ -25,6 +26,7 @@ import {
 
 const Compliance = () => {
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const { currentStepIndex, completedSteps } = useJourney();
   const roleJourneys = [
     {
       title: 'Privacy Leadership Journey',
@@ -162,8 +164,8 @@ const Compliance = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <JourneyProgressTracker 
-              currentStepIndex={1}
-              completedSteps={[]}
+              currentStepIndex={currentStepIndex}
+              completedSteps={completedSteps}
               compact={false}
               showNextAction={true}
             />

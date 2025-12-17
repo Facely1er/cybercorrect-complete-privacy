@@ -14,7 +14,7 @@ import {
   User
 } from 'lucide-react';
 import { CollaborationManager } from '../../utils/collaboration';
-import { toast } from '../ui/use-toast';
+import { toast } from '../ui/Toaster';
 
 interface CollaborationSetupProps {
   onStart: (sessionId: string) => void;

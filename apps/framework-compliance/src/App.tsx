@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AuthProvider } from './context/AuthContext';
 import { ProjectProvider } from './context/ProjectContext';
 import { NotificationProvider } from './context/NotificationContext';
+import { JourneyProvider } from './context/JourneyContext';
 import { ChatbotProvider } from './components/chat/ChatbotProvider';
 import { ChatSupportProvider } from './components/chat/ChatSupportProvider';
 import { Toaster } from './components/ui/Toaster';
@@ -49,17 +50,19 @@ const App: React.FC = () => {
       <AuthProvider>
         <ProjectProvider>
           <NotificationProvider>
-            <ChatbotProvider>
-              <ChatSupportProvider>
-              <AnalyticsWrapper>
-                <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
-                  <AppRoutes toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-                  <Toaster />
-                  <DevTools />
-                </div>
-              </AnalyticsWrapper>
-              </ChatSupportProvider>
-            </ChatbotProvider>
+            <JourneyProvider>
+              <ChatbotProvider>
+                <ChatSupportProvider>
+                <AnalyticsWrapper>
+                  <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
+                    <AppRoutes toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+                    <Toaster />
+                    <DevTools />
+                  </div>
+                </AnalyticsWrapper>
+                </ChatSupportProvider>
+              </ChatbotProvider>
+            </JourneyProvider>
           </NotificationProvider>
         </ProjectProvider>
       </AuthProvider>

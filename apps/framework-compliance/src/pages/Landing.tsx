@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useChatbot } from '../components/chat/ChatbotProvider';
+import { useJourney } from '../context/JourneyContext';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
 import { HeroHeadingCarousel } from '../components/ui/HeroHeadingCarousel';
@@ -25,27 +26,21 @@ import {
 
 const Landing = () => {
   const { openChatbot } = useChatbot();
+  const { hasVisitedBefore, currentStepIndex, completedSteps } = useJourney();
   const [showOnboarding, setShowOnboarding] = useState(false);
-  const [hasVisited, setHasVisited] = useState(false);
 
   useEffect(() => {
-    // Check if user has visited before
-    const visited = localStorage.getItem('cybercorrect_visited');
-    if (!visited) {
-      // Show onboarding for first-time users after a short delay
+    // Show onboarding for first-time users after a short delay
+    if (!hasVisitedBefore) {
       const timer = setTimeout(() => {
         setShowOnboarding(true);
-      }, 1000);
+      }, 1500);
       return () => clearTimeout(timer);
-    } else {
-      setHasVisited(true);
     }
-  }, []);
+  }, [hasVisitedBefore]);
 
   const handleCloseOnboarding = () => {
     setShowOnboarding(false);
-    localStorage.setItem('cybercorrect_visited', 'true');
-    setHasVisited(true);
   };
 
   const handleOpenOnboarding = () => {

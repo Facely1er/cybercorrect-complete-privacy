@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { CollaborationManager } from '../../utils/collaboration';
 import { QuestionComment } from '../../types/collaboration';
-import { toast } from '../ui/use-toast';
+import { toast } from '../ui/Toaster';
 
 interface QuestionCollaborationProps {
   sessionId: string;
