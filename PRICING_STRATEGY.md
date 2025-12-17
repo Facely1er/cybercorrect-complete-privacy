@@ -19,22 +19,19 @@ This document outlines the comprehensive pricing strategy for the CyberCorrect P
 
 ### **Features**
 ✅ **Assessments & Analysis:**
-- 1 privacy assessment per month (basic GDPR/CCPA)
+- Privacy assessments (basic GDPR/CCPA)
 - Privacy Gap Analyzer (view-only, no export)
-- Privacy by Design Assessment (1 per month)
-- Basic compliance score dashboard
+- Compliance score dashboard
 
 ✅ **Documentation Tools:**
 - 3 policy templates (Privacy Policy, Cookie Policy, Terms of Service)
-- 3 exports per month (JSON/CSV only)
-- DPIA template viewer (no generation)
+- 3 exports (JSON/CSV formats)
 - Data mapping tool (up to 5 data flows)
 
 ✅ **Tracking & Monitoring:**
-- Manual risk tracking (up to 25 risks)
+- Risk tracking (up to 25 risks)
 - Evidence vault (100MB storage)
-- In-app notifications only (weekly digest)
-- Basic progress dashboard
+- In-app notifications
 
 ✅ **Learning & Resources:**
 - All educational content and guides
@@ -79,15 +76,16 @@ This document outlines the comprehensive pricing strategy for the CyberCorrect P
 - Multi-regulation privacy assessments
 - Up to 100 risks tracked
 - 5 compliance templates
+- 10 exports per month (PDF, Word, JSON, CSV)
 - Monthly automated compliance reports
-- 2 privacy frameworks
-- Email support (48hr response)
-- Quarterly automated assessments
 - Weekly compliance status emails
-- Basic progress dashboard
-- 10 exports/month (PDF, Word, JSON, CSV)
+- Quarterly executive summaries
 - Scheduled assessments (up to 2 per quarter)
 - Compliance health score tracking
+- Progress dashboard
+- Email & in-app notifications
+- 2 privacy frameworks
+- Email support (48hr response)
 
 **Upgrade Trigger:** "Need multiple frameworks and real-time alerts" → Professional
 
@@ -100,18 +98,23 @@ This document outlines the comprehensive pricing strategy for the CyberCorrect P
 - Multi-regulation privacy assessments
 - Unlimited risk tracking
 - 20+ compliance templates
+- Unlimited exports (PDF, Word, JSON, CSV, Excel)
 - Unlimited custom reports
 - Daily compliance health digest
-- Real-time alerts (all priorities)
-- Email & in-app notifications (SMS & Slack coming soon)
+- Weekly automated compliance reports
+- Monthly comprehensive reports
+- Quarterly executive dashboards
+- Unlimited scheduled assessments
+- Real-time risk alerts
 - Custom notification rules
+- Email & in-app notifications (SMS & Slack coming soon)
 - Regulatory change alerts (24-hour)
+- Regulatory intelligence dashboard
 - Predictive compliance analytics
-- Advanced progress analytics
-- Priority support (24hr response)
-- Multiple privacy frameworks
+- Advanced analytics & dashboards
+- Up to 5 privacy frameworks
 - Quarterly privacy reviews
-- Unlimited exports (PDF, Word, JSON, CSV, Excel)
+- Priority support (24hr response)
 
 **Upgrade Trigger:** "Enterprise scale, dedicated support, and professional services" → Enterprise
 
@@ -127,18 +130,21 @@ This document outlines the comprehensive pricing strategy for the CyberCorrect P
 - Weekly detailed reports
 - Monthly executive reports (board-ready)
 - Continuous automated assessments
+- Custom notification workflows
+- Role-based notification routing
 - Executive dashboard alerts
-- Predictive compliance analytics
 - Regulatory intelligence dashboard
-- White-glove implementation support (professional services)
 - Unlimited compliance frameworks
 - Custom privacy control mapping
-- Dedicated compliance specialist (professional services)
-- Custom integrations (professional services)
-- 24/7 dedicated support with SLA
-- Custom feature development (professional services)
-- Training and certification programs (professional services)
 - PowerPoint export
+
+**Professional Services Included:**
+- White-glove implementation support
+- Dedicated compliance specialist
+- Custom integrations
+- 24/7 dedicated support with SLA
+- Custom feature development
+- Training and certification programs
 
 **Note:** Enterprise tier includes professional services for implementation, custom integrations, and dedicated support. Software features are cloud-based (Supabase architecture).
 
