@@ -34,7 +34,7 @@ const Documentation = () => {
       description: "Core platform docs and framework overviews",
       articles: [
         { title: "Platform Overview", path: "/documentation/platform-overview" },
-        { title: "Incident Response Guide", path: "/documentation/incident-response-guide" }
+        { title: "Incident & Breach Guide", path: "/guides/incident-breach" }
       ]
     },
     {
@@ -54,9 +54,8 @@ const Documentation = () => {
       description: "Templates for policies, procedures, and compliance documents",
       articles: [
         { title: "Control Implementation Guide", path: "/documentation/control-implementation-guide" },
-        { title: "Breach Response Guide", path: "/documentation/breach-response-guide" },
         { title: "Policy Generator", path: "/toolkit/privacy-policy-generator" },
-        { title: "Incident Response Guide", path: "/documentation/incident-response-guide" }
+        { title: "DPIA Template", path: "/toolkit/resources/viewers/dpia-template" }
       ]
     }
   ];

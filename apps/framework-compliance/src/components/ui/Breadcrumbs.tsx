@@ -105,9 +105,6 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     'understanding-dashboard': 'Understanding Dashboard',
     'understanding-rmf': 'Understanding RMF',
     'control-implementation-guide': 'Control Implementation Guide',
-    'incident-response-guide': 'Incident Response Guide',
-    'incident-reporting': 'Incident Reporting',
-    'breach-response-guide': 'Breach Response Guide',
     'faqs': 'FAQs',
     'privacy-framework-guide': 'Privacy Framework Guide',
     
@@ -115,8 +112,13 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     'data-protection': 'Data Protection Guide',
     'privacy-by-design': 'Privacy by Design Guide',
     'data-subject-rights': 'Data Subject Rights Guide',
-    'breach-notification': 'Breach Notification Guide',
+    'incident-breach': 'Incident & Breach Management Guide',
     'privacy-impact-assessment': 'Privacy Impact Assessment Guide',
+    // Legacy breadcrumb labels (redirect targets)
+    'incident-response-guide': 'Incident & Breach Management',
+    'incident-reporting': 'Incident & Breach Management',
+    'breach-response-guide': 'Incident & Breach Management',
+    'breach-notification': 'Incident & Breach Management',
     
     // Role Journey pages
     'roles': 'Role-Based Workflows',

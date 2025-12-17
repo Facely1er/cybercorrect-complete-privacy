@@ -45,26 +45,20 @@ const Guides = () => {
       category: 'Privacy Compliance',
       link: '/guides/data-subject-rights'
     },
-    // Security Management Guides
+    // Incident & Breach Management (Consolidated)
     {
-      title: 'Incident Response Planning',
-      description: 'Create effective incident response procedures for security and privacy events.',
-      icon: FileCheck,
-      category: 'Security Management',
-      link: '/documentation/incident-response-guide'
-    },
-    {
-      title: 'Breach Notification Guide',
-      description: 'Step-by-step guidance for handling and reporting data breaches.',
+      title: 'Incident & Breach Management',
+      description: 'Complete guide for detecting, responding to, and reporting privacy incidents and data breaches across global regulations (GDPR, CCPA, PIPEDA, LGPD).',
       icon: AlertTriangle,
-      category: 'Security Management',
-      link: '/guides/breach-notification'
+      category: 'Incident Management',
+      link: '/guides/incident-breach'
     },
+    // Assessment Guides
     {
       title: 'Privacy Impact Assessment',
-      description: 'Conduct thorough privacy impact assessments for new projects.',
+      description: 'Conduct thorough privacy impact assessments for new projects and processing activities.',
       icon: FileText,
-      category: 'Security Management',
+      category: 'Assessment Guides',
       link: '/guides/privacy-impact-assessment'
     }
   ];

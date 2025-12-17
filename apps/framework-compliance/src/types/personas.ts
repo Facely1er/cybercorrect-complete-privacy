@@ -168,7 +168,7 @@ export const PERSONAS: Record<string, Persona> = {
       {
         id: 'gap-analyzer',
         label: 'Gap Analyzer',
-        path: '/tools-and-assessments/compliance-gap-analyzer',
+        path: '/toolkit/privacy-gap-analyzer',
         icon: 'Target',
         order: 2
       },
@@ -588,7 +588,7 @@ export const PERSONAS: Record<string, Persona> = {
       {
         id: 'gap-analyzer',
         label: 'Gap Analyzer',
-        path: '/tools-and-assessments/compliance-gap-analyzer',
+        path: '/toolkit/privacy-gap-analyzer',
         icon: 'Target',
         order: 2
       },

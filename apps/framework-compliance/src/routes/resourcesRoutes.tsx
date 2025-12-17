@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import { Navigate } from 'react-router-dom';
 import ChatInterface from '../pages/support/ChatInterface';
 
 // Resource Landing Pages
@@ -19,9 +20,6 @@ import PlatformOverview from '../pages/resources/documentation/PlatformOverview'
 import UnderstandingDashboard from '../pages/resources/documentation/UnderstandingDashboard';
 import UnderstandingRmf from '../pages/resources/documentation/UnderstandingRmf';
 import ControlImplementationGuide from '../pages/resources/documentation/ControlImplementationGuide';
-import IncidentResponseGuide from '../pages/resources/documentation/IncidentResponseGuide';
-import IncidentReporting from '../pages/resources/documentation/IncidentReporting';
-import BreachResponseGuide from '../pages/resources/documentation/BreachResponseGuide';
 import Faqs from '../pages/resources/documentation/faqs';
 import PrivacyFrameworkGuide from '../pages/resources/documentation/PrivacyFrameworkGuide';
 
@@ -29,7 +27,7 @@ import PrivacyFrameworkGuide from '../pages/resources/documentation/PrivacyFrame
 import DataProtectionGuide from '../pages/resources/guides/DataProtectionGuide';
 import PrivacyByDesignGuide from '../pages/resources/guides/PrivacyByDesignGuide';
 import DataSubjectRightsGuide from '../pages/resources/guides/DataSubjectRightsGuide';
-import BreachNotificationGuide from '../pages/resources/guides/BreachNotificationGuide';
+import IncidentBreachGuide from '../pages/resources/guides/IncidentBreachGuide';
 import PrivacyImpactAssessmentGuide from '../pages/resources/guides/PrivacyImpactAssessmentGuide';
 
 // Role Journey Pages
@@ -92,17 +90,19 @@ export const resourcesRoutes = [
   { path: '/documentation/understanding-dashboard', element: UnderstandingDashboard },
   { path: '/documentation/understanding-rmf', element: UnderstandingRmf },
   { path: '/documentation/control-implementation-guide', element: ControlImplementationGuide },
-  { path: '/documentation/incident-response-guide', element: IncidentResponseGuide },
-  { path: '/documentation/incident-reporting', element: IncidentReporting },
-  { path: '/documentation/breach-response-guide', element: BreachResponseGuide },
   { path: '/documentation/faqs', element: Faqs },
   { path: '/documentation/privacy-framework-guide', element: PrivacyFrameworkGuide },
   // Guide Routes
   { path: '/guides/data-protection', element: DataProtectionGuide },
   { path: '/guides/privacy-by-design', element: PrivacyByDesignGuide },
   { path: '/guides/data-subject-rights', element: DataSubjectRightsGuide },
-  { path: '/guides/breach-notification', element: BreachNotificationGuide },
+  { path: '/guides/incident-breach', element: IncidentBreachGuide },
   { path: '/guides/privacy-impact-assessment', element: PrivacyImpactAssessmentGuide },
+  // Legacy redirects - consolidated incident/breach guides
+  { path: '/documentation/incident-response-guide', element: () => <Navigate to="/guides/incident-breach" replace /> },
+  { path: '/documentation/incident-reporting', element: () => <Navigate to="/guides/incident-breach" replace /> },
+  { path: '/documentation/breach-response-guide', element: () => <Navigate to="/guides/incident-breach" replace /> },
+  { path: '/guides/breach-notification', element: () => <Navigate to="/guides/incident-breach" replace /> },
   // Role Journey Routes
   { path: '/roles/data-protection-officer', element: DataProtectionOfficerJourney },
   { path: '/roles/legal-counsel', element: LegalCounselJourney },

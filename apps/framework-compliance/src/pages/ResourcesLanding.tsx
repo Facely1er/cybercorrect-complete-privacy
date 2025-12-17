@@ -38,7 +38,7 @@ const ResourcesLanding = () => {
       path: '/documentation',
       items: [
         { title: 'Platform Overview', path: '/documentation/platform-overview' },
-        { title: 'Incident Response Guide', path: '/documentation/incident-response-guide' }
+        { title: 'Incident & Breach Guide', path: '/guides/incident-breach' }
       ]
     },
     {
