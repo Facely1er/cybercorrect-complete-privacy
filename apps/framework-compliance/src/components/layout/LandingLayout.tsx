@@ -10,7 +10,8 @@ import {
   HelpCircle,
   Home,
   ArrowRight,
-  Puzzle as PuzzlePiece
+  Puzzle as PuzzlePiece,
+  CreditCard
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
@@ -121,6 +122,11 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       name: 'Docs & Guides',
       path: '/resources',
       icon: HelpCircle
+    },
+    {
+      name: 'Pricing',
+      path: '/pricing',
+      icon: CreditCard
     }
   ];
 

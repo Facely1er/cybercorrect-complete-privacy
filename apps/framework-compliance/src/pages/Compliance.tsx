@@ -114,10 +114,10 @@ const Compliance = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Role-Based <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Compliance</span> Journeys
+              Your <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Compliance</span> Journey
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              Tailored compliance pathways for every privacy professional in your organization
+              Get a personalized compliance roadmap based on your organization's gaps and priorities
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -151,7 +151,7 @@ const Compliance = () => {
                 How It Works
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Start with an assessment to get a personalized compliance journey tailored to your role and organizational gaps
+                Start with an assessment to discover your optimal compliance path based on your gaps and organizational context
               </p>
             </div>
 
@@ -179,9 +179,9 @@ const Compliance = () => {
                   </div>
                   <div className="absolute top-8 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-secondary/50 to-transparent hidden md:block"></div>
                   <span className="inline-block bg-secondary text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 2</span>
-                  <h3 className="text-xl font-bold mb-2 text-foreground">Get Recommendation</h3>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">Get Your Journey</h3>
                   <p className="text-muted-foreground text-sm">
-                    Receive a personalized role-based journey recommendation based on your assessment results
+                    Receive your personalized compliance journey with prioritized actions based on your specific gaps
                   </p>
                 </div>
               </div>

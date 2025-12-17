@@ -269,16 +269,30 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Privacy Team Roles */}
+      {/* Compliance Journeys */}
       <section className="py-16 md:py-24 bg-muted/30 dark:bg-dark-support/10">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
+            {/* Assessment-First Banner */}
+            <div className="mb-12 text-center">
+              <Card className="inline-block border-2 border-primary/20 bg-primary/5 dark:bg-primary/10">
+                <CardContent className="p-4 px-6">
+                  <div className="flex items-center gap-3 text-sm">
+                    <Target className="w-5 h-5 text-primary flex-shrink-0" />
+                    <p className="text-foreground">
+                      <strong>New here?</strong> Take our <Link to="/assessments/privacy-assessment" className="text-primary underline font-semibold hover:text-primary/80">free assessment</Link> to get a personalized journey recommendation based on your gaps.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
             <div className="text-center mb-16">
               <h2 className="section-title text-3xl md:text-4xl">
-                Privacy Team Roles
+                Explore Compliance Journeys
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Specialized workflows for every privacy professional
+                Each journey provides a structured path with phase-based guidance, curated tools, and clear outcomes
               </p>
             </div>
 
@@ -286,43 +300,48 @@ const Landing = () => {
               {[
                 {
                   icon: Eye,
-                  title: 'Data Protection Officer',
+                  title: 'Privacy Leadership Journey',
+                  subtitle: 'For DPOs & Privacy Leaders',
                   description: 'Lead privacy programs, conduct DPIAs, and oversee compliance across global regulations.',
                   path: '/roles/data-protection-officer',
-                  cta: 'DPO Journey'
+                  cta: 'Explore Journey'
                 },
                 {
                   icon: Shield,
-                  title: 'Privacy Officer',
+                  title: 'Privacy Operations Journey',
+                  subtitle: 'For Privacy Officers',
                   description: 'Develop privacy strategies, coordinate initiatives, and ensure organizational compliance.',
                   path: '/roles/privacy-officer',
-                  cta: 'Privacy Officer Journey'
+                  cta: 'Explore Journey'
                 },
                 {
                   icon: Scale,
-                  title: 'Legal Counsel',
+                  title: 'Legal Compliance Journey',
+                  subtitle: 'For Legal Counsel',
                   description: 'Review policies, assess legal risks, and ensure regulatory compliance across jurisdictions.',
                   path: '/roles/legal-counsel',
-                  cta: 'Legal Journey'
+                  cta: 'Explore Journey'
                 },
                 {
                   icon: Database,
-                  title: 'Data Steward',
+                  title: 'Data Governance Journey',
+                  subtitle: 'For Data Stewards',
                   description: 'Manage data inventories, processing records, and maintain privacy controls.',
                   path: '/roles/data-steward',
-                  cta: 'Data Steward Journey'
+                  cta: 'Explore Journey'
                 }
-              ].map((role, index) => (
+              ].map((journey, index) => (
                 <Card key={index} className="card-hover text-center border border-border dark:border-dark-support">
                   <CardContent className="p-6">
                     <div className="w-14 h-14 bg-primary/10 dark:bg-dark-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
-                      <role.icon className="w-7 h-7 text-primary dark:text-dark-primary" aria-hidden="true" />
+                      <journey.icon className="w-7 h-7 text-primary dark:text-dark-primary" aria-hidden="true" />
                     </div>
-                    <h3 className="text-lg font-bold mb-3 text-foreground dark:text-dark-text">{role.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{role.description}</p>
-                    <Link to={role.path} className="no-underline">
-                      <Button variant="outline" className="w-full" aria-label={role.cta}>
-                        {role.cta}
+                    <h3 className="text-lg font-bold mb-1 text-foreground dark:text-dark-text">{journey.title}</h3>
+                    <p className="text-xs text-primary mb-3">{journey.subtitle}</p>
+                    <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{journey.description}</p>
+                    <Link to={journey.path} className="no-underline">
+                      <Button variant="outline" className="w-full" aria-label={journey.cta}>
+                        {journey.cta}
                         <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                       </Button>
                     </Link>
@@ -436,7 +455,7 @@ const Landing = () => {
               Ready to Get Started?
             </h2>
             <p className="text-lg text-white/95 dark:text-foreground mb-8 leading-relaxed">
-              Take our free assessment to see where you stand and get a personalized roadmap for your privacy compliance journey.
+              Take our free assessment and get your personalized compliance journey with step-by-step guidance tailored to your gaps.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/assessments/privacy-assessment" className="no-underline">

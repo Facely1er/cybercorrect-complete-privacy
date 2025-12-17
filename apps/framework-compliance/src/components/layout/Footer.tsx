@@ -12,7 +12,8 @@ import {
   BarChart3,
   Users,
   Target,
-  Cookie
+  Cookie,
+  Route
 } from 'lucide-react';
 
 const Footer: React.FC = () => {
@@ -95,8 +96,8 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/compliance" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <Users className="h-3 w-3 flex-shrink-0" />
-                  <span>Roles</span>
+                  <Route className="h-3 w-3 flex-shrink-0" />
+                  <span>Your Journey</span>
                 </Link>
               </li>
               <li>

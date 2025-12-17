@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, User, Settings, LogOut, Users, ExternalLink, FolderKanban, BookOpen } from 'lucide-react';
+import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, User, Settings, LogOut, Users, ExternalLink, FolderKanban, BookOpen, Route } from 'lucide-react';
 
 import { Button } from '../ui/Button';
 import { NotificationBell } from '../notifications/NotificationBell';
@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
     { name: 'Home', href: '/', icon: Home },
     { name: 'Assessment', href: '/assessment', icon: ClipboardCheck },
     { name: 'Project', href: '/project', icon: FolderKanban },
-    { name: 'Roles', href: '/compliance', icon: Users },
+    { name: 'Your Journey', href: '/compliance', icon: Route },
     { name: 'Toolkit', href: '/toolkit', icon: Wrench },
     { name: 'Docs & Guides', href: '/resources', icon: BookOpen },
   ];
