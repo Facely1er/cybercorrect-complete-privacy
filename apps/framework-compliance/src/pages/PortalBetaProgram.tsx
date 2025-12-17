@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { 
   Users, 
   UserCheck, 
@@ -10,7 +11,8 @@ import {
   Palette, 
   Zap, 
   Target, 
-  Award
+  Award,
+  AlertCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -19,9 +21,22 @@ import { Input } from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
 import { Textarea } from '@/components/ui/Textarea';
 import { Checkbox } from '@/components/ui/Checkbox';
+import { getRoleCohort, getCohortInfo, type CohortType } from '../utils/portalBetaMapping';
 
 export default function PortalBetaProgram() {
+  const location = useLocation();
+  const cohortSectionRef = useRef<HTMLDivElement>(null);
+  const applicationFormRef = useRef<HTMLDivElement>(null);
+  
+  // Get role context from navigation state (if coming from assessment)
+  const { role, cohort: passedCohort, fromAssessment } = (location.state as { 
+    role?: string; 
+    cohort?: string; 
+    fromAssessment?: boolean; 
+  }) || {};
+  
   const [showApplicationForm, setShowApplicationForm] = useState(false);
+  const [fromAssessmentBanner, setFromAssessmentBanner] = useState(fromAssessment || false);
   const [formData, setFormData] = useState({
     companyName: '',
     industry: '',
@@ -48,6 +63,37 @@ export default function PortalBetaProgram() {
     currentPlatform: '',
   });
 
+  // Handle role-based pre-filling when coming from assessment
+  useEffect(() => {
+    if (role) {
+      const detectedCohort = passedCohort || getRoleCohort(role);
+      
+      // Pre-fill form based on role
+      setFormData(prev => ({
+        ...prev,
+        contactRole: role,
+        primaryCohort: detectedCohort,
+        // Auto-check relevant stakeholder based on cohort
+        ...(detectedCohort === 'employee' && { stakeholderEmployees: true }),
+        ...(detectedCohort === 'hr' && { stakeholderHR: true }),
+        ...(detectedCohort === 'compliance' && { stakeholderCompliance: true }),
+        ...(detectedCohort === 'legal' && { stakeholderLegal: true }),
+        ...(detectedCohort === 'multiple' && { 
+          stakeholderEmployees: true, 
+          stakeholderHR: true, 
+          stakeholderCompliance: true 
+        }),
+      }));
+      
+      // Scroll to relevant cohort section after a short delay
+      if (fromAssessment && cohortSectionRef.current) {
+        setTimeout(() => {
+          cohortSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 500);
+      }
+    }
+  }, [role, passedCohort, fromAssessment]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Implement actual submission to backend
@@ -58,6 +104,48 @@ export default function PortalBetaProgram() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Coming from Assessment Banner */}
+      {fromAssessmentBanner && role && (
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4">
+          <div className="container mx-auto max-w-6xl">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <AlertCircle className="h-5 w-5" />
+                <div>
+                  <p className="font-semibold text-sm">
+                    Based on your role as <strong>{role}</strong>, you're a great fit for our beta program
+                  </p>
+                  <p className="text-xs opacity-90">
+                    We've pre-selected the {getCohortInfo((passedCohort || getRoleCohort(role)) as CohortType).shortName} cohort for you
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Button 
+                  size="sm" 
+                  variant="secondary"
+                  onClick={() => {
+                    setShowApplicationForm(true);
+                    setTimeout(() => {
+                      applicationFormRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                  }}
+                >
+                  Apply Now
+                </Button>
+                <button 
+                  onClick={() => setFromAssessmentBanner(false)}
+                  className="text-white/80 hover:text-white"
+                  aria-label="Dismiss banner"
+                >
+                  <Check className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-50">
         <div className="container mx-auto max-w-5xl text-center px-4">
@@ -186,7 +274,7 @@ export default function PortalBetaProgram() {
       </section>
 
       {/* Cohort Structure */}
-      <section className="py-16 bg-gradient-to-br from-blue-50 to-teal-50">
+      <section ref={cohortSectionRef} className="py-16 bg-gradient-to-br from-blue-50 to-teal-50">
         <div className="container mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold text-center mb-4">
             Beta Cohort Structure
@@ -462,7 +550,7 @@ export default function PortalBetaProgram() {
 
       {/* Beta Application Form */}
       {showApplicationForm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 overflow-y-auto">
+        <div ref={applicationFormRef} className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 overflow-y-auto">
           <Card className="w-full max-w-3xl my-8">
             <CardHeader>
               <CardTitle>Privacy Portal Beta Application</CardTitle>

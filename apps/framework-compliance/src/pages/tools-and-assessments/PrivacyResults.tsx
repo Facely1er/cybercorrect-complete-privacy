@@ -11,12 +11,22 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Ca
 import { Button } from '../../components/ui/Button';
 import { useJourney } from '../../context/useJourney';
 import { JourneyLayout } from '../../layouts/JourneyLayout';
+import { PortalBetaInvitation } from '../../components/portal/PortalBetaInvitation';
+import { shouldShowBetaInvite } from '../../utils/portalBetaMapping';
 
 const PrivacyResults = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isNavigating, setIsNavigating] = useState(false);
+  const [showBetaInvite, setShowBetaInvite] = useState(true);
   const { setAssessmentResults, identifiedGaps, markGapStarted } = useJourney();
+  
+  // Check if beta invite should be shown
+  const betaInviteDismissed = localStorage.getItem('portalBetaInviteDismissed') === 'true';
+  const userHasPortal = false; // TODO: Get from user context/subscription
+  
+  // Detect user role from assessment answers (simplified - would need actual assessment data)
+  const detectedRole = location.state?.userRole || location.state?.assessmentAnswers?.role || 'Privacy Professional';
   
   // Get assessment results from location state, or use mock data as fallback
   const assessmentResults = useMemo(() => location.state?.assessmentResults || {
@@ -391,6 +401,19 @@ const PrivacyResults = () => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Portal Beta Invitation - Role-Based */}
+      {shouldShowBetaInvite(userHasPortal, betaInviteDismissed, true) && showBetaInvite && (
+        <div className="mt-8">
+          <PortalBetaInvitation 
+            userRole={detectedRole}
+            assessmentData={assessmentResults}
+            onDismiss={() => setShowBetaInvite(false)}
+            variant="full"
+            showDismiss={true}
+          />
+        </div>
+      )}
 
       {/* Secondary: Role-Based Journey Recommendation (Collapsed by default) */}
       <details className="mt-8">

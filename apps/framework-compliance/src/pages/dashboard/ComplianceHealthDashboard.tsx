@@ -18,6 +18,8 @@ import { Button } from '../../components/ui/Button';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { complianceHealthMonitor, ComplianceHealthScore, ScoreTrend } from '../../utils/compliance';
 import { toast } from '../../components/ui/Toaster';
+import { DashboardBetaInviteBanner } from '../../components/dashboard/DashboardBetaInviteBanner';
+import { shouldShowBetaInvite } from '../../utils/portalBetaMapping';
 
 export const ComplianceHealthDashboard: React.FC = () => {
   usePageTitle('Compliance Health Dashboard');
@@ -30,6 +32,18 @@ export const ComplianceHealthDashboard: React.FC = () => {
   const [selectedPeriod, setSelectedPeriod] = useState<'30d' | '60d' | '90d'>('30d');
   const [isLoading, setIsLoading] = useState(true);
   const [selectedFramework] = useState<string | undefined>(undefined);
+  
+  // Portal Beta Invitation State
+  const [showBetaInvite, setShowBetaInvite] = useState(true);
+  const betaInviteDismissed = localStorage.getItem('portalBetaInviteDismissed') === 'true';
+  const userHasPortal = false; // TODO: Get from user context/subscription
+  const userRole = 'Privacy Officer'; // TODO: Get from user profile
+  const hasCompletedAssessment = currentScore !== null; // User has completed assessment if they have a score
+  
+  const handleDismissBetaInvite = () => {
+    setShowBetaInvite(false);
+    localStorage.setItem('portalBetaInviteDismissed', 'true');
+  };
 
   useEffect(() => {
     loadData();
@@ -179,6 +193,14 @@ export const ComplianceHealthDashboard: React.FC = () => {
           </Button>
         </div>
       </div>
+
+      {/* Portal Beta Invitation Banner */}
+      {shouldShowBetaInvite(userHasPortal, betaInviteDismissed, hasCompletedAssessment) && showBetaInvite && (
+        <DashboardBetaInviteBanner 
+          userRole={userRole}
+          onDismiss={handleDismissBetaInvite}
+        />
+      )}
 
       {isLoading ? (
         <div className="text-center py-12 text-muted-foreground">
