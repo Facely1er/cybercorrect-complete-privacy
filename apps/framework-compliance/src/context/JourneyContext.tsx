@@ -10,6 +10,7 @@ import {
   calculateGapCompletionFromTools,
   type GapDomain
 } from '../utils/gapJourneyConfig';
+import { toast } from '../components/ui/Toaster';
 
 // Type for assessment results input
 interface AssessmentResultsInput {
@@ -230,11 +231,12 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     if (allStepsCompleted && !completedSteps.includes('maintain')) {
       completeStep('maintain');
       
-      // Show celebration notification (TODO: Replace with toast notification)
-      console.warn('Journey Complete: Maintenance mode activated', {
-        gapsClosed: completedGapIds.length,
-        toolsUsed: completedToolIds.length
-      });
+      // Show celebration notification
+      toast.success(
+        '🎉 Journey Complete!', 
+        `Congratulations! You've closed ${completedGapIds.length} gaps using ${completedToolIds.length} tools. Your organization is now in maintenance mode.`,
+        7000
+      );
     }
   }, [hasCompletedAssessment, identifiedGaps.length, completedGapIds.length, completedToolIds.length, completedSteps, completeStep]);
 
@@ -363,8 +365,11 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       if (completionPercentage === 100 && gap.status !== 'completed') {
         markGapCompleted(gap.id);
         
-        // Show notification (TODO: Replace with toast notification)
-        console.warn(`Gap Closed: ${gap.domainTitle}`);
+        // Show success notification
+        toast.success(
+          '✨ Gap Closed!', 
+          `Great work! You've completed all recommended actions for ${gap.domainTitle}.`
+        );
       } else if (completionPercentage >= 50 && gap.status === 'not_started') {
         // Mark gap as in progress if at least half the tools are complete
         markGapStarted(gap.id);
@@ -403,12 +408,12 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       // Auto-advance to step 4 (Maintain) when 70% of gaps are closed
       if (overallGapProgress >= 70 && !completedSteps.includes('act')) {
         completeStep('act');
-        // Journey progress tracking (TODO: Replace with toast notification)
-        console.warn('Journey Progress: Moving to Maintain phase', {
-          gapsCompleted: currentCompletedCount,
-          totalGaps: totalGaps,
-          percentage: overallGapProgress.toFixed(1)
-        });
+        
+        // Show journey progress notification
+        toast.info(
+          '🚀 Journey Progress', 
+          `Excellent work! Moving to Maintain phase. You've completed ${currentCompletedCount} of ${totalGaps} gaps (${overallGapProgress.toFixed(1)}%).`
+        );
       }
     }
   };
