@@ -140,6 +140,8 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     'credits': 'Credits Manager',
     'store': 'Store',
     'one-time-products': 'One-Time Products',
+    'my-downloads': 'My Downloads',
+    'downloads': 'My Downloads',
     'products': 'Products',
     'checkout': 'Checkout',
     'success': 'Purchase Success',

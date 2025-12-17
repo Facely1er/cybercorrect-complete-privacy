@@ -195,10 +195,18 @@ const PurchaseSuccess = () => {
                     Download All Keys
                   </Button>
                   <Button
+                    variant="outline"
                     onClick={() => navigate('/store')}
                     className="flex-1"
                   >
                     Continue Shopping
+                  </Button>
+                  <Button
+                    onClick={() => navigate('/my-downloads')}
+                    className="flex-1"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    My Downloads
                   </Button>
                 </div>
               </CardContent>
