@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { 
+import {
   CheckCircle, FileText, Download,
-  Shield, FileCheck, Layers, Target, ArrowRight, Lock
+  Shield, FileCheck, Layers, Target, ArrowRight
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
@@ -12,6 +12,7 @@ import LandingLayout from '../components/layout/LandingLayout';
 
 const ComplianceToolkit: React.FC = () => {
   const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
   const product = ProductCatalog.getProduct('compliance-toolkit');
 

@@ -1,16 +1,15 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import AssessmentLayout from '../components/layout/AssessmentLayout';
-import { lazyWithRetry } from '../utils/common';
 
 // Assessment Hub
 const AssessmentHub = lazy(() => import('../pages/AssessmentHub'));
 
 // Assessment Tools
 const PrivacyAssessment = lazy(() => import('../pages/tools-and-assessments/PrivacyAssessment'));
-const PrivacyResults = lazy(() => import('../pages/tools-and-assessments/PrivacyResults'));
-const PrivacyResultsOrganizational = lazy(() => import('../pages/tools-and-assessments/PrivacyResultsOrganizational'));
-const PrivacyRecommendations = lazy(() => import('../pages/tools-and-assessments/PrivacyRecommendations'));
+
+// Gap Analyzer (shows results and recommendations)
+const PrivacyGapAnalyzer = lazy(() => import('../pages/tools-and-assessments/PrivacyGapAnalyzer'));
 
 // Collaborative Assessments
 const CollaborativeAssessment = lazy(() => import('../pages/assessments/CollaborativeAssessment'));
@@ -52,20 +51,18 @@ export const assessmentRoutes = [
     element: PrivacyAssessment,
     lazy: true,
   },
+  // Results now redirect to Gap Analyzer (which displays results and recommendations)
   {
     path: 'privacy-results',
-    element: PrivacyResults,
-    lazy: true,
+    element: () => <Navigate to="/toolkit/privacy-gap-analyzer" replace />,
   },
   {
     path: 'privacy-results/organizational',
-    element: PrivacyResultsOrganizational,
-    lazy: true,
+    element: () => <Navigate to="/toolkit/privacy-gap-analyzer" replace />,
   },
   {
     path: 'privacy-recommendations',
-    element: PrivacyRecommendations,
-    lazy: true,
+    element: () => <Navigate to="/toolkit/privacy-gap-analyzer" replace />,
   },
   {
     path: '/assessments/scheduled',
@@ -73,4 +70,3 @@ export const assessmentRoutes = [
     lazy: true,
   },
 ];
-

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { 
+import React, { useState } from 'react';
+import {
   Activity, TrendingUp, Shield, AlertTriangle,
-  CheckCircle, RefreshCw, Eye,
+  RefreshCw,
   Cpu, Network, Database, Lock, FileText, X
 } from 'lucide-react';
 import { realTimeMonitoring } from '../../utils/monitoring/realTimeMonitoring';
@@ -19,7 +19,8 @@ export const RealTimeMonitoringDashboard: React.FC<RealTimeMonitoringDashboardPr
   onClose,
   className = ''
 }) => {
-  const { metrics, alerts, loading, refreshData, acknowledgeAlert, exportData, isHealthy } = useRealTimeMonitoring(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { metrics, alerts, loading, refreshData: _refreshData, acknowledgeAlert, exportData, isHealthy: _isHealthy } = useRealTimeMonitoring(true);
   const [autoRefresh, setAutoRefresh] = useState(true);
   const [selectedTimeframe, setSelectedTimeframe] = useState<'1h' | '3h' | '6h' | '24h'>('1h');
 

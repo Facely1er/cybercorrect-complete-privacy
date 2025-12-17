@@ -3,20 +3,17 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../co
 import { Button } from '../components/ui/Button';
 import { useAuth } from '../context/AuthContext';
 import { toast } from '../components/ui/Toaster';
-import { 
-  User, 
-  Mail, 
-  Calendar, 
-  Save, 
-  Pencil, 
-  LogOut, 
+import {
+  User,
+  Mail,
+  Calendar,
+  Save,
+  Pencil,
+  LogOut,
   UserCircle,
   Building,
   Briefcase,
   CheckCircle,
-  FileText,
-  Database,
-  FileCheck,
   Settings,
   FolderKanban
 } from 'lucide-react';

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { CreditCard, RefreshCw, Ban, FileText, DollarSign, Calendar, AlertTriangle, CheckCircle, Mail, Users, Building, Globe } from 'lucide-react';
+import { CreditCard, RefreshCw } from 'lucide-react';
 
 const ECommerce = () => {
   return (

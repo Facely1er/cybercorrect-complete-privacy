@@ -18,7 +18,6 @@ import {
   ChevronUp,
   CheckCircle,
   Clock,
-  Target,
   Sparkles,
   Filter,
   LayoutGrid,
@@ -36,6 +35,7 @@ interface CustomerJourneyMapProps {
 
 const CustomerJourneyMap: React.FC<CustomerJourneyMapProps> = ({
   completedToolIds = [],
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   currentPersonaId,
   onToolSelect,
   showProgress = true,

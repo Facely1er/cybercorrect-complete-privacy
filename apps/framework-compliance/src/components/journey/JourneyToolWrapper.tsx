@@ -8,7 +8,6 @@
 import React, { ReactNode } from 'react';
 import { useJourneyTool } from '../../hooks/useJourneyTool';
 import { Card, CardContent } from '../ui/Card';
-import { Button } from '../ui/Button';
 import { CheckCircle, Info } from 'lucide-react';
 import { useJourney } from '../../context/JourneyContext';
 import { getToolDomain } from '../../utils/gapJourneyConfig';
@@ -17,7 +16,7 @@ export interface JourneyToolWrapperProps {
   toolId: string;
   toolName: string;
   toolDescription?: string;
-  children: ReactNode;
+  children: ReactNode | ((props: { handleComplete: () => void; isCompleted: boolean }) => ReactNode);
   showJourneyStatus?: boolean;
   onComplete?: () => void;
 }
@@ -28,6 +27,7 @@ export interface JourneyToolWrapperProps {
 export const JourneyToolWrapper: React.FC<JourneyToolWrapperProps> = ({
   toolId,
   toolName,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toolDescription,
   children,
   showJourneyStatus = true,

@@ -2,8 +2,6 @@
 import { supabase } from '../../lib/supabase';
 import { secureStorage } from '../storage/secureStorage';
 import { complianceHealthMonitor } from '../compliance/complianceHealthMonitor';
-import { generateSSPPdf } from './generateSSPPdf';
-import { generateSSPWordDocument } from './generateWord';
 import { logError } from '../common/logger';
 
 export type ReportType = 'compliance' | 'executive' | 'risk' | 'health' | 'quarterly' | 'monthly' | 'weekly' | 'custom';

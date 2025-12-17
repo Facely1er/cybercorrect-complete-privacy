@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Calendar, ChevronLeft, ChevronRight, Plus, Filter,
-  Clock, Users, CheckSquare, AlertTriangle, Target,
-  Award, Shield, FileText, Eye, Edit3, Bell, X
+import React, { useState, useEffect, useCallback } from 'react';
+import {
+  Calendar, ChevronLeft, ChevronRight, Plus,
+  Clock, Users, X
 } from 'lucide-react';
 import { CalendarEvent, CalendarEventType, ActivityMetrics } from '../../types/calendar';
 import { calendarService } from '../../services/calendarService';
@@ -47,15 +46,10 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
     attendees: ''
   });
 
-  useEffect(() => {
-    loadEvents();
-    loadActivityMetrics();
-  }, [filterType, currentDate]);
-
-  const loadEvents = async () => {
+  const loadEvents = useCallback(async () => {
     try {
       setLoading(true);
-      const filters: any = {};
+      const filters: { type?: CalendarEventType; startDate?: Date; endDate?: Date } = {};
       if (filterType !== 'all') {
         filters.type = filterType;
       }
@@ -74,7 +68,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [filterType, currentDate]);
 
   const loadActivityMetrics = async () => {
     try {
@@ -84,6 +78,11 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
       console.error('Failed to load activity metrics:', error);
     }
   };
+
+  useEffect(() => {
+    loadEvents();
+    loadActivityMetrics();
+  }, [loadEvents]);
 
   const navigateMonth = (direction: 'prev' | 'next') => {
     setCurrentDate(prev => {
@@ -134,7 +133,6 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
     const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
     const startDate = new Date(firstDay);
     startDate.setDate(startDate.getDate() - firstDay.getDay());
 
@@ -212,7 +210,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
       // Reload events
       await loadEvents();
       await loadActivityMetrics();
-    } catch (error) {
+    } catch {
       toast.error('Failed to create event');
       if (addNotification) {
         addNotification('error', 'Failed to create event');
@@ -346,7 +344,8 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
               
               <select
                 value={filterType}
-                onChange={(e) => setFilterType(e.target.value as any)}
+                onChange={(e) => setFilterType(e.target.value as CalendarEventType | 'all')}
+                aria-label="Filter events by type"
                 className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="all">All Events</option>
@@ -375,7 +374,15 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
       </Card>
 
       {/* Calendar Grid */}
-      {viewMode === 'month' && (
+      {loading ? (
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center justify-center h-64">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+          </CardContent>
+        </Card>
+      ) : viewMode === 'month' ? (
         <Card>
           <CardContent className="p-6">
             <div className="grid grid-cols-7 gap-1 mb-4">
@@ -443,10 +450,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
             </div>
           </CardContent>
         </Card>
-      )}
-
-      {/* Agenda View */}
-      {viewMode === 'agenda' && (
+      ) : viewMode === 'agenda' ? (
         <Card>
           <CardHeader>
             <CardTitle>Upcoming Events</CardTitle>
@@ -514,7 +518,7 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
             </div>
           </CardContent>
         </Card>
-      )}
+      ) : null}
 
       {/* Create Event Modal */}
       {showCreateEvent && (
@@ -559,10 +563,11 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="event-type" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Event Type *
                     </label>
                     <select
+                      id="event-type"
                       required
                       value={eventFormData.type}
                       onChange={(e) => setEventFormData(prev => ({ ...prev, type: e.target.value as CalendarEventType }))}
@@ -582,12 +587,13 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="event-priority" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Priority
                     </label>
                     <select
+                      id="event-priority"
                       value={eventFormData.priority}
-                      onChange={(e) => setEventFormData(prev => ({ ...prev, priority: e.target.value as any }))}
+                      onChange={(e) => setEventFormData(prev => ({ ...prev, priority: e.target.value as 'low' | 'medium' | 'high' | 'critical' }))}
                       className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
                       <option value="low">Low</option>
@@ -600,10 +606,11 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="event-start-date" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Start Date & Time *
                     </label>
                     <input
+                      id="event-start-date"
                       type="datetime-local"
                       required
                       value={eventFormData.startDate}
@@ -613,10 +620,11 @@ export const ComplianceCalendarView: React.FC<ComplianceCalendarViewProps> = ({
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="event-end-date" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       End Date & Time
                     </label>
                     <input
+                      id="event-end-date"
                       type="datetime-local"
                       value={eventFormData.endDate}
                       onChange={(e) => setEventFormData(prev => ({ ...prev, endDate: e.target.value }))}

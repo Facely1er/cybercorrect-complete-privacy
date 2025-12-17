@@ -17,8 +17,8 @@ import {
   Info,
   ChevronRight
 } from 'lucide-react';
-import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES, ProductCatalog, OneTimeProduct, ProductBundle } from '../utils/monetization';
-import { UnifiedProductCatalog, UnifiedProduct } from '../utils/monetization';
+import { PRODUCT_BUNDLES, ProductCatalog, OneTimeProduct, ProductBundle } from '../utils/monetization';
+import { UnifiedProductCatalog } from '../utils/monetization';
 
 const CART_STORAGE_KEY = 'onetimestore_cart';
 

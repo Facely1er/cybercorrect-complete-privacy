@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
-import { Key, Check, X, AlertCircle, Loader2 } from 'lucide-react';
+import { Key, Check, AlertCircle, Loader2 } from 'lucide-react';
 import { LicenseManager, ProductCatalog } from '../utils/monetization';
 import { toast } from '../components/ui/Toaster';
 import { logError } from '../utils/common';
