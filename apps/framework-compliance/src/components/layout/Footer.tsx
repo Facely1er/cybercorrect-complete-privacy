@@ -45,15 +45,15 @@ const Footer: React.FC = () => {
   // Footer with 4 columns (1 branding + 3 vertical menus)
   return (
     <footer className="bg-muted/30 border-t border-border">
-      <div className="container mx-auto px-4 py-4 sm:py-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+      <div className="container mx-auto px-4 py-3 sm:py-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {/* Company Info */}
-          <div className="col-span-2 md:col-span-1 space-y-3 md:pr-6">
+          <div className="col-span-2 md:col-span-1 space-y-2 md:pr-4">
             <Link to="/" className="flex items-center gap-2 group">
               <img 
                 src="/cybercorrect.png" 
                 alt="CyberCorrect" 
-                className="h-10 w-10 flex-shrink-0 rounded-lg"
+                className="h-8 w-8 flex-shrink-0 rounded-lg"
               />
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-sm leading-tight group-hover:text-primary transition-colors">CyberCorrect™</span>
@@ -61,26 +61,21 @@ const Footer: React.FC = () => {
                 <span className="text-[10px] leading-tight text-muted-foreground">by ERMITS</span>
               </div>
             </Link>
-            <p className="text-xs text-muted-foreground leading-snug">
+            <p className="text-xs text-muted-foreground leading-relaxed">
               Comprehensive privacy compliance solutions aligned with GDPR, CCPA, and the NIST Privacy Framework.
             </p>
-            <div className="pt-2 space-y-1">
-              <p className="text-[10px] sm:text-xs text-muted-foreground">
-                CyberCorrect™ v1.0
-              </p>
-              <p className="text-[10px] sm:text-xs text-muted-foreground">
-                © {currentYear} ERMITS. All rights reserved.
-              </p>
-            </div>
+            <p className="text-[10px] sm:text-xs text-muted-foreground pt-1">
+              CyberCorrect™ v1.0 · © {currentYear} ERMITS. All rights reserved.
+            </p>
           </div>
           
           {/* Platform */}
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
               <Wrench className="h-3.5 w-3.5 text-primary" />
               Platform
             </h3>
-            <ul className="space-y-1.5 text-xs">
+            <ul className="space-y-1 text-xs">
               <li>
                 <Link to="/assessment" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
                   <Target className="h-3 w-3 flex-shrink-0" />
@@ -109,12 +104,12 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Resources */}
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
               <BookOpen className="h-3.5 w-3.5 text-primary" />
               Resources
             </h3>
-            <ul className="space-y-1.5 text-xs">
+            <ul className="space-y-1 text-xs">
               <li>
                 <Link to="/resources" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
                   <BookOpen className="h-3 w-3 flex-shrink-0" />
@@ -142,12 +137,12 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Legal */}
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
               <Shield className="h-3.5 w-3.5 text-primary" />
               Legal
             </h3>
-            <ul className="space-y-1.5 text-xs">
+            <ul className="space-y-1 text-xs">
               <li>
                 <Link to="/privacy" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
                   <Shield className="h-3 w-3 flex-shrink-0" />
