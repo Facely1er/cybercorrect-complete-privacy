@@ -10,7 +10,6 @@ import {
   Wrench,
   FolderKanban,
   BarChart3,
-  Users,
   Target,
   Cookie,
   Route
