@@ -1,5 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { JOURNEY_STEPS, type JourneyStep } from '../components/onboarding/JourneyProgressTracker';
+import {
+  IdentifiedGap,
+  GapJourneyProgress,
+  calculateGapJourneyProgress,
+  generateGapsFromAssessment
+} from '../utils/gapJourneyConfig';
 
 interface JourneyContextType {
   currentStepIndex: number;
@@ -10,6 +16,15 @@ interface JourneyContextType {
   setCurrentStep: (stepIndex: number) => void;
   resetJourney: () => void;
   getProgress: () => number;
+  
+  // Gap-based journey tracking
+  identifiedGaps: IdentifiedGap[];
+  completedGapIds: string[];
+  gapProgress: GapJourneyProgress | null;
+  setAssessmentResults: (results: any) => void;
+  markGapStarted: (gapId: string) => void;
+  markGapCompleted: (gapId: string) => void;
+  getNextPriorityGap: () => IdentifiedGap | null;
 }
 
 const JourneyContext = createContext<JourneyContextType | undefined>(undefined);
@@ -22,7 +37,10 @@ const STORAGE_KEYS = {
   CURRENT_STEP: 'cybercorrect_journey_step',
   COMPLETED_STEPS: 'cybercorrect_completed_steps',
   VISITED: 'cybercorrect_visited',
-  ASSESSMENT_COMPLETED: 'cybercorrect_assessment_completed'
+  ASSESSMENT_COMPLETED: 'cybercorrect_assessment_completed',
+  IDENTIFIED_GAPS: 'cybercorrect_identified_gaps',
+  COMPLETED_GAPS: 'cybercorrect_completed_gaps',
+  ASSESSMENT_RESULTS: 'cybercorrect_assessment_results'
 };
 
 export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) => {
