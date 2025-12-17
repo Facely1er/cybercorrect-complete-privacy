@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { useChatbot } from '../components/chat/ChatbotProvider';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
 import { HeroHeadingCarousel } from '../components/ui/HeroHeadingCarousel';
 import FloatingPrivacyIcons from '../components/ui/FloatingPrivacyIcons';
+import OnboardingFlow from '../components/onboarding/OnboardingFlow';
+import JourneyProgressTracker from '../components/onboarding/JourneyProgressTracker';
 import { 
   ArrowRight, 
   Shield, 
@@ -16,10 +19,38 @@ import {
   CheckCircle,
   Clock,
   BarChart3,
+  Sparkles,
+  PlayCircle
 } from 'lucide-react';
 
 const Landing = () => {
   const { openChatbot } = useChatbot();
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [hasVisited, setHasVisited] = useState(false);
+
+  useEffect(() => {
+    // Check if user has visited before
+    const visited = localStorage.getItem('cybercorrect_visited');
+    if (!visited) {
+      // Show onboarding for first-time users after a short delay
+      const timer = setTimeout(() => {
+        setShowOnboarding(true);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else {
+      setHasVisited(true);
+    }
+  }, []);
+
+  const handleCloseOnboarding = () => {
+    setShowOnboarding(false);
+    localStorage.setItem('cybercorrect_visited', 'true');
+    setHasVisited(true);
+  };
+
+  const handleOpenOnboarding = () => {
+    setShowOnboarding(true);
+  };
 
   // Hero heading carousel items
   const heroHeadings = [
@@ -49,6 +80,13 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen bg-surface dark:bg-dark-bg">
+      {/* Onboarding Modal */}
+      <OnboardingFlow 
+        isVisible={showOnboarding} 
+        onClose={handleCloseOnboarding}
+        currentStep={0}
+      />
+
       {/* Hero Section */}
       <section className="relative py-20 sm:py-32 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/5 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
         <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-30 dark:opacity-20"></div>
@@ -76,27 +114,26 @@ const Landing = () => {
               Get automated privacy compliance that protects your business, reduces risk, and saves your team hundreds of hours.
             </p>
 
-            {/* Single Universal CTA */}
+            {/* Primary CTA with Journey Guide */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Link 
                 to="/assessments/privacy-assessment"
-                className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground rounded-lg text-lg font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl"
+                className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground rounded-lg text-lg font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl animate-pulse-slow"
               >
                 <Eye className="mr-2 h-5 w-5" />
-                See Where You Stand — Free
+                Start Your Journey — Free
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
-              <Link to="/contact">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="px-8 py-4 bg-background dark:bg-dark-surface border-2 border-primary text-primary rounded-lg text-lg font-semibold hover:bg-primary/5 transition-all"
-                  aria-label="Contact Our Team"
-                >
-                  <Users className="mr-2 h-5 w-5" />
-                  Contact Our Team
-                </Button>
-              </Link>
+              <Button
+                size="lg"
+                variant="outline"
+                className="px-8 py-4 bg-background dark:bg-dark-surface border-2 border-primary text-primary rounded-lg text-lg font-semibold hover:bg-primary/5 transition-all"
+                onClick={handleOpenOnboarding}
+                aria-label="View Journey Guide"
+              >
+                <PlayCircle className="mr-2 h-5 w-5" />
+                View Journey Guide
+              </Button>
             </div>
             
             {/* Trust Indicators */}
