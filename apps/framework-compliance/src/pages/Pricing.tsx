@@ -449,12 +449,12 @@ const Pricing = () => {
 
       {/* CTA Section */}
       <div className="mt-24 text-center max-w-5xl mx-auto px-4">
-        <div className="bg-gradient-to-r from-primary-teal to-secondary-teal rounded-xl p-8 md:p-10 text-white dark:from-dark-primary dark:to-dark-primary/70 shadow-xl">
+        <div className="bg-primary dark:bg-dark-primary rounded-xl p-8 md:p-10 text-white shadow-xl">
           <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready to achieve compliance?</h3>
           <p className="mb-6 text-lg">View our interactive demo to explore the platform</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-2xl mx-auto px-4">
             <Button 
-              className="bg-white text-gray-900 hover:bg-gray-100 border-2 border-transparent shadow-lg font-semibold w-full sm:w-auto"
+              className="bg-white text-primary hover:bg-gray-100 shadow-lg font-semibold w-full sm:w-auto"
               onClick={() => navigate('/demo')}
             >
               <span className="whitespace-normal">View Demo</span>
@@ -462,7 +462,7 @@ const Pricing = () => {
             </Button>
             <Button 
               variant="outline"
-              className="bg-transparent text-white hover:bg-white/10 border-2 border-white/80 shadow-lg font-semibold w-full sm:w-auto"
+              className="bg-transparent text-white hover:bg-white/10 border-2 border-white shadow-lg font-semibold w-full sm:w-auto"
               onClick={() => navigate('/assessments/privacy-assessment')}
             >
               <span className="whitespace-normal">Start Assessment</span>
