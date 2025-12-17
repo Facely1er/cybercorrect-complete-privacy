@@ -275,6 +275,7 @@ const Demo = () => {
                 <span>{Math.round((currentStep / 7) * 100)}%</span>
               </div>
               <div className="w-full bg-muted h-2 rounded-full overflow-hidden">
+                {/* Dynamic width for progress tracking */}
                 <div 
                   className="bg-gradient-to-r from-primary to-secondary h-full transition-all duration-500"
                   style={{ width: `${Math.round((currentStep / 7) * 100)}%` }}
@@ -456,6 +457,7 @@ const Demo = () => {
                       <span className="text-sm font-semibold text-primary">{section.percentage}%</span>
                     </div>
                     <div className="w-full bg-muted h-2 rounded-full overflow-hidden">
+                      {/* Dynamic width for section progress */}
                       <div 
                         className="bg-gradient-to-r from-primary to-secondary h-full transition-all duration-1000"
                         style={{ width: section.percentage + '%' }}
@@ -534,6 +536,7 @@ const Demo = () => {
             {/* Gap List */}
             <div className="space-y-3 mb-6">
               {DEMO_GAPS.map((gap) => (
+                // Dynamic border color based on priority
                 <div key={gap.id} className="p-4 border-l-4 rounded-lg border hover:shadow-md transition-all" 
                      style={{ borderLeftColor: gap.priority === 'critical' ? '#dc2626' : '#ea580c' }}>
                   <div className="flex items-start justify-between mb-2">
@@ -820,6 +823,7 @@ const Demo = () => {
                     {phase.status === 'completed' && <CheckCircle className="h-4 w-4 text-white" />}
                     {phase.status === 'in_progress' && <Clock className="h-4 w-4 text-white" />}
                   </div>
+                  {/* Dynamic border color for phase status */}
                   <Card className="border-l-4" style={{ borderLeftColor: phase.borderColor }}>
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between mb-2">
@@ -827,6 +831,7 @@ const Demo = () => {
                         <span className="text-xs text-muted-foreground">{phase.duration}</span>
                       </div>
                       <div className="w-full bg-muted h-2 rounded-full overflow-hidden mb-3">
+                        {/* Dynamic width for phase progress */}
                         <div 
                           className={`h-full transition-all duration-1000 ${
                             phase.status === 'completed' ? 'bg-green-500' :

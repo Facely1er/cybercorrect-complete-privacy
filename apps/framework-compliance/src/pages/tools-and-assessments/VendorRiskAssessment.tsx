@@ -300,6 +300,7 @@ const VendorRiskAssessment = () => {
                         </span>
                       </div>
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                        {/* Dynamic width for progress bar */}
                         <div 
                           className={`h-2 rounded-full transition-all duration-300 ${
                             risk === 'critical' ? 'bg-destructive' :
@@ -441,6 +442,7 @@ const VendorRiskAssessment = () => {
                             <div className="flex items-center gap-2 mt-1">
                               <span className="text-lg font-semibold">{vendor.assessmentScore}/100</span>
                               <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                {/* Dynamic width for assessment score */}
                                 <div 
                                   className={`h-2 rounded-full ${
                                     vendor.assessmentScore >= 90 ? 'bg-success' :
@@ -649,6 +651,7 @@ const VendorRiskAssessment = () => {
                             </span>
                           </div>
                           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            {/* Dynamic width for compliance percentage */}
                             <div 
                               className="bg-primary h-2 rounded-full transition-all duration-300"
                               style={{ width: `${percentage}%` }}

@@ -352,10 +352,11 @@ const PrivacyByDesignAssessment = () => {
                         </span>
                       </div>
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                        {/* Dynamic width for progress bar */}
                         <div 
                           className="bg-primary h-2 rounded-full transition-all duration-300"
                           data-score={avgScore}
-                          style={{ width: `${avgScore}%` } as React.CSSProperties}
+                          style={{ width: `${avgScore}%` }}
                         />
                       </div>
                       <p className="text-xs text-muted-foreground">{principle.description}</p>

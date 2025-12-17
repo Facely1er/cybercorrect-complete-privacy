@@ -380,6 +380,7 @@ const ServiceProviderManager = () => {
                         </span>
                       </div>
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                        {/* Dynamic width for category distribution */}
                         <div 
                           className="bg-primary h-2 rounded-full transition-all duration-300"
                           style={{ width: `${percentage}%` }}
@@ -669,6 +670,7 @@ const ServiceProviderManager = () => {
                         </span>
                       </div>
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                        {/* Dynamic width for compliance stats */}
                         <div 
                           className="bg-primary h-2 rounded-full transition-all duration-300"
                           style={{ width: `${percentage}%` }}
