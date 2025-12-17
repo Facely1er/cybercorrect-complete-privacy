@@ -1,16 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { AssessmentResults } from '../../components/assessment/AssessmentResults';
 import { generateResultsPdf } from '../../utils/pdf';
 import { Loader2, AlertTriangle, ArrowRight, Target } from 'lucide-react';
 import { AssessmentFlowProgress } from '../../components/assessment/AssessmentFlowProgress';
-import RecommendedTools from '../../components/assessment/RecommendedTools';
 import RecommendedJourney from '../../components/assessment/RecommendedJourney';
 import GapPriorityCard from '../../components/gaps/GapPriorityCard';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { useJourney } from '../../context/JourneyContext';
-import { generateGapsFromAssessment } from '../../utils/gapJourneyConfig';
+import { useJourney } from '../../context/useJourney';
 
 const PrivacyResults = () => {
   const navigate = useNavigate();
@@ -19,7 +17,7 @@ const PrivacyResults = () => {
   const { setAssessmentResults, identifiedGaps, markGapStarted } = useJourney();
   
   // Get assessment results from location state, or use mock data as fallback
-  const assessmentResults = location.state?.assessmentResults || {
+  const assessmentResults = useMemo(() => location.state?.assessmentResults || {
     overallScore: 66,
     sectionScores: [
       { title: "Identify", percentage: 73, completed: true },
@@ -35,7 +33,7 @@ const PrivacyResults = () => {
       month: 'long', 
       day: 'numeric' 
     })
-  };
+  }, [location.state?.assessmentResults]);
 
   const handleExport = () => {
     generateResultsPdf(
@@ -48,11 +46,13 @@ const PrivacyResults = () => {
   };
 
   // Generate and save gaps when assessment results are loaded
+  // If coming from a retake (fromRetake flag), preserve existing progress
   useEffect(() => {
     if (assessmentResults && assessmentResults.sectionScores) {
-      setAssessmentResults(assessmentResults);
+      const preserveProgress = location.state?.preserveProgress || false;
+      setAssessmentResults(assessmentResults, preserveProgress);
     }
-  }, [assessmentResults, setAssessmentResults]);
+  }, [assessmentResults, setAssessmentResults, location.state?.preserveProgress]);
 
   const handleViewGapAnalysis = () => {
     setIsNavigating(true);

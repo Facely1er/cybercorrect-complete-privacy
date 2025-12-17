@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useChatbot } from '../components/chat/ChatbotProvider';
-import { useJourney } from '../context/JourneyContext';
+import { useJourney } from '../context/useJourney';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
 import { HeroHeadingCarousel } from '../components/ui/HeroHeadingCarousel';
 import FloatingPrivacyIcons from '../components/ui/FloatingPrivacyIcons';
 import OnboardingFlow from '../components/onboarding/OnboardingFlow';
-import JourneyProgressTracker from '../components/onboarding/JourneyProgressTracker';
 import { 
   ArrowRight, 
   Shield, 
@@ -25,8 +24,8 @@ import {
 } from 'lucide-react';
 
 const Landing = () => {
-  const { openChatbot } = useChatbot();
-  const { hasVisitedBefore, currentStepIndex, completedSteps } = useJourney();
+  useChatbot();
+  const { hasVisitedBefore } = useJourney();
   const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
@@ -68,10 +67,6 @@ const Landing = () => {
 
 
 
-
-  const handleGuideMe = () => {
-    openChatbot();
-  };
 
   return (
     <div className="min-h-screen bg-surface dark:bg-dark-bg">

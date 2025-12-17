@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { useProject } from '../../context/ProjectContext';
+import { useJourney } from '../../context/useJourney';
 import { InternalLink, RelatedContent } from '../../components/ui/InternalLinkingHelper';
 import { complianceHealthMonitor } from '../../utils/compliance';
 import { notificationService, Notification } from '../../utils/compliance';
 import { logError } from '../../utils/common';
 import { usePageTitle } from '../../hooks/usePageTitle';
+import { GAP_DOMAINS, GAP_SEVERITY_CONFIG } from '../../utils/gapJourneyConfig';
 import './PrivacyProjectDashboard.css';
 import { 
   Eye, 
@@ -38,6 +40,13 @@ const PrivacyProjectDashboard = () => {
     createProject, 
     getCurrentProject 
   } = useProject();
+  const {
+    identifiedGaps,
+    gapProgress,
+    completedToolIds,
+    hasCompletedAssessment,
+    getGapCompletionPercentage
+  } = useJourney();
   const [, setShowCreateProject] = useState(false);
   const [complianceScore, setComplianceScore] = useState<number | null>(null);
   const [recentNotifications, setRecentNotifications] = useState<Notification[]>([]);
@@ -269,6 +278,144 @@ const PrivacyProjectDashboard = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Gap Progress from Journey */}
+      {hasCompletedAssessment && identifiedGaps.length > 0 && (
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between">
+              <span className="flex items-center">
+                <Target className="h-5 w-5 mr-2 text-primary" />
+                Compliance Gap Progress
+              </span>
+              <Link to="/compliance">
+                <Button variant="outline" size="sm">
+                  View All Gaps
+                </Button>
+              </Link>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {/* Summary Stats */}
+            {gapProgress && (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div className="text-center p-3 bg-muted/30 rounded-lg">
+                  <div className="text-2xl font-bold text-foreground">{gapProgress.totalGaps}</div>
+                  <div className="text-xs text-muted-foreground">Total Gaps</div>
+                </div>
+                <div className="text-center p-3 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+                  <div className="text-2xl font-bold text-red-600 dark:text-red-400">{gapProgress.criticalGapsRemaining}</div>
+                  <div className="text-xs text-muted-foreground">Critical</div>
+                </div>
+                <div className="text-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{gapProgress.inProgressGaps}</div>
+                  <div className="text-xs text-muted-foreground">In Progress</div>
+                </div>
+                <div className="text-center p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                  <div className="text-2xl font-bold text-green-600 dark:text-green-400">{gapProgress.completedGaps}</div>
+                  <div className="text-xs text-muted-foreground">Completed</div>
+                </div>
+              </div>
+            )}
+
+            {/* Gap by Domain */}
+            <div className="space-y-3">
+              {identifiedGaps.slice(0, 5).map((gap) => {
+                const domain = GAP_DOMAINS[gap.domain];
+                const severityConfig = GAP_SEVERITY_CONFIG[gap.severity];
+                const toolCompletion = getGapCompletionPercentage(gap.domain);
+                const DomainIcon = domain.icon;
+                
+                return (
+                  <div 
+                    key={gap.id} 
+                    className={`p-4 rounded-lg border-2 ${
+                      gap.status === 'completed' 
+                        ? 'border-green-300 bg-green-50/50 dark:border-green-700 dark:bg-green-900/20'
+                        : gap.status === 'in_progress'
+                        ? 'border-blue-300 bg-blue-50/50 dark:border-blue-700 dark:bg-blue-900/20'
+                        : domain.borderColor + ' ' + domain.bgColor
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${domain.bgColor}`}>
+                          <DomainIcon className={`h-5 w-5 ${domain.color}`} />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-foreground">{gap.domainTitle}</h4>
+                          <div className="flex items-center gap-2 text-xs">
+                            <span className={`px-2 py-0.5 rounded-full ${severityConfig.bgColor} ${severityConfig.color}`}>
+                              {severityConfig.icon} {severityConfig.label}
+                            </span>
+                            <span className="text-muted-foreground">
+                              {gap.score}% compliant
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        {gap.status === 'completed' ? (
+                          <span className="text-xs font-bold px-2 py-1 rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                            ✓ Completed
+                          </span>
+                        ) : (
+                          <div className="text-xs text-muted-foreground">
+                            Tools: {toolCompletion}% done
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Progress bar */}
+                    {gap.status !== 'completed' && (
+                      <div className="w-full bg-muted h-2 rounded-full overflow-hidden">
+                        {/* eslint-disable-next-line react/forbid-dom-props */}
+                        <div 
+                          className="h-2 rounded-full bg-primary transition-all duration-300"
+                          style={{ width: `${toolCompletion}%` }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Tools Completed */}
+            <div className="mt-4 pt-4 border-t border-border">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">
+                  <CheckCircle className="h-4 w-4 inline mr-1 text-green-600" />
+                  {completedToolIds.length} tools completed
+                </span>
+                <Link to="/toolkit" className="text-primary hover:underline">
+                  View Toolkit →
+                </Link>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Assessment CTA if not completed */}
+      {!hasCompletedAssessment && (
+        <Card className="mb-8 border-2 border-dashed border-primary/30">
+          <CardContent className="p-6 text-center">
+            <Eye className="h-12 w-12 text-primary mx-auto mb-4" />
+            <h3 className="text-xl font-bold mb-2 text-foreground">Start Your Privacy Assessment</h3>
+            <p className="text-muted-foreground mb-4">
+              Take the assessment to identify compliance gaps and get a prioritized action plan
+            </p>
+            <Link to="/assessments/privacy-assessment">
+              <Button size="lg">
+                <Eye className="mr-2 h-5 w-5" />
+                Start Assessment
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Project Phases */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">

@@ -9,13 +9,7 @@ import {
   Shield,
   Eye,
   Lock,
-  FileText,
   Users,
-  AlertTriangle,
-  CheckCircle,
-  Target,
-  Database,
-  Network,
   Settings,
   type LucideIcon
 } from 'lucide-react';
@@ -335,11 +329,9 @@ export function calculateGapJourneyProgress(
     completedGapIds.includes(gap.id)
   ).length;
   
-  const inProgressGaps = identifiedGaps.filter(gap => {
-    const tools = gap.recommendedTools;
-    // Check if any tools have been started (this would come from tracking)
-    return gap.status === 'in_progress';
-  }).length;
+  const inProgressGaps = identifiedGaps.filter(gap => 
+    gap.status === 'in_progress'
+  ).length;
 
   const criticalGapsRemaining = identifiedGaps.filter(gap => 
     gap.severity === 'critical' && !completedGapIds.includes(gap.id)
@@ -382,5 +374,69 @@ export function updateGapStatus(
   return gaps.map(gap => 
     gap.id === gapId ? { ...gap, status } : gap
   );
+}
+
+/**
+ * Get the domain that a tool belongs to
+ */
+export function getToolDomain(toolId: string): GapDomain | null {
+  for (const [domain, tools] of Object.entries(DOMAIN_TOOL_MAPPINGS)) {
+    if (tools.some(t => t.toolId === toolId)) {
+      return domain as GapDomain;
+    }
+  }
+  return null;
+}
+
+/**
+ * Get all tool IDs for a specific domain
+ */
+export function getToolIdsForDomain(domain: GapDomain): string[] {
+  return DOMAIN_TOOL_MAPPINGS[domain]?.map(t => t.toolId) || [];
+}
+
+/**
+ * Calculate gap completion percentage based on completed tools
+ */
+export function calculateGapCompletionFromTools(
+  domain: GapDomain,
+  completedToolIds: string[]
+): number {
+  const domainTools = getToolIdsForDomain(domain);
+  if (domainTools.length === 0) return 0;
+  
+  const completedCount = domainTools.filter(toolId => 
+    completedToolIds.includes(toolId)
+  ).length;
+  
+  return Math.round((completedCount / domainTools.length) * 100);
+}
+
+/**
+ * Check if a gap should be marked as completed based on tool usage
+ * Requires at least 50% of domain tools to be completed
+ */
+export function shouldMarkGapCompleted(
+  domain: GapDomain,
+  completedToolIds: string[]
+): boolean {
+  const completionPercentage = calculateGapCompletionFromTools(domain, completedToolIds);
+  return completionPercentage >= 50;
+}
+
+/**
+ * Get recommended next tool for a gap based on what's already completed
+ */
+export function getNextRecommendedTool(
+  domain: GapDomain,
+  completedToolIds: string[]
+): { toolId: string; toolName: string; toolPath: string } | null {
+  const domainTools = DOMAIN_TOOL_MAPPINGS[domain] || [];
+  const nextTool = domainTools.find(tool => !completedToolIds.includes(tool.toolId));
+  return nextTool ? { 
+    toolId: nextTool.toolId, 
+    toolName: nextTool.toolName, 
+    toolPath: nextTool.toolPath 
+  } : null;
 }
 

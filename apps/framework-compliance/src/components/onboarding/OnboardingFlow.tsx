@@ -83,8 +83,8 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
       title: 'Track & Maintain',
       description: 'Monitor progress and maintain compliance with continuous tracking',
       icon: BarChart3,
-      action: 'View Dashboard',
-      path: '/dashboard/privacy',
+      action: 'View Project Dashboard',
+      path: '/project/dashboard',
       duration: 'Continuous',
       color: 'from-orange-500 to-amber-500',
       benefits: [

@@ -5,7 +5,7 @@ import { Button } from '../components/ui/Button';
 import JourneyProgressTracker from '../components/onboarding/JourneyProgressTracker';
 import OnboardingFlow from '../components/onboarding/OnboardingFlow';
 import GapPriorityCard from '../components/gaps/GapPriorityCard';
-import { useJourney } from '../context/JourneyContext';
+import { useJourney } from '../context/useJourney';
 import { 
   Shield,
   Eye,
@@ -136,37 +136,59 @@ const Compliance = () => {
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-block mb-6">
               <span className="bg-primary/10 text-primary dark:bg-dark-primary/10 dark:text-dark-primary px-4 py-2 rounded-full inline-flex items-center text-sm font-medium">
-                <Shield className="w-4 h-4 mr-2" />
-                Privacy Compliance Hub
+                <Target className="w-4 h-4 mr-2" />
+                Step 2 of Your Journey
               </span>
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
-              Your <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Compliance</span> Pathway
+              {hasCompletedAssessment 
+                ? <>Your <span className="bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">Priority Gaps</span></>
+                : <>Discover Your <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Compliance Gaps</span></>
+              }
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
               {hasCompletedAssessment 
-                ? 'Close your compliance gaps with prioritized actions and clear guidance'
-                : 'Discover your compliance gaps and get a prioritized action plan'
+                ? 'Focus on these areas first to reduce risk and achieve compliance faster'
+                : 'Take the assessment to see exactly where you stand and what needs attention'
               }
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/assessments/privacy-assessment">
-                <Button size="lg" variant="default" className="enhanced-button">
-                  Start Assessment
-                  <Eye className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="hover:-translate-y-1 transition-transform"
-                onClick={() => setShowOnboarding(true)}
-              >
-                <PlayCircle className="mr-2 h-5 w-5" />
-                View Journey Guide
-              </Button>
+              {hasCompletedAssessment ? (
+                <>
+                  <Link to="/toolkit">
+                    <Button size="lg" variant="default" className="enhanced-button">
+                      Start Closing Gaps
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                  <Link to="/assessments/privacy-assessment">
+                    <Button size="lg" variant="outline" className="hover:-translate-y-1 transition-transform">
+                      <Eye className="mr-2 h-5 w-5" />
+                      Retake Assessment
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/assessments/privacy-assessment">
+                    <Button size="lg" variant="default" className="enhanced-button">
+                      Start Assessment
+                      <Eye className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="hover:-translate-y-1 transition-transform"
+                    onClick={() => setShowOnboarding(true)}
+                  >
+                    <PlayCircle className="mr-2 h-5 w-5" />
+                    View Journey Guide
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -245,6 +267,21 @@ const Compliance = () => {
                   />
                 ))}
               </div>
+
+              {/* Next Step CTA */}
+              <div className="mt-12 p-6 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 rounded-xl text-center">
+                <h3 className="text-xl font-bold mb-2 text-foreground">Ready to Close Your Gaps?</h3>
+                <p className="text-muted-foreground mb-4">
+                  Use our toolkit to address each gap with the right tools and guidance
+                </p>
+                <Link to="/toolkit">
+                  <Button size="lg" className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white">
+                    <TrendingUp className="mr-2 h-5 w-5" />
+                    Go to Toolkit
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -268,33 +305,36 @@ const Compliance = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-4 gap-6">
               {/* Step 1 */}
               <div className="relative">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <ClipboardCheck className="w-8 h-8 text-white" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <ClipboardCheck className="w-7 h-7 text-white" />
                   </div>
-                  <div className="absolute top-8 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-primary/50 to-transparent hidden md:block"></div>
-                  <span className="inline-block bg-primary text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 1</span>
-                  <h3 className="text-xl font-bold mb-2 text-foreground">Take Assessment</h3>
+                  <div className="absolute top-7 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-blue-400/50 to-transparent hidden md:block"></div>
+                  <span className="inline-block bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 1</span>
+                  <h3 className="text-lg font-bold mb-2 text-foreground">Assessment</h3>
                   <p className="text-muted-foreground text-sm">
-                    Complete the Privacy Assessment to evaluate your current compliance posture across key areas
+                    Evaluate your privacy posture
                   </p>
+                  <Link to="/assessment" className="text-primary text-sm font-medium hover:underline mt-2 inline-block">
+                    Go to Assessment →
+                  </Link>
                 </div>
               </div>
 
-              {/* Step 2 */}
+              {/* Step 2 - Current page */}
               <div className="relative">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <Target className="w-8 h-8 text-white" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg ring-4 ring-purple-200 dark:ring-purple-800">
+                    <Target className="w-7 h-7 text-white" />
                   </div>
-                  <div className="absolute top-8 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-secondary/50 to-transparent hidden md:block"></div>
-                  <span className="inline-block bg-secondary text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 2</span>
-                  <h3 className="text-xl font-bold mb-2 text-foreground">Get Your Journey</h3>
+                  <div className="absolute top-7 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-purple-400/50 to-transparent hidden md:block"></div>
+                  <span className="inline-block bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 2 • You Are Here</span>
+                  <h3 className="text-lg font-bold mb-2 text-foreground">Discover Gaps</h3>
                   <p className="text-muted-foreground text-sm">
-                    Receive your personalized compliance journey with prioritized actions based on your specific gaps
+                    See your prioritized gaps
                   </p>
                 </div>
               </div>
@@ -302,14 +342,35 @@ const Compliance = () => {
               {/* Step 3 */}
               <div className="relative">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <Route className="w-8 h-8 text-white" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg opacity-60">
+                    <Route className="w-7 h-7 text-white" />
                   </div>
+                  <div className="absolute top-7 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-green-400/50 to-transparent hidden md:block"></div>
                   <span className="inline-block bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 3</span>
-                  <h3 className="text-xl font-bold mb-2 text-foreground">Follow Your Journey</h3>
+                  <h3 className="text-lg font-bold mb-2 text-foreground">Close Gaps</h3>
                   <p className="text-muted-foreground text-sm">
-                    Access customized tools, workflows, and resources prioritized by your specific compliance gaps
+                    Use tools to fix issues
                   </p>
+                  <Link to="/toolkit" className="text-primary text-sm font-medium hover:underline mt-2 inline-block">
+                    Go to Toolkit →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Step 4 */}
+              <div className="relative">
+                <div className="text-center">
+                  <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg opacity-60">
+                    <TrendingUp className="w-7 h-7 text-white" />
+                  </div>
+                  <span className="inline-block bg-orange-600 text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 4</span>
+                  <h3 className="text-lg font-bold mb-2 text-foreground">Track Progress</h3>
+                  <p className="text-muted-foreground text-sm">
+                    Monitor in Project Dashboard
+                  </p>
+                  <Link to="/project" className="text-primary text-sm font-medium hover:underline mt-2 inline-block">
+                    Go to Project →
+                  </Link>
                 </div>
               </div>
             </div>

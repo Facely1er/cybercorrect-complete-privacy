@@ -26,12 +26,13 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Navigation order follows customer journey: Assess → Discover Gaps → Close Gaps → Track
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
     { name: 'Assessment', href: '/assessment', icon: ClipboardCheck },
-    { name: 'Project', href: '/project', icon: FolderKanban },
     { name: 'Your Journey', href: '/compliance', icon: Route },
     { name: 'Toolkit', href: '/toolkit', icon: Wrench },
+    { name: 'Project', href: '/project', icon: FolderKanban },
     { name: 'Docs & Guides', href: '/resources', icon: BookOpen },
   ];
 

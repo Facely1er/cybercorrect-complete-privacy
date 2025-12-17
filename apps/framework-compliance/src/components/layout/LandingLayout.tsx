@@ -4,7 +4,6 @@ import {
   Menu,
   X,
   User,
-  Users,
   SunMoon,
   Moon,
   HelpCircle,
@@ -93,6 +92,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   }, [isLandingPage]);
 
   // Main navigation structure with direct links (no dropdowns)
+  // Order follows customer journey: Assess → Discover Gaps → Close Gaps → Track
   const mainNavItems: NavItem[] = [
     {
       name: 'Home',
@@ -105,11 +105,6 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       icon: PuzzlePiece
     },
     {
-      name: 'Project',
-      path: '/project',
-      icon: PuzzlePiece
-    },
-    {
       name: 'Your Journey',
       path: '/compliance',
       icon: Route
@@ -117,6 +112,11 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
     {
       name: 'Toolkit',
       path: '/toolkit',
+      icon: PuzzlePiece
+    },
+    {
+      name: 'Project',
+      path: '/project',
       icon: PuzzlePiece
     },
     {
@@ -204,7 +204,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                   type="button"
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   className="lg:hidden ml-2 inline-flex items-center justify-center p-2 rounded-md text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary"
-                  aria-expanded={mobileMenuOpen}
+                  {...{ 'aria-expanded': mobileMenuOpen ? 'true' : 'false' }}
                   aria-label={mobileMenuOpen ? "Close main menu" : "Open main menu"}
                 >
                   <span className="sr-only">Open main menu</span>

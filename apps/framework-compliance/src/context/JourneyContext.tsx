@@ -1,13 +1,33 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { JOURNEY_STEPS, type JourneyStep } from '../components/onboarding/JourneyProgressTracker';
+import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import { JOURNEY_STEPS } from '../components/onboarding/JourneyProgressTracker';
 import {
   IdentifiedGap,
   GapJourneyProgress,
   calculateGapJourneyProgress,
-  generateGapsFromAssessment
+  generateGapsFromAssessment,
+  getToolDomain,
+  shouldMarkGapCompleted,
+  calculateGapCompletionFromTools,
+  type GapDomain
 } from '../utils/gapJourneyConfig';
 
-interface JourneyContextType {
+// Type for assessment results input
+interface AssessmentResultsInput {
+  sectionScores: Array<{ title: string; percentage: number; completed: boolean }>;
+  overallScore?: number;
+  assessmentType?: string;
+  frameworkName?: string;
+  completedDate?: string;
+}
+
+interface ToolUsage {
+  toolId: string;
+  startedAt: string;
+  completedAt?: string;
+  domain: GapDomain | null;
+}
+
+export interface JourneyContextType {
   currentStepIndex: number;
   completedSteps: string[];
   hasCompletedAssessment: boolean;
@@ -21,10 +41,18 @@ interface JourneyContextType {
   identifiedGaps: IdentifiedGap[];
   completedGapIds: string[];
   gapProgress: GapJourneyProgress | null;
-  setAssessmentResults: (results: any) => void;
+  setAssessmentResults: (results: AssessmentResultsInput, preserveProgress?: boolean) => void;
   markGapStarted: (gapId: string) => void;
   markGapCompleted: (gapId: string) => void;
   getNextPriorityGap: () => IdentifiedGap | null;
+  
+  // Tool completion tracking
+  completedToolIds: string[];
+  toolUsageHistory: ToolUsage[];
+  markToolStarted: (toolId: string) => void;
+  markToolCompleted: (toolId: string) => void;
+  isToolCompleted: (toolId: string) => boolean;
+  getGapCompletionPercentage: (domain: GapDomain) => number;
 }
 
 const JourneyContext = createContext<JourneyContextType | undefined>(undefined);
@@ -40,7 +68,9 @@ const STORAGE_KEYS = {
   ASSESSMENT_COMPLETED: 'cybercorrect_assessment_completed',
   IDENTIFIED_GAPS: 'cybercorrect_identified_gaps',
   COMPLETED_GAPS: 'cybercorrect_completed_gaps',
-  ASSESSMENT_RESULTS: 'cybercorrect_assessment_results'
+  ASSESSMENT_RESULTS: 'cybercorrect_assessment_results',
+  COMPLETED_TOOLS: 'cybercorrect_completed_tools',
+  TOOL_USAGE_HISTORY: 'cybercorrect_tool_usage_history'
 };
 
 export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) => {
@@ -53,6 +83,10 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
   const [identifiedGaps, setIdentifiedGaps] = useState<IdentifiedGap[]>([]);
   const [completedGapIds, setCompletedGapIds] = useState<string[]>([]);
   const [gapProgress, setGapProgress] = useState<GapJourneyProgress | null>(null);
+  
+  // Tool completion tracking
+  const [completedToolIds, setCompletedToolIds] = useState<string[]>([]);
+  const [toolUsageHistory, setToolUsageHistory] = useState<ToolUsage[]>([]);
 
   // Load journey state from localStorage on mount
   useEffect(() => {
@@ -63,6 +97,8 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       const assessmentCompleted = localStorage.getItem(STORAGE_KEYS.ASSESSMENT_COMPLETED);
       const savedGaps = localStorage.getItem(STORAGE_KEYS.IDENTIFIED_GAPS);
       const savedCompletedGaps = localStorage.getItem(STORAGE_KEYS.COMPLETED_GAPS);
+      const savedCompletedTools = localStorage.getItem(STORAGE_KEYS.COMPLETED_TOOLS);
+      const savedToolUsageHistory = localStorage.getItem(STORAGE_KEYS.TOOL_USAGE_HISTORY);
 
       if (visited) {
         setHasVisitedBefore(true);
@@ -88,6 +124,14 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       if (savedCompletedGaps) {
         setCompletedGapIds(JSON.parse(savedCompletedGaps));
       }
+
+      if (savedCompletedTools) {
+        setCompletedToolIds(JSON.parse(savedCompletedTools));
+      }
+
+      if (savedToolUsageHistory) {
+        setToolUsageHistory(JSON.parse(savedToolUsageHistory));
+      }
     } catch (error) {
       console.error('Error loading journey state:', error);
     }
@@ -100,6 +144,8 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       localStorage.setItem(STORAGE_KEYS.COMPLETED_STEPS, JSON.stringify(completedSteps));
       localStorage.setItem(STORAGE_KEYS.IDENTIFIED_GAPS, JSON.stringify(identifiedGaps));
       localStorage.setItem(STORAGE_KEYS.COMPLETED_GAPS, JSON.stringify(completedGapIds));
+      localStorage.setItem(STORAGE_KEYS.COMPLETED_TOOLS, JSON.stringify(completedToolIds));
+      localStorage.setItem(STORAGE_KEYS.TOOL_USAGE_HISTORY, JSON.stringify(toolUsageHistory));
       
       if (hasVisitedBefore) {
         localStorage.setItem(STORAGE_KEYS.VISITED, 'true');
@@ -111,7 +157,7 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     } catch (error) {
       console.error('Error saving journey state:', error);
     }
-  }, [currentStepIndex, completedSteps, hasVisitedBefore, hasCompletedAssessment, identifiedGaps, completedGapIds]);
+  }, [currentStepIndex, completedSteps, hasVisitedBefore, hasCompletedAssessment, identifiedGaps, completedGapIds, completedToolIds, toolUsageHistory]);
 
   // Calculate gap progress whenever gaps or completed gaps change
   useEffect(() => {
@@ -152,6 +198,8 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     setIdentifiedGaps([]);
     setCompletedGapIds([]);
     setGapProgress(null);
+    setCompletedToolIds([]);
+    setToolUsageHistory([]);
     
     try {
       localStorage.removeItem(STORAGE_KEYS.CURRENT_STEP);
@@ -160,6 +208,8 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       localStorage.removeItem(STORAGE_KEYS.IDENTIFIED_GAPS);
       localStorage.removeItem(STORAGE_KEYS.COMPLETED_GAPS);
       localStorage.removeItem(STORAGE_KEYS.ASSESSMENT_RESULTS);
+      localStorage.removeItem(STORAGE_KEYS.COMPLETED_TOOLS);
+      localStorage.removeItem(STORAGE_KEYS.TOOL_USAGE_HISTORY);
     } catch (error) {
       console.error('Error resetting journey state:', error);
     }
@@ -170,11 +220,29 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
   };
 
   // Gap-based journey functions
-  const setAssessmentResults = (results: any) => {
+  const setAssessmentResults = (results: AssessmentResultsInput, preserveProgress: boolean = false) => {
     try {
       // Generate gaps from assessment
       const gaps = generateGapsFromAssessment(results);
-      setIdentifiedGaps(gaps);
+      
+      if (preserveProgress && identifiedGaps.length > 0) {
+        // Merge new gaps with existing progress
+        const mergedGaps = gaps.map(newGap => {
+          const existingGap = identifiedGaps.find(g => g.domain === newGap.domain);
+          if (existingGap) {
+            // Preserve status and update score
+            return {
+              ...newGap,
+              status: existingGap.status,
+              // If the score improved, keep tracking progress
+            };
+          }
+          return newGap;
+        });
+        setIdentifiedGaps(mergedGaps);
+      } else {
+        setIdentifiedGaps(gaps);
+      }
       
       // Save assessment results
       localStorage.setItem(STORAGE_KEYS.ASSESSMENT_RESULTS, JSON.stringify(results));
@@ -215,6 +283,74 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       .sort((a, b) => a.priority - b.priority)[0] || null;
   };
 
+  // Tool completion tracking functions
+  const markToolStarted = (toolId: string) => {
+    const domain = getToolDomain(toolId);
+    const existingUsage = toolUsageHistory.find(u => u.toolId === toolId);
+    
+    if (!existingUsage) {
+      setToolUsageHistory(prev => [...prev, {
+        toolId,
+        startedAt: new Date().toISOString(),
+        domain
+      }]);
+    }
+
+    // Also mark the corresponding gap as in_progress if not already
+    if (domain) {
+      const gapId = `gap-${domain}`;
+      const gap = identifiedGaps.find(g => g.id === gapId);
+      if (gap && gap.status === 'not_started') {
+        markGapStarted(gapId);
+      }
+    }
+  };
+
+  const markToolCompleted = (toolId: string) => {
+    // Add to completed tools if not already
+    if (!completedToolIds.includes(toolId)) {
+      setCompletedToolIds(prev => [...prev, toolId]);
+    }
+
+    // Update tool usage history
+    setToolUsageHistory(prev => 
+      prev.map(usage => 
+        usage.toolId === toolId 
+          ? { ...usage, completedAt: new Date().toISOString() }
+          : usage
+      )
+    );
+
+    // Check if this tool completion should auto-complete a gap
+    const domain = getToolDomain(toolId);
+    if (domain) {
+      const newCompletedToolIds = [...completedToolIds, toolId];
+      if (shouldMarkGapCompleted(domain, newCompletedToolIds)) {
+        const gapId = `gap-${domain}`;
+        const gap = identifiedGaps.find(g => g.id === gapId);
+        if (gap && gap.status !== 'completed') {
+          markGapCompleted(gapId);
+        }
+      }
+    }
+
+    // Check if we should advance journey step to "close" when first tool is completed
+    if (!completedSteps.includes('close') && completedToolIds.length === 0) {
+      // First tool completed - mark step as started
+      if (currentStepIndex < 2) {
+        setCurrentStep(2);
+      }
+    }
+  };
+
+  const isToolCompleted = (toolId: string): boolean => {
+    return completedToolIds.includes(toolId);
+  };
+
+  const getGapCompletionPercentage = (domain: GapDomain): number => {
+    return calculateGapCompletionFromTools(domain, completedToolIds);
+  };
+
   const value: JourneyContextType = {
     currentStepIndex,
     completedSteps,
@@ -230,7 +366,14 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     setAssessmentResults,
     markGapStarted,
     markGapCompleted,
-    getNextPriorityGap
+    getNextPriorityGap,
+    // Tool completion tracking
+    completedToolIds,
+    toolUsageHistory,
+    markToolStarted,
+    markToolCompleted,
+    isToolCompleted,
+    getGapCompletionPercentage
   };
 
   return (
@@ -238,14 +381,6 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       {children}
     </JourneyContext.Provider>
   );
-};
-
-export const useJourney = (): JourneyContextType => {
-  const context = useContext(JourneyContext);
-  if (context === undefined) {
-    throw new Error('useJourney must be used within a JourneyProvider');
-  }
-  return context;
 };
 
 export default JourneyContext;
