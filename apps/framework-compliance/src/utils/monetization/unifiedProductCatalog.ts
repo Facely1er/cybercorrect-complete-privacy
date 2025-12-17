@@ -19,11 +19,16 @@ export interface UnifiedProduct {
   price?: number;
   monthlyPrice?: number;
   annualPrice?: number;
+  quarterlyPrice?: number;
+  monthlyEquivalent?: number;
   billing?: string;
   popular?: boolean;
   features?: string[];
   // Subscription-specific
   tier?: 'free' | 'starter' | 'professional' | 'enterprise';
+  quarterlyDeliverables?: string[];
+  ongoingAccess?: string[];
+  professionalServices?: string[];
   // One-time specific
   licenseType?: 'lifetime' | 'annual';
   deploymentModel?: 'localStorage' | 'standalone' | 'hybrid';
@@ -44,12 +49,15 @@ export class UnifiedProductCatalog {
       type: 'subscription' as const,
       category: 'subscription' as const,
       description: sub.description,
-      monthlyPrice: sub.monthlyPrice,
-      annualPrice: sub.annualPrice,
+      quarterlyPrice: sub.quarterlyPrice,
+      monthlyEquivalent: sub.monthlyEquivalent,
+      monthlyPrice: sub.monthlyEquivalent, // For backward compatibility
       billing: sub.billing,
       popular: sub.popular,
-      features: sub.features,
-      tier: sub.tier
+      tier: sub.tier,
+      quarterlyDeliverables: sub.quarterlyDeliverables,
+      ongoingAccess: sub.ongoingAccess,
+      professionalServices: sub.professionalServices
     }));
 
     const oneTime: UnifiedProduct[] = ONE_TIME_PRODUCTS.map(product => ({
@@ -91,12 +99,15 @@ export class UnifiedProductCatalog {
         type: 'subscription' as const,
         category: 'subscription' as const,
         description: sub.description,
-        monthlyPrice: sub.monthlyPrice,
-        annualPrice: sub.annualPrice,
+        quarterlyPrice: sub.quarterlyPrice,
+        monthlyEquivalent: sub.monthlyEquivalent,
+        monthlyPrice: sub.monthlyEquivalent, // For backward compatibility
         billing: sub.billing,
         popular: sub.popular,
-        features: sub.features,
-        tier: sub.tier
+        tier: sub.tier,
+        quarterlyDeliverables: sub.quarterlyDeliverables,
+        ongoingAccess: sub.ongoingAccess,
+        professionalServices: sub.professionalServices
       }));
     }
 
@@ -139,12 +150,15 @@ export class UnifiedProductCatalog {
         type: 'subscription',
         category: 'subscription',
         description: subscription.description,
-        monthlyPrice: subscription.monthlyPrice,
-        annualPrice: subscription.annualPrice,
+        quarterlyPrice: subscription.quarterlyPrice,
+        monthlyEquivalent: subscription.monthlyEquivalent,
+        monthlyPrice: subscription.monthlyEquivalent, // For backward compatibility
         billing: subscription.billing,
         popular: subscription.popular,
-        features: subscription.features,
-        tier: subscription.tier
+        tier: subscription.tier,
+        quarterlyDeliverables: subscription.quarterlyDeliverables,
+        ongoingAccess: subscription.ongoingAccess,
+        professionalServices: subscription.professionalServices
       };
     }
 
@@ -193,12 +207,15 @@ export class UnifiedProductCatalog {
       type: 'subscription',
       category: 'subscription',
       description: subscription.description,
-      monthlyPrice: subscription.monthlyPrice,
-      annualPrice: subscription.annualPrice,
+      quarterlyPrice: subscription.quarterlyPrice,
+      monthlyEquivalent: subscription.monthlyEquivalent,
+      monthlyPrice: subscription.monthlyEquivalent, // For backward compatibility
       billing: subscription.billing,
       popular: subscription.popular,
-      features: subscription.features,
-      tier: subscription.tier
+      tier: subscription.tier,
+      quarterlyDeliverables: subscription.quarterlyDeliverables,
+      ongoingAccess: subscription.ongoingAccess,
+      professionalServices: subscription.professionalServices
     };
   }
 
@@ -224,12 +241,15 @@ export class UnifiedProductCatalog {
       type: 'subscription' as const,
       category: 'subscription' as const,
       description: sub.description,
-      monthlyPrice: sub.monthlyPrice,
-      annualPrice: sub.annualPrice,
+      quarterlyPrice: sub.quarterlyPrice,
+      monthlyEquivalent: sub.monthlyEquivalent,
+      monthlyPrice: sub.monthlyEquivalent, // For backward compatibility
       billing: sub.billing,
       popular: sub.popular,
-      features: sub.features,
-      tier: sub.tier
+      tier: sub.tier,
+      quarterlyDeliverables: sub.quarterlyDeliverables,
+      ongoingAccess: sub.ongoingAccess,
+      professionalServices: sub.professionalServices
     }));
   }
 

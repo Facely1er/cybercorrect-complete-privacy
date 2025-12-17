@@ -310,32 +310,37 @@ const OneTimeStore = () => {
 
                       <div className="mb-4">
                         <div className="text-3xl font-bold text-primary">
-                          {product.monthlyPrice === 0 ? 'Free' : `$${product.monthlyPrice}`}
+                          {product.quarterlyPrice === 0 ? 'Free' : `$${product.quarterlyPrice}`}
                         </div>
-                        {product.monthlyPrice > 0 && (
+                        {product.quarterlyPrice > 0 && (
                           <div className="text-sm text-muted-foreground">
-                            {product.billing}
-                            {product.annualPrice && product.annualPrice < product.monthlyPrice * 12 && (
+                            {product.billing || 'per quarter'}
+                            {product.monthlyEquivalent && product.monthlyEquivalent > 0 && (
                               <div className="text-accent mt-1">
-                                Save ${(product.monthlyPrice * 12 - product.annualPrice).toFixed(0)}/year with annual billing
+                                ${product.monthlyEquivalent}/month equivalent
                               </div>
                             )}
                           </div>
                         )}
+                        {product.quarterlyPrice === 0 && (
+                          <div className="text-sm text-muted-foreground">
+                            {product.billing || '14-day trial'}
+                          </div>
+                        )}
                       </div>
 
-                      {product.features && product.features.length > 0 && (
+                      {(product.ongoingAccess && product.ongoingAccess.length > 0) && (
                         <div className="mb-4">
                           <div className="space-y-2">
-                            {product.features.slice(0, 4).map((feature, idx) => (
+                            {product.ongoingAccess.slice(0, 4).map((feature, idx) => (
                               <div key={idx} className="flex items-start gap-2">
                                 <Check className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
                                 <span className="text-xs text-muted-foreground">{feature}</span>
                               </div>
                             ))}
-                            {product.features.length > 4 && (
+                            {product.ongoingAccess.length > 4 && (
                               <div className="text-xs text-primary font-medium">
-                                + {product.features.length - 4} more features
+                                + {product.ongoingAccess.length - 4} more features
                               </div>
                             )}
                           </div>
@@ -346,7 +351,7 @@ const OneTimeStore = () => {
                         onClick={() => handleSubscriptionClick(product.id)}
                         className={`w-full ${product.popular ? 'bg-accent hover:bg-accent/90' : 'bg-primary hover:bg-primary/90'}`}
                       >
-                        {product.monthlyPrice === 0 ? 'Get Started' : 'View Plan'}
+                        {product.quarterlyPrice === 0 ? 'Get Started' : 'View Plan'}
                       </Button>
                     </CardContent>
                   </Card>
