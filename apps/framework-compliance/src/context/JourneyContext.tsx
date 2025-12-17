@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect, useCallback, ReactNode } from 'react';
-import { JOURNEY_STEPS } from '../components/onboarding/JourneyProgressTracker';
 import {
   IdentifiedGap,
   GapJourneyProgress,
@@ -11,6 +10,14 @@ import {
   type GapDomain
 } from '../utils/gapJourneyConfig';
 import { toast } from '../components/ui/Toaster';
+
+// Define journey steps locally since import is not working
+const JOURNEY_STEPS = [
+  { key: 'assess', title: 'Assess', description: 'Complete your compliance assessment' },
+  { key: 'discover', title: 'Discover', description: 'Identify gaps and recommendations' },
+  { key: 'act', title: 'Act', description: 'Take action on compliance gaps' },
+  { key: 'maintain', title: 'Maintain', description: 'Maintain and monitor compliance' }
+];
 
 // Type for assessment results input
 interface AssessmentResultsInput {
