@@ -32,7 +32,7 @@ export const ContextualNavigation: React.FC = () => {
         },
         related: [
           { text: "Project Manager", href: "/project", icon: Target },
-          { text: "Resources", href: "/resources", icon: BookOpen }
+          { text: "Docs & Guides", href: "/resources", icon: BookOpen }
         ]
       };
     }
@@ -52,7 +52,7 @@ export const ContextualNavigation: React.FC = () => {
         },
         related: [
           { text: "Privacy Assessment", href: "/assessments/privacy-assessment", icon: Eye },
-          { text: "Resources", href: "/resources", icon: BookOpen }
+          { text: "Docs & Guides", href: "/resources", icon: BookOpen }
         ]
       };
     }
@@ -61,7 +61,7 @@ export const ContextualNavigation: React.FC = () => {
     if (pathname.includes('/documentation/') || pathname.includes('/guides/')) {
       return {
         previous: {
-          text: "Back to Resources", 
+          text: "Back to Docs & Guides", 
           href: "/resources",
           icon: ArrowLeft
         },

@@ -90,8 +90,8 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     // Regulatory
     'regulatory': 'Regulatory Intelligence',
     
-    // Resources
-    'resources-landing': 'Resources',
+    // Docs & Guides
+    'resources-landing': 'Docs & Guides',
     'documentation': 'Documentation',
     'guides': 'Guides',
     'support': 'Support',
@@ -101,7 +101,6 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     'gdpr-implementation-guide': 'GDPR Implementation Guide',
     'assessment-guide': 'Assessment Guide',
     'getting-started': 'Getting Started',
-    'quick-start': 'Quick Start',
     'platform-overview': 'Platform Overview',
     'understanding-dashboard': 'Understanding Dashboard',
     'understanding-rmf': 'Understanding RMF',

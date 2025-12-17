@@ -37,12 +37,9 @@ const DataSubjectRightsGuide = () => {
             <CardContent className="p-6">
               <Eye className="h-8 w-8 text-blue-600 mb-4" />
               <h3 className="text-lg font-semibold mb-2 text-foreground">Right to Access</h3>
-              <p className="text-sm text-muted-foreground mb-4">
+              <p className="text-sm text-muted-foreground">
                 Enable individuals to access their personal data.
               </p>
-              <Button variant="outline" size="sm" className="w-full">
-                Implementation Guide
-              </Button>
             </CardContent>
           </Card>
 
@@ -50,12 +47,9 @@ const DataSubjectRightsGuide = () => {
             <CardContent className="p-6">
               <RefreshCw className="h-8 w-8 text-green-600 mb-4" />
               <h3 className="text-lg font-semibold mb-2 text-foreground">Right to Rectification</h3>
-              <p className="text-sm text-muted-foreground mb-4">
+              <p className="text-sm text-muted-foreground">
                 Allow correction of inaccurate personal data.
               </p>
-              <Button variant="outline" size="sm" className="w-full">
-                Implementation Guide
-              </Button>
             </CardContent>
           </Card>
 
@@ -63,12 +57,9 @@ const DataSubjectRightsGuide = () => {
             <CardContent className="p-6">
               <UserX className="h-8 w-8 text-red-600 dark:text-red-400 mb-4" />
               <h3 className="text-lg font-semibold mb-2 text-foreground">Right to Erasure</h3>
-              <p className="text-sm text-muted-foreground mb-4">
+              <p className="text-sm text-muted-foreground">
                 Handle "right to be forgotten" requests.
               </p>
-              <Button variant="outline" size="sm" className="w-full">
-                Implementation Guide
-              </Button>
             </CardContent>
           </Card>
 
@@ -76,12 +67,9 @@ const DataSubjectRightsGuide = () => {
             <CardContent className="p-6">
               <Database className="h-8 w-8 text-purple-600 mb-4" />
               <h3 className="text-lg font-semibold mb-2 text-foreground">Right to Portability</h3>
-              <p className="text-sm text-muted-foreground mb-4">
+              <p className="text-sm text-muted-foreground">
                 Enable data export in structured formats.
               </p>
-              <Button variant="outline" size="sm" className="w-full">
-                Implementation Guide
-              </Button>
             </CardContent>
           </Card>
         </div>
@@ -92,8 +80,8 @@ const DataSubjectRightsGuide = () => {
             Access tools and templates for implementing data subject rights
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg">
-              Download Implementation Kit
+            <Button size="lg" onClick={() => navigate('/resources')}>
+              View All Resources
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>

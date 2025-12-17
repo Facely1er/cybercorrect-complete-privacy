@@ -32,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
     { name: 'Project', href: '/project', icon: FolderKanban },
     { name: 'Roles', href: '/compliance', icon: Users },
     { name: 'Toolkit', href: '/toolkit', icon: Wrench },
-    { name: 'Resources', href: '/resources', icon: BookOpen },
+    { name: 'Docs & Guides', href: '/resources', icon: BookOpen },
   ];
 
   const isActivePath = (path: string) => {

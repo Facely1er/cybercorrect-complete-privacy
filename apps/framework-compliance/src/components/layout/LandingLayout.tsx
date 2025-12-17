@@ -118,7 +118,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       icon: PuzzlePiece
     },
     {
-      name: 'Resources',
+      name: 'Docs & Guides',
       path: '/resources',
       icon: HelpCircle
     }

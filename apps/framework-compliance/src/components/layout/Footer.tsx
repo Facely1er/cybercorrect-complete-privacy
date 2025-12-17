@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
               <div className="mt-1">© {currentYear} ERMITS. All rights reserved.</div>
             </div>
             <div className="flex mt-2 md:mt-0 space-x-4">
-              <Link to="/resources" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Resources</Link>
+              <Link to="/resources" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Docs & Guides</Link>
               <Link to="/contact" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Contact</Link>
               <Link to="/privacy" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Privacy</Link>
               <Link to="/terms" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Terms</Link>
@@ -108,11 +108,11 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Docs & Guides */}
           <div className="space-y-2">
             <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
               <BookOpen className="h-3.5 w-3.5 text-primary" />
-              Resources
+              Docs & Guides
             </h3>
             <ul className="space-y-1.5 text-xs">
               <li>
