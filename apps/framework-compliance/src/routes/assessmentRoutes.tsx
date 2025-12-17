@@ -12,6 +12,9 @@ const PrivacyResults = lazy(() => import('../pages/tools-and-assessments/Privacy
 const PrivacyResultsOrganizational = lazy(() => import('../pages/tools-and-assessments/PrivacyResultsOrganizational'));
 const PrivacyRecommendations = lazy(() => import('../pages/tools-and-assessments/PrivacyRecommendations'));
 
+// Collaborative Assessments
+const CollaborativeAssessment = lazy(() => import('../pages/assessments/CollaborativeAssessment'));
+
 // Scheduled Assessments
 const ScheduledAssessments = lazy(() => import('../pages/assessments/ScheduledAssessments'));
 
@@ -36,7 +39,18 @@ export const assessmentRoutes = [
         element: PrivacyAssessment,
         lazy: true,
       },
+      {
+        path: 'collaborative',
+        element: CollaborativeAssessment,
+        lazy: true,
+      },
     ],
+  },
+  // Collaborative assessment with session ID
+  {
+    path: 'assessment/collaborate/:sessionId',
+    element: PrivacyAssessment,
+    lazy: true,
   },
   {
     path: 'privacy-results',

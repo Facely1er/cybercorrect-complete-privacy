@@ -111,12 +111,20 @@ const AssessmentHub = () => {
                 </div>
               </div>
               
-              <Link to="/assessments/privacy-assessment">
-                <Button size="lg" variant="default" className="w-full">
-                  Start Privacy Assessment
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+              <div className="flex flex-col gap-3">
+                <Link to="/assessments/privacy-assessment">
+                  <Button size="lg" variant="default" className="w-full">
+                    Start Privacy Assessment
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link to="/assessments/collaborative">
+                  <Button size="lg" variant="outline" className="w-full">
+                    Start Collaborative Assessment
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
             </CardContent>
           </Card>
         </div>
