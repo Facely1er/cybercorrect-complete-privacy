@@ -155,58 +155,151 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* How It Works - Moved up for better flow */}
-      <section className="py-16 md:py-24 bg-muted/30 dark:bg-dark-support/10">
+      {/* Clear Customer Journey Path */}
+      <section className="py-16 md:py-24 bg-white dark:bg-dark-surface">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="section-title text-3xl md:text-4xl">
-              How It Works
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Four simple steps to privacy compliance
-            </p>
-          </div>
+          <div className="max-w-6xl mx-auto">
+            {/* Section Header with Value Prop */}
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <Sparkles className="w-4 h-4" />
+                Clear Path to Compliance
+              </div>
+              <h2 className="section-title text-3xl md:text-4xl mb-4">
+                Your Privacy Compliance Journey in 4 Clear Steps
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                We've simplified the complex world of privacy compliance into a straightforward, guided journey
+              </p>
+            </div>
 
-          <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-4 gap-8">
-              {[
-                {
-                  step: '1',
-                  title: 'Assess',
-                  description: 'Answer questions about your organization and current privacy practices',
-                  icon: Eye
-                },
-                {
-                  step: '2',
-                  title: 'Discover',
-                  description: 'Get personalized insights, compliance scores, and priority recommendations',
-                  icon: Target
-                },
-                {
-                  step: '3',
-                  title: 'Act',
-                  description: 'Use our toolkit to address gaps and build your compliance program',
-                  icon: FileCheck
-                },
-                {
-                  step: '4',
-                  title: 'Maintain',
-                  description: 'Monitor progress and prove compliance to stakeholders',
-                  icon: BarChart3
-                }
-              ].map((phase, index) => (
-                <div key={index} className="text-center relative">
-                  <div className="w-16 h-16 bg-primary/10 dark:bg-dark-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
-                    <phase.icon className="w-8 h-8 text-primary dark:text-dark-primary" aria-hidden="true" />
+            {/* Visual Journey Map */}
+            <div className="relative mb-12">
+              <div className="grid md:grid-cols-4 gap-6">
+                {[
+                  {
+                    step: '1',
+                    title: 'Assess',
+                    description: 'Evaluate your current privacy posture across GDPR, CCPA, NIST, and more',
+                    icon: Eye,
+                    duration: '15-20 min',
+                    color: 'from-blue-500 to-cyan-500',
+                    action: 'Start Free Assessment',
+                    path: '/assessments/privacy-assessment'
+                  },
+                  {
+                    step: '2',
+                    title: 'Discover',
+                    description: 'Get your personalized compliance roadmap with prioritized actions',
+                    icon: Target,
+                    duration: 'Instant',
+                    color: 'from-purple-500 to-pink-500',
+                    action: 'View Your Journey',
+                    path: '/compliance'
+                  },
+                  {
+                    step: '3',
+                    title: 'Act',
+                    description: 'Use specialized tools to address gaps and build documentation',
+                    icon: FileCheck,
+                    duration: 'Ongoing',
+                    color: 'from-green-500 to-emerald-500',
+                    action: 'Explore Toolkit',
+                    path: '/toolkit'
+                  },
+                  {
+                    step: '4',
+                    title: 'Maintain',
+                    description: 'Monitor progress, track compliance, and prove it to stakeholders',
+                    icon: BarChart3,
+                    duration: 'Continuous',
+                    color: 'from-orange-500 to-amber-500',
+                    action: 'View Dashboard',
+                    path: '/dashboard/privacy'
+                  }
+                ].map((phase, index) => (
+                  <div key={index} className="relative">
+                    <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/30 group">
+                      <CardContent className="p-6">
+                        {/* Step Badge */}
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="text-xs font-bold px-2 py-1 rounded-full bg-primary text-white">
+                            Step {phase.step}
+                          </span>
+                          <span className="text-xs text-muted-foreground">{phase.duration}</span>
+                        </div>
+
+                        {/* Icon */}
+                        <div className={`w-14 h-14 bg-gradient-to-br ${phase.color} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform`}>
+                          <phase.icon className="w-7 h-7 text-white" aria-hidden="true" />
+                        </div>
+
+                        {/* Connector Line */}
+                        {index < 3 && (
+                          <div className="absolute top-24 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-primary/50 to-transparent hidden md:block" aria-hidden="true" />
+                        )}
+
+                        {/* Content */}
+                        <h3 className="text-xl font-bold mb-2 text-foreground dark:text-dark-text text-center">
+                          {phase.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-4 text-center min-h-[3rem]">
+                          {phase.description}
+                        </p>
+
+                        {/* Action Button */}
+                        <Link to={phase.path}>
+                          <Button 
+                            variant="outline" 
+                            className="w-full text-xs group-hover:bg-primary group-hover:text-white transition-colors"
+                            size="sm"
+                          >
+                            {phase.action}
+                            <ArrowRight className="ml-2 h-3 w-3" />
+                          </Button>
+                        </Link>
+                      </CardContent>
+                    </Card>
                   </div>
-                  {index < 3 && (
-                    <div className="absolute top-8 left-[60%] w-[80%] h-0.5 bg-primary/20 dark:bg-dark-primary/20 hidden md:block" aria-hidden="true" />
-                  )}
-                  <div className="text-xs font-semibold text-primary dark:text-dark-primary mb-1">Step {phase.step}</div>
-                  <h3 className="text-lg font-bold mb-2 text-foreground dark:text-dark-text">{phase.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{phase.description}</p>
+                ))}
+              </div>
+            </div>
+
+            {/* Primary CTA */}
+            <div className="text-center p-8 bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 rounded-2xl border-2 border-primary/20">
+              <h3 className="text-2xl font-bold mb-3 text-foreground">
+                Ready to Begin Your Compliance Journey?
+              </h3>
+              <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
+                Start with our free assessment and get a personalized compliance roadmap in just 15-20 minutes
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/assessments/privacy-assessment">
+                  <Button size="lg" className="enhanced-button px-8">
+                    <Eye className="mr-2 h-5 w-5" />
+                    Start Free Assessment
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Button size="lg" variant="outline" onClick={handleOpenOnboarding} className="px-8">
+                  <PlayCircle className="mr-2 h-5 w-5" />
+                  View Interactive Guide
+                </Button>
+              </div>
+              <div className="flex flex-wrap justify-center gap-6 mt-6 text-sm text-muted-foreground">
+                <div className="flex items-center">
+                  <CheckCircle className="w-4 h-4 text-success mr-2" />
+                  No credit card required
                 </div>
-              ))}
+                <div className="flex items-center">
+                  <Clock className="w-4 h-4 text-primary mr-2" />
+                  Get results in 20 minutes
+                </div>
+                <div className="flex items-center">
+                  <Shield className="w-4 h-4 text-primary mr-2" />
+                  NIST Privacy Framework aligned
+                </div>
+              </div>
             </div>
           </div>
         </div>
