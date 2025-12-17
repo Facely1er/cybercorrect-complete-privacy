@@ -356,7 +356,7 @@ const PrivacyByDesignAssessment = () => {
                         <div 
                           className="bg-primary h-2 rounded-full transition-all duration-300"
                           data-score={avgScore}
-                          style={{ width: `${avgScore}%` }}
+                          style={{ width: `${avgScore}%` } as React.CSSProperties}
                         />
                       </div>
                       <p className="text-xs text-muted-foreground">{principle.description}</p>

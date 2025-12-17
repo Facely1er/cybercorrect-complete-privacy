@@ -278,7 +278,7 @@ const Demo = () => {
                 {/* Dynamic width for progress tracking */}
                 <div 
                   className="bg-gradient-to-r from-primary to-secondary h-full transition-all duration-500"
-                  style={{ width: `${Math.round((currentStep / 7) * 100)}%` }}
+                  style={{ width: `${Math.round((currentStep / 7) * 100)}%` } as React.CSSProperties}
                 />
               </div>
             </div>
@@ -460,7 +460,7 @@ const Demo = () => {
                       {/* Dynamic width for section progress */}
                       <div 
                         className="bg-gradient-to-r from-primary to-secondary h-full transition-all duration-1000"
-                        style={{ width: section.percentage + '%' }}
+                        style={{ width: section.percentage + '%' } as React.CSSProperties}
                       />
                     </div>
                   </div>
@@ -538,7 +538,7 @@ const Demo = () => {
               {DEMO_GAPS.map((gap) => (
                 // Dynamic border color based on priority
                 <div key={gap.id} className="p-4 border-l-4 rounded-lg border hover:shadow-md transition-all" 
-                     style={{ borderLeftColor: gap.priority === 'critical' ? '#dc2626' : '#ea580c' }}>
+                     style={{ borderLeftColor: gap.priority === 'critical' ? '#dc2626' : '#ea580c' } as React.CSSProperties}>
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
@@ -837,7 +837,7 @@ const Demo = () => {
                             phase.status === 'completed' ? 'bg-green-500' :
                             phase.status === 'in_progress' ? 'bg-blue-500' : 'bg-gray-300'
                           }`}
-                          style={{ width: phase.progress + '%' }}
+                          style={{ width: phase.progress + '%' } as React.CSSProperties}
                         />
                       </div>
                       <div className="space-y-1">

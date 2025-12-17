@@ -186,7 +186,7 @@ const JourneyProgressTracker: React.FC<JourneyProgressTrackerProps> = ({
           <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-500 ease-out"
-              style={{ width: `${progressPercentage}%` }}
+              style={{ width: `${progressPercentage}%` } as React.CSSProperties}
             />
           </div>
           <div className="flex justify-between mt-2 text-xs text-muted-foreground">

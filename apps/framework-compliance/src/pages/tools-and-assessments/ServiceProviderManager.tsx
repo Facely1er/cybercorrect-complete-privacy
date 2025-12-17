@@ -383,7 +383,7 @@ const ServiceProviderManager = () => {
                         {/* Dynamic width for category distribution */}
                         <div 
                           className="bg-primary h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${percentage}%` }}
+                          style={{ width: `${percentage}%` } as React.CSSProperties}
                         />
                       </div>
                     </div>
@@ -673,7 +673,7 @@ const ServiceProviderManager = () => {
                         {/* Dynamic width for compliance stats */}
                         <div 
                           className="bg-primary h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${percentage}%` }}
+                          style={{ width: `${percentage}%` } as React.CSSProperties}
                         />
                       </div>
                     </div>
