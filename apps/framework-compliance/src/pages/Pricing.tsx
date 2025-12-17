@@ -67,7 +67,7 @@ const Pricing = () => {
         { name: "Continuous Monitoring", free: false, starter: false, professional: true, enterprise: true },
         { name: "Gap Analysis", free: "Basic", starter: "Standard", professional: "Advanced", enterprise: "Advanced + AI" },
         { name: "Compliance Scoring", free: true, starter: true, professional: true, enterprise: true },
-        { name: "Automated Reporting", free: false, starter: "Monthly", professional: "Weekly", enterprise: "Weekly" },
+        { name: "Automated Reporting", free: false, starter: "Quarterly", professional: "Weekly", enterprise: "Weekly" },
       ]
     },
     {
@@ -87,8 +87,8 @@ const Pricing = () => {
       features: [
         { name: "Customer Support", free: "Community", starter: "Email (48hr)", professional: "Priority (24hr)", enterprise: "24/7 Dedicated" },
         { name: "Implementation Support", free: "Self-service", starter: "Documentation", professional: "Guided", enterprise: "White glove" },
-        { name: "Compliance Expert Access", free: false, starter: false, professional: "Quarterly", enterprise: "Dedicated" },
-        { name: "Training Sessions", free: "Self-paced", starter: "2 sessions", professional: "Monthly", enterprise: "Unlimited" },
+        { name: "Compliance Expert Access", free: false, starter: false, professional: false, enterprise: "Dedicated" },
+        { name: "Training Sessions", free: "Self-paced", starter: "2 sessions", professional: "Quarterly", enterprise: "Unlimited" },
         { name: "Custom Integrations", free: false, starter: false, professional: false, enterprise: "Professional Services" }
       ]
     }

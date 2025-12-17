@@ -101,7 +101,6 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
       'Quarterly comprehensive compliance assessment',
       'Quarterly executive dashboard (board-ready)',
       'Quarterly regulatory impact analysis',
-      'Quarterly privacy review consultation',
       'Unlimited scheduled assessments',
       'Quarterly framework updates',
       'Quarterly compliance roadmap'
