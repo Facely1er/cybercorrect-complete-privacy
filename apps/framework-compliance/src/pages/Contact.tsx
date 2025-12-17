@@ -8,9 +8,7 @@ import {
   User, 
   Building,
   Shield,
-  ArrowLeft,
-  Phone,
-  MapPin
+  ArrowLeft
 } from 'lucide-react';
 import { toast } from '../components/ui/Toaster';
 
@@ -91,24 +89,6 @@ const Contact = () => {
                       <a href="mailto:support@cybercorrect.com" className="text-sm text-muted-foreground hover:text-primary">
                         support@cybercorrect.com
                       </a>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Phone className="h-5 w-5 text-primary mt-0.5" />
-                    <div>
-                      <p className="font-medium text-foreground">Phone</p>
-                      <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <MapPin className="h-5 w-5 text-primary mt-0.5" />
-                    <div>
-                      <p className="font-medium text-foreground">Address</p>
-                      <p className="text-sm text-muted-foreground">
-                        123 Privacy Street<br />
-                        Suite 456<br />
-                        San Francisco, CA 94102
-                      </p>
                     </div>
                   </div>
                 </div>
