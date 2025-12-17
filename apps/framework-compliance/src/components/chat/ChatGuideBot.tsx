@@ -195,7 +195,6 @@ const ChatGuideBot = () => {
       ],
       links: [
         { text: 'Getting Started Guide', url: '/documentation/getting-started' },
-        { text: 'Quick Start Guide', url: '/documentation/quick-start' },
         { text: 'Privacy Assessment', url: '/assessments/privacy-assessment' }
       ]
     },
