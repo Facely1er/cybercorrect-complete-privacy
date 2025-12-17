@@ -1,0 +1,9 @@
+/* Journey Tool Wrapper Styles */
+
+.progressFill {
+  height: 100%;
+  width: var(--progress-width, 0%);
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--secondary)));
+  transition: width 500ms ease-in-out;
+}
+

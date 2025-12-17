@@ -11,6 +11,19 @@ import { Card, CardContent } from '../ui/Card';
 import { CheckCircle, Info } from 'lucide-react';
 import { useJourney } from '../../context/JourneyContext';
 import { getToolDomain } from '../../utils/gapJourneyConfig';
+import styles from './JourneyToolWrapper.module.css';
+
+/**
+ * Progress bar component that uses CSS module for dynamic width via CSS custom property
+ */
+const ProgressBar: React.FC<{ percentage: number }> = ({ percentage }) => (
+  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+    <div
+      className={styles.progressFill}
+      ref={(el) => el?.style.setProperty('--progress-width', `${percentage}%`)}
+    />
+  </div>
+);
 
 export interface JourneyToolWrapperProps {
   toolId: string;
@@ -27,8 +40,6 @@ export interface JourneyToolWrapperProps {
 export const JourneyToolWrapper: React.FC<JourneyToolWrapperProps> = ({
   toolId,
   toolName,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  toolDescription,
   children,
   showJourneyStatus = true,
   onComplete,
@@ -91,12 +102,7 @@ export const JourneyToolWrapper: React.FC<JourneyToolWrapperProps> = ({
 
             {!isCompleted && domain && relatedGap && (
               <div className="mt-4">
-                <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-500"
-                    style={{ width: `${gapCompletionPercentage}%` }}
-                  />
-                </div>
+                <ProgressBar percentage={gapCompletionPercentage} />
               </div>
             )}
           </CardContent>
@@ -111,21 +117,6 @@ export const JourneyToolWrapper: React.FC<JourneyToolWrapperProps> = ({
       </div>
     </div>
   );
-};
-
-/**
- * Simplified hook-based version for tools that don't need the full wrapper UI
- */
-export const useJourneyToolTracking = (toolId: string) => {
-  const { markCompleted } = useJourneyTool(toolId);
-  const { isToolCompleted } = useJourney();
-  
-  const isCompleted = isToolCompleted(toolId);
-
-  return {
-    isCompleted,
-    markCompleted,
-  };
 };
 
 export default JourneyToolWrapper;
