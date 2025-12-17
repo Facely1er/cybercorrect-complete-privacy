@@ -13,7 +13,6 @@ const Compliance = lazy(() => import('../pages/Compliance'));
 import GdprGuide from '../pages/resources/documentation/GdprGuide';
 import AssessmentGuide from '../pages/resources/documentation/AssessmentGuide';
 import GettingStarted from '../pages/resources/documentation/GettingStarted';
-import QuickStart from '../pages/resources/documentation/QuickStart';
 import PlatformOverview from '../pages/resources/documentation/PlatformOverview';
 import UnderstandingDashboard from '../pages/resources/documentation/UnderstandingDashboard';
 import UnderstandingRmf from '../pages/resources/documentation/UnderstandingRmf';
@@ -85,7 +84,6 @@ export const resourcesRoutes = [
   { path: '/documentation/gdpr-implementation-guide', element: GdprGuide },
   { path: '/documentation/assessment-guide', element: AssessmentGuide },
   { path: '/documentation/getting-started', element: GettingStarted },
-  { path: '/documentation/quick-start', element: QuickStart },
   { path: '/documentation/platform-overview', element: PlatformOverview },
   { path: '/documentation/understanding-dashboard', element: UnderstandingDashboard },
   { path: '/documentation/understanding-rmf', element: UnderstandingRmf },

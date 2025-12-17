@@ -22,7 +22,7 @@ const DataSubjectRightsGuide = () => {
           onClick={() => navigate('/resources')}
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Resources
+          Back to Docs & Guides
         </Button>
         
         <div className="text-center mb-16">

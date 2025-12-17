@@ -74,7 +74,7 @@ const Contact = () => {
       <div className="container mx-auto px-4 py-8">
         <Link to="/resources" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-8">
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Resources
+          Back to Docs & Guides
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
