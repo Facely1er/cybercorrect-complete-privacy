@@ -4,7 +4,6 @@ import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
-import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { toast } from '../../components/ui/Toaster';
 import { EmptyState } from '../../components/ui/EmptyState';
 import {
@@ -199,7 +198,6 @@ const DpiaManager = () => {
   if (loading) {
     return (
       <div className="page-container">
-        <Breadcrumbs className="mb-6" />
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
@@ -212,7 +210,6 @@ const DpiaManager = () => {
 
   return (
     <div className="page-container">
-      <Breadcrumbs className="mb-6" />
       
       <div className="page-header">
         <Link to="/toolkit" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-4">
