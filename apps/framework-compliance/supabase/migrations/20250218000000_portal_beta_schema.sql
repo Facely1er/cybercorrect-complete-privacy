@@ -1,4 +1,5 @@
 -- Portal Beta Applications and Management Schema
+-- Migration: 20250218000000_portal_beta_schema.sql
 -- This migration creates the necessary tables for managing Portal beta program
 
 -- Enable UUID extension if not already enabled

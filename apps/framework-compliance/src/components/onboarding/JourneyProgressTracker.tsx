@@ -279,5 +279,4 @@ const JourneyProgressTracker: React.FC<JourneyProgressTrackerProps> = ({
 };
 
 export default JourneyProgressTracker;
-export { JOURNEY_STEPS };
 
