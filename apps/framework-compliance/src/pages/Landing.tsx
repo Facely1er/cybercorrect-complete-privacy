@@ -161,10 +161,10 @@ const Landing = () => {
                 Clear Path to Compliance
               </div>
               <h2 className="section-title text-3xl md:text-4xl mb-4">
-                Your Privacy Compliance Journey in 4 Clear Steps
+                Your Privacy Compliance Pathway in 4 Clear Steps
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                We've simplified the complex world of privacy compliance into a straightforward, guided journey
+                Discover your gaps, get prioritized actions, and close compliance risks with clear guidance
               </p>
             </div>
 
@@ -185,21 +185,21 @@ const Landing = () => {
                   {
                     step: '2',
                     title: 'Discover',
-                    description: 'Get your personalized compliance roadmap with prioritized actions',
+                    description: 'See your compliance gaps ranked by severity with clear priorities',
                     icon: Target,
                     duration: 'Instant',
                     color: 'from-purple-500 to-pink-500',
-                    action: 'View Your Journey',
+                    action: 'View Gap Analysis',
                     path: '/compliance'
                   },
                   {
                     step: '3',
-                    title: 'Act',
-                    description: 'Use specialized tools to address gaps and build documentation',
+                    title: 'Close Gaps',
+                    description: 'Use recommended tools to address each gap, starting with critical ones',
                     icon: FileCheck,
                     duration: 'Ongoing',
                     color: 'from-green-500 to-emerald-500',
-                    action: 'Explore Toolkit',
+                    action: 'Start Closing Gaps',
                     path: '/toolkit'
                   },
                   {
@@ -263,10 +263,10 @@ const Landing = () => {
             {/* Primary CTA */}
             <div className="text-center p-8 bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10 rounded-2xl border-2 border-primary/20">
               <h3 className="text-2xl font-bold mb-3 text-foreground">
-                Ready to Begin Your Compliance Journey?
+                Ready to Discover Your Compliance Gaps?
               </h3>
               <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Start with our free assessment and get a personalized compliance roadmap in just 15-20 minutes
+                Start with our free assessment and get your prioritized gap analysis in just 15-20 minutes
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/assessments/privacy-assessment">
@@ -414,10 +414,13 @@ const Landing = () => {
 
             <div className="text-center mb-16">
               <h2 className="section-title text-3xl md:text-4xl">
-                Explore Compliance Journeys
+                Role-Based Compliance Guides
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Each journey provides a structured path with phase-based guidance, curated tools, and clear outcomes
+                For teams with defined roles: Each guide provides specialized tools and workflows
+              </p>
+              <p className="text-sm text-muted-foreground max-w-2xl mx-auto mt-2">
+                <strong>Note:</strong> After your assessment, you'll get a gap-based action plan that's already prioritized for you
               </p>
             </div>
 
@@ -577,10 +580,10 @@ const Landing = () => {
         <div className="container mx-auto px-4">
           <div className="text-center text-primary-foreground max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Get Started?
+              Ready to Close Your Compliance Gaps?
             </h2>
             <p className="text-lg text-white/95 dark:text-foreground mb-8 leading-relaxed">
-              Take our free assessment and get your personalized compliance journey with step-by-step guidance tailored to your gaps.
+              Take our free assessment and get your prioritized gap analysis with clear actions to reduce compliance risk.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/assessments/privacy-assessment" className="no-underline">
