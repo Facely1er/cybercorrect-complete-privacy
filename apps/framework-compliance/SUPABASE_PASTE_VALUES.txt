@@ -1,0 +1,41 @@
+========================================
+COPY-PASTE VALUES FOR SUPABASE DASHBOARD
+========================================
+
+Go to: https://supabase.com/dashboard/project/dfklqsdfycwjlcasfciu/settings/functions
+
+For each function (5 total), add these 2 secrets:
+
+----------------------------------------
+SECRET 1
+----------------------------------------
+Name:
+SUPABASE_URL
+
+Value:
+https://dfklqsdfycwjlcasfciu.supabase.co
+
+----------------------------------------
+SECRET 2
+----------------------------------------
+Name:
+SUPABASE_SERVICE_ROLE_KEY
+
+Value:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRma2xxc2RmeWN3amxjYXNmY2l1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I
+
+----------------------------------------
+FUNCTIONS TO CONFIGURE (5 total)
+----------------------------------------
+1. send-email-notification
+2. generate-automated-reports
+3. run-scheduled-assessments
+4. track-compliance-health
+5. check-regulatory-updates
+
+For each function:
+- Add Secret 1 (SUPABASE_URL)
+- Add Secret 2 (SUPABASE_SERVICE_ROLE_KEY)
+
+========================================
+

@@ -55,7 +55,7 @@ const Pricing = () => {
         { name: "Policy Templates", free: "3 templates", starter: "10 templates", professional: "25+ templates", enterprise: "Unlimited + Custom" },
         { name: "Evidence Management", free: "Manual", starter: "Basic", professional: true, enterprise: true },
         { name: "Document Version Control", free: false, starter: false, professional: true, enterprise: true },
-        { name: "Export Formats", free: "JSON, CSV", starter: "PDF, Word, JSON, CSV", professional: "PDF, Word, JSON, CSV, Excel", enterprise: "All formats + PowerPoint" }
+        { name: "Export Formats", free: "JSON, CSV", starter: "PDF, Word, JSON, CSV", professional: "PDF, Word, JSON, CSV, Excel", enterprise: "All formats" }
       ]
     },
     {
@@ -67,7 +67,18 @@ const Pricing = () => {
         { name: "Continuous Monitoring", free: false, starter: false, professional: true, enterprise: true },
         { name: "Gap Analysis", free: "Basic", starter: "Standard", professional: "Advanced", enterprise: "Advanced + AI" },
         { name: "Compliance Scoring", free: true, starter: true, professional: true, enterprise: true },
-        { name: "Automated Reporting", free: false, starter: "Monthly", professional: "Weekly/Daily", enterprise: "Real-time" },
+        { name: "Automated Reporting", free: false, starter: "Monthly", professional: "Weekly", enterprise: "Weekly" },
+      ]
+    },
+    {
+      id: "advanced",
+      name: "Advanced Features",
+      features: [
+        { name: "Regulatory Intelligence", free: false, starter: false, professional: true, enterprise: true },
+        { name: "Predictive Analytics", free: false, starter: false, professional: true, enterprise: true },
+        { name: "Real-time Monitoring", free: false, starter: false, professional: false, enterprise: true },
+        { name: "Custom Notification Rules", free: false, starter: false, professional: true, enterprise: true },
+        { name: "Regulatory Change Alerts", free: false, starter: false, professional: true, enterprise: true }
       ]
     },
     {

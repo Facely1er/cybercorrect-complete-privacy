@@ -75,7 +75,6 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
       'Up to 100 risks tracked',
       '5 compliance templates',
       '10 exports per quarter (PDF, Word, JSON, CSV)',
-      'Weekly compliance status emails',
       'Compliance health score tracking',
       'Progress dashboard',
       'Email & in-app notifications',
@@ -114,11 +113,10 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
       '20+ compliance templates',
       'Unlimited exports (PDF, Word, JSON, CSV, Excel)',
       'Unlimited custom reports',
-      'Daily compliance health digest',
       'Weekly automated compliance reports',
       'Real-time risk alerts',
       'Custom notification rules',
-      'Email & in-app notifications (SMS & Slack coming soon)',
+      'Email & in-app notifications',
       'Regulatory change alerts (24-hour)',
       'Regulatory intelligence dashboard',
       'Predictive compliance analytics',
@@ -152,15 +150,10 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
     ongoingAccess: [
       'Everything in Professional',
       'Real-time compliance monitoring',
-      'Daily compliance briefings',
       'Weekly detailed reports',
-      'Custom notification workflows',
-      'Role-based notification routing',
-      'Executive dashboard alerts',
       'Regulatory intelligence dashboard',
       'Unlimited compliance frameworks',
-      'Custom privacy control mapping',
-      'PowerPoint export'
+      'Custom privacy control mapping'
     ],
     professionalServices: [
       'White-glove implementation support',

@@ -16,7 +16,6 @@ import GettingStarted from '../pages/resources/documentation/GettingStarted';
 import PlatformOverview from '../pages/resources/documentation/PlatformOverview';
 import UnderstandingDashboard from '../pages/resources/documentation/UnderstandingDashboard';
 import UnderstandingRmf from '../pages/resources/documentation/UnderstandingRmf';
-import ControlImplementationGuide from '../pages/resources/documentation/ControlImplementationGuide';
 import Faqs from '../pages/resources/documentation/faqs';
 import PrivacyFrameworkGuide from '../pages/resources/documentation/PrivacyFrameworkGuide';
 
@@ -87,7 +86,6 @@ export const resourcesRoutes = [
   { path: '/documentation/platform-overview', element: PlatformOverview },
   { path: '/documentation/understanding-dashboard', element: UnderstandingDashboard },
   { path: '/documentation/understanding-rmf', element: UnderstandingRmf },
-  { path: '/documentation/control-implementation-guide', element: ControlImplementationGuide },
   { path: '/documentation/faqs', element: Faqs },
   { path: '/documentation/privacy-framework-guide', element: PrivacyFrameworkGuide },
   // Guide Routes
