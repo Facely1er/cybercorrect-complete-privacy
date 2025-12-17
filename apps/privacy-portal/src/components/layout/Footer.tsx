@@ -255,7 +255,7 @@ export function Footer() {
                     rel="noopener noreferrer"
                   >
                     <Shield className="h-4 w-4 flex-shrink-0 group-hover:text-primary" />
-                    <span>Marketing Site</span>
+                    <span>Privacy Platform</span>
                   </a>
                 </li>
                 <li>

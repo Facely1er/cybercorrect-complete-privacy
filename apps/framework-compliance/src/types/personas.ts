@@ -175,14 +175,14 @@ export const PERSONAS: Record<string, Persona> = {
       {
         id: 'dpia',
         label: 'DPIA Manager',
-        path: '/tools-and-assessments/dpia-manager',
+        path: '/toolkit/dpia-manager',
         icon: 'FileText',
         order: 3
       },
       {
         id: 'privacy-rights',
         label: 'Privacy Rights',
-        path: '/tools-and-assessments/privacy-rights-manager',
+        path: '/toolkit/privacy-rights-manager',
         icon: 'Shield',
         order: 4
       },
@@ -319,21 +319,21 @@ export const PERSONAS: Record<string, Persona> = {
       {
         id: 'data-classification',
         label: 'Data Classification',
-        path: '/tools-and-assessments/data-classification-assessment',
+        path: '/toolkit/data-classification',
         icon: 'Database',
         order: 2
       },
       {
         id: 'retention-policies',
         label: 'Retention Policies',
-        path: '/tools-and-assessments/retention-policy-generator',
+        path: '/toolkit/retention-policy-generator',
         icon: 'Clock',
         order: 3
       },
       {
         id: 'privacy-by-design',
         label: 'Privacy by Design',
-        path: '/tools-and-assessments/privacy-by-design-assessment',
+        path: '/toolkit/privacy-by-design-assessment',
         icon: 'Shield',
         order: 4
       }
@@ -445,21 +445,21 @@ export const PERSONAS: Record<string, Persona> = {
       {
         id: 'policy-generator',
         label: 'Policy Generator',
-        path: '/tools-and-assessments/policy-generator',
+        path: '/toolkit/privacy-policy-generator',
         icon: 'FileText',
         order: 2
       },
       {
         id: 'privacy-policy',
         label: 'Privacy Policy',
-        path: '/tools-and-assessments/privacy-policy-generator',
+        path: '/toolkit/privacy-policy-generator',
         icon: 'Shield',
         order: 3
       },
       {
         id: 'regulatory',
         label: 'Regulatory Intelligence',
-        path: '/regulatory/regulatory-intelligence',
+        path: '/regulatory',
         icon: 'TrendingUp',
         order: 4
       }
@@ -602,7 +602,7 @@ export const PERSONAS: Record<string, Persona> = {
       {
         id: 'evidence',
         label: 'Evidence',
-        path: '/project/evidence-vault',
+        path: '/project/evidence',
         icon: 'FileText',
         order: 4
       },

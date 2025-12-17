@@ -309,15 +309,15 @@ const Landing = () => {
                 className="group hover:shadow-xl transition-all duration-300 border-0 overflow-hidden shadow-lg"
               >
                 <div className={`h-2 bg-gradient-to-r ${goal.color}`} />
-                <CardContent className="p-6">
-                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${goal.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg`}>
+                <CardContent className="p-6 text-center">
+                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${goal.color} flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform shadow-lg`}>
                     <goal.icon className="w-7 h-7 text-white" aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-bold mb-2 text-foreground dark:text-dark-text">{goal.title}</h3>
                   <p className="text-muted-foreground mb-4 text-sm leading-relaxed">{goal.description}</p>
                   <div className="space-y-1 mb-6">
                     {goal.outcomes.map((outcome, idx) => (
-                      <div key={idx} className="flex items-center text-sm">
+                      <div key={idx} className="flex items-center justify-center text-sm">
                         <CheckCircle className="w-4 h-4 text-success mr-2 flex-shrink-0" />
                         <span className="text-foreground dark:text-dark-text">{outcome}</span>
                       </div>
