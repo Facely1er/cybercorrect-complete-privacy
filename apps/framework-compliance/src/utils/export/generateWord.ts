@@ -18,7 +18,7 @@ export interface WordDocumentData {
   sections?: Array<{
     title: string;
     content: string | string[];
-    level?: HeadingLevel;
+    level?: typeof HeadingLevel[keyof typeof HeadingLevel];
   }>;
   tables?: Array<{
     title?: string;

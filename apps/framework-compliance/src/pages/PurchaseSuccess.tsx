@@ -315,12 +315,13 @@ const PurchaseSuccess = () => {
                 Need help? Contact our support team
               </p>
               <div className="flex gap-4 justify-center">
-                <Button variant="outline" asChild>
-                  <a href="mailto:contact@ermits.com">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Email Support
-                  </a>
-                </Button>
+                <a
+                  href="mailto:contact@ermits.com"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+                >
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  Email Support
+                </a>
               </div>
             </div>
           </CardContent>

@@ -1,5 +1,4 @@
 import { lazy } from 'react';
-import { Navigate } from 'react-router-dom';
 
 const TemplateStore = lazy(() => import('../pages/monetization/TemplateStore'));
 const CreditsManager = lazy(() => import('../pages/monetization/CreditsManager'));

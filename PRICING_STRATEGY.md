@@ -30,7 +30,7 @@ This document outlines the comprehensive pricing strategy for the CyberCorrect P
 
 ✅ **Tracking & Monitoring:**
 - Risk tracking (up to 25 risks)
-- Evidence vault (100MB storage)
+- Evidence vault
 - In-app notifications
 
 ✅ **Learning & Resources:**

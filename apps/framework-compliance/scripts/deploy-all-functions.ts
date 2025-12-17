@@ -1,4 +1,5 @@
 #!/usr/bin/env tsx
+/* eslint-disable no-console */
 /**
  * Deploy All Supabase Edge Functions via CLI
  * 
@@ -64,7 +65,7 @@ function deployFunction(functionName: string): DeployResult {
     
     const command = `npx supabase functions deploy ${functionName} --project-ref ${PROJECT_REF}`;
     
-    const output = execSync(command, {
+    execSync(command, {
       stdio: 'inherit',
       encoding: 'utf-8',
       cwd: process.cwd(),
@@ -75,8 +76,8 @@ function deployFunction(functionName: string): DeployResult {
       status: 'success',
       message: 'Deployed successfully'
     };
-  } catch (error: any) {
-    const errorMessage = error.message || 'Unknown error';
+  } catch (error: unknown) {
+    const errorMessage = (error instanceof Error ? error.message : 'Unknown error') || 'Unknown error';
     
     // Check if function doesn't exist
     if (errorMessage.includes('not found') || errorMessage.includes('does not exist')) {

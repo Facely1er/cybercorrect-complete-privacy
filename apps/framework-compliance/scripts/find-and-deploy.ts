@@ -1,4 +1,5 @@
 #!/usr/bin/env tsx
+/* eslint-disable no-console */
 /**
  * Find Supabase Project and Deploy Functions
  * 
@@ -37,8 +38,9 @@ async function main() {
     console.log('   - Or the project ref might be different\n');
     console.log('📚 See: DEPLOY_FUNCTIONS_GUIDE.md for detailed instructions\n');
 
-  } catch (error: any) {
-    console.error('❌ Error:', error.message);
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('❌ Error:', errorMessage);
     console.log('\n💡 Try: npx supabase login (if not already logged in)\n');
   }
 }

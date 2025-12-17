@@ -168,12 +168,12 @@ const MyDownloads = () => {
               <p className="text-muted-foreground mb-6">
                 You haven't purchased any products yet. Browse our store to find tools and templates that fit your needs.
               </p>
-              <Button asChild>
-                <Link to="/store">
+              <Link to="/store">
+                <Button>
                   <ShoppingCart className="w-4 h-4 mr-2" />
                   Browse Store
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </CardContent>
           </Card>
         ) : (
@@ -193,12 +193,12 @@ const MyDownloads = () => {
                     <Download className="w-4 h-4 mr-2" />
                     Download All License Keys
                   </Button>
-                  <Button variant="outline" asChild>
-                    <Link to="/store">
+                  <Link to="/store">
+                    <Button variant="outline">
                       <ShoppingCart className="w-4 h-4 mr-2" />
                       Browse More Products
-                    </Link>
-                  </Button>
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
@@ -285,17 +285,15 @@ const MyDownloads = () => {
                               {downloadLinks.map((link, index) => {
                                 const Icon = link.icon;
                                 return (
-                                  <Button
-                                    key={index}
-                                    variant="outline"
-                                    size="sm"
-                                    asChild
-                                  >
-                                    <Link to={link.path}>
+                                  <Link key={index} to={link.path}>
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                    >
                                       <Icon className="w-4 h-4 mr-2" />
                                       {link.name}
-                                    </Link>
-                                  </Button>
+                                    </Button>
+                                  </Link>
                                 );
                               })}
                             </div>

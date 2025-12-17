@@ -62,7 +62,7 @@ export const SUBSCRIPTION_LIMITS = {
     assessmentsPerMonth: 1, // 1 privacy assessment per month
     dataFlows: 5, // Up to 5 data flows in data mapping tool
     riskTracking: 25, // Up to 25 risks tracked manually
-    evidenceStorage: 100, // 100MB evidence storage
+    evidenceStorage: 100, // Not currently enforced - evidence vault uses localStorage (browser-limited)
     notifications: {
       emailEnabled: false,
       inAppEnabled: true,

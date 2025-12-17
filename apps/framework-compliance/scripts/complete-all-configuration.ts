@@ -1,4 +1,5 @@
 #!/usr/bin/env tsx
+/* eslint-disable no-console */
 /**
  * Complete All Configuration - Automated Setup
  * 
@@ -11,7 +12,7 @@
  *   npm run config:complete
  */
 
-import { writeFileSync, existsSync, readFileSync } from 'fs';
+import { writeFileSync } from 'fs';
 import { join } from 'path';
 
 const SUPABASE_URL = 'https://achowlksgmwuvfbvjfrt.supabase.co';

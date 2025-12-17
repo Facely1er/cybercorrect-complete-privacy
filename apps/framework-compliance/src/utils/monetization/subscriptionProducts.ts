@@ -43,7 +43,7 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
       '3 exports (JSON/CSV formats)',
       'Data mapping tool (up to 5 data flows)',
       'Risk tracking (up to 25 risks)',
-      'Evidence vault (100MB storage)',
+      'Evidence vault',
       'Compliance score dashboard',
       'In-app notifications',
       'All educational content & tutorials',

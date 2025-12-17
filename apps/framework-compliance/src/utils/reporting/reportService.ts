@@ -1,7 +1,6 @@
 // Report generation service for automated reports
 import { supabase } from '../../lib/supabase';
 import { secureStorage } from '../storage/secureStorage';
-import { complianceHealthMonitor } from '../compliance/complianceHealthMonitor';
 import { logError } from '../common/logger';
 
 export type ReportType = 'compliance' | 'executive' | 'risk' | 'health' | 'quarterly' | 'monthly' | 'weekly' | 'custom';
@@ -629,7 +628,7 @@ class ReportService {
     } catch (error) {
       logError(error instanceof Error ? error : new Error('Failed to save report to history'), {
         context: 'reportService.saveReportToHistory',
-        reportId: report.id
+        reportType: reportData.metadata.report_type
       });
     }
   }
