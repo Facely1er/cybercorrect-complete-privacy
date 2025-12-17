@@ -28,17 +28,17 @@
     "verify:connection": "node scripts/verify-connection.js"
   },
   "dependencies": {
-    "@sentry/react": "^10.19.0",
+    "@sentry/react": "^10.31.0",
     "@sentry/tracing": "^7.120.4",
-    "@supabase/supabase-js": "^2.44.4",
+    "@supabase/supabase-js": "^2.88.0",
     "clsx": "^2.1.1",
     "csrf": "^3.1.0",
-    "lucide-react": "^0.555.0",
+    "lucide-react": "^0.561.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.10.1",
+    "react-router-dom": "^7.11.0",
     "tailwind-merge": "^2.4.0",
-    "zod": "^4.1.13",
+    "zod": "^4.2.1",
     "jspdf": "^3.0.2",
     "jspdf-autotable": "^5.0.2",
     "jszip": "^3.10.1"
