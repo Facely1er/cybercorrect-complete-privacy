@@ -370,10 +370,13 @@ const PrivacyProjectDashboard = () => {
                     {/* Progress bar */}
                     {gap.status !== 'completed' && (
                       <div className="w-full bg-muted h-2 rounded-full overflow-hidden">
-                        {/* eslint-disable-next-line react/forbid-dom-props */}
                         <div 
-                          className="h-2 rounded-full bg-primary transition-all duration-300"
-                          style={{ width: `${toolCompletion}%` }}
+                          className="gap-progress-fill"
+                          ref={(el) => {
+                            if (el) {
+                              el.style.width = `${toolCompletion}%`;
+                            }
+                          }}
                         />
                       </div>
                     )}
