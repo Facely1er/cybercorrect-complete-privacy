@@ -148,10 +148,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     'activate-license': 'Activate License',
     
     // Notifications
-    'notifications': 'Notifications',
-    
-    // Compliance redirect
-    'compliance': 'Compliance'
+    'notifications': 'Notifications'
   };
 
   const getBreadcrumbName = (segment: string) => {

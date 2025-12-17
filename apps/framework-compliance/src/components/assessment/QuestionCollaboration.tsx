@@ -35,7 +35,7 @@ export function QuestionCollaboration({
   const session = CollaborationManager.getSession(sessionId);
   const questionData = session?.answers[questionId];
   const comments = questionData?.comments || [];
-  const isFlag ged = session?.flags.some(f => f.questionId === questionId && f.status === 'pending');
+  const isFlagged = session?.flags.some(f => f.questionId === questionId && f.status === 'pending');
 
   const handleAddComment = () => {
     if (!newComment.trim()) return;
