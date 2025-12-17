@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { PieChart, CheckCircle, AlertTriangle, Download, FileOutput, ArrowRight, Info, TrendingUp, Shield, Target, Clock, Zap, BookOpen, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import styles from './AssessmentResults.module.css';
 
 interface SectionScore {
   title: string;
@@ -24,6 +25,22 @@ interface AssessmentResultsProps {
 }
 
 const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport }) => {
+  const overallProgressRef = React.useRef<HTMLDivElement>(null);
+  const sectionProgressRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+
+  // Set CSS custom properties for progress bars
+  React.useEffect(() => {
+    if (overallProgressRef.current) {
+      overallProgressRef.current.style.setProperty('--progress-width', `${data.overallScore}%`);
+    }
+    
+    data.sectionScores.forEach((section, index) => {
+      if (sectionProgressRefs.current[index]) {
+        sectionProgressRefs.current[index]!.style.setProperty('--progress-width', `${section.percentage}%`);
+      }
+    });
+  }, [data.overallScore, data.sectionScores]);
+
   // Helper functions
   const getScoreColor = (score: number) => {
     if (score >= 80) return 'text-success';
@@ -77,7 +94,7 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
     return { position: 'Bottom 20%', comparison: 'Significant improvement needed' };
   };
 
-  const getKeyInsights = (score: number, sectionScores: SectionScore[]) => {
+  const getKeyInsights = (sectionScores: SectionScore[]) => {
     const insights = [];
     const lowestSection = [...sectionScores].sort((a, b) => a.percentage - b.percentage)[0];
     const highestSection = [...sectionScores].sort((a, b) => b.percentage - a.percentage)[0];
@@ -122,7 +139,7 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
 
   const maturityLevel = getMaturityLevel(data.overallScore);
   const benchmark = getIndustryBenchmark(data.overallScore);
-  const insights = getKeyInsights(data.overallScore, data.sectionScores);
+  const insights = getKeyInsights(data.sectionScores);
   const effort = getEstimatedEffort(data.overallScore);
 
   return (
@@ -190,10 +207,9 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
 
                 <div className="w-full bg-muted h-2 rounded-full overflow-hidden">
                   <div
-                    className={`h-2 rounded-full ${getScoreBackground(data.overallScore)}`}
-                    style={{
-                      width: `${data.overallScore}%`
-                    }}>
+                    ref={overallProgressRef}
+                    className={`h-2 rounded-full ${getScoreBackground(data.overallScore)} ${styles.progressBar}`}
+                  >
                   </div>
                 </div>
               </div>
@@ -228,10 +244,9 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
                     </div>
                     <div className="w-full bg-muted h-2 rounded-full overflow-hidden">
                       <div
-                        className={`h-2 rounded-full ${getScoreBackground(section.percentage)}`}
-                        style={{
-                          width: `${section.percentage}%`
-                        }}>
+                        ref={(el) => { sectionProgressRefs.current[index] = el; }}
+                        className={`h-2 rounded-full ${getScoreBackground(section.percentage)} ${styles.progressBar}`}
+                      >
                       </div>
                     </div>
                   </div>

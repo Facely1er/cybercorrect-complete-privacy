@@ -13,10 +13,7 @@ import {
   CheckCircle,
   BookOpen,
   Video,
-  FileText,
-  HelpCircle,
-  ExternalLink,
-  Clock
+  HelpCircle
 } from 'lucide-react';
 
 interface SectionScore {
@@ -40,6 +37,14 @@ interface RecommendedTool {
   priority: 'critical' | 'high' | 'medium';
   reason: string;
   category: string;
+  estimatedTime?: string;
+  learningResources?: {
+    type: 'video' | 'article' | 'guide';
+    title: string;
+    url: string;
+    duration?: string;
+  }[];
+  prerequisites?: string[];
 }
 
 interface RecommendedToolsProps {
@@ -65,7 +70,23 @@ const RecommendedTools: React.FC<RecommendedToolsProps> = ({
       icon: BarChart3,
       priority: 'critical',
       reason: 'Directly analyzes your assessment results to identify specific compliance gaps',
-      category: 'Assessment'
+      category: 'Assessment',
+      estimatedTime: '15-20 minutes',
+      learningResources: [
+        {
+          type: 'guide',
+          title: 'How to Use the Gap Analyzer',
+          url: '/resources/documentation/gap-analysis-guide',
+          duration: '5 min read'
+        },
+        {
+          type: 'article',
+          title: 'Understanding Privacy Gaps',
+          url: '/resources/documentation/understanding-gaps',
+          duration: '8 min read'
+        }
+      ],
+      prerequisites: ['Completed privacy assessment', 'Organization profile setup']
     });
 
     // Recommend based on section scores
@@ -83,7 +104,17 @@ const RecommendedTools: React.FC<RecommendedToolsProps> = ({
                 icon: Database,
                 priority: section.percentage < 60 ? 'critical' : 'high',
                 reason: `Your ${section.title} section scored ${section.percentage}% - data mapping will help identify all processing activities`,
-                category: 'Data Management'
+                category: 'Data Management',
+                estimatedTime: '30-45 minutes',
+                learningResources: [
+                  {
+                    type: 'guide',
+                    title: 'Data Mapping Best Practices',
+                    url: '/resources/documentation/data-mapping-guide',
+                    duration: '10 min read'
+                  }
+                ],
+                prerequisites: ['List of systems and data sources']
               });
             }
             break;
@@ -99,7 +130,23 @@ const RecommendedTools: React.FC<RecommendedToolsProps> = ({
                 icon: FileCheck,
                 priority: section.percentage < 60 ? 'critical' : 'high',
                 reason: `Your ${section.title} section scored ${section.percentage}% - DPIAs help assess and mitigate privacy risks`,
-                category: 'Documentation'
+                category: 'Documentation',
+                estimatedTime: '45-60 minutes',
+                learningResources: [
+                  {
+                    type: 'guide',
+                    title: 'DPIA Step-by-Step Guide',
+                    url: '/resources/documentation/dpia-guide',
+                    duration: '12 min read'
+                  },
+                  {
+                    type: 'article',
+                    title: 'When DPIAs are Required',
+                    url: 'https://ico.org.uk/for-organisations/guide-to-data-protection/guide-to-the-general-data-protection-regulation-gdpr/accountability-and-governance/data-protection-impact-assessments/',
+                    duration: '6 min read'
+                  }
+                ],
+                prerequisites: ['Data processing activities documented', 'Risk assessment framework']
               });
             }
             break;
@@ -164,6 +211,52 @@ const RecommendedTools: React.FC<RecommendedToolsProps> = ({
 
   return (
     <div className="mt-8">
+      {/* Learning Resources Overview Card */}
+      <Card className="mb-6 border-secondary/20 bg-secondary/5">
+        <CardHeader>
+          <CardTitle className="text-xl font-bold text-foreground flex items-center gap-2">
+            <BookOpen className="h-5 w-5 text-secondary" />
+            Learning Resources & Guides
+          </CardTitle>
+          <p className="text-sm text-muted-foreground mt-1">
+            Access comprehensive guides and tutorials to maximize the value of each tool
+          </p>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-3 bg-background rounded-lg border border-border">
+              <div className="flex items-center gap-2 mb-2">
+                <BookOpen className="h-4 w-4 text-primary" />
+                <span className="text-sm font-semibold text-foreground">Step-by-Step Guides</span>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Detailed walkthroughs for each tool with best practices and examples
+              </p>
+            </div>
+
+            <div className="p-3 bg-background rounded-lg border border-border">
+              <div className="flex items-center gap-2 mb-2">
+                <Video className="h-4 w-4 text-secondary" />
+                <span className="text-sm font-semibold text-foreground">Video Tutorials</span>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Watch expert demonstrations and implementation tips
+              </p>
+            </div>
+
+            <div className="p-3 bg-background rounded-lg border border-border">
+              <div className="flex items-center gap-2 mb-2">
+                <HelpCircle className="h-4 w-4 text-success" />
+                <span className="text-sm font-semibold text-foreground">FAQs & Support</span>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Common questions and expert support when you need it
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <Card className="border-primary/20 bg-primary/5">
         <CardContent className="p-6">
           <div className="flex items-start gap-3 mb-6">

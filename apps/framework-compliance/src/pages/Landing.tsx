@@ -346,20 +346,6 @@ const Landing = () => {
       <section className="py-16 md:py-24 bg-muted/30 dark:bg-dark-support/10">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            {/* Assessment-First Banner */}
-            <div className="mb-12 text-center">
-              <Card className="inline-block border-2 border-primary/20 bg-primary/5 dark:bg-primary/10">
-                <CardContent className="p-4 px-6">
-                  <div className="flex items-center gap-3 text-sm">
-                    <Target className="w-5 h-5 text-primary flex-shrink-0" />
-                    <p className="text-foreground">
-                      <strong>New here?</strong> Take our <Link to="/assessments/privacy-assessment" className="text-primary underline font-semibold hover:text-primary/80">free assessment</Link> to get a personalized journey recommendation based on your gaps.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
             <div className="text-center mb-16">
               <h2 className="section-title text-3xl md:text-4xl">
                 Role-Based Compliance Guides
