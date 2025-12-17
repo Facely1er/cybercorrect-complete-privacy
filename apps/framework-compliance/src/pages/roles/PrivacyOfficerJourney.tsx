@@ -357,7 +357,7 @@ const PrivacyOfficerJourney = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-10 bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-dark-primary dark:to-dark-primary">
+      <section className="py-10 bg-primary dark:bg-dark-primary">
         <div className="container mx-auto px-4">
           <div className="text-center text-white max-w-4xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
@@ -368,13 +368,13 @@ const PrivacyOfficerJourney = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/assessments/privacy-assessment" className="no-underline">
-                <Button className="bg-white text-gray-900 hover:bg-gray-100 border-2 border-transparent shadow-lg font-semibold">
+                <Button className="bg-white text-primary hover:bg-gray-100 shadow-lg font-semibold">
                   Start Privacy Assessment
                   <Eye className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/documentation/gdpr-implementation-guide" className="no-underline">
-                <Button variant="outline" className="bg-transparent text-white hover:bg-white/10 border-2 border-white/80 shadow-lg font-semibold">
+                <Button variant="outline" className="bg-transparent text-white hover:bg-white/10 border-2 border-white shadow-lg font-semibold">
                   Read Implementation Guide
                   <BookOpen className="ml-2 h-5 w-5" />
                 </Button>
