@@ -326,7 +326,7 @@ async function handleOneTimePurchase(supabase: any, session: any) {
           license_key: licenseKey,
           stripe_session_id: sessionId,
           stripe_customer_id: session.customer,
-          amount: session.amount_total ? session.amount_total / 100 : 0,
+          amount: session.amount_total ? Math.round(session.amount_total) : 0, // Store in cents
           currency: session.currency || 'usd',
           status: 'active',
           purchased_at: new Date().toISOString(),

@@ -82,13 +82,14 @@ One-time purchase products are **95% ready for sale**. All code is implemented a
 
 ### 7. Database Migration
 - **File:** `apps/framework-compliance/supabase/migrations/20250205000000_one_time_purchases.sql`
-- **Status:** ✅ Created
+- **Status:** ✅ Complete
 - **Features:**
   - `cc_one_time_purchases` table
   - RLS policies
   - Indexes for performance
   - Audit fields
   - License key uniqueness
+- **Also Added To:** `ALL_MIGRATIONS_COMBINED.sql` for easy deployment
 
 ### 8. License Management
 - **File:** `apps/framework-compliance/src/utils/monetization/oneTimeProducts.ts` (LicenseManager class)
@@ -99,6 +100,25 @@ One-time purchase products are **95% ready for sale**. All code is implemented a
   - Purchase verification
   - License revocation
   - Import/export functionality
+
+### 9. Purchase Success Page
+- **File:** `apps/framework-compliance/src/pages/PurchaseSuccess.tsx`
+- **Status:** ✅ Complete
+- **Features:**
+  - Auto-activation from URL parameters
+  - Multiple license activation support
+  - License key display and copy
+  - Manual activation fallback
+
+### 10. Verification Script
+- **File:** `apps/framework-compliance/scripts/verify-one-time-purchases-setup.ts`
+- **Status:** ✅ Complete
+- **Features:**
+  - Database table verification
+  - Edge Function deployment check
+  - Stripe configuration verification
+  - Product catalog validation
+- **Command:** `npm run verify:one-time`
 
 ---
 
