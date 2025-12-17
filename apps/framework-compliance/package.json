@@ -35,7 +35,8 @@
     "stripe:auto": "tsx scripts/complete-stripe-setup-automated.ts",
     "stripe:test": "tsx scripts/test-stripe-integration.ts",
     "stripe:checklist": "tsx scripts/setup-checklist.ts",
-    "verify:one-time": "tsx scripts/verify-one-time-purchases-setup.ts"
+    "verify:one-time": "tsx scripts/verify-one-time-purchases-setup.ts",
+    "migrate:one-time": "tsx scripts/apply-one-time-purchases-migration.ts"
   },
   "dependencies": {
     "@sentry/react": "^10.20.0",

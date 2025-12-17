@@ -29,6 +29,7 @@ const expectedTables = [
   'cc_privacy_subscription_history',
   'cc_privacy_payment_methods',
   'cc_privacy_invoices',
+  'cc_one_time_purchases', // One-time purchases table
 ];
 
 async function checkTableExists(tableName: string): Promise<boolean> {
