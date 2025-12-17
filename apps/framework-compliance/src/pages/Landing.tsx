@@ -86,16 +86,17 @@ const Landing = () => {
                 See Where You Stand — Free
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
-              <Button 
-                size="lg"
-                variant="outline"
-                className="px-8 py-4 bg-background dark:bg-dark-surface border-2 border-primary text-primary rounded-lg text-lg font-semibold hover:bg-primary/5 transition-all"
-                onClick={handleGuideMe}
-                aria-label="Contact Our Team"
-              >
-                <Users className="mr-2 h-5 w-5" />
-                Contact Our Team
-              </Button>
+              <Link to="/contact">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="px-8 py-4 bg-background dark:bg-dark-surface border-2 border-primary text-primary rounded-lg text-lg font-semibold hover:bg-primary/5 transition-all"
+                  aria-label="Contact Our Team"
+                >
+                  <Users className="mr-2 h-5 w-5" />
+                  Contact Our Team
+                </Button>
+              </Link>
             </div>
             
             {/* Trust Indicators */}
@@ -450,16 +451,17 @@ const Landing = () => {
                   <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" aria-hidden="true" />
                 </Button>
               </Link>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="bg-white text-primary border-2 border-white hover:bg-white/90 shadow-lg px-8"
-                onClick={handleGuideMe}
-                aria-label="Contact Our Team"
-              >
-                <Users className="mr-2 h-5 w-5 flex-shrink-0" aria-hidden="true" />
-                <span>Contact Our Team</span>
-              </Button>
+              <Link to="/contact">
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  className="bg-white text-primary border-2 border-white hover:bg-white/90 shadow-lg px-8"
+                  aria-label="Contact Our Team"
+                >
+                  <Users className="mr-2 h-5 w-5 flex-shrink-0" aria-hidden="true" />
+                  <span>Contact Our Team</span>
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
