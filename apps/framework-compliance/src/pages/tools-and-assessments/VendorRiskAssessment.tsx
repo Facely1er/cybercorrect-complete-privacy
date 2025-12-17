@@ -11,7 +11,6 @@ import {
   AlertTriangle,
   CheckCircle,
   Clock,
-  FileText,
   Search,
   Plus,
   Download,
@@ -66,10 +65,11 @@ const VendorRiskAssessment = () => {
     }
   };
 
-  const saveVendorAssessments = (assessments: VendorAssessment[]) => {
-    storageAdapter.setVendorAssessments(assessments);
-    setVendorAssessments(assessments);
-  };
+  // Unused for now but kept for future functionality
+  // const saveVendorAssessments = (assessments: VendorAssessment[]) => {
+  //   storageAdapter.setVendorAssessments(assessments);
+  //   setVendorAssessments(assessments);
+  // };
 
   const filteredVendors = vendorAssessments.filter(vendor => {
     const matchesRisk = selectedRiskLevel === 'all' || vendor.riskLevel === selectedRiskLevel;
@@ -205,7 +205,8 @@ const VendorRiskAssessment = () => {
         </p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <div className="space-y-6">
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
           <TabsTrigger value="vendors">All Vendors</TabsTrigger>
@@ -365,10 +366,13 @@ const VendorRiskAssessment = () => {
                   </div>
                 </div>
                 <div>
+                  <label htmlFor="vendor-risk-filter" className="sr-only">Filter by risk level</label>
                   <select
+                    id="vendor-risk-filter"
                     value={selectedRiskLevel}
                     onChange={(e) => setSelectedRiskLevel(e.target.value)}
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    aria-label="Filter vendors by risk level"
                   >
                     <option value="all">All Risk Levels</option>
                     <option value="low">Low</option>
@@ -378,10 +382,13 @@ const VendorRiskAssessment = () => {
                   </select>
                 </div>
                 <div>
+                  <label htmlFor="vendor-compliance-filter" className="sr-only">Filter by compliance status</label>
                   <select
+                    id="vendor-compliance-filter"
                     value={selectedCompliance}
                     onChange={(e) => setSelectedCompliance(e.target.value)}
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    aria-label="Filter vendors by compliance status"
                   >
                     <option value="all">All Status</option>
                     <option value="compliant">Compliant</option>
@@ -684,6 +691,7 @@ const VendorRiskAssessment = () => {
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 };

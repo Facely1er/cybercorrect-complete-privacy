@@ -15,12 +15,8 @@ import {
   Edit,
   Download,
   BarChart3,
-  Target,
   Building,
-  Database,
-  Shield,
-  Award,
-  Mail
+  Award
 } from 'lucide-react';
 
 interface ServiceProvider {
@@ -142,10 +138,11 @@ const ServiceProviderManager = () => {
     }
   };
 
-  const saveServiceProviders = (updated: ServiceProvider[]) => {
-    storageAdapter.setServiceProviders(updated);
-    setServiceProviders(updated);
-  };
+  // Unused for now but kept for future functionality
+  // const saveServiceProviders = (updated: ServiceProvider[]) => {
+  //   storageAdapter.setServiceProviders(updated);
+  //   setServiceProviders(updated);
+  // };
 
   const filteredProviders = serviceProviders.filter(provider => {
     const matchesCategory = selectedCategory === 'all' || provider.category === selectedCategory;
@@ -285,7 +282,8 @@ const ServiceProviderManager = () => {
         </p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <div className="space-y-6">
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="providers">Providers</TabsTrigger>
@@ -435,10 +433,13 @@ const ServiceProviderManager = () => {
             <CardContent className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div>
+                  <label htmlFor="provider-category-filter" className="sr-only">Filter by category</label>
                   <select
+                    id="provider-category-filter"
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    aria-label="Filter providers by category"
                   >
                     <option value="all">All Categories</option>
                     <option value="cloud">Cloud</option>
@@ -451,10 +452,13 @@ const ServiceProviderManager = () => {
                   </select>
                 </div>
                 <div>
+                  <label htmlFor="provider-status-filter" className="sr-only">Filter by status</label>
                   <select
+                    id="provider-status-filter"
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    aria-label="Filter providers by status"
                   >
                     <option value="all">All Status</option>
                     <option value="active">Active</option>
@@ -465,10 +469,13 @@ const ServiceProviderManager = () => {
                   </select>
                 </div>
                 <div>
+                  <label htmlFor="provider-risk-filter" className="sr-only">Filter by risk level</label>
                   <select
+                    id="provider-risk-filter"
                     value={selectedRisk}
                     onChange={(e) => setSelectedRisk(e.target.value)}
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    aria-label="Filter providers by risk level"
                   >
                     <option value="all">All Risk Levels</option>
                     <option value="low">Low</option>
@@ -720,6 +727,7 @@ const ServiceProviderManager = () => {
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 };

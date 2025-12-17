@@ -9,7 +9,6 @@ import {
   BookOpen,
   Shield,
   AlertTriangle,
-  Users,
   Eye,
   Database,
   ChevronDown,
@@ -36,9 +35,7 @@ const ResourcesLanding = () => {
       description: 'GDPR, CCPA, and privacy framework documentation',
       items: [
         { title: 'GDPR Implementation Guide', path: '/documentation/gdpr-implementation-guide' },
-        { title: 'Privacy Framework Guide', path: '/documentation/privacy-framework-guide' },
-        { title: 'Data Subject Rights', path: '/guides/data-subject-rights' },
-        { title: 'Privacy by Design', path: '/guides/privacy-by-design' }
+        { title: 'Privacy Framework Guide', path: '/documentation/privacy-framework-guide' }
       ]
     },
     {
@@ -155,7 +152,7 @@ const ResourcesLanding = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               { title: 'GDPR Guide', icon: Shield, path: '/documentation/gdpr-implementation-guide' },
-              { title: 'Data Subject Rights', icon: Users, path: '/guides/data-subject-rights' },
+              { title: 'Privacy Framework', icon: Eye, path: '/documentation/privacy-framework-guide' },
               { title: 'Incident Response', icon: AlertTriangle, path: '/guides/incident-breach' },
               { title: 'Platform Overview', icon: BookOpen, path: '/documentation/platform-overview' }
             ].map((item) => (

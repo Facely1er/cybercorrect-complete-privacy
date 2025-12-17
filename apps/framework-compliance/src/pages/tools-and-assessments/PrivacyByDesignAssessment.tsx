@@ -110,10 +110,11 @@ const PrivacyByDesignAssessment = () => {
     }
   };
 
-  const saveAssessments = (updated: PrivacyByDesignAssessment[]) => {
-    storageAdapter.setPrivacyByDesignAssessments(updated);
-    setAssessments(updated);
-  };
+  // Unused for now but kept for future functionality
+  // const saveAssessments = (updated: PrivacyByDesignAssessment[]) => {
+  //   storageAdapter.setPrivacyByDesignAssessments(updated);
+  //   setAssessments(updated);
+  // };
 
   const filteredAssessments = assessments.filter(assessment => {
     const matchesStatus = selectedStatus === 'all' || assessment.status === selectedStatus;
@@ -250,7 +251,8 @@ const PrivacyByDesignAssessment = () => {
         </p>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <div className="space-y-6">
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="assessments">Assessments</TabsTrigger>
@@ -352,7 +354,8 @@ const PrivacyByDesignAssessment = () => {
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                         <div 
                           className="bg-primary h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${avgScore}%` }}
+                          data-score={avgScore}
+                          style={{ width: `${avgScore}%` } as React.CSSProperties}
                         />
                       </div>
                       <p className="text-xs text-muted-foreground">{principle.description}</p>
@@ -370,10 +373,13 @@ const PrivacyByDesignAssessment = () => {
             <CardContent className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
+                  <label htmlFor="pbd-status-filter" className="sr-only">Filter by status</label>
                   <select
+                    id="pbd-status-filter"
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    aria-label="Filter assessments by status"
                   >
                     <option value="all">All Status</option>
                     <option value="draft">Draft</option>
@@ -383,10 +389,13 @@ const PrivacyByDesignAssessment = () => {
                   </select>
                 </div>
                 <div>
+                  <label htmlFor="pbd-compliance-filter" className="sr-only">Filter by compliance status</label>
                   <select
+                    id="pbd-compliance-filter"
                     value={selectedCompliance}
                     onChange={(e) => setSelectedCompliance(e.target.value)}
                     className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    aria-label="Filter assessments by compliance status"
                   >
                     <option value="all">All Compliance</option>
                     <option value="compliant">Compliant</option>
@@ -560,6 +569,7 @@ const PrivacyByDesignAssessment = () => {
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 };

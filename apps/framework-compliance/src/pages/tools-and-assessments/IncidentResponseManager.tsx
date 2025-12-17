@@ -5,6 +5,7 @@ import { Badge } from '../../components/ui/Badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { toast } from '../../components/ui/Toaster';
 import { EmptyState } from '../../components/ui/EmptyState';
+import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import {
   getPrivacyIncidents,
   exportToCSV,
