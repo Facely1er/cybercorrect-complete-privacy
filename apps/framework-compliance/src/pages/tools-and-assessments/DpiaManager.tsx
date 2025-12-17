@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -22,8 +21,7 @@ import {
   Download,
   BarChart3,
   AlertCircle,
-  Info,
-  ArrowLeft
+  Info
 } from 'lucide-react';
 import { logError } from '../../utils/common/logger';
 
@@ -210,12 +208,7 @@ const DpiaManager = () => {
 
   return (
     <div className="page-container">
-      
       <div className="page-header">
-        <Link to="/toolkit" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-4">
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Toolkit
-        </Link>
         <h1 className="page-title">DPIA Manager</h1>
         <p className="page-description">
           Enhanced Data Protection Impact Assessment management with lifecycle tracking

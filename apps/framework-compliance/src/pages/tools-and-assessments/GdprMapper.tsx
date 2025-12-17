@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -10,7 +10,6 @@ import {
   Plus, 
   Edit, 
   Download, 
-  ArrowLeft,
   ArrowRight,
   Users,
   Scale,
@@ -25,7 +24,6 @@ import { secureStorage } from '../../utils/storage';
 import {
   getProcessingActivities,
   createProcessingActivity,
-  updateProcessingActivity,
   deleteProcessingActivity,
   exportToCSV,
   exportToPDF,
@@ -211,10 +209,6 @@ const GdprMapper = () => {
   return (
     <div className="page-container">
       <div className="page-header">
-        <Link to="/toolkit" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-4">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Toolkit
-        </Link>
         <div className="flex justify-between items-center">
           <div>
             <h1 className="page-title">GDPR Data Processing Mapper</h1>
@@ -272,7 +266,7 @@ const GdprMapper = () => {
                     className={`cursor-pointer transition-all hover:shadow-md ${
                       selectedActivity === activity.id ? 'ring-2 ring-primary' : ''
                     }`}
-                    onClick={() => setSelectedActivity(activity.id)}
+                    onClick={() => setSelectedActivity(activity.id || null)}
                   >
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between mb-3">

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -21,8 +20,7 @@ import {
   Database,
   Shield,
   Award,
-  Mail,
-  ArrowLeft
+  Mail
 } from 'lucide-react';
 
 interface ServiceProvider {
@@ -279,13 +277,8 @@ const ServiceProviderManager = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      
-      <div className="mb-6">
-        <Link to="/toolkit" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-4">
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Toolkit
-        </Link>
+    <div className="space-y-6">
+      <div>
         <h1 className="text-3xl font-bold mb-2 text-foreground">Service Provider Manager</h1>
         <p className="text-muted-foreground">
           Comprehensive processor and service provider management with agreement tracking
