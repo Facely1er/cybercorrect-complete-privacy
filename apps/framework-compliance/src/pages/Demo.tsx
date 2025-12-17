@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
-import { Card, CardContent } from '../components/ui/Card';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import Logo from '../components/ui/Logo';
 import { 
   ArrowRight, 
@@ -16,33 +16,99 @@ import {
   ClipboardCheck,
   HelpCircle,
   AlertTriangle,
-  BarChart2
+  BarChart2,
+  Target,
+  Users,
+  Clock,
+  Zap,
+  TrendingUp,
+  FileText,
+  Calendar,
+  ChevronRight,
+  Sparkles
 } from 'lucide-react';
 import { toast } from '../components/ui/Toaster';
 import { useChatbot } from '../components/chat/ChatbotProvider';
 
-// Import demo components
+// Demo data
+const DEMO_ASSESSMENT_DATA = {
+  overallScore: 68,
+  sectionScores: [
+    { title: 'Identify-P', percentage: 75, completed: true },
+    { title: 'Govern-P', percentage: 62, completed: true },
+    { title: 'Control-P', percentage: 58, completed: true },
+    { title: 'Communicate-P', percentage: 71, completed: true },
+    { title: 'Protect-P', percentage: 64, completed: true }
+  ]
+};
+
+const DEMO_GAPS = [
+  {
+    id: 'GAP-001',
+    title: 'Data Processing Records Incomplete',
+    priority: 'critical',
+    regulation: 'GDPR Article 30',
+    effort: 'Moderate',
+    timeframe: 'Immediate',
+    category: 'Documentation'
+  },
+  {
+    id: 'GAP-002',
+    title: 'Data Subject Rights Process Missing',
+    priority: 'critical',
+    regulation: 'GDPR Articles 15-22',
+    effort: 'Significant',
+    timeframe: 'Immediate',
+    category: 'Rights Management'
+  },
+  {
+    id: 'GAP-003',
+    title: 'Privacy by Design Not Implemented',
+    priority: 'high',
+    regulation: 'GDPR Article 25',
+    effort: 'Significant',
+    timeframe: 'Short-term',
+    category: 'Governance'
+  },
+  {
+    id: 'GAP-004',
+    title: 'Consent Management Inadequate',
+    priority: 'high',
+    regulation: 'GDPR Article 7',
+    effort: 'Moderate',
+    timeframe: 'Short-term',
+    category: 'Consent'
+  }
+];
+
+const DEMO_REQUESTS = [
+  { id: 'REQ-001', type: 'Access', requester: 'John Smith', status: 'in_progress', deadline: '14 days', priority: 'high' },
+  { id: 'REQ-002', type: 'Deletion', requester: 'Jane Doe', status: 'pending', deadline: '28 days', priority: 'medium' },
+  { id: 'REQ-003', type: 'Rectification', requester: 'Bob Johnson', status: 'completed', deadline: 'Completed', priority: 'low' }
+];
 
 const Demo = () => {
   const { openChatbot } = useChatbot();
-  const [demoState, setDemoState] = useState('intro'); // intro, dashboard, assessment, framework, recommendations, sensitive
+  const navigate = useNavigate();
+  const [demoState, setDemoState] = useState('intro');
   const [playing, setPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const [showFeatures] = useState(false);
+  const [interactiveDemo, setInteractiveDemo] = useState(false);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
   
   // Demo step control with auto-play
   useEffect(() => {
     let timer: NodeJS.Timeout | null = null;
     
-    if (playing) {
+    if (playing && !interactiveDemo) {
       timer = setTimeout(() => {
-        if (currentStep < 5) {
+        if (currentStep < 7) {
           setCurrentStep(prevStep => prevStep + 1);
         } else {
           setPlaying(false);
+          setCurrentStep(0);
         }
-      }, 3000);
+      }, 4000);
       
       autoPlayRef.current = timer;
     }
@@ -50,21 +116,23 @@ const Demo = () => {
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [playing, currentStep]);
+  }, [playing, currentStep, interactiveDemo]);
   
   // Control demo content based on current step
   useEffect(() => {
-    if (currentStep === 0) {
-      setDemoState('intro');
-    } else if (currentStep >= 1 && currentStep <= 4) {
-      setDemoState('mapper');
-    } else if (currentStep === 5) {
-      setDemoState('assessment');
-    }
+    const states = ['intro', 'assessment', 'results', 'gaps', 'tools', 'rights', 'roadmap', 'evidence'];
+    setDemoState(states[currentStep] || 'intro');
   }, [currentStep]);
   
   const startDemo = () => {
     setPlaying(true);
+    setInteractiveDemo(false);
+    setCurrentStep(1);
+  };
+  
+  const startInteractiveDemo = () => {
+    setPlaying(false);
+    setInteractiveDemo(true);
     setCurrentStep(1);
   };
   
@@ -74,12 +142,42 @@ const Demo = () => {
   
   const handleStepChange = (step: number) => {
     setPlaying(false);
+    setInteractiveDemo(true);
     setCurrentStep(step);
+  };
+  
+  const nextStep = () => {
+    if (currentStep < 7) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+  
+  const prevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
   };
   
   const handleGuideMe = () => {
     openChatbot();
     toast.success('Interactive Guide Activated', 'Our guide bot will help you get started');
+  };
+  
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'critical': return 'text-red-600 bg-red-100 dark:bg-red-900/30';
+      case 'high': return 'text-orange-600 bg-orange-100 dark:bg-orange-900/30';
+      case 'medium': return 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30';
+      default: return 'text-blue-600 bg-blue-100 dark:bg-blue-900/30';
+    }
+  };
+  
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'completed': return 'text-green-600 bg-green-100 dark:bg-green-900/30';
+      case 'in_progress': return 'text-blue-600 bg-blue-100 dark:bg-blue-900/30';
+      default: return 'text-gray-600 bg-gray-100 dark:bg-gray-800';
+    }
   };
 
   return (
@@ -90,103 +188,104 @@ const Demo = () => {
           Back to Home
         </Link>
         <div>
-          <h1 className="text-3xl font-bold mb-2 text-foreground">Interactive Demo</h1>
-          <p className="text-muted-foreground">Explore CyberCorrect Privacy Platform's powerful features for privacy compliance and data protection management</p>
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-3xl font-bold text-foreground">Interactive Platform Demo</h1>
+            <span className="bg-gradient-to-r from-primary to-secondary text-white text-xs px-3 py-1 rounded-full font-medium">
+              Enhanced Experience
+            </span>
+          </div>
+          <p className="text-muted-foreground">Experience CyberCorrect's comprehensive privacy compliance automation platform with real feature previews</p>
         </div>
       </div>
       
-      {/* Demo Controls */}
-      <Card className="mb-6">
-        <CardContent className="p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+      {/* Enhanced Demo Controls */}
+      <Card className="mb-6 border-2 border-primary/20">
+        <CardContent className="p-6">
+          <div className="space-y-4">
+            {/* Control Buttons */}
+            <div className="flex flex-wrap items-center gap-3">
               {playing ? (
-                <Button variant="outline" size="sm" onClick={stopDemo}>
+                <Button variant="outline" size="sm" onClick={stopDemo} className="border-2">
                   <Pause className="h-4 w-4 mr-2" />
-                  Pause Demo
+                  Pause Auto-Play
                 </Button>
               ) : (
-                <Button size="sm" onClick={startDemo}>
-                  <Play className="h-4 w-4 mr-2" />
-                  Start Demo
-                </Button>
+                <>
+                  <Button size="sm" onClick={startDemo} className="bg-gradient-to-r from-primary to-secondary">
+                    <Play className="h-4 w-4 mr-2" />
+                    Auto-Play Tour
+                  </Button>
+                  <Button size="sm" variant="outline" onClick={startInteractiveDemo} className="border-2">
+                    <Sparkles className="h-4 w-4 mr-2" />
+                    Interactive Explore
+                  </Button>
+                </>
               )}
               
-              <div className="flex gap-2">
-                {[0, 1, 2, 3, 4, 5].map((step) => (
+              {interactiveDemo && (
+                <div className="flex gap-2">
                   <Button 
-                    key={step}
-                    variant={currentStep === step ? "default" : "outline"} 
-                    size="sm"
-                    onClick={() => handleStepChange(step)}
+                    size="sm" 
+                    variant="outline" 
+                    onClick={prevStep}
+                    disabled={currentStep === 0}
                   >
-                    {step === 0 ? 'Intro' : step}
+                    <ArrowLeft className="h-4 w-4" />
                   </Button>
-                ))}
-              </div>
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    onClick={nextStep}
+                    disabled={currentStep === 7}
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
             </div>
             
-            <div className="text-sm text-muted-foreground">
-              {demoState === 'intro' && 'Introduction'}
-              {demoState === 'mapper' && 'CUI Data Flow Mapper'}
-              {demoState === 'assessment' && 'Compliance Assessment'}
+            {/* Step Navigation */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-2">
+              {[
+                { step: 0, label: 'Intro', icon: Sparkles },
+                { step: 1, label: 'Assessment', icon: Eye },
+                { step: 2, label: 'Results', icon: BarChart2 },
+                { step: 3, label: 'Gap Analysis', icon: Target },
+                { step: 4, label: 'Tools', icon: Zap },
+                { step: 5, label: 'Rights Mgmt', icon: Users },
+                { step: 6, label: 'Roadmap', icon: Calendar },
+                { step: 7, label: 'Evidence', icon: FileCheck }
+              ].map(({ step, label, icon: Icon }) => (
+                <Button 
+                  key={step}
+                  variant={currentStep === step ? "default" : "ghost"} 
+                  size="sm"
+                  onClick={() => handleStepChange(step)}
+                  className={`whitespace-nowrap ${currentStep === step ? 'shadow-md' : ''}`}
+                >
+                  <Icon className="h-3 w-3 mr-1" />
+                  {label}
+                </Button>
+              ))}
+            </div>
+            
+            {/* Progress Bar */}
+            <div className="space-y-2">
+              <div className="flex justify-between text-xs text-muted-foreground">
+                <span>Demo Progress</span>
+                <span>{Math.round((currentStep / 7) * 100)}%</span>
+              </div>
+              <div className="w-full bg-muted h-2 rounded-full overflow-hidden">
+                <div 
+                  className="bg-gradient-to-r from-primary to-secondary h-full transition-all duration-500"
+                  style={{ width: `${(currentStep / 7) * 100}%` }}
+                />
+              </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Enhanced Feature List */}
-      {showFeatures && (
-        <Card className="mb-6 border-primary shadow-lg">
-          <CardContent className="p-8">
-            <h2 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Key Platform Features</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="flex items-start p-4 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 hover:shadow-md transition-all duration-300">
-                <Database className="h-6 w-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold text-blue-800 dark:text-blue-200">Data Flow Mapper</p>
-                  <p className="text-sm text-blue-700 dark:text-blue-300">Visualize and document data flows across your systems</p>
-                </div>
-              </div>
-              <div className="flex items-start p-4 rounded-xl bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 hover:shadow-md transition-all duration-300">
-                <Shield className="h-6 w-6 text-green-600 mr-3 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold text-green-800 dark:text-green-200">Security Assessment</p>
-                  <p className="text-sm text-green-700 dark:text-green-300">Evaluate compliance with security frameworks</p>
-                </div>
-              </div>
-              <div className="flex items-start p-4 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 hover:shadow-md transition-all duration-300">
-                <FileCheck className="h-6 w-6 text-purple-600 mr-3 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold text-purple-800 dark:text-purple-200">Document Generator</p>
-                  <p className="text-sm text-purple-700 dark:text-purple-300">Auto-generate compliance documentation</p>
-                </div>
-              </div>
-              <div className="flex items-start p-4 rounded-xl bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/30 hover:shadow-md transition-all duration-300">
-                <BarChart2 className="h-6 w-6 text-orange-600 mr-3 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold text-orange-800 dark:text-orange-200">Analytics Dashboard</p>
-                  <p className="text-sm text-orange-700 dark:text-orange-300">Real-time compliance metrics and insights</p>
-                </div>
-              </div>
-              <div className="flex items-start p-4 rounded-xl bg-gradient-to-br from-teal-50 to-teal-100 dark:from-teal-900/30 dark:to-teal-800/30 hover:shadow-md transition-all duration-300">
-                <CheckCircle className="h-6 w-6 text-teal-600 mr-3 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold text-teal-800 dark:text-teal-200">Evidence Management</p>
-                  <p className="text-sm text-teal-700 dark:text-teal-300">Centralized compliance evidence vault</p>
-                </div>
-              </div>
-              <div className="flex items-start p-4 rounded-xl bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-900/30 dark:to-pink-800/30 hover:shadow-md transition-all duration-300">
-                <Eye className="h-6 w-6 text-pink-600 mr-3 mt-1 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold text-pink-800 dark:text-pink-200">Privacy Controls</p>
-                  <p className="text-sm text-pink-700 dark:text-pink-300">Advanced privacy protection controls</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
       
       {/* Demo Content */}
       {demoState === 'intro' && (
