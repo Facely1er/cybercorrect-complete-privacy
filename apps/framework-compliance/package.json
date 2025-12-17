@@ -39,7 +39,9 @@
     "migrate:one-time": "tsx scripts/apply-one-time-purchases-migration.ts",
     "verify:production:complete": "tsx scripts/complete-production-readiness.ts",
     "stripe:complete": "tsx scripts/complete-stripe-config-now.ts",
-    "config:complete": "tsx scripts/complete-all-configuration.ts"
+    "config:complete": "tsx scripts/complete-all-configuration.ts",
+    "deploy:functions": "tsx scripts/deploy-all-functions.ts",
+    "deploy:functions:auth": "tsx scripts/deploy-functions-with-auth.ts"
   },
   "dependencies": {
     "@sentry/react": "^10.20.0",
