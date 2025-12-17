@@ -166,7 +166,7 @@ const IncidentBreachGuide = () => {
   const incidentClassification = [
     {
       severity: 'Critical',
-      color: 'bg-red-100 text-red-800 border-red-300',
+      color: 'bg-red-100 text-red-800 border-red-300 dark:bg-red-900/30 dark:text-red-300 dark:border-red-700',
       criteria: [
         'Large-scale breach (>10,000 data subjects)',
         'Sensitive/special category data exposed',
@@ -179,7 +179,7 @@ const IncidentBreachGuide = () => {
     },
     {
       severity: 'High',
-      color: 'bg-orange-100 text-orange-800 border-orange-300',
+      color: 'bg-orange-100 text-orange-800 border-orange-300 dark:bg-orange-900/30 dark:text-orange-300 dark:border-orange-700',
       criteria: [
         'Medium-scale breach (1,000-10,000 data subjects)',
         'Personal identifiers exposed',
@@ -191,7 +191,7 @@ const IncidentBreachGuide = () => {
     },
     {
       severity: 'Medium',
-      color: 'bg-yellow-100 text-yellow-800 border-yellow-300',
+      color: 'bg-yellow-100 text-yellow-800 border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-700',
       criteria: [
         'Small-scale breach (<1,000 data subjects)',
         'Limited personal data exposed',
@@ -203,7 +203,7 @@ const IncidentBreachGuide = () => {
     },
     {
       severity: 'Low',
-      color: 'bg-green-100 text-green-800 border-green-300',
+      color: 'bg-green-100 text-green-800 border-green-300 dark:bg-green-900/30 dark:text-green-300 dark:border-green-700',
       criteria: [
         'Near-miss or potential vulnerability',
         'No actual data exposure confirmed',
@@ -344,7 +344,7 @@ const IncidentBreachGuide = () => {
                       <CardContent className="p-4">
                         <div className="flex justify-between items-start mb-3">
                           <h3 className="text-lg font-bold">{level.severity} Severity</h3>
-                          <span className="text-xs font-medium px-2 py-1 bg-white/50 rounded">
+                          <span className="text-xs font-medium px-2 py-1 bg-background/70 dark:bg-background/50 rounded">
                             {level.responseTime}
                           </span>
                         </div>
@@ -509,7 +509,7 @@ const IncidentBreachGuide = () => {
                               </div>
                               <div className="md:col-span-2">
                                 <p className="text-sm"><strong>Potential Penalties:</strong></p>
-                                <p className="text-sm text-red-600">{reg.penalties}</p>
+                                <p className="text-sm text-destructive">{reg.penalties}</p>
                               </div>
                             </div>
                             <div>

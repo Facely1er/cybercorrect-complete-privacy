@@ -62,7 +62,7 @@ const DataSubjectRightsGuide = () => {
 
           <Card className="hover:shadow-lg transition-shadow">
             <CardContent className="p-6">
-              <UserX className="h-8 w-8 text-red-600 mb-4" />
+              <UserX className="h-8 w-8 text-red-600 dark:text-red-400 mb-4" />
               <h3 className="text-lg font-semibold mb-2 text-foreground">Right to Erasure</h3>
               <p className="text-sm text-muted-foreground mb-4">
                 Handle "right to be forgotten" requests.

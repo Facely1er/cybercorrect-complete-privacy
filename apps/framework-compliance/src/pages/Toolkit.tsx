@@ -312,50 +312,50 @@ const Toolkit = () => {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-        <Card className="border-l-4 border-l-red-600">
+        <Card className="border-l-4 border-l-red-600 dark:border-l-red-500">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Critical Tools</p>
-                <p className="text-2xl font-bold text-red-600">{stats.byCriticality.critical}</p>
+                <p className="text-2xl font-bold text-red-600 dark:text-red-400">{stats.byCriticality.critical}</p>
               </div>
-              <AlertTriangle className="h-8 w-8 text-red-600" />
+              <AlertTriangle className="h-8 w-8 text-red-600 dark:text-red-400" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-orange-600">
+        <Card className="border-l-4 border-l-orange-600 dark:border-l-orange-500">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">High Priority</p>
-                <p className="text-2xl font-bold text-orange-600">{stats.byCriticality.high}</p>
+                <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">{stats.byCriticality.high}</p>
               </div>
-              <Target className="h-8 w-8 text-orange-600" />
+              <Target className="h-8 w-8 text-orange-600 dark:text-orange-400" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-blue-600">
+        <Card className="border-l-4 border-l-blue-600 dark:border-l-blue-500">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Medium Priority</p>
-                <p className="text-2xl font-bold text-blue-600">{stats.byCriticality.medium}</p>
+                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{stats.byCriticality.medium}</p>
               </div>
-              <BarChart3 className="h-8 w-8 text-blue-600" />
+              <BarChart3 className="h-8 w-8 text-blue-600 dark:text-blue-400" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-600">
+        <Card className="border-l-4 border-l-green-600 dark:border-l-green-500">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Total Tools</p>
-                <p className="text-2xl font-bold text-green-600">{stats.totalTools}</p>
+                <p className="text-2xl font-bold text-green-600 dark:text-green-400">{stats.totalTools}</p>
               </div>
-              <CheckCircle className="h-8 w-8 text-green-600" />
+              <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
           </CardContent>
         </Card>
@@ -412,7 +412,7 @@ const Toolkit = () => {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                         {tool.features.map((feature, idx) => (
                           <div key={idx} className="flex items-start">
-                            <CheckCircle className="w-4 h-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                            <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0" />
                             <span className="text-foreground text-sm">{feature}</span>
                           </div>
                         ))}

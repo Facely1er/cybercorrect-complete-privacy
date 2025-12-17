@@ -102,8 +102,8 @@ const PrivacyProjectDashboard = () => {
                   onClick={() => setUserMode('solo')}
                 >
                   <CardContent className="p-6">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <Eye className="h-6 w-6 text-blue-600" />
+                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
+                      <Eye className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                     </div>
                     <h3 className="text-lg font-semibold text-center mb-2">Solo Practitioner</h3>
                     <p className="text-sm text-muted-foreground text-center mb-4">
@@ -133,8 +133,8 @@ const PrivacyProjectDashboard = () => {
                   onClick={() => setUserMode('team')}
                 >
                   <CardContent className="p-6">
-                    <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <Users className="h-6 w-6 text-purple-600" />
+                    <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
+                      <Users className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                     </div>
                     <h3 className="text-lg font-semibold text-center mb-2">Team Collaboration</h3>
                     <p className="text-sm text-muted-foreground text-center mb-4">
