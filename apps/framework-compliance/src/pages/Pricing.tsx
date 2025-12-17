@@ -9,17 +9,12 @@ import { logWarning, logError } from '../utils/common';
 
 const Pricing = () => {
   const navigate = useNavigate();
-  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
   const [showComparisonDetails, setShowComparisonDetails] = useState<string | null>(null);
 
-  const toggleBillingPeriod = () => {
-    setBillingPeriod(prev => prev === 'monthly' ? 'annual' : 'monthly');
-  };
-
-  // Get subscription plans from catalog
+  // Get membership plans from catalog
   const subscriptionProducts = getAllSubscriptions();
   
-  // Convert subscription products to plan format for display
+  // Convert membership products to plan format for display
   const plans = subscriptionProducts.map(product => ({
     name: product.name,
     description: product.description,
@@ -27,14 +22,15 @@ const Pricing = () => {
       ? "0" 
       : product.tier === 'enterprise'
       ? "Contact us"
-      : billingPeriod === "monthly" 
-        ? product.monthlyPrice.toString() 
-        : product.annualPrice.toString(),
+      : product.quarterlyPrice.toString(),
+    monthlyEquivalent: product.monthlyEquivalent,
     billing: product.billing,
     free: product.tier === 'free',
     popular: product.popular || false,
     tier: product.tier,
-    features: product.features
+    quarterlyDeliverables: product.quarterlyDeliverables || [],
+    ongoingAccess: product.ongoingAccess || [],
+    professionalServices: product.professionalServices || []
   }));
 
   // Feature comparison data for detailed comparison table
@@ -91,14 +87,14 @@ const Pricing = () => {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 pt-4 md:pt-6 pb-12 md:pb-20">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">Simple, Transparent Pricing</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">Quarterly Membership Plans</h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Choose between flexible subscriptions or own your tools forever
+            Quarterly memberships with defined deliverables and ongoing platform access. Choose a membership or own your tools forever.
           </p>
           <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <Check className="h-4 w-4 text-success" />
-              <span>Subscriptions: Continuous updates & support</span>
+              <span>Quarterly Memberships: Defined deliverables each quarter</span>
             </div>
             <div className="flex items-center gap-2">
               <Check className="h-4 w-4 text-success" />
@@ -107,40 +103,13 @@ const Pricing = () => {
           </div>
         </div>
 
-        {/* Subscription Plans Section */}
+        {/* Membership Plans Section */}
         <div className="max-w-7xl mx-auto mb-24">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Subscription Plans</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Quarterly Membership Plans</h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Continuous compliance with automated updates, alerts, and team features
+            Quarterly memberships with defined deliverables, ongoing platform access, and compliance support
           </p>
-        
-        {/* Billing toggle */}
-        <div className="flex items-center justify-center space-x-3 mb-10">
-          <span className={`text-sm ${billingPeriod === 'monthly' ? 'font-medium text-foreground' : 'text-muted-foreground'}`}>
-            Monthly
-          </span>
-          <button 
-            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-              billingPeriod === 'annual' ? 'bg-primary' : 'bg-muted'
-            }`}
-            onClick={toggleBillingPeriod}
-            aria-label={`Switch to ${billingPeriod === 'monthly' ? 'annual' : 'monthly'} billing`}
-            title={`Switch to ${billingPeriod === 'monthly' ? 'annual' : 'monthly'} billing`}
-          >
-            <span
-              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                billingPeriod === 'annual' ? 'translate-x-[1.25rem]' : 'translate-x-[0.25rem]'
-              }`}
-            />
-          </button>
-          <span className={`text-sm ${billingPeriod === 'annual' ? 'font-medium text-foreground' : 'text-muted-foreground'}`}>
-            Annual
-          </span>
-          <span className="ml-2 bg-success/10 text-success text-xs px-2 py-1 rounded-full">
-            Save 20%
-          </span>
-        </div>
         </div>
 
         {/* Subscription Plans Grid */}
@@ -161,7 +130,7 @@ const Pricing = () => {
               <div className="mb-6">
                 {!plan.free && plan.price !== "Contact us" && (
                   <span className="inline-block bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 px-2 py-1 rounded text-xs font-semibold mb-3">
-                    SUBSCRIPTION
+                    QUARTERLY MEMBERSHIP
                   </span>
                 )}
                 {plan.free && (
@@ -180,16 +149,61 @@ const Pricing = () => {
                   )}
                 </div>
                 <p className="text-sm text-muted-foreground">{plan.billing}</p>
+                {plan.monthlyEquivalent && plan.monthlyEquivalent > 0 && (
+                  <p className="text-xs text-muted-foreground mt-1">${plan.monthlyEquivalent}/month equivalent</p>
+                )}
               </div>
 
-              <ul className="space-y-3 mb-8 flex-1">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-primary mr-3 flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground leading-relaxed">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              {plan.quarterlyDeliverables && plan.quarterlyDeliverables.length > 0 && (
+                <div className="mb-6">
+                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-primary" />
+                    Quarterly Deliverables
+                  </h4>
+                  <ul className="space-y-2 mb-4">
+                    {plan.quarterlyDeliverables.map((deliverable, index) => (
+                      <li key={index} className="flex items-start">
+                        <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm text-foreground leading-relaxed">{deliverable}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {plan.ongoingAccess && plan.ongoingAccess.length > 0 && (
+                <div className="mb-6">
+                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-primary" />
+                    Ongoing Platform Access
+                  </h4>
+                  <ul className="space-y-2 flex-1">
+                    {plan.ongoingAccess.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-start">
+                        <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm text-foreground leading-relaxed">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {plan.professionalServices && plan.professionalServices.length > 0 && (
+                <div className="mb-6">
+                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-primary" />
+                    Professional Services
+                  </h4>
+                  <ul className="space-y-2">
+                    {plan.professionalServices.map((service, index) => (
+                      <li key={index} className="flex items-start">
+                        <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm text-foreground leading-relaxed">{service}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               <Button
                 className="w-full mt-auto"
@@ -215,7 +229,7 @@ const Pricing = () => {
                       return;
                     }
 
-                    const session = await createCheckoutSession(tier, billingPeriod);
+                    const session = await createCheckoutSession(tier, 'quarterly');
 
                     if (session?.url) {
                       window.location.href = session.url;

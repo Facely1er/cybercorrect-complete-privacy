@@ -36,7 +36,7 @@ export interface CheckoutSession {
  */
 export async function createCheckoutSession(
   tier: 'starter' | 'professional' | 'enterprise',
-  billingPeriod: 'monthly' | 'annual'
+  billingPeriod: 'quarterly'
 ): Promise<CheckoutSession | null> {
   try {
     // Check if Stripe is configured

@@ -15,22 +15,19 @@ const corsHeaders = {
 
 interface SubscriptionTier {
   tier: 'starter' | 'professional' | 'enterprise';
-  billingPeriod: 'monthly' | 'annual';
+  billingPeriod: 'quarterly';
 }
 
 // Price IDs mapping (should be configured via environment variables or database)
 const PRICE_IDS: Record<string, Record<string, string>> = {
   starter: {
-    monthly: Deno.env.get('STRIPE_PRICE_STARTER_MONTHLY') || '',
-    annual: Deno.env.get('STRIPE_PRICE_STARTER_ANNUAL') || '',
+    quarterly: Deno.env.get('STRIPE_PRICE_STARTER_QUARTERLY') || '',
   },
   professional: {
-    monthly: Deno.env.get('STRIPE_PRICE_PROFESSIONAL_MONTHLY') || '',
-    annual: Deno.env.get('STRIPE_PRICE_PROFESSIONAL_ANNUAL') || '',
+    quarterly: Deno.env.get('STRIPE_PRICE_PROFESSIONAL_QUARTERLY') || '',
   },
   enterprise: {
-    monthly: Deno.env.get('STRIPE_PRICE_ENTERPRISE_MONTHLY') || '',
-    annual: Deno.env.get('STRIPE_PRICE_ENTERPRISE_ANNUAL') || '',
+    quarterly: Deno.env.get('STRIPE_PRICE_ENTERPRISE_QUARTERLY') || '',
   },
 };
 
@@ -73,8 +70,7 @@ serve(async (req) => {
           details: 'Please configure the STRIPE_PRICE environment variables in your Supabase Edge Function secrets',
           availableTiers: Object.keys(PRICE_IDS),
           requiredEnvVars: [
-            `STRIPE_PRICE_${tier.toUpperCase()}_MONTHLY`,
-            `STRIPE_PRICE_${tier.toUpperCase()}_ANNUAL`
+            `STRIPE_PRICE_${tier.toUpperCase()}_QUARTERLY`
           ]
         }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

@@ -1,8 +1,8 @@
-// Subscription Product Catalog
-// These products are recurring subscriptions with monthly or annual billing
+// Membership Product Catalog
+// Quarterly memberships with defined deliverables each quarter
 
 export type SubscriptionTier = 'free' | 'starter' | 'professional' | 'enterprise';
-export type BillingPeriod = 'monthly' | 'annual';
+export type BillingPeriod = 'quarterly';
 
 export interface SubscriptionProduct {
   id: string;
@@ -10,19 +10,20 @@ export interface SubscriptionProduct {
   name: string;
   description: string;
   tagline: string;
-  monthlyPrice: number;
-  annualPrice: number;
-  billing: string; // e.g., "per user/month"
+  quarterlyPrice: number;
+  monthlyEquivalent?: number; // For display purposes
+  billing: string; // e.g., "per quarter"
   popular?: boolean;
-  features: string[];
-  category: 'subscription';
+  quarterlyDeliverables: string[]; // What they get each quarter
+  ongoingAccess: string[]; // Platform access features
+  professionalServices?: string[]; // Professional services (Enterprise only)
+  category: 'membership';
   stripePriceId?: {
-    monthly?: string;
-    annual?: string;
+    quarterly?: string;
   };
 }
 
-// Subscription Product Catalog
+// Membership Product Catalog
 export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
   {
     id: 'subscription-free',
@@ -30,11 +31,12 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
     name: 'Free Trial',
     tagline: 'Start your privacy compliance journey',
     description: 'Try all features free for 14 days - no credit card required',
-    monthlyPrice: 0,
-    annualPrice: 0,
+    quarterlyPrice: 0,
+    monthlyEquivalent: 0,
     billing: '14-day trial',
-    category: 'subscription',
-    features: [
+    category: 'membership',
+    quarterlyDeliverables: [],
+    ongoingAccess: [
       'Privacy assessments (basic GDPR/CCPA)',
       'Privacy Gap Analyzer (view-only)',
       '3 basic templates (Privacy Policy, Cookie Policy, Terms)',
@@ -52,23 +54,28 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
   {
     id: 'subscription-starter',
     tier: 'starter',
-    name: 'Starter',
-    tagline: 'Perfect for small teams starting their privacy compliance journey',
-    description: 'Perfect for small teams starting their privacy compliance journey',
-    monthlyPrice: 49,
-    annualPrice: 39,
-    billing: 'per user/month',
-    category: 'subscription',
-    features: [
-      'Everything in Free, plus:',
+    name: 'Essential Membership',
+    tagline: 'Quarterly compliance support for small teams',
+    description: 'Quarterly membership with essential compliance deliverables',
+    quarterlyPrice: 147,
+    monthlyEquivalent: 49,
+    billing: 'per quarter',
+    category: 'membership',
+    quarterlyDeliverables: [
+      'Quarterly privacy compliance assessment',
+      'Quarterly gap analysis report',
+      'Quarterly executive summary (board-ready)',
+      'Quarterly compliance health review',
+      '2 scheduled assessments per quarter',
+      'Quarterly framework updates'
+    ],
+    ongoingAccess: [
+      'Platform access for the quarter',
       'Multi-regulation privacy assessments',
       'Up to 100 risks tracked',
       '5 compliance templates',
-      '10 exports per month (PDF, Word, JSON, CSV)',
-      'Monthly automated compliance reports',
+      '10 exports per quarter (PDF, Word, JSON, CSV)',
       'Weekly compliance status emails',
-      'Quarterly executive summaries',
-      'Scheduled assessments (up to 2 per quarter)',
       'Compliance health score tracking',
       'Progress dashboard',
       'Email & in-app notifications',
@@ -77,23 +84,31 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
       'Risk analytics'
     ],
     stripePriceId: {
-      monthly: import.meta.env.VITE_STRIPE_PRICE_STARTER_MONTHLY || '',
-      annual: import.meta.env.VITE_STRIPE_PRICE_STARTER_ANNUAL || ''
+      quarterly: import.meta.env.VITE_STRIPE_PRICE_STARTER_QUARTERLY || ''
     }
   },
   {
     id: 'subscription-professional',
     tier: 'professional',
-    name: 'Professional',
-    tagline: 'Complete privacy compliance suite for growing organizations',
-    description: 'Complete privacy compliance suite for growing organizations',
-    monthlyPrice: 99,
-    annualPrice: 79,
-    billing: 'per user/month',
+    name: 'Professional Membership',
+    tagline: 'Comprehensive quarterly compliance program',
+    description: 'Quarterly membership with comprehensive compliance deliverables and ongoing platform access',
+    quarterlyPrice: 297,
+    monthlyEquivalent: 99,
+    billing: 'per quarter',
     popular: true,
-    category: 'subscription',
-    features: [
-      'Everything in Starter, plus:',
+    category: 'membership',
+    quarterlyDeliverables: [
+      'Quarterly comprehensive compliance assessment',
+      'Quarterly executive dashboard (board-ready)',
+      'Quarterly regulatory impact analysis',
+      'Quarterly privacy review consultation',
+      'Unlimited scheduled assessments',
+      'Quarterly framework updates',
+      'Quarterly compliance roadmap'
+    ],
+    ongoingAccess: [
+      'Platform access for the quarter',
       'Full privacy framework coverage',
       'Unlimited risk tracking',
       '20+ compliance templates',
@@ -101,9 +116,6 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
       'Unlimited custom reports',
       'Daily compliance health digest',
       'Weekly automated compliance reports',
-      'Monthly comprehensive reports',
-      'Quarterly executive dashboards',
-      'Unlimited scheduled assessments',
       'Real-time risk alerts',
       'Custom notification rules',
       'Email & in-app notifications (SMS & Slack coming soon)',
@@ -111,49 +123,55 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
       'Regulatory intelligence dashboard',
       'Predictive compliance analytics',
       'Advanced analytics & dashboards',
-      'Priority support (24hr response)',
       'Up to 5 privacy frameworks',
-      'Quarterly privacy reviews'
+      'Priority support (24hr response)'
     ],
     stripePriceId: {
-      monthly: import.meta.env.VITE_STRIPE_PRICE_PROFESSIONAL_MONTHLY || '',
-      annual: import.meta.env.VITE_STRIPE_PRICE_PROFESSIONAL_ANNUAL || ''
+      quarterly: import.meta.env.VITE_STRIPE_PRICE_PROFESSIONAL_QUARTERLY || ''
     }
   },
   {
     id: 'subscription-enterprise',
     tier: 'enterprise',
-    name: 'Enterprise',
-    tagline: 'White-glove privacy compliance support for large organizations',
-    description: 'White-glove privacy compliance support for large organizations',
-    monthlyPrice: 0, // Contact for pricing
-    annualPrice: 0, // Contact for pricing
-    billing: 'custom pricing',
-    category: 'subscription',
-    features: [
+    name: 'Enterprise Membership',
+    tagline: 'White-glove quarterly compliance program',
+    description: 'Quarterly membership with comprehensive deliverables and dedicated professional services',
+    quarterlyPrice: 0, // Contact for pricing
+    monthlyEquivalent: 0,
+    billing: 'custom pricing per quarter',
+    category: 'membership',
+    quarterlyDeliverables: [
+      'Quarterly board-ready executive report',
+      'Quarterly compliance audit preparation',
+      'Quarterly regulatory change impact assessment',
+      'Quarterly compliance strategy session',
+      'Quarterly training session',
+      'Continuous automated assessments',
+      'Quarterly custom framework updates'
+    ],
+    ongoingAccess: [
       'Everything in Professional',
       'Real-time compliance monitoring',
       'Daily compliance briefings',
       'Weekly detailed reports',
-      'Monthly executive reports (board-ready)',
-      'Continuous automated assessments',
       'Custom notification workflows',
       'Role-based notification routing',
       'Executive dashboard alerts',
       'Regulatory intelligence dashboard',
       'Unlimited compliance frameworks',
       'Custom privacy control mapping',
-      'PowerPoint export',
-      'White-glove implementation support (professional services)',
-      'Dedicated compliance specialist (professional services)',
-      'Custom integrations (professional services)',
+      'PowerPoint export'
+    ],
+    professionalServices: [
+      'White-glove implementation support',
+      'Dedicated compliance specialist',
+      'Custom integrations',
       '24/7 dedicated support with SLA',
-      'Custom feature development (professional services)',
-      'Training and certification programs (professional services)'
+      'Custom feature development',
+      'Training and certification programs'
     ],
     stripePriceId: {
-      monthly: import.meta.env.VITE_STRIPE_PRICE_ENTERPRISE_MONTHLY || '',
-      annual: import.meta.env.VITE_STRIPE_PRICE_ENTERPRISE_ANNUAL || ''
+      quarterly: import.meta.env.VITE_STRIPE_PRICE_ENTERPRISE_QUARTERLY || ''
     }
   }
 ];

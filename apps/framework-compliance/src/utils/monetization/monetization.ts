@@ -9,7 +9,7 @@ export interface UserSubscription {
   tier: SubscriptionTier;
   startDate: string;
   endDate?: string;
-  billingPeriod: 'monthly' | 'annual';
+  billingPeriod: 'quarterly';
   status: 'active' | 'expired' | 'cancelled' | 'trialing';
 }
 
@@ -313,7 +313,7 @@ class MonetizationManager {
     return secureStorage.getItem<UserSubscription>('user_subscription', {
       tier: 'free',
       startDate: new Date().toISOString(),
-      billingPeriod: 'monthly',
+      billingPeriod: 'quarterly',
       status: 'active'
     });
   }
