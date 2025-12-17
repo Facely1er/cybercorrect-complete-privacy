@@ -3,13 +3,18 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { InternalLink, RelatedContent } from '../../components/ui/InternalLinkingHelper';
+import { ImportDialog } from '../../components/ui/ImportDialog';
+import { validators } from '../../utils/import/jsonValidator';
 import { usePageTitle } from '../../hooks/usePageTitle';
+import { useJourney } from '../../context/JourneyContext';
+import JourneyProgressTracker from '../../components/onboarding/JourneyProgressTracker';
 import { 
   Eye, 
   CheckCircle, 
   Plus, 
   Edit, 
-  Download, 
+  Download,
+  Upload,
   ArrowRight,
   Users,
   Scale,
@@ -33,12 +38,19 @@ import { logError } from '../../utils/common/logger';
 
 const GdprMapper = () => {
   usePageTitle('GDPR Mapper');
+  const { markToolStarted, markToolCompleted, currentStepIndex, completedSteps } = useJourney();
   
   const [activities, setActivities] = useState<ProcessingActivity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [showImportDialog, setShowImportDialog] = useState(false);
+
+  // Mark tool as started when component mounts
+  useEffect(() => {
+    markToolStarted('gdpr-mapper');
+  }, [markToolStarted]);
 
   // Load activities on mount
   useEffect(() => {
@@ -89,12 +101,54 @@ const GdprMapper = () => {
       
       setActivities(prev => [...prev, newActivity]);
       setSelectedActivity(newActivity.id || null);
+      
+      // Mark tool as completed when first activity is created
+      if (activities.length === 0) {
+        markToolCompleted('gdpr-mapper');
+      }
+      
       toast.success('Activity Added', 'New processing activity has been added');
     } catch (error) {
       logError(error instanceof Error ? error : new Error('Error creating activity'), { component: 'GdprMapper', operation: 'createActivity' });
       toast.error('Create failed', error instanceof Error ? error.message : 'Failed to create processing activity');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleImportData = async (importedData: Partial<ProcessingActivity>[]) => {
+    try {
+      const newActivities: ProcessingActivity[] = [];
+      
+      for (const item of importedData) {
+        const activity = await createProcessingActivity({
+          name: item.name || 'Imported Activity',
+          purpose: item.purpose || '',
+          legalBasis: item.legalBasis || 'consent',
+          dataTypes: Array.isArray(item.dataTypes) ? item.dataTypes : [],
+          dataSubjects: Array.isArray(item.dataSubjects) ? item.dataSubjects : [],
+          recipients: Array.isArray(item.recipients) ? item.recipients : [],
+          retentionPeriod: item.retentionPeriod || '',
+          riskLevel: item.riskLevel || 'medium',
+          dataController: item.dataController || 'Your Organization',
+          createdBy: item.createdBy || 'Imported',
+          dpiaRequired: item.dpiaRequired,
+          thirdCountryTransfers: item.thirdCountryTransfers,
+          securityMeasures: item.securityMeasures,
+        });
+        newActivities.push(activity);
+      }
+
+      // Reload all activities
+      await loadActivities();
+
+      toast.success(
+        'Import Successful',
+        `Imported ${newActivities.length} processing activity(ies)`
+      );
+    } catch (error) {
+      console.error('Error importing data:', error);
+      throw new Error('Failed to import processing activities');
     }
   };
 
@@ -208,6 +262,12 @@ const GdprMapper = () => {
 
   return (
     <div className="page-container">
+      <JourneyProgressTracker 
+        currentStepIndex={currentStepIndex}
+        completedSteps={completedSteps}
+        compact={true}
+        showNextAction={true}
+      />
       <div className="page-header">
         <div className="flex justify-between items-center">
           <div>
@@ -218,6 +278,10 @@ const GdprMapper = () => {
             <Button variant="outline" onClick={handleAddActivity} disabled={saving || loading}>
               <Plus className="h-4 w-4 mr-2" />
               Add Activity
+            </Button>
+            <Button variant="outline" onClick={() => setShowImportDialog(true)} title="Import Processing Activities">
+              <Upload className="h-4 w-4 mr-2" />
+              Import
             </Button>
             <Button variant="outline" onClick={() => handleExportMapping('csv')} disabled={isExporting || activities.length === 0}>
               <Download className="h-4 w-4 mr-2" />
@@ -532,6 +596,41 @@ const GdprMapper = () => {
         
         {/* Add related content */}
         <RelatedContent currentPath="/toolkit/gdpr-mapper" />
+
+        {/* Import Dialog */}
+        <ImportDialog<ProcessingActivity>
+          open={showImportDialog}
+          onClose={() => setShowImportDialog(false)}
+          onImport={handleImportData}
+          title="Import Processing Activities"
+          description="Upload a CSV or JSON file containing GDPR processing activities (Article 30 records)"
+          csvHeaders={[
+            'id',
+            'name',
+            'purpose',
+            'legalBasis',
+            'dataTypes',
+            'dataSubjects',
+            'recipients',
+            'retentionPeriod',
+            'riskLevel',
+            'dataController',
+            'dpiaRequired',
+            'thirdCountryTransfers',
+            'securityMeasures'
+          ]}
+          jsonValidation={{
+            required: ['name', 'purpose', 'legalBasis'],
+            schema: {
+              name: validators.isString,
+              purpose: validators.isString,
+              legalBasis: validators.oneOf(['consent', 'contract', 'legal_obligation', 'vital_interests', 'public_task', 'legitimate_interests']),
+              riskLevel: validators.oneOf(['low', 'medium', 'high', 'critical']),
+              dpiaRequired: validators.isBoolean,
+            },
+          }}
+          maxRecords={500}
+        />
       </div>
     </div>
   );

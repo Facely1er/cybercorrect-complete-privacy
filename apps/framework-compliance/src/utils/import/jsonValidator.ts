@@ -3,7 +3,7 @@
  * Provides JSON parsing and validation for data imports
  */
 
-export interface ParsedJSONData<T = any> {
+export interface ParsedJSONData<T = Record<string, unknown>> {
   data: T[];
   errors: string[];
   warnings: string[];
@@ -11,9 +11,9 @@ export interface ParsedJSONData<T = any> {
   invalidCount: number;
 }
 
-export interface JSONValidateOptions<T = any> {
+export interface JSONValidateOptions<T = Record<string, unknown>> {
   required?: (keyof T)[];
-  schema?: Record<string, (value: any) => boolean>;
+  schema?: Record<string, (value: unknown) => boolean>;
   transformKeys?: boolean;
   allowExtraFields?: boolean;
 }
@@ -21,7 +21,7 @@ export interface JSONValidateOptions<T = any> {
 /**
  * Parse and validate JSON string
  */
-export function parseJSON<T = any>(
+export function parseJSON<T = Record<string, unknown>>(
   jsonContent: string,
   options: JSONValidateOptions<T> = {}
 ): ParsedJSONData<T> {
@@ -98,7 +98,7 @@ export function parseJSON<T = any>(
 /**
  * Transform object keys (e.g., snake_case to camelCase)
  */
-function transformObjectKeys(obj: any): any {
+function transformObjectKeys(obj: unknown): unknown {
   if (Array.isArray(obj)) {
     return obj.map(transformObjectKeys);
   }
@@ -106,9 +106,9 @@ function transformObjectKeys(obj: any): any {
   if (obj !== null && typeof obj === 'object') {
     return Object.keys(obj).reduce((acc, key) => {
       const camelKey = snakeToCamel(key);
-      acc[camelKey] = transformObjectKeys(obj[key]);
+      acc[camelKey] = transformObjectKeys((obj as Record<string, unknown>)[key]);
       return acc;
-    }, {} as any);
+    }, {} as Record<string, unknown>);
   }
 
   return obj;
@@ -178,22 +178,22 @@ export function validateJSONFile(file: File): { valid: boolean; error?: string }
  * Common field validators
  */
 export const validators = {
-  isString: (value: any) => typeof value === 'string',
-  isNumber: (value: any) => typeof value === 'number' && !isNaN(value),
-  isBoolean: (value: any) => typeof value === 'boolean',
-  isArray: (value: any) => Array.isArray(value),
-  isEmail: (value: any) => typeof value === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
-  isDate: (value: any) => typeof value === 'string' && !isNaN(Date.parse(value)),
-  isURL: (value: any) => {
+  isString: (value: unknown): boolean => typeof value === 'string',
+  isNumber: (value: unknown): boolean => typeof value === 'number' && !isNaN(value),
+  isBoolean: (value: unknown): boolean => typeof value === 'boolean',
+  isArray: (value: unknown): boolean => Array.isArray(value),
+  isEmail: (value: unknown): boolean => typeof value === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+  isDate: (value: unknown): boolean => typeof value === 'string' && !isNaN(Date.parse(value)),
+  isURL: (value: unknown): boolean => {
     try {
-      new URL(value);
+      new URL(value as string);
       return true;
     } catch {
       return false;
     }
   },
-  oneOf: (allowedValues: any[]) => (value: any) => allowedValues.includes(value),
-  minLength: (min: number) => (value: any) => typeof value === 'string' && value.length >= min,
-  maxLength: (max: number) => (value: any) => typeof value === 'string' && value.length <= max,
+  oneOf: (allowedValues: unknown[]) => (value: unknown): boolean => allowedValues.includes(value),
+  minLength: (min: number) => (value: unknown): boolean => typeof value === 'string' && value.length >= min,
+  maxLength: (max: number) => (value: unknown): boolean => typeof value === 'string' && value.length <= max,
 };
 

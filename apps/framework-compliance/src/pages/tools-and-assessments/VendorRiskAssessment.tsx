@@ -7,6 +7,7 @@ import { toast } from '../../components/ui/Toaster';
 import { storageAdapter } from '../../utils/storage';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { ImportDialog } from '../../components/ui/ImportDialog';
+import { Progress } from '../../components/ui/Progress';
 import { validators } from '../../utils/import/jsonValidator';
 import { 
   Building,
@@ -42,6 +43,26 @@ interface VendorAssessment {
   dpaSigned: boolean;
   employeeDataAccess: boolean;
 }
+
+// Helper to get progress bar color variant class
+const getProgressVariantClass = (variant: 'critical' | 'high' | 'medium' | 'low' | 'success' | 'warning' | 'destructive' | 'primary') => {
+  switch (variant) {
+    case 'critical':
+    case 'destructive':
+      return '[&>div]:bg-destructive';
+    case 'high':
+    case 'warning':
+      return '[&>div]:bg-warning';
+    case 'medium':
+      return '[&>div]:bg-warning';
+    case 'low':
+    case 'success':
+      return '[&>div]:bg-success';
+    case 'primary':
+    default:
+      return '[&>div]:bg-primary';
+  }
+};
 
 const VendorRiskAssessment = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -341,17 +362,10 @@ const VendorRiskAssessment = () => {
                           {count} vendors ({percentage}%)
                         </span>
                       </div>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                        {/* Dynamic width for progress bar */}
-                        <div 
-                          className={`h-2 rounded-full transition-all duration-300 ${
-                            risk === 'critical' ? 'bg-destructive' :
-                            risk === 'high' ? 'bg-warning' :
-                            risk === 'medium' ? 'bg-warning' : 'bg-success'
-                          }`}
-                          style={{ width: `${percentage}%` }}
-                        />
-                      </div>
+                      <Progress 
+                        value={percentage} 
+                        className={getProgressVariantClass(risk as 'critical' | 'high' | 'medium' | 'low')}
+                      />
                     </div>
                   );
                 })}
@@ -486,15 +500,14 @@ const VendorRiskAssessment = () => {
                             <span className="font-medium">Assessment Score:</span>
                             <div className="flex items-center gap-2 mt-1">
                               <span className="text-lg font-semibold">{vendor.assessmentScore}/100</span>
-                              <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                {/* Dynamic width for assessment score */}
-                                <div 
-                                  className={`h-2 rounded-full ${
-                                    vendor.assessmentScore >= 90 ? 'bg-success' :
-                                    vendor.assessmentScore >= 75 ? 'bg-warning' :
-                                    vendor.assessmentScore >= 60 ? 'bg-warning' : 'bg-destructive'
-                                  }`}
-                                  style={{ width: `${vendor.assessmentScore}%` }}
+                              <div className="flex-1">
+                                <Progress
+                                  value={vendor.assessmentScore}
+                                  className={getProgressVariantClass(
+                                    vendor.assessmentScore >= 90 ? 'success' :
+                                    vendor.assessmentScore >= 75 ? 'warning' :
+                                    vendor.assessmentScore >= 60 ? 'warning' : 'destructive'
+                                  )}
                                 />
                               </div>
                             </div>
@@ -695,13 +708,7 @@ const VendorRiskAssessment = () => {
                               {compliant}/{total} ({percentage}%)
                             </span>
                           </div>
-                          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                            {/* Dynamic width for compliance percentage */}
-                            <div 
-                              className="bg-primary h-2 rounded-full transition-all duration-300"
-                              style={{ width: `${percentage}%` }}
-                            />
-                          </div>
+                          <Progress value={percentage} className={getProgressVariantClass('primary')} />
                         </div>
                       );
                     })}

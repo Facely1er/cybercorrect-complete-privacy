@@ -3,7 +3,7 @@
  * Provides CSV parsing and validation for data imports
  */
 
-export interface ParsedCSVData<T = any> {
+export interface ParsedCSVData<T = Record<string, unknown>> {
   data: T[];
   errors: string[];
   warnings: string[];
@@ -23,7 +23,7 @@ export interface CSVParseOptions {
 /**
  * Parse CSV string into structured data
  */
-export function parseCSV<T = any>(
+export function parseCSV<T = Record<string, unknown>>(
   csvContent: string,
   options: CSVParseOptions = {}
 ): ParsedCSVData<T> {
@@ -84,7 +84,7 @@ export function parseCSV<T = any>(
         }
 
         // Create object from headers and values
-        const row: any = {};
+        const row: Record<string, string> = {};
         csvHeaders.forEach((header, index) => {
           const value = values[index];
           row[header] = trimFields ? value.trim() : value;
@@ -204,7 +204,7 @@ export function validateCSVFile(file: File): { valid: boolean; error?: string } 
 /**
  * Convert array of objects to CSV string
  */
-export function arrayToCSV<T extends Record<string, any>>(
+export function arrayToCSV<T extends Record<string, unknown>>(
   data: T[],
   headers?: string[]
 ): string {

@@ -1,0 +1,10 @@
+requesterName,requesterEmail,requestType,description,requestDate,priority,status,assignedTo,notes
+John Smith,john.smith@example.com,access,Request for copy of all personal data held,2024-12-01,high,in_progress,Data Protection Officer,Verified identity via email confirmation
+Jane Doe,jane.doe@example.com,erasure,Delete all my account data and history,2024-12-05,high,pending,Privacy Team,Needs account closure approval
+Robert Johnson,robert.j@example.com,rectification,Update incorrect billing address in system,2024-12-10,medium,in_progress,Customer Support,Address updated in CRM
+Maria Garcia,maria.garcia@example.com,portability,Export my data to transfer to another service,2024-11-25,medium,completed,Data Protection Officer,Data package delivered on 2024-12-15
+David Lee,david.lee@example.com,restriction,Stop using my data for marketing purposes,2024-12-08,low,pending,Marketing Team,Marketing preferences to be updated
+Sarah Williams,sarah.w@example.com,objection,Object to automated decision-making for credit,2024-12-12,high,in_progress,Compliance Team,Manual review required
+Michael Brown,michael.brown@example.com,access,Request details of data processing activities,2024-11-20,medium,completed,Data Protection Officer,ROPA summary provided
+Emily Davis,emily.davis@example.com,erasure,Remove my data after contract termination,2024-12-15,medium,pending,Legal Team,Contract end date: 2024-12-31
+

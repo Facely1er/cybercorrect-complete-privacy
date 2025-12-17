@@ -1,0 +1,54 @@
+[
+  {
+    "vendorName": "Acme Cloud Services",
+    "serviceDescription": "Cloud hosting and storage platform",
+    "riskLevel": "medium",
+    "complianceStatus": "compliant",
+    "assessmentScore": 85,
+    "contractStartDate": "2023-01-15",
+    "contractEndDate": "2025-01-14",
+    "lastAssessmentDate": "2024-12-01",
+    "nextAssessmentDue": "2025-03-01",
+    "dataTypesProcessed": ["Personal data", "Financial data"],
+    "applicableRegulations": ["GDPR", "SOC 2"],
+    "securityCertifications": ["ISO 27001", "SOC 2 Type II"],
+    "privacyPolicyReviewed": true,
+    "dpaSigned": true,
+    "employeeDataAccess": false
+  },
+  {
+    "vendorName": "DataPro Analytics Inc",
+    "serviceDescription": "Customer analytics and reporting",
+    "riskLevel": "high",
+    "complianceStatus": "review_needed",
+    "assessmentScore": 62,
+    "contractStartDate": "2022-06-01",
+    "contractEndDate": "2024-05-31",
+    "lastAssessmentDate": "2024-11-15",
+    "nextAssessmentDue": "2025-02-15",
+    "dataTypesProcessed": ["Personal data", "Behavioral data"],
+    "applicableRegulations": ["GDPR", "CCPA"],
+    "securityCertifications": ["SOC 2 Type I"],
+    "privacyPolicyReviewed": true,
+    "dpaSigned": false,
+    "employeeDataAccess": false
+  },
+  {
+    "vendorName": "SecureVault Storage",
+    "serviceDescription": "Encrypted data storage solution",
+    "riskLevel": "low",
+    "complianceStatus": "compliant",
+    "assessmentScore": 92,
+    "contractStartDate": "2024-03-01",
+    "contractEndDate": "2026-02-28",
+    "lastAssessmentDate": "2024-12-10",
+    "nextAssessmentDue": "2025-06-10",
+    "dataTypesProcessed": ["Personal data", "Documents"],
+    "applicableRegulations": ["GDPR", "ISO 27001"],
+    "securityCertifications": ["ISO 27001", "CSA STAR"],
+    "privacyPolicyReviewed": true,
+    "dpaSigned": true,
+    "employeeDataAccess": true
+  }
+]
+

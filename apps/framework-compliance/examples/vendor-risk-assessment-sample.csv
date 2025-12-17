@@ -1,0 +1,12 @@
+vendorName,serviceDescription,riskLevel,complianceStatus,assessmentScore,contractStartDate,contractEndDate,lastAssessmentDate,nextAssessmentDue,dataTypesProcessed,applicableRegulations,securityCertifications,privacyPolicyReviewed,dpaSigned,employeeDataAccess
+Acme Cloud Services,Cloud hosting and storage platform,medium,compliant,85,2023-01-15,2025-01-14,2024-12-01,2025-03-01,"Personal data,Financial data","GDPR,SOC 2","ISO 27001,SOC 2 Type II",true,true,false
+DataPro Analytics Inc,Customer analytics and reporting,high,review_needed,62,2022-06-01,2024-05-31,2024-11-15,2025-02-15,"Personal data,Behavioral data","GDPR,CCPA","SOC 2 Type I",true,false,false
+SecureVault Storage,Encrypted data storage solution,low,compliant,92,2024-03-01,2026-02-28,2024-12-10,2025-06-10,"Personal data,Documents","GDPR,ISO 27001","ISO 27001,CSA STAR",true,true,true
+Email Marketing Solutions,Email campaign management,medium,compliant,78,2023-09-01,2025-08-31,2024-11-20,2025-05-20,"Email addresses,Names,Preferences","GDPR,CAN-SPAM",TRUSTe,true,true,false
+HR Systems Global,Human resources management platform,high,review_needed,58,2023-01-01,2024-12-31,2024-10-15,2025-01-15,"Employee data,Salary information,Health data","GDPR,HIPAA","SOC 2 Type II,ISO 27001",false,true,true
+Payment Gateway Pro,Payment processing services,critical,compliant,88,2022-12-01,2025-11-30,2024-12-15,2025-03-15,"Payment card data,Financial data","PCI DSS,GDPR","PCI DSS Level 1,ISO 27001",true,true,false
+Customer Support Platform,Helpdesk and ticketing system,medium,compliant,81,2024-01-15,2026-01-14,2024-12-05,2025-06-05,"Customer names,Email,Support tickets","GDPR,Privacy Shield Replacement",,true,true,false
+Analytics Dashboard Inc,Business intelligence and analytics,medium,review_needed,65,2023-07-01,2025-06-30,2024-09-30,2025-03-30,"Usage data,Performance metrics","GDPR,CCPA",,true,false,false
+Backup Solutions Ltd,Automated backup and disaster recovery,low,compliant,90,2023-04-01,2025-03-31,2024-11-25,2025-05-25,"All company data","GDPR,ISO 27001","ISO 27001,SOC 2 Type II",true,true,true
+Video Conferencing Hub,Virtual meetings and collaboration,medium,compliant,83,2024-02-01,2026-01-31,2024-12-08,2025-06-08,"Names,Video recordings,Meeting transcripts","GDPR,CCPA","SOC 2 Type II",true,true,false
+

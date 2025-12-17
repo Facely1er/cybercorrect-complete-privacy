@@ -1,0 +1,47 @@
+[
+  {
+    "requesterName": "John Smith",
+    "requesterEmail": "john.smith@example.com",
+    "requestType": "access",
+    "description": "Request for copy of all personal data held",
+    "requestDate": "2024-12-01",
+    "priority": "high",
+    "status": "in_progress",
+    "assignedTo": "Data Protection Officer",
+    "notes": "Verified identity via email confirmation"
+  },
+  {
+    "requesterName": "Jane Doe",
+    "requesterEmail": "jane.doe@example.com",
+    "requestType": "erasure",
+    "description": "Delete all my account data and history",
+    "requestDate": "2024-12-05",
+    "priority": "high",
+    "status": "pending",
+    "assignedTo": "Privacy Team",
+    "notes": "Needs account closure approval"
+  },
+  {
+    "requesterName": "Robert Johnson",
+    "requesterEmail": "robert.j@example.com",
+    "requestType": "rectification",
+    "description": "Update incorrect billing address in system",
+    "requestDate": "2024-12-10",
+    "priority": "medium",
+    "status": "in_progress",
+    "assignedTo": "Customer Support",
+    "notes": "Address updated in CRM"
+  },
+  {
+    "requesterName": "Maria Garcia",
+    "requesterEmail": "maria.garcia@example.com",
+    "requestType": "portability",
+    "description": "Export my data to transfer to another service",
+    "requestDate": "2024-11-25",
+    "priority": "medium",
+    "status": "completed",
+    "assignedTo": "Data Protection Officer",
+    "notes": "Data package delivered on 2024-12-15"
+  }
+]
+

@@ -13,7 +13,7 @@ import { parseJSON, readFileAsText as readJSON, ParsedJSONData, JSONValidateOpti
 import { toast } from './Toaster';
 import { AlertCircle, CheckCircle, Upload, Info, FileText, Code } from 'lucide-react';
 
-export interface ImportDialogProps<T = any> {
+export interface ImportDialogProps<T = Record<string, unknown>> {
   open: boolean;
   onClose: () => void;
   onImport: (data: T[]) => void | Promise<void>;
@@ -26,7 +26,7 @@ export interface ImportDialogProps<T = any> {
 
 type ImportFormat = 'csv' | 'json';
 
-export function ImportDialog<T = any>({
+export function ImportDialog<T = Record<string, unknown>>({
   open,
   onClose,
   onImport,
@@ -37,12 +37,10 @@ export function ImportDialog<T = any>({
   maxRecords = 1000,
 }: ImportDialogProps<T>) {
   const [format, setFormat] = useState<ImportFormat>('csv');
-  const [file, setFile] = useState<File | null>(null);
   const [parseResult, setParseResult] = useState<ParsedCSVData<T> | ParsedJSONData<T> | null>(null);
   const [importing, setImporting] = useState(false);
 
   const handleFileSelect = async (selectedFile: File) => {
-    setFile(selectedFile);
     setParseResult(null);
 
     try {
@@ -108,7 +106,6 @@ export function ImportDialog<T = any>({
   };
 
   const handleClose = () => {
-    setFile(null);
     setParseResult(null);
     setImporting(false);
     onClose();
@@ -116,7 +113,6 @@ export function ImportDialog<T = any>({
 
   const handleFormatChange = (newFormat: string) => {
     setFormat(newFormat as ImportFormat);
-    setFile(null);
     setParseResult(null);
   };
 
@@ -124,9 +120,11 @@ export function ImportDialog<T = any>({
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Upload className="h-5 w-5" />
-            {title}
+          <DialogTitle>
+            <div className="flex items-center gap-2">
+              <Upload className="h-5 w-5" />
+              {title}
+            </div>
           </DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>

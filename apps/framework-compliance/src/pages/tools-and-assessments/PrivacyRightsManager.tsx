@@ -37,8 +37,11 @@ import {
   getMostUrgentSLA,
   type DataSubjectRequest,
 } from '../../services/dsarService';
+import { useJourney } from '../../context/JourneyContext';
+import JourneyProgressTracker from '../../components/onboarding/JourneyProgressTracker';
 
 const PrivacyRightsManager = () => {
+  const { markToolStarted, markToolCompleted, currentStepIndex, completedSteps } = useJourney();
   const [requests, setRequests] = useState<DataSubjectRequest[]>([]);
   const [selectedRequest, setSelectedRequest] = useState<string | null>(null);
   const [showNewRequest, setShowNewRequest] = useState(false);
@@ -46,6 +49,11 @@ const PrivacyRightsManager = () => {
   const [saving, setSaving] = useState(false);
   const [showImportDialog, setShowImportDialog] = useState(false);
   const newRequestFormRef = useRef<HTMLDivElement>(null);
+
+  // Mark tool as started when component mounts
+  useEffect(() => {
+    markToolStarted('privacy-rights-manager');
+  }, [markToolStarted]);
 
   // Load requests on mount
   useEffect(() => {
@@ -280,6 +288,12 @@ const PrivacyRightsManager = () => {
       });
 
       setRequests(prev => [...prev, newRequestItem]);
+      
+      // Mark tool as completed when first request is created
+      if (requests.length === 0) {
+        markToolCompleted('privacy-rights-manager');
+      }
+      
       setShowNewRequest(false);
       setNewRequest({
         requestType: 'access',
@@ -301,26 +315,22 @@ const PrivacyRightsManager = () => {
 
   const handleImportData = async (importedData: Partial<DataSubjectRequest>[]) => {
     try {
-      const newRequests: DataSubjectRequest[] = importedData.map((item, index) => {
-        const requestDate = item.requestDate || new Date().toISOString().split('T')[0];
-        return {
-          id: item.id || `DSAR-${Date.now()}-${index}`,
+      let importedCount = 0;
+      
+      for (const item of importedData) {
+        const newRequest = {
           requestType: item.requestType || 'access',
           requesterName: item.requesterName || 'Unknown',
           requesterEmail: item.requesterEmail || '',
           description: item.description || '',
-          requestDate,
-          deadline: item.deadline || calculateSLADeadline(requestDate),
-          status: item.status || 'pending',
+          submittedDate: item.submittedDate || new Date().toISOString().split('T')[0],
+          status: (item.status || 'submitted') as 'submitted' | 'acknowledged' | 'in_progress' | 'completed' | 'rejected' | 'cancelled',
           priority: item.priority || 'medium',
-          assignedTo: item.assignedTo || 'Data Protection Officer',
-          notes: item.notes || '',
+          applicableRegulations: item.applicableRegulations || ['GDPR'],
         };
-      });
 
-      // Add all new requests
-      for (const request of newRequests) {
-        await createDataSubjectRequest(request);
+        await createDataSubjectRequest(newRequest);
+        importedCount++;
       }
 
       // Reload all requests
@@ -328,7 +338,7 @@ const PrivacyRightsManager = () => {
 
       toast.success(
         'Import Successful',
-        `Imported ${newRequests.length} data subject request(s)`
+        `Imported ${importedCount} data subject request(s)`
       );
     } catch (error) {
       console.error('Error importing data:', error);
@@ -451,6 +461,12 @@ const PrivacyRightsManager = () => {
 
   return (
     <div className="page-container">
+      <JourneyProgressTracker 
+        currentStepIndex={currentStepIndex}
+        completedSteps={completedSteps}
+        compact={true}
+        showNextAction={true}
+      />
       <div className="page-header">
         <Link to="/toolkit" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-4">
           <ArrowLeft className="mr-2 h-4 w-4" />
@@ -467,6 +483,10 @@ const PrivacyRightsManager = () => {
             <Button variant="outline" onClick={() => setShowNewRequest(true)}>
               <Plus className="h-4 w-4 mr-2" />
               New Request
+            </Button>
+            <Button variant="outline" onClick={() => setShowImportDialog(true)} title="Import Requests">
+              <Upload className="h-4 w-4 mr-2" />
+              Import
             </Button>
             <Button variant="outline" onClick={() => handleExportReport('csv')} disabled={isExporting || requests.length === 0}>
               {isExporting ? (
@@ -1003,6 +1023,39 @@ const PrivacyRightsManager = () => {
           </p>
         </div>
       </ConfirmDialog>
+
+      {/* Import Dialog */}
+      <ImportDialog<DataSubjectRequest>
+        open={showImportDialog}
+        onClose={() => setShowImportDialog(false)}
+        onImport={handleImportData}
+        title="Import Data Subject Requests"
+        description="Upload a CSV or JSON file containing data subject access requests"
+        csvHeaders={[
+          'id',
+          'requestType',
+          'requesterName',
+          'requesterEmail',
+          'description',
+          'requestDate',
+          'deadline',
+          'status',
+          'priority',
+          'assignedTo',
+          'notes'
+        ]}
+        jsonValidation={{
+          required: ['requesterName', 'requesterEmail'],
+          schema: {
+            requestType: validators.oneOf(['access', 'rectification', 'erasure', 'portability', 'restriction', 'objection']),
+            requesterName: validators.isString,
+            requesterEmail: validators.isEmail,
+            status: validators.oneOf(['pending', 'in_progress', 'completed', 'rejected']),
+            priority: validators.oneOf(['low', 'medium', 'high']),
+          },
+        }}
+        maxRecords={500}
+      />
     </div>
   );
 };

@@ -1,0 +1,59 @@
+[
+  {
+    "name": "Customer Relationship Management",
+    "purpose": "Managing customer accounts and interactions",
+    "legalBasis": "contract",
+    "dataTypes": ["Names", "Email addresses", "Phone numbers", "Purchase history"],
+    "dataSubjects": ["Customers", "Prospects"],
+    "recipients": ["Sales team", "Customer support", "Marketing"],
+    "retentionPeriod": "7 years after last interaction",
+    "riskLevel": "medium",
+    "dataController": "Your Organization",
+    "dpiaRequired": false,
+    "internationalTransfer": false,
+    "transferSafeguards": ""
+  },
+  {
+    "name": "Employee Payroll Processing",
+    "purpose": "Processing employee salaries and benefits",
+    "legalBasis": "legal_obligation",
+    "dataTypes": ["Employee names", "Bank details", "Tax information", "Salary data"],
+    "dataSubjects": ["Employees"],
+    "recipients": ["HR department", "Payroll provider", "Tax authorities"],
+    "retentionPeriod": "7 years after employment ends",
+    "riskLevel": "high",
+    "dataController": "Your Organization",
+    "dpiaRequired": true,
+    "internationalTransfer": false,
+    "transferSafeguards": ""
+  },
+  {
+    "name": "Marketing Campaign Management",
+    "purpose": "Sending promotional emails and newsletters",
+    "legalBasis": "consent",
+    "dataTypes": ["Email addresses", "Names", "Preferences", "Engagement data"],
+    "dataSubjects": ["Customers", "Newsletter subscribers"],
+    "recipients": ["Marketing team", "Email service provider"],
+    "retentionPeriod": "Until consent withdrawn + 1 year",
+    "riskLevel": "low",
+    "dataController": "Your Organization",
+    "dpiaRequired": false,
+    "internationalTransfer": false,
+    "transferSafeguards": ""
+  },
+  {
+    "name": "Website Analytics",
+    "purpose": "Understanding website usage and visitor behavior",
+    "legalBasis": "legitimate_interests",
+    "dataTypes": ["IP addresses", "Browser data", "Pages visited", "Session duration"],
+    "dataSubjects": ["Website visitors"],
+    "recipients": ["Analytics team", "Analytics platform provider"],
+    "retentionPeriod": "2 years",
+    "riskLevel": "low",
+    "dataController": "Your Organization",
+    "dpiaRequired": false,
+    "internationalTransfer": true,
+    "transferSafeguards": "Standard Contractual Clauses"
+  }
+]
+

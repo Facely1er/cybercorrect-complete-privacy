@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { JOURNEY_STEPS } from '../components/onboarding/JourneyProgressTracker';
 import {
   IdentifiedGap,
@@ -167,7 +167,7 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     }
   }, [identifiedGaps, completedGapIds]);
 
-  const completeStep = (stepKey: string) => {
+  const completeStep = useCallback((stepKey: string) => {
     if (!completedSteps.includes(stepKey)) {
       const newCompletedSteps = [...completedSteps, stepKey];
       setCompletedSteps(newCompletedSteps);
@@ -183,7 +183,7 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
         setCurrentStepIndex(stepIndex + 1);
       }
     }
-  };
+  }, [completedSteps, currentStepIndex]);
 
   const setCurrentStep = (stepIndex: number) => {
     if (stepIndex >= 0 && stepIndex < JOURNEY_STEPS.length) {
@@ -218,6 +218,27 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
   const getProgress = (): number => {
     return Math.round((completedSteps.length / JOURNEY_STEPS.length) * 100);
   };
+
+  // Journey completion logic - check if all steps are satisfied
+  useEffect(() => {
+    const allStepsCompleted =
+      hasCompletedAssessment &&
+      identifiedGaps.length > 0 &&
+      completedGapIds.length / identifiedGaps.length >= 0.7 &&
+      completedToolIds.length >= 5;
+
+    if (allStepsCompleted && !completedSteps.includes('maintain')) {
+      completeStep('maintain');
+      
+      // Show celebration notification
+      console.log('🎉 Journey Complete! You\'re now in maintenance mode.', {
+        title: 'Congratulations!',
+        message: `You've completed your privacy compliance journey! ${completedGapIds.length} gaps closed, ${completedToolIds.length} tools used.`,
+        type: 'success',
+        confetti: true
+      });
+    }
+  }, [hasCompletedAssessment, identifiedGaps.length, completedGapIds.length, completedToolIds.length, completedSteps, completeStep]);
 
   // Gap-based journey functions
   const setAssessmentResults = (results: AssessmentResultsInput, preserveProgress: boolean = false) => {
@@ -321,10 +342,43 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       )
     );
 
-    // Check if this tool completion should auto-complete a gap
+    // Enhanced gap-tool linkage: Check if tool completion closes any gaps
+    const newCompletedToolIds = [...completedToolIds, toolId];
+    
+    // Find all gaps that include this tool in their recommended tools
+    const relatedGaps = identifiedGaps.filter(gap =>
+      gap.recommendedTools?.includes(toolId)
+    );
+
+    relatedGaps.forEach(gap => {
+      // Calculate gap completion percentage
+      const gapTools = gap.recommendedTools || [];
+      const completedCount = gapTools.filter(t =>
+        newCompletedToolIds.includes(t)
+      ).length;
+
+      const completionPercentage = gapTools.length > 0 
+        ? (completedCount / gapTools.length) * 100 
+        : 0;
+
+      // If all tools for this gap are completed, mark gap as complete
+      if (completionPercentage === 100 && gap.status !== 'completed') {
+        markGapCompleted(gap.id);
+        
+        // Show notification (using console for now, will be replaced with toast)
+        console.log(`🎉 Gap Closed: ${gap.domainTitle}`, {
+          message: 'Great work! You\'ve completed all recommended actions for this gap.',
+          type: 'success'
+        });
+      } else if (completionPercentage >= 50 && gap.status === 'not_started') {
+        // Mark gap as in progress if at least half the tools are complete
+        markGapStarted(gap.id);
+      }
+    });
+
+    // Also check domain-based completion for backwards compatibility
     const domain = getToolDomain(toolId);
     if (domain) {
-      const newCompletedToolIds = [...completedToolIds, toolId];
       if (shouldMarkGapCompleted(domain, newCompletedToolIds)) {
         const gapId = `gap-${domain}`;
         const gap = identifiedGaps.find(g => g.id === gapId);
@@ -334,11 +388,31 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       }
     }
 
-    // Check if we should advance journey step to "close" when first tool is completed
-    if (!completedSteps.includes('close') && completedToolIds.length === 0) {
-      // First tool completed - mark step as started
-      if (currentStepIndex < 2) {
-        setCurrentStep(2);
+    // Check if we should auto-advance journey steps
+    // Advance to step 2 (Act) when first tool is completed
+    if (completedToolIds.length === 0 && currentStepIndex < 2) {
+      setCurrentStep(2);
+      if (!completedSteps.includes('discover')) {
+        completeStep('discover');
+      }
+    }
+
+    // Check overall gap progress for journey advancement
+    const totalGaps = identifiedGaps.length;
+    const currentCompletedCount = completedGapIds.length + 
+      relatedGaps.filter(g => g.recommendedTools?.every(t => newCompletedToolIds.includes(t))).length;
+    
+    if (totalGaps > 0) {
+      const overallGapProgress = (currentCompletedCount / totalGaps) * 100;
+
+      // Auto-advance to step 4 (Maintain) when 70% of gaps are closed
+      if (overallGapProgress >= 70 && !completedSteps.includes('act')) {
+        completeStep('act');
+        console.log('🎯 Journey Progress: Moving to Maintain phase', {
+          gapsCompleted: currentCompletedCount,
+          totalGaps: totalGaps,
+          percentage: overallGapProgress.toFixed(1)
+        });
       }
     }
   };
@@ -381,6 +455,14 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       {children}
     </JourneyContext.Provider>
   );
+};
+
+export const useJourney = (): JourneyContextType => {
+  const context = React.useContext(JourneyContext);
+  if (context === undefined) {
+    throw new Error('useJourney must be used within a JourneyProvider');
+  }
+  return context;
 };
 
 export default JourneyContext;
