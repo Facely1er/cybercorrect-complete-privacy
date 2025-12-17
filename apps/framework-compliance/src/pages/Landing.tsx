@@ -106,7 +106,7 @@ const Landing = () => {
             {/* Supporting Paragraph */}
             <p className="text-xl text-muted-foreground dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
               Regulatory fines can reach millions. Data breaches destroy trust. Manual compliance processes drain resources. 
-              Get automated privacy compliance that protects your business, reduces risk, and saves your team hundreds of hours.
+              Discover your compliance gaps and get a clear, prioritized action plan that reduces risk and saves hundreds of hours.
             </p>
 
             {/* Primary CTA with Journey Guide */}

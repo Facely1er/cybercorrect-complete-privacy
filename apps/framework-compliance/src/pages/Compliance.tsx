@@ -328,18 +328,32 @@ const Compliance = () => {
           </div>
         </div>
       </section>
+      )}
 
-      {/* Role Journeys */}
-      <section className="py-20 bg-white dark:bg-dark-surface">
+      {/* Role Journeys - Repositioned as Secondary/Optional */}
+      <section className="py-20 bg-muted/30 dark:bg-dark-support/10">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 bg-muted px-4 py-2 rounded-full text-sm font-medium mb-4 text-muted-foreground">
+                <Users className="w-4 h-4" />
+                Optional for Large Teams
+              </div>
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
-                Explore Available Journeys
+                Role-Based Compliance Guides
               </h2>
-              <p className="text-xl text-muted-foreground">
-                Each journey provides structured guidance with phase-based workflows and curated tools
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                For organizations with dedicated privacy teams, explore role-specific guidance
               </p>
+              {hasCompletedAssessment && (
+                <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg max-w-xl mx-auto">
+                  <p className="text-sm text-foreground">
+                    <AlertCircle className="w-4 h-4 inline mr-1" />
+                    <strong>Note:</strong> Your gap-based action plan above is already prioritized for your needs. 
+                    These role guides provide additional context for team members.
+                  </p>
+                </div>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
