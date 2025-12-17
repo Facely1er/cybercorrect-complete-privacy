@@ -376,8 +376,8 @@ const ProjectManagementLanding = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link to="/documentation/getting-started">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+            <Link to="/resources">
+              <Button size="lg" variant="outline" className="border-white text-white bg-transparent hover:bg-white/10 [&]:text-white">
                 Read Documentation
               </Button>
             </Link>

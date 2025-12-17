@@ -108,11 +108,11 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Docs & Guides */}
+          {/* Resources */}
           <div className="space-y-2">
             <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
               <BookOpen className="h-3.5 w-3.5 text-primary" />
-              Docs & Guides
+              Resources
             </h3>
             <ul className="space-y-1.5 text-xs">
               <li>
