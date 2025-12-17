@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -41,12 +41,19 @@ const PrivacyProjectDashboard = () => {
   const [, setShowCreateProject] = useState(false);
   const [complianceScore, setComplianceScore] = useState<number | null>(null);
   const [recentNotifications, setRecentNotifications] = useState<Notification[]>([]);
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
   const project = getCurrentProject();
 
   useEffect(() => {
     loadDashboardData();
   }, []);
+
+  useEffect(() => {
+    if (progressBarRef.current && project) {
+      progressBarRef.current.style.width = `${project.overallProgress}%`;
+    }
+  }, [project]);
 
   const loadDashboardData = async () => {
     try {
@@ -217,8 +224,8 @@ const PrivacyProjectDashboard = () => {
             </div>
             <div className="w-full bg-muted h-2 rounded-full mt-2 overflow-hidden">
               <div 
+                ref={progressBarRef}
                 className="h-2 rounded-full bg-primary transition-all duration-300 progress-bar-fill"
-                style={{ width: `${project.overallProgress}%` }}
               />
             </div>
           </CardContent>
