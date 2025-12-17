@@ -15,7 +15,7 @@ const CONFIG = {
   STRIPE_PRICE_PROFESSIONAL_MONTHLY: 'price_1SDUjJA6UggvM46NXU5Jrizp',
   SUPABASE_URL: 'https://achowlksgmwuvfbvjfrt.supabase.co',
   SUPABASE_SERVICE_ROLE_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I',
-  SITE_URL: 'https://www.platform.cybercorrect.com',
+  SITE_URL: 'https://www.cybercorrect.com',
   PROJECT_REF: 'achowlksgmwuvfbvjfrt',
 };
 

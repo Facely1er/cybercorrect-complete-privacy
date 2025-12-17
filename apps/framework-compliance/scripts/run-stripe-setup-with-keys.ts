@@ -21,7 +21,7 @@ const STRIPE_PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY || 'pk_live_51
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const SITE_URL = process.env.SITE_URL || 'https://www.platform.cybercorrect.com';
+const SITE_URL = process.env.SITE_URL || 'https://www.cybercorrect.com';
 
 // Price IDs (optional - can fetch from Stripe)
 const PRICE_STARTER_MONTHLY = process.env.STRIPE_PRICE_STARTER_MONTHLY;

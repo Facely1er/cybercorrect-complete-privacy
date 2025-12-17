@@ -135,7 +135,7 @@ STRIPE_PRICE_STARTER_MONTHLY=price_1SDUjIA6UggvM46N1rjxGuFR
 STRIPE_PRICE_PROFESSIONAL_MONTHLY=price_1SDUjJA6UggvM46NXU5Jrizp
 SUPABASE_URL=https://achowlksgmwuvfbvjfrt.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I
-SITE_URL=https://www.platform.cybercorrect.com
+SITE_URL=https://www.cybercorrect.com
 ```
 
 #### `create-one-time-checkout-session` Secrets:
@@ -143,7 +143,7 @@ SITE_URL=https://www.platform.cybercorrect.com
 STRIPE_SECRET_KEY=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
 SUPABASE_URL=https://achowlksgmwuvfbvjfrt.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I
-SITE_URL=https://www.platform.cybercorrect.com
+SITE_URL=https://www.cybercorrect.com
 ```
 
 #### `stripe-webhook` Secrets (set after creating webhook):
@@ -152,7 +152,7 @@ STRIPE_SECRET_KEY=sk_live_51SDTm0A6UggvM46NOy9L8DgB3X4bRsJLb55j4CqifhxQ4J3QIECnf
 STRIPE_WEBHOOK_SECRET=whsec_[GET_FROM_STRIPE_AFTER_CREATING_WEBHOOK]
 SUPABASE_URL=https://achowlksgmwuvfbvjfrt.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I
-SITE_URL=https://www.platform.cybercorrect.com
+SITE_URL=https://www.cybercorrect.com
 ```
 
 **Step 2: Deploy Functions**
@@ -501,7 +501,7 @@ npm run stripe:configure
 
 2. **Verify SITE_URL is correct:**
    - Check `SITE_URL` secret matches your actual domain
-   - Should be: `https://www.platform.cybercorrect.com`
+   - Should be: `https://www.cybercorrect.com`
    - No trailing slash
 
 3. **Check if using correct domain:**

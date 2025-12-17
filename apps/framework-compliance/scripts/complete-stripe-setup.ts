@@ -25,7 +25,7 @@ const STRIPE_PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY || process.arg
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || process.argv[4];
 const SUPABASE_URL = process.env.SUPABASE_URL || process.argv[5];
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.argv[6];
-const SITE_URL = process.env.SITE_URL || process.argv[7] || 'https://www.platform.cybercorrect.com';
+const SITE_URL = process.env.SITE_URL || process.argv[7] || 'https://www.cybercorrect.com';
 
 // Price IDs (can be provided via environment variables)
 const PRICE_STARTER_MONTHLY = process.env.STRIPE_PRICE_STARTER_MONTHLY || process.argv[8];

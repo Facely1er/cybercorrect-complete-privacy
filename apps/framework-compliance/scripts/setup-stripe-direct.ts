@@ -110,7 +110,7 @@ async function main() {
     { name: 'STRIPE_SECRET_KEY', value: STRIPE_SECRET_KEY },
     { name: 'SUPABASE_URL', value: SUPABASE_URL },
     { name: 'SUPABASE_SERVICE_ROLE_KEY', value: SUPABASE_SERVICE_ROLE_KEY },
-    { name: 'SITE_URL', value: 'https://www.platform.cybercorrect.com' },
+    { name: 'SITE_URL', value: 'https://www.cybercorrect.com' },
   ];
 
   if (process.env.STRIPE_WEBHOOK_SECRET) {

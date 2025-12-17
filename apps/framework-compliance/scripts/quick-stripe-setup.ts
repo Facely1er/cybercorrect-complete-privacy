@@ -72,7 +72,7 @@ async function main() {
   }
 
   // Site URL
-  config.SITE_URL = process.env.SITE_URL || 'https://www.platform.cybercorrect.com';
+  config.SITE_URL = process.env.SITE_URL || 'https://www.cybercorrect.com';
   const siteUrlInput = await question(`Enter Site URL [${config.SITE_URL}]: `);
   if (siteUrlInput.trim()) {
     config.SITE_URL = siteUrlInput.trim();

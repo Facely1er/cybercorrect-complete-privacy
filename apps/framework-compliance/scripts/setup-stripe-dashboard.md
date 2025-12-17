@@ -31,7 +31,7 @@ STRIPE_PRICE_PROFESSIONAL_MONTHLY=price_...
 STRIPE_PRICE_PROFESSIONAL_ANNUAL=price_...
 SUPABASE_URL=https://[PROJECT-ID].supabase.co
 SUPABASE_SERVICE_ROLE_KEY=eyJ...
-SITE_URL=https://www.platform.cybercorrect.com
+SITE_URL=https://www.cybercorrect.com
 ```
 
 #### create-one-time-checkout-session
@@ -39,7 +39,7 @@ SITE_URL=https://www.platform.cybercorrect.com
 STRIPE_SECRET_KEY=sk_live_...
 SUPABASE_URL=https://[PROJECT-ID].supabase.co
 SUPABASE_SERVICE_ROLE_KEY=eyJ...
-SITE_URL=https://www.platform.cybercorrect.com
+SITE_URL=https://www.cybercorrect.com
 ```
 
 #### stripe-webhook
@@ -48,7 +48,7 @@ STRIPE_SECRET_KEY=sk_live_...
 STRIPE_WEBHOOK_SECRET=whsec_...
 SUPABASE_URL=https://[PROJECT-ID].supabase.co
 SUPABASE_SERVICE_ROLE_KEY=eyJ...
-SITE_URL=https://www.platform.cybercorrect.com
+SITE_URL=https://www.cybercorrect.com
 ```
 
 ### 3. Deploy Functions
