@@ -161,7 +161,7 @@ const ProjectManagementLanding = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/project/dashboard">
-                <Button size="lg" className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700 text-white shadow-lg">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-white shadow-lg">
                   Open Project Dashboard
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -360,7 +360,7 @@ const ProjectManagementLanding = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-primary to-blue-600">
+      <section className="py-16 bg-primary dark:bg-dark-primary">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Ready to Organize Your Privacy Compliance?
@@ -372,13 +372,13 @@ const ProjectManagementLanding = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/project/dashboard">
-              <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
+              <Button size="lg" className="bg-white text-primary hover:bg-gray-100 shadow-lg font-semibold">
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link to="/resources">
-              <Button size="lg" variant="outline" className="border-white text-white bg-transparent hover:bg-white/10">
+              <Button size="lg" variant="outline" className="bg-transparent text-white hover:bg-white/10 border-2 border-white shadow-lg font-semibold">
                 Read Documentation
               </Button>
             </Link>

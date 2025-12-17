@@ -7,7 +7,6 @@ import {
   FileText, 
   Upload, 
   Download, 
-  ArrowLeft,
   Plus,
   Search,
   Eye,
@@ -242,60 +241,54 @@ const EvidenceVault = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <Link to="/project" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-4">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Project Dashboard
-        </Link>
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Evidence Vault</h1>
-            <p className="text-muted-foreground">
-              Centralized repository for privacy compliance documentation and evidence
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={handleUploadEvidence}>
-              <Upload className="h-4 w-4 mr-2" />
-              Upload Evidence
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">Evidence Vault</h1>
+          <p className="text-muted-foreground">
+            Centralized repository for privacy compliance documentation and evidence
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={handleUploadEvidence}>
+            <Upload className="h-4 w-4 mr-2" />
+            Upload Evidence
+          </Button>
+          <div className="relative" ref={exportMenuRef}>
+            <Button 
+              variant="outline" 
+              onClick={() => setShowExportMenu(!showExportMenu)}
+              disabled={isExporting || filteredEvidence.length === 0}
+            >
+              <FileDown className="h-4 w-4 mr-2" />
+              Export
+              <ChevronDown className="h-4 w-4 ml-2" />
             </Button>
-            <div className="relative" ref={exportMenuRef}>
-              <Button 
-                variant="outline" 
-                onClick={() => setShowExportMenu(!showExportMenu)}
-                disabled={isExporting || filteredEvidence.length === 0}
-              >
-                <FileDown className="h-4 w-4 mr-2" />
-                Export
-                <ChevronDown className="h-4 w-4 ml-2" />
-              </Button>
-              {showExportMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-background border border-border rounded-md shadow-lg z-10">
-                  <button
-                    onClick={handleExportJSON}
-                    disabled={isExporting}
-                    className="w-full text-left px-4 py-2 text-sm hover:bg-muted transition-colors flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <FileJson className="h-4 w-4 mr-2" />
-                    Export as JSON
-                  </button>
-                  <button
-                    onClick={handleExportPDF}
-                    disabled={isExporting}
-                    className="w-full text-left px-4 py-2 text-sm hover:bg-muted transition-colors flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <File className="h-4 w-4 mr-2" />
-                    Export as PDF
-                  </button>
-                </div>
-              )}
-            </div>
-            <Button onClick={handleCreateDocument}>
-              <Plus className="h-4 w-4 mr-2" />
-              Create Document
-            </Button>
+            {showExportMenu && (
+              <div className="absolute right-0 mt-2 w-48 bg-background border border-border rounded-md shadow-lg z-10">
+                <button
+                  onClick={handleExportJSON}
+                  disabled={isExporting}
+                  className="w-full text-left px-4 py-2 text-sm hover:bg-muted transition-colors flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <FileJson className="h-4 w-4 mr-2" />
+                  Export as JSON
+                </button>
+                <button
+                  onClick={handleExportPDF}
+                  disabled={isExporting}
+                  className="w-full text-left px-4 py-2 text-sm hover:bg-muted transition-colors flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <File className="h-4 w-4 mr-2" />
+                  Export as PDF
+                </button>
+              </div>
+            )}
           </div>
+          <Button onClick={handleCreateDocument}>
+            <Plus className="h-4 w-4 mr-2" />
+            Create Document
+          </Button>
         </div>
       </div>
 

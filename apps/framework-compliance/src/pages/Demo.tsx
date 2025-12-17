@@ -210,7 +210,7 @@ const Demo = () => {
                 </Button>
               ) : (
                 <>
-                  <Button size="sm" onClick={startDemo} className="bg-gradient-to-r from-primary to-secondary">
+                  <Button size="sm" onClick={startDemo} className="bg-primary hover:bg-primary/90">
                     <Play className="h-4 w-4 mr-2" />
                     Auto-Play Tour
                   </Button>
@@ -329,7 +329,7 @@ const Demo = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" onClick={startDemo} className="bg-gradient-to-r from-primary to-secondary shadow-lg">
+                <Button size="lg" onClick={startDemo} className="bg-primary hover:bg-primary/90 text-white shadow-lg">
                   <Play className="mr-2 h-5 w-5" />
                   Start Auto-Play Tour
                 </Button>

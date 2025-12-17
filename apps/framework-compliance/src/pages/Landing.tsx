@@ -571,7 +571,7 @@ const Landing = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-16 md:py-20 bg-gradient-to-r from-primary to-primary/80 dark:from-dark-primary dark:to-dark-primary">
+      <section className="py-16 md:py-20 bg-primary dark:bg-dark-primary">
         <div className="container mx-auto px-4">
           <div className="text-center text-primary-foreground max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -585,7 +585,7 @@ const Landing = () => {
                 <Button 
                   size="lg" 
                   variant="secondary"
-                  className="bg-background text-foreground hover:bg-background/90 border-2 border-background shadow-xl backdrop-blur-sm px-8"
+                  className="bg-white text-primary hover:bg-gray-100 shadow-xl px-8"
                   aria-label="See Where You Stand"
                 >
                   <Eye className="mr-2 h-5 w-5 flex-shrink-0" aria-hidden="true" />
@@ -597,7 +597,7 @@ const Landing = () => {
                 <Button 
                   size="lg" 
                   variant="outline"
-                  className="bg-white text-primary border-2 border-white hover:bg-white/90 shadow-lg px-8"
+                  className="bg-transparent text-white hover:bg-white/10 border-2 border-white shadow-lg px-8"
                   aria-label="Contact Our Team"
                 >
                   <Users className="mr-2 h-5 w-5 flex-shrink-0" aria-hidden="true" />

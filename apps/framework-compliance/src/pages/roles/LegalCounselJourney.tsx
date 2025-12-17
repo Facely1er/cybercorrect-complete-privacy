@@ -369,13 +369,13 @@ const LegalCounselJourney = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/toolkit/privacy-gap-analyzer" className="no-underline">
-                <Button variant="outline" className="bg-white text-accent hover:bg-gray-100 border-2 border-white shadow-lg">
+                <Button className="bg-white text-gray-900 hover:bg-gray-100 border-2 border-transparent shadow-lg font-semibold">
                   Legal Compliance Review
                   <Scale className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/documentation/privacy-framework-guide" className="no-underline">
-                <Button className="bg-gray-900 text-white hover:bg-gray-800 border-2 border-gray-900 shadow-lg">
+                <Button variant="outline" className="bg-transparent text-white hover:bg-white/10 border-2 border-white/80 shadow-lg font-semibold">
                   Legal Resources
                   <BookOpen className="ml-2 h-5 w-5" />
                 </Button>

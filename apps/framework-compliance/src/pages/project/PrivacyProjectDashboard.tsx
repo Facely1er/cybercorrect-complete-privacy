@@ -716,13 +716,13 @@ const PrivacyProjectDashboard = () => {
           Begin with a privacy assessment to establish your baseline and identify implementation priorities.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
-          <InternalLink href="/assessments/privacy-assessment" variant="button" className="bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+          <InternalLink href="/assessments/privacy-assessment" variant="button" className="bg-white text-gray-900 hover:bg-white/95 dark:bg-white dark:text-gray-900 dark:hover:bg-white/95 border-2 border-transparent shadow-lg font-semibold">
               Start Assessment
           </InternalLink>
-          <InternalLink href="/project/roadmap" variant="button" className="bg-transparent border-2 border-white text-white hover:bg-white/10">
+          <InternalLink href="/project/roadmap" variant="button" className="bg-transparent text-white hover:bg-white/10 border-2 border-white/80 shadow-lg font-semibold">
               View Roadmap
           </InternalLink>
-          <InternalLink href="/toolkit" variant="button" className="bg-gray-700 text-white hover:bg-gray-600">
+          <InternalLink href="/toolkit" variant="button" className="bg-transparent text-white hover:bg-white/10 border-2 border-white/80 shadow-lg font-semibold">
               Open Toolkit
           </InternalLink>
         </div>

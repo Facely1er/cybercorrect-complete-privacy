@@ -667,12 +667,12 @@ const OneTimeStore = () => {
           <h2 className="text-3xl font-bold mb-4">Ready to Own Your Privacy Tools?</h2>
           <p className="text-xl mb-8">Join thousands of privacy professionals using our offline tools</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Button className="bg-white text-primary hover:bg-gray-100 font-semibold">
+            <Button className="bg-white text-gray-900 hover:bg-white/95 border-2 border-transparent shadow-lg font-semibold">
               <Download className="w-5 h-5 mr-2" />
               Browse All Products
             </Button>
             <Link to="/pricing">
-              <Button variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+              <Button variant="outline" className="bg-transparent text-white hover:bg-white/10 border-2 border-white/80 shadow-lg font-semibold">
                 Compare with Subscriptions
               </Button>
             </Link>

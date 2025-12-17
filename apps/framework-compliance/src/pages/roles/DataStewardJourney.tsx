@@ -367,13 +367,13 @@ const DataStewardJourney = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/toolkit/gdpr-mapper" className="no-underline">
-                <Button variant="outline" className="bg-white text-success hover:bg-gray-100 border-2 border-white shadow-lg">
+                <Button className="bg-white text-gray-900 hover:bg-gray-100 border-2 border-transparent shadow-lg font-semibold">
                   Start Data Mapping
                   <Database className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/project/evidence" className="no-underline">
-                <Button className="bg-gray-900 text-white hover:bg-gray-800 border-2 border-gray-900 shadow-lg">
+                <Button variant="outline" className="bg-transparent text-white hover:bg-white/10 border-2 border-white/80 shadow-lg font-semibold">
                   Evidence Vault
                   <FileText className="ml-2 h-5 w-5" />
                 </Button>

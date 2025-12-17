@@ -454,16 +454,15 @@ const Pricing = () => {
           <p className="mb-6 text-lg">View our interactive demo to explore the platform</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-2xl mx-auto px-4">
             <Button 
-              variant="outline" 
-              className="bg-white text-gray-900 hover:bg-gray-100 border-2 border-white shadow-lg font-semibold w-full sm:w-auto"
+              className="bg-white text-gray-900 hover:bg-gray-100 border-2 border-transparent shadow-lg font-semibold w-full sm:w-auto"
               onClick={() => navigate('/demo')}
             >
               <span className="whitespace-normal">View Demo</span>
               <ArrowRight className="ml-2 h-4 w-4 flex-shrink-0" />
             </Button>
             <Button 
-              variant="secondary"
-              className="bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 border-2 border-white/50 shadow-lg font-semibold w-full sm:w-auto"
+              variant="outline"
+              className="bg-transparent text-white hover:bg-white/10 border-2 border-white/80 shadow-lg font-semibold w-full sm:w-auto"
               onClick={() => navigate('/assessments/privacy-assessment')}
             >
               <span className="whitespace-normal">Start Assessment</span>

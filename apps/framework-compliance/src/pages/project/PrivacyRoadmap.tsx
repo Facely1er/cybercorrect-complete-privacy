@@ -12,7 +12,6 @@ import {
   Eye,
   Users,
   FileText,
-  ArrowLeft,
   Edit,
   Activity,
   BarChart3,
@@ -325,34 +324,28 @@ const PrivacyRoadmap = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <Link to="/project" className="inline-flex items-center text-foreground hover:text-primary transition-colors mb-4">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Project Dashboard
-        </Link>
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Privacy Implementation Roadmap</h1>
-            <p className="text-muted-foreground">
-              {userMode === 'solo' ? 'Solo practitioner roadmap' : 'Team collaboration roadmap'} • 
-              Track your privacy compliance journey
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <Button 
-              variant={viewMode === 'timeline' ? 'default' : 'outline'}
-              onClick={() => setViewMode('timeline')}
-            >
-              Timeline View
-            </Button>
-            <Button 
-              variant={viewMode === 'gantt' ? 'default' : 'outline'}
-              onClick={() => setViewMode('gantt')}
-            >
-              Gantt Chart
-            </Button>
-          </div>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">Privacy Implementation Roadmap</h1>
+          <p className="text-muted-foreground">
+            {userMode === 'solo' ? 'Solo practitioner roadmap' : 'Team collaboration roadmap'} • 
+            Track your privacy compliance journey
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <Button 
+            variant={viewMode === 'timeline' ? 'default' : 'outline'}
+            onClick={() => setViewMode('timeline')}
+          >
+            Timeline View
+          </Button>
+          <Button 
+            variant={viewMode === 'gantt' ? 'default' : 'outline'}
+            onClick={() => setViewMode('gantt')}
+          >
+            Gantt Chart
+          </Button>
         </div>
       </div>
 

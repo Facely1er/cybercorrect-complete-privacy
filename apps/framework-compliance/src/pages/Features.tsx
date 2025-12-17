@@ -523,20 +523,21 @@ const Features = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
-                className="bg-white text-primary hover:bg-gray-100 border-2 border-white font-semibold shadow-lg"
+                className="bg-white text-gray-900 hover:bg-gray-100 border-2 border-transparent shadow-lg font-semibold"
                 onClick={handleStartAssessment}
               >
                 Privacy Compliance Path
                 <Eye className="ml-2 h-5 w-5" />
               </Button>
               <Link to="/toolkit/gdpr-mapper">
-                <Button variant="outline" className="bg-white text-success hover:bg-gray-100 border-2 border-white shadow-lg">
+                <Button variant="outline" className="bg-transparent text-white hover:bg-white/10 border-2 border-white/80 shadow-lg font-semibold">
                   Privacy Toolkit
                   <Database className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Button 
-                className="bg-gray-900 text-white hover:bg-gray-800 border-2 border-gray-900 font-semibold shadow-lg"
+                variant="outline"
+                className="bg-transparent text-white hover:bg-white/10 border-2 border-white/80 shadow-lg font-semibold"
                 onClick={handleGuideMe}
               >
                 Get Guided Help
