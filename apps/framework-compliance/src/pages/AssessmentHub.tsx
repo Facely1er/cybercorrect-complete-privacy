@@ -10,7 +10,6 @@ import { secureStorage } from '../utils/storage';
 import { 
   Eye,
   Shield,
-  Database, 
   Target,
   ArrowRight, 
   CheckCircle, 
@@ -41,24 +40,8 @@ const AssessmentHub = () => {
     }
   }, [location.state]);
 
-  // Compact page header (replaces hero)
-  const headerSection = (
-    <section className="py-8 border-b border-border bg-surface dark:bg-dark-bg">
-      <div className="container mx-auto px-4">
-        <div className="text-center">
-          <h1 className="text-3xl md:text-4xl font-semibold text-foreground">Privacy Assessment</h1>
-          <p className="text-muted-foreground mt-2">Start your compliance journey with intelligent assessments and actionable insights</p>
-        </div>
-      </div>
-    </section>
-  );
-
-
-
-
   return (
     <div>
-      {headerSection}
       <div className="container mx-auto px-4 py-8">
 
       {/* Personalized Recommendations - Phase 3: Guided Action */}
@@ -136,48 +119,6 @@ const AssessmentHub = () => {
               </Link>
             </CardContent>
           </Card>
-        </div>
-      </div>
-
-      {/* Quick Tools */}
-      <div className="mb-12">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-4 text-foreground">Quick Privacy Tools</h2>
-          <p className="text-muted-foreground">
-            Fast tools for specific privacy compliance tasks
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          <Link to="/toolkit/gdpr-mapper">
-            <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md cursor-pointer">
-              <CardContent className="p-6 text-center">
-                <Database className="h-10 w-10 text-primary mx-auto mb-3" />
-                <h3 className="font-semibold mb-2">Data Mapping</h3>
-                <p className="text-sm text-muted-foreground">Quick privacy data processing mapping</p>
-              </CardContent>
-            </Card>
-          </Link>
-          
-          <Link to="/toolkit/privacy-policy-generator">
-            <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md cursor-pointer">
-              <CardContent className="p-6 text-center">
-                <FileText className="h-10 w-10 text-success mx-auto mb-3" />
-                <h3 className="font-semibold mb-2">Policy Generator</h3>
-                <p className="text-sm text-muted-foreground">Generate compliant privacy policies</p>
-              </CardContent>
-            </Card>
-          </Link>
-          
-          <Link to="/toolkit/resources/viewers/dpia-template">
-            <Card className="hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-md cursor-pointer">
-              <CardContent className="p-6 text-center">
-                <Shield className="h-10 w-10 text-accent mx-auto mb-3" />
-                <h3 className="font-semibold mb-2">DPIA Template</h3>
-                <p className="text-sm text-muted-foreground">Data protection impact assessments</p>
-              </CardContent>
-            </Card>
-          </Link>
         </div>
       </div>
 
