@@ -323,7 +323,7 @@ const Features = () => {
                   icon: FileSearch, 
                   title: 'Assess', 
                   description: 'Intelligent assessments identify gaps',
-                  link: '/assessment-hub'
+                  link: '/assessment'
                 },
                 { 
                   icon: Target, 

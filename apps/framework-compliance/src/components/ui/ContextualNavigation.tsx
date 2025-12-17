@@ -21,8 +21,8 @@ export const ContextualNavigation: React.FC = () => {
     if (pathname.includes('/assessments/')) {
       return {
         previous: { 
-          text: "Back to Assessment Hub", 
-          href: "/assessment-hub",
+          text: "Back to Assessment", 
+          href: "/assessment",
           icon: ArrowLeft
         },
         next: {

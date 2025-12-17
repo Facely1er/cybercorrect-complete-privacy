@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 
 const AssessmentHub = () => {
-  usePageTitle('Assessment Hub');
+  usePageTitle('Assessment');
   const location = useLocation();
   const [assessmentResults, setAssessmentResults] = useState<any>(null);
 
@@ -46,7 +46,7 @@ const AssessmentHub = () => {
     <section className="py-8 border-b border-border bg-surface dark:bg-dark-bg">
       <div className="container mx-auto px-4">
         <div className="text-center">
-          <h1 className="text-3xl md:text-4xl font-semibold text-foreground">Assessment Hub</h1>
+          <h1 className="text-3xl md:text-4xl font-semibold text-foreground">Privacy Assessment</h1>
           <p className="text-muted-foreground mt-2">Start your compliance journey with intelligent assessments and actionable insights</p>
         </div>
       </div>
@@ -70,7 +70,6 @@ const AssessmentHub = () => {
 
       {/* Privacy Assessment - Main Card */}
       <div className="mb-16">
-        <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Privacy Assessment</h2>
         <div className="max-w-3xl mx-auto">
           <Card className="relative overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-0 shadow-lg">
             <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent opacity-5 group-hover:opacity-10 transition-opacity"></div>

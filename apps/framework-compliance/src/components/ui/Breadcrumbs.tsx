@@ -40,7 +40,8 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     'ecommerce': 'E-Commerce Policy',
     
     // Assessment pages
-    'assessment-hub': 'Assessment Hub',
+    'assessment': 'Assessment',
+    'assessment-hub': 'Assessment', // Legacy
     'assessments': 'Assessments',
     'privacy-assessment': 'Privacy Assessment',
     'privacy-results': 'Privacy Results',

@@ -136,7 +136,7 @@ const Documentation = () => {
             <InternalLink href="/support" variant="button" className="px-8 py-3" showIcon>
               Contact Support
             </InternalLink>
-            <InternalLink href="/assessment-hub" variant="button" className="bg-primary/10 text-primary hover:bg-primary hover:text-white px-8 py-3" showIcon>
+            <InternalLink href="/assessment" variant="button" className="bg-primary/10 text-primary hover:bg-primary hover:text-white px-8 py-3" showIcon>
               Start Assessment
             </InternalLink>
           </div>

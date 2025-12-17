@@ -16,15 +16,20 @@ const ScheduledAssessments = lazy(() => import('../pages/assessments/ScheduledAs
 
 export const assessmentRoutes = [
   {
-    path: 'assessment-hub',
+    path: 'assessment',
     element: AssessmentHub,
     lazy: true,
+  },
+  // Legacy redirect
+  {
+    path: 'assessment-hub',
+    element: () => <Navigate to="/assessment" replace />,
   },
   {
     path: 'assessments',
     element: AssessmentLayout,
     children: [
-      { path: '', element: () => <Navigate to="/assessment-hub" replace /> },
+      { path: '', element: () => <Navigate to="/assessment" replace /> },
       {
         path: 'privacy-assessment',
         element: PrivacyAssessment,

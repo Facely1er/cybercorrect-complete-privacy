@@ -119,7 +119,7 @@ const Guides = () => {
             <p className="text-muted-foreground mb-4">
               Begin with an assessment to understand which guides you need
             </p>
-            <Link to="/assessment-hub">
+            <Link to="/assessment">
               <Button size="lg">
                 Start Assessment
                 <ArrowRight className="ml-2 h-4 w-4" />

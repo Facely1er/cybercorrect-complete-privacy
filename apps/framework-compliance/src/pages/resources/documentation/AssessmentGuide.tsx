@@ -761,7 +761,7 @@ const AssessmentGuide = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg"
-              onClick={() => navigate('/assessment-hub')}
+              onClick={() => navigate('/assessment')}
             >
               View Your Assessments
               <ArrowRight className="ml-2 h-4 w-4" />
