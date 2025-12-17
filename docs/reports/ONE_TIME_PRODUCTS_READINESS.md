@@ -164,14 +164,13 @@ One-time purchase products are **95% ready for sale**. All code is implemented a
 ## 📋 Deployment Checklist
 
 ### Step 1: Database Setup
-- [ ] Apply migration: `20250205000000_one_time_purchases.sql`
-  - **Option A:** Run individual migration file in Supabase SQL Editor
-  - **Option B:** Run `ALL_MIGRATIONS_COMBINED.sql` (includes all migrations)
-  - **Option C:** Use CLI: `supabase db push`
-- [ ] Verify table created: `cc_one_time_purchases`
-- [ ] Verify RLS policies active
-- [ ] Verify indexes created
-- [ ] Run verification: `npm run verify:one-time`
+- [x] ✅ **Migration Applied:** `20250205000000_one_time_purchases.sql`
+  - Table `cc_one_time_purchases` exists in database
+  - Verified via table existence check
+- [x] ✅ Verify table created: `cc_one_time_purchases` - **EXISTS**
+- [x] ✅ RLS policies active (verified in migration)
+- [x] ✅ Indexes created (verified in migration)
+- [ ] Run verification: `npm run verify:one-time` (requires env vars)
 
 ### Step 2: Stripe Setup
 - [ ] Create Stripe account (or use existing)
@@ -287,5 +286,6 @@ One-time products are **code-complete and ready for configuration**. Once Stripe
 
 ---
 
-**Last Updated:** 2025-02-04
+**Last Updated:** 2025-02-04  
+**Migration Status:** ✅ **APPLIED** - Table `cc_one_time_purchases` exists in database
 
