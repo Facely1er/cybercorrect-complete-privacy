@@ -14,11 +14,9 @@ import {
   Target,
   ArrowRight, 
   CheckCircle, 
-  AlertTriangle,
   Clock,
   Bell,
   FileText,
-  Users,
   BookOpen
 } from 'lucide-react';
 
@@ -70,10 +68,10 @@ const AssessmentHub = () => {
         </div>
       )}
 
-      {/* Privacy Assessment */}
+      {/* Privacy Assessment - Main Card */}
       <div className="mb-16">
         <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Privacy Assessment</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <Card className="relative overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-0 shadow-lg">
             <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent opacity-5 group-hover:opacity-10 transition-opacity"></div>
             <CardContent className="relative p-10">
@@ -101,7 +99,7 @@ const AssessmentHub = () => {
               
               <div className="mb-6">
                 <h4 className="font-semibold mb-3 text-foreground">What You'll Get:</h4>
-                <div className="space-y-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {[
                     'NIST Privacy Framework compliance scoring',
                     'Privacy gap analysis with priorities',
@@ -134,52 +132,6 @@ const AssessmentHub = () => {
               <Link to="/assessments/privacy-assessment">
                 <Button size="lg" variant="default" className="w-full">
                   Start Privacy Assessment
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          {/* Project Management Option */}
-          <Card className="relative overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group border-0 shadow-lg">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent to-secondary opacity-5 group-hover:opacity-10 transition-opacity"></div>
-            <CardContent className="relative p-10">
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-accent to-secondary flex items-center justify-center mr-4">
-                  <Users className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-foreground">Privacy Project Management</h3>
-                  <p className="text-muted-foreground">Collaborative Implementation & Evidence Management</p>
-                </div>
-              </div>
-              
-              <p className="text-muted-foreground mb-6">
-                Full project management suite with role-based collaboration, evidence management, and comprehensive project tracking.
-              </p>
-              
-              <div className="mb-6">
-                <h4 className="font-semibold mb-3 text-foreground">Features Include:</h4>
-                <div className="space-y-2">
-                  {[
-                    'Privacy implementation roadmap',
-                    'RACI matrix for role assignments',
-                    'Work breakdown structure (WBS)',
-                    'Evidence vault and audit trail',
-                    'Team collaboration tools',
-                    'Progress tracking dashboard'
-                  ].map((feature, idx) => (
-                    <div key={idx} className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-success mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              <Link to="/project">
-                <Button size="lg" variant="secondary" className="w-full">
-                  Start Privacy Project
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
@@ -269,10 +221,10 @@ const AssessmentHub = () => {
       {/* Contextual help and navigation */}
       <div className="mt-10 bg-muted/30 dark:bg-muted/10 rounded-xl p-8">
         <div className="text-center mb-6">
-          <AlertTriangle className="h-12 w-12 text-primary mx-auto mb-4" />
-          <h3 className="text-2xl font-bold mb-2 text-foreground">Choose Your Starting Point</h3>
+          <Target className="h-12 w-12 text-primary mx-auto mb-4" />
+          <h3 className="text-2xl font-bold mb-2 text-foreground">Next Steps After Assessment</h3>
           <p className="text-muted-foreground max-w-3xl mx-auto">
-            Every privacy journey is unique. Choose the approach that best fits your organization's needs and current privacy maturity.
+            Complete your privacy assessment, then leverage these resources to implement your compliance roadmap.
           </p>
         </div>
         
@@ -280,8 +232,8 @@ const AssessmentHub = () => {
           <Card className="hover:shadow-lg transition-all duration-300 border-0">
             <CardContent className="p-6 text-center">
               <Eye className="h-10 w-10 text-primary mx-auto mb-4" />
-              <h4 className="font-semibold mb-2">Assessment First</h4>
-              <p className="text-sm text-muted-foreground mb-4">Start with a comprehensive privacy assessment to understand your current posture</p>
+              <h4 className="font-semibold mb-2">Start Assessment</h4>
+              <p className="text-sm text-muted-foreground mb-4">Begin with a comprehensive privacy assessment to understand your current posture</p>
               <InternalLink href="/assessments/privacy-assessment" variant="button" showIcon>
                 Start Assessment
               </InternalLink>
@@ -290,11 +242,11 @@ const AssessmentHub = () => {
           
           <Card className="hover:shadow-lg transition-all duration-300 border-0">
             <CardContent className="p-6 text-center">
-              <Users className="h-10 w-10 text-accent mx-auto mb-4" />
-              <h4 className="font-semibold mb-2">Team Project</h4>
-              <p className="text-sm text-muted-foreground mb-4">Create a collaborative privacy implementation project with role-based workflows</p>
-              <InternalLink href="/project" variant="button" showIcon>
-                Create Project
+              <Target className="h-10 w-10 text-accent mx-auto mb-4" />
+              <h4 className="font-semibold mb-2">Gap Analysis</h4>
+              <p className="text-sm text-muted-foreground mb-4">Identify and prioritize compliance gaps with actionable remediation steps</p>
+              <InternalLink href="/toolkit/privacy-gap-analyzer" variant="button" showIcon>
+                Analyze Gaps
               </InternalLink>
             </CardContent>
           </Card>
@@ -302,7 +254,7 @@ const AssessmentHub = () => {
           <Card className="hover:shadow-lg transition-all duration-300 border-0">
             <CardContent className="p-6 text-center">
               <BookOpen className="h-10 w-10 text-success mx-auto mb-4" />
-              <h4 className="font-semibold mb-2">Learn First</h4>
+              <h4 className="font-semibold mb-2">Learn More</h4>
               <p className="text-sm text-muted-foreground mb-4">Explore our comprehensive documentation and implementation guides</p>
               <InternalLink href="/documentation" variant="button" showIcon>
                 Browse Guides
