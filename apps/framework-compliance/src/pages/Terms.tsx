@@ -256,7 +256,7 @@ const Terms = () => {
                     <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm mt-1">
                       <li>Browser-based local storage (IndexedDB, localStorage)</li>
                       <li>Desktop application with local file storage</li>
-                      <li>On-premises deployment (Enterprise customers)</li>
+                      <li>Custom deployment options available for Enterprise (contact sales)</li>
                     </ul>
                   </div>
 

@@ -76,16 +76,18 @@ This document outlines the comprehensive pricing strategy for the CyberCorrect P
 **Target:** Small teams (1-10 people) starting privacy compliance
 
 **Key Features:**
-- Basic privacy assessment
+- Multi-regulation privacy assessments
 - Up to 100 risks tracked
 - 5 compliance templates
 - Monthly automated compliance reports
-- 1 privacy framework
+- 2 privacy frameworks
 - Email support (48hr response)
 - Quarterly automated assessments
-- Weekly compliance emails
+- Weekly compliance status emails
 - Basic progress dashboard
 - 10 exports/month (PDF, Word, JSON, CSV)
+- Scheduled assessments (up to 2 per quarter)
+- Compliance health score tracking
 
 **Upgrade Trigger:** "Need multiple frameworks and real-time alerts" → Professional
 
@@ -101,19 +103,17 @@ This document outlines the comprehensive pricing strategy for the CyberCorrect P
 - Unlimited custom reports
 - Daily compliance health digest
 - Real-time alerts (all priorities)
-- Multi-channel notifications (Email, SMS, Slack)
+- Email & in-app notifications (SMS & Slack coming soon)
 - Custom notification rules
 - Regulatory change alerts (24-hour)
 - Predictive compliance analytics
 - Advanced progress analytics
 - Priority support (24hr response)
 - Multiple privacy frameworks
-- API access
-- Custom workflows
 - Quarterly privacy reviews
 - Unlimited exports (PDF, Word, JSON, CSV, Excel)
 
-**Upgrade Trigger:** "Enterprise scale, dedicated support, on-premise deployment" → Enterprise
+**Upgrade Trigger:** "Enterprise scale, dedicated support, and professional services" → Enterprise
 
 ---
 
@@ -127,21 +127,20 @@ This document outlines the comprehensive pricing strategy for the CyberCorrect P
 - Weekly detailed reports
 - Monthly executive reports (board-ready)
 - Continuous automated assessments
-- ITSM integration (Jira, ServiceNow)
 - Executive dashboard alerts
-- Anomaly detection
-- Industry benchmarking
+- Predictive compliance analytics
 - Regulatory intelligence dashboard
-- White-glove implementation support
+- White-glove implementation support (professional services)
 - Unlimited compliance frameworks
-- Dedicated compliance specialist
-- On-premise deployment option
-- Custom integrations
+- Custom privacy control mapping
+- Dedicated compliance specialist (professional services)
+- Custom integrations (professional services)
 - 24/7 dedicated support with SLA
-- Custom feature development
-- Training and certification programs
+- Custom feature development (professional services)
+- Training and certification programs (professional services)
 - PowerPoint export
-- Teams notifications
+
+**Note:** Enterprise tier includes professional services for implementation, custom integrations, and dedicated support. Software features are cloud-based (Supabase architecture).
 
 ---
 

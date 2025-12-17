@@ -1181,7 +1181,7 @@ const Privacy = () => {
                     <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
                       <li>EU-only data storage (Supabase EU region)</li>
                       <li>Self-managed infrastructure in preferred jurisdiction</li>
-                      <li>On-premises deployment for complete data control</li>
+                      <li>Custom deployment configurations (contact sales for options)</li>
                     </ul>
                   </div>
                 </div>

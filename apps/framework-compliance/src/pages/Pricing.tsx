@@ -59,7 +59,7 @@ const Pricing = () => {
         { name: "Policy Templates", free: "3 templates", starter: "10 templates", professional: "25+ templates", enterprise: "Unlimited + Custom" },
         { name: "Evidence Management", free: "Manual", starter: "Basic", professional: true, enterprise: true },
         { name: "Document Version Control", free: false, starter: false, professional: true, enterprise: true },
-        { name: "Export Formats", free: "PDF only", starter: "PDF, Word", professional: "All formats", enterprise: "All formats + Custom" }
+        { name: "Export Formats", free: "JSON, CSV", starter: "PDF, Word, JSON, CSV", professional: "PDF, Word, JSON, CSV, Excel", enterprise: "All formats + PowerPoint" }
       ]
     },
     {
@@ -82,7 +82,7 @@ const Pricing = () => {
         { name: "Implementation Support", free: "Self-service", starter: "Documentation", professional: "Guided", enterprise: "White glove" },
         { name: "Compliance Expert Access", free: false, starter: false, professional: "Quarterly", enterprise: "Dedicated" },
         { name: "Training Sessions", free: "Self-paced", starter: "2 sessions", professional: "Monthly", enterprise: "Unlimited" },
-        { name: "Custom Integrations", free: false, starter: false, professional: "Basic API", enterprise: true }
+        { name: "Custom Integrations", free: false, starter: false, professional: false, enterprise: "Professional Services" }
       ]
     }
   ];

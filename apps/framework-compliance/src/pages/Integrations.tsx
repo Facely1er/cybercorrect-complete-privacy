@@ -56,7 +56,7 @@ const Integrations = () => {
       description: "Integrate with development and operations platforms",
       integrations: [
         { name: "GitHub", icon: Server, status: "Available", description: "Code repository security scanning" },
-        { name: "Jira", icon: Server, status: "Available", description: "Issue tracking and management" },
+        { name: "Jira", icon: Server, status: "Professional Services", description: "Issue tracking and management (Enterprise custom integration)" },
         { name: "Jenkins", icon: Server, status: "Coming Soon", description: "CI/CD security integration" }
       ]
     },
