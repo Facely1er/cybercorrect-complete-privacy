@@ -359,8 +359,7 @@ const ChatGuideBot = () => {
     'privacy-docs': {
       message: "Learn about the NIST Privacy Framework and how to implement privacy controls with our guides.",
       links: [
-        { text: 'Privacy Framework Guide', url: '/documentation/privacy-framework-guide' },
-        { text: 'Understanding RMF', url: '/documentation/understanding-rmf' }
+        { text: 'Privacy Framework Guide', url: '/documentation/privacy-framework-guide' }
       ],
       options: [
         { id: 'back-to-documentation', text: 'Back to Documentation', nextStep: 'documentation' }

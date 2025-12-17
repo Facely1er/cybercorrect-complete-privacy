@@ -103,7 +103,6 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     'getting-started': 'Getting Started',
     'platform-overview': 'Platform Overview',
     'understanding-dashboard': 'Understanding Dashboard',
-    'understanding-rmf': 'Understanding RMF',
     'faqs': 'FAQs',
     'privacy-framework-guide': 'Privacy Framework Guide',
     
