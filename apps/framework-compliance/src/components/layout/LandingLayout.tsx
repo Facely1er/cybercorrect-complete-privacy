@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import {
   Menu,
   X,
-  CircleDollarSign,
   User,
   Users,
   SunMoon,
@@ -11,9 +10,7 @@ import {
   HelpCircle,
   Home,
   ArrowRight,
-  Eye,
   ChevronDown,
-  Sparkles,
   Puzzle as PuzzlePiece
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -156,6 +153,22 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       icon: Home
     },
     {
+      name: 'Assessments',
+      path: '/assessment-hub',
+      icon: PuzzlePiece
+    },
+    {
+      name: 'Project',
+      path: '/project',
+      icon: PuzzlePiece,
+      dropdown: true,
+      dropdownItems: [
+        { name: 'Overview', path: '/project' },
+        { name: 'Dashboard', path: '/project/dashboard' },
+        { name: 'Evidence Vault', path: '/project/evidence' }
+      ]
+    },
+    {
       name: 'Role Journeys',
       path: '/compliance',
       icon: Users,
@@ -169,24 +182,21 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       ]
     },
     {
-      name: 'Assessments',
-      path: '/assessment-hub',
-      icon: Home
-    },
-    {
       name: 'Toolkit',
       path: '/toolkit',
-      icon: Home
+      icon: PuzzlePiece
     },
     {
-      name: 'Pricing',
-      path: '/pricing',
-      icon: CircleDollarSign
-    },
-    {
-      name: 'Demo',
-      path: '/demo',
-      icon: Eye
+      name: 'Resources',
+      path: '/resources',
+      icon: HelpCircle,
+      dropdown: true,
+      dropdownItems: [
+        { name: 'Resources Overview', path: '/resources' },
+        { name: 'Documentation', path: '/documentation' },
+        { name: 'Implementation Guides', path: '/guides' },
+        { name: 'Support Center', path: '/support' }
+      ]
     }
   ];
 

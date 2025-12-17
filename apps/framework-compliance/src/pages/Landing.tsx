@@ -91,10 +91,10 @@ const Landing = () => {
                 variant="outline"
                 className="px-8 py-4 bg-background dark:bg-dark-surface border-2 border-primary text-primary rounded-lg text-lg font-semibold hover:bg-primary/5 transition-all"
                 onClick={handleGuideMe}
-                aria-label="Talk to an Expert"
+                aria-label="Contact Our Team"
               >
                 <Users className="mr-2 h-5 w-5" />
-                Talk to an Expert
+                Contact Our Team
               </Button>
             </div>
             
@@ -455,10 +455,10 @@ const Landing = () => {
                 variant="outline"
                 className="bg-white text-primary border-2 border-white hover:bg-white/90 shadow-lg px-8"
                 onClick={handleGuideMe}
-                aria-label="Talk to an Expert"
+                aria-label="Contact Our Team"
               >
                 <Users className="mr-2 h-5 w-5 flex-shrink-0" aria-hidden="true" />
-                <span>Talk to an Expert</span>
+                <span>Contact Our Team</span>
               </Button>
             </div>
           </div>

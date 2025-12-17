@@ -1,26 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   FileText,
-  ClipboardCheck,
   Fingerprint,
-  FileCheck,
-  Database,
   BookOpen,
   HelpCircle,
-  FileQuestion,
   Shield,
   Lock,
   Wrench,
   FolderKanban,
   BarChart3,
-  Calendar,
   Users,
   Target,
-  AlertTriangle,
-  Building
+  Cookie
 } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -50,13 +43,13 @@ const Footer: React.FC = () => {
     );
   }
 
-  // Redesigned footer with 5 columns for better organization
+  // Footer with 4 columns (1 branding + 3 vertical menus)
   return (
     <footer className="bg-muted/30 border-t border-border">
       <div className="container mx-auto px-4 py-4 sm:py-6">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {/* Company Info */}
-          <div className="col-span-2 md:col-span-1 space-y-3">
+          <div className="col-span-2 md:col-span-1 space-y-3 md:pr-6">
             <Link to="/" className="flex items-center gap-2 group">
               <img 
                 src="/cybercorrect.png" 
@@ -82,92 +75,40 @@ const Footer: React.FC = () => {
             </div>
           </div>
           
-          {/* Privacy Toolkit */}
+          {/* Platform */}
           <div className="space-y-2">
             <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
               <Wrench className="h-3.5 w-3.5 text-primary" />
-              Toolkit
+              Platform
             </h3>
             <ul className="space-y-1.5 text-xs">
               <li>
+                <Link to="/assessment-hub" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <Target className="h-3 w-3 flex-shrink-0" />
+                  <span>Assessments</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/project" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <FolderKanban className="h-3 w-3 flex-shrink-0" />
+                  <span>Project</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/compliance" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <Users className="h-3 w-3 flex-shrink-0" />
+                  <span>Role Journeys</span>
+                </Link>
+              </li>
+              <li>
                 <Link to="/toolkit" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
                   <BarChart3 className="h-3 w-3 flex-shrink-0" />
-                  <span>All Tools</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/toolkit/privacy-gap-analyzer" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <Target className="h-3 w-3 flex-shrink-0" />
-                  <span>Gap Analyzer</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/toolkit/gdpr-mapper" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <Database className="h-3 w-3 flex-shrink-0" />
-                  <span>GDPR Mapper</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/toolkit/dpia-generator" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <FileCheck className="h-3 w-3 flex-shrink-0" />
-                  <span>DPIA Generator</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/toolkit/privacy-policy-generator" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <FileText className="h-3 w-3 flex-shrink-0" />
-                  <span>Policy Generator</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/toolkit/vendor-risk-assessment" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <Building className="h-3 w-3 flex-shrink-0" />
-                  <span>Vendor Risk</span>
+                  <span>Toolkit</span>
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Project Management */}
-          <div className="space-y-2">
-            <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
-              <FolderKanban className="h-3.5 w-3.5 text-primary" />
-              Project
-            </h3>
-            <ul className="space-y-1.5 text-xs">
-              <li>
-                <Link to="/project" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <FolderKanban className="h-3 w-3 flex-shrink-0" />
-                  <span>Overview</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/project/dashboard" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <BarChart3 className="h-3 w-3 flex-shrink-0" />
-                  <span>Dashboard</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/project/roadmap" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <Calendar className="h-3 w-3 flex-shrink-0" />
-                  <span>Roadmap</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/project/raci" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <Users className="h-3 w-3 flex-shrink-0" />
-                  <span>RACI Matrix</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/project/evidence" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <Shield className="h-3 w-3 flex-shrink-0" />
-                  <span>Evidence Vault</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          
           {/* Resources */}
           <div className="space-y-2">
             <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
@@ -188,28 +129,21 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/guides" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <ClipboardCheck className="h-3 w-3 flex-shrink-0" />
-                  <span>Guides</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/guides/incident-breach" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <AlertTriangle className="h-3 w-3 flex-shrink-0" />
-                  <span>Incident Guide</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/documentation/faqs" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <FileQuestion className="h-3 w-3 flex-shrink-0" />
-                  <span>FAQs</span>
-                </Link>
-              </li>
-              <li>
                 <Link to="/support" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
                   <HelpCircle className="h-3 w-3 flex-shrink-0" />
                   <span>Support</span>
                 </Link>
+              </li>
+              <li>
+                <a 
+                  href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'} 
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Fingerprint className="h-3 w-3 flex-shrink-0" />
+                  <span>Privacy Portal</span>
+                </a>
               </li>
             </ul>
           </div>
@@ -234,27 +168,16 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/cookies" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <FileText className="h-3 w-3 flex-shrink-0" />
-                  <span>Cookie Policy</span>
-                </Link>
-              </li>
-              <li>
                 <Link to="/acceptable-use" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <Shield className="h-3 w-3 flex-shrink-0" />
+                  <FileText className="h-3 w-3 flex-shrink-0" />
                   <span>Acceptable Use</span>
                 </Link>
               </li>
               <li>
-                <a 
-                  href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'} 
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Fingerprint className="h-3 w-3 flex-shrink-0" />
-                  <span>Privacy Portal</span>
-                </a>
+                <Link to="/cookies" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <Cookie className="h-3 w-3 flex-shrink-0" />
+                  <span>Cookies Policy</span>
+                </Link>
               </li>
             </ul>
           </div>
