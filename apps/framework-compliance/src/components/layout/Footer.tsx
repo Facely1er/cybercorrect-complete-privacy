@@ -83,9 +83,9 @@ const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-1.5 text-xs">
               <li>
-                <Link to="/assessment-hub" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                <Link to="/assessment" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
                   <Target className="h-3 w-3 flex-shrink-0" />
-                  <span>Assessments</span>
+                  <span>Assessment</span>
                 </Link>
               </li>
               <li>
@@ -97,7 +97,7 @@ const Footer: React.FC = () => {
               <li>
                 <Link to="/compliance" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
                   <Users className="h-3 w-3 flex-shrink-0" />
-                  <span>Role Journeys</span>
+                  <span>Roles</span>
                 </Link>
               </li>
               <li>

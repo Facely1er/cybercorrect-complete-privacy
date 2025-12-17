@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import {
   Menu,
@@ -10,7 +10,6 @@ import {
   HelpCircle,
   Home,
   ArrowRight,
-  ChevronDown,
   Puzzle as PuzzlePiece
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -30,15 +29,12 @@ interface NavItem {
   name: string;
   path: string;
   icon: React.ComponentType<{ className?: string }>;
-  dropdown?: boolean;
-  dropdownItems?: { name: string; path: string }[];
 }
 
 const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   const { openChatbot } = useChatbot();
   const { user } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -50,7 +46,6 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   // Close mobile menu when route changes
   useEffect(() => {
     setMobileMenuOpen(false);
-    setActiveDropdown(null);
   }, [location]);
 
   // Listen for scroll to add shadow to navbar
@@ -95,57 +90,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
     return () => window.removeEventListener('scroll', handleScrollCta);
   }, [isLandingPage]);
 
-  const dropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
-
-  const toggleDropdown = (name: string, e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    if (activeDropdown === name) {
-      setActiveDropdown(null);
-    } else {
-      setActiveDropdown(name);
-    }
-  };
-
-  // Close dropdown when clicking outside or pressing Escape
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (activeDropdown) {
-        const dropdownElement = dropdownRefs.current[activeDropdown];
-        const target = event.target as Node;
-        // Don't close if clicking inside the dropdown container or on the button
-        if (dropdownElement) {
-          const isClickInside = dropdownElement.contains(target);
-          // Check if clicking on the button that opened the dropdown
-          const button = (target as Element).closest('button[aria-haspopup="true"]');
-          // Only close if clicking outside the dropdown menu and not on the button
-          if (!isClickInside && !button) {
-            setActiveDropdown(null);
-          }
-        }
-      }
-    };
-
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && activeDropdown) {
-        setActiveDropdown(null);
-      }
-    };
-
-    if (activeDropdown) {
-      // Use mousedown event to avoid interfering with link navigation
-      setTimeout(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-        document.addEventListener('keydown', handleEscapeKey);
-      }, 0);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscapeKey);
-    };
-  }, [activeDropdown]);
-
-  // Main navigation structure with direct links
+  // Main navigation structure with direct links (no dropdowns)
   const mainNavItems: NavItem[] = [
     {
       name: 'Home',
@@ -153,33 +98,19 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       icon: Home
     },
     {
-      name: 'Assessments',
-      path: '/assessment-hub',
+      name: 'Assessment',
+      path: '/assessment',
       icon: PuzzlePiece
     },
     {
       name: 'Project',
       path: '/project',
-      icon: PuzzlePiece,
-      dropdown: true,
-      dropdownItems: [
-        { name: 'Overview', path: '/project' },
-        { name: 'Dashboard', path: '/project/dashboard' },
-        { name: 'Evidence Vault', path: '/project/evidence' }
-      ]
+      icon: PuzzlePiece
     },
     {
-      name: 'Role Journeys',
+      name: 'Roles',
       path: '/compliance',
-      icon: Users,
-      dropdown: true,
-      dropdownItems: [
-        { name: 'All Journeys', path: '/compliance' },
-        { name: 'Data Protection Officer', path: '/roles/data-protection-officer' },
-        { name: 'Legal Counsel', path: '/roles/legal-counsel' },
-        { name: 'Data Steward', path: '/roles/data-steward' },
-        { name: 'Privacy Officer', path: '/roles/privacy-officer' }
-      ]
+      icon: Users
     },
     {
       name: 'Toolkit',
@@ -189,14 +120,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
     {
       name: 'Resources',
       path: '/resources',
-      icon: HelpCircle,
-      dropdown: true,
-      dropdownItems: [
-        { name: 'Resources Overview', path: '/resources' },
-        { name: 'Documentation', path: '/documentation' },
-        { name: 'Implementation Guides', path: '/guides' },
-        { name: 'Support Center', path: '/support' }
-      ]
+      icon: HelpCircle
     }
   ];
 
@@ -214,89 +138,16 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
             
             {/* Column 2: Navigation (center) */}
             <div className="hidden lg:flex items-center flex-1 justify-center min-w-0 overflow-visible">
-                {mainNavItems?.map((item: NavItem) => {
-                  if (item.dropdown) {
-                    return (
-                      <div 
-                        key={item.name} 
-                        className="relative flex items-center overflow-visible"
-                      >
-                        <Link
-                          to={item.path}
-                          className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
-                        >
-                          <item.icon className="mr-2 h-4 w-4" />
-                          {item.name}
-                        </Link>
-                        <button
-                          type="button"
-                          className="flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-1 py-2"
-                          onClick={(e) => toggleDropdown(item.name, e)}
-                          aria-expanded={activeDropdown === item.name}
-                          aria-haspopup="true"
-                          aria-label={`Toggle ${item.name} menu`}
-                        >
-                          <ChevronDown className={`h-3 w-3 transition-transform ${activeDropdown === item.name ? 'transform rotate-180' : ''}`} />
-                        </button>
-                        
-                        {activeDropdown === item.name && (
-                          <div 
-                            ref={(el) => {
-                              if (el) {
-                                dropdownRefs.current[item.name] = el;
-                              }
-                            }}
-                            className="absolute left-0 top-full mt-1 w-56 bg-white dark:bg-dark-surface rounded-md shadow-lg border border-support-gray dark:border-dark-support z-[100]"
-                            onClick={(e) => e.stopPropagation()}
-                            onMouseDown={(e) => e.stopPropagation()}
-                          >
-                            <div className="py-1">
-                              {/* Only show overview link if the main path is different from all dropdown items */}
-                              {!item.dropdownItems?.some(dropdownItem => dropdownItem.path === item.path) && (
-                                <Link
-                                  to={item.path}
-                                  className={`flex items-center px-4 py-2 text-sm font-medium border-b border-support-gray dark:border-dark-support ${
-                                    location.pathname === item.path 
-                                      ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' 
-                                      : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'
-                                  }`}
-                                  onClick={() => setActiveDropdown(null)}
-                                >
-                                  Overview
-                                </Link>
-                              )}
-                              {item.dropdownItems?.map((dropdownItem: { name: string; path: string }) => (
-                                <Link
-                                  key={dropdownItem.name}
-                                  to={dropdownItem.path}
-                                  className={`flex items-center px-4 py-2 text-sm ${
-                                    location.pathname === dropdownItem.path 
-                                      ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' 
-                                      : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'
-                                  }`}
-                                  onClick={() => setActiveDropdown(null)}
-                                >
-                                  {dropdownItem.name}
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  } else {
-                    return (
-                      <Link 
-                        key={item.name}
-                        to={item.path}
-                        className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
-                      >
-                        <item.icon className="mr-2 h-4 w-4" />
-                        {item.name}
-                      </Link>
-                    );
-                  }
-                })}
+                {mainNavItems?.map((item: NavItem) => (
+                  <Link 
+                    key={item.name}
+                    to={item.path}
+                    className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path || location.pathname.startsWith(item.path + '/') ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
+                  >
+                    <item.icon className="mr-2 h-4 w-4" />
+                    {item.name}
+                  </Link>
+                ))}
               </div>
               
               {/* Action Buttons */}
@@ -365,53 +216,17 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
           className={`lg:hidden absolute top-16 left-0 right-0 bg-surface dark:bg-dark-surface border-b border-support-gray dark:border-dark-support transition-all duration-300 ease-in-out overflow-hidden ${mobileMenuOpen ? 'max-h-[80vh]' : 'max-h-0'}`}
         >
           <div className="px-4 py-2 space-y-1 overflow-y-auto max-h-[calc(80vh-4rem)]">
-            {mainNavItems?.map((item: NavItem) => {
-              if (item.dropdown) {
-                return (
-                  <div key={item.name}>
-                    <Link
-                      to={item.path}
-                      className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${location.pathname === item.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <item.icon className="mr-3 h-5 w-5" />
-                      {item.name}
-                    </Link>
-                    {/* Only show overview link if the main path is different from all dropdown items */}
-                    {!item.dropdownItems?.some(dropdownItem => dropdownItem.path === item.path) && (
-                      <Link
-                        to={item.path}
-                        className={`flex items-center px-6 py-2 text-base font-medium rounded-md ${location.pathname === item.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        Overview
-                      </Link>
-                    )}
-                    {item.dropdownItems?.map((dropdownItem: { name: string; path: string }) => (
-                      <Link
-                        key={dropdownItem.name}
-                        to={dropdownItem.path}
-                        className={`flex items-center px-6 py-2 text-base font-medium rounded-md ${location.pathname === dropdownItem.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {dropdownItem.name}
-                      </Link>
-                    ))}
-                  </div>
-                );
-              } else {
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className={`flex items-center px-3 py-2 text-base font-medium rounded-md ${location.pathname === item.path ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
-                  >
-                    <item.icon className="mr-3 h-5 w-5" />
-                    {item.name}
-                  </Link>
-                );
-              }
-            })}
+            {mainNavItems?.map((item: NavItem) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${location.pathname === item.path || location.pathname.startsWith(item.path + '/') ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <item.icon className="mr-3 h-5 w-5" />
+                {item.name}
+              </Link>
+            ))}
           </div>
         </div>
       </nav>

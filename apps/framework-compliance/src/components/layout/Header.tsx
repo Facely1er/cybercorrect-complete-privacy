@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, BarChart3, User, Settings, LogOut, FileText, ChevronDown, FileCheck, Database, Users, ExternalLink, Shield, Eye, Scale, UserCheck, FolderKanban, Calendar, Target, Activity, BookOpen, HelpCircle, FileQuestion } from 'lucide-react';
+import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, User, Settings, LogOut, Users, ExternalLink, FolderKanban, BookOpen } from 'lucide-react';
 
 import { Button } from '../ui/Button';
 import { NotificationBell } from '../notifications/NotificationBell';
@@ -12,7 +12,6 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const location = useLocation();
@@ -27,62 +26,12 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleDropdown = (name: string) => {
-    if (activeDropdown === name) {
-      setActiveDropdown(null);
-    } else {
-      setActiveDropdown(name);
-    }
-  };
-
-  const roleJourneyLinks = [
-    { name: 'All Journeys', path: '/compliance' },
-    { name: 'Data Protection Officer', path: '/roles/data-protection-officer' },
-    { name: 'Legal Counsel', path: '/roles/legal-counsel' },
-    { name: 'Data Steward', path: '/roles/data-steward' },
-    { name: 'Privacy Officer', path: '/roles/privacy-officer' },
-  ];
-
-  const assessmentLinks = [
-    { name: 'Privacy Assessment', path: '/assessments/privacy-assessment' },
-  ];
-
-  const toolLinks = [
-    { name: 'All Tools', path: '/toolkit' },
-    { name: 'GDPR Mapper', path: '/toolkit/gdpr-mapper' },
-    { name: 'DPIA Generator', path: '/toolkit/dpia-generator' },
-    { name: 'Privacy Policy Generator', path: '/toolkit/privacy-policy-generator' },
-    { name: 'Privacy Gap Analyzer', path: '/toolkit/privacy-gap-analyzer' },
-  ];
-
-  const projectLinks = [
-    { name: 'Project Overview', path: '/project' },
-    { name: 'Project Dashboard', path: '/project/dashboard' },
-    { name: 'Roadmap', path: '/project/roadmap' },
-    { name: 'RACI Matrix', path: '/project/raci' },
-    { name: 'Work Breakdown', path: '/project/wbs' },
-    { name: 'Evidence Vault', path: '/project/evidence' },
-  ];
-
-  const resultLinks = [
-    { name: 'Privacy Results', path: '/privacy-results' },
-    { name: 'Privacy Recommendations', path: '/privacy-recommendations' },
-  ];
-
-  const resourceLinks = [
-    { name: 'Resources Overview', path: '/resources' },
-    { name: 'Documentation', path: '/documentation' },
-    { name: 'Implementation Guides', path: '/guides' },
-    { name: 'Support Center', path: '/support' },
-    { name: 'FAQs', path: '/documentation/faqs' },
-  ];
-
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
-    { name: 'Role Journeys', href: '/compliance', icon: Users },
-    { name: 'Assessments', href: '/assessment-hub', icon: ClipboardCheck },
-    { name: 'Toolkit', href: '/toolkit', icon: Wrench },
+    { name: 'Assessment', href: '/assessment', icon: ClipboardCheck },
     { name: 'Project', href: '/project', icon: FolderKanban },
+    { name: 'Roles', href: '/compliance', icon: Users },
+    { name: 'Toolkit', href: '/toolkit', icon: Wrench },
     { name: 'Resources', href: '/resources', icon: BookOpen },
   ];
 
@@ -119,84 +68,6 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           <nav className="hidden md:flex items-center space-x-2">
             {navigation.map((item) => {
               const Icon = item.icon;
-              // Handle dropdown items
-              if (item.name === 'Role Journeys' || item.name === 'Assessments' || item.name === 'Toolkit' || item.name === 'Project' || item.name === 'Resources') {
-                const dropdownLinks = item.name === 'Role Journeys' ? roleJourneyLinks :
-                                      item.name === 'Assessments' ? assessmentLinks : 
-                                      item.name === 'Toolkit' ? toolLinks : 
-                                      item.name === 'Project' ? projectLinks : 
-                                      item.name === 'Resources' ? resourceLinks : resultLinks;
-                return (
-                  <div key={item.name} className="relative">
-                    <button
-                      onClick={() => toggleDropdown(item.name.toLowerCase())}
-                      className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        isActivePath(item.href)
-                          ? 'bg-primary text-primary-foreground shadow-sm'
-                          : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
-                      }`}
-                    >
-                      <Icon className="w-4 h-4 flex-shrink-0" />
-                      <span className="whitespace-nowrap">{item.name}</span>
-                      <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === item.name.toLowerCase() ? 'transform rotate-180' : ''}`} />
-                    </button>
-                    {activeDropdown === item.name.toLowerCase() && (
-                      <div className="absolute left-0 mt-2 w-56 bg-popover rounded-lg shadow-xl border border-border backdrop-blur-sm z-[60]">
-                        <div className="py-1">
-                          {dropdownLinks.map(link => {
-                            // Get icon for dropdown link
-                            let DropdownIcon = ClipboardCheck;
-                            if (item.name === 'Role Journeys') {
-                              if (link.name === 'All Journeys') DropdownIcon = Users;
-                              else if (link.name.includes('Data Protection')) DropdownIcon = Eye;
-                              else if (link.name.includes('Legal')) DropdownIcon = Scale;
-                              else if (link.name.includes('Data Steward')) DropdownIcon = Database;
-                              else if (link.name.includes('Privacy Officer')) DropdownIcon = UserCheck;
-                            } else if (item.name === 'Toolkit') {
-                              if (link.name === 'All Tools') DropdownIcon = Wrench;
-                              else if (link.name.includes('GDPR')) DropdownIcon = Database;
-                              else if (link.name.includes('DPIA')) DropdownIcon = FileCheck;
-                              else if (link.name.includes('Policy')) DropdownIcon = FileText;
-                              else if (link.name.includes('Gap')) DropdownIcon = Target;
-                            } else if (item.name === 'Project') {
-                              if (link.name === 'Project Overview') DropdownIcon = FolderKanban;
-                              else if (link.name === 'Project Dashboard') DropdownIcon = Activity;
-                              else if (link.name.includes('Roadmap')) DropdownIcon = Calendar;
-                              else if (link.name.includes('RACI')) DropdownIcon = Users;
-                              else if (link.name.includes('Work Breakdown')) DropdownIcon = Target;
-                              else if (link.name.includes('Evidence')) DropdownIcon = Database;
-                            } else if (item.name === 'Resources') {
-                              if (link.name === 'Resources Overview') DropdownIcon = BookOpen;
-                              else if (link.name.includes('Documentation')) DropdownIcon = FileText;
-                              else if (link.name.includes('Guides')) DropdownIcon = FileCheck;
-                              else if (link.name.includes('Support')) DropdownIcon = HelpCircle;
-                              else if (link.name.includes('FAQs')) DropdownIcon = FileQuestion;
-                            } else if (item.name === 'Results') {
-                              if (link.name.includes('Results')) DropdownIcon = BarChart3;
-                              else DropdownIcon = FileText;
-                            }
-                            return (
-                              <Link
-                                key={link.name}
-                                to={link.path}
-                                className={`flex items-center px-4 py-2.5 text-sm rounded-md transition-colors ${
-                                  location.pathname === link.path 
-                                    ? 'text-primary bg-primary/10 font-medium' 
-                                    : 'text-foreground hover:bg-accent hover:text-accent-foreground'
-                                }`}
-                                onClick={() => setActiveDropdown(null)}
-                              >
-                                <DropdownIcon className="w-4 h-4 mr-2 flex-shrink-0" />
-                                {link.name}
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              }
               return (
                 <Link
                   key={item.name}
