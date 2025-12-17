@@ -378,7 +378,7 @@ const ProjectManagementLanding = () => {
               </Button>
             </Link>
             <Link to="/resources">
-              <Button size="lg" variant="outline" className="border-white text-white bg-transparent hover:bg-white/10 [&]:text-white">
+              <Button size="lg" variant="outline" className="border-white text-white bg-transparent hover:bg-white/10">
                 Read Documentation
               </Button>
             </Link>

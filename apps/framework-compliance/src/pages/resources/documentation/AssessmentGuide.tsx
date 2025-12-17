@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardContent } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +18,7 @@ import {
   Database,
   ChevronRight
 } from 'lucide-react';
+import './AssessmentGuide.css';
 
 const AssessmentGuide = () => {
   const navigate = useNavigate();
@@ -255,7 +255,12 @@ const AssessmentGuide = () => {
                         <span className="text-sm font-bold">78%</span>
                       </div>
                       <div className="w-full bg-muted h-2 rounded-full">
-                        <div className="h-2 rounded-full bg-primary" style={{ width: "78%" }}></div>
+                        <div 
+                          className="h-2 rounded-full bg-primary progress-bar"
+                          ref={(node) => {
+                            if (node) node.style.setProperty('--progress-width', '78%');
+                          }}
+                        ></div>
                       </div>
                     </div>
                     <div>
@@ -264,7 +269,12 @@ const AssessmentGuide = () => {
                         <span className="text-sm font-bold">82%</span>
                       </div>
                       <div className="w-full bg-muted h-2 rounded-full">
-                        <div className="h-2 rounded-full bg-primary" style={{ width: "82%" }}></div>
+                        <div 
+                          className="h-2 rounded-full bg-primary progress-bar"
+                          ref={(node) => {
+                            if (node) node.style.setProperty('--progress-width', '82%');
+                          }}
+                        ></div>
                       </div>
                     </div>
                     <div>
@@ -273,7 +283,12 @@ const AssessmentGuide = () => {
                         <span className="text-sm font-bold">62%</span>
                       </div>
                       <div className="w-full bg-muted h-2 rounded-full">
-                        <div className="h-2 rounded-full bg-primary" style={{ width: "62%" }}></div>
+                        <div 
+                          className="h-2 rounded-full bg-primary progress-bar"
+                          ref={(node) => {
+                            if (node) node.style.setProperty('--progress-width', '62%');
+                          }}
+                        ></div>
                       </div>
                     </div>
                     <div>
@@ -282,7 +297,12 @@ const AssessmentGuide = () => {
                         <span className="text-sm font-bold">55%</span>
                       </div>
                       <div className="w-full bg-muted h-2 rounded-full">
-                        <div className="h-2 rounded-full bg-primary" style={{ width: "55%" }}></div>
+                        <div 
+                          className="h-2 rounded-full bg-primary progress-bar"
+                          ref={(node) => {
+                            if (node) node.style.setProperty('--progress-width', '55%');
+                          }}
+                        ></div>
                       </div>
                     </div>
                   </div>
