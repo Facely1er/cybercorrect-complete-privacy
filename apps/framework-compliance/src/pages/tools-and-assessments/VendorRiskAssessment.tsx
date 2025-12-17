@@ -6,6 +6,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Ta
 import { toast } from '../../components/ui/Toaster';
 import { storageAdapter } from '../../utils/storage';
 import { EmptyState } from '../../components/ui/EmptyState';
+import { ImportDialog } from '../../components/ui/ImportDialog';
+import { validators } from '../../utils/import/jsonValidator';
 import { 
   Building,
   AlertTriangle,
@@ -14,6 +16,7 @@ import {
   Search,
   Plus,
   Download,
+  Upload,
   Eye,
   Edit,
   Calendar,
@@ -47,6 +50,7 @@ const VendorRiskAssessment = () => {
   const [vendorAssessments, setVendorAssessments] = useState<VendorAssessment[]>([]);
   const [loading, setLoading] = useState(true);
   const [isExporting, setIsExporting] = useState(false);
+  const [showImportDialog, setShowImportDialog] = useState(false);
 
   useEffect(() => {
     loadVendorAssessments();
@@ -65,11 +69,49 @@ const VendorRiskAssessment = () => {
     }
   };
 
-  // Unused for now but kept for future functionality
-  // const saveVendorAssessments = (assessments: VendorAssessment[]) => {
-  //   storageAdapter.setVendorAssessments(assessments);
-  //   setVendorAssessments(assessments);
-  // };
+  const saveVendorAssessments = (assessments: VendorAssessment[]) => {
+    storageAdapter.setVendorAssessments(assessments);
+    setVendorAssessments(assessments);
+  };
+
+  const handleImportData = async (importedData: Partial<VendorAssessment>[]) => {
+    try {
+      // Transform imported data to match VendorAssessment interface
+      const newAssessments: VendorAssessment[] = importedData.map((item, index) => ({
+        id: item.id || `VENDOR-${Date.now()}-${index}`,
+        vendorName: item.vendorName || 'Unknown Vendor',
+        serviceDescription: item.serviceDescription || '',
+        riskLevel: item.riskLevel || 'medium',
+        complianceStatus: item.complianceStatus || 'review_needed',
+        assessmentScore: item.assessmentScore || 0,
+        contractStartDate: item.contractStartDate || new Date().toISOString().split('T')[0],
+        contractEndDate: item.contractEndDate || new Date().toISOString().split('T')[0],
+        lastAssessmentDate: item.lastAssessmentDate || new Date().toISOString().split('T')[0],
+        nextAssessmentDue: item.nextAssessmentDue || new Date().toISOString().split('T')[0],
+        dataTypesProcessed: Array.isArray(item.dataTypesProcessed) ? item.dataTypesProcessed : [],
+        applicableRegulations: Array.isArray(item.applicableRegulations) ? item.applicableRegulations : [],
+        securityCertifications: Array.isArray(item.securityCertifications) ? item.securityCertifications : [],
+        privacyPolicyReviewed: item.privacyPolicyReviewed || false,
+        dpaSigned: item.dpaSigned || false,
+        employeeDataAccess: item.employeeDataAccess || false,
+      }));
+
+      // Merge with existing assessments (avoiding duplicates by ID)
+      const existingIds = new Set(vendorAssessments.map(v => v.id));
+      const uniqueNewAssessments = newAssessments.filter(v => !existingIds.has(v.id));
+      
+      const updatedAssessments = [...vendorAssessments, ...uniqueNewAssessments];
+      saveVendorAssessments(updatedAssessments);
+      
+      toast.success(
+        'Import Successful',
+        `Imported ${uniqueNewAssessments.length} new vendor assessment(s)`
+      );
+    } catch (error) {
+      console.error('Error importing data:', error);
+      throw new Error('Failed to import vendor assessments');
+    }
+  };
 
   const filteredVendors = vendorAssessments.filter(vendor => {
     const matchesRisk = selectedRiskLevel === 'all' || vendor.riskLevel === selectedRiskLevel;
@@ -402,7 +444,10 @@ const VendorRiskAssessment = () => {
                     <Plus className="h-4 w-4 mr-2" />
                     Add Vendor
                   </Button>
-                  <Button variant="outline" onClick={() => exportReport('json')} disabled={isExporting}>
+                  <Button variant="outline" onClick={() => setShowImportDialog(true)} title="Import Data">
+                    <Upload className="h-4 w-4" />
+                  </Button>
+                  <Button variant="outline" onClick={() => exportReport('json')} disabled={isExporting} title="Export Data">
                     <Download className="h-4 w-4" />
                   </Button>
                 </div>
@@ -694,6 +739,46 @@ const VendorRiskAssessment = () => {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Import Dialog */}
+      <ImportDialog<VendorAssessment>
+        open={showImportDialog}
+        onClose={() => setShowImportDialog(false)}
+        onImport={handleImportData}
+        title="Import Vendor Assessments"
+        description="Upload a CSV or JSON file containing vendor assessment data"
+        csvHeaders={[
+          'id',
+          'vendorName',
+          'serviceDescription',
+          'riskLevel',
+          'complianceStatus',
+          'assessmentScore',
+          'contractStartDate',
+          'contractEndDate',
+          'lastAssessmentDate',
+          'nextAssessmentDue',
+          'dataTypesProcessed',
+          'applicableRegulations',
+          'securityCertifications',
+          'privacyPolicyReviewed',
+          'dpaSigned',
+          'employeeDataAccess'
+        ]}
+        jsonValidation={{
+          required: ['vendorName'],
+          schema: {
+            vendorName: validators.isString,
+            riskLevel: validators.oneOf(['low', 'medium', 'high', 'critical']),
+            complianceStatus: validators.oneOf(['compliant', 'review_needed', 'non_compliant']),
+            assessmentScore: validators.isNumber,
+            privacyPolicyReviewed: validators.isBoolean,
+            dpaSigned: validators.isBoolean,
+            employeeDataAccess: validators.isBoolean,
+          },
+        }}
+        maxRecords={500}
+      />
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import {
   Eye,
   Edit,
   Download,
+  Upload,
   Plus,
   FileText,
   Shield,
@@ -23,6 +24,8 @@ import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/storage';
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
 import { EmptyState } from '../../components/ui/EmptyState';
+import { ImportDialog } from '../../components/ui/ImportDialog';
+import { validators } from '../../utils/import/jsonValidator';
 import { required, email, minLength, combine } from '../../utils/validation';
 import { logError } from '../../utils/common/logger';
 import {
@@ -41,6 +44,7 @@ const PrivacyRightsManager = () => {
   const [showNewRequest, setShowNewRequest] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [showImportDialog, setShowImportDialog] = useState(false);
   const newRequestFormRef = useRef<HTMLDivElement>(null);
 
   // Load requests on mount
@@ -292,6 +296,43 @@ const PrivacyRightsManager = () => {
       toast.error('Create failed', error instanceof Error ? error.message : 'Failed to create request');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleImportData = async (importedData: Partial<DataSubjectRequest>[]) => {
+    try {
+      const newRequests: DataSubjectRequest[] = importedData.map((item, index) => {
+        const requestDate = item.requestDate || new Date().toISOString().split('T')[0];
+        return {
+          id: item.id || `DSAR-${Date.now()}-${index}`,
+          requestType: item.requestType || 'access',
+          requesterName: item.requesterName || 'Unknown',
+          requesterEmail: item.requesterEmail || '',
+          description: item.description || '',
+          requestDate,
+          deadline: item.deadline || calculateSLADeadline(requestDate),
+          status: item.status || 'pending',
+          priority: item.priority || 'medium',
+          assignedTo: item.assignedTo || 'Data Protection Officer',
+          notes: item.notes || '',
+        };
+      });
+
+      // Add all new requests
+      for (const request of newRequests) {
+        await createDataSubjectRequest(request);
+      }
+
+      // Reload all requests
+      await loadRequests();
+
+      toast.success(
+        'Import Successful',
+        `Imported ${newRequests.length} data subject request(s)`
+      );
+    } catch (error) {
+      console.error('Error importing data:', error);
+      throw new Error('Failed to import data subject requests');
     }
   };
 
