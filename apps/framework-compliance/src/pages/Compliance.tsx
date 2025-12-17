@@ -22,7 +22,8 @@ import {
 const Compliance = () => {
   const roleJourneys = [
     {
-      title: 'Data Protection Officer',
+      title: 'Privacy Leadership Journey',
+      subtitle: 'Recommended for DPOs & Privacy Leaders',
       description: 'Lead organizational privacy initiatives and ensure regulatory compliance across global operations',
       icon: Eye,
       path: '/roles/data-protection-officer',
@@ -35,7 +36,8 @@ const Compliance = () => {
       ]
     },
     {
-      title: 'Legal Counsel',
+      title: 'Legal Compliance Journey',
+      subtitle: 'Recommended for Legal Counsel',
       description: 'Navigate complex privacy regulations and ensure legal compliance across jurisdictions',
       icon: Scale,
       path: '/roles/legal-counsel',
@@ -48,7 +50,8 @@ const Compliance = () => {
       ]
     },
     {
-      title: 'Data Steward',
+      title: 'Data Governance Journey',
+      subtitle: 'Recommended for Data Stewards',
       description: 'Manage data quality, governance, and ensure proper handling of organizational data assets',
       icon: Database,
       path: '/roles/data-steward',
@@ -61,7 +64,8 @@ const Compliance = () => {
       ]
     },
     {
-      title: 'Privacy Officer',
+      title: 'Privacy Operations Journey',
+      subtitle: 'Recommended for Privacy Officers',
       description: 'Implement and maintain privacy controls to protect personal information across the organization',
       icon: UserCheck,
       path: '/roles/privacy-officer',
@@ -222,10 +226,10 @@ const Compliance = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
-                Choose Your Compliance Journey
+                Explore Available Journeys
               </h2>
               <p className="text-xl text-muted-foreground">
-                Select your role to access tailored tools, workflows, and resources
+                Each journey provides structured guidance with phase-based workflows and curated tools
               </p>
             </div>
 
