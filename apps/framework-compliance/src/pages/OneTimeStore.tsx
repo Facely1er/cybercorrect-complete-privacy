@@ -133,7 +133,7 @@ const OneTimeStore = () => {
   };
 
   return (
-    <div className="min-h-screen bg-surface dark:bg-dark-bg">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="py-16 bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-dark-primary dark:to-dark-primary text-white">
         <div className="container mx-auto px-4">
@@ -163,7 +163,7 @@ const OneTimeStore = () => {
       </section>
 
       {/* Category Filter */}
-      <section className="py-8 bg-white dark:bg-dark-surface border-b border-border">
+      <section className="py-8 bg-white dark:bg-background border-b border-border">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap gap-4 justify-center">
             {categories.map((category) => {
@@ -477,7 +477,7 @@ const OneTimeStore = () => {
       )}
 
       {/* Comparison with Subscriptions */}
-      <section className="py-16 bg-muted/20 dark:bg-dark-support/5">
+      <section className="py-16 bg-muted/20 bg-muted/5">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -587,7 +587,7 @@ const OneTimeStore = () => {
 
       {/* Shopping Cart Summary */}
       {cart.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-dark-surface border-t-2 border-primary shadow-2xl z-50">
+        <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-background border-t-2 border-primary shadow-2xl z-50">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between max-w-6xl mx-auto">
               <div className="flex items-center gap-4">
@@ -615,7 +615,7 @@ const OneTimeStore = () => {
       )}
 
       {/* FAQ Section */}
-      <section className="py-16 bg-white dark:bg-dark-surface">
+      <section className="py-16 bg-white dark:bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
@@ -837,3 +837,4 @@ const OneTimeStore = () => {
 };
 
 export default OneTimeStore;
+

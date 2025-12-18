@@ -187,3 +187,4 @@ describe('AssessmentStartScreen Component', () => {
     expect(screen.getByText('For the most accurate results, involve relevant stakeholders in completing the assessment.')).toBeInTheDocument()
   })
 })
+

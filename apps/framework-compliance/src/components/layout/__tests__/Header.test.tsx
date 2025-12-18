@@ -135,3 +135,4 @@ describe('Header Component', () => {
     expect(screen.getByText('Privacy Assessment')).toBeInTheDocument()
   })
 })
+

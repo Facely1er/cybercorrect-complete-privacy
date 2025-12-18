@@ -134,7 +134,7 @@ const ResourcesLanding = () => {
   return (
     <div>
       {/* Page Header */}
-      <section className="py-8 border-b border-border bg-surface dark:bg-dark-bg">
+      <section className="py-8 border-b border-border bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-semibold text-foreground">Docs & Guides</h1>
@@ -309,3 +309,4 @@ const ResourcesLanding = () => {
 };
 
 export default ResourcesLanding;
+

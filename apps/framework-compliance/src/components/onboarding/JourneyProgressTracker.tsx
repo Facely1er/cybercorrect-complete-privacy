@@ -230,3 +230,4 @@ const JourneyProgressTracker: React.FC<JourneyProgressTrackerProps> = ({
 
 export default JourneyProgressTracker;
 
+

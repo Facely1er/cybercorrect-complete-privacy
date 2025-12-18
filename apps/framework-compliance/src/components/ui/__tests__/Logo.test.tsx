@@ -92,8 +92,8 @@ describe('Logo Component', () => {
     expect(ermitsText).toBeInTheDocument()
     
     // Check that text elements have proper classes
-    expect(cyberCorrectText).toHaveClass('font-bold', 'text-foreground', 'dark:text-dark-text', 'leading-tight')
-    expect(privacyPlatformText).toHaveClass('text-xs', 'text-foreground', 'dark:text-dark-text', 'leading-tight')
+    expect(cyberCorrectText).toHaveClass('font-bold', 'text-foreground', 'dark:text-foreground', 'leading-tight')
+    expect(privacyPlatformText).toHaveClass('text-xs', 'text-foreground', 'dark:text-foreground', 'leading-tight')
     expect(ermitsText).toHaveClass('text-xs', 'text-muted-foreground', 'leading-tight')
   })
 
@@ -122,3 +122,4 @@ describe('Logo Component', () => {
     expect(image).toHaveAttribute('src', '/cybercorrect.png')
   })
 })
+

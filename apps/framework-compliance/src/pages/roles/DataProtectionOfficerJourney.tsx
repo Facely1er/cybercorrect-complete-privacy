@@ -130,7 +130,7 @@ const DataProtectionOfficerJourney = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-surface dark:bg-dark-bg">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
         <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-50"></div>
@@ -139,13 +139,13 @@ const DataProtectionOfficerJourney = () => {
           
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-block mb-6">
-              <span className="bg-primary/10 text-primary dark:bg-dark-primary/10 dark:text-dark-primary px-4 py-2 rounded-full inline-flex items-center text-sm font-medium">
+              <span className="bg-primary/10 text-primary dark:bg-dark-primary/10 dark:text-primary px-4 py-2 rounded-full inline-flex items-center text-sm font-medium">
                 <Eye className="w-4 h-4 mr-2" />
                 Privacy Leadership Journey
               </span>
             </div>
             
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-foreground">
               Your Privacy <span className="bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400 bg-clip-text text-transparent">Leadership</span> Journey
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
@@ -175,7 +175,7 @@ const DataProtectionOfficerJourney = () => {
         <section className="py-8 bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 border-b border-border">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
-              <Card className="border-2 border-primary/20 bg-white/80 dark:bg-dark-surface/80 backdrop-blur">
+              <Card className="border-2 border-primary/20 bg-white/80 dark:bg-background/80 backdrop-blur">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
                     <div className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10">
@@ -247,18 +247,18 @@ const DataProtectionOfficerJourney = () => {
       )}
 
       {/* Baseline Tasks Section */}
-      <section className="py-16 bg-gray-50 dark:bg-dark-support/5 border-b border-border">
+      <section className="py-16 bg-gray-50 bg-muted/5 border-b border-border">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-2xl font-bold mb-3 text-foreground dark:text-dark-text">
+              <h2 className="text-2xl font-bold mb-3 text-foreground dark:text-foreground">
                 Baseline Tasks for All Roles
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
                 These foundational tasks are common to all privacy professionals, regardless of role
               </p>
             </div>
-            <Card className="bg-white dark:bg-dark-surface">
+            <Card className="bg-white dark:bg-background">
               <CardContent className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -309,11 +309,11 @@ const DataProtectionOfficerJourney = () => {
       </section>
 
       {/* Journey Steps */}
-      <section className="py-20 bg-white dark:bg-dark-surface">
+      <section className="py-20 bg-white dark:bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
                 Your Privacy Leadership Journey
               </h2>
               <p className="text-xl text-muted-foreground mb-4">
@@ -387,11 +387,11 @@ const DataProtectionOfficerJourney = () => {
       </section>
 
       {/* DPO Capabilities */}
-      <section className="py-20 bg-gray-50 dark:bg-dark-support/5">
+      <section className="py-20 bg-gray-50 bg-muted/5">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
                 DPO Discretionary Responsibilities
               </h2>
               <p className="text-xl text-muted-foreground mb-4">

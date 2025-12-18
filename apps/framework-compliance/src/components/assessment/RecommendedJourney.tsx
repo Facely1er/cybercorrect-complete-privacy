@@ -254,3 +254,4 @@ const RecommendedJourney: React.FC<RecommendedJourneyProps> = ({ assessmentResul
 
 export default RecommendedJourney;
 
+

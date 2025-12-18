@@ -292,9 +292,9 @@ const Features = () => {
   const currentTab = platformCapabilities[activeTab as keyof typeof platformCapabilities];
 
   return (
-    <div className="min-h-screen bg-surface dark:bg-dark-bg">
+    <div className="min-h-screen bg-background">
       {/* Compact Page Header */}
-      <section className="py-8 border-b border-border bg-surface dark:bg-dark-bg">
+      <section className="py-8 border-b border-border bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-semibold text-foreground">Platform Capabilities</h1>
@@ -304,7 +304,7 @@ const Features = () => {
       </section>
 
       {/* Platform Architecture Overview */}
-      <section className="py-24 bg-white dark:bg-dark-surface">
+      <section className="py-24 bg-white dark:bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-20">
@@ -365,7 +365,7 @@ const Features = () => {
       </section>
 
       {/* Feature Categories with Tabs */}
-      <section className="py-24 bg-muted/20 dark:bg-dark-support/5">
+      <section className="py-24 bg-muted/20 bg-muted/5">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {/* Tab Navigation */}
@@ -377,7 +377,7 @@ const Features = () => {
                   className={`flex items-center gap-2 px-8 py-4 rounded-full font-semibold transition-all hover:-translate-y-1 hover:shadow-lg ${
                     activeTab === key 
                       ? 'bg-blue-600 text-white shadow-xl scale-105' 
-                      : 'bg-white dark:bg-dark-surface text-foreground hover:bg-gray-100 dark:hover:bg-dark-support shadow-md'
+                      : 'bg-white dark:bg-background text-foreground hover:bg-gray-100 hover:bg-muted shadow-md'
                   }`}
                 >
                   {key === 'platform' && <Layers className="w-4 h-4" />}
@@ -393,7 +393,7 @@ const Features = () => {
             {/* Tab Content */}
             <div className="mb-8">
               <div className="text-center mb-16">
-                <h3 className="text-2xl font-bold mb-4 text-foreground dark:text-dark-text">
+                <h3 className="text-2xl font-bold mb-4 text-foreground dark:text-foreground">
                   {currentTab.title}
                 </h3>
                 <p className="text-lg text-muted-foreground">
@@ -413,7 +413,7 @@ const Features = () => {
                               <feature.icon className="w-6 h-6 text-primary" />
                             </div>
                             <div>
-                              <h4 className="text-xl font-semibold mb-2 text-foreground dark:text-dark-text">
+                              <h4 className="text-xl font-semibold mb-2 text-foreground dark:text-foreground">
                                 {feature.title}
                               </h4>
                               <p className="text-muted-foreground mb-4">
@@ -443,7 +443,7 @@ const Features = () => {
 
 
        {/* AI-Powered Features */}
-      <section className="py-20 bg-muted/10 dark:bg-dark-support/5">
+      <section className="py-20 bg-muted/10 bg-muted/5">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
@@ -463,7 +463,7 @@ const Features = () => {
                 <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
                   <Lightbulb className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-foreground dark:text-dark-text">Smart SSP Generation</h3>
+                <h3 className="text-xl font-semibold mb-3 text-foreground dark:text-foreground">Smart SSP Generation</h3>
                 <p className="text-muted-foreground mb-4">
                   Upload your existing policies and procedures. Our AI analyzes, maps, and generates a complete NIST 800-171 compliant SSP.
                 </p>
@@ -487,7 +487,7 @@ const Features = () => {
                 <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
                   <FileText className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-foreground dark:text-dark-text">Intelligent POA&M Creation</h3>
+                <h3 className="text-xl font-semibold mb-3 text-foreground dark:text-foreground">Intelligent POA&M Creation</h3>
                 <p className="text-muted-foreground mb-4">
                   Automatically generate Plans of Action & Milestones based on assessment findings with realistic timelines and resource estimates.
                 </p>

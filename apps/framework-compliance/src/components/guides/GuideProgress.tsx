@@ -96,7 +96,7 @@ export const GuideProgress: React.FC<GuideProgressProps> = ({
           <span className="text-2xl font-bold text-foreground ">{progress}%</span>
         </div>
         
-        <div className="w-full bg-support-gray h-2 rounded-full mb-6 dark:bg-dark-support">
+        <div className="w-full bg-support-gray h-2 rounded-full mb-6 bg-muted">
           <div 
             className="h-2 rounded-full transition-all duration-300"
             style={{
@@ -112,7 +112,7 @@ export const GuideProgress: React.FC<GuideProgressProps> = ({
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-sm font-medium text-foreground ">{section.title}</h3>
                 {getSectionProgress(guideId, section.id) ? (
-                  <CheckCircle className="h-4 w-4 text-success-green dark:text-dark-success" />
+                  <CheckCircle className="h-4 w-4 text-success-green " />
                 ) : (
                   <div className="h-4 w-4 rounded-full border-2 border-muted-foreground" />
                 )}
@@ -133,7 +133,7 @@ export const GuideProgress: React.FC<GuideProgressProps> = ({
                         }
                       }}
                       disabled={section.id !== currentSection}
-                      className="h-4 w-4 rounded border-support-gray text-primary focus:ring-primary-teal dark:border-dark-support  dark:focus:ring-dark-primary"
+                      className="h-4 w-4 rounded border-border text-primary focus:ring-primary-teal   focus:ring-primary"
                     />
                   </div>
                 ))}

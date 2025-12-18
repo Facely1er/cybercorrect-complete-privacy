@@ -276,10 +276,10 @@ const Recommendations: React.FC<RecommendationsProps> = ({
                             <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${getPriorityColor(item.priority)}`}>
                               {item.priority.toUpperCase()}
                             </span>
-                            <span className="text-xs bg-support-gray dark:bg-dark-support text-muted-foreground px-2 py-0.5 rounded-full">
+                            <span className="text-xs bg-support-gray bg-muted text-muted-foreground px-2 py-0.5 rounded-full">
                               {getTimeframeText(item.timeframe)}
                             </span>
-                            <span className="text-xs bg-support-gray dark:bg-dark-support text-muted-foreground px-2 py-0.5 rounded-full">
+                            <span className="text-xs bg-support-gray bg-muted text-muted-foreground px-2 py-0.5 rounded-full">
                               Effort: {getEffortIcon(item.effort)}
                             </span>
                           </div>

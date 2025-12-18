@@ -120,7 +120,7 @@ const Compliance = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-surface dark:bg-dark-bg">
+    <div className="min-h-screen bg-background">
       {/* Onboarding Modal */}
       <OnboardingFlow 
         isVisible={showOnboarding} 
@@ -135,13 +135,13 @@ const Compliance = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-block mb-6">
-              <span className="bg-primary/10 text-primary dark:bg-dark-primary/10 dark:text-dark-primary px-4 py-2 rounded-full inline-flex items-center text-sm font-medium">
+              <span className="bg-primary/10 text-primary dark:bg-dark-primary/10 dark:text-primary px-4 py-2 rounded-full inline-flex items-center text-sm font-medium">
                 <Target className="w-4 h-4 mr-2" />
                 Step 2 of Your Journey
               </span>
             </div>
             
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-dark-text">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-foreground">
               {hasCompletedAssessment 
                 ? <>Your <span className="bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400 bg-clip-text text-transparent">Priority Gaps</span></>
                 : <>Discover Your <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Compliance Gaps</span></>
@@ -195,7 +195,7 @@ const Compliance = () => {
       </section>
 
       {/* Journey Progress Tracker */}
-      <section className="py-8 bg-muted/30 dark:bg-dark-support/10">
+      <section className="py-8 bg-muted/30 bg-muted/10">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <JourneyProgressTracker 
@@ -210,7 +210,7 @@ const Compliance = () => {
 
       {/* Gap-Based Priority Section - Only show after assessment */}
       {hasCompletedAssessment && identifiedGaps.length > 0 && (
-        <section className="py-16 bg-white dark:bg-dark-surface border-b border-border">
+        <section className="py-16 bg-white dark:bg-background border-b border-border">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
@@ -218,7 +218,7 @@ const Compliance = () => {
                   <Target className="w-4 h-4" />
                   Gap-Based Action Plan
                 </div>
-                <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+                <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
                   Your Priority Compliance Gaps
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -289,7 +289,7 @@ const Compliance = () => {
 
       {/* Assessment-First Flow Section - Show if no assessment yet */}
       {!hasCompletedAssessment && (
-        <section className="py-16 bg-white dark:bg-dark-surface border-b border-border">
+        <section className="py-16 bg-white dark:bg-background border-b border-border">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
@@ -297,7 +297,7 @@ const Compliance = () => {
                 <Sparkles className="w-4 h-4" />
                 Personalized Experience
               </span>
-              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
                 How It Works
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -392,7 +392,7 @@ const Compliance = () => {
       )}
 
       {/* Role Journeys - Repositioned as Secondary/Optional */}
-      <section className="py-20 bg-muted/30 dark:bg-dark-support/10">
+      <section className="py-20 bg-muted/30 bg-muted/10">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
@@ -400,7 +400,7 @@ const Compliance = () => {
                 <Users className="w-4 h-4" />
                 Optional for Large Teams
               </div>
-              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
                 Role-Based Compliance Guides
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -425,7 +425,7 @@ const Compliance = () => {
                       <div className={`w-14 h-14 bg-gradient-to-br ${role.color} rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
                         <role.icon className="w-7 h-7 text-white" />
                       </div>
-                      <h3 className="text-xl font-bold mb-1 text-foreground dark:text-dark-text group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-bold mb-1 text-foreground dark:text-foreground group-hover:text-primary transition-colors">
                         {role.title}
                       </h3>
                       <p className="text-xs text-primary mb-3">{role.subtitle}</p>
@@ -463,7 +463,7 @@ const Compliance = () => {
                       <Users className="w-4 h-4" />
                       Self-Service Portal
                     </div>
-                    <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+                    <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
                       Privacy Portal for Stakeholders
                     </h2>
                     <p className="text-lg text-muted-foreground mb-6">
@@ -510,11 +510,11 @@ const Compliance = () => {
 
                   {/* Right side - Features */}
                   <div className="bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/5 dark:to-secondary/5 p-8 md:p-10 flex flex-col justify-center">
-                    <h3 className="text-xl font-bold mb-6 text-foreground dark:text-dark-text">
+                    <h3 className="text-xl font-bold mb-6 text-foreground dark:text-foreground">
                       Who Uses the Privacy Portal?
                     </h3>
                     <div className="space-y-4">
-                      <div className="flex items-center gap-3 bg-white/80 dark:bg-dark-surface/80 p-3 rounded-lg">
+                      <div className="flex items-center gap-3 bg-white/80 dark:bg-background/80 p-3 rounded-lg">
                         <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                           <Shield className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                         </div>
@@ -523,7 +523,7 @@ const Compliance = () => {
                           <p className="text-xs text-muted-foreground">Institution-wide oversight</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3 bg-white/80 dark:bg-dark-surface/80 p-3 rounded-lg">
+                      <div className="flex items-center gap-3 bg-white/80 dark:bg-background/80 p-3 rounded-lg">
                         <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                           <Lock className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                         </div>
@@ -532,7 +532,7 @@ const Compliance = () => {
                           <p className="text-xs text-muted-foreground">Data protection management</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3 bg-white/80 dark:bg-dark-surface/80 p-3 rounded-lg">
+                      <div className="flex items-center gap-3 bg-white/80 dark:bg-background/80 p-3 rounded-lg">
                         <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                           <UserCheck className="w-5 h-5 text-green-600 dark:text-green-400" />
                         </div>
@@ -541,7 +541,7 @@ const Compliance = () => {
                           <p className="text-xs text-muted-foreground">Daily privacy practices</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3 bg-white/80 dark:bg-dark-surface/80 p-3 rounded-lg">
+                      <div className="flex items-center gap-3 bg-white/80 dark:bg-background/80 p-3 rounded-lg">
                         <div className="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                           <Users className="w-5 h-5 text-amber-600 dark:text-amber-400" />
                         </div>
@@ -560,11 +560,11 @@ const Compliance = () => {
       </section>
 
       {/* Quick Start Tools */}
-      <section className="py-20 bg-gray-50 dark:bg-dark-support/5">
+      <section className="py-20 bg-gray-50 bg-muted/5">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
                 Quick Start Tools
               </h2>
               <p className="text-xl text-muted-foreground">
@@ -611,11 +611,11 @@ const Compliance = () => {
       </section>
 
       {/* Supported Frameworks */}
-      <section className="py-20 bg-white dark:bg-dark-surface">
+      <section className="py-20 bg-white dark:bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
+              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
                 Global Privacy Frameworks
               </h2>
               <p className="text-xl text-muted-foreground">
@@ -672,4 +672,5 @@ const Compliance = () => {
 };
 
 export default Compliance;
+
 

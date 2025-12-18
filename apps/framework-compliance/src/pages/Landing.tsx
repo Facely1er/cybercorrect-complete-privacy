@@ -348,7 +348,7 @@ const Landing = () => {
       </section>
 
       {/* Compliance Journeys */}
-      <section className="py-16 md:py-24 bg-muted/30 dark:bg-dark-support/10">
+      <section className="py-16 md:py-24 bg-muted/30 bg-muted/10">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
@@ -450,7 +450,7 @@ const Landing = () => {
       </section>
 
       {/* Privacy Portal Section */}
-      <section className="py-16 md:py-20 bg-muted/30 dark:bg-dark-support/10">
+      <section className="py-16 md:py-20 bg-muted/30 bg-muted/10">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">

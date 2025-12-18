@@ -122,7 +122,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
           </div>
 
           {/* Progress Bar */}
-          <div className="bg-muted/30 dark:bg-dark-support/10 p-4">
+          <div className="bg-muted/30 bg-muted/10 p-4">
             <div className="flex items-center justify-between max-w-3xl mx-auto">
               {steps.map((step, index) => (
                 <React.Fragment key={step.id}>
@@ -296,4 +296,5 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
 };
 
 export default OnboardingFlow;
+
 

@@ -136,7 +136,7 @@ const MyDownloads = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-surface dark:bg-dark-bg py-12">
+      <div className="min-h-screen bg-background py-12">
         <div className="container mx-auto px-4 max-w-6xl">
           <Card>
             <CardContent className="p-12 text-center">
@@ -150,7 +150,7 @@ const MyDownloads = () => {
   }
 
   return (
-    <div className="min-h-screen bg-surface dark:bg-dark-bg py-12">
+    <div className="min-h-screen bg-background py-12">
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
         <div className="mb-8">
@@ -376,4 +376,5 @@ const MyDownloads = () => {
 };
 
 export default MyDownloads;
+
 

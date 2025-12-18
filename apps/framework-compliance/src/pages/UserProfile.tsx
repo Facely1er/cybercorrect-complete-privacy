@@ -71,7 +71,7 @@ const UserProfile = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
         {/* Profile Overview Card */}
         <div className="md:col-span-1">
-          <Card className="border border-support-gray dark:border-dark-support">
+          <Card className="border border-border">
             <CardContent className="p-4 sm:p-6 flex flex-col items-center text-center">
               <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-muted flex items-center justify-center mb-3 sm:mb-4">
                 <UserCircle className="h-16 w-16 sm:h-20 sm:w-20 text-muted-foreground" />
@@ -79,7 +79,7 @@ const UserProfile = () => {
               
               <h2 className="text-lg sm:text-xl font-bold text-foreground break-words">{user.name}</h2>
               <p className="text-muted-foreground mb-2 text-sm sm:text-base">{profileData.jobTitle}</p>
-              <p className="text-primary-teal dark:text-dark-primary text-xs sm:text-sm">{user.role.replace('_', ' ').toUpperCase()}</p>
+              <p className="text-primary text-xs sm:text-sm">{user.role.replace('_', ' ').toUpperCase()}</p>
               
               <div className="border-t border-border w-full mt-3 sm:mt-4 pt-3 sm:pt-4">
                 <div className="flex items-center justify-center mb-2 flex-wrap">
@@ -124,7 +124,7 @@ const UserProfile = () => {
           </Card>
 
           {/* Quick Stats */}
-          <Card className="mt-4 sm:mt-6 border border-support-gray dark:border-dark-support">
+          <Card className="mt-4 sm:mt-6 border border-border">
             <CardHeader className="pb-3">
               <CardTitle className="text-base sm:text-lg">Activity</CardTitle>
             </CardHeader>
@@ -149,7 +149,7 @@ const UserProfile = () => {
 
         {/* Main Profile Content */}
         <div className="md:col-span-2">
-          <Card className="border border-support-gray dark:border-dark-support">
+          <Card className="border border-border">
             <CardHeader className="pb-3 px-4 sm:px-6">
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
                 <CardTitle className="text-lg sm:text-xl">Profile Information</CardTitle>
@@ -184,7 +184,7 @@ const UserProfile = () => {
                       />
                     ) : (
                       <div className="flex items-center min-h-[2rem]">
-                        <User className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary flex-shrink-0" />
+                        <User className="h-4 w-4 mr-2 text-primary flex-shrink-0" />
                         <span className="text-sm sm:text-base break-words">{profileData.name}</span>
                       </div>
                     )}
@@ -202,7 +202,7 @@ const UserProfile = () => {
                       />
                     ) : (
                       <div className="flex items-center min-h-[2rem]">
-                        <Mail className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary flex-shrink-0" />
+                        <Mail className="h-4 w-4 mr-2 text-primary flex-shrink-0" />
                         <span className="text-sm sm:text-base break-all">{profileData.email}</span>
                       </div>
                     )}
@@ -220,7 +220,7 @@ const UserProfile = () => {
                       />
                     ) : (
                       <div className="flex items-center min-h-[2rem]">
-                        <Briefcase className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary flex-shrink-0" />
+                        <Briefcase className="h-4 w-4 mr-2 text-primary flex-shrink-0" />
                         <span className="text-sm sm:text-base break-words">{profileData.jobTitle}</span>
                       </div>
                     )}
@@ -238,7 +238,7 @@ const UserProfile = () => {
                       />
                     ) : (
                       <div className="flex items-center min-h-[2rem]">
-                        <Building className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary flex-shrink-0" />
+                        <Building className="h-4 w-4 mr-2 text-primary flex-shrink-0" />
                         <span className="text-sm sm:text-base break-words">{profileData.department}</span>
                       </div>
                     )}
@@ -247,7 +247,7 @@ const UserProfile = () => {
                   <div>
                     <label className="text-xs sm:text-sm font-medium block mb-1.5">Join Date</label>
                     <div className="flex items-center min-h-[2rem]">
-                      <Calendar className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary flex-shrink-0" />
+                      <Calendar className="h-4 w-4 mr-2 text-primary flex-shrink-0" />
                       <span className="text-sm sm:text-base">{profileData.joinDate}</span>
                     </div>
                   </div>
@@ -266,7 +266,7 @@ const UserProfile = () => {
           </Card>
 
           {/* Compliance Role */}
-          <Card className="mt-4 sm:mt-6 border border-support-gray dark:border-dark-support">
+          <Card className="mt-4 sm:mt-6 border border-border">
             <CardHeader className="pb-3 px-4 sm:px-6">
               <CardTitle className="text-lg sm:text-xl">Compliance Role & Permissions</CardTitle>
               <CardDescription className="mt-2">Your system access and permissions</CardDescription>
@@ -324,7 +324,7 @@ const UserProfile = () => {
           </Card>
 
           {/* Recent Activity */}
-          <Card className="mt-4 sm:mt-6 border border-support-gray dark:border-dark-support">
+          <Card className="mt-4 sm:mt-6 border border-border">
             <CardHeader className="pb-3 px-4 sm:px-6">
               <CardTitle className="text-lg sm:text-xl">Recent Activity</CardTitle>
               <CardDescription className="mt-2">Your latest actions in the system</CardDescription>

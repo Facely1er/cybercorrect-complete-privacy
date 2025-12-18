@@ -60,7 +60,7 @@ const Contact = () => {
   return (
     <div>
       {/* Page Header */}
-      <section className="py-8 border-b border-border bg-surface dark:bg-dark-bg">
+      <section className="py-8 border-b border-border bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-semibold text-foreground">Contact Us</h1>
@@ -251,4 +251,5 @@ const Contact = () => {
 };
 
 export default Contact;
+
 

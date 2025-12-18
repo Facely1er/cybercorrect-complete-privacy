@@ -107,19 +107,19 @@ const Integrations = () => {
                 </p>
                 <div className="space-y-2">
                   <div className="flex items-start">
-                    <Check className="h-5 w-5 text-primary-teal mr-2 mt-0.5 flex-shrink-0" />
+                    <Check className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
                     <span>Bi-directional data synchronization</span>
                   </div>
                   <div className="flex items-start">
-                    <Check className="h-5 w-5 text-primary-teal mr-2 mt-0.5 flex-shrink-0" />
+                    <Check className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
                     <span>Scheduled or real-time data imports</span>
                   </div>
                   <div className="flex items-start">
-                    <Check className="h-5 w-5 text-primary-teal mr-2 mt-0.5 flex-shrink-0" />
+                    <Check className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
                     <span>Integration framework with comprehensive documentation</span>
                   </div>
                   <div className="flex items-start">
-                    <Check className="h-5 w-5 text-primary-teal mr-2 mt-0.5 flex-shrink-0" />
+                    <Check className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
                     <span>Implementation support from our integration team</span>
                   </div>
                 </div>
@@ -135,7 +135,7 @@ const Integrations = () => {
                 <div className="relative w-80 h-80">
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <div className="w-24 h-24 rounded-full bg-primary-teal/20 flex items-center justify-center">
-                      <Plug className="h-12 w-12 text-primary-teal" />
+                      <Plug className="h-12 w-12 text-primary" />
                     </div>
                   </div>
                   
@@ -164,7 +164,7 @@ const Integrations = () => {
                             transform: 'translate(-50%, -50%)'
                           }}
                         >
-                          <IconComponent className="h-6 w-6 text-primary-teal" />
+                          <IconComponent className="h-6 w-6 text-primary" />
                         </div>
                       </React.Fragment>
                     )
@@ -260,7 +260,7 @@ const Integrations = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {category.integrations.map((integration, integrationIndex) => (
-                  <Card key={integrationIndex} className="hover:shadow-md transition-all border-support-gray dark:border-dark-support">
+                  <Card key={integrationIndex} className="hover:shadow-md transition-all border-border">
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
                         <div className="p-2 bg-muted/30 rounded-lg">

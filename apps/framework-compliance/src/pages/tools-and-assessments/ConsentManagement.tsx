@@ -692,3 +692,4 @@ END OF TEMPLATE
 
 export default ConsentManagement;
 
+

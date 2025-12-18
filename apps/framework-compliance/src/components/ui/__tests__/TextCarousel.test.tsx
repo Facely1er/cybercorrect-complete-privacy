@@ -188,3 +188,4 @@ describe('TextCarousel Component', () => {
     expect(screen.getByText('First item')).toBeInTheDocument()
   })
 })
+

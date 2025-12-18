@@ -86,7 +86,7 @@ const ComplianceToolkit: React.FC = () => {
 
   return (
     <LandingLayout toggleDarkMode={() => {}} darkMode={false}>
-      <div className="min-h-screen bg-surface dark:bg-dark-bg py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-background py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <motion.div
@@ -295,4 +295,5 @@ const ComplianceToolkit: React.FC = () => {
 };
 
 export default ComplianceToolkit;
+
 
