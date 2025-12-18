@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '../ui/Card';
 import { Button } from '../ui/Button';
@@ -34,7 +34,13 @@ const JourneyProgressTracker: React.FC<JourneyProgressTrackerProps> = ({
   const nextStep = steps[currentStepIndex + 1];
   const progressPercentage = Math.round(((currentStepIndex + 1) / steps.length) * 100);
   const completedCount = steps.filter(s => s.completed).length;
-  const progressBarStyle = { width: `${progressPercentage}%` };
+  const progressBarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (progressBarRef.current) {
+      progressBarRef.current.style.setProperty('--progress-width', `${progressPercentage}%`);
+    }
+  }, [progressPercentage]);
 
   if (compact) {
     return (
@@ -132,11 +138,12 @@ const JourneyProgressTracker: React.FC<JourneyProgressTrackerProps> = ({
 
         {/* Overall Progress Bar */}
         <div className="mb-6">
-          <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-            {/* eslint-disable-next-line react/forbid-dom-props */}
+          <div 
+            ref={progressBarRef}
+            className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden"
+          >
             <div
-              className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-500 ease-out"
-              style={progressBarStyle}
+              className="h-full w-[var(--progress-width)] bg-gradient-to-r from-primary to-secondary transition-all duration-500 ease-out"
             />
           </div>
           <div className="flex justify-between mt-2 text-xs text-muted-foreground">
