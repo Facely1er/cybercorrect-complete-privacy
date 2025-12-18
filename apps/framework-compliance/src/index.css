@@ -134,28 +134,33 @@
   }
 
   h1 {
-    @apply text-3xl md:text-4xl;
-    @apply mb-4;
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+    @apply mb-3 sm:mb-4;
+    @apply leading-tight;
   }
 
   h2 {
-    @apply text-2xl md:text-3xl;
-    @apply mb-3;
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl;
+    @apply mb-2 sm:mb-3;
+    @apply leading-tight;
   }
 
   h3 {
-    @apply text-xl md:text-2xl;
+    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl;
     @apply mb-2;
+    @apply leading-snug;
   }
 
   h4 {
-    @apply text-lg md:text-xl;
+    @apply text-base sm:text-lg md:text-xl lg:text-2xl;
     @apply mb-2;
+    @apply leading-snug;
   }
 
   p {
     @apply leading-relaxed;
-    @apply mb-4;
+    @apply mb-3 sm:mb-4;
+    @apply text-sm sm:text-base;
   }
   
   a {
@@ -259,10 +264,39 @@
   /* Mobile-optimized cards */
   .mobile-card {
     @apply p-4 sm:p-6;
+    @apply w-full max-w-full;
   }
 
   .mobile-card-content {
     @apply space-y-3 sm:space-y-4;
+    @apply overflow-x-hidden;
+  }
+
+  /* Responsive card grid with better mobile support */
+  .card-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6;
+    @apply w-full max-w-full;
+  }
+
+  /* Responsive image containers */
+  .responsive-image {
+    @apply w-full h-auto max-w-full;
+    @apply object-contain;
+  }
+
+  /* Responsive button groups */
+  .button-group {
+    @apply flex flex-col sm:flex-row gap-2 sm:gap-4;
+    @apply w-full sm:w-auto;
+  }
+
+  .button-group-mobile {
+    @apply flex flex-col w-full gap-2;
+  }
+
+  .button-group-mobile button,
+  .button-group-mobile a {
+    @apply w-full;
   }
 
   /* Mobile-friendly tables with enhanced responsive behavior */
@@ -324,17 +358,40 @@
     @apply min-h-[48px] min-w-[48px];
   }
 
-  /* Mobile-optimized forms */
+  /* Mobile-optimized forms with better input sizing */
   .mobile-form {
     @apply space-y-4 sm:space-y-6;
+    @apply w-full max-w-full;
   }
 
   .mobile-form-field {
-    @apply w-full;
+    @apply w-full max-w-full;
   }
 
   .mobile-form-label {
     @apply block text-sm font-medium mb-2;
+  }
+
+  /* Responsive input fields */
+  .responsive-input {
+    @apply w-full text-base; /* Prevents zoom on iOS */
+    @apply px-3 py-2 sm:px-4 sm:py-2.5;
+    @apply min-h-[44px]; /* Touch target */
+  }
+
+  /* Responsive textarea */
+  .responsive-textarea {
+    @apply w-full text-base;
+    @apply px-3 py-2 sm:px-4 sm:py-2.5;
+    @apply min-h-[100px] sm:min-h-[120px];
+    resize: vertical;
+  }
+
+  /* Responsive select */
+  .responsive-select {
+    @apply w-full text-base;
+    @apply px-3 py-2 sm:px-4 sm:py-2.5;
+    @apply min-h-[44px];
   }
 
   /* Responsive text */

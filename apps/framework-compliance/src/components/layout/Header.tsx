@@ -65,32 +65,33 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-2">
+          {/* Desktop Navigation - Responsive with better tablet support */}
+          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
             {navigation.map((item) => {
               const Icon = item.icon;
               return (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`flex items-center justify-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`flex items-center justify-center space-x-1.5 lg:space-x-2 px-2 lg:px-4 py-2 rounded-lg text-xs lg:text-sm font-medium transition-all duration-200 touch-target ${
                     isActivePath(item.href)
                       ? 'bg-primary text-primary-foreground shadow-sm'
                       : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
                   }`}
                 >
                   <Icon className="w-4 h-4 flex-shrink-0" />
-                  <span className="whitespace-nowrap">{item.name}</span>
+                  <span className="whitespace-nowrap hidden lg:inline">{item.name}</span>
                 </Link>
               );
             })}
           </nav>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu button - Enhanced touch target */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="md:hidden touch-target p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700 transition-colors"
             aria-label="Toggle mobile menu"
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -168,60 +169,63 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           </div>
         </div>
         
-        {/* Mobile Navigation - Outside the flex container */}
+        {/* Mobile Navigation - Outside the flex container with enhanced touch targets */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-border/50 py-4">
-            <nav className="flex flex-col space-y-2">
+          <div className="md:hidden border-t border-border/50 py-4 max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <nav className="flex flex-col space-y-1 px-2">
               {navigation.map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`flex items-center justify-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 touch-target min-h-[48px] ${
                       isActivePath(item.href)
                         ? 'bg-primary text-primary-foreground shadow-sm'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
+                        : 'text-muted-foreground active:bg-accent active:text-foreground'
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <Icon className="w-4 h-4 flex-shrink-0" />
-                    <span>{item.name}</span>
+                    <Icon className="w-5 h-5 flex-shrink-0" />
+                    <span className="flex-1">{item.name}</span>
                   </Link>
                 );
               })}
             </nav>
             
-            {/* Privacy Portal - Mobile */}
-            <div className="border-t border-border/50 pt-4 mt-4">
+            {/* Privacy Portal - Mobile with enhanced touch target */}
+            <div className="border-t border-border/50 pt-4 mt-4 px-2">
               <a
                 href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between px-4 py-3 mx-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20"
+                className="flex items-center justify-between px-4 py-3 rounded-lg bg-primary/10 text-primary active:bg-primary/20 border border-primary/20 touch-target min-h-[48px] transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4" />
+                  <Users className="w-5 h-5 flex-shrink-0" />
                   <span className="font-medium text-sm">Privacy Portal</span>
                 </div>
-                <ExternalLink className="w-4 h-4" />
+                <ExternalLink className="w-4 h-4 flex-shrink-0" />
               </a>
             </div>
             
-            {/* Mobile User Actions */}
-            <div className="border-t border-border/50 pt-4 mt-4">
-              <div className="flex items-center justify-between px-4 py-3">
-                <div className="flex items-center space-x-3">
+            {/* Mobile User Actions with enhanced touch targets */}
+            <div className="border-t border-border/50 pt-4 mt-4 px-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="rounded-full"
+                    className="rounded-full touch-target min-h-[48px] min-w-[48px]"
                     onClick={toggleDarkMode}
+                    aria-label="Toggle dark mode"
                   >
-                    {darkMode ? <SunMoon className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                    {darkMode ? <SunMoon className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
                   </Button>
-                  <NotificationBell />
+                  <div className="touch-target min-h-[48px] min-w-[48px] flex items-center justify-center">
+                    <NotificationBell />
+                  </div>
                 </div>
               </div>
             </div>

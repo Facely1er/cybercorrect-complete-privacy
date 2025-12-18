@@ -86,11 +86,16 @@
     @apply bg-background text-foreground font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
     overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
   }
 
   html {
     @apply transition-colors duration-200;
     overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   .dark-mode-transition-disabled {
@@ -122,18 +127,26 @@
   html, body, #root {
     @apply bg-background text-foreground;
     min-height: 100%;
+    min-height: 100vh;
+    min-height: -webkit-fill-available; /* iOS Safari fix */
   }
   
   body {
     @apply font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
     transition: background-color 300ms ease, color 300ms ease;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
   }
 
   html {
     @apply transition-colors duration-200;
     scroll-behavior: smooth;
     overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -142,18 +155,21 @@
   }
 
   h1 {
-    @apply text-2xl sm:text-3xl md:text-4xl;
-    @apply mb-4;
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+    @apply mb-3 sm:mb-4;
+    @apply leading-tight;
   }
 
   h2 {
-    @apply text-xl sm:text-2xl md:text-3xl;
-    @apply mb-3;
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl;
+    @apply mb-2 sm:mb-3;
+    @apply leading-tight;
   }
 
   h3 {
-    @apply text-lg sm:text-xl md:text-2xl;
+    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl;
     @apply mb-2;
+    @apply leading-snug;
   }
 
   p {
@@ -178,10 +194,13 @@
 }
 
 @layer components {
-  /* Page Layout - Mobile First */
+  /* Page Layout - Mobile First with safe area support */
   .page-container {
     @apply container mx-auto px-4 py-4 sm:px-6 sm:py-6 md:px-6 md:py-8;
     max-width: 100%;
+    width: 100%;
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
   }
 
   .page-header {
@@ -225,18 +244,40 @@
     @apply p-4 sm:p-6;
   }
 
-  /* Touch-friendly buttons */
+  /* Touch-friendly buttons - Minimum 44x44px for accessibility */
   .touch-target {
     @apply min-h-[44px] min-w-[44px];
   }
 
-  /* Mobile-safe spacing */
+  .touch-target-lg {
+    @apply min-h-[48px] min-w-[48px];
+  }
+
+  /* Mobile-safe spacing with safe area insets */
   .mobile-safe-padding {
     @apply px-4 sm:px-6 md:px-8;
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
   }
 
   .mobile-safe-margin {
     @apply mb-4 sm:mb-6 md:mb-8;
+  }
+
+  .mobile-safe-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  /* Responsive containers with overflow protection */
+  .responsive-container {
+    @apply w-full max-w-full overflow-x-hidden;
+  }
+
+  /* Mobile-optimized scrollable containers */
+  .mobile-scroll {
+    @apply overflow-x-auto overflow-y-auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
   }
 
   /* Text carousel animations */
