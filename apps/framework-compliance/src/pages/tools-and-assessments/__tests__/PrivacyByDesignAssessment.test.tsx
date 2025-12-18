@@ -446,28 +446,20 @@ describe('PrivacyByDesignAssessment Component', () => {
       const assessmentsTab = screen.getByText('Assessments')
       fireEvent.click(assessmentsTab)
       
-      // Wait for tab to switch and assessments to be visible - use flexible matcher
+      // Wait for tab to switch and assessments to be visible
       await waitFor(() => {
-        expect(screen.getByText((_content, element) => {
-          return element?.textContent?.includes('Test Assessment') || false
-        })).toBeInTheDocument()
-        expect(screen.getByText((_content, element) => {
-          return element?.textContent?.includes('In Progress Assessment') || false
-        })).toBeInTheDocument()
+        expect(screen.getByText(/Test Assessment/i)).toBeInTheDocument()
+        expect(screen.getByText(/In Progress Assessment/i)).toBeInTheDocument()
       }, { timeout: 3000 })
       
       // Apply filter
       const statusFilter = screen.getByLabelText('Filter assessments by status')
       fireEvent.change(statusFilter, { target: { value: 'completed' } })
       
-      // Wait for filtered results - use flexible matcher
+      // Wait for filtered results
       await waitFor(() => {
-        expect(screen.getByText((_content, element) => {
-          return element?.textContent?.includes('Test Assessment') || false
-        })).toBeInTheDocument()
-        expect(screen.queryByText((_content, element) => {
-          return element?.textContent?.includes('In Progress Assessment') || false
-        })).not.toBeInTheDocument()
+        expect(screen.getByText(/Test Assessment/i)).toBeInTheDocument()
+        expect(screen.queryByText(/In Progress Assessment/i)).not.toBeInTheDocument()
       }, { timeout: 3000 })
     })
 
@@ -485,22 +477,18 @@ describe('PrivacyByDesignAssessment Component', () => {
       const assessmentsTab = screen.getByText('Assessments')
       fireEvent.click(assessmentsTab)
       
-      // Wait for tab to switch and assessment to be visible - use flexible matcher
+      // Wait for tab to switch and assessment to be visible
       await waitFor(() => {
-        expect(screen.getByText((_content, element) => {
-          return element?.textContent?.includes('Test Assessment') || false
-        })).toBeInTheDocument()
+        expect(screen.getByText(/Test Assessment/i)).toBeInTheDocument()
       }, { timeout: 3000 })
       
       // Apply filter
       const complianceFilter = screen.getByLabelText('Filter assessments by compliance status')
       fireEvent.change(complianceFilter, { target: { value: 'compliant' } })
       
-      // Wait for filtered results - use flexible matcher
+      // Wait for filtered results
       await waitFor(() => {
-        expect(screen.getByText((_content, element) => {
-          return element?.textContent?.includes('Test Assessment') || false
-        })).toBeInTheDocument()
+        expect(screen.getByText(/Test Assessment/i)).toBeInTheDocument()
       }, { timeout: 3000 })
     })
 
@@ -518,11 +506,9 @@ describe('PrivacyByDesignAssessment Component', () => {
       const assessmentsTab = screen.getByText('Assessments')
       fireEvent.click(assessmentsTab)
       
-      // Wait for tab to switch and assessment to be visible - use flexible matcher
+      // Wait for tab to switch and assessment to be visible
       await waitFor(() => {
-        expect(screen.getByText((_content, element) => {
-          return element?.textContent?.includes('Test Assessment') || false
-        })).toBeInTheDocument()
+        expect(screen.getByText(/Test Assessment/i)).toBeInTheDocument()
       }, { timeout: 3000 })
       
       // Apply filter that won't match any assessments
@@ -578,11 +564,9 @@ describe('PrivacyByDesignAssessment Component', () => {
       const assessmentsTab = screen.getByText('Assessments')
       fireEvent.click(assessmentsTab)
       
-      // Wait for assessment and recommendations to be visible - use flexible matcher
+      // Wait for assessment and recommendations to be visible
       await waitFor(() => {
-        expect(screen.getByText((_content, element) => {
-          return element?.textContent?.includes('Test Assessment') || false
-        })).toBeInTheDocument()
+        expect(screen.getByText(/Test Assessment/i)).toBeInTheDocument()
         expect(screen.getByText('Recommendations:')).toBeInTheDocument()
         expect(screen.getByText('Recommendation 1')).toBeInTheDocument()
         expect(screen.getByText('Recommendation 2')).toBeInTheDocument()
@@ -863,11 +847,9 @@ describe('PrivacyByDesignAssessment Component', () => {
       const assessmentsTab = screen.getByText('Assessments')
       fireEvent.click(assessmentsTab)
       
-      // Wait for assessment and badge to appear - use flexible matcher
+      // Wait for assessment and badge to appear
       await waitFor(() => {
-        expect(screen.getByText((_content, element) => {
-          return element?.textContent?.includes('Test Assessment') || false
-        })).toBeInTheDocument()
+        expect(screen.getByText(/Test Assessment/i)).toBeInTheDocument()
         expect(screen.getByText('completed')).toBeInTheDocument()
       }, { timeout: 3000 })
     })
@@ -884,11 +866,9 @@ describe('PrivacyByDesignAssessment Component', () => {
       const assessmentsTab = screen.getByText('Assessments')
       fireEvent.click(assessmentsTab)
       
-      // Wait for assessment and badge to appear - use flexible matcher
+      // Wait for assessment and badge to appear
       await waitFor(() => {
-        expect(screen.getByText((_content, element) => {
-          return element?.textContent?.includes('Test Assessment') || false
-        })).toBeInTheDocument()
+        expect(screen.getByText(/Test Assessment/i)).toBeInTheDocument()
         expect(screen.getByText('compliant')).toBeInTheDocument()
       }, { timeout: 3000 })
     })
