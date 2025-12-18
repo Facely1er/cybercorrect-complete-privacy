@@ -26,6 +26,7 @@ import PortalBetaProgram from '../pages/PortalBetaProgram';
 const Profile = lazy(() => import('../pages/account/Profile'));
 const Settings = lazy(() => import('../pages/account/Settings'));
 const Subscription = lazy(() => import('../pages/account/Subscription'));
+const SubscriptionSuccess = lazy(() => import('../pages/account/SubscriptionSuccess'));
 
 export const publicRoutes = [
   { path: '', element: Landing },
@@ -55,5 +56,6 @@ export const publicRoutes = [
   { path: '/account/profile', element: Profile, lazy: true },
   { path: '/account/settings', element: Settings, lazy: true },
   { path: '/account/subscription', element: Subscription, lazy: true },
+  { path: '/subscription/success', element: SubscriptionSuccess, lazy: true },
 ];
 
