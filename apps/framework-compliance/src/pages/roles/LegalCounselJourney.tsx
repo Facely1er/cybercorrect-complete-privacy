@@ -103,27 +103,27 @@ const LegalCounselJourney = () => {
   const legalCapabilities = [
     {
       icon: Scale,
-      title: 'Multi-Jurisdiction Compliance',
-      description: 'Navigate complex privacy laws across multiple jurisdictions',
-      features: ['Regulatory analysis', 'Jurisdiction mapping', 'Legal basis assessment', 'Cross-border transfers']
+      title: 'Multi-Jurisdiction Legal Analysis',
+      description: 'Legal interpretation and compliance validation across multiple jurisdictions',
+      features: ['Regulatory requirement analysis', 'Jurisdiction-specific legal mapping', 'Legal basis validation', 'Cross-border transfer legal review']
     },
     {
       icon: FileText,
-      title: 'Policy and Contract Review',
-      description: 'Review and develop privacy-compliant policies and contracts',
-      features: ['Privacy policy templates', 'Contract privacy clauses', 'Vendor agreements', 'Data processing agreements']
+      title: 'Policy and Contract Legal Review',
+      description: 'Legal review and validation of privacy policies, contracts, and agreements',
+      features: ['Privacy policy legal review', 'Contract privacy clause validation', 'Vendor agreement legal review', 'Data processing agreement legal validation']
     },
     {
       icon: Shield,
-      title: 'Risk Assessment and Mitigation',
-      description: 'Assess legal risks and develop mitigation strategies',
-      features: ['Legal risk analysis', 'Mitigation planning', 'Regulatory strategy', 'Compliance validation']
+      title: 'Legal Risk Assessment',
+      description: 'Legal risk analysis and regulatory compliance validation',
+      features: ['Legal risk identification and analysis', 'Regulatory compliance validation', 'Legal mitigation strategy development', 'Compliance gap legal assessment']
     },
     {
       icon: AlertTriangle,
-      title: 'Incident and Breach Response',
-      description: 'Provide legal guidance during privacy incidents',
-      features: ['Breach notification guidance', 'Regulatory reporting', 'Legal investigation support', 'Damage assessment']
+      title: 'Incident Legal Guidance',
+      description: 'Legal guidance and regulatory reporting for privacy incidents and breaches',
+      features: ['Breach notification legal requirements', 'Regulatory reporting legal compliance', 'Legal investigation support', 'Legal liability assessment']
     }
   ];
 
@@ -244,6 +244,68 @@ const LegalCounselJourney = () => {
         </section>
       )}
 
+      {/* Baseline Tasks Section */}
+      <section className="py-16 bg-gray-50 dark:bg-dark-support/5 border-b border-border">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl font-bold mb-3 text-foreground dark:text-dark-text">
+                Baseline Tasks for All Roles
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                These foundational tasks are common to all privacy professionals, regardless of role
+              </p>
+            </div>
+            <Card className="bg-white dark:bg-dark-surface">
+              <CardContent className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="font-semibold mb-3 text-foreground flex items-center">
+                      <CheckCircle className="w-5 h-5 text-accent mr-2" />
+                      Assessment & Analysis
+                    </h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Complete Privacy Assessment to understand current compliance posture</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Use Privacy Gap Analyzer to identify compliance gaps</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Review compliance scores across GDPR, CCPA, and other frameworks</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-3 text-foreground flex items-center">
+                      <CheckCircle className="w-5 h-5 text-accent mr-2" />
+                      Monitoring & Documentation
+                    </h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Monitor compliance status via Privacy Dashboard</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Maintain evidence documentation in Evidence Vault</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Use GDPR Mapper to understand data processing activities</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Journey Steps */}
       <section className="py-20 bg-white dark:bg-dark-surface">
         <div className="container mx-auto px-4">
@@ -252,10 +314,13 @@ const LegalCounselJourney = () => {
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
                 Your Legal Privacy Journey
               </h2>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-muted-foreground mb-4">
                 {fromAssessment 
                   ? 'Steps prioritized based on your assessment results' 
                   : 'Four phases to comprehensive privacy legal compliance'}
+              </p>
+              <p className="text-base text-muted-foreground italic">
+                As Legal Counsel, you provide legal guidance, review contracts, and ensure regulatory compliance
               </p>
             </div>
 
@@ -325,10 +390,14 @@ const LegalCounselJourney = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
-                Legal Counsel Capabilities
+                Legal Counsel Discretionary Responsibilities
               </h2>
-              <p className="text-xl text-muted-foreground">
-                Specialized tools for privacy legal professionals
+              <p className="text-xl text-muted-foreground mb-4">
+                Legal compliance and contractual responsibilities unique to the Legal Counsel role
+              </p>
+              <p className="text-base text-muted-foreground italic max-w-3xl mx-auto">
+                While all roles perform baseline assessment and monitoring tasks, Legal Counsel provides 
+                legal interpretation, contract review, and regulatory compliance validation
               </p>
             </div>
 

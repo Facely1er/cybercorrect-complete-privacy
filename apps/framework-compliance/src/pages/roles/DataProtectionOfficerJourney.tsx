@@ -106,26 +106,26 @@ const DataProtectionOfficerJourney = () => {
     {
       icon: Eye,
       title: 'Privacy Program Leadership',
-      description: 'Lead organizational privacy initiatives and ensure regulatory compliance',
-      features: ['Privacy strategy development', 'Regulatory monitoring', 'Executive reporting', 'Stakeholder engagement']
+      description: 'Strategic oversight and accountability for organizational privacy initiatives',
+      features: ['Privacy strategy development and governance', 'Regulatory authority liaison', 'Executive reporting and board presentations', 'Stakeholder engagement and training coordination']
     },
     {
       icon: Shield,
-      title: 'Data Protection Impact Assessments',
-      description: 'Conduct and oversee DPIAs for high-risk processing activities',
-      features: ['DPIA methodology', 'Risk assessment', 'Stakeholder consultation', 'Mitigation planning']
+      title: 'DPIA Oversight and Approval',
+      description: 'Accountable for DPIA methodology, risk assessment, and final approval',
+      features: ['DPIA methodology and standards', 'High-risk processing identification', 'Stakeholder consultation coordination', 'Final approval and sign-off']
     },
     {
       icon: Users,
-      title: 'Data Subject Rights Management',
-      description: 'Oversee data subject rights fulfillment and complaint handling',
-      features: ['Rights request processing', 'Identity verification', 'Response coordination', 'Escalation handling']
+      title: 'Data Subject Rights Oversight',
+      description: 'Accountable for data subject rights fulfillment and complaint resolution',
+      features: ['Rights request oversight and escalation', 'Complaint handling and resolution', 'Regulatory complaint coordination', 'Response quality assurance']
     },
     {
       icon: Database,
-      title: 'Data Processing Oversight',
-      description: 'Monitor data processing activities and maintain processing records',
-      features: ['Processing activity monitoring', 'Article 30 records', 'Third-party assessments', 'Transfer oversight']
+      title: 'Strategic Vendor and Service Provider Oversight',
+      description: 'Accountable for third-party risk management and vendor compliance',
+      features: ['Vendor risk assessment oversight', 'Service provider compliance monitoring', 'Data processing agreement validation', 'Cross-border transfer oversight']
     }
   ];
 
@@ -246,6 +246,68 @@ const DataProtectionOfficerJourney = () => {
         </section>
       )}
 
+      {/* Baseline Tasks Section */}
+      <section className="py-16 bg-gray-50 dark:bg-dark-support/5 border-b border-border">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl font-bold mb-3 text-foreground dark:text-dark-text">
+                Baseline Tasks for All Roles
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                These foundational tasks are common to all privacy professionals, regardless of role
+              </p>
+            </div>
+            <Card className="bg-white dark:bg-dark-surface">
+              <CardContent className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="font-semibold mb-3 text-foreground flex items-center">
+                      <CheckCircle className="w-5 h-5 text-primary mr-2" />
+                      Assessment & Analysis
+                    </h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Complete Privacy Assessment to understand current compliance posture</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Use Privacy Gap Analyzer to identify compliance gaps</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Review compliance scores across GDPR, CCPA, and other frameworks</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-3 text-foreground flex items-center">
+                      <CheckCircle className="w-5 h-5 text-primary mr-2" />
+                      Monitoring & Documentation
+                    </h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Monitor compliance status via Privacy Dashboard</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Maintain evidence documentation in Evidence Vault</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Use GDPR Mapper to understand data processing activities</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Journey Steps */}
       <section className="py-20 bg-white dark:bg-dark-surface">
         <div className="container mx-auto px-4">
@@ -254,10 +316,13 @@ const DataProtectionOfficerJourney = () => {
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
                 Your Privacy Leadership Journey
               </h2>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-muted-foreground mb-4">
                 {fromAssessment 
                   ? 'Steps prioritized based on your assessment results' 
                   : 'Four phases to comprehensive global privacy compliance'}
+              </p>
+              <p className="text-base text-muted-foreground italic">
+                As a DPO, you lead strategic privacy initiatives and provide oversight beyond baseline tasks
               </p>
             </div>
 
@@ -327,10 +392,14 @@ const DataProtectionOfficerJourney = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
-                Data Protection Officer Capabilities
+                DPO Discretionary Responsibilities
               </h2>
-              <p className="text-xl text-muted-foreground">
-                Comprehensive tools for leading organizational privacy programs
+              <p className="text-xl text-muted-foreground mb-4">
+                Strategic leadership and oversight responsibilities unique to the DPO role
+              </p>
+              <p className="text-base text-muted-foreground italic max-w-3xl mx-auto">
+                While all roles perform baseline assessment and monitoring tasks, DPOs provide strategic oversight, 
+                regulatory liaison, and executive accountability for the privacy program
               </p>
             </div>
 

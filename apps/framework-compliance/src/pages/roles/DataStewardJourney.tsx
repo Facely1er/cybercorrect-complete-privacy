@@ -101,27 +101,27 @@ const DataStewardJourney = () => {
   const stewardCapabilities = [
     {
       icon: Database,
-      title: 'Data Lifecycle Management',
-      description: 'Manage personal data throughout its entire lifecycle',
-      features: ['Data collection oversight', 'Retention management', 'Secure deletion', 'Archive procedures']
+      title: 'Data Inventory and Classification',
+      description: 'Operational management of data discovery, inventory, and classification',
+      features: ['Data discovery and cataloging', 'Data classification assessment', 'Data category identification', 'Data inventory maintenance']
     },
     {
       icon: Eye,
-      title: 'Data Processing Oversight',
-      description: 'Monitor and validate data processing activities',
-      features: ['Processing activity monitoring', 'Purpose limitation validation', 'Data minimization enforcement', 'Quality assurance']
+      title: 'Processing Records Management',
+      description: 'Operational creation and maintenance of Article 30 processing records',
+      features: ['Processing activity documentation', 'Legal basis recording', 'Data flow mapping and documentation', 'Processing record updates']
     },
     {
       icon: Lock,
-      title: 'Data Security Coordination',
-      description: 'Coordinate with IT teams on data security measures',
-      features: ['Security requirement definition', 'Access control validation', 'Encryption oversight', 'Incident response']
+      title: 'Data Retention and Lifecycle Operations',
+      description: 'Operational management of data retention policies and lifecycle controls',
+      features: ['Retention policy creation and implementation', 'Data retention schedule management', 'Secure deletion procedures', 'Archive and disposal coordination']
     },
     {
       icon: FileText,
-      title: 'Documentation and Reporting',
-      description: 'Maintain comprehensive data documentation',
-      features: ['Processing records maintenance', 'Data flow documentation', 'Impact assessments', 'Audit preparation']
+      title: 'Data Quality and Governance Operations',
+      description: 'Operational data quality monitoring and governance implementation',
+      features: ['Data quality monitoring and metrics', 'Data governance framework implementation', 'Quality assurance processes', 'Data audit preparation']
     }
   ];
 
@@ -242,6 +242,68 @@ const DataStewardJourney = () => {
         </section>
       )}
 
+      {/* Baseline Tasks Section */}
+      <section className="py-16 bg-gray-50 dark:bg-dark-support/5 border-b border-border">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl font-bold mb-3 text-foreground dark:text-dark-text">
+                Baseline Tasks for All Roles
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                These foundational tasks are common to all privacy professionals, regardless of role
+              </p>
+            </div>
+            <Card className="bg-white dark:bg-dark-surface">
+              <CardContent className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="font-semibold mb-3 text-foreground flex items-center">
+                      <CheckCircle className="w-5 h-5 text-success mr-2" />
+                      Assessment & Analysis
+                    </h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Complete Privacy Assessment to understand current compliance posture</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Use Privacy Gap Analyzer to identify compliance gaps</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Review compliance scores across GDPR, CCPA, and other frameworks</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-3 text-foreground flex items-center">
+                      <CheckCircle className="w-5 h-5 text-success mr-2" />
+                      Monitoring & Documentation
+                    </h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Monitor compliance status via Privacy Dashboard</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Maintain evidence documentation in Evidence Vault</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Use GDPR Mapper to understand data processing activities</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Journey Steps */}
       <section className="py-20 bg-white dark:bg-dark-surface">
         <div className="container mx-auto px-4">
@@ -250,10 +312,13 @@ const DataStewardJourney = () => {
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
                 Your Data Stewardship Journey
               </h2>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-muted-foreground mb-4">
                 {fromAssessment 
                   ? 'Steps prioritized based on your assessment results' 
                   : 'Four phases to comprehensive data stewardship for privacy'}
+              </p>
+              <p className="text-base text-muted-foreground italic">
+                As a Data Steward, you manage data inventory, classification, and lifecycle operations
               </p>
             </div>
 
@@ -323,10 +388,14 @@ const DataStewardJourney = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
-                Data Steward Capabilities
+                Data Steward Discretionary Responsibilities
               </h2>
-              <p className="text-xl text-muted-foreground">
-                Essential tools for effective data stewardship in privacy programs
+              <p className="text-xl text-muted-foreground mb-4">
+                Data management and operational responsibilities unique to the Data Steward role
+              </p>
+              <p className="text-base text-muted-foreground italic max-w-3xl mx-auto">
+                While all roles perform baseline assessment and monitoring tasks, Data Stewards focus on 
+                data inventory, classification, lifecycle management, and operational data controls
               </p>
             </div>
 

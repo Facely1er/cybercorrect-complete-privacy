@@ -101,27 +101,27 @@ const PrivacyOfficerJourney = () => {
   const keyCapabilities = [
     {
       icon: Eye,
-      title: 'Data Subject Rights Management',
-      description: 'Handle access, rectification, erasure, and portability requests efficiently',
-      features: ['Request workflow management', 'Identity verification', 'Response templates', 'Audit trails']
+      title: 'Data Subject Rights Operations',
+      description: 'Operational execution of data subject access, rectification, erasure, and portability requests',
+      features: ['Request workflow execution and tracking', 'Identity verification processes', 'Response coordination and delivery', '30-day SLA compliance monitoring']
     },
     {
       icon: Shield,
-      title: 'Privacy Impact Assessments',
-      description: 'Conduct thorough DPIAs with guided workflows and risk scoring',
-      features: ['Guided DPIA creation', 'Risk assessment scoring', 'Mitigation recommendations', 'Stakeholder collaboration']
+      title: 'DPIA Creation and Coordination',
+      description: 'Operational creation of DPIAs using guided workflows (DPO provides oversight and approval)',
+      features: ['Guided DPIA creation and documentation', 'Risk assessment data collection', 'Stakeholder coordination', 'DPIA submission for DPO review']
     },
     {
       icon: Database,
-      title: 'Data Processing Records',
-      description: 'Maintain comprehensive records of all data processing activities',
-      features: ['Processing activity mapping', 'Legal basis documentation', 'Data flow visualization', 'Retention scheduling']
+      title: 'Privacy by Design Implementation',
+      description: 'Operational assessment and implementation of privacy by design principles',
+      features: ['Privacy by design assessment execution', 'Control implementation tracking', 'Privacy impact evaluation', 'Design review coordination']
     },
     {
       icon: AlertTriangle,
-      title: 'Breach Notification',
-      description: '72-hour breach notification readiness with guided workflows',
-      features: ['Incident tracking', 'Risk assessment tools', 'Notification templates', 'Regulatory reporting']
+      title: 'Incident Response Operations',
+      description: 'Operational incident tracking and breach notification execution',
+      features: ['Incident logging and tracking', 'Initial risk assessment', 'Notification template preparation', '72-hour notification execution']
     }
   ];
 
@@ -242,6 +242,68 @@ const PrivacyOfficerJourney = () => {
         </section>
       )}
 
+      {/* Baseline Tasks Section */}
+      <section className="py-16 bg-gray-50 dark:bg-dark-support/5 border-b border-border">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl font-bold mb-3 text-foreground dark:text-dark-text">
+                Baseline Tasks for All Roles
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                These foundational tasks are common to all privacy professionals, regardless of role
+              </p>
+            </div>
+            <Card className="bg-white dark:bg-dark-surface">
+              <CardContent className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="font-semibold mb-3 text-foreground flex items-center">
+                      <CheckCircle className="w-5 h-5 text-primary mr-2" />
+                      Assessment & Analysis
+                    </h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Complete Privacy Assessment to understand current compliance posture</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Use Privacy Gap Analyzer to identify compliance gaps</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Review compliance scores across GDPR, CCPA, and other frameworks</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-3 text-foreground flex items-center">
+                      <CheckCircle className="w-5 h-5 text-primary mr-2" />
+                      Monitoring & Documentation
+                    </h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Monitor compliance status via Privacy Dashboard</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Maintain evidence documentation in Evidence Vault</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2">•</span>
+                        <span>Use GDPR Mapper to understand data processing activities</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Journey Steps */}
       <section className="py-20 bg-white dark:bg-dark-surface">
         <div className="container mx-auto px-4">
@@ -250,10 +312,13 @@ const PrivacyOfficerJourney = () => {
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
                 Your Privacy Compliance Journey
               </h2>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-muted-foreground mb-4">
                 {fromAssessment 
                   ? 'Steps prioritized based on your assessment results' 
                   : 'Four phases to comprehensive privacy compliance'}
+              </p>
+              <p className="text-base text-muted-foreground italic">
+                As a Privacy Officer, you handle day-to-day privacy operations and individual rights management
               </p>
             </div>
 
@@ -323,10 +388,14 @@ const PrivacyOfficerJourney = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-dark-text">
-                Privacy Officer Capabilities
+                Privacy Officer Discretionary Responsibilities
               </h2>
-              <p className="text-xl text-muted-foreground">
-                Everything you need to manage a comprehensive privacy program
+              <p className="text-xl text-muted-foreground mb-4">
+                Day-to-day operational responsibilities unique to the Privacy Officer role
+              </p>
+              <p className="text-base text-muted-foreground italic max-w-3xl mx-auto">
+                While all roles perform baseline assessment and monitoring tasks, Privacy Officers focus on 
+                operational execution, individual rights fulfillment, and day-to-day compliance activities
               </p>
             </div>
 
