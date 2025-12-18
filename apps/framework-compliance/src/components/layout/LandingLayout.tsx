@@ -132,8 +132,8 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   ];
 
   return (
-    <div className={`min-h-screen flex flex-col ${darkMode ? 'dark' : ''} bg-surface dark:bg-dark-bg`}>
-      <nav className={`fixed top-0 left-0 right-0 z-20 bg-surface/90 dark:bg-dark-surface/90 backdrop-blur-md transition-all duration-300 ${isScrolled ? 'py-1' : 'py-1'}`}>
+    <div className={`min-h-screen flex flex-col ${darkMode ? 'dark' : ''} bg-background`}>
+      <nav className={`fixed top-0 left-0 right-0 z-20 bg-background/90 backdrop-blur-md transition-all duration-300 ${isScrolled ? 'py-1' : 'py-1'}`}>
         <div className="container mx-auto px-4 overflow-visible">
           <div className="flex justify-between items-center h-14 gap-2 sm:gap-4 min-w-0 overflow-visible">
             {/* Column 1: Logo (left) */}
@@ -149,7 +149,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                   <Link 
                     key={item.name}
                     to={item.path}
-                    className={`nav-link flex items-center text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path || location.pathname.startsWith(item.path + '/') ? 'text-primary-teal dark:text-dark-primary active' : ''}`}
+                    className={`nav-link flex items-center text-foreground hover:text-primary transition-colors duration-200 px-3 py-2 text-sm font-medium ${location.pathname === item.path || location.pathname.startsWith(item.path + '/') ? 'text-primary active' : ''}`}
                   >
                     <item.icon className="mr-2 h-4 w-4" />
                     {item.name}
@@ -173,7 +173,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                 
                 <button
                   onClick={toggleDarkMode}
-                  className="p-2 rounded-md text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary transition-colors duration-200"
+                  className="p-2 rounded-md text-foreground hover:text-primary transition-colors duration-200"
                   aria-label="Toggle dark mode"
                 >
                   {darkMode ? (
@@ -195,7 +195,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="flex items-center bg-primary-teal hover:bg-secondary-teal text-white dark:bg-dark-primary dark:hover:bg-dark-primary/90 rounded-full shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+                    className="flex items-center bg-primary hover:bg-primary/90 text-primary-foreground rounded-full shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
                     <User className="h-5 w-5" />
                   </Button>
                 </Link>
@@ -203,7 +203,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                 <button
                   type="button"
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="lg:hidden ml-2 inline-flex items-center justify-center p-2 rounded-md text-foreground dark:text-dark-text hover:text-primary-teal dark:hover:text-dark-primary"
+                  className="lg:hidden ml-2 inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary"
                   {...{ 'aria-expanded': mobileMenuOpen ? 'true' : 'false' }}
                   aria-label={mobileMenuOpen ? "Close main menu" : "Open main menu"}
                 >
@@ -220,14 +220,14 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
         
         {/* Mobile menu */}
         <div
-          className={`lg:hidden absolute top-16 left-0 right-0 bg-surface dark:bg-dark-surface border-b border-support-gray dark:border-dark-support transition-all duration-300 ease-in-out overflow-hidden ${mobileMenuOpen ? 'max-h-[80vh]' : 'max-h-0'}`}
+          className={`lg:hidden absolute top-16 left-0 right-0 bg-background border-b border-border transition-all duration-300 ease-in-out overflow-hidden ${mobileMenuOpen ? 'max-h-[80vh]' : 'max-h-0'}`}
         >
           <div className="px-4 py-2 space-y-1 overflow-y-auto max-h-[calc(80vh-4rem)]">
             {mainNavItems?.map((item: NavItem) => (
               <Link
                 key={item.name}
                 to={item.path}
-                className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${location.pathname === item.path || location.pathname.startsWith(item.path + '/') ? 'text-primary-teal bg-primary-teal/5 dark:text-dark-primary dark:bg-dark-primary/10' : 'text-foreground dark:text-dark-text hover:bg-muted dark:hover:bg-dark-support'}`}
+                className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${location.pathname === item.path || location.pathname.startsWith(item.path + '/') ? 'text-primary bg-primary/10' : 'text-foreground hover:bg-muted'}`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <item.icon className="mr-3 h-5 w-5" />

@@ -86,14 +86,14 @@ export const GuideProgress: React.FC<GuideProgressProps> = ({
   };
 
   return (
-    <Card className="sticky top-4 border-support-gray dark:border-dark-support">
+    <Card className="sticky top-4 border-border">
       <CardContent className="p-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
-            <Clock className="h-5 w-5 text-primary-teal mr-2 dark:text-dark-primary" />
-            <span className="font-medium text-foreground dark:text-dark-text">Progress</span>
+            <Clock className="h-5 w-5 text-primary mr-2 " />
+            <span className="font-medium text-foreground ">Progress</span>
           </div>
-          <span className="text-2xl font-bold text-foreground dark:text-dark-text">{progress}%</span>
+          <span className="text-2xl font-bold text-foreground ">{progress}%</span>
         </div>
         
         <div className="w-full bg-support-gray h-2 rounded-full mb-6 dark:bg-dark-support">
@@ -110,7 +110,7 @@ export const GuideProgress: React.FC<GuideProgressProps> = ({
           {sections?.map((section) => (
             <div key={section.id}>
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium text-foreground dark:text-dark-text">{section.title}</h3>
+                <h3 className="text-sm font-medium text-foreground ">{section.title}</h3>
                 {getSectionProgress(guideId, section.id) ? (
                   <CheckCircle className="h-4 w-4 text-success-green dark:text-dark-success" />
                 ) : (
@@ -133,7 +133,7 @@ export const GuideProgress: React.FC<GuideProgressProps> = ({
                         }
                       }}
                       disabled={section.id !== currentSection}
-                      className="h-4 w-4 rounded border-support-gray text-primary-teal focus:ring-primary-teal dark:border-dark-support dark:text-dark-primary dark:focus:ring-dark-primary"
+                      className="h-4 w-4 rounded border-support-gray text-primary focus:ring-primary-teal dark:border-dark-support  dark:focus:ring-dark-primary"
                     />
                   </div>
                 ))}

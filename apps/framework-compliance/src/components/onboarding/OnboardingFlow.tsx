@@ -211,7 +211,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
                         </div>
 
                         {/* Title & Description */}
-                        <h3 className="text-lg font-bold mb-2 text-foreground dark:text-dark-text">
+                        <h3 className="text-lg font-bold mb-2 text-foreground ">
                           {step.title}
                         </h3>
                         <p className="text-sm text-muted-foreground mb-4 min-h-[2.5rem]">

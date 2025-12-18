@@ -68,7 +68,7 @@ const FloatingPrivacyIcons: React.FC = React.memo(() => {
             }}
           >
             <IconComponent
-              className="text-primary dark:text-dark-primary"
+              className="text-primary"
               size={item.size}
               style={{
                 filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))',

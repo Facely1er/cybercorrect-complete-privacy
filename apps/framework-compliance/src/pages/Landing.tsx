@@ -26,16 +26,16 @@ const Landing = () => {
   // Hero heading carousel items
   const heroHeadings = [
     // Heading 1: Current privacy compliance focus
-    <h1 key="heading-1" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-foreground dark:text-dark-text">
-      <span className="text-foreground dark:text-dark-text">Demystify </span>
-      <span className="text-primary dark:text-dark-primary">Privacy Compliance</span>
+    <h1 key="heading-1" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-foreground">
+      <span className="text-foreground">Demystify </span>
+      <span className="text-primary">Privacy Compliance</span>
     </h1>,
     // Heading 2: Automated solution focus
-    <h1 key="heading-2" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-foreground dark:text-dark-text">
-      <span className="text-foreground dark:text-dark-text">Automate Your </span>
-      <span className="text-primary dark:text-dark-primary">Privacy</span>
+    <h1 key="heading-2" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-foreground">
+      <span className="text-foreground">Automate Your </span>
+      <span className="text-primary">Privacy</span>
       <br className="hidden sm:block" />
-      <span className="text-primary dark:text-dark-primary">by Design</span>
+      <span className="text-primary">by Design</span>
     </h1>
   ];
 
@@ -44,16 +44,16 @@ const Landing = () => {
 
 
   return (
-    <div className="min-h-screen bg-surface dark:bg-dark-bg">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative py-20 sm:py-32 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/5 dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg">
+      <section className="relative py-20 sm:py-32 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/5">
         <div className="absolute inset-0 bg-grid-gray-100 dark:bg-grid-gray-800 bg-grid opacity-30 dark:opacity-20"></div>
         <FloatingPrivacyIcons />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
             {/* Badge with Shield Icon */}
             <div className="inline-block mb-6">
-              <span className="bg-primary/10 text-primary dark:bg-dark-primary/10 dark:text-dark-primary border border-primary/20 dark:border-dark-primary/20 text-sm px-4 py-2 rounded-full inline-flex items-center">
+              <span className="bg-primary/10 text-primary border border-primary/20 text-sm px-4 py-2 rounded-full inline-flex items-center">
                 <Shield className="w-4 h-4 mr-2 flex-shrink-0" />
                 Avoid Fines. Build Trust. Stay Compliant.
               </span>
@@ -67,7 +67,7 @@ const Landing = () => {
             />
             
             {/* Supporting Paragraph */}
-            <p className="text-xl text-muted-foreground dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
               Whether you're a privacy professional or just got assigned "figure out compliance"—we guide you through it. 
               Discover your compliance gaps and get a clear, prioritized action plan. No privacy expertise required.
             </p>
@@ -85,7 +85,7 @@ const Landing = () => {
             </div>
             
             {/* Trust Indicators */}
-            <div className="flex flex-wrap justify-center gap-6 sm:gap-8 text-sm text-muted-foreground dark:text-gray-400">
+            <div className="flex flex-wrap justify-center gap-6 sm:gap-8 text-sm text-muted-foreground">
               <div className="flex items-center">
                 <CheckCircle className="w-4 h-4 text-success mr-2 flex-shrink-0" />
                 No privacy expertise required
@@ -95,11 +95,11 @@ const Landing = () => {
                 No credit card required
               </div>
               <div className="flex items-center">
-                <Clock className="w-4 h-4 text-primary dark:text-dark-primary mr-2 flex-shrink-0" />
+                <Clock className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
                 Results in 20 minutes
               </div>
               <div className="flex items-center">
-                <Shield className="w-4 h-4 text-primary dark:text-dark-primary mr-2 flex-shrink-0" />
+                <Shield className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
                 NIST Privacy Framework aligned
               </div>
             </div>
@@ -108,7 +108,7 @@ const Landing = () => {
       </section>
 
       {/* Clear Customer Journey Path */}
-      <section className="py-16 md:py-24 bg-white dark:bg-dark-surface">
+      <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {/* Section Header with Value Prop */}
@@ -192,7 +192,7 @@ const Landing = () => {
                         )}
 
                         {/* Content */}
-                        <h3 className="text-xl font-bold mb-2 text-foreground dark:text-dark-text text-center">
+                        <h3 className="text-xl font-bold mb-2 text-foreground text-center">
                           {phase.title}
                         </h3>
                         <p className="text-sm text-muted-foreground leading-relaxed mb-4 text-center min-h-[3rem]">
@@ -254,7 +254,7 @@ const Landing = () => {
       </section>
 
       {/* Outcome-Based Entry Points */}
-      <section className="py-16 md:py-24 bg-background dark:bg-dark-surface">
+      <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="section-title text-3xl md:text-4xl">
@@ -313,13 +313,13 @@ const Landing = () => {
                   <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${goal.color} flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform shadow-lg`}>
                     <goal.icon className="w-7 h-7 text-white" aria-hidden="true" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2 text-foreground dark:text-dark-text">{goal.title}</h3>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">{goal.title}</h3>
                   <p className="text-muted-foreground mb-4 text-sm leading-relaxed">{goal.description}</p>
                   <div className="space-y-1 mb-6">
                     {goal.outcomes.map((outcome, idx) => (
                       <div key={idx} className="flex items-center justify-center text-sm">
                         <CheckCircle className="w-4 h-4 text-success mr-2 flex-shrink-0" />
-                        <span className="text-foreground dark:text-dark-text">{outcome}</span>
+                        <span className="text-foreground">{outcome}</span>
                       </div>
                     ))}
                   </div>
@@ -335,7 +335,7 @@ const Landing = () => {
           </div>
 
           {/* Universal CTA - No role selection required */}
-          <div className="text-center mt-16 pt-8 border-t border-border/50 dark:border-dark-support/50">
+          <div className="text-center mt-16 pt-8 border-t border-border/50">
             <p className="text-muted-foreground mb-4">Not sure where to start?</p>
             <Link to="/assessments/privacy-assessment" className="no-underline">
               <Button size="lg" variant="outline" className="px-8">
@@ -402,12 +402,12 @@ const Landing = () => {
                   cta: 'Start Assessment'
                 }
               ].map((journey, index) => (
-                <Card key={index} className="card-hover text-center border border-border dark:border-dark-support">
+                <Card key={index} className="card-hover text-center border border-border">
                   <CardContent className="p-6">
-                    <div className="w-14 h-14 bg-primary/10 dark:bg-dark-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
-                      <journey.icon className="w-7 h-7 text-primary dark:text-dark-primary" aria-hidden="true" />
+                    <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
+                      <journey.icon className="w-7 h-7 text-primary" aria-hidden="true" />
                     </div>
-                    <h3 className="text-lg font-bold mb-1 text-foreground dark:text-dark-text">{journey.title}</h3>
+                    <h3 className="text-lg font-bold mb-1 text-foreground">{journey.title}</h3>
                     <p className="text-xs text-primary mb-3">{journey.subtitle}</p>
                     <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{journey.description}</p>
                     <Link to={journey.path} className="no-underline">
@@ -422,7 +422,7 @@ const Landing = () => {
             </div>
             
             {/* Universal Fallback */}
-            <div className="text-center mt-16 pt-8 border-t border-border/50 dark:border-dark-support/50">
+            <div className="text-center mt-16 pt-8 border-t border-border/50">
               <Card className="max-w-2xl mx-auto bg-gradient-to-br from-primary/5 to-secondary/5 border-2 border-primary/20">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold mb-4 text-foreground">
@@ -476,7 +476,7 @@ const Landing = () => {
                       <Shield className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-foreground dark:text-dark-text">Framework Compliance</h3>
+                      <h3 className="text-lg font-bold text-foreground">Framework Compliance</h3>
                       <p className="text-xs text-muted-foreground">Professional Compliance Tools</p>
                     </div>
                   </div>
@@ -512,7 +512,7 @@ const Landing = () => {
                       <Users className="w-6 h-6 text-amber-600 dark:text-amber-400" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-foreground dark:text-dark-text">Privacy Portal</h3>
+                      <h3 className="text-lg font-bold text-foreground">Privacy Portal</h3>
                       <p className="text-xs text-amber-600 dark:text-amber-400 font-semibold">Co-Create With Your Stakeholders</p>
                     </div>
                   </div>

@@ -73,9 +73,9 @@ const Recommendations: React.FC<RecommendationsProps> = ({
     switch (priority) {
       case 'critical': return 'text-alert-coral bg-alert-coral/10 dark:bg-dark-alert/20 dark:text-dark-alert';
       case 'high': return 'text-premium-gold bg-premium-gold/10 dark:bg-dark-premium/20 dark:text-dark-premium';
-      case 'medium': return 'text-primary-teal bg-primary-teal/10 dark:bg-dark-primary/20 dark:text-dark-primary';
-      case 'low': return 'text-success-green bg-success-green/10 dark:bg-dark-success/20 dark:text-dark-success';
-      default: return 'text-muted-foreground bg-support-gray dark:bg-dark-support';
+      case 'medium': return 'text-primary bg-primary/10';
+      case 'low': return 'text-success bg-success/10';
+      default: return 'text-muted-foreground bg-muted';
     }
   };
 
@@ -100,13 +100,13 @@ const Recommendations: React.FC<RecommendationsProps> = ({
 
   const getCategoryIcon = (category: string) => {
     switch (category.toLowerCase()) {
-      case 'authentication': return <Lock className="h-5 w-5 text-primary-teal dark:text-dark-primary" />;
-      case 'access control': return <Users className="h-5 w-5 text-primary-teal dark:text-dark-primary" />;
-      case 'network': return <Network className="h-5 w-5 text-primary-teal dark:text-dark-primary" />;
-      case 'data protection': return <Database className="h-5 w-5 text-primary-teal dark:text-dark-primary" />;
-      case 'governance': return <Shield className="h-5 w-5 text-primary-teal dark:text-dark-primary" />;
-      case 'documentation': return <File className="h-5 w-5 text-primary-teal dark:text-dark-primary" />;
-      default: return <Shield className="h-5 w-5 text-primary-teal dark:text-dark-primary" />;
+      case 'authentication': return <Lock className="h-5 w-5 text-primary" />;
+      case 'access control': return <Users className="h-5 w-5 text-primary" />;
+      case 'network': return <Network className="h-5 w-5 text-primary" />;
+      case 'data protection': return <Database className="h-5 w-5 text-primary" />;
+      case 'governance': return <Shield className="h-5 w-5 text-primary" />;
+      case 'documentation': return <File className="h-5 w-5 text-primary" />;
+      default: return <Shield className="h-5 w-5 text-primary" />;
     }
   };
 
@@ -136,20 +136,20 @@ const Recommendations: React.FC<RecommendationsProps> = ({
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Results
           </Button>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground dark:text-dark-text">{title}</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground ">{title}</h1>
           <p className="text-muted-foreground">{subtitle}</p>
         </div>
-        <Button onClick={onExport} className="bg-primary-teal hover:bg-secondary-teal text-white dark:bg-dark-primary dark:hover:bg-dark-primary/90">
+        <Button onClick={onExport} className="bg-primary-teal hover:bg-secondary-teal text-white  dark:hover:bg-dark-primary/90">
           <Download className="h-4 w-4 mr-2" />
           Export Recommendations
         </Button>
       </div>
 
       <div className="mb-6">
-        <div className="bg-support-gray/30 dark:bg-dark-support/10 rounded-lg p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="bg-muted/30 rounded-lg p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div className="flex items-center">
-            <BarChart className="h-5 w-5 mr-2 text-primary-teal dark:text-dark-primary" />
-            <span className="font-medium text-foreground dark:text-dark-text">Filter by Priority:</span>
+            <BarChart className="h-5 w-5 mr-2 text-primary " />
+            <span className="font-medium text-foreground ">Filter by Priority:</span>
           </div>
           
           <div className="flex flex-wrap gap-2">
@@ -157,7 +157,7 @@ const Recommendations: React.FC<RecommendationsProps> = ({
               size="sm"
               variant={activeFilter === 'all' ? 'default' : 'outline'}
               onClick={() => setActiveFilter('all')}
-              className={activeFilter === 'all' ? 'bg-primary-teal hover:bg-secondary-teal dark:bg-dark-primary' : ''}
+              className={activeFilter === 'all' ? 'bg-primary-teal hover:bg-secondary-teal ' : ''}
             >
               All
             </Button>
@@ -183,7 +183,7 @@ const Recommendations: React.FC<RecommendationsProps> = ({
               size="sm"
               variant={activeFilter === 'medium' ? 'default' : 'outline'}
               onClick={() => setActiveFilter('medium')}
-              className={activeFilter === 'medium' ? 'bg-primary-teal hover:bg-primary-teal/90 dark:bg-dark-primary' : 'border-primary-teal/50 text-primary-teal hover:bg-primary-teal/10 dark:border-dark-primary/50 dark:text-dark-primary dark:hover:bg-dark-primary/10'}
+              className={activeFilter === 'medium' ? 'bg-primary-teal hover:bg-primary-teal/90 ' : 'border-primary-teal/50 text-primary hover:bg-primary-teal/10 border-primary/50  hover:bg-primary/10'}
             >
               Medium
             </Button>
@@ -191,9 +191,9 @@ const Recommendations: React.FC<RecommendationsProps> = ({
               size="sm"
               variant={activeFilter === 'low' ? 'default' : 'outline'}
               onClick={() => setActiveFilter('low')}
-              className={activeFilter === 'low' ? 'bg-success-green hover:bg-success-green/90 dark:bg-dark-success' : 'border-success-green/50 text-success-green hover:bg-success-green/10 dark:border-dark-success/50 dark:text-dark-success dark:hover:bg-dark-success/10'}
+              className={activeFilter === 'low' ? 'bg-success-green hover:bg-success-green/90 dark:bg-dark-success' : 'border-success-green/50 text-success-green hover:bg-success-green/10 dark:border-dark-success/50  dark:hover:bg-dark-success/10'}
             >
-              <CheckCircle className="h-4 w-4 mr-1 text-success-green dark:text-dark-success" />
+              <CheckCircle className="h-4 w-4 mr-1 text-success-green " />
               Low
             </Button>
           </div>
@@ -248,9 +248,9 @@ const Recommendations: React.FC<RecommendationsProps> = ({
 
       <div className="space-y-6">
         {Object.entries(groupedRecommendations).length === 0 ? (
-          <Card className="border border-support-gray dark:border-dark-support text-center p-12">
-            <CheckCircle className="h-12 w-12 text-success-green dark:text-dark-success mx-auto mb-4" />
-            <h3 className="text-xl font-medium text-foreground dark:text-dark-text mb-2">No Recommendations Needed</h3>
+          <Card className="border border-border text-center p-12">
+            <CheckCircle className="h-12 w-12 text-success-green  mx-auto mb-4" />
+            <h3 className="text-xl font-medium text-foreground  mb-2">No Recommendations Needed</h3>
             <p className="text-muted-foreground">
               Great job! No recommendations were found for the selected filter.
             </p>
@@ -260,12 +260,12 @@ const Recommendations: React.FC<RecommendationsProps> = ({
             <div key={category} className="mb-8">
               <div className="flex items-center mb-4">
                 {getCategoryIcon(category)}
-                <h2 className="text-xl font-semibold ml-2 text-foreground dark:text-dark-text">{category}</h2>
+                <h2 className="text-xl font-semibold ml-2 text-foreground ">{category}</h2>
               </div>
               
               <div className="space-y-4">
                 {items.map((item) => (
-                  <Card key={item.id} className="border border-support-gray dark:border-dark-support">
+                  <Card key={item.id} className="border border-border">
                     <CardContent className="p-6">
                       <div 
                         className="flex justify-between items-start cursor-pointer" 
@@ -283,7 +283,7 @@ const Recommendations: React.FC<RecommendationsProps> = ({
                               Effort: {getEffortIcon(item.effort)}
                             </span>
                           </div>
-                          <CardTitle className="text-lg text-foreground dark:text-dark-text">{item.title}</CardTitle>
+                          <CardTitle className="text-lg text-foreground ">{item.title}</CardTitle>
                         </div>
                         <Button variant="ghost" size="icon">
                           {expandedItems[item.id] ? (
@@ -297,23 +297,23 @@ const Recommendations: React.FC<RecommendationsProps> = ({
                       <CardContent className={`px-0 pb-0 ${expandedItems[item.id] ? 'block' : 'hidden'}`}>
                         <CardDescription className="mb-4">{item.description}</CardDescription>
                         
-                        <div className="bg-support-gray/30 dark:bg-dark-support/10 p-3 rounded-lg mb-4">
+                        <div className="bg-muted/30 p-3 rounded-lg mb-4">
                           <div className="flex items-center mb-2">
-                            <Shield className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary" />
-                            <span className="font-medium text-sm text-foreground dark:text-dark-text">Expected Impact</span>
+                            <Shield className="h-4 w-4 mr-2 text-primary " />
+                            <span className="font-medium text-sm text-foreground ">Expected Impact</span>
                           </div>
                           <p className="text-sm text-muted-foreground">{item.impact}</p>
                         </div>
                         
                         <div className="mb-4">
                           <div className="flex items-center mb-2">
-                            <Clock className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary" />
-                            <span className="font-medium text-sm text-foreground dark:text-dark-text">Implementation Steps</span>
+                            <Clock className="h-4 w-4 mr-2 text-primary " />
+                            <span className="font-medium text-sm text-foreground ">Implementation Steps</span>
                           </div>
                           <ol className="space-y-2">
                             {item.steps.map((step, index) => (
                               <li key={index} className="flex items-center text-sm">
-                                <span className="text-foreground dark:text-dark-text">{step}</span>
+                                <span className="text-foreground ">{step}</span>
                               </li>
                             ))}
                           </ol>
@@ -323,13 +323,13 @@ const Recommendations: React.FC<RecommendationsProps> = ({
                         {item.successCriteria && item.successCriteria.length > 0 && (
                           <div className="mb-4">
                             <div className="flex items-center mb-2">
-                              <Target className="h-4 w-4 mr-2 text-success-green dark:text-dark-success" />
-                              <span className="font-medium text-sm text-foreground dark:text-dark-text">Success Criteria</span>
+                              <Target className="h-4 w-4 mr-2 text-success-green " />
+                              <span className="font-medium text-sm text-foreground ">Success Criteria</span>
                             </div>
                             <ul className="space-y-1">
                               {item.successCriteria.map((criteria, index) => (
                                 <li key={index} className="flex items-start gap-2 text-sm">
-                                  <CheckCircle className="h-4 w-4 text-success-green dark:text-dark-success mt-0.5 flex-shrink-0" />
+                                  <CheckCircle className="h-4 w-4 text-success-green  mt-0.5 flex-shrink-0" />
                                   <span className="text-muted-foreground">{criteria}</span>
                                 </li>
                               ))}
@@ -342,7 +342,7 @@ const Recommendations: React.FC<RecommendationsProps> = ({
                           <div className="mb-4 p-3 bg-warning/5 border border-warning/20 rounded-lg">
                             <div className="flex items-center mb-2">
                               <Lightbulb className="h-4 w-4 mr-2 text-warning" />
-                              <span className="font-medium text-sm text-foreground dark:text-dark-text">Common Pitfalls to Avoid</span>
+                              <span className="font-medium text-sm text-foreground ">Common Pitfalls to Avoid</span>
                             </div>
                             <ul className="space-y-1">
                               {item.commonPitfalls.map((pitfall, index) => (
@@ -361,8 +361,8 @@ const Recommendations: React.FC<RecommendationsProps> = ({
                             <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg">
                               <div className="flex items-center justify-between mb-2">
                                 <div className="flex items-center gap-2">
-                                  <FileText className="h-4 w-4 text-primary dark:text-dark-primary" />
-                                  <span className="font-medium text-sm text-foreground dark:text-dark-text">Template Available</span>
+                                  <FileText className="h-4 w-4 text-primary " />
+                                  <span className="font-medium text-sm text-foreground ">Template Available</span>
                                 </div>
                                 <Button
                                   size="sm"
@@ -392,7 +392,7 @@ const Recommendations: React.FC<RecommendationsProps> = ({
                               <div className="flex items-center justify-between mb-2">
                                 <div className="flex items-center gap-2">
                                   <BookOpen className="h-4 w-4 text-secondary" />
-                                  <span className="font-medium text-sm text-foreground dark:text-dark-text">Implementation Guide</span>
+                                  <span className="font-medium text-sm text-foreground ">Implementation Guide</span>
                                 </div>
                                 <ExternalLink className="h-3 w-3 text-muted-foreground" />
                               </div>
@@ -406,8 +406,8 @@ const Recommendations: React.FC<RecommendationsProps> = ({
                         {item.references.length > 0 && (
                           <div>
                             <div className="flex items-center mb-2">
-                              <File className="h-4 w-4 mr-2 text-primary-teal dark:text-dark-primary" />
-                              <span className="font-medium text-sm text-foreground dark:text-dark-text">References & Resources</span>
+                              <File className="h-4 w-4 mr-2 text-primary " />
+                              <span className="font-medium text-sm text-foreground ">References & Resources</span>
                             </div>
                             <ul className="space-y-1">
                               {item.references.map((ref, index) => (
@@ -417,7 +417,7 @@ const Recommendations: React.FC<RecommendationsProps> = ({
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => e.stopPropagation()}
-                                    className="text-primary-teal hover:underline dark:text-dark-primary inline-flex items-center gap-1"
+                                    className="text-primary hover:underline  inline-flex items-center gap-1"
                                   >
                                     {ref.title}
                                     <ExternalLink className="h-3 w-3" />

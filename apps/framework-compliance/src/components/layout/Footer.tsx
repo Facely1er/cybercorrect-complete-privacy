@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
   // Simplified minimal footer for authenticated app routes
   if (isAppRoute) {
     return (
-      <footer className="bg-surface border-t border-support-gray dark:bg-dark-surface dark:border-dark-support py-2">
+      <footer className="bg-background border-t border-border py-2">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-xs text-muted-foreground">
@@ -31,10 +31,10 @@ const Footer: React.FC = () => {
               <div className="mt-1">© {currentYear} ERMITS. All rights reserved.</div>
             </div>
             <div className="flex mt-2 md:mt-0 space-x-4">
-              <Link to="/resources" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Docs & Guides</Link>
-              <Link to="/contact" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Contact</Link>
-              <Link to="/privacy" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Privacy</Link>
-              <Link to="/terms" className="text-xs text-muted-foreground hover:text-primary-teal dark:hover:text-dark-primary">Terms</Link>
+              <Link to="/resources" className="text-xs text-muted-foreground hover:text-primary">Docs & Guides</Link>
+              <Link to="/contact" className="text-xs text-muted-foreground hover:text-primary">Contact</Link>
+              <Link to="/privacy" className="text-xs text-muted-foreground hover:text-primary">Privacy</Link>
+              <Link to="/terms" className="text-xs text-muted-foreground hover:text-primary">Terms</Link>
             </div>
           </div>
         </div>

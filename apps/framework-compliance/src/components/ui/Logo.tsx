@@ -23,8 +23,8 @@ const Logo: React.FC<LogoProps> = ({ className = '', size = 'medium', showText =
       />
       {showText && (
         <div className="ml-2 flex flex-col">
-          <span className="font-bold text-foreground dark:text-dark-text leading-tight">CyberCorrect<sup>™</sup> </span>
-          <span className="text-xs text-foreground dark:text-dark-text leading-tight">Privacy Platform </span>
+          <span className="font-bold text-foreground leading-tight">CyberCorrect<sup>™</sup> </span>
+          <span className="text-xs text-foreground leading-tight">Privacy Platform </span>
           <span className="text-xs text-muted-foreground leading-tight">by ERMITS </span>
         </div>
       )}

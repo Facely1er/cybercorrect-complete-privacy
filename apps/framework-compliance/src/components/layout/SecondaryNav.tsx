@@ -26,8 +26,8 @@ const SecondaryNav: React.FC<SecondaryNavProps> = ({ items, title }) => {
                 className={cn(
                   "px-3 py-1 text-sm rounded-md transition-colors min-w-max whitespace-nowrap",
                   location.pathname === item.path
-                    ? "bg-primary text-white dark:bg-dark-primary dark:text-white"
-                    : "text-foreground hover:bg-muted dark:text-dark-text dark:hover:bg-dark-support/50"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-foreground hover:bg-muted"
                 )}
                 aria-current={location.pathname === item.path ? "page" : undefined}
               >
