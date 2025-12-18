@@ -222,7 +222,87 @@ const Pricing = () => {
                 size="lg"
                 onClick={async () => {
                   if (plan.free) {
-                    navigate('/signup');
+                    // Free trial - create directly without Stripe
+                    try {
+                      // Check if user is authenticated
+                      const { supabase } = await import('../lib/supabase');
+                      const { data: { user }, error: authError } = await supabase.auth.getUser();
+                      
+                      if (authError || !user) {
+                        // User not authenticated - redirect to login with return path
+                        const returnPath = encodeURIComponent(window.location.pathname + window.location.search);
+                        navigate(`/login?returnTo=${returnPath}`);
+                        toast.info('Authentication Required', 'Please sign in to start your free trial');
+                        return;
+                      }
+
+                      // Check if user has already used a trial
+                      const { hasUsedTrial } = await import('../services/subscriptionService');
+                      const usedTrial = await hasUsedTrial();
+                      
+                      if (usedTrial) {
+                        toast.warning('Trial Already Used', 'You have already used your free trial. Please select a paid plan to continue.');
+                        return;
+                      }
+
+                      // Check if user already has an active or trialing subscription
+                      const { data: existingSub } = await supabase
+                        .from('cc_privacy_subscriptions')
+                        .select('*')
+                        .eq('user_id', user.id)
+                        .in('status', ['active', 'trialing'])
+                        .limit(1)
+                        .maybeSingle();
+
+                      if (existingSub) {
+                        toast.info('Active Subscription', 'You already have an active subscription or trial.');
+                        navigate('/account/subscription');
+                        return;
+                      }
+
+                      // Create free trial subscription directly in database
+                      const trialStart = new Date();
+                      const trialEnd = new Date();
+                      trialEnd.setDate(trialEnd.getDate() + 14); // 14-day trial
+
+                      const { error: insertError } = await supabase
+                        .from('cc_privacy_subscriptions')
+                        .insert({
+                          user_id: user.id,
+                          tier: 'free',
+                          status: 'trialing',
+                          billing_period: 'monthly', // Database only accepts 'monthly' or 'annual'
+                          current_period_start: trialStart.toISOString(),
+                          current_period_end: trialEnd.toISOString(),
+                          cancel_at_period_end: false,
+                          // No Stripe IDs needed for free trial
+                        });
+
+                      if (insertError) {
+                        console.error('Error creating free trial:', insertError);
+                        toast.error('Trial Error', 'Failed to start free trial. Please try again or contact support.');
+                        return;
+                      }
+
+                      // Update localStorage for immediate access
+                      const { secureStorage } = await import('../utils/storage');
+                      const subscriptionStatus = {
+                        tier: 'free' as const,
+                        status: 'trialing' as const,
+                        currentPeriodStart: trialStart.toISOString(),
+                        currentPeriodEnd: trialEnd.toISOString(),
+                        cancelAtPeriodEnd: false,
+                      };
+                      secureStorage.setItem('user_subscription', subscriptionStatus);
+
+                      // Success - redirect to subscription page or dashboard
+                      toast.success('Free Trial Started', 'Your 14-day free trial has begun!');
+                      navigate('/account/subscription');
+                    } catch (error) {
+                      const errorMessage = error instanceof Error ? error.message : 'Failed to start free trial. Please try again.';
+                      logError(error instanceof Error ? error : new Error('Error creating free trial'), { context: 'Pricing' });
+                      toast.error('Trial Error', `Unable to start free trial: ${errorMessage}\n\nPlease check your connection and try again, or contact support if the problem persists.`);
+                    }
                     return;
                   }
 
