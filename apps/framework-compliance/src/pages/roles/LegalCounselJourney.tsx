@@ -51,11 +51,11 @@ const LegalCounselJourney = () => {
       description: 'Develop legally compliant privacy policies and procedures',
       duration: '3-4 weeks',
       tools: [
-        { name: 'Privacy Policy Generator (Beta)', path: '/toolkit/privacy-policy-generator', icon: FileText },
-        { name: 'Legal Template Library', path: '/toolkit/resources/viewers/ccpa-policy', icon: BookOpen }
+        { name: 'Legal Template Library', path: '/toolkit/resources/viewers/ccpa-policy', icon: BookOpen },
+        { name: 'DPIA Template', path: '/toolkit/resources/viewers/dpia-template', icon: FileText }
       ],
       outcomes: [
-        'Privacy policy templates and guidance',
+        'Legal template access',
         'Legal procedures documentation',
         'Multi-jurisdiction compliance',
         'Access to contract templates'
@@ -111,7 +111,7 @@ const LegalCounselJourney = () => {
       icon: FileText,
       title: 'Policy and Contract Review',
       description: 'Review and develop privacy-compliant policies and contracts',
-      features: ['Privacy policy drafting', 'Contract privacy clauses', 'Vendor agreements', 'Data processing agreements']
+      features: ['Privacy policy templates', 'Contract privacy clauses', 'Vendor agreements', 'Data processing agreements']
     },
     {
       icon: Shield,
@@ -157,9 +157,9 @@ const LegalCounselJourney = () => {
                   <Scale className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Link to="/toolkit/privacy-policy-generator">
+              <Link to="/toolkit/resources/viewers/ccpa-policy">
                 <Button size="lg" variant="outline" className="hover:-translate-y-1 transition-transform">
-                  Policy Generator
+                  Legal Templates
                   <FileText className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -288,11 +288,6 @@ const LegalCounselJourney = () => {
                                 <div className="flex items-center p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors">
                                   <tool.icon className="w-5 h-5 text-accent mr-3" />
                                   <span className="font-medium">{tool.name}</span>
-                                  {tool.name.includes('(Beta)') && (
-                                    <span className="ml-2 px-1.5 py-0.5 text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200 rounded">
-                                      BETA
-                                    </span>
-                                  )}
                                 </div>
                               </Link>
                             ))}

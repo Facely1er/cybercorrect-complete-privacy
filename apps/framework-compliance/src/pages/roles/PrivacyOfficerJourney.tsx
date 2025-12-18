@@ -86,14 +86,13 @@ const PrivacyOfficerJourney = () => {
       duration: 'As needed',
       tools: [
         { name: 'DPIA Manager', path: '/toolkit/dpia-manager', icon: Shield },
-        { name: 'Policy Generator (Beta)', path: '/toolkit/privacy-policy-generator', icon: Settings },
         { name: 'Privacy by Design Assessment', path: '/toolkit/privacy-by-design-assessment', icon: Target },
-        { name: 'Consent Management (Beta)', path: '/toolkit/consent-management', icon: Users }
+        { name: 'Privacy Rights Manager', path: '/toolkit/privacy-rights-manager', icon: Users }
       ],
       outcomes: [
         'Guided DPIA creation',
-        'Privacy policy templates and guidance',
-        'Data mapping tools',
+        'Privacy by design evaluation',
+        'Data subject rights management',
         'Compliance documentation'
       ]
     }
@@ -287,11 +286,6 @@ const PrivacyOfficerJourney = () => {
                                 <div className="flex items-center p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors">
                                   <tool.icon className="w-5 h-5 text-primary mr-3" />
                                   <span className="font-medium">{tool.name}</span>
-                                  {tool.name.includes('(Beta)') && (
-                                    <span className="ml-2 px-1.5 py-0.5 text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200 rounded">
-                                      BETA
-                                    </span>
-                                  )}
                                 </div>
                               </Link>
                             ))}

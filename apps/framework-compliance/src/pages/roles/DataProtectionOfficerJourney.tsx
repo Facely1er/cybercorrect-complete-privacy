@@ -70,7 +70,6 @@ const DataProtectionOfficerJourney = () => {
       description: 'Deploy privacy controls and processes across the organization',
       duration: '8-12 weeks',
       tools: [
-        { name: 'Privacy Policy Generator (Beta)', path: '/toolkit/privacy-policy-generator', icon: FileText },
         { name: 'DPIA Manager', path: '/toolkit/dpia-manager', icon: Shield },
         { name: 'Data Mapping Tool', path: '/toolkit/gdpr-mapper', icon: Database },
         { name: 'Vendor Risk Assessment', path: '/toolkit/vendor-risk-assessment', icon: Building },
@@ -78,9 +77,9 @@ const DataProtectionOfficerJourney = () => {
       ],
       outcomes: [
         'Privacy governance framework',
-        'Privacy policy templates and guidance',
         'Data processing documentation',
-        'Privacy implementation resources'
+        'Privacy implementation resources',
+        'Vendor and service provider oversight'
       ]
     },
     {
@@ -291,11 +290,6 @@ const DataProtectionOfficerJourney = () => {
                                 <div className="flex items-center p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors">
                                   <tool.icon className="w-5 h-5 text-primary mr-3" />
                                   <span className="font-medium">{tool.name}</span>
-                                  {tool.name.includes('(Beta)') && (
-                                    <span className="ml-2 px-1.5 py-0.5 text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200 rounded">
-                                      BETA
-                                    </span>
-                                  )}
                                 </div>
                               </Link>
                             ))}

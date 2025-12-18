@@ -292,6 +292,28 @@
     }
   }
 
+  @keyframes animateIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes animateOut {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+
   .animate-fadeIn {
     animation: fadeIn 0.6s ease-out forwards;
   }
@@ -365,25 +387,6 @@
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--primary) / 0.8);
   }
-}
-
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: hsl(var(--muted));
-}
-
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--primary));
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary) / 0.8);
 }
 
 /* Animation classes for scroll animations */
