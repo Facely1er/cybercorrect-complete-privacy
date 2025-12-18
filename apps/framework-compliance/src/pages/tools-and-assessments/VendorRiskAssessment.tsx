@@ -10,6 +10,7 @@ import { EmptyState } from '../../components/ui/EmptyState';
 import { ImportDialog } from '../../components/ui/ImportDialog';
 import { Progress } from '../../components/ui/Progress';
 import { validators } from '../../utils/import/jsonValidator';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../../components/ui/Dialog';
 import { 
   Building,
   AlertTriangle,
@@ -23,7 +24,8 @@ import {
   Edit,
   Calendar,
   BarChart3,
-  Award
+  Award,
+  X
 } from 'lucide-react';
 
 interface VendorAssessment {
@@ -65,6 +67,12 @@ const getProgressVariantClass = (variant: 'critical' | 'high' | 'medium' | 'low'
   }
 };
 
+interface AssessmentTemplate {
+  name: string;
+  regulations: string[];
+  description: string;
+}
+
 const VendorRiskAssessment = () => {
   const { markCompleted } = useJourneyTool('vendor-risk-assessment');
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -74,6 +82,16 @@ const VendorRiskAssessment = () => {
   const [loading, setLoading] = useState(true);
   const [isExporting, setIsExporting] = useState(false);
   const [showImportDialog, setShowImportDialog] = useState(false);
+  const [showTemplateDialog, setShowTemplateDialog] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState<AssessmentTemplate | null>(null);
+  const [templateFormData, setTemplateFormData] = useState({
+    vendorName: '',
+    serviceDescription: '',
+    contractStartDate: new Date().toISOString().split('T')[0],
+    contractEndDate: '',
+    dataTypesProcessed: [] as string[],
+    dataTypeInput: ''
+  });
 
   useEffect(() => {
     loadVendorAssessments();
@@ -159,6 +177,98 @@ const VendorRiskAssessment = () => {
       'bg-destructive/10 text-destructive';
     
     return <Badge className={className}>{status.replace('_', ' ')}</Badge>;
+  };
+
+  const handleUseTemplate = (template: AssessmentTemplate) => {
+    setSelectedTemplate(template);
+    setTemplateFormData({
+      vendorName: '',
+      serviceDescription: '',
+      contractStartDate: new Date().toISOString().split('T')[0],
+      contractEndDate: '',
+      dataTypesProcessed: [],
+      dataTypeInput: ''
+    });
+    setShowTemplateDialog(true);
+  };
+
+  const handleAddDataType = () => {
+    if (templateFormData.dataTypeInput.trim()) {
+      setTemplateFormData({
+        ...templateFormData,
+        dataTypesProcessed: [...templateFormData.dataTypesProcessed, templateFormData.dataTypeInput.trim()],
+        dataTypeInput: ''
+      });
+    }
+  };
+
+  const handleRemoveDataType = (index: number) => {
+    setTemplateFormData({
+      ...templateFormData,
+      dataTypesProcessed: templateFormData.dataTypesProcessed.filter((_, i) => i !== index)
+    });
+  };
+
+  const handleCreateFromTemplate = () => {
+    if (!selectedTemplate) return;
+
+    if (!templateFormData.vendorName.trim()) {
+      toast.error('Validation Error', 'Vendor name is required');
+      return;
+    }
+
+    if (!templateFormData.serviceDescription.trim()) {
+      toast.error('Validation Error', 'Service description is required');
+      return;
+    }
+
+    // Calculate next assessment due date (1 year from now)
+    const nextAssessmentDate = new Date();
+    nextAssessmentDate.setFullYear(nextAssessmentDate.getFullYear() + 1);
+
+    // Create new vendor assessment from template
+    const newAssessment: VendorAssessment = {
+      id: `VENDOR-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      vendorName: templateFormData.vendorName.trim(),
+      serviceDescription: templateFormData.serviceDescription.trim(),
+      riskLevel: 'medium', // Default, will be assessed
+      complianceStatus: 'review_needed', // New assessments need review
+      assessmentScore: 0, // Will be calculated after assessment
+      contractStartDate: templateFormData.contractStartDate,
+      contractEndDate: templateFormData.contractEndDate || new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+      lastAssessmentDate: new Date().toISOString().split('T')[0],
+      nextAssessmentDue: nextAssessmentDate.toISOString().split('T')[0],
+      dataTypesProcessed: templateFormData.dataTypesProcessed,
+      applicableRegulations: selectedTemplate.regulations,
+      securityCertifications: [],
+      privacyPolicyReviewed: false,
+      dpaSigned: false,
+      employeeDataAccess: false
+    };
+
+    // Add to assessments
+    const updatedAssessments = [...vendorAssessments, newAssessment];
+    saveVendorAssessments(updatedAssessments);
+
+    // Close dialog and reset form
+    setShowTemplateDialog(false);
+    setSelectedTemplate(null);
+    setTemplateFormData({
+      vendorName: '',
+      serviceDescription: '',
+      contractStartDate: new Date().toISOString().split('T')[0],
+      contractEndDate: '',
+      dataTypesProcessed: [],
+      dataTypeInput: ''
+    });
+
+    toast.success(
+      'Assessment Created',
+      `Created new vendor assessment for ${newAssessment.vendorName} using ${selectedTemplate.name} template`
+    );
+
+    // Switch to vendors tab to show the new assessment
+    setActiveTab('vendors');
   };
 
   // Calculate metrics
@@ -459,7 +569,17 @@ const VendorRiskAssessment = () => {
                   </select>
                 </div>
                 <div className="flex gap-2">
-                  <Button className="flex-1">
+                  <Button 
+                    className="flex-1"
+                    onClick={() => {
+                      // Open template dialog with a default template
+                      handleUseTemplate({
+                        name: 'General Vendor Assessment',
+                        regulations: ['General'],
+                        description: 'Standard vendor assessment template'
+                      });
+                    }}
+                  >
                     <Plus className="h-4 w-4 mr-2" />
                     Add Vendor
                   </Button>
@@ -647,7 +767,12 @@ const VendorRiskAssessment = () => {
                         </span>
                       ))}
                     </div>
-                    <Button variant="outline" size="sm" className="w-full">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full"
+                      onClick={() => handleUseTemplate(template)}
+                    >
                       <Download className="h-4 w-4 mr-2" />
                       Use Template
                     </Button>
@@ -791,6 +916,164 @@ const VendorRiskAssessment = () => {
         }}
         maxRecords={500}
       />
+
+      {/* Template Dialog */}
+      <Dialog open={showTemplateDialog} onOpenChange={setShowTemplateDialog}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Create Vendor Assessment from Template</DialogTitle>
+            <DialogDescription>
+              {selectedTemplate && `Using template: ${selectedTemplate.name}`}
+            </DialogDescription>
+          </DialogHeader>
+
+          {selectedTemplate && (
+            <div className="space-y-4 mt-4">
+              {/* Template Info */}
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-sm font-medium">Template Regulations:</span>
+                  <div className="flex flex-wrap gap-1">
+                    {selectedTemplate.regulations.map(reg => (
+                      <Badge key={reg} variant="info" className="text-xs">
+                        {reg}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground">{selectedTemplate.description}</p>
+              </div>
+
+              {/* Vendor Name */}
+              <div>
+                <label htmlFor="vendor-name" className="block text-sm font-medium mb-1">
+                  Vendor Name <span className="text-destructive">*</span>
+                </label>
+                <input
+                  id="vendor-name"
+                  type="text"
+                  value={templateFormData.vendorName}
+                  onChange={(e) => setTemplateFormData({ ...templateFormData, vendorName: e.target.value })}
+                  className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                  placeholder="Enter vendor name"
+                  required
+                />
+              </div>
+
+              {/* Service Description */}
+              <div>
+                <label htmlFor="service-description" className="block text-sm font-medium mb-1">
+                  Service Description <span className="text-destructive">*</span>
+                </label>
+                <textarea
+                  id="service-description"
+                  value={templateFormData.serviceDescription}
+                  onChange={(e) => setTemplateFormData({ ...templateFormData, serviceDescription: e.target.value })}
+                  className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm min-h-[80px]"
+                  placeholder="Describe the service or product provided by this vendor"
+                  required
+                />
+              </div>
+
+              {/* Contract Dates */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="contract-start" className="block text-sm font-medium mb-1">
+                    Contract Start Date <span className="text-destructive">*</span>
+                  </label>
+                  <input
+                    id="contract-start"
+                    type="date"
+                    value={templateFormData.contractStartDate}
+                    onChange={(e) => setTemplateFormData({ ...templateFormData, contractStartDate: e.target.value })}
+                    className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="contract-end" className="block text-sm font-medium mb-1">
+                    Contract End Date
+                  </label>
+                  <input
+                    id="contract-end"
+                    type="date"
+                    value={templateFormData.contractEndDate}
+                    onChange={(e) => setTemplateFormData({ ...templateFormData, contractEndDate: e.target.value })}
+                    className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Data Types Processed */}
+              <div>
+                <label htmlFor="data-types" className="block text-sm font-medium mb-1">
+                  Data Types Processed
+                </label>
+                <div className="flex gap-2 mb-2">
+                  <input
+                    id="data-types"
+                    type="text"
+                    value={templateFormData.dataTypeInput}
+                    onChange={(e) => setTemplateFormData({ ...templateFormData, dataTypeInput: e.target.value })}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleAddDataType();
+                      }
+                    }}
+                    className="flex-1 px-3 py-2 border border-input rounded-md bg-background text-sm"
+                    placeholder="Enter data type and press Enter"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={handleAddDataType}
+                  >
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
+                {templateFormData.dataTypesProcessed.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {templateFormData.dataTypesProcessed.map((dataType, index) => (
+                      <span
+                        key={index}
+                        className="inline-flex items-center gap-1 text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"
+                      >
+                        {dataType}
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveDataType(index)}
+                          className="hover:text-destructive"
+                          aria-label={`Remove ${dataType}`}
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex justify-end gap-3 pt-4 border-t">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setShowTemplateDialog(false);
+                    setSelectedTemplate(null);
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button onClick={handleCreateFromTemplate}>
+                  Create Assessment
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
       </div>
     </div>
   );
