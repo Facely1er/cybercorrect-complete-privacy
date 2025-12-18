@@ -536,7 +536,7 @@ const Landing = () => {
                   </div>
 
                   <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-3 mb-4">
-                    <p className="text-xs font-semibold text-amber-900 dark:text-amber-200 mb-2">Beta Pricing (Locked Forever):</p>
+                    <p className="text-xs font-semibold text-amber-900 dark:text-amber-200 mb-2">Beta Pricing:</p>
                     <div className="text-xs text-amber-800 dark:text-amber-300 space-y-1">
                       <div className="flex justify-between">
                         <span>Standard:</span>
