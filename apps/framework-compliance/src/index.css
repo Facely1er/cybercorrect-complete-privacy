@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import CyberCorrect theme */
-@import './styles/cc-theme.css';
-
 /* Custom animations */
 @keyframes pulse-slow {
   0%, 100% {
@@ -154,16 +151,9 @@
     @apply leading-snug;
   }
 
-  h4 {
-    @apply text-base sm:text-lg md:text-xl lg:text-2xl;
-    @apply mb-2;
-    @apply leading-snug;
-  }
-
   p {
     @apply leading-relaxed;
-    @apply mb-3 sm:mb-4;
-    @apply text-sm sm:text-base;
+    @apply mb-4;
   }
   
   a {
