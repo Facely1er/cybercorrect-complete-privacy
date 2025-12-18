@@ -543,17 +543,7 @@ describe('PrivacyByDesignAssessment Component', () => {
       
       // Wait for assessment details to be visible - check for text that should be present
       await waitFor(() => {
-        // Check if assessments are rendered (either the assessment or empty state)
-        const hasAssessment = screen.queryByText(/Test Assessment/i) !== null
-        const hasEmptyState = screen.queryByText(/No assessments found/i) !== null
-        
-        // If we see empty state, the mock might not be working - but let's check for assessment
-        if (hasEmptyState && !hasAssessment) {
-          // Debug: check what the mock returned
-          expect(mockGetPrivacyByDesignAssessments).toHaveBeenCalled()
-        }
-        
-        // The assessment should be visible
+        // The assessment should be visible - use regex for case-insensitive matching
         expect(screen.getByText(/Test Assessment/i)).toBeInTheDocument()
         expect(screen.getByText(/Test Description/i)).toBeInTheDocument()
         expect(screen.getByText('85/100')).toBeInTheDocument()
