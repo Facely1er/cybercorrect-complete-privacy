@@ -1,0 +1,32 @@
+.progressBarContainer {
+  /* Container styles */
+}
+
+.progressBarFill {
+  width: var(--progress-width, 0%);
+  transition: width 0.5s ease-out;
+}
+
+/* Set CSS variable based on data attribute using CSS */
+.progressBarContainer[data-progress="0"] { --progress-width: 0%; }
+.progressBarContainer[data-progress="5"] { --progress-width: 5%; }
+.progressBarContainer[data-progress="10"] { --progress-width: 10%; }
+.progressBarContainer[data-progress="15"] { --progress-width: 15%; }
+.progressBarContainer[data-progress="20"] { --progress-width: 20%; }
+.progressBarContainer[data-progress="25"] { --progress-width: 25%; }
+.progressBarContainer[data-progress="30"] { --progress-width: 30%; }
+.progressBarContainer[data-progress="35"] { --progress-width: 35%; }
+.progressBarContainer[data-progress="40"] { --progress-width: 40%; }
+.progressBarContainer[data-progress="45"] { --progress-width: 45%; }
+.progressBarContainer[data-progress="50"] { --progress-width: 50%; }
+.progressBarContainer[data-progress="55"] { --progress-width: 55%; }
+.progressBarContainer[data-progress="60"] { --progress-width: 60%; }
+.progressBarContainer[data-progress="65"] { --progress-width: 65%; }
+.progressBarContainer[data-progress="70"] { --progress-width: 70%; }
+.progressBarContainer[data-progress="75"] { --progress-width: 75%; }
+.progressBarContainer[data-progress="80"] { --progress-width: 80%; }
+.progressBarContainer[data-progress="85"] { --progress-width: 85%; }
+.progressBarContainer[data-progress="90"] { --progress-width: 90%; }
+.progressBarContainer[data-progress="95"] { --progress-width: 95%; }
+.progressBarContainer[data-progress="100"] { --progress-width: 100%; }
+

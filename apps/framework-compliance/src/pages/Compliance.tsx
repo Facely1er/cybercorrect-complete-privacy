@@ -41,57 +41,57 @@ const Compliance = () => {
     {
       title: 'Privacy Leadership Journey',
       subtitle: 'Recommended for DPOs & Privacy Leaders',
-      description: 'Lead organizational privacy initiatives and ensure regulatory compliance across global operations',
+      description: 'Tools to support privacy program documentation and strategic privacy initiatives',
       icon: Eye,
       path: '/roles/data-protection-officer',
       color: 'from-blue-500 to-cyan-500',
       features: [
-        'Privacy program leadership',
-        'DPIA oversight',
-        'Data subject rights management',
-        'Regulatory liaison'
+        'Privacy program documentation tools',
+        'DPIA management tools',
+        'Data subject rights tracking',
+        'Vendor management tools'
       ]
     },
     {
       title: 'Legal Compliance Journey',
       subtitle: 'Recommended for Legal Counsel',
-      description: 'Navigate complex privacy regulations and ensure legal compliance across jurisdictions',
+      description: 'Compliance tools and templates to support privacy legal work (legal review required)',
       icon: Scale,
       path: '/roles/legal-counsel',
       color: 'from-purple-500 to-pink-500',
       features: [
-        'Regulatory interpretation',
-        'Contract review',
-        'Legal risk assessment',
-        'Compliance advisory'
+        'Compliance gap analysis tools',
+        'Privacy policy templates',
+        'Risk identification tools',
+        'Documentation templates'
       ]
     },
     {
       title: 'Data Governance Journey',
       subtitle: 'Recommended for Data Stewards',
-      description: 'Manage data quality, governance, and ensure proper handling of organizational data assets',
+      description: 'Tools to document data inventory, classification, and lifecycle management',
       icon: Database,
       path: '/roles/data-steward',
       color: 'from-green-500 to-emerald-500',
       features: [
-        'Data quality management',
-        'Data classification',
-        'Processing oversight',
-        'Record maintenance'
+        'Data inventory documentation',
+        'Data classification tools',
+        'Processing records templates',
+        'Retention policy tools'
       ]
     },
     {
       title: 'Privacy Operations Journey',
       subtitle: 'Recommended for Privacy Officers',
-      description: 'Implement and maintain privacy controls to protect personal information across the organization',
+      description: 'Tools to support day-to-day privacy operations and documentation',
       icon: UserCheck,
       path: '/roles/privacy-officer',
       color: 'from-orange-500 to-amber-500',
       features: [
-        'Privacy policy implementation',
-        'Training coordination',
-        'Incident response',
-        'Vendor assessment'
+        'Privacy documentation tools',
+        'DPIA creation tools',
+        'Incident tracking tools',
+        'Vendor assessment templates'
       ]
     }
   ];

@@ -65,10 +65,10 @@ const DataProtectionOfficerJourney = () => {
       ]
     },
     {
-      phase: 'Implementation',
-      title: 'Privacy Controls Implementation',
-      description: 'Deploy privacy controls and processes across the organization',
-      duration: '8-12 weeks',
+      phase: 'Documentation',
+      title: 'Privacy Documentation Tools',
+      description: 'Use tools to create privacy documentation and track activities',
+      duration: '8-12 weeks (documentation and tracking)',
       tools: [
         { name: 'DPIA Manager', path: '/toolkit/dpia-manager', icon: Shield },
         { name: 'Data Mapping Tool', path: '/toolkit/gdpr-mapper', icon: Database },
@@ -76,16 +76,16 @@ const DataProtectionOfficerJourney = () => {
         { name: 'Service Provider Manager', path: '/toolkit/service-provider-manager', icon: Building }
       ],
       outcomes: [
-        'Privacy governance framework',
-        'Data processing documentation',
-        'Privacy implementation resources',
-        'Vendor and service provider oversight'
+        'DPIA documentation tools',
+        'Data processing activity records',
+        'Privacy documentation templates',
+        'Vendor assessment tracking tools'
       ]
     },
     {
-      phase: 'Monitoring',
-      title: 'Continuous Privacy Monitoring',
-      description: 'Monitor privacy program effectiveness and maintain compliance',
+      phase: 'Dashboard',
+      title: 'Privacy Dashboard and Evidence Management',
+      description: 'Use dashboards to view compliance status and manage evidence',
       duration: 'Ongoing',
       tools: [
         { name: 'Evidence Vault', path: '/project/evidence', icon: Database },
@@ -94,10 +94,10 @@ const DataProtectionOfficerJourney = () => {
         { name: 'Vendor Risk Assessment', path: '/toolkit/vendor-risk-assessment', icon: Building }
       ],
       outcomes: [
-        'Continuous compliance monitoring',
-        'Organized evidence management',
-        'Regular privacy program reviews',
-        'Continuous improvement process'
+        'Compliance status dashboard',
+        'Evidence storage and organization',
+        'Documentation tracking',
+        'Progress visualization tools'
       ]
     }
   ];
@@ -105,27 +105,27 @@ const DataProtectionOfficerJourney = () => {
   const dpoCapabilities = [
     {
       icon: Eye,
-      title: 'Privacy Program Leadership',
-      description: 'Strategic oversight and accountability for organizational privacy initiatives',
-      features: ['Privacy strategy development and governance', 'Regulatory authority liaison', 'Executive reporting and board presentations', 'Stakeholder engagement and training coordination']
+      title: 'Privacy Program Documentation Tools',
+      description: 'Tools to support privacy program documentation and tracking',
+      features: ['Privacy strategy documentation templates', 'Regulatory requirement reference guides', 'Executive reporting templates', 'Stakeholder coordination tools']
     },
     {
       icon: Shield,
-      title: 'DPIA Oversight and Approval',
-      description: 'Accountable for DPIA methodology, risk assessment, and final approval',
-      features: ['DPIA methodology and standards', 'High-risk processing identification', 'Stakeholder consultation coordination', 'Final approval and sign-off']
+      title: 'DPIA Management Tools',
+      description: 'Tools to manage DPIA documentation and workflow',
+      features: ['DPIA documentation templates', 'Risk assessment data collection tools', 'Stakeholder consultation tracking', 'Approval workflow tools']
     },
     {
       icon: Users,
-      title: 'Data Subject Rights Oversight',
-      description: 'Accountable for data subject rights fulfillment and complaint resolution',
-      features: ['Rights request oversight and escalation', 'Complaint handling and resolution', 'Regulatory complaint coordination', 'Response quality assurance']
+      title: 'Data Subject Rights Management Tools',
+      description: 'Tools to track and manage data subject rights requests',
+      features: ['Request tracking and workflow tools', 'Identity verification templates', 'Response coordination tools', 'SLA tracking (not monitoring)']
     },
     {
       icon: Database,
-      title: 'Strategic Vendor and Service Provider Oversight',
-      description: 'Accountable for third-party risk management and vendor compliance',
-      features: ['Vendor risk assessment oversight', 'Service provider compliance monitoring', 'Data processing agreement validation', 'Cross-border transfer oversight']
+      title: 'Vendor Management Tools',
+      description: 'Tools to track vendor assessments and agreements',
+      features: ['Vendor risk assessment templates', 'Service provider tracking tools', 'DPA status tracking', 'Cross-border transfer documentation']
     }
   ];
 
@@ -319,10 +319,10 @@ const DataProtectionOfficerJourney = () => {
               <p className="text-xl text-muted-foreground mb-4">
                 {fromAssessment 
                   ? 'Steps prioritized based on your assessment results' 
-                  : 'Four phases to comprehensive global privacy compliance'}
+                  : 'Four phases using privacy compliance tools'}
               </p>
               <p className="text-base text-muted-foreground italic">
-                As a DPO, you lead strategic privacy initiatives and provide oversight beyond baseline tasks
+                As a DPO, you use these tools to support strategic privacy initiatives and documentation
               </p>
             </div>
 
@@ -392,14 +392,14 @@ const DataProtectionOfficerJourney = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
-                DPO Discretionary Responsibilities
+                DPO Documentation and Tracking Tools
               </h2>
               <p className="text-xl text-muted-foreground mb-4">
-                Strategic leadership and oversight responsibilities unique to the DPO role
+                Tools to support strategic privacy program documentation and tracking
               </p>
               <p className="text-base text-muted-foreground italic max-w-3xl mx-auto">
-                While all roles perform baseline assessment and monitoring tasks, DPOs provide strategic oversight, 
-                regulatory liaison, and executive accountability for the privacy program
+                While all roles use baseline assessment and dashboard tools, DPOs use these tools to support 
+                strategic privacy program documentation, tracking, and coordination
               </p>
             </div>
 

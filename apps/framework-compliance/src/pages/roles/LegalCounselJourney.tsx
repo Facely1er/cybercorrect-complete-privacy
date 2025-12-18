@@ -30,72 +30,72 @@ const LegalCounselJourney = () => {
   const fromAssessment = location.state?.fromAssessment;
   const journeySteps = [
     {
-      phase: 'Legal Review',
-      title: 'Privacy Legal Assessment',
-      description: 'Review current privacy practices against legal requirements',
-      duration: '1-2 weeks',
+      phase: 'Assessment',
+      title: 'Privacy Compliance Gap Analysis',
+      description: 'Use assessment tools to identify compliance gaps and requirements',
+      duration: '1-2 weeks (tool usage)',
       tools: [
-        { name: 'Legal Compliance Review', path: '/toolkit/privacy-gap-analyzer', icon: Scale },
-        { name: 'Regulatory Mapping', path: '/documentation/privacy-framework-guide', icon: Globe }
+        { name: 'Privacy Gap Analyzer', path: '/toolkit/privacy-gap-analyzer', icon: Scale },
+        { name: 'Privacy Framework Guide', path: '/documentation/privacy-framework-guide', icon: Globe }
       ],
       outcomes: [
-        'Legal risk assessment',
-        'Regulatory gap analysis', 
-        'Jurisdiction-specific requirements',
-        'Legal basis validation'
+        'Compliance gap identification (not legal advice)',
+        'Regulatory requirement mapping',
+        'Jurisdiction-specific requirement identification',
+        'Legal basis documentation support'
       ]
     },
     {
-      phase: 'Policy Development',
-      title: 'Privacy Legal Framework',
-      description: 'Develop legally compliant privacy policies and procedures',
-      duration: '3-4 weeks',
+      phase: 'Documentation',
+      title: 'Privacy Policy Templates',
+      description: 'Access templates and tools to support privacy policy development (legal review required)',
+      duration: '3-4 weeks (includes legal review time)',
       tools: [
-        { name: 'Legal Template Library', path: '/toolkit/resources/viewers/ccpa-policy', icon: BookOpen },
+        { name: 'Privacy Policy Templates', path: '/toolkit/resources/viewers/ccpa-policy', icon: BookOpen },
         { name: 'DPIA Template', path: '/toolkit/resources/viewers/dpia-template', icon: FileText }
       ],
       outcomes: [
-        'Legal template access',
-        'Legal procedures documentation',
-        'Multi-jurisdiction compliance',
-        'Access to contract templates'
+        'Access to privacy policy templates',
+        'Documentation templates for compliance',
+        'Multi-jurisdiction requirement references',
+        'Template-based starting points (legal review required)'
       ]
     },
     {
-      phase: 'Implementation Support',
-      title: 'Legal Implementation Guidance',
-      description: 'Provide legal guidance during privacy program implementation',
-      duration: '4-6 weeks',
+      phase: 'Tool Usage',
+      title: 'Compliance Tool Usage',
+      description: 'Use compliance tools to support privacy program implementation (not legal services)',
+      duration: '4-6 weeks (ongoing tool usage)',
       tools: [
         { name: 'DPIA Manager', path: '/toolkit/dpia-manager', icon: Shield },
-        { name: 'Evidence Review', path: '/project/evidence', icon: Database },
+        { name: 'Evidence Vault', path: '/project/evidence', icon: Database },
         { name: 'Vendor Risk Assessment', path: '/toolkit/vendor-risk-assessment', icon: Building },
         { name: 'Service Provider Manager', path: '/toolkit/service-provider-manager', icon: Building },
         { name: 'Incident Response Manager', path: '/toolkit/incident-response-manager', icon: AlertTriangle }
       ],
       outcomes: [
-        'Legal implementation guidance',
-        'Risk mitigation strategies',
-        'Vendor contract reviews',
-        'Training material validation'
+        'Tool-based compliance support',
+        'Risk identification assistance',
+        'Vendor assessment templates',
+        'Documentation organization tools'
       ]
     },
     {
-      phase: 'Compliance Monitoring',
-      title: 'Ongoing Legal Oversight',
-      description: 'Monitor legal compliance and respond to regulatory changes',
+      phase: 'Dashboard',
+      title: 'Compliance Status Dashboard',
+      description: 'View compliance status and manage documentation',
       duration: 'Ongoing',
       tools: [
         { name: 'Compliance Dashboard', path: '/project', icon: Activity },
-        { name: 'Legal Documentation', path: '/project/evidence', icon: FileText },
+        { name: 'Evidence Vault', path: '/project/evidence', icon: FileText },
         { name: 'Retention Policy Generator', path: '/toolkit/retention-policy-generator', icon: FileText },
         { name: 'Incident Response Manager', path: '/toolkit/incident-response-manager', icon: AlertTriangle }
       ],
       outcomes: [
-        'Compliance status monitoring',
-        'Legal compliance validation',
-        'Incident response support',
-        'Audit preparation assistance'
+        'Compliance status visualization',
+        'Documentation organization',
+        'Incident documentation tools',
+        'Template access for audit preparation'
       ]
     }
   ];
@@ -103,27 +103,27 @@ const LegalCounselJourney = () => {
   const legalCapabilities = [
     {
       icon: Scale,
-      title: 'Multi-Jurisdiction Legal Analysis',
-      description: 'Legal interpretation and compliance validation across multiple jurisdictions',
-      features: ['Regulatory requirement analysis', 'Jurisdiction-specific legal mapping', 'Legal basis validation', 'Cross-border transfer legal review']
+      title: 'Compliance Gap Analysis Tools',
+      description: 'Tools to identify compliance gaps and regulatory requirements (not legal advice)',
+      features: ['Regulatory requirement identification tools', 'Jurisdiction-specific requirement mapping', 'Legal basis documentation support', 'Cross-border transfer requirement references']
     },
     {
       icon: FileText,
-      title: 'Policy and Contract Legal Review',
-      description: 'Legal review and validation of privacy policies, contracts, and agreements',
-      features: ['Privacy policy legal review', 'Contract privacy clause validation', 'Vendor agreement legal review', 'Data processing agreement legal validation']
+      title: 'Privacy Policy Templates',
+      description: 'Template-based starting points for privacy policies (legal review and customization required)',
+      features: ['Privacy policy template access', 'Compliance checklist references', 'Vendor agreement template references', 'Data processing agreement template references']
     },
     {
       icon: Shield,
-      title: 'Legal Risk Assessment',
-      description: 'Legal risk analysis and regulatory compliance validation',
-      features: ['Legal risk identification and analysis', 'Regulatory compliance validation', 'Legal mitigation strategy development', 'Compliance gap legal assessment']
+      title: 'Risk Assessment Tools',
+      description: 'Tools to assist with privacy risk identification (not legal risk assessment)',
+      features: ['Compliance gap identification', 'Regulatory requirement mapping', 'Risk prioritization tools', 'Gap analysis assistance']
     },
     {
       icon: AlertTriangle,
-      title: 'Incident Legal Guidance',
-      description: 'Legal guidance and regulatory reporting for privacy incidents and breaches',
-      features: ['Breach notification legal requirements', 'Regulatory reporting legal compliance', 'Legal investigation support', 'Legal liability assessment']
+      title: 'Incident Documentation Tools',
+      description: 'Tools to support incident documentation and notification planning (legal review required)',
+      features: ['Breach notification template references', 'Regulatory notification requirement guides', 'Incident documentation tools', 'Compliance tracking assistance']
     }
   ];
 
@@ -147,19 +147,19 @@ const LegalCounselJourney = () => {
               Your Legal <span className="bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">Compliance</span> Journey
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              A structured path for navigating privacy laws with comprehensive legal tools and regulatory frameworks
+              A structured path using compliance tools and templates to support privacy legal work (legal review required)
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/toolkit/privacy-gap-analyzer">
                 <Button size="lg" variant="secondary" className="enhanced-button">
-                  Legal Compliance Review
+                  Privacy Gap Analyzer
                   <Scale className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/toolkit/resources/viewers/ccpa-policy">
                 <Button size="lg" variant="outline" className="hover:-translate-y-1 transition-transform">
-                  Legal Templates
+                  Privacy Templates
                   <FileText className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -312,15 +312,15 @@ const LegalCounselJourney = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
-                Your Legal Privacy Journey
+                Your Privacy Compliance Tools Journey
               </h2>
               <p className="text-xl text-muted-foreground mb-4">
                 {fromAssessment 
                   ? 'Steps prioritized based on your assessment results' 
-                  : 'Four phases to comprehensive privacy legal compliance'}
+                  : 'Four phases using compliance tools and templates'}
               </p>
               <p className="text-base text-muted-foreground italic">
-                As Legal Counsel, you provide legal guidance, review contracts, and ensure regulatory compliance
+                As Legal Counsel, you use these tools to support legal review, contract analysis, and compliance documentation
               </p>
             </div>
 
@@ -390,14 +390,14 @@ const LegalCounselJourney = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
-                Legal Counsel Discretionary Responsibilities
+                Legal Counsel Documentation Tools
               </h2>
               <p className="text-xl text-muted-foreground mb-4">
-                Legal compliance and contractual responsibilities unique to the Legal Counsel role
+                Tools to support legal compliance and contract documentation work
               </p>
               <p className="text-base text-muted-foreground italic max-w-3xl mx-auto">
-                While all roles perform baseline assessment and monitoring tasks, Legal Counsel provides 
-                legal interpretation, contract review, and regulatory compliance validation
+                While all roles use baseline assessment and dashboard tools, Legal Counsel uses these tools to support 
+                legal interpretation, contract review, and regulatory compliance documentation (legal review required)
               </p>
             </div>
 
@@ -434,18 +434,18 @@ const LegalCounselJourney = () => {
               Ready to Navigate Privacy Law?
             </h2>
             <p className="text-lg text-white/90 mb-6">
-              Use our legal tools to ensure comprehensive privacy compliance across jurisdictions
+              Use compliance tools and templates to support privacy compliance work across jurisdictions (legal review required)
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/toolkit/privacy-gap-analyzer" className="no-underline">
                 <Button className="bg-white text-primary hover:bg-gray-100 shadow-lg font-semibold">
-                  Legal Compliance Review
+                  Privacy Gap Analyzer
                   <Scale className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link to="/documentation/privacy-framework-guide" className="no-underline">
                 <Button variant="outline" className="bg-transparent text-white hover:bg-white/10 border-2 border-white shadow-lg font-semibold">
-                  Legal Resources
+                  Compliance Resources
                   <BookOpen className="ml-2 h-5 w-5" />
                 </Button>
               </Link>

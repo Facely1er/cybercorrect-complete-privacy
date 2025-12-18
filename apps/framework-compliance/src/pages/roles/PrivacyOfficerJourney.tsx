@@ -41,26 +41,26 @@ const PrivacyOfficerJourney = () => {
         { name: 'GDPR Mapper', path: '/toolkit/gdpr-mapper', icon: Scale }
       ],
       outcomes: [
-        'Compliance score across GDPR, CCPA, LGPD',
+        'Compliance scores across GDPR, CCPA, LGPD',
         'Gap analysis with prioritized actions',
-        'Risk assessment and impact evaluation',
-        'Regulatory requirement mapping'
+        'Risk identification (not assessment)',
+        'Regulatory requirement references'
       ]
     },
     {
       phase: 'Dashboard',
       title: 'Privacy Compliance Dashboard',
-      description: 'Monitor your privacy program with continuous insights and metrics',
+      description: 'View privacy program status and metrics',
       duration: 'Ongoing',
       tools: [
         { name: 'Privacy Dashboard', path: '/project', icon: BarChart3 },
         { name: 'Data Subject Requests', path: '/toolkit/privacy-rights-manager', icon: Users }
       ],
       outcomes: [
-        'Continuous compliance monitoring',
+        'Compliance status visualization',
         'Data subject request tracking',
-        'Breach notification readiness',
-        'Privacy risk heat maps'
+        'Breach notification templates and guides',
+        'Privacy metrics dashboard'
       ]
     },
     {
@@ -81,8 +81,8 @@ const PrivacyOfficerJourney = () => {
     },
     {
       phase: 'Toolkit',
-      title: 'Privacy Automation Tools',
-      description: 'Streamline privacy processes with guided tools',
+      title: 'Privacy Documentation Tools',
+      description: 'Guided tools to create privacy documentation',
       duration: 'As needed',
       tools: [
         { name: 'DPIA Manager', path: '/toolkit/dpia-manager', icon: Shield },
@@ -90,10 +90,10 @@ const PrivacyOfficerJourney = () => {
         { name: 'Privacy Rights Manager', path: '/toolkit/privacy-rights-manager', icon: Users }
       ],
       outcomes: [
-        'Guided DPIA creation',
-        'Privacy by design evaluation',
-        'Data subject rights management',
-        'Compliance documentation'
+        'DPIA creation tools',
+        'Privacy by design assessment tools',
+        'Data subject rights management tools',
+        'Compliance documentation templates'
       ]
     }
   ];
@@ -101,27 +101,27 @@ const PrivacyOfficerJourney = () => {
   const keyCapabilities = [
     {
       icon: Eye,
-      title: 'Data Subject Rights Operations',
-      description: 'Operational execution of data subject access, rectification, erasure, and portability requests',
-      features: ['Request workflow execution and tracking', 'Identity verification processes', 'Response coordination and delivery', '30-day SLA compliance monitoring']
+      title: 'Data Subject Rights Management Tools',
+      description: 'Tools to track and manage data subject rights requests',
+      features: ['Request workflow tracking', 'Identity verification templates', 'Response coordination tools', 'SLA tracking tools (not automated monitoring)']
     },
     {
       icon: Shield,
-      title: 'DPIA Creation and Coordination',
-      description: 'Operational creation of DPIAs using guided workflows (DPO provides oversight and approval)',
-      features: ['Guided DPIA creation and documentation', 'Risk assessment data collection', 'Stakeholder coordination', 'DPIA submission for DPO review']
+      title: 'DPIA Documentation Tools',
+      description: 'Tools to create and manage DPIA documentation',
+      features: ['Guided DPIA creation tools', 'Risk assessment data collection', 'Stakeholder coordination tracking', 'DPIA submission workflow']
     },
     {
       icon: Database,
-      title: 'Privacy by Design Implementation',
-      description: 'Operational assessment and implementation of privacy by design principles',
-      features: ['Privacy by design assessment execution', 'Control implementation tracking', 'Privacy impact evaluation', 'Design review coordination']
+      title: 'Privacy by Design Assessment Tools',
+      description: 'Tools to assess systems against privacy by design principles',
+      features: ['Privacy by design assessment tools', 'Control tracking templates', 'Privacy impact evaluation tools', 'Design review documentation']
     },
     {
       icon: AlertTriangle,
-      title: 'Incident Response Operations',
-      description: 'Operational incident tracking and breach notification execution',
-      features: ['Incident logging and tracking', 'Initial risk assessment', 'Notification template preparation', '72-hour notification execution']
+      title: 'Incident Documentation Tools',
+      description: 'Tools to document and track privacy incidents',
+      features: ['Incident logging and tracking', 'Risk assessment templates', 'Notification template references', '72-hour notification planning guides']
     }
   ];
 

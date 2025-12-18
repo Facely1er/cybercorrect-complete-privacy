@@ -66,34 +66,34 @@ const DataStewardJourney = () => {
     },
     {
       phase: 'Data Quality Management',
-      title: 'Data Quality and Governance',
-      description: 'Implement data quality controls and governance processes',
-      duration: '4-6 weeks',
+      title: 'Data Governance Documentation Tools',
+      description: 'Tools to document data quality and governance processes',
+      duration: '4-6 weeks (documentation and planning)',
       tools: [
-        { name: 'Data Quality Dashboard', path: '/project', icon: BarChart3 },
-        { name: 'Data Governance Framework', path: '/documentation/privacy-framework-guide', icon: Shield }
+        { name: 'Privacy Dashboard', path: '/project', icon: BarChart3 },
+        { name: 'Privacy Framework Guide', path: '/documentation/privacy-framework-guide', icon: Shield }
       ],
       outcomes: [
-        'Data quality monitoring',
-        'Data governance framework guidance',
-        'Data stewardship resources',
-        'Quality metrics and KPIs'
+        'Data quality documentation templates',
+        'Data governance framework references',
+        'Data stewardship templates',
+        'Quality metrics templates'
       ]
     },
     {
       phase: 'Ongoing Management',
-      title: 'Continuous Data Stewardship',
-      description: 'Ongoing data management and privacy maintenance',
+      title: 'Data Management Tools',
+      description: 'Tools to track and document data management activities',
       duration: 'Ongoing',
       tools: [
-        { name: 'Data Monitoring Dashboard', path: '/project', icon: Activity },
+        { name: 'Privacy Dashboard', path: '/project', icon: Activity },
         { name: 'Evidence Management', path: '/project/evidence', icon: Database }
       ],
       outcomes: [
-        'Continuous data monitoring',
-        'Regular data audits',
-        'Privacy control validation',
-        'Data lifecycle management'
+        'Data monitoring dashboard',
+        'Evidence management tools',
+        'Privacy control documentation',
+        'Data lifecycle documentation templates'
       ]
     }
   ];
@@ -101,27 +101,27 @@ const DataStewardJourney = () => {
   const stewardCapabilities = [
     {
       icon: Database,
-      title: 'Data Inventory and Classification',
-      description: 'Operational management of data discovery, inventory, and classification',
-      features: ['Data discovery and cataloging', 'Data classification assessment', 'Data category identification', 'Data inventory maintenance']
+      title: 'Data Inventory and Classification Tools',
+      description: 'Tools to document data discovery and classification',
+      features: ['Data discovery documentation templates', 'Data classification assessment tools', 'Data category identification guides', 'Data inventory maintenance tools']
     },
     {
       icon: Eye,
-      title: 'Processing Records Management',
-      description: 'Operational creation and maintenance of Article 30 processing records',
-      features: ['Processing activity documentation', 'Legal basis recording', 'Data flow mapping and documentation', 'Processing record updates']
+      title: 'Processing Records Management Tools',
+      description: 'Tools to create and maintain Article 30 records',
+      features: ['Processing activity documentation templates', 'Legal basis recording tools', 'Data flow mapping tools', 'Processing record update tools']
     },
     {
       icon: Lock,
-      title: 'Data Retention and Lifecycle Operations',
-      description: 'Operational management of data retention policies and lifecycle controls',
-      features: ['Retention policy creation and implementation', 'Data retention schedule management', 'Secure deletion procedures', 'Archive and disposal coordination']
+      title: 'Data Retention Documentation Tools',
+      description: 'Tools to document retention policies and procedures',
+      features: ['Retention policy creation tools', 'Data retention schedule templates', 'Secure deletion procedure templates', 'Archive and disposal documentation guides']
     },
     {
       icon: FileText,
-      title: 'Data Quality and Governance Operations',
-      description: 'Operational data quality monitoring and governance implementation',
-      features: ['Data quality monitoring and metrics', 'Data governance framework implementation', 'Quality assurance processes', 'Data audit preparation']
+      title: 'Data Quality Documentation Tools',
+      description: 'Tools to document data quality and governance',
+      features: ['Data quality documentation templates', 'Data governance framework references', 'Quality assurance templates', 'Data audit preparation guides']
     }
   ];
 
@@ -388,14 +388,14 @@ const DataStewardJourney = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
-                Data Steward Discretionary Responsibilities
+                Data Steward Documentation Tools
               </h2>
               <p className="text-xl text-muted-foreground mb-4">
-                Data management and operational responsibilities unique to the Data Steward role
+                Tools to support data management and operational documentation
               </p>
               <p className="text-base text-muted-foreground italic max-w-3xl mx-auto">
-                While all roles perform baseline assessment and monitoring tasks, Data Stewards focus on 
-                data inventory, classification, lifecycle management, and operational data controls
+                While all roles use baseline assessment and dashboard tools, Data Stewards use these tools to support 
+                data inventory, classification, lifecycle documentation, and operational data control tracking
               </p>
             </div>
 

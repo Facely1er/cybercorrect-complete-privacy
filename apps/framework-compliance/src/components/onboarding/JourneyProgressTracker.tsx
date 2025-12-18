@@ -8,6 +8,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { JOURNEY_STEPS } from '../../config/journeySteps';
+import styles from './JourneyProgressTracker.module.css';
 
 interface JourneyProgressTrackerProps {
   currentStepIndex: number;
@@ -34,11 +35,13 @@ const JourneyProgressTracker: React.FC<JourneyProgressTrackerProps> = ({
   const nextStep = steps[currentStepIndex + 1];
   const progressPercentage = Math.round(((currentStepIndex + 1) / steps.length) * 100);
   const completedCount = steps.filter(s => s.completed).length;
-  const progressBarRef = useRef<HTMLDivElement>(null);
+  const progressBarContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (progressBarRef.current) {
-      progressBarRef.current.style.setProperty('--progress-width', `${progressPercentage}%`);
+    if (progressBarContainerRef.current) {
+      // Round to nearest 5 for CSS class matching
+      const roundedProgress = Math.round(progressPercentage / 5) * 5;
+      progressBarContainerRef.current.setAttribute('data-progress', `${roundedProgress}`);
     }
   }, [progressPercentage]);
 
@@ -139,11 +142,11 @@ const JourneyProgressTracker: React.FC<JourneyProgressTrackerProps> = ({
         {/* Overall Progress Bar */}
         <div className="mb-6">
           <div 
-            ref={progressBarRef}
-            className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden"
+            ref={progressBarContainerRef}
+            className={`h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden ${styles.progressBarContainer}`}
           >
             <div
-              className="h-full w-[var(--progress-width)] bg-gradient-to-r from-primary to-secondary transition-all duration-500 ease-out"
+              className={`h-full bg-gradient-to-r from-primary to-secondary ${styles.progressBarFill}`}
             />
           </div>
           <div className="flex justify-between mt-2 text-xs text-muted-foreground">
