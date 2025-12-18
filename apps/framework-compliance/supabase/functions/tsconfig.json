@@ -5,7 +5,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "types": [],
-    "strict": false, // Disabled for Deno Edge Functions compatibility
+    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,

@@ -246,6 +246,11 @@
     @apply flex flex-col items-center justify-center p-2 text-xs;
   }
 
+  /* Progress bar with dynamic width via CSS variable */
+  .progress-bar-fill {
+    width: var(--progress-width, 0%);
+  }
+
   /* Touch-friendly buttons */
   .touch-target {
     @apply min-h-[44px] min-w-[44px];

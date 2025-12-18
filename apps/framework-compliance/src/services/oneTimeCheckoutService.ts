@@ -13,6 +13,17 @@ export interface CheckoutSession {
   url: string;
 }
 
+/**
+ * Type guard for errors with HTTP status codes
+ */
+interface ErrorWithStatus extends Error {
+  status?: number;
+}
+
+function hasStatus(error: unknown): error is ErrorWithStatus {
+  return error instanceof Error && 'status' in error;
+}
+
 export interface OneTimeCheckoutItem {
   productId: string;
   name: string;
@@ -117,12 +128,7 @@ export async function createOneTimeCheckoutSession(
         function: 'create-one-time-checkout-session',
         itemsCount: items.length,
         hasUser: !!user,
-      });
-      
-      console.log('[Checkout] Calling Edge Function:', {
-        function: 'create-one-time-checkout-session',
         items: requestBody.items,
-        hasUser: !!user,
         userId: user?.id,
         email: user?.email,
       });
@@ -131,12 +137,12 @@ export async function createOneTimeCheckoutSession(
         body: requestBody,
       });
       
-      console.log('[Checkout] Edge Function Response:', {
+      logDebug('Edge Function Response', {
         hasData: !!data,
         hasError: !!error,
         error: error ? {
           message: error.message,
-          status: (error as any).status,
+          status: hasStatus(error) ? error.status : undefined,
           details: error,
         } : null,
         data: data ? {
@@ -151,7 +157,7 @@ export async function createOneTimeCheckoutSession(
           context: 'one_time_checkout', 
           error: error,
           errorMessage: error.message,
-          errorStatus: (error as any).status,
+          errorStatus: hasStatus(error) ? error.status : undefined,
         });
         
         // Provide specific error message based on error type
@@ -160,7 +166,7 @@ export async function createOneTimeCheckoutSession(
           if (error.message.includes('not configured') || error.message.includes('Stripe secret key not configured')) {
             throw new Error('Payment service is not properly configured. The Stripe secret key may be missing. Please contact support.');
           }
-          if (error.message.includes('Function not found') || error.message.includes('404') || (error as any).status === 404) {
+          if (error.message.includes('Function not found') || error.message.includes('404') || (hasStatus(error) && error.status === 404)) {
             throw new Error('Payment service is not deployed. The checkout function may not be available. Please contact support.');
           }
           if (error.message.includes('CORS') || error.message.includes('cors')) {
@@ -177,7 +183,7 @@ export async function createOneTimeCheckoutSession(
         }
         
         // Check error status code for more specific messages
-        const errorStatus = (error as any).status;
+        const errorStatus = hasStatus(error) ? error.status : undefined;
         if (errorStatus === 500) {
           throw new Error('Payment service encountered an error. Please try again or contact support if the problem persists.');
         }

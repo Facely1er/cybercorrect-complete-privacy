@@ -88,9 +88,10 @@ async function checkTableExists(tableName: string): Promise<boolean> {
     
     // Any other error might mean table exists but has RLS issues, still return true
     return true;
-  } catch (err: any) {
+  } catch (err: unknown) {
     // If error mentions table doesn't exist, return false
-    if (err.message?.includes('does not exist')) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    if (errorMessage.includes('does not exist')) {
       return false;
     }
     // Otherwise assume table exists
@@ -102,8 +103,9 @@ async function checkTableExists(tableName: string): Promise<boolean> {
  * Check tables using SQL query (more reliable)
  */
 async function checkTablesSQL(): Promise<Record<string, boolean>> {
-  let data: any = null;
-  let error: any = null;
+  type TableRow = { table_name: string };
+  let data: TableRow[] | null = null;
+  let error: { message: string } | null = null;
 
   try {
     const result = await supabase.rpc('exec_sql', {
@@ -115,8 +117,8 @@ async function checkTablesSQL(): Promise<Record<string, boolean>> {
         ORDER BY table_name;
       `
     });
-    data = result.data;
-    error = result.error;
+    data = result.data as TableRow[] | null;
+    error = result.error ? { message: result.error.message } : null;
   } catch {
     // RPC not available or other error
     error = { message: 'RPC not available' };
@@ -132,7 +134,7 @@ async function checkTablesSQL(): Promise<Record<string, boolean>> {
   }
 
   // If RPC worked, build results from data
-  const existingTables = new Set((data || []).map((row: any) => row.table_name));
+  const existingTables = new Set((data || []).map((row: TableRow) => row.table_name));
   const results: Record<string, boolean> = {};
   for (const table of EXPECTED_TABLES) {
     results[table] = existingTables.has(table);

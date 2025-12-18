@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -17,6 +17,26 @@ import {
   Target,
   Award
 } from 'lucide-react';
+
+// Progress bar component that uses refs to set dynamic width without inline styles in JSX
+const ProgressBar = ({ score }: { score: number }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.style.setProperty('--progress-width', `${score}%`);
+    }
+  }, [score]);
+
+  return (
+    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2" ref={containerRef}>
+      <div 
+        className="bg-primary h-2 rounded-full transition-all duration-300 progress-bar-fill"
+        data-score={score}
+      />
+    </div>
+  );
+};
 
 interface PrivacyByDesignAssessment {
   id: string;
@@ -43,8 +63,7 @@ interface PrivacyByDesignAssessment {
 
 const PrivacyByDesignAssessment = () => {
   // Journey tracking - automatically marks tool as started on mount
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { markCompleted } = useJourneyTool('privacy-by-design-assessment');
+  useJourneyTool('privacy-by-design-assessment');
   
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedStatus, setSelectedStatus] = useState('all');
@@ -342,7 +361,6 @@ const PrivacyByDesignAssessment = () => {
                   const avgScore = principleScores.length > 0
                     ? Math.round(principleScores.reduce((sum, s) => sum + s, 0) / principleScores.length)
                     : 0;
-                  const progressStyle = { width: `${avgScore}%` };
                   
                   return (
                     <div key={principle.id} className="space-y-2">
@@ -357,15 +375,7 @@ const PrivacyByDesignAssessment = () => {
                           Avg Score: {avgScore}/100
                         </span>
                       </div>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                        {/* Dynamic width for progress bar */}
-                        {/* eslint-disable-next-line react/forbid-dom-props */}
-                        <div 
-                          className="bg-primary h-2 rounded-full transition-all duration-300"
-                          data-score={avgScore}
-                          style={progressStyle}
-                        />
-                      </div>
+                      <ProgressBar score={avgScore} />
                       <p className="text-xs text-muted-foreground">{principle.description}</p>
                     </div>
                   );
