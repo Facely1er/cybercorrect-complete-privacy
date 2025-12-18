@@ -18,7 +18,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { PRODUCT_BUNDLES, ProductCatalog, OneTimeProduct, ProductBundle } from '../utils/monetization';
-import { UnifiedProductCatalog } from '../utils/monetization';
+import { UnifiedProductCatalog, ProductCategory } from '../utils/monetization';
 
 const CART_STORAGE_KEY = 'onetimestore_cart';
 
@@ -53,7 +53,7 @@ const OneTimeStore = () => {
   // Filter products based on category
   const filteredUnifiedProducts = selectedCategory === 'all'
     ? allUnifiedProducts.filter(p => p.type !== 'bundle')
-    : UnifiedProductCatalog.getProductsByCategory(selectedCategory as any).filter(p => p.type !== 'bundle');
+    : UnifiedProductCatalog.getProductsByCategory(selectedCategory as ProductCategory).filter(p => p.type !== 'bundle');
 
   // Separate subscriptions and one-time products
   const subscriptionProducts = filteredUnifiedProducts.filter(p => p.type === 'subscription');
@@ -127,7 +127,7 @@ const OneTimeStore = () => {
     }, 0);
   };
 
-  const handleSubscriptionClick = (productId: string) => {
+  const handleSubscriptionClick = () => {
     // Redirect to pricing page for subscription purchases
     navigate('/pricing');
   };
@@ -310,9 +310,9 @@ const OneTimeStore = () => {
 
                       <div className="mb-4">
                         <div className="text-3xl font-bold text-primary">
-                          {product.quarterlyPrice === 0 ? 'Free' : `$${product.quarterlyPrice}`}
+                          {product.quarterlyPrice === undefined || product.quarterlyPrice === 0 ? 'Free' : `$${product.quarterlyPrice}`}
                         </div>
-                        {product.quarterlyPrice > 0 && (
+                        {product.quarterlyPrice !== undefined && product.quarterlyPrice > 0 && (
                           <div className="text-sm text-foreground/70 dark:text-foreground/60">
                             {product.billing || 'per quarter'}
                             {product.monthlyEquivalent && product.monthlyEquivalent > 0 && (
@@ -348,10 +348,10 @@ const OneTimeStore = () => {
                       )}
 
                       <Button
-                        onClick={() => handleSubscriptionClick(product.id)}
+                        onClick={handleSubscriptionClick}
                         className={`w-full ${product.popular ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : 'bg-primary hover:bg-primary/90 text-primary-foreground'}`}
                       >
-                        {product.quarterlyPrice === 0 ? 'Get Started' : 'View Plan'}
+                        {product.quarterlyPrice === undefined || product.quarterlyPrice === 0 ? 'Get Started' : 'View Plan'}
                       </Button>
                     </CardContent>
                   </Card>
