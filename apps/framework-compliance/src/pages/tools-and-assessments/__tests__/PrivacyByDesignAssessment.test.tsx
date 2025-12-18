@@ -107,7 +107,10 @@ const mockAssessments = vi.hoisted(() => {
 })
 
 const mockGetPrivacyByDesignAssessments = vi.hoisted(() => {
-  return vi.fn(() => mockAssessments)
+  return vi.fn(() => {
+    // Return a copy of the assessments array
+    return [...mockAssessments]
+  })
 })
 
 const mockSetPrivacyByDesignAssessments = vi.hoisted(() => {
