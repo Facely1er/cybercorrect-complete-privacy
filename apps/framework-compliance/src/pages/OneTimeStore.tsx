@@ -192,14 +192,14 @@ const OneTimeStore = () => {
         <section className="py-16 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-semibold mb-4">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-accent/20 text-primary dark:text-accent rounded-full text-sm font-semibold mb-4">
                 <Sparkles className="w-4 h-4" />
                 Best Value
               </div>
               <h2 className="text-3xl font-bold text-foreground mb-4">
                 Bundle & Save
               </h2>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-foreground/80 dark:text-foreground/70">
                 Get multiple tools at a discounted price
               </p>
             </div>
@@ -210,37 +210,37 @@ const OneTimeStore = () => {
                 const inCart = cart.includes(bundle.id);
 
                 return (
-                  <Card key={bundle.id} className="relative overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-2 border-accent/20">
+                  <Card key={bundle.id} className="relative overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-2 border-primary/20 dark:border-accent/30">
                     {bundle.id === 'complete-privacy-suite' && (
-                      <div className="absolute top-0 right-0 bg-accent text-white px-4 py-1 text-sm font-bold">
+                      <div className="absolute top-0 right-0 bg-primary text-primary-foreground px-4 py-1 text-sm font-bold">
                         BEST VALUE
                       </div>
                     )}
                     <CardContent className="p-8">
                       <div className="text-center mb-6">
-                        <Sparkles className="w-12 h-12 text-accent mx-auto mb-4" />
-                        <h3 className="text-2xl font-bold mb-2">{bundle.name}</h3>
-                        <p className="text-muted-foreground">{bundle.description}</p>
+                        <Sparkles className="w-12 h-12 text-primary dark:text-accent mx-auto mb-4" />
+                        <h3 className="text-2xl font-bold mb-2 text-foreground">{bundle.name}</h3>
+                        <p className="text-foreground/80 dark:text-foreground/70">{bundle.description}</p>
                       </div>
 
                       <div className="mb-6">
-                        <div className="text-4xl font-bold text-center mb-2">
+                        <div className="text-4xl font-bold text-center mb-2 text-foreground">
                           ${bundle.price}
-                          <span className="text-lg text-muted-foreground line-through ml-2">
+                          <span className="text-lg text-foreground/50 dark:text-foreground/40 line-through ml-2">
                             ${bundle.price + bundle.savings}
                           </span>
                         </div>
-                        <div className="text-center text-accent font-semibold">
+                        <div className="text-center text-primary dark:text-accent font-semibold">
                           Save ${bundle.savings} ({Math.round((bundle.savings / (bundle.price + bundle.savings)) * 100)}%)
                         </div>
                       </div>
 
                       <div className="space-y-3 mb-6">
-                        <div className="font-semibold text-sm text-muted-foreground uppercase">Includes:</div>
+                        <div className="font-semibold text-sm text-foreground/70 dark:text-foreground/60 uppercase">Includes:</div>
                         {productsInBundle.map((product) => (
                           <div key={product.id} className="flex items-start gap-2">
                             <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                            <span className="text-sm">{product.name}</span>
+                            <span className="text-sm text-foreground/90 dark:text-foreground/80">{product.name}</span>
                           </div>
                         ))}
                       </div>
@@ -248,7 +248,7 @@ const OneTimeStore = () => {
                       <div className="space-y-3">
                         <Button
                           onClick={() => inCart ? removeFromCart(bundle.id) : addToCart(bundle.id)}
-                          className={`w-full ${inCart ? 'bg-red-500 hover:bg-red-600' : 'bg-accent hover:bg-accent/90'}`}
+                          className={`w-full ${inCart ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-primary hover:bg-primary/90 text-primary-foreground'}`}
                         >
                           {inCart ? (
                             <>
@@ -264,7 +264,7 @@ const OneTimeStore = () => {
                         </Button>
                         <Button
                           variant="outline"
-                          className="w-full"
+                          className="w-full border-foreground/20 hover:border-foreground/40 text-foreground"
                           onClick={() => handleLearnMore(bundle.id)}
                         >
                           <Info className="w-5 h-5 mr-2" />
@@ -288,7 +288,7 @@ const OneTimeStore = () => {
               <h2 className="text-3xl font-bold text-foreground mb-4">
                 Subscription Plans
               </h2>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-foreground/80 dark:text-foreground/70">
                 Continuous compliance with cloud sync and team features
               </p>
             </div>
@@ -296,16 +296,16 @@ const OneTimeStore = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {subscriptionProducts.map((product) => {
                 return (
-                  <Card key={product.id} className={`hover:shadow-xl transition-shadow duration-300 ${product.popular ? 'border-2 border-accent' : ''}`}>
+                  <Card key={product.id} className={`hover:shadow-xl transition-shadow duration-300 ${product.popular ? 'border-2 border-primary dark:border-accent' : ''}`}>
                     {product.popular && (
-                      <div className="absolute top-0 right-0 bg-accent text-white px-3 py-1 text-xs font-bold rounded-bl-lg">
+                      <div className="absolute top-0 right-0 bg-primary text-primary-foreground px-3 py-1 text-xs font-bold rounded-bl-lg">
                         POPULAR
                       </div>
                     )}
                     <CardContent className="p-6">
                       <div className="mb-4">
-                        <h3 className="text-xl font-bold mb-2">{product.name}</h3>
-                        <p className="text-sm text-muted-foreground">{product.description}</p>
+                        <h3 className="text-xl font-bold mb-2 text-foreground">{product.name}</h3>
+                        <p className="text-sm text-foreground/70 dark:text-foreground/60">{product.description}</p>
                       </div>
 
                       <div className="mb-4">
@@ -313,17 +313,17 @@ const OneTimeStore = () => {
                           {product.quarterlyPrice === 0 ? 'Free' : `$${product.quarterlyPrice}`}
                         </div>
                         {product.quarterlyPrice > 0 && (
-                          <div className="text-sm text-muted-foreground">
+                          <div className="text-sm text-foreground/70 dark:text-foreground/60">
                             {product.billing || 'per quarter'}
                             {product.monthlyEquivalent && product.monthlyEquivalent > 0 && (
-                              <div className="text-accent mt-1">
+                              <div className="text-primary dark:text-accent mt-1 font-medium">
                                 ${product.monthlyEquivalent}/month equivalent
                               </div>
                             )}
                           </div>
                         )}
                         {product.quarterlyPrice === 0 && (
-                          <div className="text-sm text-muted-foreground">
+                          <div className="text-sm text-foreground/70 dark:text-foreground/60">
                             {product.billing || '14-day trial'}
                           </div>
                         )}
@@ -335,11 +335,11 @@ const OneTimeStore = () => {
                             {product.ongoingAccess.slice(0, 4).map((feature, idx) => (
                               <div key={idx} className="flex items-start gap-2">
                                 <Check className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
-                                <span className="text-xs text-muted-foreground">{feature}</span>
+                                <span className="text-xs text-foreground/80 dark:text-foreground/70">{feature}</span>
                               </div>
                             ))}
                             {product.ongoingAccess.length > 4 && (
-                              <div className="text-xs text-primary font-medium">
+                              <div className="text-xs text-primary dark:text-accent font-medium">
                                 + {product.ongoingAccess.length - 4} more features
                               </div>
                             )}
@@ -349,7 +349,7 @@ const OneTimeStore = () => {
 
                       <Button
                         onClick={() => handleSubscriptionClick(product.id)}
-                        className={`w-full ${product.popular ? 'bg-accent hover:bg-accent/90' : 'bg-primary hover:bg-primary/90'}`}
+                        className={`w-full ${product.popular ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : 'bg-primary hover:bg-primary/90 text-primary-foreground'}`}
                       >
                         {product.quarterlyPrice === 0 ? 'Get Started' : 'View Plan'}
                       </Button>
@@ -370,7 +370,7 @@ const OneTimeStore = () => {
               <h2 className="text-3xl font-bold text-foreground mb-4">
                 One-Time Purchase Products
               </h2>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-foreground/80 dark:text-foreground/70">
                 Choose the tools you need, pay once, own forever
               </p>
             </div>
@@ -389,15 +389,15 @@ const OneTimeStore = () => {
                     <div className="mb-6">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
-                          <h3 className="text-2xl font-bold mb-2">{product.name}</h3>
-                          <p className="text-muted-foreground font-medium">{product.tagline}</p>
+                          <h3 className="text-2xl font-bold mb-2 text-foreground">{product.name}</h3>
+                          <p className="text-foreground/70 dark:text-foreground/60 font-medium">{product.tagline}</p>
                         </div>
                         <div className="text-right">
                           <div className="text-3xl font-bold text-primary">${product.price}</div>
-                          <div className="text-sm text-muted-foreground">Lifetime</div>
+                          <div className="text-sm text-foreground/70 dark:text-foreground/60">Lifetime</div>
                         </div>
                       </div>
-                      <p className="text-muted-foreground">{product.description}</p>
+                      <p className="text-foreground/80 dark:text-foreground/70">{product.description}</p>
                     </div>
 
                     {/* Key Features */}
@@ -410,11 +410,11 @@ const OneTimeStore = () => {
                         {product.features.slice(0, 5).map((feature, idx) => (
                           <div key={idx} className="flex items-start gap-2">
                             <Check className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
-                            <span className="text-sm text-muted-foreground">{feature}</span>
+                            <span className="text-sm text-foreground/80 dark:text-foreground/70">{feature}</span>
                           </div>
                         ))}
                         {product.features.length > 5 && (
-                          <div className="text-sm text-primary font-medium">
+                          <div className="text-sm text-primary dark:text-accent font-medium">
                             + {product.features.length - 5} more features
                           </div>
                         )}
@@ -422,12 +422,12 @@ const OneTimeStore = () => {
                     </div>
 
                     {/* Privacy Badge */}
-                    <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                    <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/30 rounded-lg border border-green-300 dark:border-green-700">
                       <div className="flex items-center gap-2 mb-2">
-                        <Lock className="w-5 h-5 text-green-600 dark:text-green-400" />
-                        <span className="font-semibold text-green-800 dark:text-green-300">100% Privacy Guaranteed</span>
+                        <Lock className="w-5 h-5 text-green-700 dark:text-green-300" />
+                        <span className="font-semibold text-green-900 dark:text-green-200">100% Privacy Guaranteed</span>
                       </div>
-                      <p className="text-sm text-green-700 dark:text-green-400">
+                      <p className="text-sm text-green-800 dark:text-green-300">
                         All data stored locally in your browser. No cloud uploads, complete data control.
                       </p>
                     </div>
@@ -463,8 +463,8 @@ const OneTimeStore = () => {
 
                     {/* Target Audience */}
                     <div className="mt-6 pt-6 border-t border-border">
-                      <div className="text-sm text-muted-foreground">
-                        <span className="font-semibold">Perfect for:</span> {product.targetAudience.join(', ')}
+                      <div className="text-sm text-foreground/70 dark:text-foreground/60">
+                        <span className="font-semibold text-foreground/90 dark:text-foreground/80">Perfect for:</span> {product.targetAudience.join(', ')}
                       </div>
                     </div>
                   </CardContent>
@@ -492,38 +492,38 @@ const OneTimeStore = () => {
                 <CardContent className="p-8">
                   <div className="text-center mb-6">
                     <Download className="w-12 h-12 text-primary mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold mb-2">One-Time Purchase</h3>
-                    <p className="text-muted-foreground">Own the tools forever</p>
+                    <h3 className="text-2xl font-bold mb-2 text-foreground">One-Time Purchase</h3>
+                    <p className="text-foreground/70 dark:text-foreground/60">Own the tools forever</p>
                   </div>
 
                   <div className="space-y-3 mb-6">
                     <div className="flex items-start gap-2">
                       <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Pay once, own forever</span>
+                      <span className="text-sm text-foreground/90 dark:text-foreground/80">Pay once, own forever</span>
                     </div>
                     <div className="flex items-start gap-2">
                       <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">100% offline - complete privacy</span>
+                      <span className="text-sm text-foreground/90 dark:text-foreground/80">100% offline - complete privacy</span>
                     </div>
                     <div className="flex items-start gap-2">
                       <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">No recurring fees</span>
+                      <span className="text-sm text-foreground/90 dark:text-foreground/80">No recurring fees</span>
                     </div>
                     <div className="flex items-start gap-2">
                       <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">All v1.x updates included</span>
+                      <span className="text-sm text-foreground/90 dark:text-foreground/80">All v1.x updates included</span>
                     </div>
                     <div className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-muted-foreground">No cloud sync</span>
+                      <X className="w-5 h-5 text-foreground/40 dark:text-foreground/50 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground/60 dark:text-foreground/50">No cloud sync</span>
                     </div>
                     <div className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-muted-foreground">No automated reports</span>
+                      <X className="w-5 h-5 text-foreground/40 dark:text-foreground/50 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground/60 dark:text-foreground/50">No automated reports</span>
                     </div>
                     <div className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-muted-foreground">No team collaboration</span>
+                      <X className="w-5 h-5 text-foreground/40 dark:text-foreground/50 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground/60 dark:text-foreground/50">No team collaboration</span>
                     </div>
                   </div>
 
@@ -537,44 +537,44 @@ const OneTimeStore = () => {
               <Card className="border-2 border-accent">
                 <CardContent className="p-8">
                   <div className="text-center mb-6">
-                    <TrendingUp className="w-12 h-12 text-accent mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold mb-2">Subscription</h3>
-                    <p className="text-muted-foreground">Continuous compliance</p>
+                    <TrendingUp className="w-12 h-12 text-primary dark:text-accent mx-auto mb-4" />
+                    <h3 className="text-2xl font-bold mb-2 text-foreground">Subscription</h3>
+                    <p className="text-foreground/70 dark:text-foreground/60">Continuous compliance</p>
                   </div>
 
                   <div className="space-y-3 mb-6">
                     <div className="flex items-start gap-2">
-                      <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Cloud sync and backup</span>
+                      <Check className="w-5 h-5 text-primary dark:text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground/90 dark:text-foreground/80">Cloud sync and backup</span>
                     </div>
                     <div className="flex items-start gap-2">
-                      <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Automated compliance monitoring</span>
+                      <Check className="w-5 h-5 text-primary dark:text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground/90 dark:text-foreground/80">Automated compliance monitoring</span>
                     </div>
                     <div className="flex items-start gap-2">
-                      <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Real-time regulatory updates</span>
+                      <Check className="w-5 h-5 text-primary dark:text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground/90 dark:text-foreground/80">Real-time regulatory updates</span>
                     </div>
                     <div className="flex items-start gap-2">
-                      <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Team collaboration features</span>
+                      <Check className="w-5 h-5 text-primary dark:text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground/90 dark:text-foreground/80">Team collaboration features</span>
                     </div>
                     <div className="flex items-start gap-2">
-                      <Check className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">Priority support</span>
+                      <Check className="w-5 h-5 text-primary dark:text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground/90 dark:text-foreground/80">Priority support</span>
                     </div>
                     <div className="flex items-start gap-2">
-                      <X className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-muted-foreground">Recurring monthly/annual fees</span>
+                      <X className="w-5 h-5 text-foreground/40 dark:text-foreground/50 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground/60 dark:text-foreground/50">Recurring monthly/annual fees</span>
                     </div>
                   </div>
 
-                  <div className="text-center font-semibold text-accent mb-4">
+                  <div className="text-center font-semibold text-primary dark:text-accent mb-4">
                     Best for: Organizations, ongoing compliance, teams
                   </div>
 
                   <Link to="/pricing">
-                    <Button variant="outline" className="w-full border-accent text-accent hover:bg-accent hover:text-white">
+                    <Button variant="outline" className="w-full border-primary dark:border-accent text-primary dark:text-accent hover:bg-primary hover:text-primary-foreground dark:hover:bg-accent dark:hover:text-white">
                       View Subscription Plans
                     </Button>
                   </Link>
@@ -593,8 +593,8 @@ const OneTimeStore = () => {
               <div className="flex items-center gap-4">
                 <ShoppingCart className="w-6 h-6 text-primary" />
                 <div>
-                  <div className="font-bold text-lg">{cart.length} item(s) in cart</div>
-                  <div className="text-sm text-muted-foreground">Total: ${getCartTotal()}</div>
+                  <div className="font-bold text-lg text-foreground">{cart.length} item(s) in cart</div>
+                  <div className="text-sm text-foreground/70 dark:text-foreground/60">Total: ${getCartTotal()}</div>
                 </div>
               </div>
               <div className="flex gap-4">
@@ -623,8 +623,8 @@ const OneTimeStore = () => {
             <div className="space-y-6">
               <Card>
                 <CardContent className="p-6">
-                  <h3 className="font-bold text-lg mb-2">What does "lifetime access" mean?</h3>
-                  <p className="text-muted-foreground">
+                  <h3 className="font-bold text-lg mb-2 text-foreground">What does "lifetime access" mean?</h3>
+                  <p className="text-foreground/80 dark:text-foreground/70">
                     Lifetime access means you can use the product forever with no expiration. You'll receive all v1.x updates free.
                     Major version upgrades (v2.0+) may require an upgrade fee, but v1.x will continue to work indefinitely.
                   </p>
@@ -634,8 +634,8 @@ const OneTimeStore = () => {
 
               <Card>
                 <CardContent className="p-6">
-                  <h3 className="font-bold text-lg mb-2">Is my data really 100% private?</h3>
-                  <p className="text-muted-foreground">
+                  <h3 className="font-bold text-lg mb-2 text-foreground">Is my data really 100% private?</h3>
+                  <p className="text-foreground/80 dark:text-foreground/70">
                     Yes! All one-time products use localStorage in your browser. Data never leaves your device.
                     No cloud uploads, no servers - complete data sovereignty.
                   </p>
@@ -644,8 +644,8 @@ const OneTimeStore = () => {
 
               <Card>
                 <CardContent className="p-6">
-                  <h3 className="font-bold text-lg mb-2">Can I upgrade to a subscription later?</h3>
-                  <p className="text-muted-foreground">
+                  <h3 className="font-bold text-lg mb-2 text-foreground">Can I upgrade to a subscription later?</h3>
+                  <p className="text-foreground/80 dark:text-foreground/70">
                     Absolutely! One-time purchases don't count toward subscription pricing, but you can add cloud sync
                     and team features by subscribing to Professional or Enterprise plans.
                   </p>
@@ -654,8 +654,8 @@ const OneTimeStore = () => {
 
               <Card>
                 <CardContent className="p-6">
-                  <h3 className="font-bold text-lg mb-2">What technical requirements are needed?</h3>
-                  <p className="text-muted-foreground">
+                  <h3 className="font-bold text-lg mb-2 text-foreground">What technical requirements are needed?</h3>
+                  <p className="text-foreground/80 dark:text-foreground/70">
                     Just a modern web browser (Chrome, Firefox, Safari, Edge) with JavaScript enabled.
                     Minimum 50-100MB free storage depending on the product.
                   </p>
@@ -711,13 +711,13 @@ const OneTimeStore = () => {
             
             <div className="p-6">
               {'tagline' in selectedProduct && (
-                <p className="text-lg text-muted-foreground mb-4">{selectedProduct.tagline}</p>
+                <p className="text-lg text-foreground/80 dark:text-foreground/70 mb-4">{selectedProduct.tagline}</p>
               )}
               
               {'longDescription' in selectedProduct ? (
-                <p className="text-muted-foreground mb-6">{selectedProduct.longDescription}</p>
+                <p className="text-foreground/80 dark:text-foreground/70 mb-6">{selectedProduct.longDescription}</p>
               ) : (
-                <p className="text-muted-foreground mb-6">{selectedProduct.description}</p>
+                <p className="text-foreground/80 dark:text-foreground/70 mb-6">{selectedProduct.description}</p>
               )}
 
               {'features' in selectedProduct && selectedProduct.features && (
@@ -730,7 +730,7 @@ const OneTimeStore = () => {
                     {selectedProduct.features.map((feature, idx) => (
                       <div key={idx} className="flex items-start gap-2">
                         <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-sm">{feature}</span>
+                        <span className="text-sm text-foreground/90 dark:text-foreground/80">{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -744,7 +744,7 @@ const OneTimeStore = () => {
                     {selectedProduct.includedTools.map((tool, idx) => (
                       <div key={idx} className="flex items-center gap-2">
                         <ChevronRight className="w-4 h-4 text-primary" />
-                        <span className="text-sm">{tool}</span>
+                        <span className="text-sm text-foreground/90 dark:text-foreground/80">{tool}</span>
                       </div>
                     ))}
                   </div>
@@ -759,8 +759,8 @@ const OneTimeStore = () => {
                       <div key={product.id} className="flex items-center gap-2 p-3 bg-muted/50 rounded">
                         <Check className="w-5 h-5 text-primary flex-shrink-0" />
                         <div className="flex-1">
-                          <div className="font-medium">{product.name}</div>
-                          <div className="text-sm text-muted-foreground">{product.tagline}</div>
+                          <div className="font-medium text-foreground">{product.name}</div>
+                          <div className="text-sm text-foreground/70 dark:text-foreground/60">{product.tagline}</div>
                         </div>
                         <div className="text-primary font-semibold">${product.price}</div>
                       </div>
@@ -787,7 +787,7 @@ const OneTimeStore = () => {
                   <h3 className="text-xl font-semibold mb-4">Technical Requirements</h3>
                   <ul className="space-y-2">
                     {selectedProduct.technicalRequirements.map((req, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <li key={idx} className="flex items-start gap-2 text-sm text-foreground/80 dark:text-foreground/70">
                         <ChevronRight className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                         <span>{req}</span>
                       </li>
@@ -800,7 +800,7 @@ const OneTimeStore = () => {
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <div className="text-3xl font-bold text-primary">${selectedProduct.price}</div>
-                    <div className="text-sm text-muted-foreground">One-time payment, lifetime access</div>
+                    <div className="text-sm text-foreground/70 dark:text-foreground/60">One-time payment, lifetime access</div>
                   </div>
                   <div className="flex gap-3">
                     {cart.includes(selectedProduct.id) ? (
