@@ -51,14 +51,14 @@ const LegalCounselJourney = () => {
       description: 'Develop legally compliant privacy policies and procedures',
       duration: '3-4 weeks',
       tools: [
-        { name: 'Privacy Policy Generator', path: '/toolkit/privacy-policy-generator', icon: FileText },
+        { name: 'Privacy Policy Generator (Beta)', path: '/toolkit/privacy-policy-generator', icon: FileText },
         { name: 'Legal Template Library', path: '/toolkit/resources/viewers/ccpa-policy', icon: BookOpen }
       ],
       outcomes: [
-        'Comprehensive privacy policies',
+        'Privacy policy templates and guidance',
         'Legal procedures documentation',
         'Multi-jurisdiction compliance',
-        'Contract template updates'
+        'Access to contract templates'
       ]
     },
     {
@@ -92,7 +92,7 @@ const LegalCounselJourney = () => {
         { name: 'Incident Response Manager', path: '/toolkit/incident-response-manager', icon: AlertTriangle }
       ],
       outcomes: [
-        'Regulatory change monitoring',
+        'Compliance status monitoring',
         'Legal compliance validation',
         'Incident response support',
         'Audit preparation assistance'
@@ -288,6 +288,11 @@ const LegalCounselJourney = () => {
                                 <div className="flex items-center p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors">
                                   <tool.icon className="w-5 h-5 text-accent mr-3" />
                                   <span className="font-medium">{tool.name}</span>
+                                  {tool.name.includes('(Beta)') && (
+                                    <span className="ml-2 px-1.5 py-0.5 text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200 rounded">
+                                      BETA
+                                    </span>
+                                  )}
                                 </div>
                               </Link>
                             ))}

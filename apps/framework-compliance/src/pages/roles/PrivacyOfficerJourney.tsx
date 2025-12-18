@@ -50,14 +50,14 @@ const PrivacyOfficerJourney = () => {
     {
       phase: 'Dashboard',
       title: 'Privacy Compliance Dashboard',
-      description: 'Monitor your privacy program with real-time insights and metrics',
+      description: 'Monitor your privacy program with continuous insights and metrics',
       duration: 'Ongoing',
       tools: [
         { name: 'Privacy Dashboard', path: '/project', icon: BarChart3 },
         { name: 'Data Subject Requests', path: '/toolkit/privacy-rights-manager', icon: Users }
       ],
       outcomes: [
-        'Real-time compliance monitoring',
+        'Continuous compliance monitoring',
         'Data subject request tracking',
         'Breach notification readiness',
         'Privacy risk heat maps'
@@ -82,18 +82,18 @@ const PrivacyOfficerJourney = () => {
     {
       phase: 'Toolkit',
       title: 'Privacy Automation Tools',
-      description: 'Automate privacy processes with intelligent tools',
+      description: 'Streamline privacy processes with guided tools',
       duration: 'As needed',
       tools: [
         { name: 'DPIA Manager', path: '/toolkit/dpia-manager', icon: Shield },
-        { name: 'Policy Generator', path: '/toolkit/privacy-policy-generator', icon: Settings },
+        { name: 'Policy Generator (Beta)', path: '/toolkit/privacy-policy-generator', icon: Settings },
         { name: 'Privacy by Design Assessment', path: '/toolkit/privacy-by-design-assessment', icon: Target },
-        { name: 'Consent Management', path: '/toolkit/consent-management', icon: Users }
+        { name: 'Consent Management (Beta)', path: '/toolkit/consent-management', icon: Users }
       ],
       outcomes: [
-        'Automated DPIA creation',
-        'Privacy policy generation',
-        'Data mapping automation',
+        'Guided DPIA creation',
+        'Privacy policy templates and guidance',
+        'Data mapping tools',
         'Compliance documentation'
       ]
     }
@@ -104,13 +104,13 @@ const PrivacyOfficerJourney = () => {
       icon: Eye,
       title: 'Data Subject Rights Management',
       description: 'Handle access, rectification, erasure, and portability requests efficiently',
-      features: ['Request workflow automation', 'Identity verification', 'Response templates', 'Audit trails']
+      features: ['Request workflow management', 'Identity verification', 'Response templates', 'Audit trails']
     },
     {
       icon: Shield,
       title: 'Privacy Impact Assessments',
       description: 'Conduct thorough DPIAs with guided workflows and risk scoring',
-      features: ['Automated DPIA generation', 'Risk assessment scoring', 'Mitigation recommendations', 'Stakeholder collaboration']
+      features: ['Guided DPIA creation', 'Risk assessment scoring', 'Mitigation recommendations', 'Stakeholder collaboration']
     },
     {
       icon: Database,
@@ -121,8 +121,8 @@ const PrivacyOfficerJourney = () => {
     {
       icon: AlertTriangle,
       title: 'Breach Notification',
-      description: '72-hour breach notification readiness with automated workflows',
-      features: ['Incident detection alerts', 'Risk assessment automation', 'Notification templates', 'Regulatory reporting']
+      description: '72-hour breach notification readiness with guided workflows',
+      features: ['Incident tracking', 'Risk assessment tools', 'Notification templates', 'Regulatory reporting']
     }
   ];
 
@@ -287,6 +287,11 @@ const PrivacyOfficerJourney = () => {
                                 <div className="flex items-center p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors">
                                   <tool.icon className="w-5 h-5 text-primary mr-3" />
                                   <span className="font-medium">{tool.name}</span>
+                                  {tool.name.includes('(Beta)') && (
+                                    <span className="ml-2 px-1.5 py-0.5 text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200 rounded">
+                                      BETA
+                                    </span>
+                                  )}
                                 </div>
                               </Link>
                             ))}

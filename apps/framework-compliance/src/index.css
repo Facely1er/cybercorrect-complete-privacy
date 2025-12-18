@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import CyberCorrect theme */
+@import './styles/cc-theme.css';
+
 /* Custom animations */
 @keyframes pulse-slow {
   0%, 100% {
@@ -185,7 +188,6 @@
     @apply container mx-auto px-4 py-4 sm:px-6 sm:py-6 md:px-6 md:py-8;
     max-width: 100%;
     width: 100%;
-    /* Safe area insets for notched devices */
     padding-left: max(1rem, env(safe-area-inset-left));
     padding-right: max(1rem, env(safe-area-inset-right));
   }
@@ -204,16 +206,12 @@
     line-height: 1.6;
   }
 
-  .page-section {
-    @apply mb-6 sm:mb-8 md:mb-10;
-  }
-
   .section-title {
     @apply text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 text-foreground;
     line-height: 1.3;
   }
 
-  /* Mobile-optimized grids with better breakpoints */
+  /* Mobile-optimized grids */
   .responsive-grid {
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6;
   }
@@ -226,126 +224,13 @@
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6;
   }
 
-  .responsive-grid-4 {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6;
-  }
-
-  /* Responsive flex layouts */
-  .responsive-flex {
-    @apply flex flex-col sm:flex-row;
-  }
-
-  .responsive-flex-col {
-    @apply flex flex-col;
-  }
-
-  .responsive-flex-row {
-    @apply flex flex-col sm:flex-row;
-  }
-
-  /* Responsive spacing utilities */
-  .responsive-gap {
-    @apply gap-2 sm:gap-4 md:gap-6;
-  }
-
-  .responsive-padding {
-    @apply p-4 sm:p-6 md:p-8;
-  }
-
-  /* Responsive text alignment */
-  .responsive-text-center {
-    @apply text-center sm:text-left;
-  }
-
-  .responsive-text-left {
-    @apply text-left sm:text-center md:text-left;
-  }
-
   /* Mobile-optimized cards */
+  .modern-card {
+    @apply bg-card border border-border/50 rounded-xl shadow-sm hover:shadow-lg dark:hover:shadow-none transition-all duration-300;
+  }
+
   .mobile-card {
     @apply p-4 sm:p-6;
-    @apply w-full max-w-full;
-  }
-
-  .mobile-card-content {
-    @apply space-y-3 sm:space-y-4;
-    @apply overflow-x-hidden;
-  }
-
-  /* Responsive card grid with better mobile support */
-  .card-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6;
-    @apply w-full max-w-full;
-  }
-
-  /* Responsive image containers */
-  .responsive-image {
-    @apply w-full h-auto max-w-full;
-    @apply object-contain;
-  }
-
-  /* Responsive button groups */
-  .button-group {
-    @apply flex flex-col sm:flex-row gap-2 sm:gap-4;
-    @apply w-full sm:w-auto;
-  }
-
-  .button-group-mobile {
-    @apply flex flex-col w-full gap-2;
-  }
-
-  .button-group-mobile button,
-  .button-group-mobile a {
-    @apply w-full;
-  }
-
-  /* Mobile-friendly tables with enhanced responsive behavior */
-  .mobile-table {
-    @apply block sm:table w-full overflow-x-auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .mobile-table-row {
-    @apply block sm:table-row border-b sm:border-0 mb-4 sm:mb-0;
-    @apply sm:border-b border-border;
-  }
-
-  .mobile-table-cell {
-    @apply block sm:table-cell px-0 sm:px-4 py-2 sm:py-4;
-    @apply text-sm sm:text-base;
-  }
-
-  .mobile-table-cell::before {
-    @apply content-[attr(data-label)] font-semibold sm:hidden mr-2;
-    @apply text-muted-foreground;
-  }
-
-  /* Responsive table wrapper */
-  .table-wrapper {
-    @apply w-full overflow-x-auto -mx-4 sm:mx-0;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .table-wrapper table {
-    @apply min-w-full;
-  }
-
-  /* Mobile navigation with safe area support */
-  .mobile-nav {
-    @apply fixed bottom-0 left-0 right-0 bg-card border-t border-border z-50 sm:hidden;
-    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
-    padding-left: max(0.5rem, env(safe-area-inset-left));
-    padding-right: max(0.5rem, env(safe-area-inset-right));
-  }
-
-  .mobile-nav-item {
-    @apply flex flex-col items-center justify-center p-2 text-xs touch-target;
-    @apply min-h-[48px] min-w-[48px];
-  }
-
-  /* Progress bar with dynamic width via CSS variable */
-  .progress-bar-fill {
-    width: var(--progress-width, 0%);
   }
 
   /* Touch-friendly buttons - Minimum 44x44px for accessibility */
@@ -353,54 +238,8 @@
     @apply min-h-[44px] min-w-[44px];
   }
 
-  /* Enhanced touch targets for mobile */
   .touch-target-lg {
     @apply min-h-[48px] min-w-[48px];
-  }
-
-  /* Mobile-optimized forms with better input sizing */
-  .mobile-form {
-    @apply space-y-4 sm:space-y-6;
-    @apply w-full max-w-full;
-  }
-
-  .mobile-form-field {
-    @apply w-full max-w-full;
-  }
-
-  .mobile-form-label {
-    @apply block text-sm font-medium mb-2;
-  }
-
-  /* Responsive input fields */
-  .responsive-input {
-    @apply w-full text-base; /* Prevents zoom on iOS */
-    @apply px-3 py-2 sm:px-4 sm:py-2.5;
-    @apply min-h-[44px]; /* Touch target */
-  }
-
-  /* Responsive textarea */
-  .responsive-textarea {
-    @apply w-full text-base;
-    @apply px-3 py-2 sm:px-4 sm:py-2.5;
-    @apply min-h-[100px] sm:min-h-[120px];
-    resize: vertical;
-  }
-
-  /* Responsive select */
-  .responsive-select {
-    @apply w-full text-base;
-    @apply px-3 py-2 sm:px-4 sm:py-2.5;
-    @apply min-h-[44px];
-  }
-
-  /* Responsive text */
-  .responsive-text {
-    @apply text-sm sm:text-base;
-  }
-
-  .responsive-text-lg {
-    @apply text-base sm:text-lg md:text-xl;
   }
 
   /* Mobile-safe spacing with safe area insets */
@@ -414,7 +253,6 @@
     @apply mb-4 sm:mb-6 md:mb-8;
   }
 
-  /* Mobile-safe bottom padding for fixed elements */
   .mobile-safe-bottom {
     padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
@@ -429,65 +267,6 @@
     @apply overflow-x-auto overflow-y-auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
-  }
-
-  /* Hide scrollbar on mobile but keep functionality */
-  .mobile-scroll::-webkit-scrollbar {
-    @apply w-1 h-1;
-  }
-
-  .mobile-scroll::-webkit-scrollbar-thumb {
-    @apply bg-border rounded-full;
-  }
-
-  /* Card Components */
-  .modern-card {
-    @apply bg-card border border-border/50 rounded-xl shadow-sm hover:shadow-lg dark:hover:shadow-none transition-all duration-300;
-  }
-
-  .modern-card:hover {
-    @apply border-primary/20 dark:border-primary/30;
-  }
-
-  .card-hover {
-    @apply transition-all duration-300 hover:shadow-md dark:hover:shadow-none dark:hover:border-primary/50;
-  }
-
-  .interactive-card {
-    @apply modern-card p-6 cursor-pointer transition-all duration-200;
-  }
-
-  .interactive-card:hover {
-    @apply transform scale-[1.02] shadow-xl;
-  }
-
-  .interactive-card:active {
-    @apply transform scale-[0.98];
-  }
-
-  .assessment-card {
-    @apply border dark:border-muted bg-card shadow-sm dark:shadow-none hover:shadow-lg hover:-translate-y-1 dark:hover:shadow-none transition-all duration-300 rounded-xl;
-  }
-
-  /* Status Indicators */
-  .status-indicator {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
-  }
-
-  .status-indicator.success {
-    @apply bg-success/10 text-success;
-  }
-
-  .status-indicator.warning {
-    @apply bg-warning/10 text-warning;
-  }
-
-  .status-indicator.error {
-    @apply bg-destructive/10 text-destructive;
-  }
-
-  .status-indicator.info {
-    @apply bg-primary/10 text-primary;
   }
 
   /* Text carousel animations */
@@ -513,34 +292,16 @@
     }
   }
 
-  @keyframes animateIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes animateOut {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-  }
-
   .animate-fadeIn {
     animation: fadeIn 0.6s ease-out forwards;
   }
 
   .animate-fadeOut {
     animation: fadeOut 0.6s ease-out forwards;
+  }
+
+  .dropdown-content {
+    @apply overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md;
   }
 
   .animate-in {
@@ -571,81 +332,38 @@
   .nav-link.active {
     @apply text-primary;
   }
-
-  .nav-item-hover {
-    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .nav-item-hover:hover {
-    transform: translateY(-1px);
+  
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-md dark:hover:shadow-none dark:hover:border-primary/50;
   }
   
   /* Button transitions */
   .btn-transition {
     @apply transition-all duration-200;
   }
-
-  /* Focus states */
-  .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900;
+  
+  /* Assessment section styling */
+  .assessment-card {
+    @apply border dark:border-muted bg-card shadow-sm dark:shadow-none hover:shadow-lg hover:-translate-y-1 dark:hover:shadow-none transition-all duration-300 rounded-xl;
   }
 
-  /* Dropdown */
-  .dropdown-content {
-    @apply overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md;
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
   }
 
-  .dropdown-enter {
-    animation: dropdownEnter 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
   }
 
-  @keyframes dropdownEnter {
-    from {
-      opacity: 0;
-      transform: translateY(-4px) scale(0.98);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 4px;
   }
 
-  /* Progress bar with dynamic width */
-  .progress-bar-fill {
-    width: var(--progress-width, 0%);
-  }
-
-  /* Theme transitions */
-  .theme-transition {
-    transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1), 
-                border-color 300ms cubic-bezier(0.4, 0, 0.2, 1),
-                color 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Skeleton loaders */
-  .skeleton {
-    @apply animate-pulse bg-muted rounded;
-  }
-
-  .skeleton-text {
-    @apply h-4 bg-muted rounded;
-  }
-
-  .skeleton-avatar {
-    @apply w-10 h-10 bg-muted rounded-full;
-  }
-
-  /* Scrollbar */
-  .custom-scrollbar::-webkit-scrollbar {
-    @apply w-2;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-muted rounded-full;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-border rounded-full hover:bg-muted-foreground/50;
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.8);
   }
 }
 

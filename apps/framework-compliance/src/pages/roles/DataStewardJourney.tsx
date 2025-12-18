@@ -36,7 +36,8 @@ const DataStewardJourney = () => {
       description: 'Discover and catalog personal data across the organization',
       duration: '2-3 weeks',
       tools: [
-        { name: 'Data Discovery Tool', path: '/toolkit/gdpr-mapper', icon: Database },
+        { name: 'Data Classification Assessment', path: '/toolkit/data-classification', icon: Database },
+        { name: 'GDPR Data Mapper', path: '/toolkit/gdpr-mapper', icon: Database },
         { name: 'Data Inventory', path: '/project/evidence', icon: FileText }
       ],
       outcomes: [
@@ -55,7 +56,7 @@ const DataStewardJourney = () => {
         { name: 'Processing Records Template', path: '/toolkit/resources/viewers/data-processing-record', icon: FileText },
         { name: 'GDPR Mapper', path: '/toolkit/gdpr-mapper', icon: Database },
         { name: 'Retention Policy Generator', path: '/toolkit/retention-policy-generator', icon: FileText },
-        { name: 'Consent Management', path: '/toolkit/consent-management', icon: Users }
+        { name: 'Consent Management (Beta)', path: '/toolkit/consent-management', icon: Users }
       ],
       outcomes: [
         'Article 30 compliant records',
@@ -75,8 +76,8 @@ const DataStewardJourney = () => {
       ],
       outcomes: [
         'Data quality monitoring',
-        'Data governance policies',
-        'Data steward training program',
+        'Data governance framework guidance',
+        'Data stewardship resources',
         'Quality metrics and KPIs'
       ]
     },
@@ -286,6 +287,11 @@ const DataStewardJourney = () => {
                                 <div className="flex items-center p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors">
                                   <tool.icon className="w-5 h-5 text-success mr-3" />
                                   <span className="font-medium">{tool.name}</span>
+                                  {tool.name.includes('(Beta)') && (
+                                    <span className="ml-2 px-1.5 py-0.5 text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200 rounded">
+                                      BETA
+                                    </span>
+                                  )}
                                 </div>
                               </Link>
                             ))}
