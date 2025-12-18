@@ -86,27 +86,33 @@ vi.mock('lucide-react', async (importOriginal) => {
 // The JourneyProvider will work with mocked localStorage from test setup
 
 // Mock storageAdapter - use hoisted to ensure mocks are available
+interface AssessmentData {
+  id: string;
+  name: string;
+  description: string;
+  systemType: string;
+  status: string;
+  assessmentDate: string;
+  assessor: string;
+  overallScore: number;
+  principles: Record<string, { score: number; notes: string }>;
+  recommendations: string[];
+  nextReviewDate: string;
+  complianceStatus: string;
+}
+
 const mockAssessments = vi.hoisted(() => {
-  interface AssessmentData {
-    id: string;
-    name: string;
-    description: string;
-    systemType: string;
-    status: string;
-    assessmentDate: string;
-    assessor: string;
-    overallScore: number;
-    principles: Record<string, { score: number; notes: string }>;
-    recommendations: string[];
-    nextReviewDate: string;
-    complianceStatus: string;
-  }
   const assessments: AssessmentData[] = []
-  return { assessments }
+  return assessments
 })
 
-const mockGetPrivacyByDesignAssessments = vi.hoisted(() => vi.fn(() => mockAssessments.assessments))
-const mockSetPrivacyByDesignAssessments = vi.hoisted(() => vi.fn(() => true))
+const mockGetPrivacyByDesignAssessments = vi.hoisted(() => {
+  return vi.fn(() => mockAssessments)
+})
+
+const mockSetPrivacyByDesignAssessments = vi.hoisted(() => {
+  return vi.fn(() => true)
+})
 
 vi.mock('../../utils/storage', () => {
   return {
@@ -183,8 +189,10 @@ describe('PrivacyByDesignAssessment Component', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    mockAssessments.assessments.length = 0
-    mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments.assessments)
+    // Reset the assessments array
+    mockAssessments.length = 0
+    // Set up the mock to return the assessments array
+    mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments)
   })
 
   afterEach(() => {
@@ -306,7 +314,7 @@ describe('PrivacyByDesignAssessment Component', () => {
     })
 
     it('should display zero metrics when no assessments exist', async () => {
-      mockAssessments.assessments.length = 0
+      mockAssessments.length = 0
       mockGetPrivacyByDesignAssessments.mockReturnValue([])
 
       renderComponent()
@@ -353,8 +361,8 @@ describe('PrivacyByDesignAssessment Component', () => {
 
   describe('Assessments Tab', () => {
     beforeEach(() => {
-      mockAssessments.assessments.length = 0
-      mockAssessments.assessments.push(
+      mockAssessments.length = 0
+      mockAssessments.push(
         {
           id: '1',
           name: 'Test Assessment',
@@ -378,7 +386,7 @@ describe('PrivacyByDesignAssessment Component', () => {
           complianceStatus: 'compliant',
         }
       )
-      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments.assessments)
+      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments)
     })
 
     it('should render filters and new assessment button', async () => {
@@ -403,7 +411,7 @@ describe('PrivacyByDesignAssessment Component', () => {
 
     it('should filter assessments by status', async () => {
       // Add second assessment to the existing one from beforeEach
-      const testAssessments = [...mockAssessments.assessments, {
+      const testAssessments = [...mockAssessments, {
         id: '2',
         name: 'In Progress Assessment',
         description: 'Test Description 2',
@@ -464,7 +472,7 @@ describe('PrivacyByDesignAssessment Component', () => {
     })
 
     it('should filter assessments by compliance status', async () => {
-      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments.assessments)
+      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments)
       
       renderComponent()
       
@@ -497,7 +505,7 @@ describe('PrivacyByDesignAssessment Component', () => {
     })
 
     it('should display empty state when no assessments match filters', async () => {
-      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments.assessments)
+      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments)
       
       renderComponent()
       
@@ -529,7 +537,7 @@ describe('PrivacyByDesignAssessment Component', () => {
 
     it('should display assessment details correctly', async () => {
       // Ensure mock is set before render
-      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments.assessments)
+      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments)
       
       renderComponent()
       
@@ -667,7 +675,7 @@ describe('PrivacyByDesignAssessment Component', () => {
 
   describe('Export Functionality', () => {
     beforeEach(() => {
-      mockAssessments.assessments.push({
+      mockAssessments.push({
         id: '1',
         name: 'Test Assessment',
         description: 'Test Description',
@@ -693,7 +701,7 @@ describe('PrivacyByDesignAssessment Component', () => {
 
     it('should export JSON format successfully', async () => {
       mockCanExport.mockReturnValue({ allowed: true, reason: null })
-      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments.assessments)
+      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments)
       
       renderComponent()
       
@@ -730,7 +738,7 @@ describe('PrivacyByDesignAssessment Component', () => {
     it('should export CSV format successfully', async () => {
       mockCanExport.mockReturnValue({ allowed: true, reason: null })
       mockUseExportCredits.mockReturnValue(true)
-      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments.assessments)
+      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments)
       
       renderComponent()
       
@@ -748,7 +756,7 @@ describe('PrivacyByDesignAssessment Component', () => {
     it('should export PDF format successfully', async () => {
       mockCanExport.mockReturnValue({ allowed: true, reason: null })
       mockUseExportCredits.mockReturnValue(true)
-      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments.assessments)
+      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments)
       
       renderComponent()
       
@@ -765,7 +773,7 @@ describe('PrivacyByDesignAssessment Component', () => {
 
     it('should show error when export is not allowed', async () => {
       mockCanExport.mockReturnValue({ allowed: false, reason: 'Insufficient permissions' })
-      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments.assessments)
+      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments)
       
       renderComponent()
       
@@ -800,7 +808,7 @@ describe('PrivacyByDesignAssessment Component', () => {
     it('should show error when export credits are insufficient', async () => {
       mockCanExport.mockReturnValue({ allowed: true, reason: null })
       mockUseExportCredits.mockReturnValue(false)
-      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments.assessments)
+      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments)
       
       renderComponent()
       
@@ -817,8 +825,8 @@ describe('PrivacyByDesignAssessment Component', () => {
 
   describe('Badge Rendering', () => {
     beforeEach(() => {
-      mockAssessments.assessments.length = 0
-      mockAssessments.assessments.push({
+      mockAssessments.length = 0
+      mockAssessments.push({
         id: '1',
         name: 'Test Assessment',
         description: 'Test Description',
@@ -840,7 +848,7 @@ describe('PrivacyByDesignAssessment Component', () => {
         nextReviewDate: '2025-01-01',
         complianceStatus: 'compliant',
       })
-      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments.assessments)
+      mockGetPrivacyByDesignAssessments.mockReturnValue(mockAssessments)
     })
 
     it('should render status badges correctly', async () => {
