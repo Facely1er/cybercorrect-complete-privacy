@@ -11,7 +11,8 @@
 -- Create one-time purchases table
 CREATE TABLE IF NOT EXISTS cc_one_time_purchases (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE, -- Nullable for guest purchases
+  customer_email TEXT, -- For guest purchases and email delivery
   product_id TEXT NOT NULL,
   license_key TEXT NOT NULL UNIQUE,
   stripe_session_id TEXT,
@@ -25,16 +26,21 @@ CREATE TABLE IF NOT EXISTS cc_one_time_purchases (
   expires_at TIMESTAMPTZ, -- For annual licenses (if applicable)
   metadata JSONB DEFAULT '{}'::jsonb, -- Store additional product/purchase info
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  -- Ensure either user_id or customer_email is provided
+  CONSTRAINT check_user_or_email CHECK (user_id IS NOT NULL OR customer_email IS NOT NULL)
 );
 
 -- Create indexes for performance
 CREATE INDEX IF NOT EXISTS idx_one_time_purchases_user_id ON cc_one_time_purchases(user_id);
+CREATE INDEX IF NOT EXISTS idx_one_time_purchases_customer_email ON cc_one_time_purchases(customer_email);
 CREATE INDEX IF NOT EXISTS idx_one_time_purchases_product_id ON cc_one_time_purchases(product_id);
 CREATE INDEX IF NOT EXISTS idx_one_time_purchases_license_key ON cc_one_time_purchases(license_key);
 CREATE INDEX IF NOT EXISTS idx_one_time_purchases_stripe_session ON cc_one_time_purchases(stripe_session_id);
 CREATE INDEX IF NOT EXISTS idx_one_time_purchases_status ON cc_one_time_purchases(status);
 CREATE INDEX IF NOT EXISTS idx_one_time_purchases_purchased_at ON cc_one_time_purchases(purchased_at DESC);
+-- Composite index for user/product lookups
+CREATE INDEX IF NOT EXISTS idx_one_time_purchases_user_product ON cc_one_time_purchases(user_id, product_id) WHERE user_id IS NOT NULL;
 
 -- Enable RLS
 ALTER TABLE cc_one_time_purchases ENABLE ROW LEVEL SECURITY;
@@ -74,8 +80,10 @@ CREATE TRIGGER update_one_time_purchases_updated_at
   FOR EACH ROW
   EXECUTE FUNCTION update_one_time_purchases_updated_at();
 
--- Add comment
-COMMENT ON TABLE cc_one_time_purchases IS 'Stores one-time product purchases with license keys generated via Stripe webhook';
+-- Add comments
+COMMENT ON TABLE cc_one_time_purchases IS 'Stores one-time product purchases with license keys generated via Stripe webhook. Supports both authenticated users and guest purchases.';
+COMMENT ON COLUMN cc_one_time_purchases.user_id IS 'User ID for authenticated purchases. Nullable for guest purchases.';
+COMMENT ON COLUMN cc_one_time_purchases.customer_email IS 'Customer email for guest purchases and license key delivery. Required if user_id is null.';
 COMMENT ON COLUMN cc_one_time_purchases.license_key IS 'Unique license key for product activation';
 COMMENT ON COLUMN cc_one_time_purchases.amount IS 'Purchase amount in cents';
 COMMENT ON COLUMN cc_one_time_purchases.metadata IS 'Additional purchase/product information in JSON format';

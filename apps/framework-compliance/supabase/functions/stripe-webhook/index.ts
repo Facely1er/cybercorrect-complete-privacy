@@ -1,7 +1,11 @@
 // Supabase Edge Function for Stripe Webhooks
 // Handles Stripe webhook events for subscription management
 
+/// <reference path="../deno.d.ts" />
+
+// @ts-expect-error - Deno HTTP imports are valid in Supabase Edge Functions runtime
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+// @ts-expect-error - ESM imports are valid in Supabase Edge Functions runtime
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const corsHeaders = {
@@ -91,7 +95,7 @@ async function verifyStripeSignatureAsync(
   }
 }
 
-serve(async (req) => {
+serve(async (req: Request) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
@@ -316,26 +320,38 @@ async function handleOneTimePurchase(supabase: any, session: any) {
       productName,
     });
 
-    // Store purchase record in database (optional)
-    if (userId) {
+    // Store purchase record in database (for both authenticated and guest purchases)
+    // Store if we have either userId (authenticated) or customerEmail (guest)
+    if (userId || customerEmail) {
+      const purchaseData: any = {
+        product_id: productId,
+        license_key: licenseKey,
+        stripe_session_id: sessionId,
+        stripe_customer_id: session.customer,
+        amount: session.amount_total ? Math.round(session.amount_total) : 0, // Store in cents
+        currency: session.currency || 'usd',
+        status: 'active',
+        purchased_at: new Date().toISOString(),
+      };
+
+      // Add user_id if authenticated, customer_email if guest
+      if (userId) {
+        purchaseData.user_id = userId;
+      }
+      if (customerEmail) {
+        purchaseData.customer_email = customerEmail;
+      }
+
       const { error } = await supabase
         .from('cc_one_time_purchases')
-        .insert({
-          user_id: userId,
-          product_id: productId,
-          license_key: licenseKey,
-          stripe_session_id: sessionId,
-          stripe_customer_id: session.customer,
-          amount: session.amount_total ? Math.round(session.amount_total) : 0, // Store in cents
-          currency: session.currency || 'usd',
-          status: 'active',
-          purchased_at: new Date().toISOString(),
-        });
+        .insert(purchaseData);
 
       if (error) {
         console.error(`Error storing purchase for ${productId}:`, error);
         // Continue processing other products even if one fails
       }
+    } else {
+      console.warn(`Skipping purchase record for ${productId}: No user_id or customer_email available`);
     }
   }
 
