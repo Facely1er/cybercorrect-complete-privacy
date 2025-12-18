@@ -10,7 +10,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['dist', '**/supabase/functions/**', 'supabase/**', 'supabase/functions/tsconfig.json'] },
+  // Allow console.log in scripts directory (CLI tools need console output)
+  // This must come before the main config to properly override
+  {
+    files: ['scripts/**/*.ts'],
+    rules: {
+      'no-console': 'off',
+    },
+  },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],

@@ -34,6 +34,7 @@ export interface OneTimeCheckoutItem {
  * @param state - Optional state/province code for tax calculation
  * @returns Tax amount (currently always 0.00)
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function calculateTax(_subtotal: number, _country?: string, _state?: string): number {
   // Tax calculation is handled by Stripe if configured
   // For custom tax calculation, implement logic here or integrate a tax service
@@ -86,6 +87,12 @@ export async function createOneTimeCheckoutSession(
 
     // Check if Supabase is configured
     if (!isSupabaseConfigured()) {
+      const errorMsg = 'Supabase is not configured. Payment processing requires Supabase to be set up.';
+      logWarning(errorMsg, {
+        hasSupabaseUrl: !!import.meta.env.VITE_SUPABASE_URL,
+        hasSupabaseKey: !!import.meta.env.VITE_SUPABASE_ANON_KEY,
+      });
+      
       if (import.meta.env.DEV) {
         logWarning('Supabase not configured, using mock session');
         return {
@@ -93,7 +100,7 @@ export async function createOneTimeCheckoutSession(
           url: successUrl || `/store/success?session_id=mock_${Date.now()}`,
         };
       }
-      throw new Error('Payment service is not configured. Please contact support to enable payment processing.');
+      throw new Error('Payment service is not configured. Please configure Supabase (VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY) to enable payment processing.');
     }
 
     // Use Edge Function to create checkout session
@@ -147,20 +154,37 @@ export async function createOneTimeCheckoutSession(
           errorStatus: (error as any).status,
         });
         
-        // Provide specific error message
+        // Provide specific error message based on error type
         if (error.message) {
           // Check for common error messages
-          if (error.message.includes('not configured') || error.message.includes('not found')) {
-            throw new Error('Payment service is not properly configured. Please contact support.');
+          if (error.message.includes('not configured') || error.message.includes('Stripe secret key not configured')) {
+            throw new Error('Payment service is not properly configured. The Stripe secret key may be missing. Please contact support.');
           }
-          if (error.message.includes('Function not found') || error.message.includes('404')) {
-            throw new Error('Payment service is not deployed. Please contact support.');
+          if (error.message.includes('Function not found') || error.message.includes('404') || (error as any).status === 404) {
+            throw new Error('Payment service is not deployed. The checkout function may not be available. Please contact support.');
           }
           if (error.message.includes('CORS') || error.message.includes('cors')) {
-            throw new Error('Payment service configuration error. Please contact support.');
+            throw new Error('Payment service configuration error. CORS settings may be incorrect. Please contact support.');
           }
+          if (error.message.includes('No items provided')) {
+            throw new Error('Cart is empty. Please add items to your cart before checkout.');
+          }
+          if (error.message.includes('Invalid API Key') || error.message.includes('authentication')) {
+            throw new Error('Payment service authentication error. The Stripe API key may be invalid. Please contact support.');
+          }
+          // Return the error message from the Edge Function if available
           throw new Error(error.message);
         }
+        
+        // Check error status code for more specific messages
+        const errorStatus = (error as any).status;
+        if (errorStatus === 500) {
+          throw new Error('Payment service encountered an error. Please try again or contact support if the problem persists.');
+        }
+        if (errorStatus === 503 || errorStatus === 502) {
+          throw new Error('Payment service is temporarily unavailable. Please try again in a few moments.');
+        }
+        
         throw new Error('Failed to create checkout session. The payment service may be unavailable. Please try again or contact support.');
       } else if (data) {
         logDebug('Edge Function response received', { hasData: !!data, hasUrl: !!data?.url });

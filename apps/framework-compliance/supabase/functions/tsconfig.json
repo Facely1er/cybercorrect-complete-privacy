@@ -3,16 +3,18 @@
     "target": "ES2020",
     "lib": ["ES2020", "DOM"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "types": [],
-    "strict": false,
+    "strict": false, // Disabled for Deno Edge Functions compatibility
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "allowJs": true
+    "allowJs": true,
+    "allowImportingTsExtensions": false,
+    "noResolve": false
   },
   "include": ["**/*.ts", "deno.d.ts"],
   "exclude": ["node_modules"]

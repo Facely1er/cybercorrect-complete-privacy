@@ -43,7 +43,8 @@
     "config:complete": "tsx scripts/complete-all-configuration.ts",
     "deploy:functions": "tsx scripts/deploy-all-functions.ts",
     "deploy:functions:auth": "tsx scripts/deploy-functions-with-auth.ts",
-    "secrets:set": "tsx scripts/set-all-secrets.ts"
+    "secrets:set": "tsx scripts/set-all-secrets.ts",
+    "checkout:diagnose": "tsx scripts/diagnose-checkout-issue.ts"
   },
   "dependencies": {
     "@sentry/react": "^10.20.0",

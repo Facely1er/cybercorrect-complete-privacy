@@ -1,7 +1,11 @@
 // Supabase Edge Function for creating one-time product checkout sessions
 // Generates Stripe checkout sessions for one-time product purchases
 
+/// <reference path="../deno.d.ts" />
+
+// @ts-expect-error - Deno HTTP imports are valid in Supabase Edge Functions runtime
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+// @ts-expect-error - ESM imports are valid in Supabase Edge Functions runtime
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const corsHeaders = {
@@ -30,8 +34,12 @@ serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     if (!stripeSecretKey) {
+      console.error('STRIPE_SECRET_KEY is not set in Edge Function secrets');
       return new Response(
-        JSON.stringify({ error: 'Stripe secret key not configured' }),
+        JSON.stringify({ 
+          error: 'Stripe secret key not configured',
+          message: 'The STRIPE_SECRET_KEY secret is missing from the Edge Function configuration. Please add it in Supabase Dashboard → Edge Functions → create-one-time-checkout-session → Secrets.'
+        }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -40,8 +48,12 @@ serve(async (req) => {
     const { items, userId, email, successUrl, cancelUrl } = await req.json();
 
     if (!items || items.length === 0) {
+      console.error('No items provided in checkout request');
       return new Response(
-        JSON.stringify({ error: 'No items provided' }),
+        JSON.stringify({ 
+          error: 'No items provided',
+          message: 'At least one item is required to create a checkout session.'
+        }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -92,15 +104,40 @@ serve(async (req) => {
     if (!stripeResponse.ok) {
       const errorText = await stripeResponse.text();
       let errorMessage = 'Failed to create checkout session';
+      let errorDetails: any = {};
+      
       try {
         const errorJson = JSON.parse(errorText);
         errorMessage = errorJson.error?.message || errorMessage;
-        console.error('Stripe API error:', errorJson);
+        errorDetails = {
+          type: errorJson.error?.type,
+          code: errorJson.error?.code,
+          param: errorJson.error?.param,
+        };
+        console.error('Stripe API error:', {
+          message: errorMessage,
+          type: errorDetails.type,
+          code: errorDetails.code,
+          status: stripeResponse.status,
+        });
       } catch {
         console.error('Stripe API error (raw):', errorText);
       }
+      
+      // Provide more helpful error messages based on Stripe error types
+      if (errorDetails.type === 'invalid_request_error' && errorMessage.includes('Invalid API Key')) {
+        errorMessage = 'Invalid Stripe API key. Please check the STRIPE_SECRET_KEY secret in the Edge Function configuration.';
+      } else if (errorDetails.type === 'api_connection_error') {
+        errorMessage = 'Unable to connect to Stripe. Please check your internet connection and try again.';
+      } else if (errorDetails.type === 'api_error') {
+        errorMessage = 'Stripe API error. Please try again in a few moments.';
+      }
+      
       return new Response(
-        JSON.stringify({ error: errorMessage }),
+        JSON.stringify({ 
+          error: errorMessage,
+          details: errorDetails,
+        }),
         { status: stripeResponse.status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
