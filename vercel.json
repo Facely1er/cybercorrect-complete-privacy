@@ -4,8 +4,8 @@
   "installCommand": "npm install",
   "rewrites": [
     {
-      "source": "/assets/(.*)",
-      "destination": "/assets/$1"
+      "source": "/(.*\\.(js|mjs|css|json|xml|txt|pdf|ico|png|jpg|jpeg|gif|svg|webp|woff|woff2|ttf|eot|wasm|map))$",
+      "destination": "/$1"
     },
     {
       "source": "/(.*)",
