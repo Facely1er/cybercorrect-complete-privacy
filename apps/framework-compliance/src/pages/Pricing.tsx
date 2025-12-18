@@ -6,6 +6,7 @@ import { Button } from '../components/ui/Button';
 import { CheckCircle, ArrowRight, XCircle, Check, ChevronDown, ChevronUp, ShoppingBag, Zap } from 'lucide-react';
 import { ONE_TIME_PRODUCTS, PRODUCT_BUNDLES, getAllSubscriptions } from '../utils/monetization';
 import { logWarning, logError } from '../utils/common';
+import { toast } from '../components/ui/Toaster';
 
 const Pricing = () => {
   const navigate = useNavigate();
@@ -231,6 +232,18 @@ const Pricing = () => {
                   }
 
                   try {
+                    // Check if user is authenticated before creating checkout
+                    const { supabase } = await import('../lib/supabase');
+                    const { data: { user }, error: authError } = await supabase.auth.getUser();
+                    
+                    if (authError || !user) {
+                      // User not authenticated - redirect to login with return path
+                      const returnPath = encodeURIComponent(window.location.pathname + window.location.search);
+                      navigate(`/login?returnTo=${returnPath}`);
+                      toast.info('Authentication Required', 'Please sign in to subscribe to a plan');
+                      return;
+                    }
+
                     const { createCheckoutSession } = await import('../services/subscriptionService');
                     const tier = plan.tier as 'starter' | 'professional' | 'enterprise';
 
@@ -242,17 +255,24 @@ const Pricing = () => {
                     const session = await createCheckoutSession(tier, 'quarterly');
 
                     if (session?.url) {
-                      window.location.href = session.url;
+                      // Check if it's a relative URL (dev mode) or absolute URL (Stripe)
+                      if (session.url.startsWith('http://') || session.url.startsWith('https://')) {
+                        // Absolute URL - redirect to Stripe
+                        window.location.href = session.url;
+                      } else {
+                        // Relative URL - use navigate for dev mode
+                        navigate(session.url);
+                      }
                     } else {
                       // Service not configured or failed
                       logWarning('Checkout session not available');
-                      alert('Payment processing is currently unavailable. Please contact support or try again later.');
+                      toast.error('Payment Unavailable', 'Payment processing is currently unavailable. Please contact support or try again later.');
                     }
                   } catch (error) {
                     // Show user-friendly error message
                     const errorMessage = error instanceof Error ? error.message : 'Failed to start checkout. Please try again.';
                     logError(error instanceof Error ? error : new Error('Error creating checkout session'), { context: 'Pricing' });
-                    alert(`Unable to process payment: ${errorMessage}\n\nPlease check your connection and try again, or contact support if the problem persists.`);
+                    toast.error('Payment Error', `Unable to process payment: ${errorMessage}\n\nPlease check your connection and try again, or contact support if the problem persists.`);
                   }
                 }}
               >
