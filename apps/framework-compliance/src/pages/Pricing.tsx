@@ -149,20 +149,19 @@ const Pricing = () => {
                     14-DAY FREE TRIAL
                   </span>
                 )}
-                <div className="flex items-end gap-2">
-                  {plan.price === "Contact us" ? (
-                    <span className="text-4xl font-bold text-foreground">{plan.price}</span>
-                  ) : (
-                    <>
-                      <span className="text-sm mt-2 text-foreground">$</span>
+                {plan.price !== "0" && (
+                  <div className="flex items-end gap-2">
+                    {plan.price === "Contact us" ? (
                       <span className="text-4xl font-bold text-foreground">{plan.price}</span>
-                    </>
-                  )}
-                </div>
-                <p className="text-sm text-muted-foreground">{plan.billing}</p>
-                {plan.monthlyEquivalent && plan.monthlyEquivalent > 0 && (
-                  <p className="text-xs text-muted-foreground mt-1">${plan.monthlyEquivalent}/month equivalent</p>
+                    ) : (
+                      <>
+                        <span className="text-sm mt-2 text-foreground">$</span>
+                        <span className="text-4xl font-bold text-foreground">{plan.price}</span>
+                      </>
+                    )}
+                  </div>
                 )}
+                <p className="text-sm text-muted-foreground">{plan.billing}</p>
               </div>
 
               {plan.quarterlyDeliverables && plan.quarterlyDeliverables.length > 0 && (
