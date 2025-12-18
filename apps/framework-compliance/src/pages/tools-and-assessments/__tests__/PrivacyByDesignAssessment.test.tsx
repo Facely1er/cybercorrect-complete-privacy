@@ -117,9 +117,14 @@ const mockSetPrivacyByDesignAssessments = vi.hoisted(() => {
   return vi.fn(() => true)
 })
 
-vi.mock('../../utils/storage', () => {
+// Mock the storage module - the index file re-exports from storageAdapter
+vi.mock('../../utils/storage', async () => {
+  const actual = await vi.importActual('../../utils/storage')
+  const actualModule = actual as { storageAdapter?: Record<string, unknown> }
   return {
+    ...actual,
     storageAdapter: {
+      ...(actualModule.storageAdapter || {}),
       getPrivacyByDesignAssessments: mockGetPrivacyByDesignAssessments,
       setPrivacyByDesignAssessments: mockSetPrivacyByDesignAssessments,
     },
