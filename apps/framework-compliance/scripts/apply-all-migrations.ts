@@ -11,7 +11,7 @@
  *   tsx scripts/apply-all-migrations.ts
  */
 
-import { readFileSync, readdirSync } from 'fs';
+import { readFileSync, readdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 const MIGRATIONS_DIR = join(__dirname, '../supabase/migrations');
@@ -100,7 +100,7 @@ function main() {
   const outputPath = join(MIGRATIONS_DIR, 'ALL_MIGRATIONS_COMBINED.sql');
   
   // Write combined file
-  require('fs').writeFileSync(outputPath, combined, 'utf-8');
+  writeFileSync(outputPath, combined, 'utf-8');
   
   console.log('✅ Combined migration file generated:');
   console.log(`   ${outputPath}\n`);

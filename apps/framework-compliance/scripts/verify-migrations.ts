@@ -117,7 +117,7 @@ async function checkTablesSQL(): Promise<Record<string, boolean>> {
     });
     data = result.data;
     error = result.error;
-  } catch (err) {
+  } catch {
     // RPC not available or other error
     error = { message: 'RPC not available' };
   }
@@ -149,8 +149,8 @@ async function verifyMigrations() {
 
   const results = await checkTablesSQL();
   
-  const existing = Object.entries(results).filter(([_, exists]) => exists);
-  const missing = Object.entries(results).filter(([_, exists]) => !exists);
+  const existing = Object.entries(results).filter(([, exists]) => exists);
+  const missing = Object.entries(results).filter(([, exists]) => !exists);
 
   console.log(`✅ Found ${existing.length}/${EXPECTED_TABLES.length} tables:\n`);
   
