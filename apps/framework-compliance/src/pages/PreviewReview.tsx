@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { Eye, CheckCircle, FileText, Download, ArrowLeft } from 'lucide-react';
+import { Eye, CheckCircle, FileText, Download, ArrowLeft, Lock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductPreviewModal from '../components/product/ProductPreviewModal';
 import { ProductCatalog, OneTimeProduct } from '../utils/monetization/oneTimeProducts';
@@ -9,12 +10,57 @@ import { ProductCatalog, OneTimeProduct } from '../utils/monetization/oneTimePro
 /**
  * Preview Review Page
  * 
+ * INTERNAL USE ONLY - Content review page for internal team members.
  * This page allows content reviewers to easily access and review all product previews
  * in one place. Useful for content review, visual readiness checks, and QA testing.
  * 
- * Access: /preview-review (add to routes)
+ * Access: /preview-review (internal only)
  */
 const PreviewReview = () => {
+  const [isInternal, setIsInternal] = useState<boolean | null>(null);
+
+  // Check if user has internal access
+  useEffect(() => {
+    // Check environment variable for internal access
+    const internalAccess = import.meta.env.VITE_ENABLE_INTERNAL_REVIEW === 'true' || 
+                          import.meta.env.MODE === 'development' ||
+                          window.location.hostname === 'localhost' ||
+                          window.location.hostname === '127.0.0.1';
+    
+    setIsInternal(internalAccess);
+  }, []);
+
+  // Show loading state while checking
+  if (isInternal === null) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-muted-foreground">Checking access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Deny access if not internal
+  if (!isInternal) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Card className="max-w-md">
+          <CardContent className="p-8 text-center">
+            <Lock className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-foreground mb-2">Access Restricted</h2>
+            <p className="text-muted-foreground mb-4">
+              This page is for internal use only. Preview content is available to customers
+              through the product store pages.
+            </p>
+            <Link to="/store">
+              <Button>Go to Store</Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
   const [selectedProduct, setSelectedProduct] = useState<OneTimeProduct | null>(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [reviewedProducts, setReviewedProducts] = useState<Set<string>>(new Set());
