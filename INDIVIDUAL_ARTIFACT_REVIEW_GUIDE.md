@@ -176,7 +176,7 @@ Click the "Export" button to download artifact metadata as JSON:
     "type": "template",
     "format": "PDF"
   },
-  "exportedAt": "2025-02-05T..."
+  "exportedAt": "2025-12-20T..."
 }
 ```
 
