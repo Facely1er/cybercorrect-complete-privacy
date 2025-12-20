@@ -139,10 +139,10 @@ const OneTimeStore = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Complete Privacy Compliance Solutions
+              CyberCorrect™ Privacy Compliance Solutions
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-white/90">
-              Choose from one-time purchases or subscriptions. Find the perfect solution for your privacy compliance needs.
+              Professional privacy compliance tools from CyberCorrect™. Choose from one-time purchases or subscriptions to find the perfect solution for your privacy compliance needs.
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-lg">
               <div className="flex items-center">
@@ -477,7 +477,7 @@ const OneTimeStore = () => {
       )}
 
       {/* Comparison with Subscriptions */}
-      <section className="py-16 bg-muted/20 bg-muted/5">
+      <section className="py-16 bg-muted/20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -669,8 +669,8 @@ const OneTimeStore = () => {
       {/* Final CTA */}
       <section className="py-16 bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-dark-primary dark:to-dark-primary text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Own Your Privacy Tools?</h2>
-          <p className="text-xl mb-8">Join thousands of privacy professionals using our offline tools</p>
+          <h2 className="text-3xl font-bold mb-4">Ready to Own Your CyberCorrect™ Privacy Tools?</h2>
+          <p className="text-xl mb-8">Join thousands of privacy professionals using CyberCorrect™ offline tools</p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Button className="bg-white text-gray-900 hover:bg-white/95 border-2 border-transparent shadow-lg font-semibold">
               <Download className="w-5 h-5 mr-2" />
@@ -704,6 +704,7 @@ const OneTimeStore = () => {
                 size="icon"
                 onClick={() => setIsModalOpen(false)}
                 className="rounded-full"
+                aria-label="Close product details"
               >
                 <X className="h-5 w-5" />
               </Button>

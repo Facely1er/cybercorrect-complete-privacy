@@ -1,5 +1,15 @@
-// Supabase Edge Function for creating one-time product checkout sessions
-// Generates Stripe checkout sessions for one-time product purchases
+/**
+ * Supabase Edge Function: Create One-Time Checkout Session
+ * 
+ * Generates Stripe checkout sessions for one-time product purchases.
+ * Supports both authenticated users and guest checkout.
+ * 
+ * Handles:
+ * - Creating Stripe checkout sessions with line items
+ * - Setting up metadata for webhook processing
+ * - Configuring success/cancel URLs
+ * - Error handling and validation
+ */
 
 /// <reference path="../deno.d.ts" />
 
@@ -20,6 +30,18 @@ interface CheckoutItem {
   quantity: number;
 }
 
+interface StripeErrorDetails {
+  type?: string;
+  code?: string;
+  param?: string;
+}
+
+/**
+ * Main Edge Function handler for creating one-time checkout sessions
+ * 
+ * @param req - HTTP request containing checkout items and user information
+ * @returns Response with checkout session ID and URL, or error details
+ */
 serve(async (req: Request) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
@@ -38,7 +60,10 @@ serve(async (req: Request) => {
       return new Response(
         JSON.stringify({ 
           error: 'Stripe secret key not configured',
-          message: 'The STRIPE_SECRET_KEY secret is missing from the Edge Function configuration. Please add it in Supabase Dashboard → Edge Functions → create-one-time-checkout-session → Secrets.'
+          message:
+            'The STRIPE_SECRET_KEY secret is missing from the Edge Function configuration. ' +
+            'Please add it in Supabase Dashboard → Edge Functions → ' +
+            'create-one-time-checkout-session → Secrets.'
         }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
@@ -61,8 +86,14 @@ serve(async (req: Request) => {
     // Build line items for Stripe API (form-encoded format)
     const formData = new URLSearchParams();
     formData.append('mode', 'payment');
-    const siteUrl = Deno.env.get('SITE_URL') || Deno.env.get('VITE_APP_URL') || 'https://app.cybercorrect.com';
-    formData.append('success_url', successUrl || `${siteUrl}/store/success?session_id={CHECKOUT_SESSION_ID}`);
+    const siteUrl =
+      Deno.env.get('SITE_URL') ||
+      Deno.env.get('VITE_APP_URL') ||
+      'https://app.cybercorrect.com';
+    formData.append(
+      'success_url',
+      successUrl || `${siteUrl}/store/success?session_id={CHECKOUT_SESSION_ID}`
+    );
     formData.append('cancel_url', cancelUrl || `${siteUrl}/store`);
     
     if (email) {
@@ -70,6 +101,11 @@ serve(async (req: Request) => {
     }
     
     formData.append('allow_promotion_codes', 'true');
+    
+    // Enable automatic tax calculation if Stripe Tax is configured
+    // Stripe will automatically calculate tax based on customer location
+    // To enable: Stripe Dashboard → Settings → Tax → Enable "Automatic tax calculation"
+    formData.append('automatic_tax[enabled]', 'true');
 
     // Add line items in Stripe's expected format
     items.forEach((item: CheckoutItem, index: number) => {
@@ -104,7 +140,7 @@ serve(async (req: Request) => {
     if (!stripeResponse.ok) {
       const errorText = await stripeResponse.text();
       let errorMessage = 'Failed to create checkout session';
-      let errorDetails: any = {};
+      let errorDetails: StripeErrorDetails = {};
       
       try {
         const errorJson = JSON.parse(errorText);
@@ -125,10 +161,17 @@ serve(async (req: Request) => {
       }
       
       // Provide more helpful error messages based on Stripe error types
-      if (errorDetails.type === 'invalid_request_error' && errorMessage.includes('Invalid API Key')) {
-        errorMessage = 'Invalid Stripe API key. Please check the STRIPE_SECRET_KEY secret in the Edge Function configuration.';
+      if (
+        errorDetails.type === 'invalid_request_error' &&
+        errorMessage.includes('Invalid API Key')
+      ) {
+        errorMessage =
+          'Invalid Stripe API key. ' +
+          'Please check the STRIPE_SECRET_KEY secret in the Edge Function configuration.';
       } else if (errorDetails.type === 'api_connection_error') {
-        errorMessage = 'Unable to connect to Stripe. Please check your internet connection and try again.';
+        errorMessage =
+          'Unable to connect to Stripe. ' +
+          'Please check your internet connection and try again.';
       } else if (errorDetails.type === 'api_error') {
         errorMessage = 'Stripe API error. Please try again in a few moments.';
       }

@@ -1,0 +1,166 @@
+/* Progress bar styles */
+.progressBarContainer {
+  position: relative;
+}
+
+.progressBar {
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--secondary)));
+  height: 100%;
+  transition: width 0.5s ease-out;
+}
+
+.progressBarContainer[data-progress="0"] .progressBar { width: 0%; }
+.progressBarContainer[data-progress="5"] .progressBar { width: 5%; }
+.progressBarContainer[data-progress="10"] .progressBar { width: 10%; }
+.progressBarContainer[data-progress="15"] .progressBar { width: 15%; }
+.progressBarContainer[data-progress="20"] .progressBar { width: 20%; }
+.progressBarContainer[data-progress="25"] .progressBar { width: 25%; }
+.progressBarContainer[data-progress="30"] .progressBar { width: 30%; }
+.progressBarContainer[data-progress="35"] .progressBar { width: 35%; }
+.progressBarContainer[data-progress="40"] .progressBar { width: 40%; }
+.progressBarContainer[data-progress="45"] .progressBar { width: 45%; }
+.progressBarContainer[data-progress="50"] .progressBar { width: 50%; }
+.progressBarContainer[data-progress="55"] .progressBar { width: 55%; }
+.progressBarContainer[data-progress="60"] .progressBar { width: 60%; }
+.progressBarContainer[data-progress="65"] .progressBar { width: 65%; }
+.progressBarContainer[data-progress="70"] .progressBar { width: 70%; }
+.progressBarContainer[data-progress="75"] .progressBar { width: 75%; }
+.progressBarContainer[data-progress="80"] .progressBar { width: 80%; }
+.progressBarContainer[data-progress="85"] .progressBar { width: 85%; }
+.progressBarContainer[data-progress="90"] .progressBar { width: 90%; }
+.progressBarContainer[data-progress="95"] .progressBar { width: 95%; }
+.progressBarContainer[data-progress="100"] .progressBar { width: 100%; }
+
+.sectionProgress {
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--secondary)));
+  height: 100%;
+  transition: width 1s ease-out;
+}
+
+.sectionProgressContainer[data-progress="0"] .sectionProgress { width: 0%; }
+.sectionProgressContainer[data-progress="5"] .sectionProgress { width: 5%; }
+.sectionProgressContainer[data-progress="10"] .sectionProgress { width: 10%; }
+.sectionProgressContainer[data-progress="15"] .sectionProgress { width: 15%; }
+.sectionProgressContainer[data-progress="20"] .sectionProgress { width: 20%; }
+.sectionProgressContainer[data-progress="25"] .sectionProgress { width: 25%; }
+.sectionProgressContainer[data-progress="30"] .sectionProgress { width: 30%; }
+.sectionProgressContainer[data-progress="35"] .sectionProgress { width: 35%; }
+.sectionProgressContainer[data-progress="40"] .sectionProgress { width: 40%; }
+.sectionProgressContainer[data-progress="45"] .sectionProgress { width: 45%; }
+.sectionProgressContainer[data-progress="50"] .sectionProgress { width: 50%; }
+.sectionProgressContainer[data-progress="55"] .sectionProgress { width: 55%; }
+.sectionProgressContainer[data-progress="60"] .sectionProgress { width: 60%; }
+.sectionProgressContainer[data-progress="65"] .sectionProgress { width: 65%; }
+.sectionProgressContainer[data-progress="70"] .sectionProgress { width: 70%; }
+.sectionProgressContainer[data-progress="75"] .sectionProgress { width: 75%; }
+.sectionProgressContainer[data-progress="80"] .sectionProgress { width: 80%; }
+.sectionProgressContainer[data-progress="85"] .sectionProgress { width: 85%; }
+.sectionProgressContainer[data-progress="90"] .sectionProgress { width: 90%; }
+.sectionProgressContainer[data-progress="95"] .sectionProgress { width: 95%; }
+.sectionProgressContainer[data-progress="100"] .sectionProgress { width: 100%; }
+
+/* Gap border colors */
+.gapBorderCritical {
+  border-left-color: #dc2626;
+}
+
+.gapBorderHigh {
+  border-left-color: #ea580c;
+}
+
+/* Phase border colors */
+.phaseBorderCompleted {
+  border-left-color: #22c55e;
+}
+
+.phaseBorderInProgress {
+  border-left-color: #3b82f6;
+}
+
+.phaseBorderPending {
+  border-left-color: #9ca3af;
+}
+
+/* Phase progress bars */
+.phaseProgressCompleted {
+  background-color: #22c55e;
+  height: 100%;
+  transition: width 1s ease-out;
+}
+
+.phaseProgressInProgress {
+  background-color: #3b82f6;
+  height: 100%;
+  transition: width 1s ease-out;
+}
+
+.phaseProgressPending {
+  background-color: #9ca3af;
+  height: 100%;
+  transition: width 1s ease-out;
+}
+
+.phaseProgressContainer[data-progress="0"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="0"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="0"] .phaseProgressPending { width: 0%; }
+.phaseProgressContainer[data-progress="5"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="5"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="5"] .phaseProgressPending { width: 5%; }
+.phaseProgressContainer[data-progress="10"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="10"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="10"] .phaseProgressPending { width: 10%; }
+.phaseProgressContainer[data-progress="15"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="15"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="15"] .phaseProgressPending { width: 15%; }
+.phaseProgressContainer[data-progress="20"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="20"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="20"] .phaseProgressPending { width: 20%; }
+.phaseProgressContainer[data-progress="25"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="25"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="25"] .phaseProgressPending { width: 25%; }
+.phaseProgressContainer[data-progress="30"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="30"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="30"] .phaseProgressPending { width: 30%; }
+.phaseProgressContainer[data-progress="35"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="35"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="35"] .phaseProgressPending { width: 35%; }
+.phaseProgressContainer[data-progress="40"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="40"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="40"] .phaseProgressPending { width: 40%; }
+.phaseProgressContainer[data-progress="45"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="45"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="45"] .phaseProgressPending { width: 45%; }
+.phaseProgressContainer[data-progress="50"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="50"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="50"] .phaseProgressPending { width: 50%; }
+.phaseProgressContainer[data-progress="55"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="55"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="55"] .phaseProgressPending { width: 55%; }
+.phaseProgressContainer[data-progress="60"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="60"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="60"] .phaseProgressPending { width: 60%; }
+.phaseProgressContainer[data-progress="65"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="65"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="65"] .phaseProgressPending { width: 65%; }
+.phaseProgressContainer[data-progress="70"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="70"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="70"] .phaseProgressPending { width: 70%; }
+.phaseProgressContainer[data-progress="75"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="75"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="75"] .phaseProgressPending { width: 75%; }
+.phaseProgressContainer[data-progress="80"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="80"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="80"] .phaseProgressPending { width: 80%; }
+.phaseProgressContainer[data-progress="85"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="85"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="85"] .phaseProgressPending { width: 85%; }
+.phaseProgressContainer[data-progress="90"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="90"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="90"] .phaseProgressPending { width: 90%; }
+.phaseProgressContainer[data-progress="95"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="95"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="95"] .phaseProgressPending { width: 95%; }
+.phaseProgressContainer[data-progress="100"] .phaseProgressCompleted,
+.phaseProgressContainer[data-progress="100"] .phaseProgressInProgress,
+.phaseProgressContainer[data-progress="100"] .phaseProgressPending { width: 100%; }
+

@@ -34,26 +34,43 @@ export interface OneTimeCheckoutItem {
 /**
  * Calculate tax for a given subtotal
  * 
- * Note: Tax calculation is currently handled by Stripe when configured.
- * This function returns 0.00 as a placeholder. For production, either:
- * 1. Configure Stripe Tax (recommended) - Stripe will calculate tax server-side
- * 2. Integrate a tax calculation service (e.g., TaxJar, Avalara)
- * 3. Implement location-based tax calculation logic here
+ * Note: Tax calculation is handled by Stripe Tax when enabled in Stripe Dashboard.
+ * This function returns 0.00 as Stripe will calculate tax automatically during checkout.
+ * 
+ * To enable automatic tax calculation:
+ * 1. Go to Stripe Dashboard → Settings → Tax
+ * 2. Enable "Automatic tax calculation"
+ * 3. Configure your tax registration information
+ * 4. Stripe will automatically calculate and collect tax during checkout
+ * 
+ * For manual tax calculation, implement custom logic here or integrate a tax service
+ * (e.g., TaxJar, Avalara).
  * 
  * @param subtotal - The subtotal amount before tax
- * @param country - Optional country code for tax calculation
- * @param state - Optional state/province code for tax calculation
- * @returns Tax amount (currently always 0.00)
+ * @param country - Optional country code for tax calculation (not used when Stripe Tax is enabled)
+ * @param state - Optional state/province code for tax calculation (not used when Stripe Tax is enabled)
+ * @returns Tax amount (0.00 - Stripe handles tax calculation automatically)
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function calculateTax(_subtotal: number, _country?: string, _state?: string): number {
-  // Tax calculation is handled by Stripe if configured
-  // For custom tax calculation, implement logic here or integrate a tax service
+  // Tax calculation is handled automatically by Stripe Tax when enabled
+  // Stripe will calculate tax based on customer location during checkout
+  // This function returns 0.00 as a placeholder - actual tax is calculated by Stripe
   return 0.00;
 }
 
 /**
  * Create a Stripe Checkout session for one-time product purchase
+ * 
+ * Handles the creation of checkout sessions for one-time product purchases.
+ * Supports both authenticated users and guest checkout. Uses Supabase Edge Functions
+ * to securely create Stripe checkout sessions.
+ * 
+ * @param items - Array of items to purchase
+ * @param successUrl - Optional custom success redirect URL
+ * @param cancelUrl - Optional custom cancel redirect URL
+ * @returns Checkout session with session ID and URL, or null if validation fails
+ * @throws Error if checkout session creation fails or services are unavailable
  */
 export async function createOneTimeCheckoutSession(
   items: OneTimeCheckoutItem[],
@@ -78,7 +95,7 @@ export async function createOneTimeCheckoutSession(
           url: successUrl || `/store/success?session_id=mock_${Date.now()}`,
         };
       }
-      throw new Error('Stripe is not configured. Please contact support to enable payment processing.');
+      throw new Error('CyberCorrect™ Stripe is not configured. Please contact support at cybercorrect@ermits.com to enable payment processing.');
     }
 
     // Get current user (optional for one-time purchases)
@@ -111,7 +128,11 @@ export async function createOneTimeCheckoutSession(
           url: successUrl || `/store/success?session_id=mock_${Date.now()}`,
         };
       }
-      throw new Error('Payment service is not configured. Please configure Supabase (VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY) to enable payment processing.');
+      throw new Error(
+        'CyberCorrect™ payment service is not configured. ' +
+        'Please configure Supabase (VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY) ' +
+        'to enable payment processing. Contact support at cybercorrect@ermits.com for assistance.'
+      );
     }
 
     // Use Edge Function to create checkout session
@@ -124,7 +145,7 @@ export async function createOneTimeCheckoutSession(
         cancelUrl: cancelUrl || `${window.location.origin}/store`,
       };
       
-      logDebug('Invoking Edge Function', { 
+      logDebug('[CyberCorrect™] Invoking Edge Function', { 
         function: 'create-one-time-checkout-session',
         itemsCount: items.length,
         hasUser: !!user,
@@ -137,7 +158,7 @@ export async function createOneTimeCheckoutSession(
         body: requestBody,
       });
       
-      logDebug('Edge Function Response', {
+      logDebug('[CyberCorrect™] Edge Function Response', {
         hasData: !!data,
         hasError: !!error,
         error: error ? {
@@ -163,20 +184,44 @@ export async function createOneTimeCheckoutSession(
         // Provide specific error message based on error type
         if (error.message) {
           // Check for common error messages
-          if (error.message.includes('not configured') || error.message.includes('Stripe secret key not configured')) {
-            throw new Error('Payment service is not properly configured. The Stripe secret key may be missing. Please contact support.');
+          if (
+            error.message.includes('not configured') ||
+            error.message.includes('Stripe secret key not configured')
+          ) {
+            throw new Error(
+              'CyberCorrect™ payment service is not properly configured. ' +
+              'The Stripe secret key may be missing. Please contact support at cybercorrect@ermits.com.'
+            );
           }
-          if (error.message.includes('Function not found') || error.message.includes('404') || (hasStatus(error) && error.status === 404)) {
-            throw new Error('Payment service is not deployed. The checkout function may not be available. Please contact support.');
+          if (
+            error.message.includes('Function not found') ||
+            error.message.includes('404') ||
+            (hasStatus(error) && error.status === 404)
+          ) {
+            throw new Error(
+              'CyberCorrect™ payment service is not deployed. ' +
+              'The checkout function may not be available. Please contact support at cybercorrect@ermits.com.'
+            );
           }
           if (error.message.includes('CORS') || error.message.includes('cors')) {
-            throw new Error('Payment service configuration error. CORS settings may be incorrect. Please contact support.');
+            throw new Error(
+              'CyberCorrect™ payment service configuration error. ' +
+              'CORS settings may be incorrect. Please contact support at cybercorrect@ermits.com.'
+            );
           }
           if (error.message.includes('No items provided')) {
-            throw new Error('Cart is empty. Please add items to your cart before checkout.');
+            throw new Error(
+              'Cart is empty. Please add items to your cart before checkout.'
+            );
           }
-          if (error.message.includes('Invalid API Key') || error.message.includes('authentication')) {
-            throw new Error('Payment service authentication error. The Stripe API key may be invalid. Please contact support.');
+          if (
+            error.message.includes('Invalid API Key') ||
+            error.message.includes('authentication')
+          ) {
+            throw new Error(
+              'CyberCorrect™ payment service authentication error. ' +
+              'The Stripe API key may be invalid. Please contact support at cybercorrect@ermits.com.'
+            );
           }
           // Return the error message from the Edge Function if available
           throw new Error(error.message);
@@ -185,15 +230,25 @@ export async function createOneTimeCheckoutSession(
         // Check error status code for more specific messages
         const errorStatus = hasStatus(error) ? error.status : undefined;
         if (errorStatus === 500) {
-          throw new Error('Payment service encountered an error. Please try again or contact support if the problem persists.');
+          throw new Error(
+            'CyberCorrect™ payment service encountered an error. ' +
+            'Please try again or contact support at cybercorrect@ermits.com if the problem persists.'
+          );
         }
         if (errorStatus === 503 || errorStatus === 502) {
-          throw new Error('Payment service is temporarily unavailable. Please try again in a few moments.');
+          throw new Error(
+            'CyberCorrect™ payment service is temporarily unavailable. ' +
+            'Please try again in a few moments or contact support at cybercorrect@ermits.com.'
+          );
         }
         
-        throw new Error('Failed to create checkout session. The payment service may be unavailable. Please try again or contact support.');
+        throw new Error(
+          'Failed to create CyberCorrect™ checkout session. ' +
+          'The payment service may be unavailable. ' +
+          'Please try again or contact support at cybercorrect@ermits.com.'
+        );
       } else if (data) {
-        logDebug('Edge Function response received', { hasData: !!data, hasUrl: !!data?.url });
+        logDebug('[CyberCorrect™] Edge Function response received', { hasData: !!data, hasUrl: !!data?.url });
         // Check if data contains an error
         if (data.error) {
           throw new Error(data.error);
@@ -201,7 +256,7 @@ export async function createOneTimeCheckoutSession(
         return data as CheckoutSession;
       } else {
         // No data and no error - unexpected
-        throw new Error('Payment service returned an unexpected response. Please try again or contact support.');
+        throw new Error('CyberCorrect™ payment service returned an unexpected response. Please try again or contact support at cybercorrect@ermits.com.');
       }
     } catch (invokeError) {
       logError(invokeError instanceof Error ? invokeError : new Error('Error invoking checkout function'), { context: 'one_time_checkout' });
@@ -209,7 +264,7 @@ export async function createOneTimeCheckoutSession(
       if (invokeError instanceof Error) {
         throw invokeError;
       }
-      throw new Error('Failed to connect to payment service. Please check your connection and try again.');
+      throw new Error('Failed to connect to CyberCorrect™ payment service. Please check your connection and try again, or contact support at cybercorrect@ermits.com.');
     }
 
     // Fallback: Return mock session for development
@@ -222,7 +277,11 @@ export async function createOneTimeCheckoutSession(
     }
 
     // In production, throw error if all services fail
-    throw new Error('Payment service is currently unavailable. Please check your connection and try again, or contact support if the problem persists.');
+    throw new Error(
+      'CyberCorrect™ payment service is currently unavailable. ' +
+      'Please check your connection and try again, ' +
+      'or contact support at cybercorrect@ermits.com if the problem persists.'
+    );
   } catch (error) {
     // Log error for monitoring
     logError(
@@ -237,14 +296,22 @@ export async function createOneTimeCheckoutSession(
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error('Failed to create checkout session. Please try again or contact support.');
+    throw new Error('Failed to create CyberCorrect™ checkout session. Please try again or contact support at cybercorrect@ermits.com.');
   }
 }
 
 /**
- * Validate checkout items
+ * Validate checkout items before processing
+ * 
+ * Validates that all required fields are present and have valid values.
+ * Checks for empty cart, missing product information, invalid prices, and invalid quantities.
+ * 
+ * @param items - Array of checkout items to validate
+ * @returns Validation result with error message if invalid, or success status if valid
  */
-export function validateCheckoutItems(items: OneTimeCheckoutItem[]): { valid: boolean; error?: string } {
+export function validateCheckoutItems(
+  items: OneTimeCheckoutItem[]
+): { valid: boolean; error?: string } {
   if (!items || items.length === 0) {
     return { valid: false, error: 'Cart is empty' };
   }

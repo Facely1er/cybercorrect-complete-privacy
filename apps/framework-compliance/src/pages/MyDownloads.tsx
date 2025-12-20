@@ -156,7 +156,7 @@ const MyDownloads = () => {
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-2">My Downloads</h1>
           <p className="text-muted-foreground">
-            Access your purchased products, license keys, and downloadable resources
+            Access your CyberCorrect™ purchased products, license keys, and downloadable resources
           </p>
         </div>
 
@@ -166,7 +166,7 @@ const MyDownloads = () => {
               <Package className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
               <h2 className="text-2xl font-bold mb-2">No Purchases Yet</h2>
               <p className="text-muted-foreground mb-6">
-                You haven't purchased any products yet. Browse our store to find tools and templates that fit your needs.
+                You haven't purchased any CyberCorrect™ products yet. Browse our store to find tools and templates that fit your needs.
               </p>
               <Link to="/store">
                 <Button>
@@ -250,6 +250,7 @@ const MyDownloads = () => {
                               variant="outline"
                               size="sm"
                               onClick={() => handleDownloadLicense(purchase)}
+                              aria-label={`Download license key for ${product?.name || purchase.productId}`}
                             >
                               <Download className="w-4 h-4 mr-2" />
                               Download

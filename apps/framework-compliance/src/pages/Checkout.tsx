@@ -128,31 +128,15 @@ const Checkout = () => {
 
       toast.info('Processing', 'Creating secure checkout session...');
 
-      console.log('Creating checkout session with:', {
-        itemsCount: items.length,
-        items: items.map(i => ({ productId: i.productId, name: i.name, price: i.price })),
-        successUrl,
-        cancelUrl,
-        hasSupabase: isSupabaseConfigured(),
-        stripeKey: !!import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY,
-      });
-
       const session = await createOneTimeCheckoutSession(items, successUrl, cancelUrl);
-
-      console.log('Checkout session result:', {
-        hasSession: !!session,
-        hasUrl: !!session?.url,
-        sessionId: session?.sessionId,
-        url: session?.url,
-      });
 
       if (!session || !session.url) {
         // This should not happen if error handling is correct, but keep as safety check
         console.error('Checkout session is null or missing URL:', session);
-        setError('Unable to create checkout session. Please try again.');
+        setError('Unable to create CyberCorrect™ checkout session. Please try again.');
         toast.error(
           'Checkout Unavailable', 
-          'Payment processing is currently unavailable. Please try again later or contact support.'
+          'CyberCorrect™ payment processing is currently unavailable. Please try again later or contact support at cybercorrect@ermits.com.'
         );
         setIsProcessing(false);
         return;
@@ -185,7 +169,7 @@ const Checkout = () => {
       setError(errorMessage);
       toast.error(
         'Checkout Failed', 
-        errorMessage || 'Please try again or contact support if the problem persists.'
+        errorMessage || 'Please try again or contact CyberCorrect™ support at cybercorrect@ermits.com if the problem persists.'
       );
       setIsProcessing(false);
     }
@@ -204,8 +188,8 @@ const Checkout = () => {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Store
           </Button>
-          <h1 className="text-4xl font-bold text-foreground">Checkout</h1>
-          <p className="text-muted-foreground mt-2">Complete your purchase securely</p>
+          <h1 className="text-4xl font-bold text-foreground">Secure Checkout</h1>
+          <p className="text-muted-foreground mt-2">Powered by CyberCorrect™</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -280,7 +264,7 @@ const Checkout = () => {
               </CardContent>
             </Card>
 
-            {/* Payment Information (Placeholder) */}
+            {/* Payment Information */}
             <Card className="mt-6">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -293,7 +277,7 @@ const Checkout = () => {
                   <Lock className="w-12 h-12 text-primary mx-auto mb-4" />
                   <h3 className="font-semibold text-lg mb-2">Secure Payment Processing</h3>
                   <p className="text-muted-foreground mb-4">
-                    Payment integration with Stripe is being configured. You'll be able to complete your purchase securely with credit card, debit card, or other payment methods.
+                    CyberCorrect™ uses Stripe for secure payment processing. Complete your purchase securely with credit card, debit card, or other payment methods. All transactions are encrypted and PCI-compliant.
                   </p>
                   <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                     <Lock className="w-4 h-4" />
@@ -384,7 +368,7 @@ const Checkout = () => {
                   {/* Security Badges */}
                   <div className="pt-4 border-t border-border">
                     <div className="text-xs text-muted-foreground text-center mb-2">
-                      Secure Payment Powered By
+                      Secure Payment Powered by CyberCorrect™
                     </div>
                     <div className="flex justify-center items-center gap-4 opacity-60">
                       <span className="font-semibold">Stripe</span>

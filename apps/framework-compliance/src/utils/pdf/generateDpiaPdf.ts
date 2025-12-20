@@ -10,7 +10,6 @@ declare module 'jspdf' {
       startY?: number;
       headStyles?: Record<string, unknown>;
       alternateRowStyles?: Record<string, unknown>;
-      styles?: Record<string, unknown>;
     }) => jsPDF;
   }
 }
@@ -54,9 +53,9 @@ export const generateDpiaPdf = async (data: DpiaData): Promise<void> => {
 
   doc.setFontSize(10);
   doc.setTextColor(60, 60, 60);
-  doc.text(`Project Name: ${data.projectName || '[Project Name]'}`, 20, y);
+  doc.text(`Project Name: ${data.projectName || 'Not specified'}`, 20, y);
   y += 6;
-  doc.text(`Data Controller: ${data.dataController || '[Organization Name]'}`, 20, y);
+  doc.text(`Data Controller: ${data.dataController || 'Not specified'}`, 20, y);
   y += 6;
   doc.text(`Date of Assessment: ${data.assessmentDate || new Date().toLocaleDateString()}`, 20, y);
   y += 6;
@@ -80,11 +79,14 @@ export const generateDpiaPdf = async (data: DpiaData): Promise<void> => {
   doc.setTextColor(60, 60, 60);
   doc.text('Processing Purpose:', 20, y);
   y += 6;
-  const purposeLines = doc.splitTextToSize(data.processingPurpose || '[Processing Purpose]', 170);
+  const purposeLines = doc.splitTextToSize(
+    data.processingPurpose || 'Processing purpose not specified. Please provide detailed description of the data processing activities, including the business objectives and operational context.',
+    170
+  );
   doc.text(purposeLines, 25, y);
   y += purposeLines.length * 5 + 3;
   
-  doc.text(`Legal Basis: ${data.legalBasis || '[Legal Basis]'}`, 20, y);
+  doc.text(`Legal Basis: ${data.legalBasis || 'Legal basis not specified. Please identify the lawful basis under GDPR Article 6 (consent, contract, legal obligation, vital interests, public task, or legitimate interests).'}`, 20, y);
   y += 10;
 
   // 3. NECESSITY AND PROPORTIONALITY ASSESSMENT
@@ -99,7 +101,7 @@ export const generateDpiaPdf = async (data: DpiaData): Promise<void> => {
 
   doc.setFontSize(10);
   doc.setTextColor(60, 60, 60);
-  const necessityText = '[Detailed assessment of necessity and proportionality - to be completed]';
+  const necessityText = 'This section requires a detailed assessment of necessity and proportionality. Please document: (1) Why the processing is necessary for the stated purpose, (2) How the processing is proportionate to the purpose, (3) Whether less intrusive alternatives were considered, and (4) How data minimization principles are applied. This assessment should demonstrate that the processing does not go beyond what is necessary to achieve the stated purpose.';
   const necessityLines = doc.splitTextToSize(necessityText, 170);
   doc.text(necessityLines, 20, y);
   y += necessityLines.length * 5 + 5;
@@ -120,7 +122,7 @@ export const generateDpiaPdf = async (data: DpiaData): Promise<void> => {
   y += 6;
   const subjectsText = data.dataSubjects.length > 0 
     ? data.dataSubjects.join(', ')
-    : '[Data Subject Categories]';
+    : 'Data subject categories not specified. Please identify all categories of individuals whose personal data will be processed (e.g., customers, employees, website visitors, suppliers).';
   const subjectsLines = doc.splitTextToSize(subjectsText, 170);
   doc.text(subjectsLines, 25, y);
   y += subjectsLines.length * 5 + 3;
@@ -129,7 +131,7 @@ export const generateDpiaPdf = async (data: DpiaData): Promise<void> => {
   y += 6;
   const categoriesText = data.dataCategories.length > 0
     ? data.dataCategories.join(', ')
-    : '[Data Categories]';
+    : 'Data categories not specified. Please identify all types of personal data that will be processed (e.g., names, email addresses, IP addresses, financial information, health data).';
   const categoriesLines = doc.splitTextToSize(categoriesText, 170);
   doc.text(categoriesLines, 25, y);
   y += categoriesLines.length * 5 + 5;
@@ -148,7 +150,7 @@ export const generateDpiaPdf = async (data: DpiaData): Promise<void> => {
   const riskColor = data.riskLevel === 'high' ? [200, 0, 0] :
                     data.riskLevel === 'medium' ? [255, 150, 0] : [0, 150, 0];
   doc.setTextColor(riskColor[0], riskColor[1], riskColor[2]);
-  doc.text(`Risk Level: ${data.riskLevel ? data.riskLevel.toUpperCase() : '[Risk Level]'}`, 20, y);
+  doc.text(`Risk Level: ${data.riskLevel ? data.riskLevel.toUpperCase() : 'Not assessed'}`, 20, y);
   y += 6;
 
   doc.setFontSize(10);
@@ -187,8 +189,8 @@ export const generateDpiaPdf = async (data: DpiaData): Promise<void> => {
       y += 5;
     });
   } else {
-    doc.text('- [Safeguards to be implemented]', 25, y);
-    y += 5;
+    doc.text('- No safeguards specified. Please document all technical and organizational measures to address identified risks, including encryption, access controls, pseudonymization, staff training, and audit procedures.', 25, y);
+    y += 8;
   }
   y += 3;
 
@@ -204,11 +206,11 @@ export const generateDpiaPdf = async (data: DpiaData): Promise<void> => {
 
   doc.setFontSize(10);
   doc.setTextColor(60, 60, 60);
-  doc.text('DPO Consultation: [Date and outcome]', 20, y);
-  y += 5;
-  doc.text('Stakeholder Consultation: [Details]', 20, y);
-  y += 5;
-  doc.text('Final Approval: [Approval details]', 20, y);
+  doc.text('DPO Consultation: Consultation with Data Protection Officer required. Document date, outcome, and any recommendations provided.', 20, y);
+  y += 6;
+  doc.text('Stakeholder Consultation: Document all stakeholders consulted, their input, and how concerns were addressed.', 20, y);
+  y += 6;
+  doc.text('Final Approval: Document approval date, approver name and title, and any conditions attached to approval.', 20, y);
   y += 5;
 
   // 8. MONITORING AND REVIEW
@@ -223,19 +225,19 @@ export const generateDpiaPdf = async (data: DpiaData): Promise<void> => {
 
   doc.setFontSize(10);
   doc.setTextColor(60, 60, 60);
-  doc.text('Review Date: [Next review date]', 20, y);
-  y += 5;
-  doc.text('Monitoring Procedures: [Ongoing monitoring approach]', 20, y);
+  doc.text('Review Date: Review schedule not specified. DPIAs should be reviewed annually or when processing activities change significantly.', 20, y);
+  y += 6;
+  doc.text('Monitoring Procedures: Document ongoing monitoring approach, including frequency of reviews, key metrics to track, and triggers for reassessment.', 20, y);
   y += 10;
 
   // Footer note
   doc.setFontSize(8);
   doc.setTextColor(100, 100, 100);
-  const footerNote = 'This DPIA was generated using CyberCorrect Privacy Platform\'s automated DPIA generator. Please review and customize based on your specific processing activities.';
+  const footerNote = 'This DPIA was generated using CyberCorrect™ Privacy Platform\'s automated DPIA generator. Please review and customize all sections based on your specific processing activities. This document should be completed in consultation with your Data Protection Officer and relevant stakeholders.';
   const footerLines = doc.splitTextToSize(footerNote, 170);
   doc.text(footerLines, 20, y);
   y += footerLines.length * 4 + 3;
-  doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, y);
+  doc.text(`Generated: ${new Date().toLocaleDateString()} | CyberCorrect™ Privacy Platform`, 20, y);
 
   // Add footer with branding
   addCyberCorrectFooter(doc);

@@ -136,9 +136,9 @@ const PurchaseSuccess = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full mb-4">
                 <Check className="w-8 h-8 text-green-600 dark:text-green-400" />
               </div>
-              <h1 className="text-4xl font-bold text-foreground mb-2">Purchase Successful!</h1>
+              <h1 className="text-4xl font-bold text-foreground mb-2">Thank You for Your Purchase!</h1>
               <p className="text-xl text-muted-foreground">
-                Your licenses have been activated and are ready to use.
+                Your CyberCorrect™ licenses have been activated and are ready to use.
               </p>
             </div>
 
@@ -171,6 +171,7 @@ const PurchaseSuccess = () => {
                               size="sm"
                               onClick={() => handleCopyLicense(license.licenseKey)}
                               className="h-8"
+                              aria-label={`Copy license key for ${license.productName}`}
                             >
                               <Copy className="w-4 h-4" />
                             </Button>
@@ -283,8 +284,8 @@ const PurchaseSuccess = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-6">
-                  If you received license keys via email, you can activate them manually. 
-                  Otherwise, your licenses should activate automatically.
+                  If you received CyberCorrect™ license keys via email, you can activate them manually. 
+                  Otherwise, your licenses should activate automatically after purchase.
                 </p>
                 <div className="flex gap-3">
                   <Button
@@ -312,15 +313,15 @@ const PurchaseSuccess = () => {
           <CardContent className="p-6">
             <div className="text-center">
               <p className="text-muted-foreground mb-4">
-                Need help? Contact our support team
+                Need help? Contact the CyberCorrect™ support team
               </p>
               <div className="flex gap-4 justify-center">
                 <a
-                  href="mailto:contact@ermits.com"
+                  href="mailto:cybercorrect@ermits.com"
                   className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
                 >
                   <ExternalLink className="w-4 h-4 mr-2" />
-                  Email Support
+                  Email CyberCorrect™ Support
                 </a>
               </div>
             </div>

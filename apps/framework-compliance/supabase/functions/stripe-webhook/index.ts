@@ -293,8 +293,34 @@ async function handleCheckoutCompleted(supabase: any, session: any) {
   console.log('Subscription created/updated:', subscriptionId);
 }
 
-// Handle one-time product purchase
-async function handleOneTimePurchase(supabase: any, session: any) {
+/**
+ * Handle one-time product purchase completion
+ * 
+ * Processes completed checkout sessions for one-time purchases:
+ * - Generates unique license keys for each product
+ * - Stores purchase records in database (supports authenticated and guest purchases)
+ * - Sends license keys via email to customer
+ * - Builds success URL with license parameters
+ * 
+ * @param supabase - Supabase client instance with service role permissions
+ * @param session - Stripe checkout session object containing purchase details
+ * @throws Error if critical processing fails (non-critical errors are logged but don't throw)
+ */
+async function handleOneTimePurchase(
+  supabase: ReturnType<typeof createClient>,
+  session: {
+    id: string;
+    customer?: string | null;
+    customer_email?: string | null;
+    amount_total?: number | null;
+    currency?: string | null;
+    metadata?: {
+      product_ids?: string;
+      customer_email?: string;
+      user_id?: string;
+    } | null;
+  }
+): Promise<void> {
   const productIds = session.metadata?.product_ids?.split(',') || [];
   const customerEmail = session.customer_email || session.metadata?.customer_email;
   const userId = session.metadata?.user_id;
@@ -323,7 +349,18 @@ async function handleOneTimePurchase(supabase: any, session: any) {
     // Store purchase record in database (for both authenticated and guest purchases)
     // Store if we have either userId (authenticated) or customerEmail (guest)
     if (userId || customerEmail) {
-      const purchaseData: any = {
+      const purchaseData: {
+        product_id: string;
+        license_key: string;
+        stripe_session_id: string;
+        stripe_customer_id?: string | null;
+        amount: number;
+        currency: string;
+        status: string;
+        purchased_at: string;
+        user_id?: string;
+        customer_email?: string;
+      } = {
         product_id: productId,
         license_key: licenseKey,
         stripe_session_id: sessionId,
@@ -356,12 +393,17 @@ async function handleOneTimePurchase(supabase: any, session: any) {
   }
 
   // Build success URL with license keys
-  const siteUrl = Deno.env.get('SITE_URL') || Deno.env.get('VITE_APP_URL') || 'https://app.cybercorrect.com';
+  const siteUrl =
+    Deno.env.get('SITE_URL') ||
+    Deno.env.get('VITE_APP_URL') ||
+    'https://app.cybercorrect.com';
   const licenseParams = licenseKeys
     .map(l => `${l.productId}-${l.licenseKey}`)
     .join(',');
   
-  const successUrl = `${siteUrl}/store/success?licenses=${encodeURIComponent(licenseParams)}&session_id=${sessionId}`;
+  const successUrl =
+    `${siteUrl}/store/success?licenses=${encodeURIComponent(licenseParams)}` +
+    `&session_id=${sessionId}`;
 
   // Send email with license keys (if email service configured)
   if (customerEmail) {
@@ -382,7 +424,16 @@ async function handleOneTimePurchase(supabase: any, session: any) {
   });
 }
 
-// Generate license key (matches client-side format)
+/**
+ * Generate a unique license key for a product
+ * 
+ * Creates a license key in the format: PRODUCT-TIMESTAMP-RANDOM
+ * where PRODUCT is the first 4 characters of the product ID (uppercase),
+ * TIMESTAMP is the current time in base36, and RANDOM is a random string.
+ * 
+ * @param productId - The product identifier
+ * @returns Unique license key string in uppercase
+ */
 function generateLicenseKey(productId: string): string {
   const timestamp = Date.now().toString(36);
   const random = Math.random().toString(36).substring(2, 15);
@@ -390,7 +441,15 @@ function generateLicenseKey(productId: string): string {
   return `${productCode}-${timestamp}-${random}`.toUpperCase();
 }
 
-// Get product name (you may want to fetch from database)
+/**
+ * Get product name by product ID
+ * 
+ * Returns a human-readable product name. Currently uses a hardcoded mapping.
+ * For production, consider fetching from a database or product catalog.
+ * 
+ * @param productId - The product identifier
+ * @returns Product name or a default formatted name if not found
+ */
 function getProductName(productId: string): string {
   const productNames: Record<string, string> = {
     'privacy-toolkit-pro': 'Privacy Toolkit Pro',

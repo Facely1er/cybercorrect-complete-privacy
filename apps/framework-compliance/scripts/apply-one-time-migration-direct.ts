@@ -2,10 +2,18 @@
 /**
  * Apply One-Time Purchases Migration Directly
  * 
- * This script applies the one-time purchases migration directly via SQL.
+ * This script checks if the one-time purchases table exists and provides
+ * instructions for applying the migration manually via Supabase SQL Editor.
+ * 
+ * Note: Supabase REST API does not support DDL statements directly, so this
+ * script outputs the SQL for manual execution.
  * 
  * Usage:
  *   tsx scripts/apply-one-time-migration-direct.ts
+ * 
+ * Environment Variables:
+ *   - SUPABASE_URL or VITE_SUPABASE_URL
+ *   - SUPABASE_SERVICE_ROLE_KEY
  */
 
 import { createClient } from '@supabase/supabase-js';
@@ -72,8 +80,12 @@ async function applyMigration() {
     const migrationPath = join(__dirname, '..', 'supabase', 'migrations', '20251217000000_one_time_purchases.sql');
     const sql = readFileSync(migrationPath, 'utf-8');
     
-    console.log('🚀 Applying migration: 20251217000000_one_time_purchases.sql\n');
-    console.log('⚠️  Note: Supabase REST API does not support DDL statements directly.');
+    console.log(
+      '🚀 Applying migration: 20251217000000_one_time_purchases.sql\n'
+    );
+    console.log(
+      '⚠️  Note: Supabase REST API does not support DDL statements directly.'
+    );
     console.log('   Please apply this migration manually in Supabase SQL Editor:\n');
     console.log('   1. Go to: https://app.supabase.com');
     console.log('   2. Select your project');
@@ -95,10 +107,12 @@ async function applyMigration() {
 
 async function main() {
   console.log('🚀 One-Time Purchases Migration Tool\n');
-  console.log(`📡 Supabase URL: ${SUPABASE_URL.replace(/\/\/.*@/, '//***@')}\n`);
+  const maskedUrl = SUPABASE_URL.replace(/\/\/.*@/, '//***@');
+  console.log(`📡 Supabase URL: ${maskedUrl}\n`);
   
   const applied = await applyMigration();
-  process.exit(applied ? 0 : 0); // Exit 0 either way since we're providing instructions
+  // Exit 0 either way since we're providing instructions
+  process.exit(applied ? 0 : 0);
 }
 
 main().catch((error) => {

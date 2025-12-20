@@ -76,7 +76,7 @@ const ActivateLicense = () => {
       }
 
       // Activate license
-      const purchase = LicenseManager.activateLicense(targetProductId, licenseKey);
+      LicenseManager.activateLicense(targetProductId, licenseKey);
       
       setSuccess({
         productName: product.name,
@@ -174,7 +174,7 @@ const ActivateLicense = () => {
                   disabled={isActivating}
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Your license key was sent to your email after purchase
+                  Your CyberCorrect™ license key was sent to your email after purchase
                 </p>
               </div>
 
@@ -249,13 +249,13 @@ const ActivateLicense = () => {
               </p>
               <ul className="list-disc list-inside space-y-1 ml-2">
                 <li>Check your email inbox for the purchase confirmation</li>
-                <li>Look for an email from contact@ermits.com</li>
+                <li>Look for an email from cybercorrect@ermits.com</li>
                 <li>License keys are also shown on the purchase success page</li>
               </ul>
               <p className="mt-4">
-                <strong>Having trouble?</strong> Contact support at{' '}
-                <a href="mailto:contact@ermits.com" className="text-primary hover:underline">
-                  contact@ermits.com
+                <strong>Having trouble?</strong> Contact CyberCorrect™ support at{' '}
+                <a href="mailto:cybercorrect@ermits.com" className="text-primary hover:underline">
+                  cybercorrect@ermits.com
                 </a>
               </p>
             </div>

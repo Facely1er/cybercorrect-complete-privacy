@@ -2,6 +2,11 @@
 /**
  * Complete All Configuration - Automated Setup
  * 
+ * ⚠️ SECURITY WARNING: This script should NOT contain hardcoded credentials.
+ * All sensitive values should be read from environment variables or a secure
+ * secrets manager. The values below are placeholders and should be replaced
+ * with environment variable references before use in production.
+ * 
  * This script attempts to complete as much configuration as possible:
  * - Creates .env.local with all environment variables
  * - Generates configuration files
@@ -9,17 +14,41 @@
  * 
  * Usage:
  *   npm run config:complete
+ * 
+ * Environment Variables Required:
+ *   - SUPABASE_URL
+ *   - SUPABASE_ANON_KEY
+ *   - SUPABASE_SERVICE_ROLE_KEY
+ *   - STRIPE_PUBLISHABLE_KEY
+ *   - STRIPE_SECRET_KEY
+ *   - SITE_URL
  */
 
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-const SUPABASE_URL = 'https://achowlksgmwuvfbvjfrt.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3MTY2MjAsImV4cCI6MjA3ODI5MjYyMH0.VA3C-heQSKCyiRTfrDdhrb2ONUt44W-o-a2D7ci5eUo';
-const SUPABASE_SERVICE_ROLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjcxNjYyMCwiZXhwIjoyMDc4MjkyNjIwfQ.LsFKyKAUrWLolQ1eHl-43a_95OqVFjbtoDNYWDb3W5I';
-const STRIPE_PUBLISHABLE_KEY = 'pk_live_51SDTm0A6UggvM46NqgXKcQyRNzG908jh9yWh6ZUiGZkO4ihkHar65ghpnMcH2EOXeLySmdUy3P7mCO1Qev64uzr600rPDDCU8O';
-const STRIPE_SECRET_KEY = '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';
-const SITE_URL = 'https://www.cybercorrect.com';
+// ⚠️ SECURITY: Read from environment variables instead of hardcoding
+// These values should NEVER be committed to version control
+const SUPABASE_URL =
+  process.env.SUPABASE_URL ||
+  process.env.VITE_SUPABASE_URL ||
+  'REPLACE_WITH_ENV_VAR';
+const SUPABASE_ANON_KEY =
+  process.env.SUPABASE_ANON_KEY ||
+  process.env.VITE_SUPABASE_ANON_KEY ||
+  'REPLACE_WITH_ENV_VAR';
+const SUPABASE_SERVICE_ROLE_KEY =
+  process.env.SUPABASE_SERVICE_ROLE_KEY || 'REPLACE_WITH_ENV_VAR';
+const STRIPE_PUBLISHABLE_KEY =
+  process.env.STRIPE_PUBLISHABLE_KEY ||
+  process.env.VITE_STRIPE_PUBLISHABLE_KEY ||
+  'REPLACE_WITH_ENV_VAR';
+const STRIPE_SECRET_KEY =
+  process.env.STRIPE_SECRET_KEY || 'REPLACE_WITH_ENV_VAR';
+const SITE_URL =
+  process.env.SITE_URL ||
+  process.env.VITE_SITE_URL ||
+  'https://www.cybercorrect.com';
 
 interface ConfigStep {
   name: string;
@@ -316,6 +345,33 @@ Add to your deployment platform:
 }
 
 async function main() {
+  // Validate that required environment variables are set
+  const requiredVars = [
+    { name: 'SUPABASE_URL', value: SUPABASE_URL },
+    { name: 'SUPABASE_ANON_KEY', value: SUPABASE_ANON_KEY },
+    { name: 'SUPABASE_SERVICE_ROLE_KEY', value: SUPABASE_SERVICE_ROLE_KEY },
+    { name: 'STRIPE_PUBLISHABLE_KEY', value: STRIPE_PUBLISHABLE_KEY },
+    { name: 'STRIPE_SECRET_KEY', value: STRIPE_SECRET_KEY },
+  ];
+
+  const missingVars = requiredVars.filter(
+    v => !v.value || v.value === 'REPLACE_WITH_ENV_VAR'
+  );
+
+  if (missingVars.length > 0) {
+    console.error('❌ Missing required environment variables:\n');
+    missingVars.forEach(v => {
+      console.error(`   - ${v.name}`);
+    });
+    console.error(
+      '\n⚠️  Please set these environment variables before running this script.\n'
+    );
+    console.error(
+      '   Example: SUPABASE_URL=your_url npm run config:complete\n'
+    );
+    process.exit(1);
+  }
+
   console.log('🚀 Completing All Configuration...\n');
   console.log('='.repeat(60));
 

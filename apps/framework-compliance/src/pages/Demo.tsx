@@ -28,6 +28,7 @@ import {
 } from 'lucide-react';
 import { toast } from '../components/ui/Toaster';
 import { useChatbot } from '../components/chat/ChatbotProvider';
+import styles from './Demo.module.css';
 
 // Demo data
 const DEMO_ASSESSMENT_DATA = {
@@ -274,13 +275,8 @@ const Demo = () => {
                 <span>Demo Progress</span>
                 <span>{Math.round((currentStep / 7) * 100)}%</span>
               </div>
-              <div className="w-full bg-muted h-2 rounded-full overflow-hidden">
-                {/* Dynamic width for progress tracking */}
-                {/* eslint-disable-next-line react/forbid-dom-props */}
-                <div 
-                  className="bg-gradient-to-r from-primary to-secondary h-full transition-all duration-500"
-                  style={{ width: `${Math.round((currentStep / 7) * 100)}%` }}
-                />
+              <div className={`w-full bg-muted h-2 rounded-full overflow-hidden ${styles.progressBarContainer}`} data-progress={Math.round((currentStep / 7) * 100)}>
+                <div className={styles.progressBar} />
               </div>
             </div>
           </div>
@@ -452,20 +448,14 @@ const Demo = () => {
               
               <div className="col-span-2 space-y-3">
                 {DEMO_ASSESSMENT_DATA.sectionScores.map((section, idx) => {
-                  const sectionProgressStyle = { width: `${section.percentage}%` };
                   return (
                     <div key={idx} className="p-3 border border-border rounded-lg hover:border-primary/50 transition-all">
                       <div className="flex items-center justify-between mb-2">
                         <span className="font-medium text-sm">{section.title}</span>
                         <span className="text-sm font-semibold text-primary">{section.percentage}%</span>
                       </div>
-                      <div className="w-full bg-muted h-2 rounded-full overflow-hidden">
-                        {/* Dynamic width for section progress */}
-                        {/* eslint-disable-next-line react/forbid-dom-props */}
-                        <div 
-                          className="bg-gradient-to-r from-primary to-secondary h-full transition-all duration-1000"
-                          style={sectionProgressStyle}
-                        />
+                      <div className={`w-full bg-muted h-2 rounded-full overflow-hidden ${styles.sectionProgressContainer}`} data-progress={section.percentage}>
+                        <div className={styles.sectionProgress} />
                       </div>
                     </div>
                   );
@@ -541,12 +531,9 @@ const Demo = () => {
             {/* Gap List */}
             <div className="space-y-3 mb-6">
               {DEMO_GAPS.map((gap) => {
-                const gapBorderStyle = { borderLeftColor: gap.priority === 'critical' ? '#dc2626' : '#ea580c' };
+                const gapBorderClass = gap.priority === 'critical' ? styles.gapBorderCritical : styles.gapBorderHigh;
                 return (
-                  // Dynamic border color based on priority
-                  // eslint-disable-next-line react/forbid-dom-props
-                  <div key={gap.id} className="p-4 border-l-4 rounded-lg border hover:shadow-md transition-all" 
-                       style={gapBorderStyle}>
+                  <div key={gap.id} className={`p-4 border-l-4 rounded-lg border hover:shadow-md transition-all ${gapBorderClass}`}>
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
@@ -820,8 +807,12 @@ const Demo = () => {
                   borderColor: '#9ca3af'
                 }
               ].map((phase, idx) => {
-                const phaseBorderStyle = { borderLeftColor: phase.borderColor };
-                const phaseProgressStyle = { width: `${phase.progress}%` };
+                const phaseBorderClass = phase.status === 'completed' ? styles.phaseBorderCompleted :
+                                        phase.status === 'in_progress' ? styles.phaseBorderInProgress :
+                                        styles.phaseBorderPending;
+                const phaseProgressClass = phase.status === 'completed' ? styles.phaseProgressCompleted :
+                                          phase.status === 'in_progress' ? styles.phaseProgressInProgress :
+                                          styles.phaseProgressPending;
                 return (
                   <div key={phase.id} className="relative pl-8 pb-8 last:pb-0">
                     {idx < 2 && (
@@ -835,24 +826,14 @@ const Demo = () => {
                       {phase.status === 'completed' && <CheckCircle className="h-4 w-4 text-white" />}
                       {phase.status === 'in_progress' && <Clock className="h-4 w-4 text-white" />}
                     </div>
-                    {/* Dynamic border color for phase status */}
-                    {/* eslint-disable-next-line react/forbid-dom-props */}
-                    <Card className="border-l-4" style={phaseBorderStyle}>
+                    <Card className={`border-l-4 ${phaseBorderClass}`}>
                       <CardContent className="p-4">
                         <div className="flex items-center justify-between mb-2">
                           <h4 className="font-semibold">{phase.phase}</h4>
                           <span className="text-xs text-muted-foreground">{phase.duration}</span>
                         </div>
-                        <div className="w-full bg-muted h-2 rounded-full overflow-hidden mb-3">
-                          {/* Dynamic width for phase progress */}
-                          {/* eslint-disable-next-line react/forbid-dom-props */}
-                          <div 
-                            className={`h-full transition-all duration-1000 ${
-                              phase.status === 'completed' ? 'bg-green-500' :
-                              phase.status === 'in_progress' ? 'bg-blue-500' : 'bg-gray-300'
-                            }`}
-                            style={phaseProgressStyle}
-                          />
+                        <div className={`w-full bg-muted h-2 rounded-full overflow-hidden mb-3 ${styles.phaseProgressContainer}`} data-progress={phase.progress}>
+                          <div className={phaseProgressClass} />
                         </div>
                         <div className="space-y-1">
                           {phase.milestones.map((milestone, mIdx) => (
