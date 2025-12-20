@@ -155,6 +155,15 @@ const PreviewReview = () => {
                         <Eye className="w-4 h-4 mr-2" />
                         Review Previews
                       </Button>
+                      <Link to={`/preview-artifact/${product.id}`}>
+                        <Button
+                          variant="outline"
+                          className="w-full"
+                        >
+                          <FileText className="w-4 h-4 mr-2" />
+                          View Individual Artifacts
+                        </Button>
+                      </Link>
                       {isReviewed && (
                         <Button
                           variant="outline"

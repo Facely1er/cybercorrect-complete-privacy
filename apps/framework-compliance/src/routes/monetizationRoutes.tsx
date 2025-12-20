@@ -8,6 +8,7 @@ const ActivateLicense = lazy(() => import('../pages/ActivateLicense'));
 const Checkout = lazy(() => import('../pages/Checkout'));
 const MyDownloads = lazy(() => import('../pages/MyDownloads'));
 const PreviewReview = lazy(() => import('../pages/PreviewReview'));
+const PreviewArtifactViewer = lazy(() => import('../pages/PreviewArtifactViewer'));
 
 export const monetizationRoutes = [
   {
@@ -68,6 +69,16 @@ export const monetizationRoutes = [
   {
     path: '/preview-review',
     element: PreviewReview,
+    lazy: true,
+  },
+  {
+    path: 'preview-artifact/:productId',
+    element: PreviewArtifactViewer,
+    lazy: true,
+  },
+  {
+    path: 'preview-artifact/:productId/:previewIndex',
+    element: PreviewArtifactViewer,
     lazy: true,
   },
 ];
