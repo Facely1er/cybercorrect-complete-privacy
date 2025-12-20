@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { ArrowLeft, Eye, ChevronLeft, ChevronRight, Download, FileText } from 'lucide-react';
+import { ArrowLeft, Eye, ChevronLeft, ChevronRight, Download, FileText, Lock } from 'lucide-react';
 import { ProductCatalog, OneTimeProduct } from '../utils/monetization/oneTimeProducts';
 import { CheckCircle } from 'lucide-react';
 
 /**
  * Preview Artifact Viewer
  * 
- * Displays individual preview artifacts separately for detailed review.
+ * INTERNAL USE ONLY - Displays individual preview artifacts separately for detailed review.
  * 
  * Routes:
  * - /preview-artifact/:productId/:previewIndex - View specific preview
@@ -21,32 +21,11 @@ const PreviewArtifactViewer = () => {
   const [product, setProduct] = useState<OneTimeProduct | null>(null);
   const [previews, setPreviews] = useState<any[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isInternal, setIsInternal] = useState<boolean | null>(null);
 
-  useEffect(() => {
-    if (!productId) return;
-
-    const foundProduct = ProductCatalog.getProduct(productId);
-    if (!foundProduct) {
-      navigate('/preview-review');
-      return;
-    }
-
-    setProduct(foundProduct);
-    
-    // Generate previews for this product
-    const productPreviews = generatePreviewsForProduct(foundProduct);
-    setPreviews(productPreviews);
-
-    // Set initial preview index
-    if (previewIndex !== undefined) {
-      const index = parseInt(previewIndex, 10);
-      if (!isNaN(index) && index >= 0 && index < productPreviews.length) {
-        setCurrentIndex(index);
-      }
-    }
-  }, [productId, previewIndex, navigate]);
-
-  const generatePreviewsForProduct = (oneTimeProduct: OneTimeProduct): any[] => {
+  // Generate preview content for a specific product (helper function)
+  // Must be defined before useEffect that uses it
+  const generatePreviewsForProduct = React.useCallback((oneTimeProduct: OneTimeProduct): any[] => {
     const previews: any[] = [];
 
     // Privacy Toolkit Pro
@@ -625,7 +604,76 @@ const PreviewArtifactViewer = () => {
     }
 
     return previews;
-  };
+  }, []);
+
+  // Check if user has internal access
+  useEffect(() => {
+    // Check environment variable for internal access
+    const internalAccess = import.meta.env.VITE_ENABLE_INTERNAL_REVIEW === 'true' || 
+                          import.meta.env.MODE === 'development' ||
+                          window.location.hostname === 'localhost' ||
+                          window.location.hostname === '127.0.0.1';
+    
+    setIsInternal(internalAccess);
+  }, []);
+
+  // Load product and previews when productId changes
+  useEffect(() => {
+    if (!productId || isInternal === null) return; // Wait for access check
+    if (!isInternal) return; // Don't load if not internal
+
+    const foundProduct = ProductCatalog.getProduct(productId);
+    if (!foundProduct) {
+      navigate('/preview-review');
+      return;
+    }
+
+    setProduct(foundProduct);
+    
+    // Generate previews for this product
+    const productPreviews = generatePreviewsForProduct(foundProduct);
+    setPreviews(productPreviews);
+
+    // Set initial preview index
+    if (previewIndex !== undefined) {
+      const index = parseInt(previewIndex, 10);
+      if (!isNaN(index) && index >= 0 && index < productPreviews.length) {
+        setCurrentIndex(index);
+      }
+    }
+  }, [productId, previewIndex, navigate, isInternal, generatePreviewsForProduct]);
+
+  // Show loading state while checking access
+  if (isInternal === null) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-muted-foreground">Checking access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Deny access if not internal
+  if (!isInternal) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Card className="max-w-md">
+          <CardContent className="p-8 text-center">
+            <Lock className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-foreground mb-2">Access Restricted</h2>
+            <p className="text-muted-foreground mb-4">
+              This page is for internal use only. Preview content is available to customers
+              through the product store pages.
+            </p>
+            <Link to="/store">
+              <Button>Go to Store</Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   if (!product || previews.length === 0) {
     return (
