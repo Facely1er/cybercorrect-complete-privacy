@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { X, FileText, Eye, Download, ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
-import { Card, CardContent } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { OneTimeProduct, ProductBundle, ProductCatalog } from '../../utils/monetization/oneTimeProducts';
 
@@ -28,67 +27,10 @@ const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
 
   if (!isOpen || !product) return null;
 
-  // Check if product is a bundle
-  const isBundle = 'products' in product;
 
-  // Generate preview content based on product
-  const getPreviewContent = (): PreviewContent[] => {
+  // Generate preview content for a specific product (helper function)
+  const getPreviewContentForProduct = (oneTimeProduct: OneTimeProduct): PreviewContent[] => {
     const previews: PreviewContent[] = [];
-
-    // Handle bundles - show previews from included products
-    if (isBundle) {
-      const bundle = product as ProductBundle;
-      const includedProducts = ProductCatalog.getProductsInBundle(bundle.id);
-      
-      previews.push({
-        type: 'sample',
-        title: 'Bundle Overview',
-        content: (
-          <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border">
-            <h3 className="text-xl font-bold mb-4 text-foreground">{bundle.name}</h3>
-            <p className="text-sm mb-4 text-foreground/80">{bundle.description}</p>
-            <div className="space-y-3">
-              <div className="p-3 bg-primary/10 rounded-lg">
-                <div className="flex items-center justify-between mb-2">
-                  <strong className="text-foreground">Bundle Price:</strong>
-                  <span className="text-2xl font-bold text-primary">${bundle.price}</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-foreground/70">You Save:</span>
-                  <span className="font-semibold text-green-600 dark:text-green-400">${bundle.savings}</span>
-                </div>
-              </div>
-              <div>
-                <strong className="text-foreground mb-2 block">This bundle includes:</strong>
-                <div className="space-y-2">
-                  {includedProducts.map((prod, idx) => (
-                    <div key={idx} className="flex items-center gap-2 p-2 bg-muted/50 rounded">
-                      <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                      <div className="flex-1">
-                        <div className="font-medium text-sm text-foreground">{prod.name}</div>
-                        <div className="text-xs text-foreground/60">{prod.tagline}</div>
-                      </div>
-                      <div className="text-sm font-semibold text-foreground/70">${prod.price}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-      });
-      
-      // Add previews from the first product in the bundle
-      if (includedProducts.length > 0) {
-        const firstProduct = includedProducts[0];
-        const firstProductPreviews = getPreviewContentForProduct(firstProduct);
-        previews.push(...firstProductPreviews.slice(0, 2)); // Add first 2 previews from first product
-      }
-      
-      return previews;
-    }
-
-    const oneTimeProduct = product as OneTimeProduct;
 
     // Privacy Toolkit Pro
     if (oneTimeProduct.id === 'privacy-toolkit-pro') {
@@ -651,10 +593,74 @@ const ProductPreviewModal: React.FC<ProductPreviewModalProps> = ({
     return previews;
   };
 
+  // Generate preview content based on product
+  const getPreviewContent = (): PreviewContent[] => {
+    if (!product) return [];
+    
+    // Check if product is a bundle
+    const isBundle = 'products' in product;
+    
+    if (isBundle) {
+      const bundle = product as ProductBundle;
+      const includedProducts = ProductCatalog.getProductsInBundle(bundle.id);
+      
+      const previews: PreviewContent[] = [{
+        type: 'sample',
+        title: 'Bundle Overview',
+        content: (
+          <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border">
+            <h3 className="text-xl font-bold mb-4 text-foreground">{bundle.name}</h3>
+            <p className="text-sm mb-4 text-foreground/80">{bundle.description}</p>
+            <div className="space-y-3">
+              <div className="p-3 bg-primary/10 rounded-lg">
+                <div className="flex items-center justify-between mb-2">
+                  <strong className="text-foreground">Bundle Price:</strong>
+                  <span className="text-2xl font-bold text-primary">${bundle.price}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-foreground/70">You Save:</span>
+                  <span className="font-semibold text-green-600 dark:text-green-400">${bundle.savings}</span>
+                </div>
+              </div>
+              <div>
+                <strong className="text-foreground mb-2 block">This bundle includes:</strong>
+                <div className="space-y-2">
+                  {includedProducts.map((prod, idx) => (
+                    <div key={idx} className="flex items-center gap-2 p-2 bg-muted/50 rounded">
+                      <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                      <div className="flex-1">
+                        <div className="font-medium text-sm text-foreground">{prod.name}</div>
+                        <div className="text-xs text-foreground/60">{prod.tagline}</div>
+                      </div>
+                      <div className="text-sm font-semibold text-foreground/70">${prod.price}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      }];
+      
+      // Add previews from the first product in the bundle
+      if (includedProducts.length > 0) {
+        const firstProduct = includedProducts[0];
+        const firstProductPreviews = getPreviewContentForProduct(firstProduct);
+        previews.push(...firstProductPreviews.slice(0, 2)); // Add first 2 previews from first product
+      }
+      
+      return previews;
+    }
+    
+    // For regular products, use the helper function
+    return getPreviewContentForProduct(product as OneTimeProduct);
+  };
+
   const previews = getPreviewContent();
   const activePreview = previews[activePreviewIndex];
-  const productId = isBundle ? (product as ProductBundle).id : (product as OneTimeProduct).id;
-  const productPrice = isBundle ? (product as ProductBundle).price : (product as OneTimeProduct).price;
+  const productIsBundle = 'products' in product;
+  const productId = productIsBundle ? (product as ProductBundle).id : (product as OneTimeProduct).id;
+  const productPrice = productIsBundle ? (product as ProductBundle).price : (product as OneTimeProduct).price;
 
   return (
     <div 

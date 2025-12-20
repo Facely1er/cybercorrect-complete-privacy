@@ -15,10 +15,12 @@ import {
   TrendingUp,
   Star,
   Info,
-  ChevronRight
+  ChevronRight,
+  Eye
 } from 'lucide-react';
 import { PRODUCT_BUNDLES, ProductCatalog, OneTimeProduct, ProductBundle } from '../utils/monetization';
 import { UnifiedProductCatalog, ProductCategory } from '../utils/monetization';
+import ProductPreviewModal from '../components/product/ProductPreviewModal';
 
 const CART_STORAGE_KEY = 'onetimestore_cart';
 
@@ -36,6 +38,8 @@ const OneTimeStore = () => {
   });
   const [selectedProduct, setSelectedProduct] = useState<OneTimeProduct | ProductBundle | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [previewProduct, setPreviewProduct] = useState<OneTimeProduct | ProductBundle | null>(null);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   const categories = [
     { id: 'all', name: 'All Products', icon: ShoppingCart },
@@ -106,6 +110,29 @@ const OneTimeStore = () => {
         if (bundle) {
           setSelectedProduct(bundle);
           setIsModalOpen(true);
+        }
+      }
+    }
+  };
+
+  const handlePreview = (productId: string) => {
+    const unifiedProduct = UnifiedProductCatalog.getProduct(productId);
+    if (unifiedProduct) {
+      if (unifiedProduct.type === 'subscription') {
+        // Subscriptions don't have previews, redirect to pricing
+        navigate('/pricing');
+        return;
+      } else if (unifiedProduct.type === 'one-time') {
+        const product = ProductCatalog.getProduct(productId);
+        if (product) {
+          setPreviewProduct(product);
+          setIsPreviewOpen(true);
+        }
+      } else if (unifiedProduct.type === 'bundle') {
+        const bundle = ProductCatalog.getBundle(productId);
+        if (bundle) {
+          setPreviewProduct(bundle);
+          setIsPreviewOpen(true);
         }
       }
     }
@@ -262,14 +289,24 @@ const OneTimeStore = () => {
                             </>
                           )}
                         </Button>
-                        <Button
-                          variant="outline"
-                          className="w-full border-foreground/20 hover:border-foreground/40 text-foreground"
-                          onClick={() => handleLearnMore(bundle.id)}
-                        >
-                          <Info className="w-5 h-5 mr-2" />
-                          Learn More
-                        </Button>
+                        <div className="grid grid-cols-2 gap-2">
+                          <Button
+                            variant="outline"
+                            className="border-foreground/20 hover:border-foreground/40 text-foreground"
+                            onClick={() => handlePreview(bundle.id)}
+                          >
+                            <Eye className="w-4 h-4 mr-1" />
+                            Preview
+                          </Button>
+                          <Button
+                            variant="outline"
+                            className="border-foreground/20 hover:border-foreground/40 text-foreground"
+                            onClick={() => handleLearnMore(bundle.id)}
+                          >
+                            <Info className="w-4 h-4 mr-1" />
+                            Details
+                          </Button>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
@@ -451,14 +488,24 @@ const OneTimeStore = () => {
                           </>
                         )}
                       </Button>
-                      <Button 
-                        variant="outline" 
-                        className="w-full"
-                        onClick={() => handleLearnMore(product.id)}
-                      >
-                        <Info className="w-5 h-5 mr-2" />
-                        Learn More
-                      </Button>
+                      <div className="grid grid-cols-2 gap-2">
+                        <Button 
+                          variant="outline" 
+                          className="w-full"
+                          onClick={() => handlePreview(product.id)}
+                        >
+                          <Eye className="w-4 h-4 mr-1" />
+                          Preview
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          className="w-full"
+                          onClick={() => handleLearnMore(product.id)}
+                        >
+                          <Info className="w-4 h-4 mr-1" />
+                          Details
+                        </Button>
+                      </div>
                     </div>
 
                     {/* Target Audience */}
@@ -828,11 +875,32 @@ const OneTimeStore = () => {
                     )}
                   </div>
                 </div>
+                <div className="flex justify-center mt-4">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setIsModalOpen(false);
+                      handlePreview(selectedProduct.id);
+                    }}
+                    className="border-primary text-primary hover:bg-primary/10"
+                  >
+                    <Eye className="w-4 h-4 mr-2" />
+                    Preview What You'll Receive
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       )}
+
+      {/* Product Preview Modal */}
+      <ProductPreviewModal
+        product={previewProduct}
+        isOpen={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+        onAddToCart={addToCart}
+      />
     </div>
   );
 };
