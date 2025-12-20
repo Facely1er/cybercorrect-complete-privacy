@@ -7,6 +7,7 @@ const PurchaseSuccess = lazy(() => import('../pages/PurchaseSuccess'));
 const ActivateLicense = lazy(() => import('../pages/ActivateLicense'));
 const Checkout = lazy(() => import('../pages/Checkout'));
 const MyDownloads = lazy(() => import('../pages/MyDownloads'));
+const PreviewReview = lazy(() => import('../pages/PreviewReview'));
 
 export const monetizationRoutes = [
   {
@@ -57,6 +58,16 @@ export const monetizationRoutes = [
   {
     path: 'downloads',
     element: MyDownloads,
+    lazy: true,
+  },
+  {
+    path: 'preview-review',
+    element: PreviewReview,
+    lazy: true,
+  },
+  {
+    path: '/preview-review',
+    element: PreviewReview,
     lazy: true,
   },
 ];
