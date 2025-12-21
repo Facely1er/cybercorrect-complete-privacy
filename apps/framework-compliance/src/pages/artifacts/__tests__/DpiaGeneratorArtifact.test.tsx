@@ -2,10 +2,11 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 import DpiaGeneratorArtifact from '../DpiaGeneratorArtifact'
-import { generateDataExportPdf } from '@/utils/pdf/generateExportPdf'
 
 // Mock react-router-dom
 const mockNavigate = vi.fn()
+const mockGenerateDataExportPdf = vi.fn()
+
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom')
   return {
@@ -16,7 +17,7 @@ vi.mock('react-router-dom', async () => {
 
 // Mock PDF generation utility
 vi.mock('@/utils/pdf/generateExportPdf', () => ({
-  generateDataExportPdf: vi.fn(),
+  generateDataExportPdf: mockGenerateDataExportPdf,
 }))
 
 // Mock lucide-react icons
@@ -34,7 +35,7 @@ const originalConsoleError = console.error
 beforeEach(() => {
   console.error = vi.fn()
   mockNavigate.mockClear()
-  vi.mocked(generateDataExportPdf).mockClear()
+  mockGenerateDataExportPdf.mockClear()
   mockAlert.mockClear()
 })
 
@@ -273,7 +274,7 @@ describe('DpiaGeneratorArtifact', () => {
     })
 
     it('should call generateDataExportPdf when export button is clicked', async () => {
-      vi.mocked(generateDataExportPdf).mockResolvedValue(undefined)
+      mockGenerateDataExportPdf.mockResolvedValue(undefined)
       
       renderComponent()
       
@@ -286,7 +287,7 @@ describe('DpiaGeneratorArtifact', () => {
     })
 
     it('should pass correct metadata to PDF generator', async () => {
-      vi.mocked(generateDataExportPdf).mockResolvedValue(undefined)
+      mockGenerateDataExportPdf.mockResolvedValue(undefined)
       
       renderComponent()
       
@@ -295,7 +296,7 @@ describe('DpiaGeneratorArtifact', () => {
       
       await waitFor(() => {
         expect(generateDataExportPdf).toHaveBeenCalled()
-        const callArgs = vi.mocked(generateDataExportPdf).mock.calls[0]
+        const callArgs = mockGenerateDataExportPdf.mock.calls[0]
         
         expect(callArgs[0]).toMatchObject({
           title: 'Data Protection Impact Assessment (DPIA)',
@@ -311,7 +312,7 @@ describe('DpiaGeneratorArtifact', () => {
   describe('Error Handling', () => {
     it('should handle PDF generation errors gracefully', async () => {
       const error = new Error('PDF generation failed')
-      vi.mocked(generateDataExportPdf).mockRejectedValue(error)
+      mockGenerateDataExportPdf.mockRejectedValue(error)
       
       renderComponent()
       

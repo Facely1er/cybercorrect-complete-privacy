@@ -1,6 +1,21 @@
 import '@testing-library/jest-dom'
 import { vi, beforeEach } from 'vitest'
 
+// CRITICAL: Only run mocks in test environment
+// This prevents test mocks from leaking into production builds
+if (
+  typeof process !== 'undefined' &&
+  process.env.NODE_ENV !== 'test' &&
+  process.env.NODE_ENV !== 'development' &&
+  import.meta.env?.MODE !== 'test' &&
+  import.meta.env?.MODE !== 'development'
+) {
+  throw new Error(
+    '❌ SECURITY: Test setup file should only be loaded in test/development environment! ' +
+    'This file contains mocks that should never run in production.'
+  )
+}
+
 // Mock localStorage
 const localStorageMock = {
   getItem: vi.fn(),

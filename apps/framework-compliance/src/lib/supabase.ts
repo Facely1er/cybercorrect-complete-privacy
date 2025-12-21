@@ -58,7 +58,15 @@ function getSupabaseClient(): SupabaseClient | null {
 }
 
 // Create a mock Supabase client for when Supabase is not configured
+// NOTE: This is a fallback for graceful degradation, not a test mock
 const createMockSupabaseClient = (): SupabaseClient => {
+  // Warn in production if Supabase should be configured but isn't
+  if (import.meta.env.PROD && !import.meta.env.VITE_SUPABASE_URL) {
+    console.warn(
+      '⚠️ SECURITY WARNING: Using fallback Supabase client in production. ' +
+      'Supabase should be properly configured with VITE_SUPABASE_URL environment variable.'
+    );
+  }
   return {
     auth: {
       getUser: async () => ({ data: { user: null }, error: null }),

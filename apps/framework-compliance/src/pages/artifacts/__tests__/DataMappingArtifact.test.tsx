@@ -2,16 +2,17 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 import DataMappingArtifact from '../DataMappingArtifact'
-import { generateDataExportPdf } from '@/utils/pdf/generateExportPdf'
 
 const mockNavigate = vi.fn()
+const mockGenerateDataExportPdf = vi.fn()
+
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom')
   return { ...actual, useNavigate: () => mockNavigate }
 })
 
 vi.mock('@/utils/pdf/generateExportPdf', () => ({
-  generateDataExportPdf: vi.fn(),
+  generateDataExportPdf: mockGenerateDataExportPdf,
 }))
 
 vi.mock('lucide-react', () => ({
@@ -26,7 +27,7 @@ const originalConsoleError = console.error
 beforeEach(() => {
   console.error = vi.fn()
   mockNavigate.mockClear()
-  vi.mocked(generateDataExportPdf).mockClear()
+  mockGenerateDataExportPdf.mockClear()
   mockAlert.mockClear()
 })
 
@@ -135,18 +136,18 @@ describe('DataMappingArtifact', () => {
     })
 
     it('should call generateDataExportPdf when export button is clicked', async () => {
-      vi.mocked(generateDataExportPdf).mockResolvedValue(undefined)
+      mockGenerateDataExportPdf.mockResolvedValue(undefined)
       renderComponent()
       fireEvent.click(screen.getByRole('button', { name: /export pdf/i }))
       await waitFor(() => {
-        expect(generateDataExportPdf).toHaveBeenCalledTimes(1)
+        expect(mockGenerateDataExportPdf).toHaveBeenCalledTimes(1)
       })
     })
   })
 
   describe('Error Handling', () => {
     it('should handle PDF generation errors', async () => {
-      vi.mocked(generateDataExportPdf).mockRejectedValue(new Error('PDF failed'))
+      mockGenerateDataExportPdf.mockRejectedValue(new Error('PDF failed'))
       renderComponent()
       fireEvent.click(screen.getByRole('button', { name: /export pdf/i }))
       await waitFor(() => {
