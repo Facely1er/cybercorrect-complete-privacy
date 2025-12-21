@@ -39,30 +39,194 @@ const PreviewArtifactViewer = () => {
           productId: oneTimeProduct.id,
           productName: oneTimeProduct.name,
           content: (
-            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border">
-              <h3 className="text-xl font-bold mb-4 text-foreground">Data Protection Impact Assessment</h3>
-              <div className="space-y-3 text-sm">
-                <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded border border-blue-200 dark:border-blue-800">
-                  <strong className="text-foreground">Processing Activity:</strong>
-                  <p className="text-foreground/80 mt-1">Customer data collection and storage</p>
+            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border max-h-[80vh] overflow-y-auto">
+              <h3 className="text-xl font-bold mb-4 text-foreground">Data Protection Impact Assessment (DPIA)</h3>
+              <div className="space-y-4 text-sm">
+                <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded border border-blue-200 dark:border-blue-800">
+                  <h4 className="font-bold text-foreground mb-2">1. Executive Summary</h4>
+                  <p className="text-foreground/80 mb-2">
+                    This Data Protection Impact Assessment (DPIA) evaluates the privacy risks associated with the processing of personal data in our customer relationship management system. The assessment identifies potential risks to data subjects' rights and freedoms and outlines mitigation measures to address identified risks.
+                  </p>
+                  <div className="mt-2 space-y-1 text-xs text-foreground/70">
+                    <p><strong>Assessment Date:</strong> {new Date().toLocaleDateString()}</p>
+                    <p><strong>Assessment Version:</strong> 1.0</p>
+                    <p><strong>Next Review Date:</strong> {new Date(Date.now() + 365*24*60*60*1000).toLocaleDateString()}</p>
+                    <p><strong>Assessed By:</strong> Data Protection Officer</p>
+                  </div>
                 </div>
+
                 <div>
-                  <strong className="text-foreground">Legal Basis:</strong>
-                  <p className="text-foreground/80">Contract performance (GDPR Article 6(1)(b))</p>
+                  <h4 className="font-bold text-foreground mb-2">2. Description of Processing Activity</h4>
+                  <div className="space-y-2 text-foreground/80 text-xs">
+                    <p><strong>Processing Activity Name:</strong> Customer Data Collection and Storage</p>
+                    <p><strong>Purpose of Processing:</strong> To manage customer relationships, process orders, provide customer support, and maintain service records.</p>
+                    <p><strong>Legal Basis:</strong> Contract performance (GDPR Article 6(1)(b)) and Legitimate Interest (GDPR Article 6(1)(f))</p>
+                    <p><strong>Data Controller:</strong> [Your Organization Name], [Address], [Contact Information]</p>
+                    <p><strong>Data Processor:</strong> [Third-party service providers as applicable]</p>
+                    <p><strong>Processing Duration:</strong> For the duration of the customer relationship plus 7 years for legal compliance</p>
+                  </div>
                 </div>
+
                 <div>
-                  <strong className="text-foreground">Data Categories:</strong>
-                  <p className="text-foreground/80">Contact information, payment data, usage analytics</p>
+                  <h4 className="font-bold text-foreground mb-2">3. Categories of Personal Data</h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="p-3 bg-muted/50 rounded">
+                      <strong className="text-foreground text-xs">Identity Data:</strong>
+                      <ul className="list-disc list-inside mt-1 text-foreground/80 text-xs space-y-0.5">
+                        <li>Full name</li>
+                        <li>Email address</li>
+                        <li>Phone number</li>
+                        <li>Mailing address</li>
+                        <li>Date of birth</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-muted/50 rounded">
+                      <strong className="text-foreground text-xs">Financial Data:</strong>
+                      <ul className="list-disc list-inside mt-1 text-foreground/80 text-xs space-y-0.5">
+                        <li>Payment card information (tokenized)</li>
+                        <li>Billing address</li>
+                        <li>Transaction history</li>
+                        <li>Bank account details (where applicable)</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-muted/50 rounded">
+                      <strong className="text-foreground text-xs">Technical Data:</strong>
+                      <ul className="list-disc list-inside mt-1 text-foreground/80 text-xs space-y-0.5">
+                        <li>IP address</li>
+                        <li>Browser type and version</li>
+                        <li>Device information</li>
+                        <li>Usage analytics</li>
+                        <li>Login timestamps</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-muted/50 rounded">
+                      <strong className="text-foreground text-xs">Profile Data:</strong>
+                      <ul className="list-disc list-inside mt-1 text-foreground/80 text-xs space-y-0.5">
+                        <li>Preferences and interests</li>
+                        <li>Purchase history</li>
+                        <li>Support ticket history</li>
+                        <li>Communication preferences</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <strong className="text-foreground">Risk Level:</strong>
-                  <span className="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 rounded text-xs font-semibold">
-                    Medium
-                  </span>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">4. Data Subjects</h4>
+                  <p className="text-foreground/80 text-xs">
+                    The processing activity affects the following categories of data subjects: customers, prospective customers, website visitors, and individuals who contact our support services. Estimated number of data subjects: [To be determined based on business scale].
+                  </p>
                 </div>
-                <div className="mt-4 p-3 bg-green-50 dark:bg-green-900/30 rounded border border-green-200 dark:border-green-800">
-                  <strong className="text-foreground">Mitigation Measures:</strong>
-                  <p className="text-foreground/80 mt-1">Encryption at rest, access controls, regular audits</p>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">5. Data Recipients and Transfers</h4>
+                  <div className="space-y-2 text-foreground/80 text-xs">
+                    <p><strong>Internal Recipients:</strong> Authorized employees in sales, customer support, and IT departments on a need-to-know basis. Access is logged and monitored.</p>
+                    <p><strong>External Recipients:</strong> Cloud service providers (AWS, Azure), payment processors (Stripe), email service providers, and analytics platforms. All processors are bound by Data Processing Agreements (DPAs).</p>
+                    <p><strong>International Transfers:</strong> Data may be transferred to countries outside the EEA. All transfers are subject to appropriate safeguards including Standard Contractual Clauses (SCCs), adequacy decisions, or Binding Corporate Rules (BCRs).</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">6. Risk Assessment</h4>
+                  <div className="space-y-3">
+                    <div className="p-3 bg-yellow-50 dark:bg-yellow-900/30 rounded border border-yellow-200 dark:border-yellow-800">
+                      <div className="flex items-center gap-2 mb-2">
+                        <strong className="text-foreground">Overall Risk Level: MEDIUM</strong>
+                        <span className="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 rounded text-xs font-semibold">
+                          Medium Risk
+                        </span>
+                      </div>
+                      <p className="text-xs text-foreground/70">Risk calculated based on likelihood and impact assessment of all identified risks.</p>
+                    </div>
+                    
+                    <div>
+                      <strong className="text-foreground mb-2 block text-xs">Identified Risks:</strong>
+                      <div className="space-y-2 text-xs">
+                        <div className="p-2 bg-red-50 dark:bg-red-900/20 rounded">
+                          <strong className="text-foreground">Risk 1: Unauthorized Access (Likelihood: Medium, Impact: High)</strong>
+                          <p className="text-foreground/80 mt-1">Potential for unauthorized access to customer data through security vulnerabilities, insider threats, or compromised credentials. Could result in identity theft, financial fraud, or privacy violations.</p>
+                          <p className="text-foreground/70 mt-1"><strong>Mitigation:</strong> Multi-factor authentication, role-based access control, regular access reviews, intrusion detection systems.</p>
+                        </div>
+                        <div className="p-2 bg-orange-50 dark:bg-orange-900/20 rounded">
+                          <strong className="text-foreground">Risk 2: Data Breach (Likelihood: Low, Impact: High)</strong>
+                          <p className="text-foreground/80 mt-1">Risk of data breach through cyberattacks, system failures, or human error. Could expose sensitive customer information to unauthorized parties.</p>
+                          <p className="text-foreground/70 mt-1"><strong>Mitigation:</strong> Encryption at rest and in transit, regular security audits, incident response plan, 72-hour breach notification procedures.</p>
+                        </div>
+                        <div className="p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded">
+                          <strong className="text-foreground">Risk 3: Inadequate Data Retention (Likelihood: Medium, Impact: Medium)</strong>
+                          <p className="text-foreground/80 mt-1">Data may be retained longer than necessary, violating data minimization principles and increasing exposure risk.</p>
+                          <p className="text-foreground/70 mt-1"><strong>Mitigation:</strong> Automated data retention policies, scheduled deletion procedures, regular data audits.</p>
+                        </div>
+                        <div className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded">
+                          <strong className="text-foreground">Risk 4: Insufficient Transparency (Likelihood: Low, Impact: Medium)</strong>
+                          <p className="text-foreground/80 mt-1">Data subjects may not be adequately informed about processing activities, limiting their ability to exercise rights.</p>
+                          <p className="text-foreground/70 mt-1"><strong>Mitigation:</strong> Clear privacy notices, accessible privacy policy, easy-to-use data subject rights request process.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">7. Mitigation Measures</h4>
+                  <div className="space-y-2 text-foreground/80 text-xs">
+                    <div className="p-3 bg-green-50 dark:bg-green-900/30 rounded border border-green-200 dark:border-green-800">
+                      <strong className="text-foreground">Security Measures:</strong>
+                      <ul className="list-disc list-inside mt-2 space-y-1">
+                        <li>Encryption at rest (AES-256) and in transit (TLS 1.3)</li>
+                        <li>Multi-factor authentication (MFA) for all system access</li>
+                        <li>Role-based access control (RBAC) with principle of least privilege</li>
+                        <li>Regular security audits and penetration testing (quarterly)</li>
+                        <li>Intrusion detection and monitoring systems (24/7)</li>
+                        <li>Automated backup and disaster recovery procedures</li>
+                        <li>Network segmentation and firewall protection</li>
+                        <li>Regular software updates and patch management</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded">
+                      <strong className="text-foreground">Organizational Measures:</strong>
+                      <ul className="list-disc list-inside mt-2 space-y-1">
+                        <li>Privacy training for all staff (annually, with updates as needed)</li>
+                        <li>Data Protection Officer (DPO) oversight and consultation</li>
+                        <li>Incident response plan with 72-hour notification procedures</li>
+                        <li>Regular data protection impact assessments (annually or when changes occur)</li>
+                        <li>Data processing agreements with all processors</li>
+                        <li>Privacy by design and default principles in system development</li>
+                        <li>Regular compliance audits and reviews</li>
+                      </ul>
+                    </div>
+                    <div className="p-3 bg-purple-50 dark:bg-purple-900/30 rounded">
+                      <strong className="text-foreground">Technical Measures:</strong>
+                      <ul className="list-disc list-inside mt-2 space-y-1">
+                        <li>Automated data retention policies with scheduled deletion</li>
+                        <li>Data minimization - only collect necessary data</li>
+                        <li>Pseudonymization where possible</li>
+                        <li>Regular data quality checks and validation</li>
+                        <li>Automated logging and audit trails</li>
+                        <li>Data subject rights request automation</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">8. Consultation and Approval</h4>
+                  <div className="space-y-2 text-foreground/80 text-xs">
+                    <p><strong>DPO Review:</strong> [Date] - Approved with recommendations implemented</p>
+                    <p><strong>IT Security Review:</strong> [Date] - Approved, security measures validated</p>
+                    <p><strong>Legal Review:</strong> [Date] - Approved, legal basis confirmed</p>
+                    <p><strong>Management Approval:</strong> [Date] - Approved, resources allocated</p>
+                    <p className="text-foreground/70 mt-2 italic">
+                      This DPIA has been reviewed and approved by the Data Protection Officer and relevant stakeholders. The processing activity may proceed subject to implementation of all identified mitigation measures. This assessment will be reviewed annually or when significant changes to the processing occur.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-4 p-3 bg-primary/10 rounded">
+                  <p className="text-xs text-foreground/70">
+                    ✓ GDPR Article 35 Compliant | ✓ Comprehensive risk assessment | ✓ Detailed mitigation measures | ✓ Regular review schedule | ✓ Stakeholder consultation
+                  </p>
                 </div>
               </div>
             </div>
@@ -76,24 +240,215 @@ const PreviewArtifactViewer = () => {
           productId: oneTimeProduct.id,
           productName: oneTimeProduct.name,
           content: (
-            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border">
+            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border max-h-[80vh] overflow-y-auto">
               <h3 className="text-xl font-bold mb-4 text-foreground">Privacy Policy Template</h3>
-              <div className="space-y-3 text-sm">
+              <div className="space-y-4 text-sm">
                 <div>
-                  <p className="font-semibold text-foreground mb-1">1. Introduction</p>
-                  <p className="text-foreground/80">This privacy policy explains how we collect, use, and protect your personal information in compliance with GDPR, CCPA, and other applicable regulations.</p>
+                  <h4 className="font-bold text-foreground mb-2">1. Introduction</h4>
+                  <p className="text-foreground/80 mb-2 text-xs">
+                    [Your Organization Name] ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your personal information when you visit our website, use our services, or interact with us.
+                  </p>
+                  <p className="text-foreground/80 text-xs">
+                    This policy complies with the General Data Protection Regulation (GDPR), California Consumer Privacy Act (CCPA), and other applicable data protection laws. By using our services, you agree to the collection and use of information in accordance with this policy.
+                  </p>
+                  <p className="text-foreground/70 text-xs mt-2">
+                    <strong>Last Updated:</strong> {new Date().toLocaleDateString()} | <strong>Effective Date:</strong> {new Date().toLocaleDateString()}
+                  </p>
                 </div>
+
                 <div>
-                  <p className="font-semibold text-foreground mb-1">2. Data We Collect</p>
-                  <p className="text-foreground/80">We collect information you provide directly, automatically through your use of our services, and from third-party sources as permitted by law.</p>
+                  <h4 className="font-bold text-foreground mb-2">2. Information We Collect</h4>
+                  <div className="space-y-2 text-foreground/80 text-xs">
+                    <p><strong>2.1 Information You Provide Directly:</strong></p>
+                    <ul className="list-disc list-inside ml-4 space-y-1">
+                      <li>Name, email address, phone number, and mailing address</li>
+                      <li>Account credentials (username, password)</li>
+                      <li>Payment information (credit card details, billing address)</li>
+                      <li>Profile information and preferences</li>
+                      <li>Communications with us (support tickets, feedback, surveys)</li>
+                      <li>Content you submit (reviews, comments, posts)</li>
+                      <li>Employment information (if applying for jobs)</li>
+                    </ul>
+                    
+                    <p className="mt-2"><strong>2.2 Information Collected Automatically:</strong></p>
+                    <ul className="list-disc list-inside ml-4 space-y-1">
+                      <li>Device information (IP address, browser type, operating system)</li>
+                      <li>Usage data (pages visited, time spent, click patterns)</li>
+                      <li>Location data (general geographic location based on IP)</li>
+                      <li>Cookies and similar tracking technologies</li>
+                      <li>Log files and analytics data</li>
+                      <li>Device identifiers and mobile network information</li>
+                    </ul>
+
+                    <p className="mt-2"><strong>2.3 Information from Third Parties:</strong></p>
+                    <ul className="list-disc list-inside ml-4 space-y-1">
+                      <li>Social media platforms (when you connect your account)</li>
+                      <li>Payment processors (transaction confirmations)</li>
+                      <li>Public databases and business partners</li>
+                      <li>Marketing and analytics service providers</li>
+                      <li>Credit bureaus (for verification purposes)</li>
+                    </ul>
+                  </div>
                 </div>
+
                 <div>
-                  <p className="font-semibold text-foreground mb-1">3. How We Use Your Data</p>
-                  <p className="text-foreground/80">We use your information to provide services, improve our offerings, comply with legal obligations, and protect our rights and interests.</p>
+                  <h4 className="font-bold text-foreground mb-2">3. How We Use Your Information</h4>
+                  <div className="space-y-2 text-foreground/80 text-xs">
+                    <p><strong>3.1 Service Provision:</strong> To provide, maintain, and improve our services, process transactions, manage your account, and deliver customer support.</p>
+                    <p><strong>3.2 Communication:</strong> To respond to your inquiries, send service updates, provide customer support, and send important notices about your account.</p>
+                    <p><strong>3.3 Marketing:</strong> To send promotional materials, newsletters, and special offers (with your consent where required). You can opt-out at any time.</p>
+                    <p><strong>3.4 Legal Compliance:</strong> To comply with legal obligations, enforce our terms, protect our rights and interests, and respond to legal requests.</p>
+                    <p><strong>3.5 Analytics:</strong> To analyze usage patterns, improve user experience, develop new features, and conduct research.</p>
+                    <p><strong>3.6 Security:</strong> To detect, prevent, and address fraud, security threats, technical issues, and unauthorized access.</p>
+                    <p><strong>3.7 Business Operations:</strong> To manage our business operations, conduct audits, and ensure quality control.</p>
+                  </div>
                 </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">4. Legal Basis for Processing (GDPR)</h4>
+                  <div className="space-y-2 text-foreground/80 text-xs">
+                    <p><strong>Consent (Article 6(1)(a)):</strong> When you provide explicit consent for marketing communications, optional features, or cookies. You can withdraw consent at any time.</p>
+                    <p><strong>Contract Performance (Article 6(1)(b)):</strong> To fulfill our contractual obligations and provide requested services, including processing orders and managing accounts.</p>
+                    <p><strong>Legal Obligation (Article 6(1)(c)):</strong> To comply with applicable laws and regulations, such as tax reporting, fraud prevention, and data retention requirements.</p>
+                    <p><strong>Legitimate Interest (Article 6(1)(f)):</strong> For business operations, fraud prevention, service improvement, and security where our interests don't override your rights. We conduct legitimate interest assessments for such processing.</p>
+                    <p><strong>Vital Interests (Article 6(1)(d)):</strong> To protect your vital interests or those of another person, such as in emergency situations.</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">5. Data Sharing and Disclosure</h4>
+                  <div className="space-y-2 text-foreground/80 text-xs">
+                    <p>We may share your information with the following categories of recipients:</p>
+                    <ul className="list-disc list-inside ml-4 space-y-1">
+                      <li><strong>Service Providers:</strong> Third-party vendors who perform services on our behalf (hosting, payment processing, analytics, email delivery, customer support)</li>
+                      <li><strong>Business Partners:</strong> With your consent, we may share information with trusted partners for joint offerings or co-marketing</li>
+                      <li><strong>Legal Requirements:</strong> When required by law, court order, government request, or to protect our legal rights</li>
+                      <li><strong>Business Transfers:</strong> In connection with mergers, acquisitions, asset sales, or other business transactions</li>
+                      <li><strong>Protection of Rights:</strong> To protect our rights, property, or safety, or that of our users or others</li>
+                      <li><strong>With Your Consent:</strong> For any other purpose disclosed to you with your consent</li>
+                    </ul>
+                    <p className="mt-2 font-semibold">We do not sell your personal information to third parties for their marketing purposes.</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">6. International Data Transfers</h4>
+                  <p className="text-foreground/80 text-xs">
+                    Your information may be transferred to and processed in countries outside your jurisdiction, including the United States and other countries where our service providers operate. We ensure appropriate safeguards are in place, including Standard Contractual Clauses (SCCs), adequacy decisions, or other approved transfer mechanisms under applicable data protection laws. You can request details about specific safeguards by contacting us.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">7. Data Retention</h4>
+                  <p className="text-foreground/80 text-xs mb-2">
+                    We retain your personal information only for as long as necessary to fulfill the purposes outlined in this policy, comply with legal obligations, resolve disputes, and enforce our agreements. Retention periods vary based on the type of data and legal requirements:
+                  </p>
+                  <ul className="list-disc list-inside ml-4 space-y-1 text-foreground/80 text-xs">
+                    <li><strong>Account Data:</strong> For the duration of your account plus 7 years for legal compliance</li>
+                    <li><strong>Transaction Records:</strong> 7 years for tax and accounting purposes</li>
+                    <li><strong>Marketing Data:</strong> Until you opt-out or 3 years of inactivity</li>
+                    <li><strong>Support Communications:</strong> 3 years from last interaction</li>
+                    <li><strong>Analytics Data:</strong> Aggregated and anonymized after 26 months</li>
+                  </ul>
+                  <p className="text-foreground/70 text-xs mt-2">Upon expiration of the retention period, data is securely deleted or anonymized.</p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">8. Your Rights (GDPR & CCPA)</h4>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right to Access:</strong>
+                      <p className="text-foreground/80 mt-1">Request a copy of your personal data and information about how it's processed</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right to Rectification:</strong>
+                      <p className="text-foreground/80 mt-1">Correct inaccurate or incomplete data</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right to Erasure:</strong>
+                      <p className="text-foreground/80 mt-1">Request deletion of your data ("right to be forgotten")</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right to Restrict Processing:</strong>
+                      <p className="text-foreground/80 mt-1">Limit how we use your data in certain circumstances</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right to Data Portability:</strong>
+                      <p className="text-foreground/80 mt-1">Receive your data in a structured, commonly used, and machine-readable format</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right to Object:</strong>
+                      <p className="text-foreground/80 mt-1">Object to processing based on legitimate interests or for direct marketing</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right to Withdraw Consent:</strong>
+                      <p className="text-foreground/80 mt-1">Withdraw consent at any time where processing is based on consent</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right to Non-Discrimination (CCPA):</strong>
+                      <p className="text-foreground/80 mt-1">Exercise rights without discrimination or receiving different service quality</p>
+                    </div>
+                  </div>
+                  <p className="mt-2 text-xs text-foreground/70">
+                    To exercise these rights, contact us at [privacy@yourcompany.com] or use our online request form. We will respond within 30 days (or as required by applicable law).
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">9. Cookies and Tracking Technologies</h4>
+                  <p className="text-foreground/80 text-xs mb-2">
+                    We use cookies, web beacons, and similar technologies to collect information about your browsing activities. You can control cookies through your browser settings. For more details, see our Cookie Policy.
+                  </p>
+                  <div className="grid grid-cols-3 gap-2 text-xs">
+                    <div className="p-2 bg-green-50 dark:bg-green-900/30 rounded">
+                      <strong>Essential:</strong> Required for site functionality (cannot be disabled)
+                    </div>
+                    <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded">
+                      <strong>Analytics:</strong> Help us understand usage patterns (can be disabled)
+                    </div>
+                    <div className="p-2 bg-purple-50 dark:bg-purple-900/30 rounded">
+                      <strong>Marketing:</strong> Used for advertising and personalization (can be disabled)
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">10. Security Measures</h4>
+                  <p className="text-foreground/80 text-xs">
+                    We implement appropriate technical and organizational measures to protect your personal information, including encryption (AES-256 at rest, TLS 1.3 in transit), access controls, regular security audits, staff training, and incident response procedures. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">11. Children's Privacy</h4>
+                  <p className="text-foreground/80 text-xs">
+                    Our services are not intended for individuals under the age of 16 (or 13 in some jurisdictions). We do not knowingly collect personal information from children. If you believe we have collected information from a child, please contact us immediately at [privacy@yourcompany.com] and we will delete such information promptly.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">12. Changes to This Policy</h4>
+                  <p className="text-foreground/80 text-xs">
+                    We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. We will notify you of any material changes by posting the new policy on this page, updating the "Last Updated" date, and, where required by law, obtaining your consent. Your continued use of our services after changes constitutes acceptance of the updated policy.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2">13. Contact Information</h4>
+                  <div className="space-y-1 text-foreground/80 text-xs">
+                    <p><strong>Data Controller:</strong> [Your Organization Name]</p>
+                    <p><strong>Address:</strong> [Your Address]</p>
+                    <p><strong>Email:</strong> privacy@yourcompany.com</p>
+                    <p><strong>Data Protection Officer:</strong> dpo@yourcompany.com</p>
+                    <p><strong>Phone:</strong> [Your Phone Number]</p>
+                    <p className="mt-2"><strong>Supervisory Authority (EU):</strong> [Your local data protection authority]</p>
+                    <p><strong>CCPA Requests:</strong> [California-specific contact information if applicable]</p>
+                  </div>
+                </div>
+
                 <div className="mt-4 p-3 bg-primary/10 rounded">
                   <p className="text-xs text-foreground/70">
-                    ✓ GDPR Article 13 Compliant | ✓ CCPA Compliant | ✓ Multi-jurisdiction ready
+                    ✓ GDPR Article 13 Compliant | ✓ CCPA Compliant | ✓ Multi-jurisdiction ready | ✓ Comprehensive coverage | ✓ Regular updates
                   </p>
                 </div>
               </div>
@@ -108,26 +463,130 @@ const PreviewArtifactViewer = () => {
           productId: oneTimeProduct.id,
           productName: oneTimeProduct.name,
           content: (
-            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border">
-              <h3 className="text-xl font-bold mb-4 text-foreground">Data Flow Mapping</h3>
-              <div className="space-y-3 text-sm">
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded text-center">
-                    <div className="font-semibold text-foreground">Data Source</div>
-                    <div className="text-xs text-foreground/70 mt-1">Customer Forms</div>
-                  </div>
-                  <div className="p-3 bg-green-50 dark:bg-green-900/30 rounded text-center">
-                    <div className="font-semibold text-foreground">Processing</div>
-                    <div className="text-xs text-foreground/70 mt-1">CRM System</div>
-                  </div>
-                  <div className="p-3 bg-purple-50 dark:bg-purple-900/30 rounded text-center">
-                    <div className="font-semibold text-foreground">Storage</div>
-                    <div className="text-xs text-foreground/70 mt-1">Cloud Database</div>
+            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border max-h-[80vh] overflow-y-auto">
+              <h3 className="text-xl font-bold mb-4 text-foreground">Data Flow Mapping Tool</h3>
+              <div className="space-y-4 text-sm">
+                <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded border border-blue-200 dark:border-blue-800">
+                  <h4 className="font-bold text-foreground mb-2">Data Flow Overview</h4>
+                  <p className="text-xs text-foreground/80">
+                    This interactive tool allows you to map data flows from collection through processing, storage, and deletion. Track data across systems, identify compliance requirements, and document data subject rights applicability.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">Sample Data Flow: Customer Registration</h4>
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-4 gap-2">
+                      <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded text-center border border-blue-200 dark:border-blue-800">
+                        <div className="font-semibold text-foreground text-xs">1. Collection</div>
+                        <div className="text-xs text-foreground/70 mt-1">Web Form</div>
+                        <div className="text-xs text-foreground/60 mt-1">Name, Email, Phone</div>
+                      </div>
+                      <div className="p-3 bg-green-50 dark:bg-green-900/30 rounded text-center border border-green-200 dark:border-green-800">
+                        <div className="font-semibold text-foreground text-xs">2. Validation</div>
+                        <div className="text-xs text-foreground/70 mt-1">API Gateway</div>
+                        <div className="text-xs text-foreground/60 mt-1">Format Check</div>
+                      </div>
+                      <div className="p-3 bg-purple-50 dark:bg-purple-900/30 rounded text-center border border-purple-200 dark:border-purple-800">
+                        <div className="font-semibold text-foreground text-xs">3. Processing</div>
+                        <div className="text-xs text-foreground/70 mt-1">CRM System</div>
+                        <div className="text-xs text-foreground/60 mt-1">Account Creation</div>
+                      </div>
+                      <div className="p-3 bg-orange-50 dark:bg-orange-900/30 rounded text-center border border-orange-200 dark:border-orange-800">
+                        <div className="font-semibold text-foreground text-xs">4. Storage</div>
+                        <div className="text-xs text-foreground/70 mt-1">Cloud DB</div>
+                        <div className="text-xs text-foreground/60 mt-1">Encrypted</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">Data Flow Details</h4>
+                  <div className="border border-border rounded-lg overflow-hidden">
+                    <table className="w-full text-xs">
+                      <thead className="bg-muted">
+                        <tr>
+                          <th className="p-2 text-left text-foreground">Stage</th>
+                          <th className="p-2 text-left text-foreground">System</th>
+                          <th className="p-2 text-left text-foreground">Data Elements</th>
+                          <th className="p-2 text-left text-foreground">Retention</th>
+                          <th className="p-2 text-left text-foreground">Legal Basis</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-t border-border">
+                          <td className="p-2 text-foreground/80">Collection</td>
+                          <td className="p-2 text-foreground/80">Web Form</td>
+                          <td className="p-2 text-foreground/80">Name, Email, Phone</td>
+                          <td className="p-2 text-foreground/80">7 years</td>
+                          <td className="p-2 text-foreground/80">Contract</td>
+                        </tr>
+                        <tr className="border-t border-border">
+                          <td className="p-2 text-foreground/80">Processing</td>
+                          <td className="p-2 text-foreground/80">CRM System</td>
+                          <td className="p-2 text-foreground/80">All customer data</td>
+                          <td className="p-2 text-foreground/80">Account lifetime</td>
+                          <td className="p-2 text-foreground/80">Contract</td>
+                        </tr>
+                        <tr className="border-t border-border">
+                          <td className="p-2 text-foreground/80">Storage</td>
+                          <td className="p-2 text-foreground/80">Cloud Database</td>
+                          <td className="p-2 text-foreground/80">Encrypted records</td>
+                          <td className="p-2 text-foreground/80">7 years</td>
+                          <td className="p-2 text-foreground/80">Legal obligation</td>
+                        </tr>
+                        <tr className="border-t border-border">
+                          <td className="p-2 text-foreground/80">Analytics</td>
+                          <td className="p-2 text-foreground/80">Analytics Platform</td>
+                          <td className="p-2 text-foreground/80">Aggregated data</td>
+                          <td className="p-2 text-foreground/80">26 months</td>
+                          <td className="p-2 text-foreground/80">Legitimate interest</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">Third-Party Data Sharing</h4>
+                  <div className="space-y-2">
+                    <div className="p-2 bg-muted/50 rounded text-xs">
+                      <strong className="text-foreground">Payment Processor:</strong>
+                      <span className="text-foreground/80 ml-2">Stripe - Payment data only, encrypted, DPA in place</span>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded text-xs">
+                      <strong className="text-foreground">Email Service:</strong>
+                      <span className="text-foreground/80 ml-2">SendGrid - Email addresses, DPA in place</span>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded text-xs">
+                      <strong className="text-foreground">Analytics:</strong>
+                      <span className="text-foreground/80 ml-2">Google Analytics - Aggregated usage data, anonymized</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">Compliance Mapping</h4>
+                  <div className="grid grid-cols-3 gap-2 text-xs">
+                    <div className="p-2 bg-green-50 dark:bg-green-900/30 rounded">
+                      <strong className="text-foreground">GDPR:</strong>
+                      <p className="text-foreground/70 mt-1">Article 30 Record, Article 35 DPIA required</p>
+                    </div>
+                    <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded">
+                      <strong className="text-foreground">CCPA:</strong>
+                      <p className="text-foreground/70 mt-1">Data inventory, disclosure requirements</p>
+                    </div>
+                    <div className="p-2 bg-purple-50 dark:bg-purple-900/30 rounded">
+                      <strong className="text-foreground">NIST:</strong>
+                      <p className="text-foreground/70 mt-1">Data flow documentation, risk assessment</p>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="mt-4 p-3 bg-muted/50 rounded">
                   <p className="text-xs text-foreground/70">
-                    Visual data flow mapping with unlimited flows, export to Excel/PDF, and compliance tracking
+                    <strong>Features:</strong> Visual data flow mapping with unlimited flows, export to Excel/PDF, compliance tracking, automated DPIA generation, data subject rights mapping, retention policy enforcement, third-party vendor tracking, and real-time collaboration.
                   </p>
                 </div>
               </div>
@@ -148,34 +607,178 @@ const PreviewArtifactViewer = () => {
           productId: oneTimeProduct.id,
           productName: oneTimeProduct.name,
           content: (
-            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border">
+            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border max-h-[80vh] overflow-y-auto">
               <h3 className="text-xl font-bold mb-4 text-foreground">GDPR-Compliant Privacy Notice</h3>
-              <div className="space-y-3 text-sm">
+              <div className="space-y-4 text-sm">
                 <div className="p-3 bg-green-50 dark:bg-green-900/30 rounded border border-green-200 dark:border-green-800">
                   <div className="flex items-center gap-2 mb-2">
                     <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400" />
                     <strong className="text-foreground">GDPR Article 13 Compliant</strong>
                   </div>
+                  <p className="text-xs text-foreground/70">This notice fulfills all requirements under GDPR Article 13 for transparent information provision to data subjects.</p>
                 </div>
+
                 <div>
-                  <strong className="text-foreground">Data Controller:</strong>
-                  <p className="text-foreground/80">[Your Organization Name]</p>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">1. Identity and Contact Details of the Controller</h4>
+                  <div className="space-y-1 text-foreground/80 text-xs">
+                    <p><strong>Data Controller:</strong> [Your Organization Name]</p>
+                    <p><strong>Registered Address:</strong> [Your Address]</p>
+                    <p><strong>Contact Email:</strong> privacy@yourcompany.com</p>
+                    <p><strong>Phone:</strong> [Your Phone Number]</p>
+                    <p><strong>Data Protection Officer:</strong> dpo@yourcompany.com</p>
+                    <p><strong>Supervisory Authority:</strong> [Your local data protection authority]</p>
+                  </div>
                 </div>
+
                 <div>
-                  <strong className="text-foreground">Legal Basis:</strong>
-                  <p className="text-foreground/80">Consent, Contract, Legitimate Interest</p>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">2. Purposes and Legal Basis for Processing</h4>
+                  <div className="space-y-2 text-xs">
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Purpose: Service Delivery</strong>
+                      <p className="text-foreground/80 mt-1">Legal Basis: Contract performance (Article 6(1)(b))</p>
+                      <p className="text-foreground/70 mt-1">Processing customer orders, managing accounts, providing support services</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Purpose: Marketing Communications</strong>
+                      <p className="text-foreground/80 mt-1">Legal Basis: Consent (Article 6(1)(a))</p>
+                      <p className="text-foreground/70 mt-1">Sending promotional emails, newsletters, special offers (with opt-out option)</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Purpose: Legal Compliance</strong>
+                      <p className="text-foreground/80 mt-1">Legal Basis: Legal obligation (Article 6(1)(c))</p>
+                      <p className="text-foreground/70 mt-1">Tax reporting, fraud prevention, regulatory compliance</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Purpose: Service Improvement</strong>
+                      <p className="text-foreground/80 mt-1">Legal Basis: Legitimate interest (Article 6(1)(f))</p>
+                      <p className="text-foreground/70 mt-1">Analytics, usage tracking, product development (balancing test conducted)</p>
+                    </div>
+                  </div>
                 </div>
+
                 <div>
-                  <strong className="text-foreground">Data Subject Rights:</strong>
-                  <p className="text-foreground/80">Access, Rectification, Erasure, Portability, Objection, Restriction</p>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">3. Categories of Personal Data</h4>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded">
+                      <strong className="text-foreground">Identity Data:</strong>
+                      <p className="text-foreground/70 mt-1">Name, email, phone, address, date of birth</p>
+                    </div>
+                    <div className="p-2 bg-green-50 dark:bg-green-900/30 rounded">
+                      <strong className="text-foreground">Financial Data:</strong>
+                      <p className="text-foreground/70 mt-1">Payment information, billing details, transaction history</p>
+                    </div>
+                    <div className="p-2 bg-purple-50 dark:bg-purple-900/30 rounded">
+                      <strong className="text-foreground">Technical Data:</strong>
+                      <p className="text-foreground/70 mt-1">IP address, browser type, device information, cookies</p>
+                    </div>
+                    <div className="p-2 bg-orange-50 dark:bg-orange-900/30 rounded">
+                      <strong className="text-foreground">Usage Data:</strong>
+                      <p className="text-foreground/70 mt-1">Pages visited, time spent, interaction patterns</p>
+                    </div>
+                  </div>
                 </div>
+
                 <div>
-                  <strong className="text-foreground">Retention Period:</strong>
-                  <p className="text-foreground/80">As specified in data retention policy</p>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">4. Recipients of Personal Data</h4>
+                  <div className="space-y-1 text-foreground/80 text-xs">
+                    <p><strong>Internal:</strong> Authorized employees on a need-to-know basis (sales, support, IT)</p>
+                    <p><strong>Service Providers:</strong> Cloud hosting (AWS), payment processing (Stripe), email services (SendGrid), analytics (Google Analytics)</p>
+                    <p><strong>Legal/Regulatory:</strong> When required by law, court order, or regulatory authority</p>
+                    <p><strong>Business Transfers:</strong> In connection with mergers, acquisitions, or asset sales</p>
+                    <p className="text-foreground/70 mt-1">All processors are bound by Data Processing Agreements (DPAs) compliant with GDPR Article 28.</p>
+                  </div>
                 </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">5. International Transfers</h4>
+                  <p className="text-foreground/80 text-xs mb-2">
+                    Your data may be transferred to countries outside the European Economic Area (EEA). We ensure appropriate safeguards are in place:
+                  </p>
+                  <ul className="list-disc list-inside ml-4 space-y-1 text-foreground/80 text-xs">
+                    <li>Standard Contractual Clauses (SCCs) approved by the European Commission</li>
+                    <li>Adequacy decisions where applicable</li>
+                    <li>Binding Corporate Rules (BCRs) for intra-group transfers</li>
+                    <li>Certification schemes and codes of conduct where recognized</li>
+                  </ul>
+                  <p className="text-foreground/70 text-xs mt-2">You can request details about specific safeguards by contacting our DPO.</p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">6. Data Retention Periods</h4>
+                  <div className="space-y-1 text-foreground/80 text-xs">
+                    <p><strong>Account Data:</strong> Duration of account plus 7 years for legal compliance</p>
+                    <p><strong>Transaction Records:</strong> 7 years for tax and accounting purposes</p>
+                    <p><strong>Marketing Data:</strong> Until consent withdrawn or 3 years of inactivity</p>
+                    <p><strong>Support Communications:</strong> 3 years from last interaction</p>
+                    <p><strong>Analytics Data:</strong> Aggregated and anonymized after 26 months</p>
+                    <p className="text-foreground/70 mt-1">After retention periods expire, data is securely deleted or anonymized in accordance with GDPR Article 5(1)(e).</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">7. Data Subject Rights (Articles 15-22)</h4>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right of Access (Article 15):</strong>
+                      <p className="text-foreground/70 mt-1">Obtain confirmation and copy of your data</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right to Rectification (Article 16):</strong>
+                      <p className="text-foreground/70 mt-1">Correct inaccurate or incomplete data</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right to Erasure (Article 17):</strong>
+                      <p className="text-foreground/70 mt-1">Request deletion ("right to be forgotten")</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right to Restrict Processing (Article 18):</strong>
+                      <p className="text-foreground/70 mt-1">Limit processing in certain circumstances</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right to Data Portability (Article 20):</strong>
+                      <p className="text-foreground/70 mt-1">Receive data in structured, machine-readable format</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Right to Object (Article 21):</strong>
+                      <p className="text-foreground/70 mt-1">Object to processing based on legitimate interests</p>
+                    </div>
+                  </div>
+                  <p className="mt-2 text-xs text-foreground/70">
+                    To exercise these rights, contact us at privacy@yourcompany.com. We will respond within one month (extendable by two months for complex requests).
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">8. Right to Withdraw Consent</h4>
+                  <p className="text-foreground/80 text-xs">
+                    Where processing is based on consent (Article 6(1)(a) or Article 9(2)(a)), you have the right to withdraw consent at any time. Withdrawal does not affect the lawfulness of processing before withdrawal. Contact us to withdraw consent.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">9. Right to Lodge a Complaint</h4>
+                  <p className="text-foreground/80 text-xs">
+                    You have the right to lodge a complaint with your local supervisory authority if you believe our processing violates GDPR. Contact details: [Supervisory Authority Name], [Address], [Website], [Email].
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">10. Automated Decision-Making</h4>
+                  <p className="text-foreground/80 text-xs">
+                    We do not use automated decision-making, including profiling, that produces legal effects or significantly affects you. If this changes, we will inform you and provide details about the logic, significance, and consequences.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">11. Statutory or Contractual Requirement</h4>
+                  <p className="text-foreground/80 text-xs">
+                    Providing personal data is necessary for contract performance. Failure to provide data may result in inability to provide services. We will inform you if provision is mandatory or optional.
+                  </p>
+                </div>
+
                 <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/30 rounded">
                   <p className="text-xs text-foreground/70">
-                    Includes all required GDPR disclosures, multi-language support (EN, DE, FR, ES), and customizable sections
+                    ✓ GDPR Article 13 Compliant | ✓ All required disclosures included | ✓ Multi-language support (EN, DE, FR, ES) | ✓ Customizable sections | ✓ Regular updates
                   </p>
                 </div>
               </div>
@@ -190,29 +793,162 @@ const PreviewArtifactViewer = () => {
           productId: oneTimeProduct.id,
           productName: oneTimeProduct.name,
           content: (
-            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border">
-              <h3 className="text-xl font-bold mb-4 text-foreground">Breach Notification Template</h3>
-              <div className="space-y-3 text-sm">
-                <div className="p-3 bg-red-50 dark:bg-red-900/30 rounded border border-red-200 dark:border-red-800">
-                  <div className="font-semibold text-foreground mb-2">Incident Overview</div>
-                  <div className="space-y-1 text-foreground/80">
-                    <p><strong>Incident ID:</strong> INC-2025-0205-001</p>
-                    <p><strong>Date Detected:</strong> [Date/Time]</p>
-                    <p><strong>Affected Data:</strong> Contact information, email addresses</p>
-                    <p><strong>Number Affected:</strong> [Number] individuals</p>
+            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border max-h-[80vh] overflow-y-auto">
+              <h3 className="text-xl font-bold mb-4 text-foreground">Data Breach Notification Template</h3>
+              <div className="space-y-4 text-sm">
+                <div className="p-4 bg-red-50 dark:bg-red-900/30 rounded border border-red-200 dark:border-red-800">
+                  <h4 className="font-bold text-foreground mb-2">1. Incident Overview</h4>
+                  <div className="space-y-2 text-foreground/80 text-xs">
+                    <p><strong>Incident ID:</strong> INC-{new Date().getFullYear()}-{String(new Date().getMonth() + 1).padStart(2, '0')}-{String(new Date().getDate()).padStart(2, '0')}-001</p>
+                    <p><strong>Date Detected:</strong> {new Date().toLocaleString()}</p>
+                    <p><strong>Date Occurred:</strong> [Estimated date/time of breach]</p>
+                    <p><strong>Date Reported:</strong> {new Date().toLocaleDateString()}</p>
+                    <p><strong>Incident Type:</strong> Unauthorized access / Data breach / System compromise</p>
+                    <p><strong>Severity Level:</strong> High / Medium / Low</p>
+                    <p><strong>Affected Data Categories:</strong> Contact information, email addresses, names, [other categories]</p>
+                    <p><strong>Number of Data Subjects Affected:</strong> [Number] individuals</p>
+                    <p><strong>Geographic Scope:</strong> [Countries/regions affected]</p>
                   </div>
                 </div>
-                <div className="p-3 bg-yellow-50 dark:bg-yellow-900/30 rounded">
-                  <div className="font-semibold text-foreground mb-2">Immediate Actions</div>
-                  <ul className="list-disc list-inside space-y-1 text-foreground/80">
-                    <li>Containment measures implemented</li>
-                    <li>System isolation completed</li>
-                    <li>Investigation initiated</li>
-                  </ul>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">2. Nature of the Breach</h4>
+                  <div className="space-y-2 text-foreground/80 text-xs">
+                    <p><strong>Description:</strong> [Detailed description of what happened, how the breach occurred, and what systems/data were affected]</p>
+                    <p><strong>Cause:</strong> [Suspected or confirmed cause - e.g., cyberattack, human error, system failure, insider threat]</p>
+                    <p><strong>Attack Vector:</strong> [If applicable - e.g., phishing, malware, SQL injection, unauthorized access]</p>
+                    <p><strong>Data Compromised:</strong> [Specific data types and sensitivity levels]</p>
+                    <p><strong>Potential Impact:</strong> [Assessment of potential harm to data subjects]</p>
+                  </div>
                 </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">3. Immediate Response Actions</h4>
+                  <div className="p-3 bg-yellow-50 dark:bg-yellow-900/30 rounded">
+                    <div className="space-y-1 text-foreground/80 text-xs">
+                      <p>✓ Containment measures implemented - [Details]</p>
+                      <p>✓ System isolation completed - [Affected systems isolated]</p>
+                      <p>✓ Investigation initiated - [Investigation team and timeline]</p>
+                      <p>✓ Forensic analysis commenced - [Tools and methods]</p>
+                      <p>✓ Access credentials revoked/changed - [Number of accounts]</p>
+                      <p>✓ Security patches applied - [If applicable]</p>
+                      <p>✓ Law enforcement notified - [If applicable, date and agency]</p>
+                      <p>✓ Third-party security experts engaged - [If applicable]</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">4. Assessment of Risk to Data Subjects</h4>
+                  <div className="space-y-2 text-xs">
+                    <div className="p-2 bg-orange-50 dark:bg-orange-900/20 rounded">
+                      <strong className="text-foreground">Risk Level: HIGH / MEDIUM / LOW</strong>
+                      <p className="text-foreground/80 mt-1">[Explanation of risk assessment]</p>
+                    </div>
+                    <div>
+                      <strong className="text-foreground">Potential Consequences:</strong>
+                      <ul className="list-disc list-inside ml-4 mt-1 space-y-1 text-foreground/80">
+                        <li>Identity theft</li>
+                        <li>Financial fraud</li>
+                        <li>Phishing attacks</li>
+                        <li>Unauthorized access to accounts</li>
+                        <li>Reputation damage</li>
+                        <li>[Other specific risks]</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <strong className="text-foreground">Mitigation Measures for Data Subjects:</strong>
+                      <ul className="list-disc list-inside ml-4 mt-1 space-y-1 text-foreground/80">
+                        <li>Change passwords immediately</li>
+                        <li>Monitor accounts for suspicious activity</li>
+                        <li>Enable two-factor authentication</li>
+                        <li>Review credit reports</li>
+                        <li>Be cautious of phishing attempts</li>
+                        <li>[Other recommendations]</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">5. Notification Details</h4>
+                  <div className="space-y-2 text-foreground/80 text-xs">
+                    <p><strong>Supervisory Authority Notification:</strong></p>
+                    <ul className="list-disc list-inside ml-4 space-y-1">
+                      <li>Authority: [Name of supervisory authority]</li>
+                      <li>Date Notified: [Date within 72 hours of detection]</li>
+                      <li>Notification Method: [Online portal / Email / Other]</li>
+                      <li>Reference Number: [If provided by authority]</li>
+                    </ul>
+                    <p className="mt-2"><strong>Data Subject Notification:</strong></p>
+                    <ul className="list-disc list-inside ml-4 space-y-1">
+                      <li>Notification Method: Email / Postal mail / Website notice</li>
+                      <li>Date Notified: [Date]</li>
+                      <li>Number Notified: [Number] individuals</li>
+                      <li>Language: [Languages used for notification]</li>
+                    </ul>
+                    <p className="mt-2"><strong>Processor Notification (if applicable):</strong></p>
+                    <ul className="list-disc list-inside ml-4 space-y-1">
+                      <li>Processors Notified: [List of processors]</li>
+                      <li>Date Notified: [Date]</li>
+                      <li>Coordination: [Details of coordination efforts]</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">6. Remediation Measures</h4>
+                  <div className="space-y-2 text-foreground/80 text-xs">
+                    <p><strong>Short-term Measures (Completed):</strong></p>
+                    <ul className="list-disc list-inside ml-4 space-y-1">
+                      <li>[Specific measures taken]</li>
+                      <li>[Timeline and status]</li>
+                    </ul>
+                    <p className="mt-2"><strong>Long-term Measures (Planned):</strong></p>
+                    <ul className="list-disc list-inside ml-4 space-y-1">
+                      <li>[Security enhancements]</li>
+                      <li>[Process improvements]</li>
+                      <li>[Training and awareness]</li>
+                      <li>[Timeline for implementation]</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">7. Compliance Checklist</h4>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="p-2 bg-green-50 dark:bg-green-900/30 rounded">
+                      <strong className="text-foreground">GDPR Article 33:</strong>
+                      <p className="text-foreground/70 mt-1">Supervisory authority notified within 72 hours</p>
+                    </div>
+                    <div className="p-2 bg-green-50 dark:bg-green-900/30 rounded">
+                      <strong className="text-foreground">GDPR Article 34:</strong>
+                      <p className="text-foreground/70 mt-1">Data subjects notified without undue delay (if high risk)</p>
+                    </div>
+                    <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded">
+                      <strong className="text-foreground">CCPA:</strong>
+                      <p className="text-foreground/70 mt-1">Notification requirements met (if applicable)</p>
+                    </div>
+                    <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded">
+                      <strong className="text-foreground">Other Jurisdictions:</strong>
+                      <p className="text-foreground/70 mt-1">[State/provincial requirements if applicable]</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">8. Contact Information</h4>
+                  <div className="space-y-1 text-foreground/80 text-xs">
+                    <p><strong>Data Protection Officer:</strong> dpo@yourcompany.com</p>
+                    <p><strong>Incident Response Team:</strong> security@yourcompany.com</p>
+                    <p><strong>Phone:</strong> [Phone number]</p>
+                    <p><strong>Support for Affected Individuals:</strong> breach-support@yourcompany.com</p>
+                  </div>
+                </div>
+
                 <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/30 rounded">
                   <p className="text-xs text-foreground/70">
-                    ✓ 72-hour GDPR notification checklist | ✓ CCPA requirements | ✓ Multi-jurisdiction compliance
+                    ✓ 72-hour GDPR notification checklist | ✓ CCPA requirements | ✓ Multi-jurisdiction compliance | ✓ Comprehensive incident documentation | ✓ Remediation tracking
                   </p>
                 </div>
               </div>
