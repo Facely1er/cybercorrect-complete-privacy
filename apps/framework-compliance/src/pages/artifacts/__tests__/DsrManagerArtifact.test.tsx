@@ -62,7 +62,8 @@ describe('DsrManagerArtifact', () => {
       expect(inProgressTexts.length).toBeGreaterThan(0)
       const completedTexts = screen.getAllByText('Completed')
       expect(completedTexts.length).toBeGreaterThan(0)
-      expect(screen.getByText('Overdue')).toBeInTheDocument()
+      const overdueTexts = screen.getAllByText('Overdue')
+      expect(overdueTexts.length).toBeGreaterThan(0)
     })
   })
 
