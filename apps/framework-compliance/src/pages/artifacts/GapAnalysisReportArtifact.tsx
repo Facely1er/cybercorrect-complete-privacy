@@ -179,7 +179,7 @@ const GapAnalysisReportArtifact: React.FC = () => {
                 <span className="text-2xl font-bold text-foreground">58%</span>
               </div>
               <div className="w-full bg-muted rounded-full h-2 mt-2">
-                <div className="bg-yellow-600 h-2 rounded-full" style={{ width: '58%' }}></div>
+                <div className="bg-yellow-600 h-2 rounded-full w-[58%]"></div>
               </div>
               <p className="text-foreground/70 mt-2 text-sm">Needs Improvement - Data governance and risk management functions require enhancement</p>
             </div>
