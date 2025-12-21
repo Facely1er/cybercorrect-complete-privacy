@@ -10,6 +10,11 @@ const MyDownloads = lazy(() => import('../pages/MyDownloads'));
 const PreviewReview = lazy(() => import('../pages/PreviewReview'));
 const PreviewArtifactViewer = lazy(() => import('../pages/PreviewArtifactViewer'));
 
+// Artifact Pages
+const ArtifactsIndex = lazy(() => import('../pages/artifacts/ArtifactsIndex'));
+const DpiaGeneratorArtifact = lazy(() => import('../pages/artifacts/DpiaGeneratorArtifact'));
+const BreachNotificationArtifact = lazy(() => import('../pages/artifacts/BreachNotificationArtifact'));
+
 export const monetizationRoutes = [
   {
     path: '/monetization/templates',
@@ -79,6 +84,37 @@ export const monetizationRoutes = [
   {
     path: 'preview-artifact/:productId/:previewIndex',
     element: PreviewArtifactViewer,
+    lazy: true,
+  },
+  // Artifact Document Pages
+  {
+    path: 'artifacts',
+    element: ArtifactsIndex,
+    lazy: true,
+  },
+  {
+    path: '/artifacts',
+    element: ArtifactsIndex,
+    lazy: true,
+  },
+  {
+    path: 'artifacts/dpia-generator',
+    element: DpiaGeneratorArtifact,
+    lazy: true,
+  },
+  {
+    path: '/artifacts/dpia-generator',
+    element: DpiaGeneratorArtifact,
+    lazy: true,
+  },
+  {
+    path: 'artifacts/breach-notification',
+    element: BreachNotificationArtifact,
+    lazy: true,
+  },
+  {
+    path: '/artifacts/breach-notification',
+    element: BreachNotificationArtifact,
     lazy: true,
   },
 ];

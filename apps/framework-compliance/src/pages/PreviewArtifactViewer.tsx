@@ -240,215 +240,24 @@ const PreviewArtifactViewer = () => {
           productId: oneTimeProduct.id,
           productName: oneTimeProduct.name,
           content: (
-            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border max-h-[80vh] overflow-y-auto">
+            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border">
               <h3 className="text-xl font-bold mb-4 text-foreground">Privacy Policy Template</h3>
-              <div className="space-y-4 text-sm">
+              <div className="space-y-3 text-sm">
                 <div>
-                  <h4 className="font-bold text-foreground mb-2">1. Introduction</h4>
-                  <p className="text-foreground/80 mb-2 text-xs">
-                    [Your Organization Name] ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your personal information when you visit our website, use our services, or interact with us.
-                  </p>
-                  <p className="text-foreground/80 text-xs">
-                    This policy complies with the General Data Protection Regulation (GDPR), California Consumer Privacy Act (CCPA), and other applicable data protection laws. By using our services, you agree to the collection and use of information in accordance with this policy.
-                  </p>
-                  <p className="text-foreground/70 text-xs mt-2">
-                    <strong>Last Updated:</strong> {new Date().toLocaleDateString()} | <strong>Effective Date:</strong> {new Date().toLocaleDateString()}
-                  </p>
+                  <p className="font-semibold text-foreground mb-1">1. Introduction</p>
+                  <p className="text-foreground/80">This privacy policy explains how we collect, use, and protect your personal information in compliance with GDPR, CCPA, and other applicable regulations.</p>
                 </div>
-
                 <div>
-                  <h4 className="font-bold text-foreground mb-2">2. Information We Collect</h4>
-                  <div className="space-y-2 text-foreground/80 text-xs">
-                    <p><strong>2.1 Information You Provide Directly:</strong></p>
-                    <ul className="list-disc list-inside ml-4 space-y-1">
-                      <li>Name, email address, phone number, and mailing address</li>
-                      <li>Account credentials (username, password)</li>
-                      <li>Payment information (credit card details, billing address)</li>
-                      <li>Profile information and preferences</li>
-                      <li>Communications with us (support tickets, feedback, surveys)</li>
-                      <li>Content you submit (reviews, comments, posts)</li>
-                      <li>Employment information (if applying for jobs)</li>
-                    </ul>
-                    
-                    <p className="mt-2"><strong>2.2 Information Collected Automatically:</strong></p>
-                    <ul className="list-disc list-inside ml-4 space-y-1">
-                      <li>Device information (IP address, browser type, operating system)</li>
-                      <li>Usage data (pages visited, time spent, click patterns)</li>
-                      <li>Location data (general geographic location based on IP)</li>
-                      <li>Cookies and similar tracking technologies</li>
-                      <li>Log files and analytics data</li>
-                      <li>Device identifiers and mobile network information</li>
-                    </ul>
-
-                    <p className="mt-2"><strong>2.3 Information from Third Parties:</strong></p>
-                    <ul className="list-disc list-inside ml-4 space-y-1">
-                      <li>Social media platforms (when you connect your account)</li>
-                      <li>Payment processors (transaction confirmations)</li>
-                      <li>Public databases and business partners</li>
-                      <li>Marketing and analytics service providers</li>
-                      <li>Credit bureaus (for verification purposes)</li>
-                    </ul>
-                  </div>
+                  <p className="font-semibold text-foreground mb-1">2. Data We Collect</p>
+                  <p className="text-foreground/80">We collect information you provide directly, automatically through your use of our services, and from third-party sources as permitted by law.</p>
                 </div>
-
                 <div>
-                  <h4 className="font-bold text-foreground mb-2">3. How We Use Your Information</h4>
-                  <div className="space-y-2 text-foreground/80 text-xs">
-                    <p><strong>3.1 Service Provision:</strong> To provide, maintain, and improve our services, process transactions, manage your account, and deliver customer support.</p>
-                    <p><strong>3.2 Communication:</strong> To respond to your inquiries, send service updates, provide customer support, and send important notices about your account.</p>
-                    <p><strong>3.3 Marketing:</strong> To send promotional materials, newsletters, and special offers (with your consent where required). You can opt-out at any time.</p>
-                    <p><strong>3.4 Legal Compliance:</strong> To comply with legal obligations, enforce our terms, protect our rights and interests, and respond to legal requests.</p>
-                    <p><strong>3.5 Analytics:</strong> To analyze usage patterns, improve user experience, develop new features, and conduct research.</p>
-                    <p><strong>3.6 Security:</strong> To detect, prevent, and address fraud, security threats, technical issues, and unauthorized access.</p>
-                    <p><strong>3.7 Business Operations:</strong> To manage our business operations, conduct audits, and ensure quality control.</p>
-                  </div>
+                  <p className="font-semibold text-foreground mb-1">3. How We Use Your Data</p>
+                  <p className="text-foreground/80">We use your information to provide services, improve our offerings, comply with legal obligations, and protect our rights and interests.</p>
                 </div>
-
-                <div>
-                  <h4 className="font-bold text-foreground mb-2">4. Legal Basis for Processing (GDPR)</h4>
-                  <div className="space-y-2 text-foreground/80 text-xs">
-                    <p><strong>Consent (Article 6(1)(a)):</strong> When you provide explicit consent for marketing communications, optional features, or cookies. You can withdraw consent at any time.</p>
-                    <p><strong>Contract Performance (Article 6(1)(b)):</strong> To fulfill our contractual obligations and provide requested services, including processing orders and managing accounts.</p>
-                    <p><strong>Legal Obligation (Article 6(1)(c)):</strong> To comply with applicable laws and regulations, such as tax reporting, fraud prevention, and data retention requirements.</p>
-                    <p><strong>Legitimate Interest (Article 6(1)(f)):</strong> For business operations, fraud prevention, service improvement, and security where our interests don't override your rights. We conduct legitimate interest assessments for such processing.</p>
-                    <p><strong>Vital Interests (Article 6(1)(d)):</strong> To protect your vital interests or those of another person, such as in emergency situations.</p>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-foreground mb-2">5. Data Sharing and Disclosure</h4>
-                  <div className="space-y-2 text-foreground/80 text-xs">
-                    <p>We may share your information with the following categories of recipients:</p>
-                    <ul className="list-disc list-inside ml-4 space-y-1">
-                      <li><strong>Service Providers:</strong> Third-party vendors who perform services on our behalf (hosting, payment processing, analytics, email delivery, customer support)</li>
-                      <li><strong>Business Partners:</strong> With your consent, we may share information with trusted partners for joint offerings or co-marketing</li>
-                      <li><strong>Legal Requirements:</strong> When required by law, court order, government request, or to protect our legal rights</li>
-                      <li><strong>Business Transfers:</strong> In connection with mergers, acquisitions, asset sales, or other business transactions</li>
-                      <li><strong>Protection of Rights:</strong> To protect our rights, property, or safety, or that of our users or others</li>
-                      <li><strong>With Your Consent:</strong> For any other purpose disclosed to you with your consent</li>
-                    </ul>
-                    <p className="mt-2 font-semibold">We do not sell your personal information to third parties for their marketing purposes.</p>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-foreground mb-2">6. International Data Transfers</h4>
-                  <p className="text-foreground/80 text-xs">
-                    Your information may be transferred to and processed in countries outside your jurisdiction, including the United States and other countries where our service providers operate. We ensure appropriate safeguards are in place, including Standard Contractual Clauses (SCCs), adequacy decisions, or other approved transfer mechanisms under applicable data protection laws. You can request details about specific safeguards by contacting us.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-foreground mb-2">7. Data Retention</h4>
-                  <p className="text-foreground/80 text-xs mb-2">
-                    We retain your personal information only for as long as necessary to fulfill the purposes outlined in this policy, comply with legal obligations, resolve disputes, and enforce our agreements. Retention periods vary based on the type of data and legal requirements:
-                  </p>
-                  <ul className="list-disc list-inside ml-4 space-y-1 text-foreground/80 text-xs">
-                    <li><strong>Account Data:</strong> For the duration of your account plus 7 years for legal compliance</li>
-                    <li><strong>Transaction Records:</strong> 7 years for tax and accounting purposes</li>
-                    <li><strong>Marketing Data:</strong> Until you opt-out or 3 years of inactivity</li>
-                    <li><strong>Support Communications:</strong> 3 years from last interaction</li>
-                    <li><strong>Analytics Data:</strong> Aggregated and anonymized after 26 months</li>
-                  </ul>
-                  <p className="text-foreground/70 text-xs mt-2">Upon expiration of the retention period, data is securely deleted or anonymized.</p>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-foreground mb-2">8. Your Rights (GDPR & CCPA)</h4>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div className="p-2 bg-muted/50 rounded">
-                      <strong className="text-foreground">Right to Access:</strong>
-                      <p className="text-foreground/80 mt-1">Request a copy of your personal data and information about how it's processed</p>
-                    </div>
-                    <div className="p-2 bg-muted/50 rounded">
-                      <strong className="text-foreground">Right to Rectification:</strong>
-                      <p className="text-foreground/80 mt-1">Correct inaccurate or incomplete data</p>
-                    </div>
-                    <div className="p-2 bg-muted/50 rounded">
-                      <strong className="text-foreground">Right to Erasure:</strong>
-                      <p className="text-foreground/80 mt-1">Request deletion of your data ("right to be forgotten")</p>
-                    </div>
-                    <div className="p-2 bg-muted/50 rounded">
-                      <strong className="text-foreground">Right to Restrict Processing:</strong>
-                      <p className="text-foreground/80 mt-1">Limit how we use your data in certain circumstances</p>
-                    </div>
-                    <div className="p-2 bg-muted/50 rounded">
-                      <strong className="text-foreground">Right to Data Portability:</strong>
-                      <p className="text-foreground/80 mt-1">Receive your data in a structured, commonly used, and machine-readable format</p>
-                    </div>
-                    <div className="p-2 bg-muted/50 rounded">
-                      <strong className="text-foreground">Right to Object:</strong>
-                      <p className="text-foreground/80 mt-1">Object to processing based on legitimate interests or for direct marketing</p>
-                    </div>
-                    <div className="p-2 bg-muted/50 rounded">
-                      <strong className="text-foreground">Right to Withdraw Consent:</strong>
-                      <p className="text-foreground/80 mt-1">Withdraw consent at any time where processing is based on consent</p>
-                    </div>
-                    <div className="p-2 bg-muted/50 rounded">
-                      <strong className="text-foreground">Right to Non-Discrimination (CCPA):</strong>
-                      <p className="text-foreground/80 mt-1">Exercise rights without discrimination or receiving different service quality</p>
-                    </div>
-                  </div>
-                  <p className="mt-2 text-xs text-foreground/70">
-                    To exercise these rights, contact us at [privacy@yourcompany.com] or use our online request form. We will respond within 30 days (or as required by applicable law).
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-foreground mb-2">9. Cookies and Tracking Technologies</h4>
-                  <p className="text-foreground/80 text-xs mb-2">
-                    We use cookies, web beacons, and similar technologies to collect information about your browsing activities. You can control cookies through your browser settings. For more details, see our Cookie Policy.
-                  </p>
-                  <div className="grid grid-cols-3 gap-2 text-xs">
-                    <div className="p-2 bg-green-50 dark:bg-green-900/30 rounded">
-                      <strong>Essential:</strong> Required for site functionality (cannot be disabled)
-                    </div>
-                    <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded">
-                      <strong>Analytics:</strong> Help us understand usage patterns (can be disabled)
-                    </div>
-                    <div className="p-2 bg-purple-50 dark:bg-purple-900/30 rounded">
-                      <strong>Marketing:</strong> Used for advertising and personalization (can be disabled)
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-foreground mb-2">10. Security Measures</h4>
-                  <p className="text-foreground/80 text-xs">
-                    We implement appropriate technical and organizational measures to protect your personal information, including encryption (AES-256 at rest, TLS 1.3 in transit), access controls, regular security audits, staff training, and incident response procedures. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-foreground mb-2">11. Children's Privacy</h4>
-                  <p className="text-foreground/80 text-xs">
-                    Our services are not intended for individuals under the age of 16 (or 13 in some jurisdictions). We do not knowingly collect personal information from children. If you believe we have collected information from a child, please contact us immediately at [privacy@yourcompany.com] and we will delete such information promptly.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-foreground mb-2">12. Changes to This Policy</h4>
-                  <p className="text-foreground/80 text-xs">
-                    We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. We will notify you of any material changes by posting the new policy on this page, updating the "Last Updated" date, and, where required by law, obtaining your consent. Your continued use of our services after changes constitutes acceptance of the updated policy.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-foreground mb-2">13. Contact Information</h4>
-                  <div className="space-y-1 text-foreground/80 text-xs">
-                    <p><strong>Data Controller:</strong> [Your Organization Name]</p>
-                    <p><strong>Address:</strong> [Your Address]</p>
-                    <p><strong>Email:</strong> privacy@yourcompany.com</p>
-                    <p><strong>Data Protection Officer:</strong> dpo@yourcompany.com</p>
-                    <p><strong>Phone:</strong> [Your Phone Number]</p>
-                    <p className="mt-2"><strong>Supervisory Authority (EU):</strong> [Your local data protection authority]</p>
-                    <p><strong>CCPA Requests:</strong> [California-specific contact information if applicable]</p>
-                  </div>
-                </div>
-
                 <div className="mt-4 p-3 bg-primary/10 rounded">
                   <p className="text-xs text-foreground/70">
-                    ✓ GDPR Article 13 Compliant | ✓ CCPA Compliant | ✓ Multi-jurisdiction ready | ✓ Comprehensive coverage | ✓ Regular updates
+                    ✓ GDPR Article 13 Compliant | ✓ CCPA Compliant | ✓ Multi-jurisdiction ready
                   </p>
                 </div>
               </div>
