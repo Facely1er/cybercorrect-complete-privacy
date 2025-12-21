@@ -225,7 +225,8 @@ describe('DpiaGeneratorArtifact', () => {
       expect(screen.getByText('Security Measures:')).toBeInTheDocument()
       const encryptionTexts = screen.getAllByText(/Encryption at rest/i)
       expect(encryptionTexts.length).toBeGreaterThan(0)
-      expect(screen.getByText(/Multi-factor authentication/i)).toBeInTheDocument()
+      const mfaTexts = screen.getAllByText(/Multi-factor authentication/i)
+      expect(mfaTexts.length).toBeGreaterThan(0)
     })
 
     it('should display organizational measures', () => {

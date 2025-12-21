@@ -38,7 +38,7 @@ describe('ArtifactsIndex', () => {
     it('should render the page title', () => {
       renderComponent()
       
-      const title = screen.getByRole('heading', { name: /artifact documents/i })
+      const title = screen.getByRole('heading', { level: 1, name: /artifact documents/i })
       expect(title).toBeInTheDocument()
       expect(title).toHaveClass('text-4xl', 'font-bold')
     })
@@ -211,8 +211,9 @@ describe('ArtifactsIndex', () => {
     it('should have semantic structure', () => {
       const { container } = renderComponent()
       
-      const cards = container.querySelectorAll('[class*="Card"]')
-      expect(cards.length).toBeGreaterThan(0)
+      // Check for card-like elements (rounded-lg border classes indicate cards)
+      const cardElements = container.querySelectorAll('.rounded-lg.border')
+      expect(cardElements.length).toBeGreaterThan(0)
     })
   })
 

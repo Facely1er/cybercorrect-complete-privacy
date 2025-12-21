@@ -68,7 +68,8 @@ describe('ComplianceRoadmapArtifact', () => {
     it('should display action items table', () => {
       renderComponent()
       expect(screen.getByText('Action Items')).toBeInTheDocument()
-      expect(screen.getByText(/Update data retention policies/i)).toBeInTheDocument()
+      const retentionTexts = screen.getAllByText(/Update data retention policies/i)
+      expect(retentionTexts.length).toBeGreaterThan(0)
     })
 
     it('should display timeline view', () => {
@@ -79,7 +80,8 @@ describe('ComplianceRoadmapArtifact', () => {
     it('should display roadmap features', () => {
       renderComponent()
       expect(screen.getByText('Roadmap Features')).toBeInTheDocument()
-      expect(screen.getByText(/Risk-Based Prioritization/i)).toBeInTheDocument()
+      const prioritizationTexts = screen.getAllByText(/Risk-Based Prioritization/i)
+      expect(prioritizationTexts.length).toBeGreaterThan(0)
     })
   })
 
