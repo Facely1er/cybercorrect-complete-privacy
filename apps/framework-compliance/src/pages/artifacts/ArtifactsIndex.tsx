@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { FileText, Shield, ClipboardList, BarChart, FileCheck, AlertTriangle, UserCheck, Map } from 'lucide-react';
+import { FileText, Shield, ClipboardList, BarChart, FileCheck, AlertTriangle, UserCheck, Map, Lock, Cookie, Scale, FileWarning } from 'lucide-react';
 
 interface Artifact {
   id: string;
