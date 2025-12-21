@@ -26,18 +26,30 @@ const TEST_FILE_PATTERNS = [
 ];
 
 const TEST_CONTENT_PATTERNS = [
+  // Vitest/Jest specific patterns
   /vi\.mock/,
   /vi\.fn/,
   /mockImplementation/,
   /mockResolvedValue/,
   /mockRejectedValue/,
   /@testing-library/,
-  /vitest/,
+  /from ['"]vitest['"]/,
+  /from ['"]@testing-library/,
   /jest-dom/,
-  /describe\(/,
-  /it\(/,
-  /test\(/,
-  /expect\(/,
+  // Test function patterns - only match definitive test code, not minified code
+  // These patterns are very specific to avoid false positives in minified bundles
+  /describe\s*\(\s*['"]/,  // describe('test suite'
+  /it\s*\(\s*['"](should|test|expect|describe|when|given)/,  // it('should...' - very specific
+  /test\s*\(\s*['"](should|test|expect|describe|when|given)/,  // test('should...'
+  // Only match expect( when it's clearly a test assertion
+  /expect\s*\([^)]*\)\s*\.(toBe|toEqual|toMatch|toContain|toThrow)/,
+  // Test file imports - be more specific to avoid false positives
+  /import.*from.*['"]\.\.\/.*__tests__/,
+  /import.*from.*['"]\.\.\/.*\.test\./,
+  /import.*from.*['"]\.\.\/.*\.spec\./,
+  /require\(['"]\.\.\/.*__tests__/,
+  /require\(['"]\.\.\/.*\.test\./,
+  /require\(['"]\.\.\/.*\.spec\./,
 ];
 
 async function checkFile(filePath, relativePath) {

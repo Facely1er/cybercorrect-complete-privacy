@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "build:verify": "vite build && npm run verify:build",
+    "build": "vite build && npm run verify:build",
+    "build:no-verify": "vite build",
     "verify:build": "node scripts/verify-production-build.js",
     "lint": "eslint .",
     "preview": "vite preview",
