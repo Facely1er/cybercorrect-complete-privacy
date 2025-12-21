@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 import { FileDown, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { generateDataExportPdf } from '@/utils/pdf/generateExportPdf';

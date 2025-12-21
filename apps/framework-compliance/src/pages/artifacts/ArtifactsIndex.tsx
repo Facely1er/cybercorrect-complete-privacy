@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 import { Link } from 'react-router-dom';
 import { FileText, Shield, ClipboardList, BarChart, FileCheck, AlertTriangle, UserCheck, Map, Lock, Cookie, Scale, FileWarning } from 'lucide-react';
 
