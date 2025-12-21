@@ -228,7 +228,7 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
             {/* Section Scores - Compact */}
             <div className="lg:col-span-2">
               <h3 className="text-base sm:text-lg font-medium mb-3 text-foreground">Section Scores</h3>
-              <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-2">
+              <div className={`space-y-2.5 max-h-[300px] overflow-y-auto pr-2 ${styles.scrollbar}`}>
                 {data.sectionScores
                   .sort((a, b) => a.percentage - b.percentage)
                   .map((section, index) => {
@@ -277,7 +277,7 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
                 <div className="text-xs text-muted-foreground">Maturity</div>
               </div>
               <div className="text-base font-bold text-foreground">{maturityLevel.level}</div>
-              <div className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{maturityLevel.description}</div>
+              <div className={`text-xs text-muted-foreground mt-0.5 ${styles.lineClamp1}`}>{maturityLevel.description}</div>
             </div>
 
             <div className="bg-background border border-border rounded-lg p-3">
@@ -286,7 +286,7 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
                 <div className="text-xs text-muted-foreground">Benchmark</div>
               </div>
               <div className="text-base font-bold text-foreground">{benchmark.position}</div>
-              <div className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{benchmark.comparison}</div>
+              <div className={`text-xs text-muted-foreground mt-0.5 ${styles.lineClamp1}`}>{benchmark.comparison}</div>
             </div>
 
             <div className="bg-background border border-border rounded-lg p-3">
@@ -295,7 +295,7 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
                 <div className="text-xs text-muted-foreground">Effort</div>
               </div>
               <div className="text-base font-bold text-foreground">{effort.time}</div>
-              <div className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{effort.description}</div>
+              <div className={`text-xs text-muted-foreground mt-0.5 ${styles.lineClamp1}`}>{effort.description}</div>
             </div>
 
             <div className="bg-background border border-border rounded-lg p-3">
