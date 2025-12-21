@@ -15,18 +15,29 @@ import { CheckCircle } from 'lucide-react';
  * - /preview-artifact/:productId/:previewIndex - View specific preview
  * - /preview-artifact/:productId - View all previews for a product
  */
+
+interface Preview {
+  id: string;
+  type: string;
+  title: string;
+  format: string;
+  productId: string;
+  productName: string;
+  content: React.ReactNode | string;
+}
+
 const PreviewArtifactViewer = () => {
   const { productId, previewIndex } = useParams<{ productId: string; previewIndex?: string }>();
   const navigate = useNavigate();
   const [product, setProduct] = useState<OneTimeProduct | null>(null);
-  const [previews, setPreviews] = useState<any[]>([]);
+  const [previews, setPreviews] = useState<Preview[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isInternal, setIsInternal] = useState<boolean | null>(null);
 
   // Generate preview content for a specific product (helper function)
   // Must be defined before useEffect that uses it
-  const generatePreviewsForProduct = React.useCallback((oneTimeProduct: OneTimeProduct): any[] => {
-    const previews: any[] = [];
+  const generatePreviewsForProduct = React.useCallback((oneTimeProduct: OneTimeProduct): Preview[] => {
+    const previews: Preview[] = [];
 
     // Privacy Toolkit Pro
     if (oneTimeProduct.id === 'privacy-toolkit-pro') {
