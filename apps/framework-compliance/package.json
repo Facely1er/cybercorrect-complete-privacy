@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:verify": "vite build && npm run verify:build",
-    "verify:build": "tsx scripts/verify-production-build.ts || echo '⚠️  Verification skipped due to tooling issue - build succeeded'",
+    "verify:build": "node scripts/verify-production-build.js",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
