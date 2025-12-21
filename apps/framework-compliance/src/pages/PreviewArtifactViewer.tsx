@@ -963,46 +963,226 @@ const PreviewArtifactViewer = () => {
           productId: oneTimeProduct.id,
           productName: oneTimeProduct.name,
           content: (
-            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border">
-              <h3 className="text-xl font-bold mb-4 text-foreground">DSR Request Tracking</h3>
-              <div className="space-y-3 text-sm">
-                <div className="border border-border rounded-lg overflow-hidden">
-                  <table className="w-full text-xs">
-                    <thead className="bg-muted">
-                      <tr>
-                        <th className="p-2 text-left text-foreground">Request ID</th>
-                        <th className="p-2 text-left text-foreground">Type</th>
-                        <th className="p-2 text-left text-foreground">Status</th>
-                        <th className="p-2 text-left text-foreground">Days Remaining</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="border-t border-border">
-                        <td className="p-2 text-foreground/80">DSR-001</td>
-                        <td className="p-2 text-foreground/80">Access Request</td>
-                        <td className="p-2">
-                          <span className="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 rounded text-xs">
-                            In Progress
-                          </span>
-                        </td>
-                        <td className="p-2 text-foreground/80">22 days</td>
-                      </tr>
-                      <tr className="border-t border-border">
-                        <td className="p-2 text-foreground/80">DSR-002</td>
-                        <td className="p-2 text-foreground/80">Erasure Request</td>
-                        <td className="p-2">
-                          <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded text-xs">
-                            Completed
-                          </span>
-                        </td>
-                        <td className="p-2 text-foreground/80">-</td>
-                      </tr>
-                    </tbody>
-                  </table>
+            <div className="p-6 bg-white dark:bg-gray-800 rounded border border-border max-h-[80vh] overflow-y-auto">
+              <h3 className="text-xl font-bold mb-4 text-foreground">Data Subject Rights Request Manager</h3>
+              <div className="space-y-4 text-sm">
+                <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded border border-blue-200 dark:border-blue-800">
+                  <h4 className="font-bold text-foreground mb-2 text-xs">Request Dashboard Overview</h4>
+                  <div className="grid grid-cols-4 gap-2 text-xs">
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-foreground">12</div>
+                      <div className="text-foreground/70">Total Requests</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-yellow-600 dark:text-yellow-400">5</div>
+                      <div className="text-foreground/70">In Progress</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-green-600 dark:text-green-400">6</div>
+                      <div className="text-foreground/70">Completed</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-red-600 dark:text-red-400">1</div>
+                      <div className="text-foreground/70">Overdue</div>
+                    </div>
+                  </div>
                 </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">Active Requests</h4>
+                  <div className="border border-border rounded-lg overflow-hidden">
+                    <table className="w-full text-xs">
+                      <thead className="bg-muted">
+                        <tr>
+                          <th className="p-2 text-left text-foreground">Request ID</th>
+                          <th className="p-2 text-left text-foreground">Requester</th>
+                          <th className="p-2 text-left text-foreground">Type</th>
+                          <th className="p-2 text-left text-foreground">Submitted</th>
+                          <th className="p-2 text-left text-foreground">Status</th>
+                          <th className="p-2 text-left text-foreground">Days Remaining</th>
+                          <th className="p-2 text-left text-foreground">Assigned To</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-t border-border">
+                          <td className="p-2 text-foreground/80">DSR-2025-001</td>
+                          <td className="p-2 text-foreground/80">john.doe@example.com</td>
+                          <td className="p-2 text-foreground/80">Access Request (Article 15)</td>
+                          <td className="p-2 text-foreground/80">{new Date(Date.now() - 8*24*60*60*1000).toLocaleDateString()}</td>
+                          <td className="p-2">
+                            <span className="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200 rounded text-xs">
+                              In Progress
+                            </span>
+                          </td>
+                          <td className="p-2 text-foreground/80 font-semibold">22 days</td>
+                          <td className="p-2 text-foreground/80">Privacy Team</td>
+                        </tr>
+                        <tr className="border-t border-border">
+                          <td className="p-2 text-foreground/80">DSR-2025-002</td>
+                          <td className="p-2 text-foreground/80">jane.smith@example.com</td>
+                          <td className="p-2 text-foreground/80">Erasure Request (Article 17)</td>
+                          <td className="p-2 text-foreground/80">{new Date(Date.now() - 15*24*60*60*1000).toLocaleDateString()}</td>
+                          <td className="p-2">
+                            <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded text-xs">
+                              Completed
+                            </span>
+                          </td>
+                          <td className="p-2 text-foreground/80">-</td>
+                          <td className="p-2 text-foreground/80">Data Team</td>
+                        </tr>
+                        <tr className="border-t border-border">
+                          <td className="p-2 text-foreground/80">DSR-2025-003</td>
+                          <td className="p-2 text-foreground/80">bob.wilson@example.com</td>
+                          <td className="p-2 text-foreground/80">Portability Request (Article 20)</td>
+                          <td className="p-2 text-foreground/80">{new Date(Date.now() - 3*24*60*60*1000).toLocaleDateString()}</td>
+                          <td className="p-2">
+                            <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded text-xs">
+                              Under Review
+                            </span>
+                          </td>
+                          <td className="p-2 text-foreground/80">27 days</td>
+                          <td className="p-2 text-foreground/80">IT Team</td>
+                        </tr>
+                        <tr className="border-t border-border">
+                          <td className="p-2 text-foreground/80">DSR-2025-004</td>
+                          <td className="p-2 text-foreground/80">alice.brown@example.com</td>
+                          <td className="p-2 text-foreground/80">Rectification Request (Article 16)</td>
+                          <td className="p-2 text-foreground/80">{new Date(Date.now() - 35*24*60*60*1000).toLocaleDateString()}</td>
+                          <td className="p-2">
+                            <span className="px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 rounded text-xs">
+                              Overdue
+                            </span>
+                          </td>
+                          <td className="p-2 text-foreground/80 font-semibold text-red-600 dark:text-red-400">-5 days</td>
+                          <td className="p-2 text-foreground/80">Privacy Team</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">Request Types Supported</h4>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Article 15 - Right of Access:</strong>
+                      <p className="text-foreground/70 mt-1">Obtain confirmation and copy of personal data</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Article 16 - Right to Rectification:</strong>
+                      <p className="text-foreground/70 mt-1">Correct inaccurate or incomplete data</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Article 17 - Right to Erasure:</strong>
+                      <p className="text-foreground/70 mt-1">Request deletion ("right to be forgotten")</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Article 18 - Right to Restrict Processing:</strong>
+                      <p className="text-foreground/70 mt-1">Limit processing in certain circumstances</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Article 20 - Right to Data Portability:</strong>
+                      <p className="text-foreground/70 mt-1">Receive data in structured, machine-readable format</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Article 21 - Right to Object:</strong>
+                      <p className="text-foreground/70 mt-1">Object to processing based on legitimate interests</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">Request Workflow</h4>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold">1</div>
+                      <div className="flex-1 p-2 bg-muted/50 rounded">
+                        <strong className="text-foreground">Request Received:</strong>
+                        <span className="text-foreground/70 ml-2">Automated acknowledgment sent, request logged</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center text-yellow-600 dark:text-yellow-400 font-bold">2</div>
+                      <div className="flex-1 p-2 bg-muted/50 rounded">
+                        <strong className="text-foreground">Identity Verification:</strong>
+                        <span className="text-foreground/70 ml-2">Requester identity verified, additional info requested if needed</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 font-bold">3</div>
+                      <div className="flex-1 p-2 bg-muted/50 rounded">
+                        <strong className="text-foreground">Data Collection:</strong>
+                        <span className="text-foreground/70 ml-2">Relevant data identified and collected from all systems</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 font-bold">4</div>
+                      <div className="flex-1 p-2 bg-muted/50 rounded">
+                        <strong className="text-foreground">Response Preparation:</strong>
+                        <span className="text-foreground/70 ml-2">Response prepared, reviewed, and formatted according to request type</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 font-bold">5</div>
+                      <div className="flex-1 p-2 bg-muted/50 rounded">
+                        <strong className="text-foreground">Response Delivered:</strong>
+                        <span className="text-foreground/70 ml-2">Response sent to requester, request marked as completed</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">Compliance Metrics</h4>
+                  <div className="grid grid-cols-3 gap-2 text-xs">
+                    <div className="p-2 bg-green-50 dark:bg-green-900/30 rounded text-center">
+                      <div className="font-bold text-green-700 dark:text-green-300">98%</div>
+                      <div className="text-foreground/70">On-Time Completion</div>
+                    </div>
+                    <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded text-center">
+                      <div className="font-bold text-blue-700 dark:text-blue-300">18 days</div>
+                      <div className="text-foreground/70">Average Response Time</div>
+                    </div>
+                    <div className="p-2 bg-purple-50 dark:bg-purple-900/30 rounded text-center">
+                      <div className="font-bold text-purple-700 dark:text-purple-300">30 days</div>
+                      <div className="text-foreground/70">SLA Target</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-foreground mb-2 text-xs">Features</h4>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Automated Tracking:</strong>
+                      <p className="text-foreground/70 mt-1">30-day compliance window tracking with automated reminders</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Multi-Channel Support:</strong>
+                      <p className="text-foreground/70 mt-1">Email, web form, phone, postal mail integration</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Identity Verification:</strong>
+                      <p className="text-foreground/70 mt-1">Automated and manual verification workflows</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Data Discovery:</strong>
+                      <p className="text-foreground/70 mt-1">Automated data location across all systems</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Response Generation:</strong>
+                      <p className="text-foreground/70 mt-1">Automated response templates and formatting</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <strong className="text-foreground">Export & Reporting:</strong>
+                      <p className="text-foreground/70 mt-1">Export to PDF, Excel, CSV for audit and reporting</p>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="mt-4 p-3 bg-muted/50 rounded">
                   <p className="text-xs text-foreground/70">
-                    Track all GDPR Article 15-22 requests with 30-day compliance window, automated reminders, and export capabilities
+                    <strong>Full Features:</strong> Track all GDPR Article 15-22 requests with 30-day compliance window, automated reminders, identity verification, data discovery across systems, response generation, multi-channel support, SLA tracking, export capabilities, audit trail, and integration with data mapping tools.
                   </p>
                 </div>
               </div>
