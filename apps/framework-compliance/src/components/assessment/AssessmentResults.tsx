@@ -231,7 +231,7 @@ const AssessmentResults: React.FC<AssessmentResultsProps> = ({ data, onExport })
               <div className={`space-y-2.5 max-h-[300px] overflow-y-auto pr-2 ${styles.scrollbar}`}>
                 {data.sectionScores
                   .sort((a, b) => a.percentage - b.percentage)
-                  .map((section, index) => {
+                  .map((section) => {
                     const originalIndex = data.sectionScores.findIndex(s => s.title === section.title);
                     const isCritical = section.percentage < 50;
                     const isStrong = section.percentage >= 80;
