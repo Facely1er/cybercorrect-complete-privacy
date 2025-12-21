@@ -15,6 +15,8 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'json', 'html'],
+      all: true,
+      include: ['src/**/*.{js,jsx,ts,tsx}'],
       exclude: [
         'node_modules/',
         'src/test/',
@@ -23,7 +25,9 @@ export default defineConfig({
         'dist/',
         'build/',
         'coverage/',
-        'src/vite-env.d.ts'
+        'src/vite-env.d.ts',
+        '**/__tests__/**',
+        '**/__mocks__/**'
       ],
       thresholds: {
         global: {
