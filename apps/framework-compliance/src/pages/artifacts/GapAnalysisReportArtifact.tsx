@@ -159,7 +159,7 @@ const GapAnalysisReportArtifact: React.FC = () => {
                 <span className="text-2xl font-bold text-foreground">68%</span>
               </div>
               <div className="w-full bg-muted rounded-full h-2 mt-2">
-                <div className="bg-blue-600 h-2 rounded-full" style={{ width: '68%' }}></div>
+                <div className="bg-blue-600 h-2 rounded-full w-[68%]"></div>
               </div>
               <p className="text-foreground/70 mt-2 text-sm">Partial Compliance - Key gaps in data retention, consent management, and DPIA processes</p>
             </div>
@@ -169,7 +169,7 @@ const GapAnalysisReportArtifact: React.FC = () => {
                 <span className="text-2xl font-bold text-foreground">72%</span>
               </div>
               <div className="w-full bg-muted rounded-full h-2 mt-2">
-                <div className="bg-green-600 h-2 rounded-full" style={{ width: '72%' }}></div>
+                <div className="bg-green-600 h-2 rounded-full w-[72%]"></div>
               </div>
               <p className="text-foreground/70 mt-2 text-sm">Partial Compliance - Strong in disclosure requirements, needs improvement in opt-out mechanisms</p>
             </div>
