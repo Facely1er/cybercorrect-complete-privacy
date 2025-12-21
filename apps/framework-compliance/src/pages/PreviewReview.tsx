@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { Eye, CheckCircle, FileText, Download, ArrowLeft, Lock } from 'lucide-react';
+import { Eye, CheckCircle, FileText, Download, ArrowLeft, Lock, FileDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductPreviewModal from '../components/product/ProductPreviewModal';
 import { ProductCatalog, OneTimeProduct } from '../utils/monetization/oneTimeProducts';
+import { generateDataExportPdf } from '../utils/pdf/generateExportPdf';
 
 /**
  * Preview Review Page
@@ -16,7 +17,11 @@ import { ProductCatalog, OneTimeProduct } from '../utils/monetization/oneTimePro
  * Access: /preview-review (internal only)
  */
 const PreviewReview = () => {
+  // All hooks must be called at the top level, before any conditional returns
   const [isInternal, setIsInternal] = useState<boolean | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<OneTimeProduct | null>(null);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [reviewedProducts, setReviewedProducts] = useState<Set<string>>(new Set());
 
   // Check if user has internal access
   useEffect(() => {
@@ -60,9 +65,6 @@ const PreviewReview = () => {
       </div>
     );
   }
-  const [selectedProduct, setSelectedProduct] = useState<OneTimeProduct | null>(null);
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [reviewedProducts, setReviewedProducts] = useState<Set<string>>(new Set());
 
   // Get all one-time products
   const products = ProductCatalog.getAllProducts();
@@ -317,7 +319,119 @@ const PreviewReview = () => {
             <CardTitle>Export Review Report</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4">
+              <Button
+                variant="outline"
+                onClick={async () => {
+                  try {
+                    const getPreviewCount = (productId: string): number => {
+                      if (productId === 'privacy-toolkit-pro') return 3;
+                      if (productId === 'gdpr-complete-kit') return 3;
+                      if (productId === 'policy-template-library') return 3;
+                      if (productId === 'compliance-assessment-suite') return 2;
+                      if (productId === 'compliance-toolkit') return 2;
+                      return 1;
+                    };
+
+                    const getPreviewDetails = (productId: string): string => {
+                      if (productId === 'privacy-toolkit-pro') return 'DPIA Generator, Privacy Policy, Data Mapping';
+                      if (productId === 'gdpr-complete-kit') return 'Privacy Notice, Breach Notification, DSR Manager';
+                      if (productId === 'policy-template-library') return 'Privacy Policy, Cookie Policy, Terms of Service';
+                      if (productId === 'compliance-assessment-suite') return 'Gap Analysis Report, Compliance Roadmap';
+                      if (productId === 'compliance-toolkit') return 'Gap Analysis Worksheet, Evidence Checklist';
+                      return 'Preview content available';
+                    };
+
+                    const productsTable = products.map(p => [
+                      p.name.length > 45 ? p.name.substring(0, 45) + '...' : p.name,
+                      p.category,
+                      `$${p.price}`,
+                      getPreviewCount(p.id).toString(),
+                      reviewedProducts.has(p.id) ? 'Reviewed' : 'Pending',
+                      reviewedProducts.has(p.id) ? '✓' : '○'
+                    ]);
+
+                    // Detailed product information table
+                    const productDetailsTable = products.map(p => [
+                      p.name.length > 40 ? p.name.substring(0, 40) + '...' : p.name,
+                      getPreviewDetails(p.id),
+                      p.includedTools.length.toString() + ' tools',
+                      reviewedProducts.has(p.id) ? 'Completed' : 'In Progress'
+                    ]);
+
+                    // Review checklist items
+                    const checklistTable = [
+                      ['Content Accuracy', 'Verify preview content accurately represents deliverables', reviewedProducts.size > 0 ? '✓' : '○'],
+                      ['Visual Design', 'Check colors, spacing, typography, and overall appeal', reviewedProducts.size > 0 ? '✓' : '○'],
+                      ['Dark Mode', 'Ensure readability and visual appeal in dark mode', reviewedProducts.size > 0 ? '✓' : '○'],
+                      ['Responsiveness', 'Test on mobile, tablet, and desktop screen sizes', reviewedProducts.size > 0 ? '✓' : '○'],
+                      ['Navigation', 'Verify Previous/Next buttons work correctly', reviewedProducts.size > 0 ? '✓' : '○'],
+                      ['Format Labels', 'Confirm PDF/Word/Excel labels match content type', reviewedProducts.size > 0 ? '✓' : '○']
+                    ];
+
+                    // Individual product review breakdown
+                    const productReviewBreakdown = products.map(p => {
+                      const previewCount = getPreviewCount(p.id);
+                      const previewDetails = getPreviewDetails(p.id);
+                      return [
+                        p.name.length > 35 ? p.name.substring(0, 35) + '...' : p.name,
+                        previewCount.toString(),
+                        previewDetails.length > 50 ? previewDetails.substring(0, 50) + '...' : previewDetails,
+                        reviewedProducts.has(p.id) ? 'Completed' : 'Pending',
+                        reviewedProducts.has(p.id) ? new Date().toLocaleDateString() : 'N/A'
+                      ];
+                    });
+
+                    await generateDataExportPdf(
+                      {
+                        title: 'Product Preview Review Report',
+                        subtitle: 'Internal Content Review & Quality Assurance',
+                        timestamp: new Date().toISOString(),
+                        reportId: `PREVIEW-REVIEW-${Date.now()}`,
+                        version: '1.0',
+                        generatedBy: 'Internal Review Team'
+                      },
+                      {
+                        'Total Products': products.length,
+                        'Reviewed Products': reviewedProducts.size,
+                        'Pending Review': products.length - reviewedProducts.size,
+                        'Review Progress': `${reviewProgress}%`,
+                        'Review Date': new Date().toLocaleDateString(),
+                        'Completion Status': allReviewed ? '100% Complete' : 'In Progress'
+                      },
+                      [
+                        {
+                          title: 'Product Review Status',
+                          headers: ['Product Name', 'Category', 'Price', 'Previews', 'Status', 'Reviewed'],
+                          rows: productsTable
+                        },
+                        {
+                          title: 'Product Preview Details',
+                          headers: ['Product Name', 'Preview Content', 'Tools Included', 'Review Status'],
+                          rows: productDetailsTable
+                        },
+                        {
+                          title: 'Individual Product Review Breakdown',
+                          headers: ['Product Name', 'Preview Count', 'Preview Types', 'Review Status', 'Review Date'],
+                          rows: productReviewBreakdown
+                        },
+                        {
+                          title: 'Review Checklist',
+                          headers: ['Checklist Item', 'Description', 'Status'],
+                          rows: checklistTable
+                        }
+                      ],
+                      `preview-review-report-${new Date().toISOString().split('T')[0]}.pdf`
+                    );
+                  } catch (error) {
+                    console.error('Error generating PDF:', error);
+                    alert('Failed to generate PDF. Please try again.');
+                  }
+                }}
+              >
+                <FileDown className="w-4 h-4 mr-2" />
+                Export PDF Report
+              </Button>
               <Button
                 variant="outline"
                 onClick={() => {
