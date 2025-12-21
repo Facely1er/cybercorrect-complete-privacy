@@ -223,7 +223,8 @@ describe('DpiaGeneratorArtifact', () => {
       renderComponent()
       
       expect(screen.getByText('Security Measures:')).toBeInTheDocument()
-      expect(screen.getByText(/Encryption at rest/i)).toBeInTheDocument()
+      const encryptionTexts = screen.getAllByText(/Encryption at rest/i)
+      expect(encryptionTexts.length).toBeGreaterThan(0)
       expect(screen.getByText(/Multi-factor authentication/i)).toBeInTheDocument()
     })
 
@@ -238,7 +239,8 @@ describe('DpiaGeneratorArtifact', () => {
       renderComponent()
       
       expect(screen.getByText('Technical Measures:')).toBeInTheDocument()
-      expect(screen.getByText(/Automated data retention policies/i)).toBeInTheDocument()
+      const retentionTexts = screen.getAllByText(/Automated data retention policies/i)
+      expect(retentionTexts.length).toBeGreaterThan(0)
     })
   })
 

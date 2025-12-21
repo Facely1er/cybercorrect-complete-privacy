@@ -110,8 +110,10 @@ describe('ArtifactsIndex', () => {
     it('should have correct routes for artifact links', () => {
       renderComponent()
       
-      const dpiaLink = screen.getByRole('link', { name: /view full document/i })
-      expect(dpiaLink).toHaveAttribute('href', '/artifacts/dpia-generator')
+      const links = screen.getAllByRole('link', { name: /view full document/i })
+      expect(links.length).toBeGreaterThan(0)
+      const dpiaLink = links.find(link => link.getAttribute('href') === '/artifacts/dpia-generator')
+      expect(dpiaLink).toBeInTheDocument()
     })
 
     it('should have links to all artifact routes', () => {
