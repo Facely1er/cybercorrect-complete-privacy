@@ -19,5 +19,5 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["vite.config.ts", "scripts/**/*.ts", "scripts/complete-stripe-setup-automated.ts"]
+  "include": ["vite.config.ts", "vitest.config.ts", "scripts/**/*.ts", "scripts/complete-stripe-setup-automated.ts"]
 }
