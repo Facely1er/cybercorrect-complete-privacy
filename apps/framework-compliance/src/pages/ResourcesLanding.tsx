@@ -147,7 +147,7 @@ const ResourcesLanding = () => {
         
         {/* Quick Access */}
         <section>
-          <h2 className="text-xl font-semibold mb-4 text-foreground">Popular Resources</h2>
+          <h2 className="text-xl md:text-2xl font-bold mb-4 text-foreground">Popular Resources</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               { title: 'GDPR Guide', icon: Shield, path: '/documentation/gdpr-implementation-guide' },
@@ -161,7 +161,7 @@ const ResourcesLanding = () => {
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                       <item.icon className="h-5 w-5 text-primary" />
                     </div>
-                    <span className="font-medium text-foreground">{item.title}</span>
+                    <span className="font-medium text-foreground dark:text-foreground">{item.title}</span>
                   </CardContent>
                 </Card>
               </Link>
@@ -171,7 +171,7 @@ const ResourcesLanding = () => {
 
         {/* Documentation & Guides */}
         <section>
-          <h2 className="text-xl font-semibold mb-4 text-foreground">Documentation & Guides</h2>
+          <h2 className="text-xl md:text-2xl font-bold mb-4 text-foreground">Documentation & Guides</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {resourceCategories.map((category) => (
               <Card key={category.id} className="hover:shadow-lg transition-shadow">
@@ -181,8 +181,8 @@ const ResourcesLanding = () => {
                       <category.icon className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground">{category.title}</h3>
-                      <p className="text-sm text-muted-foreground">{category.description}</p>
+                      <h3 className="text-lg font-semibold text-foreground">{category.title}</h3>
+                      <p className="text-sm text-foreground/80 dark:text-foreground/70">{category.description}</p>
                     </div>
                   </div>
                   <ul className="space-y-2">
@@ -203,7 +203,7 @@ const ResourcesLanding = () => {
 
         {/* FAQs Section */}
         <section>
-          <h2 className="text-xl font-semibold mb-4 text-foreground">Frequently Asked Questions</h2>
+          <h2 className="text-xl md:text-2xl font-bold mb-4 text-foreground">Frequently Asked Questions</h2>
           
           {/* Search and Filter */}
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -214,7 +214,7 @@ const ResourcesLanding = () => {
                 placeholder="Search FAQs..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                className="w-full pl-10 pr-4 py-2 border border-border rounded-lg bg-background text-foreground placeholder:text-foreground/50 dark:placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
               />
             </div>
             <div className="flex flex-wrap gap-2">
