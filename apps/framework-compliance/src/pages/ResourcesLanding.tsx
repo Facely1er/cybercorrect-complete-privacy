@@ -137,8 +137,8 @@ const ResourcesLanding = () => {
       <section className="py-8 border-b border-border bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <h1 className="text-3xl md:text-4xl font-semibold text-foreground">Docs & Guides</h1>
-            <p className="text-muted-foreground mt-2">Documentation, guides, FAQs, and help for your privacy compliance journey</p>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">Docs & Guides</h1>
+            <p className="text-base md:text-lg text-foreground/80 dark:text-foreground/70 mt-2">Documentation, guides, FAQs, and help for your privacy compliance journey</p>
           </div>
         </div>
       </section>

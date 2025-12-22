@@ -143,10 +143,10 @@ const LegalCounselJourney = () => {
               </span>
             </div>
             
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground dark:text-foreground">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground">
               Your Legal <span className="bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">Compliance</span> Journey
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8">
+            <p className="text-lg md:text-xl text-foreground/90 dark:text-foreground/80 mb-8">
               A structured path using compliance tools and templates to support privacy legal work (legal review required)
             </p>
 
@@ -181,7 +181,7 @@ const LegalCounselJourney = () => {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-xl font-bold text-foreground">Your Personalized Legal Journey</h3>
+                        <h3 className="text-lg md:text-xl font-bold text-foreground">Your Personalized Legal Journey</h3>
                         <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                           customization.priorityLevel === 'critical' ? 'bg-destructive/10 text-destructive' :
                           customization.priorityLevel === 'high' ? 'bg-warning/10 text-warning' :
@@ -193,7 +193,7 @@ const LegalCounselJourney = () => {
                            customization.priorityLevel === 'moderate' ? 'Moderate Priority' : 'Maintenance Mode'}
                         </span>
                       </div>
-                      <p className="text-muted-foreground mb-4">
+                      <p className="text-foreground/80 dark:text-foreground/70 mb-4">
                         Based on your assessment score of <strong className="text-foreground">{customization.overallScore}%</strong>, 
                         we've customized your legal journey to focus on key compliance gaps.
                       </p>
@@ -249,10 +249,10 @@ const LegalCounselJourney = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-2xl font-bold mb-3 text-foreground dark:text-foreground">
+              <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
                 Baseline Tasks for All Roles
               </h2>
-              <p className="text-lg text-muted-foreground mb-8">
+              <p className="text-base md:text-lg text-foreground/80 dark:text-foreground/70 mb-8">
                 These foundational tasks are common to all privacy professionals, regardless of role
               </p>
             </div>
@@ -261,10 +261,10 @@ const LegalCounselJourney = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <h3 className="font-semibold mb-3 text-foreground flex items-center">
-                      <CheckCircle className="w-5 h-5 text-accent mr-2" />
+                      <CheckCircle className="w-5 h-5 text-primary mr-2" />
                       Assessment & Analysis
                     </h3>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
+                    <ul className="space-y-2 text-sm text-foreground/80 dark:text-foreground/70">
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
                         <span>Complete Privacy Assessment to understand current compliance posture</span>
@@ -281,10 +281,10 @@ const LegalCounselJourney = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-3 text-foreground flex items-center">
-                      <CheckCircle className="w-5 h-5 text-accent mr-2" />
+                      <CheckCircle className="w-5 h-5 text-primary mr-2" />
                       Monitoring & Documentation
                     </h3>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
+                    <ul className="space-y-2 text-sm text-foreground/80 dark:text-foreground/70">
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
                         <span>Monitor compliance status via Privacy Dashboard</span>
@@ -311,15 +311,15 @@ const LegalCounselJourney = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-foreground">
                 Your Privacy Compliance Tools Journey
               </h2>
-              <p className="text-xl text-muted-foreground mb-4">
+              <p className="text-lg md:text-xl text-foreground/90 dark:text-foreground/80 mb-4">
                 {fromAssessment 
                   ? 'Steps prioritized based on your assessment results' 
                   : 'Four phases using compliance tools and templates'}
               </p>
-              <p className="text-base text-muted-foreground italic">
+              <p className="text-base text-foreground/80 dark:text-foreground/70 italic">
                 As Legal Counsel, you use these tools to support legal review, contract analysis, and compliance documentation
               </p>
             </div>
@@ -335,9 +335,9 @@ const LegalCounselJourney = () => {
                         </div>
                         <span className="text-sm text-accent font-medium">{step.phase}</span>
                       </div>
-                      <h3 className="text-2xl font-bold mb-2 text-foreground">{step.title}</h3>
-                      <p className="text-muted-foreground mb-4">{step.description}</p>
-                      <div className="flex items-center text-sm text-muted-foreground">
+                      <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground">{step.title}</h3>
+                      <p className="text-foreground/80 dark:text-foreground/70 mb-4">{step.description}</p>
+                      <div className="flex items-center text-sm text-foreground/70 dark:text-foreground/60">
                         <Clock className="w-4 h-4 mr-1" />
                         {step.duration}
                       </div>
@@ -346,24 +346,24 @@ const LegalCounselJourney = () => {
                     <div className="lg:w-2/3">
                       <Card className="mb-4">
                         <CardContent className="p-6">
-                          <h4 className="font-semibold mb-4">Tools & Resources</h4>
+                          <h4 className="text-lg font-semibold mb-4 text-foreground">Tools & Resources</h4>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             {step.tools.map((tool, toolIndex) => (
                               <Link key={toolIndex} to={tool.path} className="block">
-                                <div className="flex items-center p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors">
-                                  <tool.icon className="w-5 h-5 text-accent mr-3" />
-                                  <span className="font-medium">{tool.name}</span>
+                                <div className="flex items-center p-3 bg-muted/30 dark:bg-muted/20 rounded-lg hover:bg-muted/50 dark:hover:bg-muted/30 transition-colors border border-border/50">
+                                  <tool.icon className="w-5 h-5 text-primary dark:text-primary mr-3" />
+                                  <span className="font-medium text-foreground">{tool.name}</span>
                                 </div>
                               </Link>
                             ))}
                           </div>
                           
-                          <h4 className="font-semibold mb-3">Key Outcomes</h4>
+                          <h4 className="text-lg font-semibold mb-3 text-foreground">Key Outcomes</h4>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                             {step.outcomes.map((outcome, outcomeIndex) => (
                               <div key={outcomeIndex} className="flex items-start">
-                                <CheckCircle className="w-4 h-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
-                                <span className="text-sm">{outcome}</span>
+                                <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0" />
+                                <span className="text-sm text-foreground/90 dark:text-foreground/80">{outcome}</span>
                               </div>
                             ))}
                           </div>
@@ -389,13 +389,13 @@ const LegalCounselJourney = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-foreground">
                 Legal Counsel Documentation Tools
               </h2>
-              <p className="text-xl text-muted-foreground mb-4">
+              <p className="text-lg md:text-xl text-foreground/90 dark:text-foreground/80 mb-4">
                 Tools to support legal compliance and contract documentation work
               </p>
-              <p className="text-base text-muted-foreground italic max-w-3xl mx-auto">
+              <p className="text-base text-foreground/80 dark:text-foreground/70 italic max-w-3xl mx-auto">
                 While all roles use baseline assessment and dashboard tools, Legal Counsel uses these tools to support 
                 legal interpretation, contract review, and regulatory compliance documentation (legal review required)
               </p>
@@ -409,12 +409,12 @@ const LegalCounselJourney = () => {
                       <capability.icon className="w-6 h-6 text-accent" />
                     </div>
                     <h3 className="text-xl font-semibold mb-3 text-foreground">{capability.title}</h3>
-                    <p className="text-muted-foreground mb-4">{capability.description}</p>
+                    <p className="text-foreground/80 dark:text-foreground/70 mb-4">{capability.description}</p>
                     <ul className="space-y-2">
                       {capability.features.map((feature, featureIndex) => (
                         <li key={featureIndex} className="flex items-center text-sm">
-                          <CheckCircle className="w-4 h-4 text-green-600 mr-2 flex-shrink-0" />
-                          <span>{feature}</span>
+                          <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400 mr-2 flex-shrink-0" />
+                          <span className="text-foreground/90 dark:text-foreground/80">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -430,10 +430,10 @@ const LegalCounselJourney = () => {
       <section className="py-10 bg-primary dark:bg-dark-primary">
         <div className="container mx-auto px-4">
           <div className="text-center text-white max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-white">
               Ready to Navigate Privacy Law?
             </h2>
-            <p className="text-lg text-white/90 mb-6">
+            <p className="text-base md:text-lg text-white/90 mb-6">
               Use compliance tools and templates to support privacy compliance work across jurisdictions (legal review required)
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
