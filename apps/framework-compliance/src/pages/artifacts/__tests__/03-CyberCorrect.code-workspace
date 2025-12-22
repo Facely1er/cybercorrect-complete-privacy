@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "03-CyberCorrect",
+			"path": "../../../../../.."
+		}
+	],
+	"settings": {
+		"powershell.cwd": "07-CyberCertitude-Landing"
+	}
+}

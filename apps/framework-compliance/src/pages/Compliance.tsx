@@ -425,7 +425,7 @@ const Compliance = () => {
                       <div className={`w-14 h-14 bg-gradient-to-br ${role.color} rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
                         <role.icon className="w-7 h-7 text-white" />
                       </div>
-                      <h3 className="text-xl font-bold mb-1 text-foreground dark:text-foreground group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-bold mb-1 text-foreground dark:text-foreground text-center group-hover:text-primary transition-colors">
                         {role.title}
                       </h3>
                       <p className="text-xs text-primary mb-3">{role.subtitle}</p>

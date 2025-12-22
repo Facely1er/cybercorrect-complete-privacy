@@ -313,7 +313,7 @@ const Landing = () => {
                   <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${goal.color} flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform shadow-lg`}>
                     <goal.icon className="w-7 h-7 text-white" aria-hidden="true" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2 text-foreground">{goal.title}</h3>
+                  <h3 className="text-xl font-bold mb-2 text-foreground text-center">{goal.title}</h3>
                   <p className="text-muted-foreground mb-4 text-sm leading-relaxed">{goal.description}</p>
                   <div className="space-y-1 mb-6">
                     {goal.outcomes.map((outcome, idx) => (
