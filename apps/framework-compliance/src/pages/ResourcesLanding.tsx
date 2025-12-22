@@ -249,7 +249,7 @@ const ResourcesLanding = () => {
                       )}
                     </button>
                     {expandedFaq === index && (
-                      <div className="px-6 pb-4 text-muted-foreground text-sm">
+                      <div className="px-6 pb-4 text-foreground/80 dark:text-foreground/70 text-sm">
                         {faq.answer}
                       </div>
                     )}
@@ -257,8 +257,8 @@ const ResourcesLanding = () => {
                 ))
               ) : (
                 <div className="p-8 text-center">
-                  <HelpCircle className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
-                  <p className="text-muted-foreground">No FAQs found matching your search.</p>
+                  <HelpCircle className="h-10 w-10 mx-auto text-foreground/60 dark:text-foreground/50 mb-3" />
+                  <p className="text-foreground/80 dark:text-foreground/70">No FAQs found matching your search.</p>
                 </div>
               )}
             </CardContent>
@@ -267,13 +267,13 @@ const ResourcesLanding = () => {
 
         {/* Help Options */}
         <section>
-          <h2 className="text-xl font-semibold mb-4 text-foreground">Need Help?</h2>
+          <h2 className="text-xl md:text-2xl font-bold mb-4 text-foreground">Need Help?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="hover:shadow-md transition-shadow">
               <CardContent className="p-6 text-center">
                 <Bot className="h-10 w-10 text-primary mx-auto mb-3" />
-                <h3 className="font-semibold mb-2 text-foreground">Guide Bot</h3>
-                <p className="text-sm text-muted-foreground mb-4">Get instant answers 24/7</p>
+                <h3 className="text-lg font-semibold mb-2 text-foreground">Guide Bot</h3>
+                <p className="text-sm text-foreground/80 dark:text-foreground/70 mb-4">Get instant answers 24/7</p>
                 <Button variant="outline" className="w-full" onClick={() => openChatbot()}>
                   Launch Guide
                 </Button>
@@ -283,8 +283,8 @@ const ResourcesLanding = () => {
             <Card className="hover:shadow-md transition-shadow">
               <CardContent className="p-6 text-center">
                 <Mail className="h-10 w-10 text-primary mx-auto mb-3" />
-                <h3 className="font-semibold mb-2 text-foreground">Email Support</h3>
-                <p className="text-sm text-muted-foreground mb-4">Response within 24 hours</p>
+                <h3 className="text-lg font-semibold mb-2 text-foreground">Email Support</h3>
+                <p className="text-sm text-foreground/80 dark:text-foreground/70 mb-4">Response within 24 hours</p>
                 <a href="mailto:support@cybercorrect.com" className="w-full">
                   <Button variant="outline" className="w-full">Send Email</Button>
                 </a>
@@ -294,8 +294,8 @@ const ResourcesLanding = () => {
             <Card className="hover:shadow-md transition-shadow">
               <CardContent className="p-6 text-center">
                 <HelpCircle className="h-10 w-10 text-primary mx-auto mb-3" />
-                <h3 className="font-semibold mb-2 text-foreground">Contact Us</h3>
-                <p className="text-sm text-muted-foreground mb-4">Detailed inquiries & sales</p>
+                <h3 className="text-lg font-semibold mb-2 text-foreground">Contact Us</h3>
+                <p className="text-sm text-foreground/80 dark:text-foreground/70 mb-4">Detailed inquiries & sales</p>
                 <Link to="/contact" className="w-full">
                   <Button variant="outline" className="w-full">Contact Form</Button>
                 </Link>
