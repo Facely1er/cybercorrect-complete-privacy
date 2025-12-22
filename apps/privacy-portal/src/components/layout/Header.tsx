@@ -43,25 +43,25 @@ export const Header = () => {
         : 'bg-background/80 backdrop-blur-sm border-transparent'
     }`}>
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-16 items-center justify-between gap-2 min-w-0">
           {/* Logo and Brand */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
+          <div className="flex items-center flex-shrink-0 min-w-0">
+            <Link to="/" className="flex items-center space-x-2 min-w-0">
               <img 
                 src="/logos/cybercorrect-logo.png" 
                 alt={brand.logo.alt} 
-                className="h-16 w-16"
+                className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 flex-shrink-0"
               />
-              <div className="hidden sm:flex sm:flex-col font-bold leading-tight">
-                <span className="text-sm">{brand.companyNameWithTM}</span>
-                <span className="text-xs font-medium">{brand.tagline}</span>
-                <span className="text-xs font-normal text-muted-foreground">by {brand.legal.companyName}</span>
+              <div className="hidden md:flex md:flex-col font-bold leading-tight min-w-0">
+                <span className="text-sm truncate">{brand.companyNameWithTM}</span>
+                <span className="text-xs font-medium truncate">{brand.tagline}</span>
+                <span className="text-xs font-normal text-muted-foreground truncate">by {brand.legal.companyName}</span>
               </div>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-2">
+          <nav className="hidden md:flex items-center space-x-2 flex-shrink-0">
             {navigation.map((item) => {
               const Icon = item.icon;
               return (
@@ -84,14 +84,14 @@ export const Header = () => {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
             aria-label="Toggle mobile menu"
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
 
           {/* Right side actions */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center space-x-2 flex-shrink-0">
             <ThemeToggle />
             <NotificationDropdown />
             
