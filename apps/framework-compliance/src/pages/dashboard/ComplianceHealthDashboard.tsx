@@ -20,9 +20,12 @@ import { complianceHealthMonitor, ComplianceHealthScore, ScoreTrend } from '../.
 import { toast } from '../../components/ui/Toaster';
 import { DashboardBetaInviteBanner } from '../../components/dashboard/DashboardBetaInviteBanner';
 import { shouldShowBetaInvite } from '../../utils/portalBetaMapping';
+import { useAuth } from '../../context/AuthContext';
+import { getCurrentUser } from '../../lib/supabase';
 
 export const ComplianceHealthDashboard: React.FC = () => {
   usePageTitle('Compliance Health Dashboard');
+  const { user } = useAuth();
   const [currentScore, setCurrentScore] = useState<ComplianceHealthScore | null>(null);
   const [scoreHistory, setScoreHistory] = useState<ComplianceHealthScore[]>([]);
   const [trend30d, setTrend30d] = useState<ScoreTrend | null>(null);
@@ -32,13 +35,39 @@ export const ComplianceHealthDashboard: React.FC = () => {
   const [selectedPeriod, setSelectedPeriod] = useState<'30d' | '60d' | '90d'>('30d');
   const [isLoading, setIsLoading] = useState(true);
   const [selectedFramework] = useState<string | undefined>(undefined);
+  const [userHasPortal, setUserHasPortal] = useState(false);
+  const [userRole, setUserRole] = useState<string>('Privacy Officer');
   
   // Portal Beta Invitation State
   const [showBetaInvite, setShowBetaInvite] = useState(true);
   const betaInviteDismissed = localStorage.getItem('portalBetaInviteDismissed') === 'true';
-  const userHasPortal = false; // TODO: Get from user context/subscription
-  const userRole = 'Privacy Officer'; // TODO: Get from user profile
   const hasCompletedAssessment = currentScore !== null; // User has completed assessment if they have a score
+
+  // Load user subscription and role info
+  useEffect(() => {
+    const loadUserInfo = async () => {
+      if (user) {
+        // Set user role from user profile
+        setUserRole(user.role?.replace('_', ' ') || 'Privacy Officer');
+        
+        // Check for portal subscription (this would need subscription service integration)
+        // For now, check if user has any active subscription
+        try {
+          const { user: supabaseUser } = await getCurrentUser();
+          if (supabaseUser) {
+            // TODO: Check subscription service for portal access
+            // For now, default to false
+            setUserHasPortal(false);
+          }
+        } catch (error) {
+          // If not authenticated or error, default to false
+          setUserHasPortal(false);
+        }
+      }
+    };
+    
+    loadUserInfo();
+  }, [user]);
   
   const handleDismissBetaInvite = () => {
     setShowBetaInvite(false);

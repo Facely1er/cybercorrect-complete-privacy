@@ -7,6 +7,7 @@ import { ImportDialog } from '../../components/ui/ImportDialog';
 import { validators } from '../../utils/import/jsonValidator';
 import { usePageTitle } from '../../hooks/usePageTitle';
 import { useJourney } from '../../context/JourneyContext';
+import { useAuth } from '../../context/AuthContext';
 import JourneyProgressTracker from '../../components/onboarding/JourneyProgressTracker';
 import { 
   Eye, 
@@ -29,16 +30,20 @@ import { secureStorage } from '../../utils/storage';
 import {
   getProcessingActivities,
   createProcessingActivity,
+  updateProcessingActivity,
   deleteProcessingActivity,
   exportToCSV,
   exportToPDF,
   type ProcessingActivity,
 } from '../../services/ropaService';
 import { logError } from '../../utils/common/logger';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../../components/ui/Dialog';
+import { Select } from '../../components/ui/Select';
 
 const GdprMapper = () => {
   usePageTitle('GDPR Mapper');
   const { markToolStarted, markToolCompleted, currentStepIndex, completedSteps } = useJourney();
+  const { user } = useAuth();
   
   const [activities, setActivities] = useState<ProcessingActivity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<string | null>(null);
@@ -46,6 +51,9 @@ const GdprMapper = () => {
   const [saving, setSaving] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [showImportDialog, setShowImportDialog] = useState(false);
+  const [showEditDialog, setShowEditDialog] = useState(false);
+  const [editingActivity, setEditingActivity] = useState<ProcessingActivity | null>(null);
+  const [editFormData, setEditFormData] = useState<Partial<ProcessingActivity>>({});
 
   // Mark tool as started when component mounts
   useEffect(() => {
@@ -96,7 +104,7 @@ const GdprMapper = () => {
         retentionPeriod: '',
         riskLevel: 'medium',
         dataController: 'Your Organization',
-        createdBy: 'Current User', // TODO: Get from auth context
+        createdBy: user?.name || user?.email || 'Current User',
       });
       
       setActivities(prev => [...prev, newActivity]);
@@ -152,7 +160,59 @@ const GdprMapper = () => {
     }
   };
 
-  // TODO: Implement edit functionality with a form/modal
+  const handleEditActivity = (activity: ProcessingActivity) => {
+    setEditingActivity(activity);
+    setEditFormData({
+      name: activity.name,
+      description: activity.description,
+      purpose: activity.purpose,
+      legalBasis: activity.legalBasis,
+      dataTypes: [...activity.dataTypes],
+      dataSubjects: [...activity.dataSubjects],
+      recipients: [...activity.recipients],
+      thirdCountryTransfers: activity.thirdCountryTransfers ? [...activity.thirdCountryTransfers] : [],
+      retentionPeriod: activity.retentionPeriod,
+      securityMeasures: activity.securityMeasures ? [...activity.securityMeasures] : [],
+      riskLevel: activity.riskLevel,
+      dpiaRequired: activity.dpiaRequired,
+      dataController: activity.dataController,
+      dataProcessor: activity.dataProcessor,
+      processingLocation: activity.processingLocation,
+      automatedDecisionMaking: activity.automatedDecisionMaking,
+      profiling: activity.profiling,
+      notes: activity.notes,
+    });
+    setShowEditDialog(true);
+  };
+
+  const handleSaveEdit = async () => {
+    if (!editingActivity?.id) return;
+
+    try {
+      setSaving(true);
+      const updated = await updateProcessingActivity(editingActivity.id, {
+        ...editFormData,
+        updatedBy: user?.name || user?.email || 'Current User',
+      });
+
+      setActivities(prev => prev.map(a => a.id === editingActivity.id ? updated : a));
+      if (selectedActivity === editingActivity.id) {
+        setSelectedActivity(updated.id || null);
+      }
+      
+      setShowEditDialog(false);
+      setEditingActivity(null);
+      toast.success('Activity Updated', 'Processing activity has been updated successfully');
+    } catch (error) {
+      logError(error instanceof Error ? error : new Error('Error updating activity'), {
+        component: 'GdprMapper',
+        operation: 'updateActivity',
+      });
+      toast.error('Update failed', error instanceof Error ? error.message : 'Failed to update processing activity');
+    } finally {
+      setSaving(false);
+    }
+  };
 
   const handleDeleteActivity = async (id: string) => {
     if (!confirm('Are you sure you want to delete this processing activity?')) {
@@ -481,7 +541,7 @@ const GdprMapper = () => {
                              variant="outline" 
                              className="w-full" 
                              disabled={saving}
-                             onClick={() => toast.info('Coming soon', 'Edit functionality will be available in a future update')}
+                             onClick={() => activity && handleEditActivity(activity)}
                            >
                              <Edit className="h-4 w-4 mr-2" />
                              Edit Activity
@@ -634,6 +694,191 @@ const GdprMapper = () => {
           }}
           maxRecords={500}
         />
+
+        {/* Edit Activity Dialog */}
+        <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
+          <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>Edit Processing Activity</DialogTitle>
+              <DialogDescription>
+                Update the details of this GDPR processing activity
+              </DialogDescription>
+            </DialogHeader>
+
+            {editingActivity && (
+              <form onSubmit={(e) => { e.preventDefault(); handleSaveEdit(); }} className="space-y-4">
+                <div>
+                  <Label htmlFor="edit-name">Activity Name *</Label>
+                  <Input
+                    id="edit-name"
+                    value={editFormData.name || ''}
+                    onChange={(e) => setEditFormData({ ...editFormData, name: e.target.value })}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="edit-purpose">Purpose *</Label>
+                  <Textarea
+                    id="edit-purpose"
+                    value={editFormData.purpose || ''}
+                    onChange={(e) => setEditFormData({ ...editFormData, purpose: e.target.value })}
+                    required
+                    rows={3}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="edit-description">Description</Label>
+                  <Textarea
+                    id="edit-description"
+                    value={editFormData.description || ''}
+                    onChange={(e) => setEditFormData({ ...editFormData, description: e.target.value })}
+                    rows={3}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="edit-legalBasis">Legal Basis *</Label>
+                    <select
+                      id="edit-legalBasis"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      value={editFormData.legalBasis || 'consent'}
+                      onChange={(e) => setEditFormData({ ...editFormData, legalBasis: e.target.value as ProcessingActivity['legalBasis'] })}
+                      required
+                    >
+                      <option value="consent">Consent</option>
+                      <option value="contract">Contract</option>
+                      <option value="legal_obligation">Legal Obligation</option>
+                      <option value="vital_interests">Vital Interests</option>
+                      <option value="public_task">Public Task</option>
+                      <option value="legitimate_interests">Legitimate Interests</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="edit-riskLevel">Risk Level *</Label>
+                    <select
+                      id="edit-riskLevel"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      value={editFormData.riskLevel || 'medium'}
+                      onChange={(e) => setEditFormData({ ...editFormData, riskLevel: e.target.value as ProcessingActivity['riskLevel'] })}
+                      required
+                    >
+                      <option value="low">Low</option>
+                      <option value="medium">Medium</option>
+                      <option value="high">High</option>
+                      <option value="critical">Critical</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="edit-retentionPeriod">Retention Period *</Label>
+                  <Input
+                    id="edit-retentionPeriod"
+                    value={editFormData.retentionPeriod || ''}
+                    onChange={(e) => setEditFormData({ ...editFormData, retentionPeriod: e.target.value })}
+                    placeholder="e.g., 7 years, Until account deletion"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="edit-dataController">Data Controller *</Label>
+                  <Input
+                    id="edit-dataController"
+                    value={editFormData.dataController || ''}
+                    onChange={(e) => setEditFormData({ ...editFormData, dataController: e.target.value })}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="edit-dataTypes">Data Types (comma-separated)</Label>
+                  <Input
+                    id="edit-dataTypes"
+                    value={editFormData.dataTypes?.join(', ') || ''}
+                    onChange={(e) => setEditFormData({
+                      ...editFormData,
+                      dataTypes: e.target.value.split(',').map(s => s.trim()).filter(s => s.length > 0)
+                    })}
+                    placeholder="e.g., Name, Email, Phone Number"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="edit-dataSubjects">Data Subjects (comma-separated)</Label>
+                  <Input
+                    id="edit-dataSubjects"
+                    value={editFormData.dataSubjects?.join(', ') || ''}
+                    onChange={(e) => setEditFormData({
+                      ...editFormData,
+                      dataSubjects: e.target.value.split(',').map(s => s.trim()).filter(s => s.length > 0)
+                    })}
+                    placeholder="e.g., Customers, Employees, Visitors"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="edit-recipients">Recipients (comma-separated)</Label>
+                  <Input
+                    id="edit-recipients"
+                    value={editFormData.recipients?.join(', ') || ''}
+                    onChange={(e) => setEditFormData({
+                      ...editFormData,
+                      recipients: e.target.value.split(',').map(s => s.trim()).filter(s => s.length > 0)
+                    })}
+                    placeholder="e.g., Cloud Provider, Analytics Service"
+                  />
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id="edit-dpiaRequired"
+                      checked={editFormData.dpiaRequired || false}
+                      onChange={(e) => setEditFormData({ ...editFormData, dpiaRequired: e.target.checked })}
+                    />
+                    <Label htmlFor="edit-dpiaRequired" className="font-normal cursor-pointer">
+                      DPIA Required
+                    </Label>
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="edit-notes">Notes</Label>
+                  <Textarea
+                    id="edit-notes"
+                    value={editFormData.notes || ''}
+                    onChange={(e) => setEditFormData({ ...editFormData, notes: e.target.value })}
+                    rows={3}
+                    placeholder="Additional notes or comments"
+                  />
+                </div>
+
+                <div className="flex gap-3 pt-4">
+                  <Button type="submit" disabled={saving} className="flex-1">
+                    {saving ? 'Saving...' : 'Save Changes'}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => {
+                      setShowEditDialog(false);
+                      setEditingActivity(null);
+                      setEditFormData({});
+                    }}
+                    disabled={saving}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </form>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

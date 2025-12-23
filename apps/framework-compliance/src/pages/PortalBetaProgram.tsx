@@ -22,6 +22,9 @@ import { Label } from '@/components/ui/Label';
 import { Textarea } from '@/components/ui/Textarea';
 import { Checkbox } from '@/components/ui/Checkbox';
 import { getRoleCohort, getCohortInfo, type CohortType } from '../utils/portalBetaMapping';
+import { submitBetaApplication } from '../services/portalBetaService';
+import { toast } from '../components/ui/Toaster';
+import { logError } from '../utils/common';
 
 export default function PortalBetaProgram() {
   const location = useLocation();
@@ -37,6 +40,7 @@ export default function PortalBetaProgram() {
   
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const [fromAssessmentBanner, setFromAssessmentBanner] = useState(fromAssessment || false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     companyName: '',
     industry: '',
@@ -96,10 +100,101 @@ export default function PortalBetaProgram() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement actual submission to backend
-    // Form data ready for submission: formData
-    alert('Thank you for your application! We\'ll review and contact you within 48 hours.');
-    setShowApplicationForm(false);
+    
+    // Validate required fields
+    if (!formData.companyName || !formData.contactName || !formData.contactEmail || !formData.contactRole) {
+      toast.error('Missing required fields', 'Please fill in all required fields.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Transform form data to match BetaApplicationData interface
+      const interestedStakeholders: string[] = [];
+      let expectedTesters = 0;
+
+      if (formData.stakeholderEmployees) {
+        interestedStakeholders.push('employees');
+        expectedTesters += parseInt(formData.employeeCount) || 5;
+      }
+      if (formData.stakeholderHR) {
+        interestedStakeholders.push('hr');
+        expectedTesters += parseInt(formData.hrCount) || 2;
+      }
+      if (formData.stakeholderCompliance) {
+        interestedStakeholders.push('compliance');
+        expectedTesters += parseInt(formData.complianceCount) || 1;
+      }
+      if (formData.stakeholderLegal) {
+        interestedStakeholders.push('legal');
+        expectedTesters += parseInt(formData.legalCount) || 1;
+      }
+
+      const applicationData = {
+        organizationName: formData.companyName,
+        organizationSize: formData.companySize as '1-50' | '51-200' | '201-1000' | '1001-5000' | '5000+',
+        organizationIndustry: formData.industry || undefined,
+        organizationWebsite: formData.website || undefined,
+        contactName: formData.contactName,
+        contactEmail: formData.contactEmail,
+        contactRole: formData.contactRole,
+        contactPhone: formData.phone || undefined,
+        primaryCohort: (formData.primaryCohort || 'multiple') as 'employee' | 'hr' | 'compliance' | 'legal' | 'multiple',
+        interestedStakeholders,
+        expectedTesters: expectedTesters || 1,
+        currentChallenges: formData.whyJoin || undefined,
+        whiteLabelInterest: formData.whiteLabelInterest === 'yes-workforce' || formData.whiteLabelInterest === 'yes-reseller',
+        resellerInterest: formData.whiteLabelInterest === 'yes-reseller',
+        cameFromAssessment: fromAssessment || false,
+      };
+
+      const result = await submitBetaApplication(applicationData);
+
+      if (result.success) {
+        toast.success(
+          'Application Submitted',
+          'Thank you for your application! We\'ll review and contact you within 48 hours.'
+        );
+        setShowApplicationForm(false);
+        // Reset form
+        setFormData({
+          companyName: '',
+          industry: '',
+          companySize: '',
+          contactName: '',
+          contactEmail: '',
+          contactRole: '',
+          phone: '',
+          website: '',
+          primaryCohort: '',
+          stakeholderEmployees: false,
+          stakeholderHR: false,
+          stakeholderCompliance: false,
+          stakeholderLegal: false,
+          employeeCount: '',
+          hrCount: '',
+          complianceCount: '',
+          legalCount: '',
+          whiteLabelInterest: '',
+          feedbackCommitment: false,
+          monthlyCallsCommitment: false,
+          surveyCommitment: false,
+          whyJoin: '',
+          currentPlatform: '',
+        });
+      } else {
+        toast.error('Submission Failed', result.error || 'Failed to submit application. Please try again.');
+      }
+    } catch (error) {
+      logError(error instanceof Error ? error : new Error('Failed to submit beta application'), {
+        component: 'PortalBetaProgram',
+        operation: 'submitApplication',
+      });
+      toast.error('Submission Failed', 'An unexpected error occurred. Please try again or contact support.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -876,13 +971,14 @@ export default function PortalBetaProgram() {
 
                 {/* Submit */}
                 <div className="flex gap-3 pt-4">
-                  <Button type="submit" className="flex-1">
-                    Submit Application
+                  <Button type="submit" className="flex-1" disabled={isSubmitting}>
+                    {isSubmitting ? 'Submitting...' : 'Submit Application'}
                   </Button>
                   <Button 
                     type="button" 
                     variant="outline" 
                     onClick={() => setShowApplicationForm(false)}
+                    disabled={isSubmitting}
                   >
                     Cancel
                   </Button>

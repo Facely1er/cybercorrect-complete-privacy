@@ -2,10 +2,11 @@
  * Email Notification Service
  * 
  * Handles email notifications for beta applications, subscriptions, and user events.
- * Currently supports stub implementations that log to console in development.
- * 
- * TODO: Integrate with Supabase Edge Function + SendGrid/Resend for production
+ * Integrates with Supabase Edge Functions for production email delivery.
  */
+
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { logError } from '../utils/common';
 
 export interface EmailTemplate {
   to: string;
@@ -59,13 +60,47 @@ Best regards,
 The CyberCorrect Team
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     `);
-    return { success: true };
   }
 
-  // TODO: Implement with Supabase Edge Function
-  // await supabase.functions.invoke('send-beta-confirmation-email', {
-  //   body: { ...data }
-  // });
+  // Attempt to send via Supabase Edge Function if configured
+  if (isSupabaseConfigured()) {
+    try {
+      const { data: result, error } = await supabase.functions.invoke('send-email', {
+        body: {
+          template: 'beta-application-confirmation',
+          to: data.email,
+          data: {
+            name: data.name,
+            organizationName: data.organizationName,
+            cohortName: data.cohortName,
+          },
+        },
+      });
+
+      if (error) {
+        logError(new Error(`Email service error: ${error.message}`), {
+          context: 'email_beta_confirmation',
+          email: data.email.replace(/(.{2}).*(@.*)/, '$1***$2'),
+        });
+        // Fall through to return success in dev mode
+        if (import.meta.env.PROD) {
+          return { success: false, error: error.message };
+        }
+      }
+
+      if (result?.success) {
+        return { success: true };
+      }
+    } catch (error) {
+      logError(error instanceof Error ? error : new Error('Email service failed'), {
+        context: 'email_beta_confirmation',
+      });
+      // In production, return error; in dev, continue with mock
+      if (import.meta.env.PROD) {
+        return { success: false, error: 'Failed to send email' };
+      }
+    }
+  }
 
   return { success: true };
 }
@@ -116,10 +151,47 @@ Best regards,
 The CyberCorrect Team
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     `);
-    return { success: true };
   }
 
-  // TODO: Implement with Supabase Edge Function
+  // Attempt to send via Supabase Edge Function if configured
+  if (isSupabaseConfigured()) {
+    try {
+      const { data: result, error } = await supabase.functions.invoke('send-email', {
+        body: {
+          template: 'beta-application-acceptance',
+          to: data.email,
+          data: {
+            name: data.name,
+            organizationName: data.organizationName,
+            cohortName: data.cohortName,
+            onboardingLink: data.onboardingLink,
+          },
+        },
+      });
+
+      if (error) {
+        logError(new Error(`Email service error: ${error.message}`), {
+          context: 'email_beta_acceptance',
+          email: data.email.replace(/(.{2}).*(@.*)/, '$1***$2'),
+        });
+        if (import.meta.env.PROD) {
+          return { success: false, error: error.message };
+        }
+      }
+
+      if (result?.success) {
+        return { success: true };
+      }
+    } catch (error) {
+      logError(error instanceof Error ? error : new Error('Email service failed'), {
+        context: 'email_beta_acceptance',
+      });
+      if (import.meta.env.PROD) {
+        return { success: false, error: 'Failed to send email' };
+      }
+    }
+  }
+
   return { success: true };
 }
 
@@ -163,10 +235,47 @@ Best regards,
 The CyberCorrect Team
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     `);
-    return { success: true };
   }
 
-  // TODO: Implement with Supabase Edge Function
+  // Attempt to send via Supabase Edge Function if configured
+  if (isSupabaseConfigured()) {
+    try {
+      const { data: result, error } = await supabase.functions.invoke('send-email', {
+        body: {
+          template: 'beta-application-rejection',
+          to: data.email,
+          data: {
+            name: data.name,
+            organizationName: data.organizationName,
+            cohortName: data.cohortName,
+            reason: data.reason,
+          },
+        },
+      });
+
+      if (error) {
+        logError(new Error(`Email service error: ${error.message}`), {
+          context: 'email_beta_rejection',
+          email: data.email.replace(/(.{2}).*(@.*)/, '$1***$2'),
+        });
+        if (import.meta.env.PROD) {
+          return { success: false, error: error.message };
+        }
+      }
+
+      if (result?.success) {
+        return { success: true };
+      }
+    } catch (error) {
+      logError(error instanceof Error ? error : new Error('Email service failed'), {
+        context: 'email_beta_rejection',
+      });
+      if (import.meta.env.PROD) {
+        return { success: false, error: 'Failed to send email' };
+      }
+    }
+  }
+
   return { success: true };
 }
 
@@ -212,10 +321,46 @@ Best regards,
 The CyberCorrect Team
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     `);
-    return { success: true };
   }
 
-  // TODO: Implement with Supabase Edge Function
+  // Attempt to send via Supabase Edge Function if configured
+  if (isSupabaseConfigured()) {
+    try {
+      const { data: result, error } = await supabase.functions.invoke('send-email', {
+        body: {
+          template: 'assessment-complete',
+          to: email,
+          data: {
+            name,
+            assessmentType,
+            resultsLink,
+          },
+        },
+      });
+
+      if (error) {
+        logError(new Error(`Email service error: ${error.message}`), {
+          context: 'email_assessment_complete',
+          email: email.replace(/(.{2}).*(@.*)/, '$1***$2'),
+        });
+        if (import.meta.env.PROD) {
+          return { success: false, error: error.message };
+        }
+      }
+
+      if (result?.success) {
+        return { success: true };
+      }
+    } catch (error) {
+      logError(error instanceof Error ? error : new Error('Email service failed'), {
+        context: 'email_assessment_complete',
+      });
+      if (import.meta.env.PROD) {
+        return { success: false, error: 'Failed to send email' };
+      }
+    }
+  }
+
   return { success: true };
 }
 
@@ -264,10 +409,47 @@ Best regards,
 The CyberCorrect Team
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     `);
-    return { success: true };
   }
 
-  // TODO: Implement with Supabase Edge Function
+  // Attempt to send via Supabase Edge Function if configured
+  if (isSupabaseConfigured()) {
+    try {
+      const { data: result, error } = await supabase.functions.invoke('send-email', {
+        body: {
+          template: 'subscription-confirmation',
+          to: email,
+          data: {
+            name,
+            tier,
+            amount: (amount / 100).toFixed(2),
+            billingDate: new Date().toLocaleDateString(),
+          },
+        },
+      });
+
+      if (error) {
+        logError(new Error(`Email service error: ${error.message}`), {
+          context: 'email_subscription_confirmation',
+          email: email.replace(/(.{2}).*(@.*)/, '$1***$2'),
+        });
+        if (import.meta.env.PROD) {
+          return { success: false, error: error.message };
+        }
+      }
+
+      if (result?.success) {
+        return { success: true };
+      }
+    } catch (error) {
+      logError(error instanceof Error ? error : new Error('Email service failed'), {
+        context: 'email_subscription_confirmation',
+      });
+      if (import.meta.env.PROD) {
+        return { success: false, error: 'Failed to send email' };
+      }
+    }
+  }
+
   return { success: true };
 }
 
@@ -311,10 +493,45 @@ Best regards,
 The CyberCorrect Team
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     `);
-    return { success: true };
   }
 
-  // TODO: Implement with Supabase Edge Function
+  // Attempt to send via Supabase Edge Function if configured
+  if (isSupabaseConfigured()) {
+    try {
+      const { data: result, error } = await supabase.functions.invoke('send-email', {
+        body: {
+          template: 'trial-expiring-reminder',
+          to: email,
+          data: {
+            name,
+            daysRemaining,
+          },
+        },
+      });
+
+      if (error) {
+        logError(new Error(`Email service error: ${error.message}`), {
+          context: 'email_trial_expiring',
+          email: email.replace(/(.{2}).*(@.*)/, '$1***$2'),
+        });
+        if (import.meta.env.PROD) {
+          return { success: false, error: error.message };
+        }
+      }
+
+      if (result?.success) {
+        return { success: true };
+      }
+    } catch (error) {
+      logError(error instanceof Error ? error : new Error('Email service failed'), {
+        context: 'email_trial_expiring',
+      });
+      if (import.meta.env.PROD) {
+        return { success: false, error: 'Failed to send email' };
+      }
+    }
+  }
+
   return { success: true };
 }
 
