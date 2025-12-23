@@ -24,7 +24,8 @@ import {
   Eye,
   Edit,
   Download,
-  Building
+  Building,
+  Loader2
 } from 'lucide-react';
 
 // Using PrivacyIncident type from incidentService
@@ -379,7 +380,17 @@ const IncidentResponseManager = () => {
                     Report Incident
                   </Button>
                   <Button variant="outline" onClick={() => exportReport('json')} disabled={isExporting}>
-                    <Download className="h-4 w-4" />
+                    {isExporting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Exporting...
+                      </>
+                    ) : (
+                      <>
+                        <Download className="h-4 w-4 mr-2" />
+                        Export
+                      </>
+                    )}
                   </Button>
                 </div>
               </div>

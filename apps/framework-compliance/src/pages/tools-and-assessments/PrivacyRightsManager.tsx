@@ -24,6 +24,7 @@ import { toast } from '../../components/ui/Toaster';
 import { secureStorage } from '../../utils/storage';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { ImportDialog } from '../../components/ui/ImportDialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../../components/ui/Dialog';
 import { validators } from '../../utils/import/jsonValidator';
 import { required, email, minLength, combine } from '../../utils/validation';
 import { logError } from '../../utils/common/logger';
@@ -803,31 +804,12 @@ const PrivacyRightsManager = () => {
       </div>
 
       {/* New Request Modal */}
-      {showNewRequest && (
-        <div 
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-          onClick={() => setShowNewRequest(false)}
-        >
-          <Card 
-            ref={newRequestFormRef}
-            className="w-full max-w-2xl max-h-[90vh] overflow-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
-                <span>Create New Data Subject Request</span>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={() => setShowNewRequest(false)}
-                  aria-label="Close new request dialog"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
+      <Dialog open={showNewRequest} onOpenChange={setShowNewRequest}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Create New Data Subject Request</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
                 <div>
                   <label htmlFor="request-type-select" className="block text-sm font-medium mb-2">
                     Request Type <span className="text-destructive">*</span>
@@ -960,10 +942,8 @@ const PrivacyRightsManager = () => {
                   </Button>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
 
       {/* Rights Information */}
       <div className="mt-8 p-6 bg-muted/30 rounded-lg">

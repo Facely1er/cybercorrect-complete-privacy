@@ -22,7 +22,8 @@ import {
   FileText,
   Trash2,
   RefreshCw,
-  ArrowLeft
+  ArrowLeft,
+  Loader2
 } from 'lucide-react';
 
 interface RetentionPolicy {
@@ -518,7 +519,17 @@ const RetentionPolicyGenerator = () => {
                     New Policy
                   </Button>
                   <Button variant="outline" onClick={() => exportReport('json')} disabled={isExporting}>
-                    <Download className="h-4 w-4" />
+                    {isExporting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Exporting...
+                      </>
+                    ) : (
+                      <>
+                        <Download className="h-4 w-4 mr-2" />
+                        Export
+                      </>
+                    )}
                   </Button>
                 </div>
               </div>
