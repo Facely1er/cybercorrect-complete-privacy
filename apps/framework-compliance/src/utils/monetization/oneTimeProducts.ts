@@ -56,7 +56,7 @@ export const ONE_TIME_PRODUCTS: OneTimeProduct[] = [
     id: 'privacy-toolkit-pro',
     name: 'Privacy Toolkit Pro',
     tagline: 'Complete offline privacy compliance toolkit',
-    description: 'All-in-one privacy compliance tools that run 100% in your browser. No cloud dependencies, complete data ownership.',
+    description: '10 essential privacy tools in one package. DPIA generator, policy templates, data mapping, and more. Works 100% offline.',
     longDescription: `CyberCorrect™ Privacy Toolkit Pro is a comprehensive suite of privacy compliance tools designed for complete data sovereignty.
     All processing happens locally in your browser using localStorage, ensuring your sensitive compliance data never leaves your control.
     Perfect for small businesses, consultants, and privacy professionals who need powerful tools without ongoing subscriptions.`,
@@ -121,7 +121,7 @@ export const ONE_TIME_PRODUCTS: OneTimeProduct[] = [
     id: 'compliance-assessment-suite',
     name: 'Compliance Assessment Suite',
     tagline: 'Professional privacy assessment tools',
-    description: 'Offline assessment tools with local scoring for GDPR, CCPA, and NIST privacy frameworks.',
+    description: 'Privacy gap analysis, risk scoring, and compliance roadmaps for GDPR, CCPA, and NIST. Generate professional reports instantly.',
     longDescription: `CyberCorrect™ Compliance Assessment Suite provides professional-grade privacy assessment tools that run entirely in your browser.
     Conduct comprehensive privacy gap analyses, generate compliance roadmaps, and create detailed reports - all without sending data to the cloud.
     Ideal for consultants performing client assessments or organizations managing periodic compliance reviews.`,
@@ -176,7 +176,7 @@ export const ONE_TIME_PRODUCTS: OneTimeProduct[] = [
     id: 'gdpr-complete-kit',
     name: 'GDPR Complete Kit',
     tagline: 'Everything you need for GDPR compliance',
-    description: 'Complete GDPR compliance toolkit with all templates and documentation generators - works 100% offline.',
+    description: 'GDPR privacy policies, DPIAs, data subject rights manager, breach notifications, and Article 30 documentation. All templates included.',
     longDescription: `CyberCorrect™ GDPR Complete Kit is a comprehensive package for organizations subject to the General Data Protection Regulation.
     Includes all essential templates, generators, and tools required for GDPR compliance, from privacy policies to data breach notifications.
     All processing happens locally, ensuring your GDPR documentation remains private and under your control.`,
@@ -235,7 +235,7 @@ export const ONE_TIME_PRODUCTS: OneTimeProduct[] = [
     id: 'policy-template-library',
     name: 'Policy & Template Library',
     tagline: '50+ privacy policy templates',
-    description: 'Comprehensive library of privacy policies and templates with offline generation and customization.',
+    description: '50+ ready-to-use privacy policies, cookie policies, and terms of service. Multi-jurisdiction (GDPR, CCPA, PIPEDA, LGPD). Customize and export instantly.',
     longDescription: `CyberCorrect™ Policy & Template Library provides instant access to over 50 professionally-drafted privacy policy templates
     covering multiple jurisdictions and industries. Customize templates with your organization's details and generate
     publication-ready documents entirely offline. No recurring fees, no cloud dependencies.`,
@@ -288,7 +288,7 @@ export const ONE_TIME_PRODUCTS: OneTimeProduct[] = [
     id: 'compliance-toolkit',
     name: 'Compliance Framework Templates',
     tagline: 'Multi-framework compliance templates',
-    description: 'Downloadable compliance templates for NIST, ISO 27001, SOC 2, HIPAA, GDPR, CMMC, and PCI-DSS frameworks',
+    description: 'Gap analysis worksheets, control matrices, and audit checklists for NIST, ISO 27001, SOC 2, HIPAA, GDPR, CMMC, and PCI-DSS.',
     longDescription: `CyberCorrect™ Compliance Framework Templates provide comprehensive, ready-to-use templates for major compliance frameworks.
     Includes gap analysis worksheets, control mapping matrices, evidence collection checklists, and audit preparation guides.
     Perfect for compliance teams, auditors, and organizations preparing for certifications. All templates are customizable and work offline.`,

@@ -5,6 +5,8 @@ import { Button } from '../components/ui/Button';
 import { ArrowLeft, Eye, ChevronLeft, ChevronRight, Download, FileText, Lock } from 'lucide-react';
 import { ProductCatalog, OneTimeProduct } from '../utils/monetization/oneTimeProducts';
 import { CheckCircle } from 'lucide-react';
+import { generateArtifact } from '../utils/artifacts/artifactGenerators';
+import { toast } from '../components/ui/Toaster';
 
 /**
  * Preview Artifact Viewer
@@ -1437,28 +1439,41 @@ const PreviewArtifactViewer = () => {
     }
   };
 
-  const handleExport = () => {
-    const exportData = {
-      product: {
-        id: product.id,
-        name: product.name,
-      },
-      preview: {
-        id: currentPreview.id,
-        title: currentPreview.title,
-        type: currentPreview.type,
-        format: currentPreview.format,
-      },
-      exportedAt: new Date().toISOString(),
-    };
+  const handleExport = async () => {
+    try {
+      // Map artifact IDs to generator format
+      const artifactIdMap: Record<string, string> = {
+        'dpia-sample': 'dpia-sample',
+        'privacy-policy-sample': 'privacy-policy-sample',
+        'data-mapping-interface': 'data-mapping-interface', // Interactive - no download
+        'gdpr-privacy-notice': 'privacy-policy-sample',
+        'breach-notification-template': 'breach-notification-template',
+        'dsr-request-manager': 'dsr-request-manager', // Interactive - no download
+        'website-privacy-policy': 'privacy-policy-sample',
+        'cookie-policy-template': 'privacy-policy-sample',
+        'terms-of-service-template': 'privacy-policy-sample',
+        'gap-analysis-report': 'gap-analysis-report',
+        'compliance-roadmap': 'compliance-roadmap',
+        'gap-analysis-worksheet': 'nist-gap-worksheet',
+        'evidence-collection-checklist': 'evidence-checklist'
+      };
 
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${product.id}-${currentPreview.id}-${new Date().toISOString().split('T')[0]}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+      const artifactId = artifactIdMap[currentPreview.id] || currentPreview.id;
+      const format = currentPreview.format as 'PDF' | 'Word' | 'Excel';
+
+      // Skip interactive artifacts
+      if (format === 'Interactive') {
+        toast.info('Interactive Tool', 'This is an interactive tool. Use the main application to access full functionality.');
+        return;
+      }
+
+      // Generate the artifact
+      await generateArtifact(productId, artifactId, format);
+      toast.success('Download Started', `${currentPreview.title} is being downloaded.`);
+    } catch (error) {
+      console.error('Error generating artifact:', error);
+      toast.error('Download Failed', 'Failed to generate artifact. Please try again.');
+    }
   };
 
   return (
@@ -1476,10 +1491,12 @@ const PreviewArtifactViewer = () => {
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <Button variant="outline" onClick={handleExport}>
-                <Download className="w-4 h-4 mr-2" />
-                Export
-              </Button>
+              {currentPreview.format !== 'Interactive' && (
+                <Button onClick={handleExport} className="bg-primary hover:bg-primary/90">
+                  <Download className="w-4 h-4 mr-2" />
+                  Download {currentPreview.format}
+                </Button>
+              )}
               <Link to="/preview-review">
                 <Button variant="outline">
                   <ArrowLeft className="w-4 h-4 mr-2" />
