@@ -216,6 +216,8 @@ class LocalReminderService {
 
   /**
    * Initialize reminder service
+   * Note: Permission is not requested automatically to avoid popup on page load
+   * Permission will be requested when a reminder is actually triggered
    */
   async initialize(): Promise<void> {
     try {
@@ -225,8 +227,8 @@ class LocalReminderService {
         this.remindersCache = localReminders;
       }
 
-      // Request permission
-      await this.requestPermission();
+      // Don't request permission automatically - it will be requested when needed
+      // await this.requestPermission();
 
       // Start checking
       this.startChecking();
@@ -238,8 +240,6 @@ class LocalReminderService {
 
 export const localReminderService = new LocalReminderService();
 
-// Initialize on module load
-if (typeof window !== 'undefined') {
-  localReminderService.initialize();
-}
+// Note: Auto-initialization removed to prevent notification permission popup on landing page
+// The service will initialize automatically when first needed (e.g., when creating a reminder)
 
