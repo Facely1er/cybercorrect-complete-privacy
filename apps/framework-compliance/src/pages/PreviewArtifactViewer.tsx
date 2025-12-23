@@ -778,7 +778,7 @@ const PreviewArtifactViewer = () => {
           )
         },
         {
-          id: 'dsr-manager',
+          id: 'dsr-request-manager',
           type: 'template',
           title: 'Data Subject Rights Request Manager',
           format: 'Interactive',
@@ -1049,10 +1049,10 @@ const PreviewArtifactViewer = () => {
           )
         },
         {
-          id: 'cookie-policy',
+          id: 'cookie-policy-template',
           type: 'template',
           title: 'Cookie Policy Template',
-          format: 'PDF',
+          format: 'Word',
           productId: oneTimeProduct.id,
           productName: oneTimeProduct.name,
           content: (
@@ -1087,7 +1087,7 @@ const PreviewArtifactViewer = () => {
           )
         },
         {
-          id: 'terms-of-service',
+          id: 'terms-of-service-template',
           type: 'template',
           title: 'Terms of Service Template',
           format: 'Word',
@@ -1297,7 +1297,7 @@ const PreviewArtifactViewer = () => {
           )
         },
         {
-          id: 'evidence-checklist',
+          id: 'evidence-collection-checklist',
           type: 'template',
           title: 'Evidence Collection Checklist',
           format: 'PDF',
@@ -1441,31 +1441,50 @@ const PreviewArtifactViewer = () => {
 
   const handleExport = async () => {
     try {
-      // Map artifact IDs to generator format
+      // Skip interactive artifacts
+      if (currentPreview.format === 'Interactive') {
+        toast.info('Interactive Tool', 'This is an interactive tool. Use the main application to access full functionality.');
+        return;
+      }
+
+      // Ensure we have productId
+      if (!productId) {
+        toast.error('Missing Information', 'Unable to generate artifact. Missing product ID.');
+        return;
+      }
+
+      // Map artifact IDs to generator format (use same ID for generator lookup)
       const artifactIdMap: Record<string, string> = {
         'dpia-sample': 'dpia-sample',
         'privacy-policy-sample': 'privacy-policy-sample',
         'data-mapping-interface': 'data-mapping-interface', // Interactive - no download
-        'gdpr-privacy-notice': 'privacy-policy-sample',
+        'gdpr-privacy-notice': 'gdpr-privacy-notice',
         'breach-notification-template': 'breach-notification-template',
         'dsr-request-manager': 'dsr-request-manager', // Interactive - no download
-        'website-privacy-policy': 'privacy-policy-sample',
-        'cookie-policy-template': 'privacy-policy-sample',
-        'terms-of-service-template': 'privacy-policy-sample',
+        'website-privacy-policy': 'website-privacy-policy',
+        'cookie-policy-template': 'cookie-policy-template',
+        'terms-of-service-template': 'terms-of-service-template',
         'gap-analysis-report': 'gap-analysis-report',
         'compliance-roadmap': 'compliance-roadmap',
-        'gap-analysis-worksheet': 'nist-gap-worksheet',
-        'evidence-collection-checklist': 'evidence-checklist'
+        'gap-analysis-worksheet': 'gap-analysis-worksheet',
+        'evidence-collection-checklist': 'evidence-collection-checklist'
       };
 
       const artifactId = artifactIdMap[currentPreview.id] || currentPreview.id;
-      const format = currentPreview.format as 'PDF' | 'Word' | 'Excel';
-
-      // Skip interactive artifacts
-      if (format === 'Interactive') {
-        toast.info('Interactive Tool', 'This is an interactive tool. Use the main application to access full functionality.');
+      
+      // Ensure we have a valid format
+      if (!currentPreview.format || currentPreview.format === 'Interactive') {
+        toast.error('Invalid Format', 'This artifact cannot be downloaded.');
         return;
       }
+
+      // Type guard to ensure format is one of the expected types
+      if (currentPreview.format !== 'PDF' && currentPreview.format !== 'Word' && currentPreview.format !== 'Excel') {
+        toast.error('Invalid Format', 'Unsupported file format.');
+        return;
+      }
+
+      const format = currentPreview.format as 'PDF' | 'Word' | 'Excel';
 
       // Generate the artifact
       await generateArtifact(productId, artifactId, format);

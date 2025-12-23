@@ -741,8 +741,8 @@ export async function generateArtifact(
     
     // Policy Template Library
     'website-privacy-policy': generatePrivacyPolicyWord,
-    'cookie-policy-template': generatePrivacyPolicyWord,
-    'terms-of-service-template': generatePrivacyPolicyWord,
+    'cookie-policy-template': generateCookiePolicyWord,
+    'terms-of-service-template': generateTermsOfServiceWord,
     
     // Compliance Assessment Suite
     'gap-analysis-report': generateGapAnalysisExcel,
