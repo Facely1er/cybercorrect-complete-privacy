@@ -99,9 +99,12 @@ const Pricing = () => {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 pt-4 md:pt-6 pb-12 md:pb-20">
         <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-6">
+            Simple & Transparent Pricing
+          </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">Quarterly Membership Plans</h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Quarterly memberships with defined deliverables and ongoing platform access. Choose a membership or own your tools forever.
+            Quarterly memberships with defined deliverables, ongoing platform access, and compliance support. Choose a membership or own your tools forever.
           </p>
           <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
@@ -117,12 +120,6 @@ const Pricing = () => {
 
         {/* Membership Plans Section */}
         <div className="max-w-7xl mx-auto mb-24">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Quarterly Membership Plans</h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Quarterly memberships with defined deliverables, ongoing platform access, and compliance support
-          </p>
-        </div>
 
         {/* Subscription Plans Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
