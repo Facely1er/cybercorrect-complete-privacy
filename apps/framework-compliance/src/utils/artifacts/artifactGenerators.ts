@@ -3,8 +3,10 @@
  * Generate downloadable PDF, Word, and Excel files from artifact previews
  */
 
+import type React from 'react';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
+import { HeadingLevel } from 'docx';
 import { addCyberCorrectHeader, addCyberCorrectFooter } from '../pdf/logoUtils';
 import { generateWordDocument, type WordDocumentData } from '../export/generateWord';
 import { generateExcelWorkbook, type ExcelWorkbookData } from '../export/generateExcel';
@@ -26,7 +28,7 @@ export interface ArtifactData {
   artifactId: string;
   title: string;
   format: 'PDF' | 'Word' | 'Excel' | 'Interactive';
-  content: any; // The artifact content structure
+  content: React.ReactNode | string; // The artifact content structure
 }
 
 /**
@@ -107,7 +109,7 @@ export async function generateDpiaSamplePdf(): Promise<void> {
     headStyles: { fillColor: [66, 139, 202], textColor: 255 },
     alternateRowStyles: { fillColor: [245, 245, 245] }
   });
-  y = (doc as any).lastAutoTable.finalY + 10;
+  y = ((doc as unknown) as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 10;
 
   // Risk Assessment
   if (y > 250) {
@@ -140,7 +142,7 @@ export async function generateDpiaSamplePdf(): Promise<void> {
     headStyles: { fillColor: [66, 139, 202], textColor: 255 },
     alternateRowStyles: { fillColor: [245, 245, 245] }
   });
-  y = (doc as any).lastAutoTable.finalY + 10;
+  y = ((doc as unknown) as { lastAutoTable: { finalY: number } }).lastAutoTable.finalY + 10;
 
   // Mitigation Measures
   if (y > 250) {
@@ -192,7 +194,7 @@ export async function generatePrivacyPolicyWord(): Promise<void> {
       {
         title: '1. Introduction',
         content: 'This privacy policy explains how we collect, use, and protect your personal information in compliance with GDPR, CCPA, and other applicable regulations. We are committed to protecting your privacy and ensuring transparency about our data practices.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '2. Data We Collect',
@@ -210,7 +212,7 @@ export async function generatePrivacyPolicyWord(): Promise<void> {
           '',
           'We may also collect information from third-party sources as permitted by law.'
         ],
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '3. How We Use Your Data',
@@ -224,12 +226,12 @@ export async function generatePrivacyPolicyWord(): Promise<void> {
           '• Personalize and improve your experience',
           '• Comply with legal obligations and protect our rights'
         ],
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '4. Legal Basis for Processing (GDPR)',
         content: 'We process your personal data based on the following legal bases: consent (Article 6(1)(a)), contract performance (Article 6(1)(b)), legal obligation (Article 6(1)(c)), legitimate interests (Article 6(1)(f)), and vital interests (Article 6(1)(d)).',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '5. Data Subject Rights',
@@ -244,32 +246,32 @@ export async function generatePrivacyPolicyWord(): Promise<void> {
           '• Withdraw consent at any time',
           '• Opt-out of sale of personal information (CCPA)'
         ],
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '6. Data Retention',
         content: 'We retain your personal data only for as long as necessary to fulfill the purposes outlined in this policy, comply with legal obligations, resolve disputes, and enforce our agreements. Retention periods vary based on the type of data and legal requirements.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '7. Data Security',
         content: 'We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction. These measures include encryption, access controls, regular security assessments, and staff training.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '8. International Transfers',
         content: 'Your data may be transferred to countries outside the European Economic Area (EEA). We ensure appropriate safeguards are in place, including Standard Contractual Clauses (SCCs), adequacy decisions, or Binding Corporate Rules (BCRs).',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '9. Cookies and Tracking Technologies',
         content: 'We use cookies and similar tracking technologies to collect and use information about you. You can control cookies through your browser settings. For more information, please see our Cookie Policy.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '10. Contact Information',
         content: 'For questions about this privacy policy or to exercise your rights, please contact us at privacy@yourcompany.com or our Data Protection Officer at dpo@yourcompany.com.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       }
     ]
   };
@@ -354,7 +356,7 @@ export async function generateBreachNotificationWord(): Promise<void> {
           'Number of Data Subjects Affected: [Number] individuals',
           'Geographic Scope: [Countries/regions affected]'
         ],
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '2. Nature of the Breach',
@@ -365,7 +367,7 @@ export async function generateBreachNotificationWord(): Promise<void> {
           'Data Compromised: [Specific data types and sensitivity levels]',
           'Potential Impact: [Assessment of potential harm to data subjects]'
         ],
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '3. Immediate Response Actions',
@@ -379,7 +381,7 @@ export async function generateBreachNotificationWord(): Promise<void> {
           '✓ Law enforcement notified - [If applicable, date and agency]',
           '✓ Third-party security experts engaged - [If applicable]'
         ],
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '4. Assessment of Risk to Data Subjects',
@@ -401,7 +403,7 @@ export async function generateBreachNotificationWord(): Promise<void> {
           '• Review credit reports',
           '• Be cautious of phishing attempts'
         ],
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '5. Notification Details',
@@ -417,7 +419,7 @@ export async function generateBreachNotificationWord(): Promise<void> {
           '• Number Notified: [Number] individuals',
           '• Content: [Summary of information provided to data subjects]'
         ],
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '6. Remediation and Prevention',
@@ -433,7 +435,7 @@ export async function generateBreachNotificationWord(): Promise<void> {
           '• Regular security assessments',
           '• Updated incident response procedures'
         ],
-        level: 1
+        level: HeadingLevel.HEADING_1
       }
     ]
   };
@@ -537,7 +539,7 @@ export async function generateCookiePolicyWord(): Promise<void> {
       {
         title: '1. What Are Cookies',
         content: 'Cookies are small text files that are placed on your device when you visit our website. They help us provide you with a better experience by remembering your preferences and understanding how you use our site.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '2. Types of Cookies We Use',
@@ -547,7 +549,7 @@ export async function generateCookiePolicyWord(): Promise<void> {
           'Marketing Cookies: Used to deliver relevant advertisements and track campaign effectiveness.',
           'Functional Cookies: Remember your preferences and settings to enhance your experience.'
         ],
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '3. Cookie Categories',
@@ -567,12 +569,12 @@ export async function generateCookiePolicyWord(): Promise<void> {
           '• Retargeting pixels',
           '• Conversion tracking'
         ],
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '4. Third-Party Cookies',
         content: 'We may use third-party services that set cookies on your device. These include analytics providers, advertising networks, and social media platforms. Please refer to their privacy policies for more information.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '5. Managing Cookies',
@@ -584,17 +586,17 @@ export async function generateCookiePolicyWord(): Promise<void> {
           '',
           'Note: Blocking essential cookies may affect website functionality.'
         ],
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '6. Cookie Retention',
         content: 'Cookies are retained for different periods: session cookies are deleted when you close your browser, while persistent cookies remain for a specified period (typically 12-24 months) or until you delete them.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '7. Updates to This Policy',
         content: 'We may update this Cookie Policy from time to time. We will notify you of any material changes by posting the updated policy on our website.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       }
     ]
   };
@@ -618,12 +620,12 @@ export async function generateTermsOfServiceWord(): Promise<void> {
       {
         title: '1. Acceptance of Terms',
         content: 'By accessing and using this service, you accept and agree to be bound by these Terms of Service. If you do not agree, you may not use the service.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '2. Description of Service',
         content: 'We provide [description of service]. We reserve the right to modify, suspend, or discontinue any aspect of the service at any time.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '3. User Obligations',
@@ -635,32 +637,32 @@ export async function generateTermsOfServiceWord(): Promise<void> {
           '• Not engage in any illegal or unauthorized activities',
           '• Not attempt to gain unauthorized access to the service'
         ],
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '4. Intellectual Property',
         content: 'All content, features, and functionality of the service are owned by us and are protected by copyright, trademark, and other intellectual property laws. You may not reproduce, distribute, or create derivative works without our permission.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '5. Limitation of Liability',
         content: 'To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '6. Termination',
         content: 'We may terminate or suspend your access to the service immediately, without prior notice, for any breach of these Terms. Upon termination, your right to use the service will cease immediately.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '7. Governing Law',
         content: 'These Terms shall be governed by and construed in accordance with the laws of [Jurisdiction], without regard to its conflict of law provisions.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       },
       {
         title: '8. Changes to Terms',
         content: 'We reserve the right to modify these Terms at any time. We will notify users of material changes. Continued use of the service after changes constitutes acceptance of the new Terms.',
-        level: 1
+        level: HeadingLevel.HEADING_1
       }
     ]
   };
@@ -722,8 +724,14 @@ export async function generateEvidenceChecklistPdf(): Promise<void> {
 /**
  * Main artifact generator function
  */
+/**
+ * Main artifact generator function
+ * @param _productId - The product ID (reserved for future use: logging, analytics, etc.)
+ * @param artifactId - The artifact ID to generate
+ * @param format - The output format (PDF, Word, or Excel)
+ */
 export async function generateArtifact(
-  productId: string,
+  _productId: string,
   artifactId: string,
   format: 'PDF' | 'Word' | 'Excel'
 ): Promise<void> {
