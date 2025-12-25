@@ -2,8 +2,8 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import './styles/cc-theme.css';
 import './index.css';
+import './styles/cc-theme.css';
 import { initSentry, SentryErrorBoundary } from './lib/sentry';
 import { initWebVitals } from './utils/common';
 

@@ -1,4 +1,6 @@
 /* CyberCorrect Framework Compliance Theme */
+@tailwind base;
+
 @layer base {
   :root {
     /* RGB ints for alpha support in Tailwind via var() */
