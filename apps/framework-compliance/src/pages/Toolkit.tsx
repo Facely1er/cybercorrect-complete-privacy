@@ -50,6 +50,15 @@ const Toolkit = () => {
           features: ["Multi-regulation mapping", "Gap prioritization", "Risk assessment", "Remediation planning"]
         },
         {
+          title: "Privacy Risk Radar",
+          description: "Continuous monitoring and real-time detection of privacy compliance risks",
+          icon: Shield,
+          path: "/toolkit/privacy-risk-radar",
+          timeEstimate: "5 mins",
+          complexity: "Intermediate",
+          features: ["Real-time risk detection", "Privacy metrics dashboard", "Automated scanning", "Risk prioritization"]
+        },
+        {
           title: "Vendor Risk Assessment",
           description: "Evaluate and monitor third-party vendors for privacy compliance and data protection",
           icon: Building,
