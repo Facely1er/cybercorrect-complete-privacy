@@ -1,0 +1,28 @@
+{
+  "stripe": {
+    "publishableKey": "pk_live_51SDTm0A6UggvM46NqgXKcQyRNzG908jh9yWh6ZUiGZkO4ihkHar65ghpnMcH2EOXeLySmdUy3P7mCO1Qev64uzr600rPDDCU8O",
+    "secretKey": "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",
+    "mode": "live",
+    "webhookEndpoint": "https://achowlksgmwuvfbvjfrt.supabase.co/functions/v1/stripe-webhook",
+    "webhookSecret": "whsec_xxxxxxxxxxxxx"
+  },
+  "products": {
+    "privacy-toolkit-pro": {
+      "stripeProductId": "prod_xxxxxxxxxxxxx",
+      "stripePriceId": "price_xxxxxxxxxxxxx"
+    },
+    "compliance-assessment-suite": {
+      "stripeProductId": "prod_xxxxxxxxxxxxx",
+      "stripePriceId": "price_xxxxxxxxxxxxx"
+    },
+    "gdpr-complete-kit": {
+      "stripeProductId": "prod_xxxxxxxxxxxxx",
+      "stripePriceId": "price_xxxxxxxxxxxxx"
+    },
+    "policy-template-library": {
+      "stripeProductId": "prod_xxxxxxxxxxxxx",
+      "stripePriceId": "price_xxxxxxxxxxxxx"
+    }
+  }
+}
+
