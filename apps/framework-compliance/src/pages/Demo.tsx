@@ -766,7 +766,7 @@ const Demo = () => {
       {/* Roadmap Preview */}
       {demoState === 'roadmap' && (
         <Card className="mb-6 border-0 shadow-xl">
-          <CardHeader className="border-b bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20">
+          <CardHeader className="border-b bg-gradient-to-r from-accent/10 to-accent/10">
             <CardTitle className="flex items-center gap-2">
               <Calendar className="h-5 w-5 text-primary" />
               Privacy Compliance Roadmap
@@ -820,8 +820,8 @@ const Demo = () => {
                       <div className="absolute left-3 top-6 bottom-0 w-0.5 bg-border" />
                     )}
                     <div className={`absolute left-0 top-0 w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                      phase.status === 'completed' ? 'bg-green-500 border-green-500' :
-                      phase.status === 'in_progress' ? 'bg-blue-500 border-blue-500' :
+                      phase.status === 'completed' ? 'bg-success border-success' :
+                      phase.status === 'in_progress' ? 'bg-primary border-primary' :
                       'bg-muted border-muted-foreground'
                     }`}>
                       {phase.status === 'completed' && <CheckCircle className="h-4 w-4 text-white" />}
@@ -839,7 +839,7 @@ const Demo = () => {
                         <div className="space-y-1">
                           {phase.milestones.map((milestone, mIdx) => (
                             <div key={mIdx} className="flex items-center gap-2 text-xs">
-                              <CheckCircle className={`h-3 w-3 ${phase.status === 'completed' ? 'text-green-600' : 'text-gray-400'}`} />
+                              <CheckCircle className={`h-3 w-3 ${phase.status === 'completed' ? 'text-success' : 'text-muted-foreground'}`} />
                               <span className="text-muted-foreground">{milestone}</span>
                             </div>
                           ))}
@@ -910,23 +910,23 @@ const Demo = () => {
               </h4>
               <div className="space-y-2 text-xs">
                 <div className="flex items-center gap-2 text-muted-foreground">
-                  <CheckCircle className="h-3 w-3 text-green-600" />
+                  <CheckCircle className="h-3 w-3 text-success" />
                   <span>Privacy Policy v2.1 uploaded - 2 days ago</span>
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground">
-                  <CheckCircle className="h-3 w-3 text-green-600" />
+                  <CheckCircle className="h-3 w-3 text-success" />
                   <span>DPIA-2024-Q1 completed - 5 days ago</span>
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground">
-                  <CheckCircle className="h-3 w-3 text-green-600" />
+                  <CheckCircle className="h-3 w-3 text-success" />
                   <span>Training certificates added - 1 week ago</span>
                 </div>
               </div>
             </div>
             
-            <div className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200">
+            <div className="p-4 rounded-lg bg-success/5 border border-success/20">
               <div className="flex items-start gap-2">
-                <Shield className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                <Shield className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-sm mb-1">Audit-Ready Documentation</p>
                   <p className="text-xs text-muted-foreground">
@@ -1061,7 +1061,7 @@ const Demo = () => {
                   { icon: Shield, text: 'NIST-aligned framework' }
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center justify-center gap-2 p-3 rounded-lg bg-background/50 border border-border">
-                    <item.icon className="h-4 w-4 text-green-600" />
+                    <item.icon className="h-4 w-4 text-success" />
                     <span className="text-sm font-medium">{item.text}</span>
                   </div>
                 ))}
