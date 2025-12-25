@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
+import { Badge } from '../components/ui/Badge';
 import Logo from '../components/ui/Logo';
 import { 
   ArrowRight, 
@@ -163,20 +164,20 @@ const Demo = () => {
     toast.success('Interactive Guide Activated', 'Our guide bot will help you get started');
   };
   
-  const getPriorityColor = (priority: string) => {
+  const getPriorityVariant = (priority: string): 'error' | 'warning' | 'default' => {
     switch (priority) {
-      case 'critical': return 'text-red-600 bg-red-100 dark:bg-red-900/30';
-      case 'high': return 'text-orange-600 bg-orange-100 dark:bg-orange-900/30';
-      case 'medium': return 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30';
-      default: return 'text-blue-600 bg-blue-100 dark:bg-blue-900/30';
+      case 'critical': return 'error';
+      case 'high': return 'warning';
+      case 'medium': return 'warning';
+      default: return 'default';
     }
   };
   
-  const getStatusColor = (status: string) => {
+  const getStatusVariant = (status: string): 'success' | 'default' | 'secondary' => {
     switch (status) {
-      case 'completed': return 'text-green-600 bg-green-100 dark:bg-green-900/30';
-      case 'in_progress': return 'text-blue-600 bg-blue-100 dark:bg-blue-900/30';
-      default: return 'text-gray-600 bg-gray-100 dark:bg-gray-800';
+      case 'completed': return 'success';
+      case 'in_progress': return 'default';
+      default: return 'secondary';
     }
   };
 
@@ -293,11 +294,11 @@ const Demo = () => {
                 <div className="relative">
                   <Logo size="large" showText={false} />
                   <div className="absolute -top-2 -right-2">
-                    <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse" />
+                    <div className="w-4 h-4 bg-success rounded-full animate-pulse" />
                   </div>
                 </div>
               </div>
-              <h2 className="text-3xl font-bold mb-4 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h2 className="text-3xl font-bold mb-4 text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Welcome to CyberCorrect Privacy Platform
               </h2>
               <p className="text-lg mb-6 text-center text-muted-foreground">
@@ -342,7 +343,7 @@ const Demo = () => {
       {/* Assessment Preview */}
       {demoState === 'assessment' && (
         <Card className="mb-6 border-0 shadow-xl">
-          <CardHeader className="border-b bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+          <CardHeader className="border-b bg-gradient-to-r from-primary/10 to-accent/10">
             <CardTitle className="flex items-center gap-2">
               <Eye className="h-5 w-5 text-primary" />
               Privacy Assessment
@@ -367,10 +368,10 @@ const Demo = () => {
                     <span className="text-xs font-medium text-primary">Identify-P Section</span>
                     <p className="font-medium mt-1">Does your organization maintain an inventory of data processing activities?</p>
                   </div>
-                  <CheckCircle className="h-5 w-5 text-green-600 ml-2 flex-shrink-0" />
+                  <CheckCircle className="h-5 w-5 text-success ml-2 flex-shrink-0" />
                 </div>
                 <div className="flex gap-2">
-                  <Button size="sm" variant="outline" className="bg-green-50 border-green-200 text-green-700">
+                  <Button size="sm" variant="outline" className="bg-success/10 border-success/20 text-success">
                     <CheckCircle className="h-3 w-3 mr-1" />
                     Yes, Comprehensive
                   </Button>
@@ -409,7 +410,7 @@ const Demo = () => {
             
             <div className="flex justify-between items-center">
               <div className="text-sm text-muted-foreground">
-                <CheckCircle className="h-4 w-4 inline mr-1 text-green-600" />
+                <CheckCircle className="h-4 w-4 inline mr-1 text-success" />
                 Progress auto-saved
               </div>
               <Link to="/assessments/privacy-assessment">
@@ -426,7 +427,7 @@ const Demo = () => {
       {/* Results Preview */}
       {demoState === 'results' && (
         <Card className="mb-6 border-0 shadow-xl">
-          <CardHeader className="border-b bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20">
+          <CardHeader className="border-b bg-gradient-to-r from-success/10 to-primary/10">
             <CardTitle className="flex items-center gap-2">
               <BarChart2 className="h-5 w-5 text-primary" />
               Assessment Results & Compliance Score
@@ -435,14 +436,14 @@ const Demo = () => {
           <CardContent className="p-6">
             {/* Overall Score */}
             <div className="grid md:grid-cols-3 gap-6 mb-8">
-              <Card className="col-span-1 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-primary/20">
+              <Card className="col-span-1 bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20">
                 <CardContent className="p-6 text-center">
                   <div className="text-5xl font-bold text-primary mb-2">{DEMO_ASSESSMENT_DATA.overallScore}%</div>
                   <div className="text-sm font-medium text-muted-foreground mb-3">Overall Compliance</div>
-                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-medium">
+                  <Badge variant="warning" size="sm">
                     <AlertTriangle className="h-3 w-3 mr-1" />
                     Moderate Risk
-                  </div>
+                  </Badge>
                 </CardContent>
               </Card>
               
@@ -465,18 +466,18 @@ const Demo = () => {
             
             {/* Key Insights */}
             <div className="grid md:grid-cols-3 gap-4 mb-6">
-              <div className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
-                <TrendingUp className="h-5 w-5 text-green-600 mb-2" />
+              <div className="p-4 rounded-lg bg-success/5 border border-success/20">
+                <TrendingUp className="h-5 w-5 text-success mb-2" />
                 <p className="font-semibold text-sm mb-1">Strengths</p>
                 <p className="text-xs text-muted-foreground">Strong data identification and communication practices</p>
               </div>
-              <div className="p-4 rounded-lg bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800">
-                <AlertTriangle className="h-5 w-5 text-orange-600 mb-2" />
+              <div className="p-4 rounded-lg bg-warning/5 border border-warning/20">
+                <AlertTriangle className="h-5 w-5 text-warning mb-2" />
                 <p className="font-semibold text-sm mb-1">Priority Areas</p>
                 <p className="text-xs text-muted-foreground">Control and protection mechanisms need improvement</p>
               </div>
-              <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
-                <Target className="h-5 w-5 text-blue-600 mb-2" />
+              <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
+                <Target className="h-5 w-5 text-primary mb-2" />
                 <p className="font-semibold text-sm mb-1">Maturity Level</p>
                 <p className="text-xs text-muted-foreground">Developing - Basic framework in place</p>
               </div>
@@ -509,20 +510,20 @@ const Demo = () => {
               
               {/* Summary Stats */}
               <div className="grid grid-cols-4 gap-3 mb-6">
-                <div className="text-center p-3 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200">
-                  <div className="text-2xl font-bold text-red-600">2</div>
+                <div className="text-center p-3 rounded-lg bg-destructive/5 border border-destructive/20">
+                  <div className="text-2xl font-bold text-destructive">2</div>
                   <div className="text-xs text-muted-foreground">Critical</div>
                 </div>
-                <div className="text-center p-3 rounded-lg bg-orange-50 dark:bg-orange-900/20 border border-orange-200">
-                  <div className="text-2xl font-bold text-orange-600">2</div>
+                <div className="text-center p-3 rounded-lg bg-warning/5 border border-warning/20">
+                  <div className="text-2xl font-bold text-warning">2</div>
                   <div className="text-xs text-muted-foreground">High</div>
                 </div>
-                <div className="text-center p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200">
-                  <div className="text-2xl font-bold text-yellow-600">3</div>
+                <div className="text-center p-3 rounded-lg bg-warning/5 border border-warning/20">
+                  <div className="text-2xl font-bold text-warning">3</div>
                   <div className="text-xs text-muted-foreground">Medium</div>
                 </div>
-                <div className="text-center p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200">
-                  <div className="text-2xl font-bold text-blue-600">1</div>
+                <div className="text-center p-3 rounded-lg bg-primary/5 border border-primary/20">
+                  <div className="text-2xl font-bold text-primary">1</div>
                   <div className="text-xs text-muted-foreground">Low</div>
                 </div>
               </div>
@@ -537,15 +538,15 @@ const Demo = () => {
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className={`text-xs font-semibold px-2 py-0.5 rounded ${getPriorityColor(gap.priority)}`}>
+                        <Badge variant={getPriorityVariant(gap.priority)} size="sm">
                           {gap.priority.toUpperCase()}
-                        </span>
+                        </Badge>
                         <span className="text-xs text-muted-foreground">{gap.id}</span>
                       </div>
                       <h4 className="font-semibold text-sm mb-1">{gap.title}</h4>
                       <p className="text-xs text-muted-foreground mb-2">{gap.regulation}</p>
                     </div>
-                    <AlertTriangle className={`h-5 w-5 flex-shrink-0 ml-2 ${gap.priority === 'critical' ? 'text-red-600' : 'text-orange-600'}`} />
+                    <AlertTriangle className={`h-5 w-5 flex-shrink-0 ml-2 ${gap.priority === 'critical' ? 'text-destructive' : 'text-warning'}`} />
                   </div>
                   <div className="flex flex-wrap gap-2 text-xs">
                     <span className="px-2 py-1 rounded bg-muted">
@@ -692,11 +693,11 @@ const Demo = () => {
                 <div className="text-xs text-muted-foreground">Active Requests</div>
               </div>
               <div className="text-center p-4 rounded-lg border border-border bg-muted/30">
-                <div className="text-3xl font-bold text-green-600 mb-1">14</div>
+                <div className="text-3xl font-bold text-success mb-1">14</div>
                 <div className="text-xs text-muted-foreground">Avg. Days to Close</div>
               </div>
               <div className="text-center p-4 rounded-lg border border-border bg-muted/30">
-                <div className="text-3xl font-bold text-blue-600 mb-1">100%</div>
+                <div className="text-3xl font-bold text-primary mb-1">100%</div>
                 <div className="text-xs text-muted-foreground">SLA Compliance</div>
               </div>
             </div>
@@ -721,9 +722,9 @@ const Demo = () => {
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className={`text-xs px-2 py-1 rounded font-medium ${getStatusColor(req.status)}`}>
+                      <Badge variant={getStatusVariant(req.status)} size="sm">
                         {req.status.replace('_', ' ')}
-                      </span>
+                      </Badge>
                       <div className="text-xs text-muted-foreground mt-1 flex items-center justify-end gap-1">
                         <Clock className="h-3 w-3" />
                         {req.deadline}
@@ -734,9 +735,9 @@ const Demo = () => {
               ))}
             </div>
             
-            <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200">
+            <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
               <div className="flex items-start gap-2">
-                <Shield className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                <Shield className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-sm mb-1">Automated SLA Tracking</p>
                   <p className="text-xs text-muted-foreground">
