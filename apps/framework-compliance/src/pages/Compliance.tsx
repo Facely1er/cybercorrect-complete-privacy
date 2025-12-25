@@ -210,7 +210,7 @@ const Compliance = () => {
 
       {/* Gap-Based Priority Section - Only show after assessment */}
       {hasCompletedAssessment && identifiedGaps.length > 0 && (
-        <section className="py-16 bg-white dark:bg-background border-b border-border">
+        <section className="py-16 bg-background border-b border-border">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
