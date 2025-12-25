@@ -33,6 +33,7 @@ interface ComplianceAutomationProps {
 export function ComplianceAutomation({ organizationId }: ComplianceAutomationProps) {
   // Use organizationId to avoid unused variable warning
   console.log('Compliance automation for organization:', organizationId);
+  const [showCreateRule, setShowCreateRule] = useState(false);
   const [automationRules, setAutomationRules] = useState<AutomationRule[]>(() => [
     {
       id: 'auto-001',
@@ -113,6 +114,14 @@ export function ComplianceAutomation({ organizationId }: ComplianceAutomationPro
   ]);
 
   const [showCreateRule, setShowCreateRule] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    type: '',
+    description: '',
+    trigger: '',
+    schedule: '',
+    actions: [] as string[]
+  });
 
   // Ensure we have a clean array without any undefined/null elements
   const cleanAutomationRules = automationRules.filter(rule => rule != null);
@@ -123,6 +132,53 @@ export function ComplianceAutomation({ organizationId }: ComplianceAutomationPro
       .map(rule => 
         rule.id === ruleId ? { ...rule, enabled: !rule.enabled } : rule
       ));
+  };
+
+  const handleUseTemplate = (template: typeof automationTemplates[0]) => {
+    setFormData({
+      name: template.name,
+      type: template.type,
+      description: template.description,
+      trigger: template.trigger,
+      schedule: '',
+      actions: template.actions || []
+    });
+    setShowCreateRule(true);
+  };
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formDataObj = new FormData(form);
+    const selectedActions = Array.from(formDataObj.getAll('actions')) as string[];
+
+    const newRule: AutomationRule = {
+      id: `auto-${Date.now()}`,
+      name: formDataObj.get('ruleName') as string || formData.name,
+      description: formDataObj.get('description') as string || formData.description,
+      type: (formDataObj.get('ruleType') as AutomationRule['type']) || (formData.type as AutomationRule['type']) || 'notification',
+      trigger: formDataObj.get('trigger') as string || formData.trigger,
+      actions: selectedActions.length > 0 ? selectedActions : formData.actions,
+      enabled: true,
+      runCount: 0,
+      successRate: 0
+    };
+
+    setAutomationRules(prev => [...prev, newRule]);
+    setShowCreateRule(false);
+    setFormData({
+      name: '',
+      type: '',
+      description: '',
+      trigger: '',
+      schedule: '',
+      actions: []
+    });
+    
+    // Show success notification
+    if (typeof window !== 'undefined' && (window as any).toast) {
+      (window as any).toast.success('Rule Created', 'Automation rule has been created successfully');
+    }
   };
 
   const getTypeIcon = (type: string) => {
@@ -324,7 +380,11 @@ export function ComplianceAutomation({ organizationId }: ComplianceAutomationPro
                     <span className="font-medium">Trigger:</span> {template.trigger}
                   </div>
                 </div>
-                <Button variant="outline" size="sm">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => handleUseTemplate(template)}
+                >
                   <Plus className="h-4 w-4 mr-2" />
                   Use Template
                 </Button>
@@ -338,19 +398,29 @@ export function ComplianceAutomation({ organizationId }: ComplianceAutomationPro
       {showCreateRule && (
         <div className="bg-white dark:bg-gray-900 rounded-lg border p-6">
           <h3 className="text-lg font-semibold mb-4">Create Automation Rule</h3>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleFormSubmit}>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium mb-2">Rule Name</label>
                 <input
                   type="text"
+                  name="ruleName"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-3 py-2 border border-input rounded-md bg-background"
                   placeholder="Enter rule name"
+                  required
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2">Rule Type</label>
-                <select className="w-full px-3 py-2 border border-input rounded-md bg-background">
+                <select 
+                  name="ruleType"
+                  value={formData.type}
+                  onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                  className="w-full px-3 py-2 border border-input rounded-md bg-background"
+                  required
+                >
                   <option value="">Select type</option>
                   <option value="notification">Notification</option>
                   <option value="workflow">Workflow</option>
@@ -363,16 +433,26 @@ export function ComplianceAutomation({ organizationId }: ComplianceAutomationPro
             <div>
               <label className="block text-sm font-medium mb-2">Description</label>
               <textarea
+                name="description"
                 rows={3}
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 className="w-full px-3 py-2 border border-input rounded-md bg-background"
                 placeholder="Describe what this automation rule does"
+                required
               />
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium mb-2">Trigger</label>
-                <select className="w-full px-3 py-2 border border-input rounded-md bg-background">
+                <select 
+                  name="trigger"
+                  value={formData.trigger}
+                  onChange={(e) => setFormData({ ...formData, trigger: e.target.value })}
+                  className="w-full px-3 py-2 border border-input rounded-md bg-background"
+                  required
+                >
                   <option value="">Select trigger</option>
                   <option value="deadline">Compliance deadline approaching</option>
                   <option value="request">Data rights request submitted</option>
@@ -385,6 +465,9 @@ export function ComplianceAutomation({ organizationId }: ComplianceAutomationPro
                 <label className="block text-sm font-medium mb-2">Schedule</label>
                 <input
                   type="text"
+                  name="schedule"
+                  value={formData.schedule}
+                  onChange={(e) => setFormData({ ...formData, schedule: e.target.value })}
                   className="w-full px-3 py-2 border border-input rounded-md bg-background"
                   placeholder="e.g., 30 days before deadline"
                 />
@@ -406,7 +489,13 @@ export function ComplianceAutomation({ organizationId }: ComplianceAutomationPro
                   'Update status'
                 ].map((action) => (
                   <label key={action} className="flex items-center gap-2">
-                    <input type="checkbox" className="rounded border-gray-300 text-primary" />
+                    <input 
+                      type="checkbox" 
+                      name="actions"
+                      value={action}
+                      defaultChecked={formData.actions.includes(action)}
+                      className="rounded border-gray-300 text-primary" 
+                    />
                     <span className="text-sm">{action}</span>
                   </label>
                 ))}
