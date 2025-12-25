@@ -36,6 +36,7 @@ const LegalCounselJourney = () => {
       duration: '1-2 weeks (tool usage)',
       tools: [
         { name: 'Privacy Gap Analyzer', path: '/toolkit/privacy-gap-analyzer', icon: Scale },
+        { name: 'Privacy Risk Radar', path: '/toolkit/privacy-risk-radar', icon: Shield },
         { name: 'Privacy Framework Guide', path: '/documentation/privacy-framework-guide', icon: Globe }
       ],
       outcomes: [

@@ -39,7 +39,8 @@ const DataProtectionOfficerJourney = () => {
       duration: '2-3 weeks',
       tools: [
         { name: 'Privacy Assessment', path: '/assessments/privacy-assessment', icon: Eye },
-        { name: 'Privacy Gap Analyzer', path: '/toolkit/privacy-gap-analyzer', icon: BarChart3 }
+        { name: 'Privacy Gap Analyzer', path: '/toolkit/privacy-gap-analyzer', icon: BarChart3 },
+        { name: 'Privacy Risk Radar', path: '/toolkit/privacy-risk-radar', icon: Shield }
       ],
       outcomes: [
         'Multi-regulation compliance scoring',

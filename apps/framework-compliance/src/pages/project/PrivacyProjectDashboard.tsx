@@ -28,7 +28,8 @@ import {
   Bell,
   ClipboardList,
   FileBarChart,
-  Building
+  Building,
+  Shield
 } from 'lucide-react';
 
 const PrivacyProjectDashboard = () => {
@@ -640,6 +641,12 @@ const PrivacyProjectDashboard = () => {
                 <Button variant="outline" size="sm" className="w-full justify-start">
                   <Target className="h-4 w-4 mr-2" />
                   Progress Tracking
+                </Button>
+              </Link>
+              <Link to="/toolkit/privacy-risk-radar">
+                <Button variant="outline" size="sm" className="w-full justify-start">
+                  <Shield className="h-4 w-4 mr-2" />
+                  Privacy Risk Radar
                 </Button>
               </Link>
               <Link to="/toolkit/vendor-risk-assessment">

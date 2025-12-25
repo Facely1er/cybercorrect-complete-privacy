@@ -90,6 +90,14 @@ const Features = () => {
           benefits: ['Risk-based prioritization', 'Cost-benefit analysis', 'Timeline planning', 'Resource allocation'],
           stats: 'Instant results',
           link: '/toolkit/privacy-gap-analyzer'
+        },
+        {
+          icon: Shield,
+          title: 'Privacy Risk Radar',
+          description: 'Continuous monitoring and real-time detection of privacy compliance risks',
+          benefits: ['Real-time risk detection', 'Privacy metrics dashboard', 'Automated scanning', 'Risk prioritization'],
+          stats: '5 min scan',
+          link: '/toolkit/privacy-risk-radar'
         }
       ]
     },

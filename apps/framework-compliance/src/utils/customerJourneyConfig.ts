@@ -196,6 +196,25 @@ export const TOOL_JOURNEY_MAPPINGS: ToolJourneyMapping[] = [
     features: ['Multi-regulation mapping', 'Gap prioritization', 'Risk assessment', 'Remediation planning']
   },
   {
+    toolId: 'privacy-risk-radar',
+    toolName: 'Privacy Risk Radar',
+    toolPath: '/toolkit/privacy-risk-radar',
+    description: 'Continuous monitoring and real-time detection of privacy compliance risks from actual data',
+    icon: Shield,
+    phase: 'discovery',
+    criticality: 'high',
+    position: 'primary',
+    customerValue: 'Proactively identify and address privacy risks before they become compliance violations',
+    timeEstimate: '5 mins',
+    complexity: 'Intermediate',
+    triggerConditions: ['Continuous monitoring', 'After data changes', 'Regular compliance checks', 'Post-remediation verification'],
+    prerequisites: ['privacy-gap-analyzer'],
+    outputs: ['Detected risks', 'Privacy metrics', 'Risk trends', 'Remediation recommendations'],
+    personas: ['privacy_officer', 'compliance_manager', 'data_protection_officer'],
+    regulations: ['GDPR', 'CCPA', 'LGPD', 'PIPEDA'],
+    features: ['Real-time risk detection', 'Privacy metrics dashboard', 'Automated scanning', 'Risk prioritization']
+  },
+  {
     toolId: 'privacy-by-design-assessment',
     toolName: 'Privacy by Design Assessment',
     toolPath: '/toolkit/privacy-by-design-assessment',

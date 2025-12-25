@@ -86,6 +86,7 @@ const PrivacyOfficerJourney = () => {
       duration: 'As needed',
       tools: [
         { name: 'DPIA Manager', path: '/toolkit/dpia-manager', icon: Shield },
+        { name: 'Privacy Risk Radar', path: '/toolkit/privacy-risk-radar', icon: Shield },
         { name: 'Privacy by Design Assessment', path: '/toolkit/privacy-by-design-assessment', icon: Target },
         { name: 'Privacy Rights Manager', path: '/toolkit/privacy-rights-manager', icon: Users }
       ],

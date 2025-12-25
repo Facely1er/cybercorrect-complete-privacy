@@ -91,7 +91,7 @@ const ChatGuideBot = () => {
       ]
     },
     'privacy-tools': {
-      message: "CyberCorrect Privacy Platform provides comprehensive privacy compliance tools: **1) Privacy Assessment** - Multi-framework evaluation (GDPR, CCPA, LGPD, PIPEDA, NIST) with weighted scoring; **2) Privacy Gap Analyzer** - Cross-framework gap identification with risk-based prioritization; **3) DPIA Generator** - Automated Data Protection Impact Assessments with GDPR Article 35 risk threshold calculations; **4) Privacy Rights Manager** - GDPR/CCPA data subject rights workflow with 30-day compliance tracking; **5) Privacy Policy Generator** - Multi-regulation policy templates; **6) GDPR Mapper** - Article 30 compliant data processing records; **7) Consent Management** - Track employee consent and privacy preferences; **8) Vendor Risk Assessment** - Third-party privacy compliance evaluation; **9) Incident Response Manager** - Privacy breach tracking and compliance violation management.",
+      message: "CyberCorrect Privacy Platform provides comprehensive privacy compliance tools: **1) Privacy Assessment** - Multi-framework evaluation (GDPR, CCPA, LGPD, PIPEDA, NIST) with weighted scoring; **2) Privacy Gap Analyzer** - Cross-framework gap identification with risk-based prioritization; **3) Privacy Risk Radar** - Continuous monitoring and real-time detection of privacy compliance risks from actual data; **4) DPIA Generator** - Automated Data Protection Impact Assessments with GDPR Article 35 risk threshold calculations; **5) Privacy Rights Manager** - GDPR/CCPA data subject rights workflow with 30-day compliance tracking; **6) Privacy Policy Generator** - Multi-regulation policy templates; **7) GDPR Mapper** - Article 30 compliant data processing records; **8) Consent Management** - Track employee consent and privacy preferences; **9) Vendor Risk Assessment** - Third-party privacy compliance evaluation; **10) Incident Response Manager** - Privacy breach tracking and compliance violation management.",
       options: [
         { id: 'back-to-privacy', text: 'Back to Privacy', nextStep: 'privacy' },
         { id: 'try-tools', text: 'Try Privacy Tools', nextStep: 'try-tools' },
@@ -99,6 +99,7 @@ const ChatGuideBot = () => {
       ],
       links: [
         { text: 'Privacy Assessment', url: '/assessments/privacy-assessment' },
+        { text: 'Privacy Risk Radar', url: '/toolkit/privacy-risk-radar' },
         { text: 'DPIA Generator', url: '/toolkit/dpia-generator' },
         { text: 'Privacy Gap Analyzer', url: '/toolkit/privacy-gap-analyzer' },
         { text: 'Privacy Rights Manager', url: '/toolkit/privacy-rights-manager' }

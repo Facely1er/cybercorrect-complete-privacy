@@ -65,7 +65,8 @@ const ResourcesLanding = () => {
       description: 'Policies, procedures, and compliance templates',
       items: [
         { title: 'Policy Generator', path: '/toolkit/privacy-policy-generator' },
-        { title: 'DPIA Template', path: '/toolkit/dpia-generator' }
+        { title: 'DPIA Template', path: '/toolkit/dpia-generator' },
+        { title: 'Privacy Risk Radar', path: '/toolkit/privacy-risk-radar' }
       ]
     }
   ];

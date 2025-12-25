@@ -16,7 +16,8 @@ import {
   CheckCircle,
   Clock,
   BarChart3,
-  Sparkles
+  Sparkles,
+  Activity
 } from 'lucide-react';
 
 const Landing = () => {
@@ -265,7 +266,7 @@ const Landing = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 max-w-7xl mx-auto">
             {[
               {
                 icon: Target,
@@ -284,6 +285,15 @@ const Landing = () => {
                 cta: 'Analyze Gaps',
                 path: '/toolkit/privacy-gap-analyzer',
                 color: 'from-red-500 to-orange-500'
+              },
+              {
+                icon: Activity,
+                title: 'Monitor Risks Continuously',
+                description: 'Real-time privacy risk detection and continuous compliance monitoring',
+                outcomes: ['Real-time alerts', 'Privacy metrics', 'Risk trends', 'Automated scanning'],
+                cta: 'View Risk Radar',
+                path: '/toolkit/privacy-risk-radar',
+                color: 'from-purple-500 to-pink-500'
               },
               {
                 icon: FileCheck,

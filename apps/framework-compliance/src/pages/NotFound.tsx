@@ -19,6 +19,7 @@ const NotFound = () => {
 
   const suggestedRoutes = [
     { path: '/assessments/privacy-assessment', label: 'Privacy Assessment', description: 'Evaluate your privacy compliance' },
+    { path: '/toolkit/privacy-risk-radar', label: 'Privacy Risk Radar', description: 'Continuous privacy risk monitoring' },
     { path: '/toolkit/gdpr-mapper', label: 'GDPR Data Mapper', description: 'Map personal data processing' },
     { path: '/toolkit/dpia-generator', label: 'DPIA Generator', description: 'Create data protection impact assessments' },
     { path: '/toolkit/privacy-gap-analyzer', label: 'Privacy Gap Analyzer', description: 'Identify compliance gaps' },

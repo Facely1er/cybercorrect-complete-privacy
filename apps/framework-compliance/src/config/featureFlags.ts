@@ -204,6 +204,11 @@ export const TOOL_METADATA: Record<string, {
     description: 'Analyze and prioritize compliance gaps',
     category: 'supporting',
   },
+  'privacy-risk-radar': {
+    name: 'Privacy Risk Radar',
+    description: 'Continuous monitoring and real-time detection of privacy compliance risks',
+    category: 'supporting',
+  },
   'vendor-risk-assessment': {
     name: 'Vendor Risk Assessment',
     description: 'Assess third-party vendor privacy risks',
