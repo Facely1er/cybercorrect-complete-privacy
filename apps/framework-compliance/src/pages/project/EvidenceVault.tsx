@@ -392,7 +392,7 @@ const EvidenceVault = () => {
                 description="Upload your first evidence document to start building your compliance documentation library."
                 action={{
                   label: "Upload Evidence",
-                  onClick: () => toast.info('Upload', 'Upload feature coming soon'),
+                  onClick: handleUploadEvidence,
                   icon: Upload
                 }}
               />

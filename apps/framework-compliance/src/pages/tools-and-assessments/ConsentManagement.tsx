@@ -620,7 +620,36 @@ END OF TEMPLATE
                         size="sm" 
                         className="w-full"
                         onClick={() => {
-                          toast.info("Preview Consent Form", `Preview functionality for ${type.name} consent forms is currently under development. This feature will allow you to preview how consent forms will appear to users before publishing.`);
+                          // Show preview in a new window/modal
+                          const previewWindow = window.open('', '_blank', 'width=800,height=600');
+                          if (previewWindow) {
+                            previewWindow.document.write(`
+                              <!DOCTYPE html>
+                              <html>
+                                <head>
+                                  <title>Consent Form Preview - ${type.name}</title>
+                                  <style>
+                                    body { font-family: system-ui, -apple-system, sans-serif; padding: 40px; max-width: 600px; margin: 0 auto; }
+                                    h1 { color: #333; border-bottom: 2px solid #0066cc; padding-bottom: 10px; }
+                                    .consent-text { line-height: 1.6; margin: 20px 0; }
+                                    .button { background: #0066cc; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; margin: 10px 5px; }
+                                    .button:hover { background: #0052a3; }
+                                  </style>
+                                </head>
+                                <body>
+                                  <h1>${type.name} Consent Form</h1>
+                                  <div class="consent-text">
+                                    ${type.template || 'This is a preview of how the consent form will appear to users. The actual content will be customized based on your organization\'s privacy policy and data processing activities.'}
+                                  </div>
+                                  <button class="button">I Accept</button>
+                                  <button class="button" style="background: #666;">I Decline</button>
+                                </body>
+                              </html>
+                            `);
+                            previewWindow.document.close();
+                          } else {
+                            toast.info("Preview Consent Form", `Preview opened in a new window. If blocked, please allow popups for this site.`);
+                          }
                         }}
                       >
                         <Eye className="h-4 w-4 mr-2" />
