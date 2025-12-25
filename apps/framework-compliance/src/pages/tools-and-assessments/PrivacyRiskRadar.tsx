@@ -21,20 +21,24 @@ import {
   Zap,
   RefreshCw,
   ArrowLeft,
-  Loader2
+  Loader2,
+  BarChart3
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from '@/components/ui/Toaster';
 import { privacyRiskDetector, type PrivacyRisk, type RiskCategory, type RiskSeverity, type RiskStatus } from '@/services/privacyRiskDetector';
 import { privacyMetricsCalculator, type PrivacyMetrics } from '@/services/privacyMetricsCalculator';
+import { complianceScoreService, type ComplianceScores } from '@/services/complianceScoreService';
 import { EmptyState } from '@/components/ui/EmptyState';
 
 const PrivacyRiskRadar = () => {
   usePageTitle('Privacy Risk Radar');
   useJourneyTool('privacy-risk-radar');
+  const navigate = useNavigate();
   
   const [activeRisks, setActiveRisks] = useState<PrivacyRisk[]>([]);
   const [metrics, setMetrics] = useState<PrivacyMetrics | null>(null);
+  const [complianceScores, setComplianceScores] = useState<ComplianceScores | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [timeRange, setTimeRange] = useState<'24h' | '7d' | '30d' | '90d'>('7d');
   const [autoRefresh, setAutoRefresh] = useState(false);
@@ -61,8 +65,17 @@ const PrivacyRiskRadar = () => {
 
   const loadData = async () => {
     setIsLoading(true);
-    await Promise.all([loadRisks(), loadMetrics()]);
+    await Promise.all([loadRisks(), loadMetrics(), loadComplianceScores()]);
     setIsLoading(false);
+  };
+
+  const loadComplianceScores = async () => {
+    try {
+      const scores = await complianceScoreService.getComplianceScores();
+      setComplianceScores(scores);
+    } catch (error) {
+      console.error('Error loading compliance scores:', error);
+    }
   };
 
   const loadRisks = async () => {
@@ -626,26 +639,142 @@ const PrivacyRiskRadar = () => {
 
         {/* Compliance Scores Tab */}
         <TabsContent value="compliance" className="space-y-4 mt-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Compliance Scoring</CardTitle>
-              <p className="text-sm text-muted-foreground mt-1">
-                Compliance scores are calculated from your privacy assessment results and gap analysis.
-              </p>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center py-8">
-                <Link to="/tools-and-assessments/privacy-gap-analyzer">
-                  <Button>
-                    View Gap Analysis
-                  </Button>
-                </Link>
-                <p className="text-sm text-muted-foreground mt-4">
-                  Complete privacy assessments to see compliance scores here
-                </p>
+          {complianceScores ? (
+            <div className="space-y-4">
+              {/* Overall Score Card */}
+              <Card className="border-primary/50 bg-primary/5">
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between">
+                    <span>Overall Compliance Score</span>
+                    <Badge className="text-lg px-3 py-1">
+                      {complianceScores.overallScore}%
+                    </Badge>
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Average compliance across all frameworks
+                    {complianceScores.lastUpdated && (
+                      <span className="ml-2">
+                        • Last updated: {new Date(complianceScores.lastUpdated).toLocaleDateString()}
+                      </span>
+                    )}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <div className="w-full bg-muted rounded-full h-4">
+                    <div
+                      className={`h-4 rounded-full ${
+                        complianceScores.overallScore >= 80 ? 'bg-success' :
+                        complianceScores.overallScore >= 60 ? 'bg-warning' :
+                        'bg-destructive'
+                      }`}
+                      style={{ width: `${complianceScores.overallScore}%` }}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Framework Scores */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {complianceScores.frameworkScores.map((framework) => (
+                  <Card key={framework.framework}>
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-base">{framework.framework}</CardTitle>
+                        <div className="flex items-center gap-2">
+                          {framework.trend === 'improving' && (
+                            <TrendingUp className="h-4 w-4 text-success" />
+                          )}
+                          {framework.trend === 'declining' && (
+                            <TrendingDown className="h-4 w-4 text-destructive" />
+                          )}
+                          {framework.trend === 'stable' && (
+                            <Activity className="h-4 w-4 text-primary" />
+                          )}
+                          <Badge
+                            className={
+                              framework.score >= 80 ? 'bg-success/10 text-success' :
+                              framework.score >= 60 ? 'bg-warning/10 text-warning' :
+                              'bg-destructive/10 text-destructive'
+                            }
+                          >
+                            {framework.score}%
+                          </Badge>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Gaps identified:</span>
+                          <span className="font-medium">{framework.gaps}</span>
+                        </div>
+                        <div className="w-full bg-muted rounded-full h-2">
+                          <div
+                            className={`h-2 rounded-full ${
+                              framework.score >= 80 ? 'bg-success' :
+                              framework.score >= 60 ? 'bg-warning' :
+                              'bg-destructive'
+                            }`}
+                            style={{ width: `${framework.score}%` }}
+                          />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
-            </CardContent>
-          </Card>
+
+              {/* Actions */}
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <Link to="/toolkit/privacy-gap-analyzer">
+                      <Button variant="default" className="w-full sm:w-auto">
+                        <BarChart3 className="h-4 w-4 mr-2" />
+                        View Detailed Gap Analysis
+                      </Button>
+                    </Link>
+                    <Link to="/toolkit/privacy-assessment">
+                      <Button variant="outline" className="w-full sm:w-auto">
+                        <FileCheck className="h-4 w-4 mr-2" />
+                        Take Privacy Assessment
+                      </Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          ) : (
+            <Card>
+              <CardHeader>
+                <CardTitle>Compliance Scoring</CardTitle>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Compliance scores are calculated from your privacy assessment results and gap analysis.
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8">
+                  <EmptyState
+                    icon={BarChart3}
+                    title="No Compliance Scores Available"
+                    description="Complete a privacy assessment or gap analysis to see your compliance scores here."
+                    action={{
+                      label: 'Take Privacy Assessment',
+                      onClick: () => navigate('/toolkit/privacy-assessment'),
+                      icon: FileCheck
+                    }}
+                  />
+                  <div className="mt-4 flex gap-3 justify-center">
+                    <Link to="/toolkit/privacy-gap-analyzer">
+                      <Button variant="outline">
+                        View Gap Analysis
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </TabsContent>
       </Tabs>
     </div>
