@@ -6,7 +6,6 @@ import { AssessmentResults } from '../../components/assessment/AssessmentResults
 import { RecommendedTools } from '../../components/assessment/RecommendedTools';
 import { 
   Download, 
-  FileText, 
   Target, 
   BarChart3,
   Calendar,

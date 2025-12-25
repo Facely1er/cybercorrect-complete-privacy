@@ -41,7 +41,7 @@ interface AssessmentReportPdfData {
     milestones: Array<{ name: string; date: string; status: string }>;
     deliverables: string[];
     keyActivities: string[];
-    gaps: IdentifiedGap[];
+    gaps?: IdentifiedGap[]; // Optional: used for PDF generation but removed when saving to roadmap
   }>;
   metadata: {
     title: string;
@@ -203,8 +203,11 @@ export const generatePrivacyAssessmentReportPdf = async (data: AssessmentReportP
       doc.setTextColor(60, 60, 60);
       doc.text(`Duration: ${phase.duration} | Status: ${phase.status}`, 20, y);
       y += 6;
-      doc.text(`Gaps to Address: ${phase.gaps.length}`, 20, y);
-      y += 8;
+      if (phase.gaps && phase.gaps.length > 0) {
+        doc.text(`Gaps to Address: ${phase.gaps.length}`, 20, y);
+        y += 6;
+      }
+      y += 2;
       
       doc.setFontSize(10);
       doc.setFont(undefined, 'bold');
