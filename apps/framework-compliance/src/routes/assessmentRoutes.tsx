@@ -11,6 +11,9 @@ const PrivacyAssessment = lazy(() => import('../pages/tools-and-assessments/Priv
 // Gap Analyzer (shows results and recommendations)
 const PrivacyGapAnalyzer = lazy(() => import('../pages/tools-and-assessments/PrivacyGapAnalyzer'));
 
+// Assessment Results
+const PrivacyResults = lazy(() => import('../pages/tools-and-assessments/PrivacyResults'));
+
 // Collaborative Assessments
 const CollaborativeAssessment = lazy(() => import('../pages/assessments/CollaborativeAssessment'));
 
@@ -51,14 +54,16 @@ export const assessmentRoutes = [
     element: PrivacyAssessment,
     lazy: true,
   },
-  // Results now redirect to Gap Analyzer (which displays results and recommendations)
+  // Assessment Results Page (with roadmap generation)
   {
     path: 'privacy-results',
-    element: () => <Navigate to="/toolkit/privacy-gap-analyzer" replace />,
+    element: PrivacyResults,
+    lazy: true,
   },
   {
     path: 'privacy-results/organizational',
-    element: () => <Navigate to="/toolkit/privacy-gap-analyzer" replace />,
+    element: PrivacyResults,
+    lazy: true,
   },
   {
     path: 'privacy-recommendations',

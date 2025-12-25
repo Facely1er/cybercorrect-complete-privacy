@@ -6,6 +6,7 @@ import { useJourneyTool } from '@/hooks/useJourneyTool';
 import { 
   Eye, 
   ArrowLeft, 
+  ArrowRight,
   Download,
   BarChart3,
   AlertTriangle,
@@ -21,6 +22,7 @@ import { generatePrivacyGapAnalysisPdf } from '@/utils/pdf';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Tooltip as TooltipComponent } from '@/components/ui/Tooltip';
 import { AssessmentFlowProgress } from '@/components/assessment/AssessmentFlowProgress';
+import { generateGapsFromAssessment, getToolsForGap, type GapDomain } from '@/utils/gapJourneyConfig';
 
 interface AssessmentResults {
   overallScore?: number;
@@ -628,6 +630,54 @@ const PrivacyGapAnalyzer = () => {
                   <h4 className="font-medium mb-1">Recommendation</h4>
                   <p className="text-sm text-muted-foreground">{gap.recommendation}</p>
                 </div>
+                
+                {/* Recommended Tools */}
+                {(() => {
+                  // Try to determine domain from gap framework or title
+                  const domainMap: Record<string, GapDomain> = {
+                    'Govern': 'govern',
+                    'Identify': 'identify',
+                    'Control': 'control',
+                    'Communicate': 'communicate',
+                    'Protect': 'protect'
+                  };
+                  
+                  const domain = gap.nistSection ? domainMap[gap.nistSection] : 
+                                gap.framework.includes('GV') ? 'govern' :
+                                gap.framework.includes('ID') ? 'identify' :
+                                gap.framework.includes('CT') ? 'control' :
+                                gap.framework.includes('CM') ? 'communicate' :
+                                gap.framework.includes('PR') ? 'protect' : null;
+                  
+                  if (domain) {
+                    const tools = getToolsForGap(domain);
+                    if (tools.length > 0) {
+                      return (
+                        <div className="mt-4 p-3 bg-primary/5 rounded border border-primary/20">
+                          <h4 className="font-medium mb-2 text-foreground">Recommended Tools:</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {tools.slice(0, 3).map((tool) => (
+                              <Link
+                                key={tool.toolId}
+                                to={tool.toolPath}
+                                className="text-sm text-primary hover:underline inline-flex items-center gap-1 px-2 py-1 bg-background rounded border border-primary/20 hover:bg-primary/10 transition-colors"
+                              >
+                                <ArrowLeft className="h-3 w-3 rotate-180" />
+                                {tool.toolName}
+                              </Link>
+                            ))}
+                            {tools.length > 3 && (
+                              <span className="text-xs text-muted-foreground self-center">
+                                +{tools.length - 3} more
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    }
+                  }
+                  return null;
+                })()}
               </CardContent>
             </Card>
           ))}
