@@ -12,7 +12,8 @@ import {
   BarChart3,
   Target,
   Cookie,
-  Route
+  Route,
+  CreditCard
 } from 'lucide-react';
 
 const Footer: React.FC = () => {
@@ -168,7 +169,7 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/ecommerce" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                <Link to="/ecommerce#refund-policy" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
                   <CreditCard className="h-3 w-3 flex-shrink-0" />
                   <span>Refund Policy</span>
                 </Link>
