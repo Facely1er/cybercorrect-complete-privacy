@@ -218,10 +218,10 @@ const Compliance = () => {
                   <Target className="w-4 h-4" />
                   Gap-Based Action Plan
                 </div>
-                <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
+                <h2 className="text-3xl font-bold mb-4 text-foreground">
                   Your Priority Compliance Gaps
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                   Based on your assessment, focus on these areas to reduce risk and achieve compliance
                 </p>
               </div>
@@ -289,7 +289,7 @@ const Compliance = () => {
 
       {/* Assessment-First Flow Section - Show if no assessment yet */}
       {!hasCompletedAssessment && (
-        <section className="py-16 bg-white dark:bg-background border-b border-border">
+        <section className="py-16 bg-background border-b border-border">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
@@ -297,10 +297,10 @@ const Compliance = () => {
                 <Sparkles className="w-4 h-4" />
                 Personalized Experience
               </span>
-              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
+              <h2 className="text-3xl font-bold mb-4 text-foreground">
                 How It Works
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 Start with an assessment to discover your optimal compliance path based on your gaps and organizational context
               </p>
             </div>
