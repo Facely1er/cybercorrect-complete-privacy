@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { Badge } from '../../components/ui/Badge';
 import { useJourneyTool } from '../../hooks/useJourneyTool';
 import { 
   Database, 
@@ -253,11 +254,11 @@ const PiiDataFlowMapper = () => {
 
   const getNodeTypeColor = (type: string) => {
     switch (type) {
-      case 'source': return 'bg-blue-100 border-blue-300 text-blue-800 dark:bg-blue-900/30 dark:border-blue-700 dark:text-blue-200';
-      case 'processing': return 'bg-yellow-100 border-yellow-300 text-yellow-800 dark:bg-yellow-900/30 dark:border-yellow-700 dark:text-yellow-200';
-      case 'storage': return 'bg-green-100 border-green-300 text-green-800 dark:bg-green-900/30 dark:border-green-700 dark:text-green-200';
-      case 'output': return 'bg-purple-100 border-purple-300 text-purple-800 dark:bg-purple-900/30 dark:border-purple-700 dark:text-purple-200';
-      case 'third-party': return 'bg-orange-100 border-orange-300 text-orange-800 dark:bg-orange-900/30 dark:border-orange-700 dark:text-orange-200';
+      case 'source': return 'bg-primary/10 border-primary/30 text-primary';
+      case 'processing': return 'bg-warning/10 border-warning/30 text-warning';
+      case 'storage': return 'bg-success/10 border-success/30 text-success';
+      case 'output': return 'bg-accent/10 border-accent/30 text-accent';
+      case 'third-party': return 'bg-warning/10 border-warning/30 text-warning';
       default: return 'bg-muted border-border text-foreground';
     }
   };
@@ -541,9 +542,9 @@ const PiiDataFlowMapper = () => {
                             </label>
                             <div className="mt-1 flex flex-wrap gap-1">
                               {node.dataSubjectRights.map((right, idx) => (
-                                <span key={idx} className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 px-2 py-1 rounded text-xs">
+                                <Badge key={idx} variant="info" size="sm">
                                   {getDataSubjectRightLabel(right)}
-                                </span>
+                                </Badge>
                               ))}
                             </div>
                           </div>

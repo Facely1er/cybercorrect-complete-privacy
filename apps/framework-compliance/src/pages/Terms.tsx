@@ -760,7 +760,7 @@ const Terms = () => {
                   <ul className="list-disc ml-6 space-y-1 text-muted-foreground text-sm">
                     <li>Pricing for Services is set forth on the ERMITS website or in your subscription agreement</li>
                     <li>All fees are in U.S. Dollars unless otherwise specified</li>
-                    <li>Fees are non-refundable except as expressly provided in the Refund & Cancellation Policy</li>
+                    <li>Fees are non-refundable except as expressly provided in the <Link to="/ecommerce#refund-policy" className="text-primary hover:underline">Refund & Cancellation Policy</Link></li>
                   </ul>
                   
                   <div className="mt-3">

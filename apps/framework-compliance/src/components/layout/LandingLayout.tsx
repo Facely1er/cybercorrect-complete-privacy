@@ -162,8 +162,9 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
                 {/* Sticky CTA that appears on scroll - only on landing page */}
                 {isLandingPage && showStickyCta && (
                   <Button 
-                    className="hidden md:flex enhanced-button rounded-full shadow-glow animate-in slide-in-from-right" 
+                    className="hidden md:flex rounded-full shadow-glow animate-in slide-in-from-right" 
                     size="sm"
+                    variant="default"
                     onClick={handleViewDemo}
                   >
                     View Demo

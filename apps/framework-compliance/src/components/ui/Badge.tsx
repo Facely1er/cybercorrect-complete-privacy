@@ -11,17 +11,17 @@ export function Badge({ children, variant = "default", size = "md", className = 
   const getVariantStyles = (): string => {
     switch (variant) {
       case 'success':
-        return 'bg-green-100 text-green-900 border-green-200 dark:bg-green-900/30 dark:text-green-300 dark:border-green-700';
+        return 'bg-success/10 text-success border-success/20 dark:bg-success/20 dark:text-success dark:border-success/30';
       case 'warning':
-        return 'bg-yellow-100 text-yellow-900 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-700';
+        return 'bg-warning/10 text-warning border-warning/20 dark:bg-warning/20 dark:text-warning dark:border-warning/30';
       case 'error':
-        return 'bg-red-100 text-red-900 border-red-200 dark:bg-red-900/30 dark:text-red-300 dark:border-red-700';
+        return 'bg-destructive/10 text-destructive border-destructive/20 dark:bg-destructive/20 dark:text-destructive dark:border-destructive/30';
       case 'info':
-        return 'bg-blue-100 text-blue-900 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700';
+        return 'bg-primary/10 text-primary border-primary/20 dark:bg-primary/20 dark:text-primary dark:border-primary/30';
       case 'secondary':
-        return 'bg-gray-100 text-gray-900 border-gray-200 dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-600';
+        return 'bg-secondary/10 text-secondary-foreground border-secondary/20 dark:bg-secondary/20 dark:text-secondary-foreground dark:border-secondary/30';
       default:
-        return 'bg-primary-100 text-primary-900 border-primary-200 dark:bg-primary-900/30 dark:text-primary-300 dark:border-primary-700';
+        return 'bg-primary/10 text-primary border-primary/20 dark:bg-primary/20 dark:text-primary dark:border-primary/30';
     }
   };
 

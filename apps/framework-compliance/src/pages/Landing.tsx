@@ -227,7 +227,7 @@ const Landing = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/assessments/privacy-assessment">
-                  <Button size="lg" className="enhanced-button px-8">
+                  <Button size="lg" variant="default" className="px-8">
                     <Eye className="mr-2 h-5 w-5" />
                     Start Free Assessment
                     <ArrowRight className="ml-2 h-5 w-5" />

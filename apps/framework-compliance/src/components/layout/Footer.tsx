@@ -167,6 +167,12 @@ const Footer: React.FC = () => {
                   <span>Cookies Policy</span>
                 </Link>
               </li>
+              <li>
+                <Link to="/ecommerce" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                  <CreditCard className="h-3 w-3 flex-shrink-0" />
+                  <span>Refund Policy</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
