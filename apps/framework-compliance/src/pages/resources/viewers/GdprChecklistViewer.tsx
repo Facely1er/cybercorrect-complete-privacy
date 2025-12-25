@@ -217,7 +217,7 @@ GOVERNANCE AND ACCOUNTABILITY
               onClick={() => setActiveSection(section.id)}
               className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors flex items-center ${
                 activeSection === section.id
-                  ? 'border-blue-500 text-blue-600'
+                  ? 'border-primary text-primary'
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -275,8 +275,8 @@ GOVERNANCE AND ACCOUNTABILITY
                             onClick={() => toggleCheckItem(itemId)}
                             className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
                               checkedItems.has(itemId)
-                                ? 'bg-green-600 border-green-600'
-                                : 'border-gray-300 hover:border-green-500'
+                                ? 'bg-success border-success'
+                                : 'border-gray-300 hover:border-success'
                             }`}
                           >
                             {checkedItems.has(itemId) && (

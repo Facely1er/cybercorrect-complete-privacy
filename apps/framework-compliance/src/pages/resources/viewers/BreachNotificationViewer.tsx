@@ -181,7 +181,7 @@ Generated: ${new Date().toLocaleDateString()}
       <Card className="mb-6">
         <CardHeader>
           <CardTitle className="flex items-center">
-            <AlertTriangle className="h-5 w-5 mr-2 text-red-600" />
+            <AlertTriangle className="h-5 w-5 mr-2 text-destructive" />
             Breach Notification Framework
           </CardTitle>
         </CardHeader>
@@ -189,28 +189,28 @@ Generated: ${new Date().toLocaleDateString()}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
               <div className="bg-destructive/10 dark:bg-destructive/20 p-3 rounded-lg inline-block mb-2">
-                <Clock className="h-6 w-6 text-red-600" />
+                <Clock className="h-6 w-6 text-destructive" />
               </div>
               <h3 className="font-semibold text-foreground">72-Hour Rule</h3>
               <p className="text-sm text-muted-foreground">GDPR notification deadline</p>
             </div>
             <div className="text-center">
               <div className="bg-primary/10 dark:bg-primary/20 p-3 rounded-lg inline-block mb-2">
-                <Phone className="h-6 w-6 text-blue-600" />
+                <Phone className="h-6 w-6 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground">Authority Notification</h3>
               <p className="text-sm text-muted-foreground">Regulatory reporting</p>
             </div>
             <div className="text-center">
               <div className="bg-success/10 dark:bg-success/20 p-3 rounded-lg inline-block mb-2">
-                <Users className="h-6 w-6 text-green-600" />
+                <Users className="h-6 w-6 text-success" />
               </div>
               <h3 className="font-semibold text-foreground">Individual Notice</h3>
               <p className="text-sm text-muted-foreground">Data subject notification</p>
             </div>
             <div className="text-center">
               <div className="bg-accent/10 dark:bg-accent/20 p-3 rounded-lg inline-block mb-2">
-                <FileText className="h-6 w-6 text-purple-600" />
+                <FileText className="h-6 w-6 text-accent" />
               </div>
               <h3 className="font-semibold text-foreground">Documentation</h3>
               <p className="text-sm text-muted-foreground">Incident records</p>
@@ -228,7 +228,7 @@ Generated: ${new Date().toLocaleDateString()}
               onClick={() => setActiveSection(section.id)}
               className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors flex items-center ${
                 activeSection === section.id
-                  ? 'border-red-500 text-red-600'
+                  ? 'border-destructive text-destructive'
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >

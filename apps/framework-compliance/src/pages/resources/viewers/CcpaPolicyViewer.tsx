@@ -169,7 +169,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
               onClick={() => setActiveSection(section.id)}
               className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors flex items-center ${
                 activeSection === section.id
-                  ? 'border-blue-500 text-blue-600'
+                  ? 'border-primary text-primary'
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >
@@ -228,7 +228,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <div className="flex items-start space-x-3">
-                      <Eye className="h-5 w-5 text-blue-600 mt-1" />
+                      <Eye className="h-5 w-5 text-primary mt-1" />
                       <div>
                         <h4 className="font-semibold text-foreground mb-2">Right to Know</h4>
                         <p className="text-sm text-muted-foreground">
@@ -237,7 +237,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
-                      <AlertTriangle className="h-5 w-5 text-red-600 mt-1" />
+                      <AlertTriangle className="h-5 w-5 text-destructive mt-1" />
                       <div>
                         <h4 className="font-semibold text-foreground mb-2">Right to Delete</h4>
                         <p className="text-sm text-muted-foreground">
@@ -248,7 +248,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
                   </div>
                   <div className="space-y-4">
                     <div className="flex items-start space-x-3">
-                      <Settings className="h-5 w-5 text-green-600 mt-1" />
+                      <Settings className="h-5 w-5 text-success mt-1" />
                       <div>
                         <h4 className="font-semibold text-foreground mb-2">Right to Opt-Out</h4>
                         <p className="text-sm text-muted-foreground">
@@ -257,7 +257,7 @@ This template provides a foundation for CCPA compliance. Customize according to 
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
-                      <CheckCircle className="h-5 w-5 text-purple-600 mt-1" />
+                      <CheckCircle className="h-5 w-5 text-accent mt-1" />
                       <div>
                         <h4 className="font-semibold text-foreground mb-2">Right to Non-Discrimination</h4>
                         <p className="text-sm text-muted-foreground">
