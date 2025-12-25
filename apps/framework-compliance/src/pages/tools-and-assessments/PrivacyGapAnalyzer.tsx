@@ -22,7 +22,7 @@ import { generatePrivacyGapAnalysisPdf } from '@/utils/pdf';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { Tooltip as TooltipComponent } from '@/components/ui/Tooltip';
 import { AssessmentFlowProgress } from '@/components/assessment/AssessmentFlowProgress';
-import { generateGapsFromAssessment, getToolsForGap, type GapDomain } from '@/utils/gapJourneyConfig';
+import { getToolsForGap, type GapDomain } from '@/utils/gapJourneyConfig';
 
 interface AssessmentResults {
   overallScore?: number;
@@ -663,7 +663,7 @@ const PrivacyGapAnalyzer = () => {
                                 to={tool.toolPath}
                                 className="text-sm text-primary hover:underline inline-flex items-center gap-1 px-2 py-1 bg-background rounded border border-primary/20 hover:bg-primary/10 transition-colors"
                               >
-                                <ArrowLeft className="h-3 w-3 rotate-180" />
+                                <ArrowRight className="h-3 w-3" />
                                 {tool.toolName}
                               </Link>
                             ))}
