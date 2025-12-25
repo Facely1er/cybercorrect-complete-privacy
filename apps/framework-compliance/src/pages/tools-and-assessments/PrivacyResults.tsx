@@ -145,8 +145,9 @@ const PrivacyResults = () => {
   };
 
   const handleCreateRoadmap = () => {
-    // Save roadmap phases to storage
-    secureStorage.setItem('privacy_roadmap_phases', roadmapPhases);
+    // Save roadmap phases to storage (remove gaps property to match Phase type)
+    const phasesToSave = roadmapPhases.map(({ gaps, ...phase }) => phase);
+    secureStorage.setItem('privacy_roadmap_phases', phasesToSave);
     setRoadmapGenerated(true);
     navigate('/project/roadmap', { 
       state: { 

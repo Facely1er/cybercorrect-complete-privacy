@@ -51,6 +51,7 @@ interface PrivacyGap {
   recommendation: string;
   framework: string;
   nistSection?: string;
+  recommendedTools?: string[]; // Optional: tools recommended for this gap
 }
 
 const PrivacyGapAnalyzer = () => {

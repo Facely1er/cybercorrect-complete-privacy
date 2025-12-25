@@ -1,7 +1,7 @@
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import { addCyberCorrectHeader, addCyberCorrectFooter } from './logoUtils';
-import { generateGapsFromAssessment, type IdentifiedGap } from '../gapJourneyConfig';
+import { type IdentifiedGap } from '../gapJourneyConfig';
 
 declare module 'jspdf' {
   interface jsPDF {
