@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
 import { reportService, AutomatedReport, ReportType, ReportFrequency } from '../../utils/reporting';
 import { toast } from '../../components/ui/Toaster';
 import { EmptyState } from '../../components/ui/EmptyState';
@@ -34,6 +35,13 @@ export const AutomatedReports: React.FC = () => {
     report_type: 'compliance',
     frequency: 'monthly',
   });
+
+  // Confirm dialog state
+  const [deleteConfirm, setDeleteConfirm] = useState<{
+    open: boolean;
+    reportId: string;
+    reportName: string;
+  } | null>(null);
 
   useEffect(() => {
     loadReports();
@@ -100,15 +108,22 @@ export const AutomatedReports: React.FC = () => {
     }
   };
 
-  const handleDelete = async (reportId: string) => {
-    if (!confirm('Are you sure you want to delete this scheduled report?')) {
-      return;
-    }
+  const handleDeleteClick = (report: AutomatedReport) => {
+    setDeleteConfirm({
+      open: true,
+      reportId: report.id!,
+      reportName: `${report.report_type} report (${report.frequency})`
+    });
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deleteConfirm) return;
 
     try {
       // In a real implementation, delete from Supabase
       // For now, update local state
-      setReports(prev => prev.filter(r => r.id !== reportId));
+      setReports(prev => prev.filter(r => r.id !== deleteConfirm.reportId));
+      setDeleteConfirm(null);
       toast.success('Report deleted', 'Scheduled report has been deleted');
     } catch (error) {
       console.error('Failed to delete report:', error);
@@ -308,7 +323,7 @@ export const AutomatedReports: React.FC = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleDelete(report.id!)}
+                        onClick={() => handleDeleteClick(report)}
                         className="text-destructive hover:text-destructive"
                         title="Delete"
                       >
@@ -364,6 +379,19 @@ export const AutomatedReports: React.FC = () => {
           )}
         </CardContent>
       </Card>
+
+      <ConfirmDialog
+        open={deleteConfirm?.open ?? false}
+        onOpenChange={(open) => {
+          if (!open) setDeleteConfirm(null);
+        }}
+        title="Delete Scheduled Report?"
+        description={`Are you sure you want to delete the ${deleteConfirm?.reportName || 'scheduled report'}? This action cannot be undone.`}
+        confirmLabel="Delete Report"
+        cancelLabel="Cancel"
+        onConfirm={handleConfirmDelete}
+        variant="destructive"
+      />
     </div>
   );
 };
