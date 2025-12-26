@@ -552,12 +552,69 @@ export async function getEffectiveTier(): Promise<SubscriptionTier> {
   try {
     const subscription = await getUserSubscription();
     if (!subscription) return 'free';
-    
+
     // Trials grant access to the tier they're trialing
     return subscription.tier;
   } catch (error) {
     console.warn('Error getting effective tier:', error);
     return 'free';
+  }
+}
+
+/**
+ * Check if user has access to the Privacy Portal
+ * Portal access is granted to:
+ * 1. Paid subscribers (Professional/Enterprise tiers)
+ * 2. Beta participants with portal_access_granted = true
+ */
+export async function checkPortalAccess(): Promise<boolean> {
+  try {
+    // Check if user has an active paid subscription
+    const subscription = await getUserSubscription();
+    if (subscription &&
+        (subscription.status === 'active' || subscription.status === 'trialing') &&
+        (subscription.tier === 'professional' || subscription.tier === 'enterprise')) {
+      return true;
+    }
+
+    // Check if user is a beta participant with portal access
+    if (isSupabaseConfigured()) {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return false;
+
+        const { data, error } = await supabase
+          .from('portal_beta_participants')
+          .select('portal_access_granted, status')
+          .eq('application_id', user.id)
+          .eq('status', 'active')
+          .single();
+
+        if (error && error.code !== 'PGRST116') {
+          console.warn('Error checking portal beta access:', error);
+          return false;
+        }
+
+        if (data && data.portal_access_granted) {
+          return true;
+        }
+      } catch (dbError) {
+        console.warn('Error querying portal_beta_participants:', dbError);
+        // Continue to return false
+      }
+    }
+
+    return false;
+  } catch (error) {
+    console.error('Unexpected error in checkPortalAccess:', error);
+    try {
+      errorMonitoring.captureException(error instanceof Error ? error : new Error('Failed to check portal access'), {
+        context: 'subscription_service',
+      });
+    } catch (monitoringError) {
+      console.error('Error monitoring also failed:', monitoringError);
+    }
+    return false;
   }
 }
 
