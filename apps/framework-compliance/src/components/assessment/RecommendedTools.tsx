@@ -341,6 +341,6 @@ const RecommendedTools: React.FC<RecommendedToolsProps> = ({
   );
 };
 
+export { RecommendedTools };
 export default RecommendedTools;
-
 
