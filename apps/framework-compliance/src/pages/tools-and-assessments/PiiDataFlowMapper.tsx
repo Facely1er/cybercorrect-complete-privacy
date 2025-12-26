@@ -364,7 +364,7 @@ const PiiDataFlowMapper = () => {
                           y1={fromNode.position.y + 40}
                           x2={toNode.position.x}
                           y2={toNode.position.y + 40}
-                          stroke={flow.encryption ? "#10b981" : "#ef4444"}
+                          stroke={flow.encryption ? "hsl(var(--success))" : "hsl(var(--destructive))"}
                           strokeWidth="2"
                           markerEnd="url(#arrowhead)"
                         />
