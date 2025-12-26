@@ -232,7 +232,7 @@ export const ProgressTracking: React.FC = () => {
                     <Line 
                       type="monotone" 
                       dataKey="score" 
-                      stroke="#0088FE" 
+                      stroke="hsl(var(--primary))" 
                       strokeWidth={2}
                       name="Compliance Score"
                     />

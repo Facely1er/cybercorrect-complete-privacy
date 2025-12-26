@@ -545,7 +545,7 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     });
 
     // Also check domain-based completion for backwards compatibility
-    const domain = getToolDomain(toolId);
+    // Reuse 'domain' variable declared earlier in this function
     if (domain) {
       if (shouldMarkGapCompleted(domain, newCompletedToolIds)) {
         const gapId = `gap-${domain}`;

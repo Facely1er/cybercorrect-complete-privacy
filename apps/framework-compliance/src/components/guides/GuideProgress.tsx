@@ -100,7 +100,7 @@ export const GuideProgress: React.FC<GuideProgressProps> = ({
           <div 
             className="h-2 rounded-full transition-all duration-300"
             style={{
-              background: 'linear-gradient(90deg, #2A6F7F 0%, #3A9CA8 100%)',
+              background: 'hsl(var(--primary))',
               width: `${progress}%` 
             }}
           />

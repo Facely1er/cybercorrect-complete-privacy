@@ -630,10 +630,10 @@ END OF TEMPLATE
                                   <title>Consent Form Preview - ${type.name}</title>
                                   <style>
                                     body { font-family: system-ui, -apple-system, sans-serif; padding: 40px; max-width: 600px; margin: 0 auto; }
-                                    h1 { color: #333; border-bottom: 2px solid #0066cc; padding-bottom: 10px; }
+                                    h1 { color: #1e293b; border-bottom: 2px solid hsl(221.2 83.2% 53.3%); padding-bottom: 10px; }
                                     .consent-text { line-height: 1.6; margin: 20px 0; }
-                                    .button { background: #0066cc; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; margin: 10px 5px; }
-                                    .button:hover { background: #0052a3; }
+                                    .button { background: hsl(221.2 83.2% 53.3%); color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; margin: 10px 5px; }
+                                    .button:hover { opacity: 0.9; }
                                   </style>
                                 </head>
                                 <body>
@@ -642,7 +642,7 @@ END OF TEMPLATE
                                     ${type.template || 'This is a preview of how the consent form will appear to users. The actual content will be customized based on your organization\'s privacy policy and data processing activities.'}
                                   </div>
                                   <button class="button">I Accept</button>
-                                  <button class="button" style="background: #666;">I Decline</button>
+                                  <button class="button" style="background: hsl(215.4 16.3% 46.9%);">I Decline</button>
                                 </body>
                               </html>
                             `);

@@ -113,7 +113,6 @@ export function ComplianceAutomation({ organizationId }: ComplianceAutomationPro
     }
   ]);
 
-  const [showCreateRule, setShowCreateRule] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     type: '',

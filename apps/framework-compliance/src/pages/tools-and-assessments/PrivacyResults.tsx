@@ -224,9 +224,9 @@ const PrivacyResults = () => {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {identifiedGaps.map((gap) => {
-                const severityColor = gap.severity === 'critical' ? '#ef4444' :
-                                     gap.severity === 'high' ? '#f97316' :
-                                     gap.severity === 'moderate' ? '#eab308' : '#22c55e';
+                const severityColor = gap.severity === 'critical' ? 'hsl(var(--destructive))' :
+                                     gap.severity === 'high' ? 'hsl(var(--destructive))' :
+                                     gap.severity === 'moderate' ? 'hsl(var(--warning))' : 'hsl(var(--success))';
                 const severityBg = gap.severity === 'critical' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
                                   gap.severity === 'high' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
                                   'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400';
