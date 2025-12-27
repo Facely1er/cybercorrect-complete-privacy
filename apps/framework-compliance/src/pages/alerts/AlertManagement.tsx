@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { EmptyState } from '../../components/ui/EmptyState';
 import { alertService, AlertRule, AlertRuleType, Alert } from '../../utils/compliance';
 import { toast } from '../../components/ui/Toaster';
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
@@ -292,9 +293,16 @@ export const AlertManagement: React.FC = () => {
                 Loading alert rules...
               </div>
             ) : alertRules.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
-                No alert rules. Create one to get started.
-              </div>
+              <EmptyState
+                icon={AlertTriangle}
+                title="No Alert Rules"
+                description="Create alert rules to get notified about compliance deadlines and important updates"
+                action={{
+                  label: "Create First Alert Rule",
+                  onClick: () => setShowCreateModal(true),
+                  icon: Plus
+                }}
+              />
             ) : (
               <div className="space-y-4">
                 {alertRules.map((rule) => (
@@ -368,9 +376,11 @@ export const AlertManagement: React.FC = () => {
           </CardHeader>
           <CardContent>
             {upcomingAlerts.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
-                No upcoming alerts
-              </div>
+              <EmptyState
+                icon={Calendar}
+                title="No Upcoming Alerts"
+                description="You don't have any scheduled alerts at this time"
+              />
             ) : (
               <div className="space-y-4">
                 {upcomingAlerts.map((alert) => (

@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { EmptyState } from '../../components/ui/EmptyState';
 import { supabase } from '../../lib/supabase';
 import { toast } from '../../components/ui/Toaster';
 
@@ -236,9 +237,11 @@ export const RegulatoryIntelligence: React.FC = () => {
               Loading regulatory updates...
             </div>
           ) : filteredUpdates.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              No regulatory updates found
-            </div>
+            <EmptyState
+              icon={Scale}
+              title="No Regulatory Updates Found"
+              description="No regulatory updates match your current filters. Try adjusting your search criteria or check back later for new updates"
+            />
           ) : (
             <div className="space-y-4">
               {filteredUpdates.map((update) => (

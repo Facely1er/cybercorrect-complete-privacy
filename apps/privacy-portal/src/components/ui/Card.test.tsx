@@ -14,12 +14,13 @@ describe('Card Components', () => {
     });
 
     it('applies custom className', () => {
-      render(
-        <Card className="custom-class">
+      const { container } = render(
+        <Card className="custom-class" data-testid="card">
           <div>Card content</div>
         </Card>
       );
-      expect(screen.getByText('Card content').closest('div')).toHaveClass('custom-class');
+      const card = container.querySelector('[data-testid="card"]');
+      expect(card).toHaveClass('custom-class');
     });
 
     it('forwards ref correctly', () => {
