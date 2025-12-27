@@ -17,6 +17,7 @@ import {
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { Breadcrumb } from '../components/ui/Breadcrumb';
+import { EmptyState } from '../components/ui/EmptyState';
 import { DataRightsForm } from '../components/privacy/DataRightsForm';
 import { localStorageService } from '../services/localStorageService';
 import { DataRightsRequest } from '../types/storage';
@@ -286,16 +287,15 @@ export function DataRightsExercisePage() {
             </Button>
           </div>
         ) : myRequests.length === 0 ? (
-          <div className="text-center py-8">
-            <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="font-medium mb-2">No requests submitted</h3>
-            <p className="text-muted-foreground mb-4">
-              You haven't submitted any data rights requests yet.
-            </p>
-            <Button onClick={() => setShowRequestForm(true)}>
-              Submit Your First Request
-            </Button>
-          </div>
+          <EmptyState
+            icon={FileText}
+            title="No Requests Submitted"
+            description="You haven't submitted any data rights requests yet."
+            action={{
+              label: "Submit Your First Request",
+              onClick: () => setShowRequestForm(true)
+            }}
+          />
         ) : (
           <div className="space-y-4">
             {myRequests.map((request) => (

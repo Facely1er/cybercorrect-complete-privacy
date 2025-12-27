@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
+import { ConfirmDialog } from '../ui/ConfirmDialog';
 import { exportService } from '../../services/exportService';
 import { localStorageService } from '../../services/localStorageService';
 import { useNotifications } from '../../hooks/useNotifications';
@@ -34,8 +35,9 @@ export function DataExportImport({
   const [exportFormat, setExportFormat] = useState<'csv' | 'json' | 'txt'>('json');
   const [importMessage, setImportMessage] = useState<string | null>(null);
   const [importError, setImportError] = useState<string | null>(null);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   const { addNotification } = useNotifications();
 
   // Get current data counts for display
@@ -198,23 +200,23 @@ export function DataExportImport({
   };
 
   const handleClearAllData = () => {
-    if (window.confirm('Are you sure you want to clear all privacy portal data? This action cannot be undone.')) {
-      localStorageService.clearAllData();
-      
-      addNotification({
-        type: 'info',
-        title: 'Data Cleared',
-        message: 'All privacy portal data has been cleared from local storage',
-        timestamp: Date.now(),
-        read: false,
-        category: 'system'
-      });
+    localStorageService.clearAllData();
 
-      // Reload to reflect changes
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-    }
+    addNotification({
+      type: 'info',
+      title: 'Data Cleared',
+      message: 'All privacy portal data has been cleared from local storage',
+      timestamp: Date.now(),
+      read: false,
+      category: 'system'
+    });
+
+    setShowClearConfirm(false);
+
+    // Reload to reflect changes
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   };
 
   return (
@@ -471,7 +473,7 @@ export function DataExportImport({
               
               <Button
                 variant="outline"
-                onClick={handleClearAllData}
+                onClick={() => setShowClearConfirm(true)}
                 disabled={totalRecords === 0}
                 className="justify-start text-red-600 hover:text-red-700 border-red-200 hover:border-red-300 dark:border-red-800 dark:text-red-400"
               >
@@ -488,6 +490,17 @@ export function DataExportImport({
           </div>
         </div>
       )}
+
+      <ConfirmDialog
+        open={showClearConfirm}
+        onOpenChange={setShowClearConfirm}
+        title="Clear All Privacy Portal Data?"
+        description="Are you sure you want to clear all privacy portal data? This action cannot be undone. All data rights requests, privacy incidents, vendor assessments, and compliance records will be permanently deleted from local storage."
+        confirmLabel="Clear All Data"
+        cancelLabel="Cancel"
+        onConfirm={handleClearAllData}
+        variant="destructive"
+      />
     </div>
   );
 }
