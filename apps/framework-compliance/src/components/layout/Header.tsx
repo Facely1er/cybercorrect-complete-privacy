@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
         : 'bg-background/80 backdrop-blur-sm border-transparent'
     }`}>
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between gap-2 min-w-0">
+        <div className="flex h-16 items-center gap-2 min-w-0">
           {/* Logo and Brand */}
           <div className="flex items-center flex-shrink-0 min-w-0">
             <Link to="/" className="flex items-center space-x-2 min-w-0">
@@ -60,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                 alt={brand.logo.alt} 
                 className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 flex-shrink-0"
               />
-              <div className="hidden md:flex md:flex-col font-bold leading-tight min-w-0">
+              <div className="hidden lg:flex lg:flex-col font-bold leading-tight min-w-0">
                 <span className="text-sm truncate">{brand.companyNameWithTM}</span>
                 <span className="text-xs font-medium truncate">{brand.tagline}</span>
                 <span className="text-xs font-normal text-muted-foreground truncate">by {brand.legal.companyName}</span>
@@ -69,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 flex-shrink-0 overflow-x-auto max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 flex-1 min-w-0 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {navigation.map((item) => {
               const Icon = item.icon;
               return (
@@ -99,7 +99,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           </button>
 
           {/* Right side actions */}
-          <div className="hidden md:flex items-center space-x-2 flex-shrink-0">
+          <div className="hidden md:flex items-center space-x-2 flex-shrink-0 ml-auto">
             {/* Privacy Portal Link */}
             <a
               href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'}
