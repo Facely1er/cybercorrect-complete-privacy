@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, User, Settings, LogOut, Users, ExternalLink, FolderKanban, BookOpen, Route } from 'lucide-react';
+import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, User, Settings, LogOut, Users, ExternalLink, FolderKanban, BookOpen, Route, Radar } from 'lucide-react';
 
 import { Button } from '../ui/Button';
 import { NotificationBell } from '../notifications/NotificationBell';
@@ -28,11 +28,12 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Navigation order follows customer journey: Assess → Discover Gaps → Close Gaps → Track
+  // Navigation order follows customer journey: Assess → Discover Gaps → Monitor Risks → Close Gaps → Track
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
     { name: 'Assessment', href: '/assessment', icon: ClipboardCheck },
     { name: 'Your Journey', href: '/compliance', icon: Route },
+    { name: 'Risk Radar', href: '/toolkit/privacy-risk-radar', icon: Radar },
     { name: 'Toolkit', href: '/toolkit', icon: Wrench },
     { name: 'Project', href: '/project', icon: FolderKanban },
     { name: 'Docs & Guides', href: '/resources', icon: BookOpen },
