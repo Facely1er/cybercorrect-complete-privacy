@@ -12,6 +12,7 @@ These variables are exposed to the browser and must be prefixed with `VITE_`:
 | `VITE_SUPABASE_ANON_KEY` | Supabase anonymous key | `eyJhbGc...` | ✅ Yes |
 | `VITE_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key | `pk_live_...` or `pk_test_...` | ✅ Yes |
 | `VITE_SITE_URL` | Production site URL | `https://www.cybercorrect.com` | ✅ Yes |
+| `VITE_RSS_AGGREGATOR_URL` | RSS Aggregator API endpoint | `https://api.cybercorrect.com/rss-aggregator/regulatory-updates` | ⚠️ Optional (defaults to production URL) |
 
 ### Backend (Edge Functions)
 
@@ -24,6 +25,7 @@ These are set as secrets in Supabase Edge Functions:
 | `SITE_URL` | Production site URL | `https://www.cybercorrect.com` | ✅ Yes |
 | `SUPABASE_URL` | Supabase project URL | `https://xxx.supabase.co` | ⚠️ Optional |
 | `SUPABASE_SERVICE_ROLE_KEY` | Service role key | `eyJhbGc...` | ⚠️ Optional |
+| `RSS_AGGREGATOR_URL` | RSS Aggregator API endpoint for Edge Functions | `https://api.cybercorrect.com/rss-aggregator/regulatory-updates` | ⚠️ Optional (defaults to production URL) |
 
 ---
 
@@ -43,6 +45,9 @@ VITE_STRIPE_PUBLISHABLE_KEY=pk_test_your_test_key_here
 
 # Site
 VITE_SITE_URL=http://localhost:5173
+
+# RSS Aggregator (Optional - defaults to production URL)
+VITE_RSS_AGGREGATOR_URL=https://api.cybercorrect.com/rss-aggregator/regulatory-updates
 ```
 
 ### Production
@@ -59,6 +64,9 @@ VITE_STRIPE_PUBLISHABLE_KEY=pk_live_your_production_key
 
 # Site (Production)
 VITE_SITE_URL=https://www.cybercorrect.com
+
+# RSS Aggregator (Production)
+VITE_RSS_AGGREGATOR_URL=https://api.cybercorrect.com/rss-aggregator/regulatory-updates
 ```
 
 ---

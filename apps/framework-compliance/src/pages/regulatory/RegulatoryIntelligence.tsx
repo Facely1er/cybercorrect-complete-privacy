@@ -17,6 +17,7 @@ import { Button } from '../../components/ui/Button';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { supabase } from '../../lib/supabase';
 import { toast } from '../../components/ui/Toaster';
+import { regulatoryIntelligence } from '../../utils/compliance/regulatoryIntelligence';
 
 export type RegulatoryUpdateType = 'new_regulation' | 'amendment' | 'guidance' | 'enforcement' | 'other';
 export type ImpactLevel = 'low' | 'medium' | 'high' | 'critical';
@@ -58,23 +59,38 @@ export const RegulatoryIntelligence: React.FC = () => {
     try {
       setIsLoading(true);
       
-      // Fetch from Supabase
-      const { data, error } = await supabase
-        .from('regulatory_updates')
-        .select('*')
-        .order('published_at', { ascending: false })
-        .limit(100);
+      // Fetch from RSS Aggregator via regulatory intelligence service
+      // This ensures we use the centralized RSS Aggregator instead of direct source feeds
+      const updates = await regulatoryIntelligence.monitorRegulatoryChanges();
 
-      if (error) throw error;
-
-      if (data) {
-        setUpdates(data as RegulatoryUpdate[]);
+      if (updates && updates.length > 0) {
+        setUpdates(updates);
       } else {
         setUpdates([]);
       }
     } catch (error) {
-      console.error('Failed to load regulatory updates:', error);
+      console.error('Failed to load regulatory updates from RSS Aggregator:', error);
       toast.error('Failed to load regulatory updates', 'Please try again');
+      
+      // Fallback to direct database query if aggregator fails
+      try {
+        const { data, error: dbError } = await supabase
+          .from('regulatory_updates')
+          .select('*')
+          .order('published_at', { ascending: false })
+          .limit(100);
+
+        if (dbError) throw dbError;
+
+        if (data) {
+          setUpdates(data as RegulatoryUpdate[]);
+        } else {
+          setUpdates([]);
+        }
+      } catch (fallbackError) {
+        console.error('Fallback to database also failed:', fallbackError);
+        setUpdates([]);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -184,6 +200,8 @@ export const RegulatoryIntelligence: React.FC = () => {
                 value={filter.framework || ''}
                 onChange={(e) => setFilter({ ...filter, framework: e.target.value || undefined })}
                 className="px-3 py-2 border rounded text-sm"
+                aria-label="Filter by framework"
+                title="Filter by framework"
               >
                 <option value="">All Frameworks</option>
                 {frameworks.map(f => (
@@ -195,6 +213,8 @@ export const RegulatoryIntelligence: React.FC = () => {
               value={filter.updateType || ''}
               onChange={(e) => setFilter({ ...filter, updateType: e.target.value as RegulatoryUpdateType || undefined })}
               className="px-3 py-2 border rounded text-sm"
+              aria-label="Filter by update type"
+              title="Filter by update type"
             >
               <option value="">All Types</option>
               <option value="new_regulation">New Regulation</option>
@@ -207,6 +227,8 @@ export const RegulatoryIntelligence: React.FC = () => {
               value={filter.impactLevel || ''}
               onChange={(e) => setFilter({ ...filter, impactLevel: e.target.value as ImpactLevel || undefined })}
               className="px-3 py-2 border rounded text-sm"
+              aria-label="Filter by impact level"
+              title="Filter by impact level"
             >
               <option value="">All Impact Levels</option>
               <option value="critical">Critical</option>
