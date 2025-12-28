@@ -22,7 +22,8 @@ import {
   RefreshCw,
   ArrowLeft,
   Loader2,
-  BarChart3
+  BarChart3,
+  FileCheck
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from '@/components/ui/Toaster';

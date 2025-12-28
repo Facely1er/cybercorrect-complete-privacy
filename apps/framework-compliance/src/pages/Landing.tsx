@@ -112,61 +112,61 @@ const Landing = () => {
       </section>
 
       {/* Privacy Risk Radar Showcase - Featured Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-purple-50 via-pink-50 to-purple-50 dark:from-purple-950/20 dark:via-pink-950/20 dark:to-purple-950/20 border-y border-purple-200/50 dark:border-purple-800/50">
+      <section className="py-8 md:py-12 bg-gradient-to-br from-purple-50 via-pink-50 to-purple-50 dark:from-purple-950/20 dark:via-pink-950/20 dark:to-purple-950/20 border-y border-purple-200/50 dark:border-purple-800/50">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-6 items-center">
               {/* Left Content */}
               <div>
-                <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200 px-4 py-2 rounded-full text-sm font-medium mb-4">
-                  <Radar className="w-4 h-4 animate-pulse" />
+                <div className="inline-flex items-center gap-2 bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200 px-3 py-1.5 rounded-full text-xs font-medium mb-3">
+                  <Radar className="w-3 h-3 animate-pulse" />
                   Real-Time Privacy Monitoring
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+                <h2 className="text-2xl md:text-3xl font-bold mb-3 text-foreground">
                   <span className="text-foreground">Privacy </span>
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Risk Radar</span>
                 </h2>
-                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                <p className="text-base text-muted-foreground mb-4 leading-relaxed">
                   Go beyond static assessments. Our Privacy Risk Radar continuously monitors your privacy posture,
                   detects emerging risks in real-time, and alerts you before issues become compliance violations.
                 </p>
 
                 {/* Key Features */}
-                <div className="space-y-3 mb-6">
+                <div className="space-y-2 mb-4">
                   {[
                     { icon: Activity, text: 'Real-time privacy risk detection', color: 'text-purple-600' },
                     { icon: TrendingUp, text: 'Continuous compliance monitoring', color: 'text-pink-600' },
                     { icon: AlertTriangle, text: 'Proactive risk alerts & notifications', color: 'text-orange-600' },
                     { icon: Target, text: 'Auto-prioritized remediation tasks', color: 'text-blue-600' }
                   ].map((feature, idx) => (
-                    <div key={idx} className="flex items-start gap-3">
-                      <div className={`w-8 h-8 rounded-lg bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 flex items-center justify-center flex-shrink-0`}>
-                        <feature.icon className={`w-4 h-4 ${feature.color}`} />
+                    <div key={idx} className="flex items-start gap-2">
+                      <div className={`w-6 h-6 rounded-lg bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 flex items-center justify-center flex-shrink-0`}>
+                        <feature.icon className={`w-3.5 h-3.5 ${feature.color}`} />
                       </div>
-                      <span className="text-foreground font-medium">{feature.text}</span>
+                      <span className="text-sm text-foreground font-medium">{feature.text}</span>
                     </div>
                   ))}
                 </div>
 
                 <Link to="/toolkit/privacy-risk-radar">
-                  <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all">
-                    <Radar className="mr-2 h-5 w-5" />
+                  <Button size="default" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all">
+                    <Radar className="mr-2 h-4 w-4" />
                     Launch Privacy Risk Radar
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
               </div>
 
               {/* Right Visual */}
               <div className="relative">
-                <Card className="border-2 border-purple-200 dark:border-purple-800 shadow-2xl bg-background overflow-hidden">
-                  <CardContent className="p-6">
+                <Card className="border-2 border-purple-200 dark:border-purple-800 shadow-xl bg-background overflow-hidden">
+                  <CardContent className="p-4">
                     {/* Mock Radar Interface */}
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between pb-3 border-b border-border">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between pb-2 border-b border-border">
                         <div className="flex items-center gap-2">
-                          <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                          <span className="text-sm font-semibold">Live Monitoring Active</span>
+                          <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></div>
+                          <span className="text-xs font-semibold">Live Monitoring Active</span>
                         </div>
                         <span className="text-xs text-muted-foreground">Last scan: 2 min ago</span>
                       </div>
@@ -177,27 +177,27 @@ const Landing = () => {
                         { severity: 'High', count: 5, color: 'orange', bgColor: 'bg-orange-100 dark:bg-orange-900/20', textColor: 'text-orange-700 dark:text-orange-300' },
                         { severity: 'Medium', count: 12, color: 'yellow', bgColor: 'bg-yellow-100 dark:bg-yellow-900/20', textColor: 'text-yellow-700 dark:text-yellow-300' }
                       ].map((risk, idx) => (
-                        <div key={idx} className={`${risk.bgColor} rounded-lg p-4 border border-${risk.color}-200 dark:border-${risk.color}-800`}>
+                        <div key={idx} className={`${risk.bgColor} rounded-lg p-3 border border-${risk.color}-200 dark:border-${risk.color}-800`}>
                           <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <AlertTriangle className={`w-5 h-5 ${risk.textColor}`} />
+                            <div className="flex items-center gap-2">
+                              <AlertTriangle className={`w-4 h-4 ${risk.textColor}`} />
                               <div>
-                                <div className={`text-sm font-bold ${risk.textColor}`}>{risk.severity} Risks</div>
+                                <div className={`text-xs font-bold ${risk.textColor}`}>{risk.severity} Risks</div>
                                 <div className="text-xs text-muted-foreground">{risk.count} active detections</div>
                               </div>
                             </div>
-                            <div className={`text-2xl font-bold ${risk.textColor}`}>{risk.count}</div>
+                            <div className={`text-xl font-bold ${risk.textColor}`}>{risk.count}</div>
                           </div>
                         </div>
                       ))}
 
                       {/* Live Activity Indicator */}
-                      <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3 border border-purple-200 dark:border-purple-800">
-                        <div className="flex items-center gap-2 text-sm">
+                      <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-2 border border-purple-200 dark:border-purple-800">
+                        <div className="flex items-center gap-2 text-xs">
                           <div className="flex space-x-1">
-                            <div className="w-1 h-4 bg-purple-500 rounded animate-pulse"></div>
-                            <div className="w-1 h-4 bg-purple-500 rounded animate-pulse delay-75"></div>
-                            <div className="w-1 h-4 bg-purple-500 rounded animate-pulse delay-150"></div>
+                            <div className="w-1 h-3 bg-purple-500 rounded animate-pulse"></div>
+                            <div className="w-1 h-3 bg-purple-500 rounded animate-pulse delay-75"></div>
+                            <div className="w-1 h-3 bg-purple-500 rounded animate-pulse delay-150"></div>
                           </div>
                           <span className="text-purple-700 dark:text-purple-300 font-medium">Scanning 247 data processing activities...</span>
                         </div>
@@ -207,7 +207,7 @@ const Landing = () => {
                 </Card>
 
                 {/* Floating Badge */}
-                <div className="absolute -top-4 -right-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg rotate-3">
+                <div className="absolute -top-3 -right-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg rotate-3">
                   ⚡ Real-Time
                 </div>
               </div>
