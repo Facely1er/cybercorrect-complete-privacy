@@ -90,6 +90,14 @@ const Features = () => {
           benefits: ['Risk-based prioritization', 'Cost-benefit analysis', 'Timeline planning', 'Resource allocation'],
           stats: 'Instant results',
           link: '/toolkit/privacy-gap-analyzer'
+        },
+        {
+          icon: Shield,
+          title: 'Privacy Risk Radar',
+          description: 'Continuous monitoring and real-time detection of privacy compliance risks',
+          benefits: ['Real-time risk detection', 'Privacy metrics dashboard', 'Automated scanning', 'Risk prioritization'],
+          stats: '5 min scan',
+          link: '/toolkit/privacy-risk-radar'
         }
       ]
     },
@@ -376,7 +384,7 @@ const Features = () => {
                   onClick={() => setActiveTab(key)}
                   className={`flex items-center gap-2 px-8 py-4 rounded-full font-semibold transition-all hover:-translate-y-1 hover:shadow-lg ${
                     activeTab === key 
-                      ? 'bg-blue-600 text-white shadow-xl scale-105' 
+                      ? 'bg-primary text-primary-foreground shadow-xl scale-105' 
                       : 'bg-white dark:bg-background text-foreground hover:bg-gray-100 hover:bg-muted shadow-md'
                   }`}
                 >
@@ -460,7 +468,7 @@ const Features = () => {
 
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-gradient-to-br from-purple-50 to-surface dark:from-purple-900/20 dark:to-dark-surface p-8 rounded-xl border border-purple-200 dark:border-purple-800">
-                <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mb-4">
                   <Lightbulb className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 text-foreground dark:text-foreground">Smart SSP Generation</h3>
@@ -484,7 +492,7 @@ const Features = () => {
               </div>
 
               <div className="bg-gradient-to-br from-blue-50 to-surface dark:from-blue-900/20 dark:to-dark-surface p-8 rounded-xl border border-blue-200 dark:border-blue-800">
-                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
                   <FileText className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3 text-foreground dark:text-foreground">Intelligent POA&M Creation</h3>

@@ -50,6 +50,15 @@ const Toolkit = () => {
           features: ["Multi-regulation mapping", "Gap prioritization", "Risk assessment", "Remediation planning"]
         },
         {
+          title: "Privacy Risk Radar",
+          description: "Continuous monitoring and real-time detection of privacy compliance risks",
+          icon: Shield,
+          path: "/toolkit/privacy-risk-radar",
+          timeEstimate: "5 mins",
+          complexity: "Intermediate",
+          features: ["Real-time risk detection", "Privacy metrics dashboard", "Automated scanning", "Risk prioritization"]
+        },
+        {
           title: "Vendor Risk Assessment",
           description: "Evaluate and monitor third-party vendors for privacy compliance and data protection",
           icon: Building,
@@ -279,37 +288,37 @@ const Toolkit = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold mb-2 text-foreground">Compliance Toolkit</h1>
-            <p className="text-xl text-muted-foreground max-w-3xl">
-              Comprehensive tools for assessment, documentation, and compliance management across multiple frameworks
-            </p>
-          </div>
-          
-          {/* View Mode Toggle */}
-          <div className="flex items-center gap-2 bg-muted rounded-lg p-1">
-            <Button
-              variant={viewMode === 'journey' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => setViewMode('journey')}
-              className="flex items-center gap-2"
-            >
-              <Milestone className="h-4 w-4" />
-              Journey View
-            </Button>
-            <Button
-              variant={viewMode === 'category' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => setViewMode('category')}
-              className="flex items-center gap-2"
-            >
-              <LayoutGrid className="h-4 w-4" />
-              Category View
-            </Button>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-bold mb-2 text-foreground">Compliance Toolkit</h1>
+              <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed">
+                Comprehensive tools for assessment, documentation, and compliance management across multiple frameworks
+              </p>
+            </div>
+            
+            {/* View Mode Toggle */}
+            <div className="flex items-center gap-2 bg-muted rounded-lg p-1">
+              <Button
+                variant={viewMode === 'journey' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setViewMode('journey')}
+                className="flex items-center gap-2"
+              >
+                <Milestone className="h-4 w-4" />
+                Journey View
+              </Button>
+              <Button
+                variant={viewMode === 'category' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setViewMode('category')}
+                className="flex items-center gap-2"
+              >
+                <LayoutGrid className="h-4 w-4" />
+                Category View
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">

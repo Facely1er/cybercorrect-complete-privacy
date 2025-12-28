@@ -86,6 +86,7 @@ const PrivacyOfficerJourney = () => {
       duration: 'As needed',
       tools: [
         { name: 'DPIA Manager', path: '/toolkit/dpia-manager', icon: Shield },
+        { name: 'Privacy Risk Radar', path: '/toolkit/privacy-risk-radar', icon: Shield },
         { name: 'Privacy by Design Assessment', path: '/toolkit/privacy-by-design-assessment', icon: Target },
         { name: 'Privacy Rights Manager', path: '/toolkit/privacy-rights-manager', icon: Users }
       ],
@@ -150,7 +151,7 @@ const PrivacyOfficerJourney = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/assessments/privacy-assessment">
-                <Button size="lg" variant="default" className="enhanced-button">
+                <Button size="lg" variant="default">
                   Start Privacy Assessment
                   <Eye className="ml-2 h-5 w-5" />
                 </Button>

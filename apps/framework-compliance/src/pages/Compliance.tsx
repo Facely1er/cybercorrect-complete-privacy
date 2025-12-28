@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Card, CardContent } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
+import { Badge } from '../components/ui/Badge';
 import JourneyProgressTracker from '../components/onboarding/JourneyProgressTracker';
 import OnboardingFlow from '../components/onboarding/OnboardingFlow';
 import GapPriorityCard from '../components/gaps/GapPriorityCard';
@@ -158,7 +159,7 @@ const Compliance = () => {
               {hasCompletedAssessment ? (
                 <>
                   <Link to="/toolkit">
-                    <Button size="lg" variant="default" className="enhanced-button">
+                    <Button size="lg" variant="default">
                       Start Closing Gaps
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
@@ -173,7 +174,7 @@ const Compliance = () => {
               ) : (
                 <>
                   <Link to="/assessments/privacy-assessment">
-                    <Button size="lg" variant="default" className="enhanced-button">
+                    <Button size="lg" variant="default">
                       Start Assessment
                       <Eye className="ml-2 h-5 w-5" />
                     </Button>
@@ -210,7 +211,7 @@ const Compliance = () => {
 
       {/* Gap-Based Priority Section - Only show after assessment */}
       {hasCompletedAssessment && identifiedGaps.length > 0 && (
-        <section className="py-16 bg-white dark:bg-background border-b border-border">
+        <section className="py-16 bg-background border-b border-border">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12">
@@ -218,10 +219,10 @@ const Compliance = () => {
                   <Target className="w-4 h-4" />
                   Gap-Based Action Plan
                 </div>
-                <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
+                <h2 className="text-3xl font-bold mb-4 text-foreground">
                   Your Priority Compliance Gaps
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                   Based on your assessment, focus on these areas to reduce risk and achieve compliance
                 </p>
               </div>
@@ -289,7 +290,7 @@ const Compliance = () => {
 
       {/* Assessment-First Flow Section - Show if no assessment yet */}
       {!hasCompletedAssessment && (
-        <section className="py-16 bg-white dark:bg-background border-b border-border">
+        <section className="py-16 bg-background border-b border-border">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
@@ -297,10 +298,10 @@ const Compliance = () => {
                 <Sparkles className="w-4 h-4" />
                 Personalized Experience
               </span>
-              <h2 className="text-3xl font-bold mb-4 text-foreground dark:text-foreground">
+              <h2 className="text-3xl font-bold mb-4 text-foreground">
                 How It Works
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 Start with an assessment to discover your optimal compliance path based on your gaps and organizational context
               </p>
             </div>
@@ -309,11 +310,11 @@ const Compliance = () => {
               {/* Step 1 */}
               <div className="relative">
                 <div className="text-center">
-                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <ClipboardCheck className="w-7 h-7 text-white" />
                   </div>
-                  <div className="absolute top-7 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-blue-400/50 to-transparent hidden md:block"></div>
-                  <span className="inline-block bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 1</span>
+                  <div className="absolute top-7 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-primary/50 to-transparent hidden md:block"></div>
+                  <Badge variant="info" size="sm" className="mb-3">Step 1</Badge>
                   <h3 className="text-lg font-bold mb-2 text-foreground">Assessment</h3>
                   <p className="text-muted-foreground text-sm">
                     Evaluate your privacy posture
@@ -327,11 +328,11 @@ const Compliance = () => {
               {/* Step 2 - Current page */}
               <div className="relative">
                 <div className="text-center">
-                  <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg ring-4 ring-purple-200 dark:ring-purple-800">
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg ring-4 ring-primary/20">
                     <Target className="w-7 h-7 text-white" />
                   </div>
-                  <div className="absolute top-7 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-purple-400/50 to-transparent hidden md:block"></div>
-                  <span className="inline-block bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 2 • You Are Here</span>
+                  <div className="absolute top-7 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-primary/50 to-transparent hidden md:block"></div>
+                  <Badge variant="default" size="sm" className="mb-3">Step 2 • You Are Here</Badge>
                   <h3 className="text-lg font-bold mb-2 text-foreground">Discover Gaps</h3>
                   <p className="text-muted-foreground text-sm">
                     See your prioritized gaps
@@ -342,11 +343,11 @@ const Compliance = () => {
               {/* Step 3 */}
               <div className="relative">
                 <div className="text-center">
-                  <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg opacity-60">
+                  <div className="w-14 h-14 bg-gradient-to-br from-success to-success/80 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg opacity-60">
                     <Route className="w-7 h-7 text-white" />
                   </div>
-                  <div className="absolute top-7 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-green-400/50 to-transparent hidden md:block"></div>
-                  <span className="inline-block bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 3</span>
+                  <div className="absolute top-7 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-success/50 to-transparent hidden md:block"></div>
+                  <Badge variant="success" size="sm" className="mb-3">Step 3</Badge>
                   <h3 className="text-lg font-bold mb-2 text-foreground">Close Gaps</h3>
                   <p className="text-muted-foreground text-sm">
                     Use tools to fix issues
@@ -360,10 +361,10 @@ const Compliance = () => {
               {/* Step 4 */}
               <div className="relative">
                 <div className="text-center">
-                  <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg opacity-60">
+                  <div className="w-14 h-14 bg-gradient-to-br from-warning to-warning/80 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg opacity-60">
                     <TrendingUp className="w-7 h-7 text-white" />
                   </div>
-                  <span className="inline-block bg-orange-600 text-white text-xs font-bold px-2 py-1 rounded-full mb-3">Step 4</span>
+                  <Badge variant="warning" size="sm" className="mb-3">Step 4</Badge>
                   <h3 className="text-lg font-bold mb-2 text-foreground">Track Progress</h3>
                   <p className="text-muted-foreground text-sm">
                     Monitor in Project Dashboard
@@ -407,7 +408,7 @@ const Compliance = () => {
                 For organizations with dedicated privacy teams, explore role-specific guidance
               </p>
               {hasCompletedAssessment && (
-                <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg max-w-xl mx-auto">
+                <div className="mt-4 p-3 bg-primary/10 border border-primary/20 rounded-lg max-w-xl mx-auto">
                   <p className="text-sm text-foreground">
                     <AlertCircle className="w-4 h-4 inline mr-1" />
                     <strong>Note:</strong> Your gap-based action plan above is already prioritized for your needs. 
@@ -501,7 +502,7 @@ const Compliance = () => {
                       rel="noopener noreferrer"
                       className="inline-block"
                     >
-                      <Button size="lg" className="enhanced-button group">
+                      <Button size="lg" variant="default" className="group">
                         Access Privacy Portal
                         <ExternalLink className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                       </Button>
@@ -515,8 +516,8 @@ const Compliance = () => {
                     </h3>
                     <div className="space-y-4">
                       <div className="flex items-center gap-3 bg-white/80 dark:bg-background/80 p-3 rounded-lg">
-                        <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Shield className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                        <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Shield className="w-5 h-5 text-primary" />
                         </div>
                         <div>
                           <p className="font-semibold text-sm">Administrators</p>
@@ -524,8 +525,8 @@ const Compliance = () => {
                         </div>
                       </div>
                       <div className="flex items-center gap-3 bg-white/80 dark:bg-background/80 p-3 rounded-lg">
-                        <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Lock className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                        <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Lock className="w-5 h-5 text-primary" />
                         </div>
                         <div>
                           <p className="font-semibold text-sm">Privacy Officers</p>
@@ -533,8 +534,8 @@ const Compliance = () => {
                         </div>
                       </div>
                       <div className="flex items-center gap-3 bg-white/80 dark:bg-background/80 p-3 rounded-lg">
-                        <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <UserCheck className="w-5 h-5 text-green-600 dark:text-green-400" />
+                        <div className="w-10 h-10 bg-success/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <UserCheck className="w-5 h-5 text-success" />
                         </div>
                         <div>
                           <p className="font-semibold text-sm">Staff Members</p>
@@ -542,8 +543,8 @@ const Compliance = () => {
                         </div>
                       </div>
                       <div className="flex items-center gap-3 bg-white/80 dark:bg-background/80 p-3 rounded-lg">
-                        <div className="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Users className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                        <div className="w-10 h-10 bg-warning/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Users className="w-5 h-5 text-warning" />
                         </div>
                         <div>
                           <p className="font-semibold text-sm">Employees & Families</p>

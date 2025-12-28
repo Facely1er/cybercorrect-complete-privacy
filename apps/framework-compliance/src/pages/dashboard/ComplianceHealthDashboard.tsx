@@ -21,7 +21,7 @@ import { toast } from '../../components/ui/Toaster';
 import { DashboardBetaInviteBanner } from '../../components/dashboard/DashboardBetaInviteBanner';
 import { shouldShowBetaInvite } from '../../utils/portalBetaMapping';
 import { useAuth } from '../../context/AuthContext';
-import { getCurrentUser } from '../../lib/supabase';
+import { checkPortalAccess } from '../../services/subscriptionService';
 
 export const ComplianceHealthDashboard: React.FC = () => {
   usePageTitle('Compliance Health Dashboard');
@@ -49,23 +49,19 @@ export const ComplianceHealthDashboard: React.FC = () => {
       if (user) {
         // Set user role from user profile
         setUserRole(user.role?.replace('_', ' ') || 'Privacy Officer');
-        
-        // Check for portal subscription (this would need subscription service integration)
-        // For now, check if user has any active subscription
+
+        // Check for portal access (paid subscription or beta participant)
         try {
-          const { user: supabaseUser } = await getCurrentUser();
-          if (supabaseUser) {
-            // TODO: Check subscription service for portal access
-            // For now, default to false
-            setUserHasPortal(false);
-          }
+          const hasPortalAccess = await checkPortalAccess();
+          setUserHasPortal(hasPortalAccess);
         } catch (error) {
-          // If not authenticated or error, default to false
+          console.error('Error checking portal access:', error);
+          // If error, default to false
           setUserHasPortal(false);
         }
       }
     };
-    
+
     loadUserInfo();
   }, [user]);
   

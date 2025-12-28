@@ -308,6 +308,11 @@ const Checkout = () => {
                       )}
                     </span>
                   </div>
+                  {taxAmount === 0 && (
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Tax will be calculated by Stripe based on your location, if applicable.
+                    </p>
+                  )}
                   <div className="border-t border-border pt-4">
                     <div className="flex justify-between items-center">
                       <span className="text-lg font-semibold text-foreground">Total</span>
@@ -358,7 +363,9 @@ const Checkout = () => {
                       <Link to="/terms" className="text-primary hover:underline">Terms of Service</Link>
                       {', '}
                       <Link to="/ecommerce" className="text-primary hover:underline">E-Commerce Policies</Link>
-                      {', '}
+                      {' (including our '}
+                      <Link to="/ecommerce#refund-policy" className="text-primary hover:underline">Refund & Cancellation Policy</Link>
+                      {'), '}
                       <Link to="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
                       {', and '}
                       <Link to="/acceptable-use" className="text-primary hover:underline">Acceptable Use Policy</Link>

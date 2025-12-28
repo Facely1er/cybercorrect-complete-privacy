@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, User, Settings, LogOut, Users, ExternalLink, FolderKanban, BookOpen, Route } from 'lucide-react';
+import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, User, Settings, LogOut, Users, ExternalLink, FolderKanban, BookOpen, Route, Radar } from 'lucide-react';
 
 import { Button } from '../ui/Button';
 import { NotificationBell } from '../notifications/NotificationBell';
+import { useBrand } from '../../hooks/useBrand';
 
 interface HeaderProps {
   toggleDarkMode: () => void;
@@ -15,6 +16,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const location = useLocation();
+  const { brand } = useBrand();
 
   // Handle scroll effect for sticky header
   useEffect(() => {
@@ -26,11 +28,12 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Navigation order follows customer journey: Assess → Discover Gaps → Close Gaps → Track
+  // Navigation order follows customer journey: Assess → Discover Gaps → Monitor Risks → Close Gaps → Track
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
     { name: 'Assessment', href: '/assessment', icon: ClipboardCheck },
     { name: 'Your Journey', href: '/compliance', icon: Route },
+    { name: 'Risk Radar', href: '/toolkit/privacy-risk-radar', icon: Radar },
     { name: 'Toolkit', href: '/toolkit', icon: Wrench },
     { name: 'Project', href: '/project', icon: FolderKanban },
     { name: 'Docs & Guides', href: '/resources', icon: BookOpen },
@@ -48,56 +51,55 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
         : 'bg-background/80 backdrop-blur-sm border-transparent'
     }`}>
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-16 items-center justify-between gap-2 min-w-0">
           {/* Logo and Brand */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
+          <div className="flex items-center flex-shrink-0 min-w-0">
+            <Link to="/" className="flex items-center space-x-2 min-w-0">
               <img 
-                src="/cybercorrect.png" 
-                alt="CyberCorrect" 
-                className="h-16 w-16"
+                src={brand.logo.primary} 
+                alt={brand.logo.alt} 
+                className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 flex-shrink-0"
               />
-              <div className="hidden sm:flex sm:flex-col leading-tight">
-                <span className="text-xs font-bold">CyberCorrect™</span>
-                <span className="text-xs font-medium">Privacy Platform</span>
-                <span className="text-[10px] font-normal text-muted-foreground">by ERMITS</span>
+              <div className="hidden md:flex md:flex-col font-bold leading-tight min-w-0">
+                <span className="text-sm truncate">{brand.companyNameWithTM}</span>
+                <span className="text-xs font-medium truncate">{brand.tagline}</span>
+                <span className="text-xs font-normal text-muted-foreground truncate">by {brand.legal.companyName}</span>
               </div>
             </Link>
           </div>
 
-          {/* Desktop Navigation - Responsive with better tablet support */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-2 flex-shrink-0">
             {navigation.map((item) => {
               const Icon = item.icon;
               return (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`flex items-center justify-center space-x-1.5 lg:space-x-2 px-2 lg:px-4 py-2 rounded-lg text-xs lg:text-sm font-medium transition-all duration-200 touch-target ${
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     isActivePath(item.href)
                       ? 'bg-primary text-primary-foreground shadow-sm'
                       : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
                   }`}
                 >
                   <Icon className="w-4 h-4 flex-shrink-0" />
-                  <span className="whitespace-nowrap hidden lg:inline">{item.name}</span>
+                  <span className="whitespace-nowrap">{item.name}</span>
                 </Link>
               );
             })}
           </nav>
 
-          {/* Mobile menu button - Enhanced touch target */}
+          {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden touch-target p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 active:bg-gray-200 dark:active:bg-gray-700 transition-colors"
+            className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
             aria-label="Toggle mobile menu"
-            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
 
           {/* Right side actions */}
-          <div className="hidden md:flex items-center gap-2 flex-shrink-0">
+          <div className="hidden md:flex items-center space-x-2 flex-shrink-0">
             {/* Privacy Portal Link */}
             <a
               href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'}
@@ -115,7 +117,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full text-foreground hover:bg-accent h-8 w-8"
+              className="rounded-full text-foreground hover:bg-accent"
               onClick={toggleDarkMode}
               aria-label="Toggle dark mode"
             >
@@ -130,9 +132,9 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
             <div className="relative">
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="flex items-center gap-1.5 px-2 py-1.5 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="flex items-center space-x-1 p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
-                <User className="w-4 h-4" />
+                <User className="w-5 h-5" />
                 <span className="hidden sm:inline text-sm">Account</span>
               </button>
 
@@ -169,37 +171,37 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           </div>
         </div>
         
-        {/* Mobile Navigation - Outside the flex container with enhanced touch targets */}
+        {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-border/50 py-4 max-h-[calc(100vh-4rem)] overflow-y-auto">
-            <nav className="flex flex-col space-y-1 px-2">
+          <div className="md:hidden border-t border-border/50 py-4">
+            <nav className="flex flex-col space-y-2">
               {navigation.map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 touch-target min-h-[48px] ${
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
                       isActivePath(item.href)
                         ? 'bg-primary text-primary-foreground shadow-sm'
-                        : 'text-muted-foreground active:bg-accent active:text-foreground'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <Icon className="w-5 h-5 flex-shrink-0" />
-                    <span className="flex-1">{item.name}</span>
+                    <Icon className="w-4 h-4 flex-shrink-0" />
+                    <span>{item.name}</span>
                   </Link>
                 );
               })}
             </nav>
             
-            {/* Privacy Portal - Mobile with enhanced touch target */}
-            <div className="border-t border-border/50 pt-4 mt-4 px-2">
+            {/* Privacy Portal - Mobile */}
+            <div className="border-t border-border/50 pt-4 mt-4">
               <a
                 href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between px-4 py-3 rounded-lg bg-primary/10 text-primary active:bg-primary/20 border border-primary/20 touch-target min-h-[48px] transition-colors"
+                className="flex items-center justify-between px-4 py-3 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <div className="flex items-center gap-2">
@@ -210,23 +212,52 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
               </a>
             </div>
             
-            {/* Mobile User Actions with enhanced touch targets */}
-            <div className="border-t border-border/50 pt-4 mt-4 px-2">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
+            {/* Mobile User Actions */}
+            <div className="border-t border-border/50 pt-4 mt-4">
+              <div className="flex items-center justify-between px-4 py-3">
+                <div className="flex items-center space-x-3">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="rounded-full touch-target min-h-[48px] min-w-[48px]"
+                    className="rounded-full"
                     onClick={toggleDarkMode}
                     aria-label="Toggle dark mode"
                   >
                     {darkMode ? <SunMoon className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
                   </Button>
-                  <div className="touch-target min-h-[48px] min-w-[48px] flex items-center justify-center">
-                    <NotificationBell />
-                  </div>
+                  <NotificationBell />
                 </div>
+                <div className="flex items-center space-x-2">
+                  <User className="w-5 h-5 text-gray-700 dark:text-gray-200 flex-shrink-0" />
+                  <span className="text-sm text-gray-700 dark:text-gray-200 font-medium">Account</span>
+                </div>
+              </div>
+              
+              <div className="space-y-2 mt-3">
+                <Link
+                  to="/profile"
+                  className="flex items-center space-x-3 px-4 py-3 text-sm hover:bg-accent transition-all duration-200 rounded-lg"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <User className="w-4 h-4 flex-shrink-0" />
+                  <span>Profile</span>
+                </Link>
+                <Link
+                  to="/account/settings"
+                  className="flex items-center space-x-3 px-4 py-3 text-sm hover:bg-accent transition-all duration-200 rounded-lg"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Settings className="w-4 h-4 flex-shrink-0" />
+                  <span>Settings</span>
+                </Link>
+                <Link
+                  to="/login"
+                  className="flex items-center space-x-3 px-4 py-3 text-sm hover:bg-accent transition-all duration-200 rounded-lg"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <LogOut className="w-4 h-4 flex-shrink-0" />
+                  <span>Sign Out</span>
+                </Link>
               </div>
             </div>
           </div>

@@ -9,6 +9,7 @@ import { EmptyState } from '../../components/ui/EmptyState';
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import {
   getPrivacyIncidents,
+  createPrivacyIncident,
   exportToCSV,
   type PrivacyIncident,
 } from '../../services/incidentService';
@@ -25,8 +26,12 @@ import {
   Edit,
   Download,
   Building,
-  Loader2
+  Loader2,
+  X
 } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '../../components/ui/Dialog';
+import { Input } from '../../components/ui/Input';
+import { Textarea } from '../../components/ui/Textarea';
 
 // Using PrivacyIncident type from incidentService
 
@@ -42,6 +47,24 @@ const IncidentResponseManager = () => {
   const [privacyIncidents, setPrivacyIncidents] = useState<PrivacyIncident[]>([]);
   const [loading, setLoading] = useState(true);
   const [isExporting, setIsExporting] = useState(false);
+  const [showIncidentForm, setShowIncidentForm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [incidentForm, setIncidentForm] = useState({
+    title: '',
+    description: '',
+    type: 'data_breach' as PrivacyIncident['type'],
+    severity: 'medium' as PrivacyIncident['severity'],
+    status: 'reported' as PrivacyIncident['status'],
+    reportedDate: new Date().toISOString().split('T')[0],
+    detectedDate: new Date().toISOString().split('T')[0],
+    reportedBy: '',
+    assignedTo: '',
+    affectedDataSubjects: 0,
+    affectedDataTypes: [] as string[],
+    affectedSystems: [] as string[],
+    rootCause: '',
+    impact: ''
+  });
 
   const incidentTypes = [
     { id: 'data_breach', name: 'Data Breach', color: 'red', icon: <Shield className="h-4 w-4" /> },
@@ -102,6 +125,49 @@ const IncidentResponseManager = () => {
   const openIncidents = privacyIncidents.filter(i => i.status !== 'resolved' && i.status !== 'closed').length;
   const resolvedIncidents = privacyIncidents.filter(i => i.status === 'resolved' || i.status === 'closed').length;
   const highSeverityIncidents = privacyIncidents.filter(i => i.severity === 'high' || i.severity === 'critical').length;
+
+  const handleCreateIncident = async () => {
+    if (!incidentForm.title || !incidentForm.description) {
+      toast.error('Validation Error', 'Please fill in all required fields');
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const newIncident = await createPrivacyIncident({
+        ...incidentForm,
+        affectedDataSubjects: Number(incidentForm.affectedDataSubjects) || 0,
+        affectedDataTypes: incidentForm.affectedDataTypes.filter(Boolean),
+        affectedSystems: incidentForm.affectedSystems.filter(Boolean),
+      });
+
+      setPrivacyIncidents([...privacyIncidents, newIncident]);
+      setShowIncidentForm(false);
+      setIncidentForm({
+        title: '',
+        description: '',
+        type: 'data_breach',
+        severity: 'medium',
+        status: 'reported',
+        reportedDate: new Date().toISOString().split('T')[0],
+        detectedDate: new Date().toISOString().split('T')[0],
+        reportedBy: '',
+        assignedTo: '',
+        affectedDataSubjects: 0,
+        affectedDataTypes: [],
+        affectedSystems: [],
+        rootCause: '',
+        impact: ''
+      });
+      toast.success('Incident Created', 'Privacy incident has been successfully reported');
+      setActiveTab('incidents');
+    } catch (error) {
+      logError(error instanceof Error ? error : new Error('Failed to create incident'), { component: 'IncidentResponseManager' });
+      toast.error('Creation Failed', 'Failed to create incident. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const exportReport = async (format: 'json' | 'csv' | 'pdf') => {
     const { monetization } = await import('../../utils/monetization');
@@ -375,7 +441,7 @@ const IncidentResponseManager = () => {
                   </select>
                 </div>
                 <div className="flex gap-2">
-                  <Button className="flex-1" onClick={() => toast.info('Coming soon', 'Incident form will be available in a future update')}>
+                  <Button className="flex-1" onClick={() => setActiveTab('report')}>
                     <Plus className="h-4 w-4 mr-2" />
                     Report Incident
                   </Button>
@@ -520,7 +586,7 @@ const IncidentResponseManager = () => {
                     Use this form to report privacy incidents, data breaches, or compliance violations.
                     All incidents are tracked and managed through the incident response workflow.
                   </p>
-                  <Button onClick={() => toast.info('Coming soon', 'Incident form will be available in a future update')}>
+                  <Button onClick={() => setShowIncidentForm(true)}>
                     <Plus className="h-4 w-4 mr-2" />
                     Open Incident Form
                   </Button>
@@ -615,6 +681,176 @@ const IncidentResponseManager = () => {
         </TabsContent>
       </Tabs>
       </div>
+
+      {/* Incident Creation Dialog */}
+      <Dialog open={showIncidentForm} onOpenChange={setShowIncidentForm}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Report New Privacy Incident</DialogTitle>
+            <DialogDescription>
+              Fill in the details below to report a new privacy incident or data breach.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 mt-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">Incident Title *</label>
+              <Input
+                value={incidentForm.title}
+                onChange={(e) => setIncidentForm({ ...incidentForm, title: e.target.value })}
+                placeholder="e.g., Unauthorized Access to Customer Database"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Description *</label>
+              <Textarea
+                value={incidentForm.description}
+                onChange={(e) => setIncidentForm({ ...incidentForm, description: e.target.value })}
+                placeholder="Provide a detailed description of the incident..."
+                rows={4}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Incident Type *</label>
+                <select
+                  value={incidentForm.type}
+                  onChange={(e) => setIncidentForm({ ...incidentForm, type: e.target.value as PrivacyIncident['type'] })}
+                  className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                >
+                  {incidentTypes.map(type => (
+                    <option key={type.id} value={type.id}>{type.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Severity *</label>
+                <select
+                  value={incidentForm.severity}
+                  onChange={(e) => setIncidentForm({ ...incidentForm, severity: e.target.value as PrivacyIncident['severity'] })}
+                  className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                >
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                  <option value="critical">Critical</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Detected Date *</label>
+                <Input
+                  type="date"
+                  value={incidentForm.detectedDate}
+                  onChange={(e) => setIncidentForm({ ...incidentForm, detectedDate: e.target.value })}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Reported Date *</label>
+                <Input
+                  type="date"
+                  value={incidentForm.reportedDate}
+                  onChange={(e) => setIncidentForm({ ...incidentForm, reportedDate: e.target.value })}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Reported By *</label>
+                <Input
+                  value={incidentForm.reportedBy}
+                  onChange={(e) => setIncidentForm({ ...incidentForm, reportedBy: e.target.value })}
+                  placeholder="Name or email"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Assigned To</label>
+                <Input
+                  value={incidentForm.assignedTo}
+                  onChange={(e) => setIncidentForm({ ...incidentForm, assignedTo: e.target.value })}
+                  placeholder="Name or email"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Affected Data Subjects</label>
+              <Input
+                type="number"
+                value={incidentForm.affectedDataSubjects}
+                onChange={(e) => setIncidentForm({ ...incidentForm, affectedDataSubjects: parseInt(e.target.value) || 0 })}
+                placeholder="0"
+                min="0"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Affected Data Types (comma-separated)</label>
+              <Input
+                value={incidentForm.affectedDataTypes.join(', ')}
+                onChange={(e) => setIncidentForm({ ...incidentForm, affectedDataTypes: e.target.value.split(',').map(s => s.trim()).filter(Boolean) })}
+                placeholder="e.g., Email addresses, Names, Phone numbers"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Affected Systems (comma-separated)</label>
+              <Input
+                value={incidentForm.affectedSystems.join(', ')}
+                onChange={(e) => setIncidentForm({ ...incidentForm, affectedSystems: e.target.value.split(',').map(s => s.trim()).filter(Boolean) })}
+                placeholder="e.g., Customer Database, Email Server"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Root Cause</label>
+              <Textarea
+                value={incidentForm.rootCause}
+                onChange={(e) => setIncidentForm({ ...incidentForm, rootCause: e.target.value })}
+                placeholder="Describe the root cause of the incident..."
+                rows={3}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Impact</label>
+              <Textarea
+                value={incidentForm.impact}
+                onChange={(e) => setIncidentForm({ ...incidentForm, impact: e.target.value })}
+                placeholder="Describe the impact of the incident..."
+                rows={3}
+              />
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowIncidentForm(false)} disabled={isSubmitting}>
+              Cancel
+            </Button>
+            <Button onClick={handleCreateIncident} disabled={isSubmitting}>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Creating...
+                </>
+              ) : (
+                <>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Report Incident
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

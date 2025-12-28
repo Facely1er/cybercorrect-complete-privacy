@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
 import { supabase } from '../../lib/supabase';
 import { secureStorage } from '../../utils/storage';
 import { toast } from '../../components/ui/Toaster';
@@ -50,6 +51,13 @@ export const ScheduledAssessments: React.FC = () => {
     assessment_type: 'privacy',
     schedule: 'monthly',
   });
+
+  // Confirm dialog state
+  const [deleteConfirm, setDeleteConfirm] = useState<{
+    open: boolean;
+    assessmentId: string;
+    assessmentName: string;
+  } | null>(null);
 
   useEffect(() => {
     loadAssessments();
@@ -197,10 +205,16 @@ export const ScheduledAssessments: React.FC = () => {
     }
   };
 
-  const handleDelete = async (assessmentId: string) => {
-    if (!confirm('Are you sure you want to delete this scheduled assessment?')) {
-      return;
-    }
+  const handleDeleteClick = (assessment: ScheduledAssessment) => {
+    setDeleteConfirm({
+      open: true,
+      assessmentId: assessment.id!,
+      assessmentName: `${assessment.assessment_type} assessment (${assessment.schedule})`
+    });
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deleteConfirm) return;
 
     try {
       // Get current user
@@ -211,18 +225,19 @@ export const ScheduledAssessments: React.FC = () => {
         const { error } = await supabase
           .from('scheduled_assessments')
           .delete()
-          .eq('id', assessmentId)
+          .eq('id', deleteConfirm.assessmentId)
           .eq('user_id', user.id);
 
         if (error) throw error;
       } else {
         // Delete from local storage
         const local = secureStorage.getItem<ScheduledAssessment[]>(ASSESSMENTS_STORAGE_KEY) || [];
-        const filtered = local.filter(a => a.id !== assessmentId);
+        const filtered = local.filter(a => a.id !== deleteConfirm.assessmentId);
         secureStorage.setItem(ASSESSMENTS_STORAGE_KEY, filtered);
       }
 
       await loadAssessments();
+      setDeleteConfirm(null);
       toast.success('Assessment deleted', 'Scheduled assessment has been deleted');
     } catch (error) {
       console.error('Failed to delete assessment:', error);
@@ -416,7 +431,7 @@ export const ScheduledAssessments: React.FC = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleDelete(assessment.id!)}
+                        onClick={() => handleDeleteClick(assessment)}
                         className="text-destructive hover:text-destructive"
                         title="Delete"
                       >
@@ -430,6 +445,19 @@ export const ScheduledAssessments: React.FC = () => {
           )}
         </CardContent>
       </Card>
+
+      <ConfirmDialog
+        open={deleteConfirm?.open ?? false}
+        onOpenChange={(open) => {
+          if (!open) setDeleteConfirm(null);
+        }}
+        title="Delete Scheduled Assessment?"
+        description={`Are you sure you want to delete the ${deleteConfirm?.assessmentName || 'scheduled assessment'}? This action cannot be undone.`}
+        confirmLabel="Delete Assessment"
+        cancelLabel="Cancel"
+        onConfirm={handleConfirmDelete}
+        variant="destructive"
+      />
     </div>
   );
 };

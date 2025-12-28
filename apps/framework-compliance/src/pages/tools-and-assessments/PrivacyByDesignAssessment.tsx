@@ -290,8 +290,8 @@ const PrivacyByDesignAssessment = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                    <Shield className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <Shield className="h-6 w-6 text-primary" />
                   </div>
                   <span className="text-2xl font-bold">{totalAssessments}</span>
                 </div>
@@ -303,10 +303,10 @@ const PrivacyByDesignAssessment = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                    <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  <div className="p-2 bg-success/10 rounded-lg">
+                    <CheckCircle className="h-6 w-6 text-success" />
                   </div>
-                  <span className="text-2xl font-bold text-green-600 dark:text-green-400">
+                  <span className="text-2xl font-bold text-success">
                     {completedAssessments}
                   </span>
                 </div>
@@ -318,10 +318,10 @@ const PrivacyByDesignAssessment = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                    <Award className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                  <div className="p-2 bg-accent/10 rounded-lg">
+                    <Award className="h-6 w-6 text-accent" />
                   </div>
-                  <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                  <span className="text-2xl font-bold text-accent">
                     {compliantAssessments}
                   </span>
                 </div>
@@ -333,10 +333,10 @@ const PrivacyByDesignAssessment = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                    <BarChart3 className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <BarChart3 className="h-6 w-6 text-primary" />
                   </div>
-                  <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                  <span className="text-2xl font-bold text-primary">
                     {averageScore}
                   </span>
                 </div>
@@ -350,7 +350,7 @@ const PrivacyByDesignAssessment = () => {
           <Card>
             <CardContent className="p-6">
               <h2 className="text-xl font-semibold mb-4 flex items-center">
-                <Target className="h-5 w-5 mr-2 text-blue-500" />
+                <Target className="h-5 w-5 mr-2 text-primary" />
                 Principles Overview
               </h2>
               <div className="space-y-4">
@@ -547,9 +547,9 @@ const PrivacyByDesignAssessment = () => {
             <CardContent className="p-6">
               <h2 className="text-xl font-semibold mb-4">Privacy by Design Implementation Guidance</h2>
               <div className="space-y-4">
-                <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-                  <h3 className="font-medium text-blue-900 dark:text-blue-300 mb-2">What is Privacy by Design?</h3>
-                  <p className="text-sm text-blue-800 dark:text-blue-400">
+                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                  <h3 className="font-medium text-primary mb-2">What is Privacy by Design?</h3>
+                  <p className="text-sm text-muted-foreground">
                     Privacy by Design is a framework that promotes privacy and data protection compliance from the start. 
                     It requires that privacy be built into the design and architecture of IT systems and business practices, 
                     not bolted on as an afterthought.

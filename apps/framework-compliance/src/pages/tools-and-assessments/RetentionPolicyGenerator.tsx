@@ -126,22 +126,22 @@ const RetentionPolicyGenerator = () => {
   });
 
   const getStatusBadge = (status: string) => {
-    const className = 
-      status === 'active' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-      status === 'draft' ? 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300' :
-      status === 'under_review' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' :
-      'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300';
+    const variant = 
+      status === 'active' ? 'success' :
+      status === 'draft' ? 'secondary' :
+      status === 'under_review' ? 'warning' :
+      'error';
     
-    return <Badge className={className}>{status.replace('_', ' ')}</Badge>;
+    return <Badge variant={variant}>{status.replace('_', ' ')}</Badge>;
   };
 
   const getComplianceBadge = (status: string) => {
-    const className = 
-      status === 'compliant' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-      status === 'needs_review' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' :
-      'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300';
+    const variant = 
+      status === 'compliant' ? 'success' :
+      status === 'needs_review' ? 'warning' :
+      'error';
     
-    return <Badge className={className}>{status.replace('_', ' ')}</Badge>;
+    return <Badge variant={variant}>{status.replace('_', ' ')}</Badge>;
   };
 
   // Calculate metrics
@@ -286,8 +286,8 @@ const RetentionPolicyGenerator = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                    <FileText className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <FileText className="h-6 w-6 text-primary" />
                   </div>
                   <span className="text-2xl font-bold">{totalPolicies}</span>
                 </div>
@@ -299,10 +299,10 @@ const RetentionPolicyGenerator = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                    <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  <div className="p-2 bg-success/10 rounded-lg">
+                    <CheckCircle className="h-6 w-6 text-success" />
                   </div>
-                  <span className="text-2xl font-bold text-green-600 dark:text-green-400">
+                  <span className="text-2xl font-bold text-success">
                     {activePolicies}
                   </span>
                 </div>
@@ -314,10 +314,10 @@ const RetentionPolicyGenerator = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                    <Award className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                  <div className="p-2 bg-accent/10 rounded-lg">
+                    <Award className="h-6 w-6 text-accent" />
                   </div>
-                  <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                  <span className="text-2xl font-bold text-accent">
                     {compliantPolicies}
                   </span>
                 </div>
@@ -329,10 +329,10 @@ const RetentionPolicyGenerator = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
-                    <AlertTriangle className="h-6 w-6 text-amber-600 dark:text-amber-400" />
+                  <div className="p-2 bg-warning/10 rounded-lg">
+                    <AlertTriangle className="h-6 w-6 text-warning" />
                   </div>
-                  <span className="text-2xl font-bold text-amber-600 dark:text-amber-400">
+                  <span className="text-2xl font-bold text-warning">
                     {upcomingReviews}
                   </span>
                 </div>
@@ -346,24 +346,24 @@ const RetentionPolicyGenerator = () => {
           <Card>
             <CardContent className="p-6">
               <h2 className="text-xl font-semibold mb-4 flex items-center">
-                <Database className="h-5 w-5 mr-2 text-blue-500" />
+                <Database className="h-5 w-5 mr-2 text-primary" />
                 Data Records Overview
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="text-center p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{totalRecords}</div>
+                <div className="text-center p-4 bg-primary/5 rounded-lg">
+                  <div className="text-2xl font-bold text-primary">{totalRecords}</div>
                   <div className="text-sm text-muted-foreground">Total Records</div>
                 </div>
-                <div className="text-center p-4 bg-red-50 dark:bg-red-950/30 rounded-lg">
-                  <div className="text-2xl font-bold text-red-600 dark:text-red-400">{expiredRecords}</div>
+                <div className="text-center p-4 bg-destructive/5 rounded-lg">
+                  <div className="text-2xl font-bold text-destructive">{expiredRecords}</div>
                   <div className="text-sm text-muted-foreground">Expired</div>
                 </div>
-                <div className="text-center p-4 bg-amber-50 dark:bg-amber-950/30 rounded-lg">
-                  <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">{scheduledDeletion}</div>
+                <div className="text-center p-4 bg-warning/5 rounded-lg">
+                  <div className="text-2xl font-bold text-warning">{scheduledDeletion}</div>
                   <div className="text-sm text-muted-foreground">Scheduled Deletion</div>
                 </div>
-                <div className="text-center p-4 bg-green-50 dark:bg-green-950/30 rounded-lg">
-                  <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                <div className="text-center p-4 bg-success/5 rounded-lg">
+                  <div className="text-2xl font-bold text-success">
                     {totalRecords - expiredRecords - scheduledDeletion}
                   </div>
                   <div className="text-sm text-muted-foreground">Active</div>
@@ -376,7 +376,7 @@ const RetentionPolicyGenerator = () => {
           <Card>
             <CardContent className="p-6">
               <h2 className="text-xl font-semibold mb-4 flex items-center">
-                <BarChart3 className="h-5 w-5 mr-2 text-blue-500" />
+                <BarChart3 className="h-5 w-5 mr-2 text-primary" />
                 Policy Categories
               </h2>
               <div className="space-y-4">
@@ -414,7 +414,7 @@ const RetentionPolicyGenerator = () => {
           <Card>
             <CardContent className="p-6">
               <h2 className="text-xl font-semibold mb-4 flex items-center">
-                <Calendar className="h-5 w-5 mr-2 text-amber-500" />
+                <Calendar className="h-5 w-5 mr-2 text-warning" />
                 Upcoming Policy Reviews
               </h2>
               <div className="space-y-4">
@@ -605,9 +605,9 @@ const RetentionPolicyGenerator = () => {
                             <span className="font-medium text-sm">Purposes:</span>
                             <div className="flex flex-wrap gap-2 mt-2">
                               {policy.purposes.map((purpose, index) => (
-                                <span key={index} className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-2 py-1 rounded">
+                                <Badge key={index} variant="info" size="sm">
                                   {purpose}
-                                </span>
+                                </Badge>
                               ))}
                             </div>
                           </div>
@@ -655,11 +655,11 @@ const RetentionPolicyGenerator = () => {
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           <h3 className="font-medium">{record.dataType}</h3>
-                          <Badge className={
-                            record.status === 'active' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-                            record.status === 'expired' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' :
-                            record.status === 'scheduled_deletion' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' :
-                            'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300'
+                          <Badge variant={
+                            record.status === 'active' ? 'success' :
+                            record.status === 'expired' ? 'error' :
+                            record.status === 'scheduled_deletion' ? 'warning' :
+                            'secondary'
                           }>
                             {record.status.replace('_', ' ')}
                           </Badge>
@@ -749,30 +749,30 @@ const RetentionPolicyGenerator = () => {
               <h2 className="text-xl font-semibold mb-4">Compliance Overview</h2>
               <div className="space-y-6">
                 <div className="grid md:grid-cols-3 gap-4">
-                  <div className="p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg">
-                    <h3 className="font-medium text-green-800 dark:text-green-300 mb-2">Compliant Policies</h3>
-                    <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                  <div className="p-4 bg-success/5 border border-success/20 rounded-lg">
+                    <h3 className="font-medium text-success mb-2">Compliant Policies</h3>
+                    <div className="text-2xl font-bold text-success">
                       {compliantPolicies}
                     </div>
-                    <div className="text-sm text-green-700 dark:text-green-400">
+                    <div className="text-sm text-muted-foreground">
                       {totalPolicies > 0 ? Math.round((compliantPolicies / totalPolicies) * 100) : 0}% of total
                     </div>
                   </div>
-                  <div className="p-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg">
-                    <h3 className="font-medium text-amber-800 dark:text-amber-300 mb-2">Needs Review</h3>
-                    <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">
+                  <div className="p-4 bg-warning/5 border border-warning/20 rounded-lg">
+                    <h3 className="font-medium text-warning mb-2">Needs Review</h3>
+                    <div className="text-2xl font-bold text-warning">
                       {policies.filter(p => p.complianceStatus === 'needs_review').length}
                     </div>
-                    <div className="text-sm text-amber-700 dark:text-amber-400">
+                    <div className="text-sm text-muted-foreground">
                       Require attention
                     </div>
                   </div>
-                  <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
-                    <h3 className="font-medium text-red-800 dark:text-red-300 mb-2">Non-Compliant</h3>
-                    <div className="text-2xl font-bold text-red-600 dark:text-red-400">
+                  <div className="p-4 bg-destructive/5 border border-destructive/20 rounded-lg">
+                    <h3 className="font-medium text-destructive mb-2">Non-Compliant</h3>
+                    <div className="text-2xl font-bold text-destructive">
                       {policies.filter(p => p.complianceStatus === 'non_compliant').length}
                     </div>
-                    <div className="text-sm text-red-700 dark:text-red-400">
+                    <div className="text-sm text-muted-foreground">
                       Immediate action required
                     </div>
                   </div>

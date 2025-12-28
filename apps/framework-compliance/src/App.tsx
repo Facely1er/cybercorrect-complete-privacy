@@ -11,6 +11,7 @@ import DevTools from './components/DevTools';
 import { setAppSetting, getAppSetting } from './utils/storage';
 import AnalyticsWrapper from './components/AnalyticsWrapper';
 import { AppRoutes } from './routes';
+import { endSession } from './utils/journeyAnalytics';
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState(() => {
@@ -44,6 +45,20 @@ const App: React.FC = () => {
       document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
+
+  useEffect(() => {
+    // End session when page unloads
+    const handleBeforeUnload = () => {
+      endSession();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      endSession();
+    };
+  }, []);
 
   return (
     <ErrorBoundary>

@@ -59,7 +59,7 @@ const Faqs = () => {
   const faqs = [
     {
       question: "What is CyberCorrect Privacy Platform?",
-      answer: "CyberCorrect Privacy Platform is a comprehensive privacy compliance platform designed to help organizations achieve and maintain compliance with global privacy regulations including GDPR, CCPA, LGPD, PIPEDA, and the NIST Privacy Framework. Our platform simplifies the privacy compliance journey with assessment tools, DPIA generators, policy creation, and continuous monitoring capabilities.",
+      answer: "CyberCorrect Privacy Platform is a comprehensive privacy compliance platform designed to help organizations achieve and maintain compliance with global privacy regulations including GDPR, CCPA, LGPD, PIPEDA, and the NIST Privacy Framework. Our platform simplifies the privacy compliance journey with assessment tools, DPIA generators, policy creation, Privacy Risk Radar for continuous monitoring, and automated risk detection capabilities.",
       category: 'general'
     },
     {
@@ -69,7 +69,7 @@ const Faqs = () => {
     },
     {
       question: "What are the steps to get started with CyberCorrect Privacy Platform?",
-      answer: "Getting started is easy: 1) Sign up for your account, 2) Complete the privacy assessment to identify your current privacy posture, 3) Review your personalized privacy roadmap, 4) Use our tools to implement privacy controls and documentation, 5) Generate required privacy policies and notices, and 6) Implement continuous privacy monitoring.",
+      answer: "Getting started is easy: 1) Sign up for your account, 2) Complete the privacy assessment to identify your current privacy posture, 3) Review your personalized privacy roadmap, 4) Use our tools to implement privacy controls and documentation, 5) Generate required privacy policies and notices, and 6) Use Privacy Risk Radar for continuous privacy monitoring and real-time risk detection.",
       category: 'general'
     },
     {

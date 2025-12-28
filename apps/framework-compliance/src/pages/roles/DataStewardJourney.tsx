@@ -150,7 +150,7 @@ const DataStewardJourney = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/toolkit/gdpr-mapper">
-                <Button size="lg" variant="default" className="enhanced-button">
+                <Button size="lg" variant="default">
                   Start Data Mapping
                   <Database className="ml-2 h-5 w-5" />
                 </Button>

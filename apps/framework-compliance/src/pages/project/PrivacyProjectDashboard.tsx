@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { EmptyState } from '../../components/ui/EmptyState';
 import { useProject } from '../../context/ProjectContext';
 import { useJourney } from '../../context/useJourney';
 import { InternalLink, RelatedContent } from '../../components/ui/InternalLinkingHelper';
@@ -28,7 +29,8 @@ import {
   Bell,
   ClipboardList,
   FileBarChart,
-  Building
+  Building,
+  Shield
 } from 'lucide-react';
 
 const PrivacyProjectDashboard = () => {
@@ -588,7 +590,11 @@ const PrivacyProjectDashboard = () => {
           <CardContent>
             <div className="space-y-2">
               {recentNotifications.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No recent notifications</p>
+                <EmptyState
+                  icon={Bell}
+                  title="No Recent Notifications"
+                  description="You're all caught up! No new notifications at this time"
+                />
               ) : (
                 <div className="space-y-2">
                   {recentNotifications.slice(0, 3).map((notification) => (
@@ -640,6 +646,12 @@ const PrivacyProjectDashboard = () => {
                 <Button variant="outline" size="sm" className="w-full justify-start">
                   <Target className="h-4 w-4 mr-2" />
                   Progress Tracking
+                </Button>
+              </Link>
+              <Link to="/toolkit/privacy-risk-radar">
+                <Button variant="outline" size="sm" className="w-full justify-start">
+                  <Shield className="h-4 w-4 mr-2" />
+                  Privacy Risk Radar
                 </Button>
               </Link>
               <Link to="/toolkit/vendor-risk-assessment">

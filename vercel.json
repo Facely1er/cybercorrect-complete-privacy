@@ -2,6 +2,8 @@
   "buildCommand": "npm run build --workspace=@cybercorrect/framework-compliance",
   "outputDirectory": "apps/framework-compliance/dist",
   "installCommand": "npm install",
+  "framework": null,
+  "devCommand": null,
   "rewrites": [
     {
       "source": "/((?!assets/).*)",

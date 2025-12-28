@@ -1,0 +1,16 @@
+{
+  "supabase": {
+    "url": "https://achowlksgmwuvfbvjfrt.supabase.co",
+    "anonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjaG93bGtzZ213dXZmYnZqZnJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3MTY2MjAsImV4cCI6MjA3ODI5MjYyMH0.VA3C-heQSKCyiRTfrDdhrb2ONUt44W-o-a2D7ci5eUo",
+    "projectRef": "achowlksgmwuvfbvjfrt"
+  },
+  "edgeFunctions": {
+    "baseUrl": "https://achowlksgmwuvfbvjfrt.supabase.co/functions/v1",
+    "secrets": {
+      "stripeSecretKey": "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",
+      "siteUrl": "https://www.cybercorrect.com",
+      "webhookSecret": "whsec_xxxxxxxxxxxxx"
+    }
+  }
+}
+

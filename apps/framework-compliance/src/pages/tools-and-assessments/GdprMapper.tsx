@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
 import { InternalLink, RelatedContent } from '../../components/ui/InternalLinkingHelper';
 import { ImportDialog } from '../../components/ui/ImportDialog';
 import { validators } from '../../utils/import/jsonValidator';
@@ -54,6 +55,13 @@ const GdprMapper = () => {
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [editingActivity, setEditingActivity] = useState<ProcessingActivity | null>(null);
   const [editFormData, setEditFormData] = useState<Partial<ProcessingActivity>>({});
+
+  // Confirm dialog state
+  const [deleteConfirm, setDeleteConfirm] = useState<{
+    open: boolean;
+    activityId: string;
+    activityName: string;
+  } | null>(null);
 
   // Mark tool as started when component mounts
   useEffect(() => {
@@ -214,18 +222,25 @@ const GdprMapper = () => {
     }
   };
 
-  const handleDeleteActivity = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this processing activity?')) {
-      return;
-    }
+  const handleDeleteActivityClick = (activity: ProcessingActivity) => {
+    setDeleteConfirm({
+      open: true,
+      activityId: activity.id!,
+      activityName: activity.activityName || 'processing activity'
+    });
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deleteConfirm) return;
 
     try {
       setSaving(true);
-      await deleteProcessingActivity(id);
-      setActivities(prev => prev.filter(a => a.id !== id));
-      if (selectedActivity === id) {
+      await deleteProcessingActivity(deleteConfirm.activityId);
+      setActivities(prev => prev.filter(a => a.id !== deleteConfirm.activityId));
+      if (selectedActivity === deleteConfirm.activityId) {
         setSelectedActivity(null);
       }
+      setDeleteConfirm(null);
       toast.success('Activity Deleted', 'Processing activity has been deleted');
     } catch (error) {
       logError(error instanceof Error ? error : new Error('Error deleting activity'), { component: 'GdprMapper', operation: 'deleteActivity' });
@@ -546,10 +561,10 @@ const GdprMapper = () => {
                              <Edit className="h-4 w-4 mr-2" />
                              Edit Activity
                            </Button>
-                           <Button 
-                             variant="outline" 
-                             className="w-full text-destructive hover:text-destructive" 
-                             onClick={() => activity.id && handleDeleteActivity(activity.id)}
+                           <Button
+                             variant="outline"
+                             className="w-full text-destructive hover:text-destructive"
+                             onClick={() => handleDeleteActivityClick(activity)}
                              disabled={saving}
                            >
                              <Trash2 className="h-4 w-4 mr-2" />
@@ -879,6 +894,19 @@ const GdprMapper = () => {
             )}
           </DialogContent>
         </Dialog>
+
+        <ConfirmDialog
+          open={deleteConfirm?.open ?? false}
+          onOpenChange={(open) => {
+            if (!open) setDeleteConfirm(null);
+          }}
+          title="Delete Processing Activity?"
+          description={`Are you sure you want to delete "${deleteConfirm?.activityName || 'this processing activity'}"? This action cannot be undone and will remove all associated GDPR mappings.`}
+          confirmLabel="Delete Activity"
+          cancelLabel="Cancel"
+          onConfirm={handleConfirmDelete}
+          variant="destructive"
+        />
       </div>
     </div>
   );

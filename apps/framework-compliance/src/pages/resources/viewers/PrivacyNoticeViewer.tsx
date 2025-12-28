@@ -134,7 +134,7 @@ Generated: ${new Date().toLocaleDateString()}
       <Card className="mb-6">
         <CardHeader>
           <CardTitle className="flex items-center">
-            <Settings className="h-5 w-5 mr-2 text-blue-600" />
+            <Settings className="h-5 w-5 mr-2 text-primary" />
             Select Notice Type
           </CardTitle>
         </CardHeader>
@@ -160,10 +160,10 @@ Generated: ${new Date().toLocaleDateString()}
 
       {/* Template Overview */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <Card className="border-l-4 border-l-blue-600">
+        <Card className="border-l-4 border-l-primary">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3 mb-3">
-              <Globe className="h-8 w-8 text-blue-600" />
+              <Globe className="h-8 w-8 text-primary" />
               <div>
                 <h3 className="font-semibold text-foreground">Multi-Regulation</h3>
                 <p className="text-sm text-muted-foreground">GDPR, CCPA, LGPD compliant</p>
@@ -172,10 +172,10 @@ Generated: ${new Date().toLocaleDateString()}
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-600">
+        <Card className="border-l-4 border-l-success">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3 mb-3">
-              <CheckCircle className="h-8 w-8 text-green-600" />
+              <CheckCircle className="h-8 w-8 text-success" />
               <div>
                 <h3 className="font-semibold text-foreground">11 Sections</h3>
                 <p className="text-sm text-muted-foreground">Complete notice structure</p>
@@ -184,10 +184,10 @@ Generated: ${new Date().toLocaleDateString()}
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-purple-600">
+        <Card className="border-l-4 border-l-accent">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3 mb-3">
-              <FileText className="h-8 w-8 text-purple-600" />
+              <FileText className="h-8 w-8 text-accent" />
               <div>
                 <h3 className="font-semibold text-foreground">Customizable</h3>
                 <p className="text-sm text-muted-foreground">Adapt to your organization</p>
@@ -206,7 +206,7 @@ Generated: ${new Date().toLocaleDateString()}
               onClick={() => setActiveSection(section.id)}
               className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors flex items-center ${
                 activeSection === section.id
-                  ? 'border-blue-500 text-blue-600'
+                  ? 'border-primary text-primary'
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >

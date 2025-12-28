@@ -36,6 +36,7 @@ const LegalCounselJourney = () => {
       duration: '1-2 weeks (tool usage)',
       tools: [
         { name: 'Privacy Gap Analyzer', path: '/toolkit/privacy-gap-analyzer', icon: Scale },
+        { name: 'Privacy Risk Radar', path: '/toolkit/privacy-risk-radar', icon: Shield },
         { name: 'Privacy Framework Guide', path: '/documentation/privacy-framework-guide', icon: Globe }
       ],
       outcomes: [
@@ -152,7 +153,7 @@ const LegalCounselJourney = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/toolkit/privacy-gap-analyzer">
-                <Button size="lg" variant="secondary" className="enhanced-button">
+                <Button size="lg" variant="secondary">
                   Privacy Gap Analyzer
                   <Scale className="ml-2 h-5 w-5" />
                 </Button>

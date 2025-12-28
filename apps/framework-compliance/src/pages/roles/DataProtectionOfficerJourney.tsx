@@ -39,7 +39,8 @@ const DataProtectionOfficerJourney = () => {
       duration: '2-3 weeks',
       tools: [
         { name: 'Privacy Assessment', path: '/assessments/privacy-assessment', icon: Eye },
-        { name: 'Privacy Gap Analyzer', path: '/toolkit/privacy-gap-analyzer', icon: BarChart3 }
+        { name: 'Privacy Gap Analyzer', path: '/toolkit/privacy-gap-analyzer', icon: BarChart3 },
+        { name: 'Privacy Risk Radar', path: '/toolkit/privacy-risk-radar', icon: Shield }
       ],
       outcomes: [
         'Multi-regulation compliance scoring',
@@ -154,7 +155,7 @@ const DataProtectionOfficerJourney = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/assessments/privacy-assessment">
-                <Button size="lg" variant="default" className="enhanced-button">
+                <Button size="lg" variant="default">
                   Start Privacy Assessment
                   <Eye className="ml-2 h-5 w-5" />
                 </Button>

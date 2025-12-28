@@ -85,10 +85,10 @@ Generated: ${new Date().toLocaleDateString()}
 
       {/* Template Overview */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <Card className="border-l-4 border-l-blue-600">
+        <Card className="border-l-4 border-l-primary">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3 mb-3">
-              <Shield className="h-8 w-8 text-blue-600" />
+              <Shield className="h-8 w-8 text-primary" />
               <div>
                 <h3 className="font-semibold text-foreground">GDPR Compliant</h3>
                 <p className="text-sm text-muted-foreground">Follows GDPR Article 35 requirements</p>
@@ -97,10 +97,10 @@ Generated: ${new Date().toLocaleDateString()}
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-green-600">
+        <Card className="border-l-4 border-l-success">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3 mb-3">
-              <CheckCircle className="h-8 w-8 text-green-600" />
+              <CheckCircle className="h-8 w-8 text-success" />
               <div>
                 <h3 className="font-semibold text-foreground">8 Sections</h3>
                 <p className="text-sm text-muted-foreground">Comprehensive assessment structure</p>
@@ -109,10 +109,10 @@ Generated: ${new Date().toLocaleDateString()}
           </CardContent>
         </Card>
 
-        <Card className="border-l-4 border-l-purple-600">
+        <Card className="border-l-4 border-l-accent">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3 mb-3">
-              <FileText className="h-8 w-8 text-purple-600" />
+              <FileText className="h-8 w-8 text-accent" />
               <div>
                 <h3 className="font-semibold text-foreground">Ready to Use</h3>
                 <p className="text-sm text-muted-foreground">Download and customize</p>
@@ -127,7 +127,7 @@ Generated: ${new Date().toLocaleDateString()}
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center">
-              <FileText className="h-5 w-5 mr-2 text-blue-600" />
+              <FileText className="h-5 w-5 mr-2 text-primary" />
               DPIA Template Structure
             </CardTitle>
             <div className="flex items-center space-x-3">
@@ -147,49 +147,49 @@ Generated: ${new Date().toLocaleDateString()}
                   section: "1. Project Overview",
                   description: "Basic project information, data controller details, and assessment metadata",
                   icon: Building,
-                  color: "text-blue-600"
+                  color: "text-primary"
                 },
                 {
                   section: "2. Description of Processing",
                   description: "Nature, scope, context, and purposes of the data processing activities",
                   icon: Eye,
-                  color: "text-green-600"
+                  color: "text-success"
                 },
                 {
                   section: "3. Necessity and Proportionality",
                   description: "Lawful basis, legitimate interests, data minimization, and purpose limitation",
                   icon: Shield,
-                  color: "text-purple-600"
+                  color: "text-accent"
                 },
                 {
                   section: "4. Data Subjects and Personal Data",
                   description: "Categories of data subjects, personal data types, and retention periods",
                   icon: Users,
-                  color: "text-orange-600"
+                  color: "text-warning"
                 },
                 {
                   section: "5. Risks to Data Subjects",
                   description: "Risk identification, impact assessment, likelihood, and risk rating",
                   icon: AlertTriangle,
-                  color: "text-red-600"
+                  color: "text-destructive"
                 },
                 {
                   section: "6. Measures to Address Risks",
                   description: "Technical and organizational measures, data subject rights protection",
                   icon: CheckCircle,
-                  color: "text-green-600"
+                  color: "text-success"
                 },
                 {
                   section: "7. Consultation and Approval",
                   description: "DPO consultation, stakeholder involvement, and approval documentation",
                   icon: Users,
-                  color: "text-blue-600"
+                  color: "text-primary"
                 },
                 {
                   section: "8. Monitoring and Review",
                   description: "Review schedule, monitoring procedures, and update triggers",
                   icon: Calendar,
-                  color: "text-purple-600"
+                  color: "text-accent"
                 }
               ].map((item, index) => (
                 <Card key={index} className="border hover:shadow-lg transition-shadow">
@@ -207,10 +207,10 @@ Generated: ${new Date().toLocaleDateString()}
             </div>
 
             {/* Usage Instructions */}
-            <Card className="bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800">
+            <Card className="bg-primary/5 border-primary/20">
               <CardContent className="p-6">
-                <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">How to Use This Template</h3>
-                <div className="space-y-2 text-sm text-blue-700 dark:text-blue-300">
+                <h3 className="font-semibold text-primary mb-2">How to Use This Template</h3>
+                <div className="space-y-2 text-sm text-muted-foreground">
                   <p>• Download the template and customize it for your specific processing activities</p>
                   <p>• Complete each section thoroughly, providing detailed information</p>
                   <p>• Conduct the DPIA before beginning any high-risk processing activities</p>

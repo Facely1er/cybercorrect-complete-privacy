@@ -27,6 +27,16 @@ import {
   getValidationSummary,
   type JourneyState as ValidationJourneyState,
 } from '../utils/journeyValidation';
+import {
+  startSession,
+  endSession,
+  trackToolStarted as analyticsTrackToolStarted,
+  trackToolCompleted as analyticsTrackToolCompleted,
+  trackStepVisit,
+  trackStepCompletion,
+  trackGapClosed,
+  initializeAnalytics,
+} from '../utils/journeyAnalytics';
 
 // Type for assessment results input
 interface AssessmentResultsInput {
@@ -227,6 +237,27 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     }
   }, [currentStepIndex, completedSteps, hasVisitedBefore, hasCompletedAssessment, identifiedGaps, completedGapIds, completedToolIds, toolUsageHistory]);
 
+  // Initialize analytics and session on mount
+  useEffect(() => {
+    // Initialize analytics
+    initializeAnalytics();
+    
+    // Start a new session
+    startSession();
+    
+    // Cleanup: end session on unmount
+    return () => {
+      endSession();
+    };
+  }, []);
+
+  // Track step visits when current step changes
+  useEffect(() => {
+    if (JOURNEY_STEPS[currentStepIndex]) {
+      trackStepVisit(JOURNEY_STEPS[currentStepIndex].key);
+    }
+  }, [currentStepIndex]);
+
   // Calculate gap progress whenever gaps or completed gaps change
   useEffect(() => {
     if (identifiedGaps.length > 0) {
@@ -240,13 +271,20 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
       const newCompletedSteps = [...completedSteps, stepKey];
       setCompletedSteps(newCompletedSteps);
 
+      // Track step completion in analytics
+      const stepIndex = JOURNEY_STEPS.findIndex(s => s.key === stepKey);
+      if (stepIndex >= 0) {
+        // Calculate duration (simplified - could be enhanced with actual timing)
+        const duration = 0; // Could track actual time spent
+        trackStepCompletion(stepKey, duration);
+      }
+
       // Special handling for assessment completion
       if (stepKey === 'assess') {
         setHasCompletedAssessment(true);
       }
 
       // Auto-advance to next step if current step is completed
-      const stepIndex = JOURNEY_STEPS.findIndex(s => s.key === stepKey);
       if (stepIndex === currentStepIndex && stepIndex < JOURNEY_STEPS.length - 1) {
         setCurrentStepIndex(stepIndex + 1);
       }
@@ -395,14 +433,22 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
   };
 
   const markGapCompleted = (gapId: string) => {
+    // Find the gap before updating state
+    const gap = identifiedGaps.find(g => g.id === gapId);
+    
     setIdentifiedGaps(prev => 
-      prev.map(gap => 
-        gap.id === gapId ? { ...gap, status: 'completed' as const } : gap
+      prev.map(g => 
+        g.id === gapId ? { ...g, status: 'completed' as const } : g
       )
     );
     
     if (!completedGapIds.includes(gapId)) {
       setCompletedGapIds(prev => [...prev, gapId]);
+      
+      // Track gap closure in analytics
+      if (gap) {
+        trackGapClosed(gap.domain);
+      }
     }
   };
 
@@ -423,6 +469,9 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
         startedAt: new Date().toISOString(),
         domain
       }]);
+      
+      // Track in analytics
+      analyticsTrackToolStarted(toolId, domain);
     }
 
     // Also mark the corresponding gap as in_progress if not already
@@ -442,6 +491,10 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     }
 
     // Update tool usage history
+    const toolUsage = toolUsageHistory.find(u => u.toolId === toolId);
+    const startTime = toolUsage?.startedAt ? new Date(toolUsage.startedAt).getTime() : Date.now();
+    const duration = Date.now() - startTime;
+
     setToolUsageHistory(prev => 
       prev.map(usage => 
         usage.toolId === toolId 
@@ -449,6 +502,10 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
           : usage
       )
     );
+
+    // Track in analytics
+    const domain = getToolDomain(toolId);
+    analyticsTrackToolCompleted(toolId, domain, duration);
 
     // Enhanced gap-tool linkage: Check if tool completion closes any gaps
     const newCompletedToolIds = [...completedToolIds, toolId];
@@ -488,7 +545,7 @@ export const JourneyProvider: React.FC<JourneyProviderProps> = ({ children }) =>
     });
 
     // Also check domain-based completion for backwards compatibility
-    const domain = getToolDomain(toolId);
+    // Reuse 'domain' variable declared earlier in this function
     if (domain) {
       if (shouldMarkGapCompleted(domain, newCompletedToolIds)) {
         const gapId = `gap-${domain}`;

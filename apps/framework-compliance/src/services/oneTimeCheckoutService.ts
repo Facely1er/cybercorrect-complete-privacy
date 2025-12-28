@@ -85,7 +85,10 @@ export async function createOneTimeCheckoutSession(
     }
 
     // Check if Stripe is configured
-    const stripeKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+    // Default Stripe key from repository configuration
+    // Can be overridden by environment variable
+    const DEFAULT_STRIPE_PUBLISHABLE_KEY = 'pk_live_51SDTm0A6UggvM46NqgXKcQyRNzG908jh9yWh6ZUiGZkO4ihkHar65ghpnMcH2EOXeLySmdUy3P7mCO1Qev64uzr600rPDDCU8O';
+    const stripeKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || DEFAULT_STRIPE_PUBLISHABLE_KEY;
     if (!stripeKey) {
       logWarning('Stripe not configured. One-time checkout unavailable.');
       // Return mock session in dev, throw error in prod

@@ -266,7 +266,7 @@ export const RealTimeMonitoringDashboard: React.FC<RealTimeMonitoringDashboardPr
                     <Line 
                       type="monotone" 
                       dataKey="score" 
-                      stroke="#3b82f6" 
+                      stroke="hsl(var(--primary))" 
                       strokeWidth={2}
                       name="Compliance Score (%)"
                     />

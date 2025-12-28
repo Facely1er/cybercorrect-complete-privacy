@@ -17,6 +17,7 @@ const IncidentResponseManager = lazy(() => import('../pages/tools-and-assessment
 // SUPPORTING TOOLS - Privacy Operations
 // ==========================================
 const PrivacyGapAnalyzer = lazy(() => import('../pages/tools-and-assessments/PrivacyGapAnalyzer'));
+const PrivacyRiskRadar = lazy(() => import('../pages/tools-and-assessments/PrivacyRiskRadar'));
 const PrivacyAssessment = lazy(() => import('../pages/tools-and-assessments/PrivacyAssessment'));
 const VendorRiskAssessment = lazy(() => import('../pages/tools-and-assessments/VendorRiskAssessment'));
 const ServiceProviderManager = lazy(() => import('../pages/tools-and-assessments/ServiceProviderManager'));
@@ -52,6 +53,7 @@ export const toolkitRoutes = [
       
       // Supporting Tools
       { path: 'privacy-gap-analyzer', element: PrivacyGapAnalyzer, lazy: true },
+      { path: 'privacy-risk-radar', element: PrivacyRiskRadar, lazy: true },
       { path: 'privacy-assessment', element: PrivacyAssessment, lazy: true },
       { path: 'vendor-risk-assessment', element: VendorRiskAssessment, lazy: true },
       { path: 'service-provider-manager', element: ServiceProviderManager, lazy: true },

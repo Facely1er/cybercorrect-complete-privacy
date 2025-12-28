@@ -4,6 +4,7 @@ import { ChevronDown, ChevronUp, Search, ArrowLeft, HelpCircle, MessageSquare, S
 import { Breadcrumb } from '../components/ui/Breadcrumb';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
+import { EmptyState } from '../components/ui/EmptyState';
 import { useBrand } from '../hooks/useBrand';
 
 // Interface for FAQ items
@@ -404,19 +405,18 @@ export function FAQPage() {
       {/* FAQ Accordion */}
       <div className="space-y-4 mb-8">
         {filteredFAQs.length === 0 ? (
-          <div className="bg-white dark:bg-gray-800 rounded-lg border p-12 text-center">
-            <HelpCircle className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-            <h2 className="text-xl font-semibold mb-2">No matching questions found</h2>
-            <p className="text-muted-foreground mb-4">
-              Try adjusting your search term or category filter.
-            </p>
-            <Button variant="outline" onClick={() => {
-              setSearchTerm('');
-              setActiveCategory('all');
-            }}>
-              Clear filters
-            </Button>
-          </div>
+          <EmptyState
+            icon={HelpCircle}
+            title="No Matching Questions Found"
+            description="Try adjusting your search term or category filter."
+            action={{
+              label: "Clear Filters",
+              onClick: () => {
+                setSearchTerm('');
+                setActiveCategory('all');
+              }
+            }}
+          />
         ) : (
           filteredFAQs.map((faq) => (
             <div 

@@ -132,7 +132,7 @@ Generated: ${new Date().toLocaleDateString()}
       <Card className="mb-6">
         <CardHeader>
           <CardTitle className="flex items-center">
-            <Database className="h-5 w-5 mr-2 text-blue-600" />
+            <Database className="h-5 w-5 mr-2 text-primary" />
             Article 30 Records Template
           </CardTitle>
         </CardHeader>
@@ -140,28 +140,28 @@ Generated: ${new Date().toLocaleDateString()}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
               <div className="bg-primary/10 dark:bg-primary/20 p-3 rounded-lg inline-block mb-2">
-                <FileText className="h-6 w-6 text-blue-600" />
+                <FileText className="h-6 w-6 text-primary" />
               </div>
               <h3 className="font-semibold text-foreground">Complete Template</h3>
               <p className="text-sm text-muted-foreground">All required fields</p>
             </div>
             <div className="text-center">
               <div className="bg-success/10 dark:bg-success/20 p-3 rounded-lg inline-block mb-2">
-                <CheckCircle className="h-6 w-6 text-green-600" />
+                <CheckCircle className="h-6 w-6 text-success" />
               </div>
               <h3 className="font-semibold text-foreground">GDPR Compliant</h3>
               <p className="text-sm text-muted-foreground">Article 30 requirements</p>
             </div>
             <div className="text-center">
               <div className="bg-accent/10 dark:bg-accent/20 p-3 rounded-lg inline-block mb-2">
-                <Globe className="h-6 w-6 text-purple-600" />
+                <Globe className="h-6 w-6 text-accent" />
               </div>
               <h3 className="font-semibold text-foreground">Multi-Purpose</h3>
               <p className="text-sm text-muted-foreground">Various processing activities</p>
             </div>
             <div className="text-center">
-              <div className="bg-orange-100 dark:bg-orange-900/30 p-3 rounded-lg inline-block mb-2">
-                <Users className="h-6 w-6 text-orange-600" />
+              <div className="bg-warning/10 p-3 rounded-lg inline-block mb-2">
+                <Users className="h-6 w-6 text-warning" />
               </div>
               <h3 className="font-semibold text-foreground">Audit Ready</h3>
               <p className="text-sm text-muted-foreground">Supervisor authority ready</p>
@@ -179,7 +179,7 @@ Generated: ${new Date().toLocaleDateString()}
               onClick={() => setActiveSection(section.id)}
               className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors flex items-center ${
                 activeSection === section.id
-                  ? 'border-blue-500 text-blue-600'
+                  ? 'border-primary text-primary'
                   : 'border-transparent text-muted-foreground hover:text-foreground'
               }`}
             >

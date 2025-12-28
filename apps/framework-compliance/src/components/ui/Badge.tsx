@@ -2,30 +2,47 @@ import React from 'react';
 
 interface BadgeProps {
   children: React.ReactNode;
+  variant?: 'default' | 'success' | 'warning' | 'error' | 'info' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
   className?: string;
-  variant?: 'default' | 'success' | 'warning' | 'error' | 'info';
 }
 
-export const Badge: React.FC<BadgeProps> = ({ 
-  children, 
-  className = '', 
-  variant = 'default' 
-}) => {
-  const variantClasses = {
-    default: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300',
-    success: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-    warning: 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300',
-    error: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300',
-    info: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+export function Badge({ children, variant = "default", size = "md", className = "" }: BadgeProps) {
+  const getVariantStyles = (): string => {
+    switch (variant) {
+      case 'success':
+        return 'bg-success/10 text-success border-success/20 dark:bg-success/20 dark:text-success dark:border-success/30';
+      case 'warning':
+        return 'bg-warning/10 text-warning border-warning/20 dark:bg-warning/20 dark:text-warning dark:border-warning/30';
+      case 'error':
+        return 'bg-destructive/10 text-destructive border-destructive/20 dark:bg-destructive/20 dark:text-destructive dark:border-destructive/30';
+      case 'info':
+        return 'bg-primary/10 text-primary border-primary/20 dark:bg-primary/20 dark:text-primary dark:border-primary/30';
+      case 'secondary':
+        return 'bg-secondary/10 text-secondary-foreground border-secondary/20 dark:bg-secondary/20 dark:text-secondary-foreground dark:border-secondary/30';
+      default:
+        return 'bg-primary/10 text-primary border-primary/20 dark:bg-primary/20 dark:text-primary dark:border-primary/30';
+    }
   };
 
+  const getSizeStyles = (): string => {
+    switch (size) {
+      case 'sm':
+        return 'px-2 py-0.5 text-xs';
+      case 'lg':
+        return 'px-3 py-1 text-sm';
+      default:
+        return 'px-2.5 py-0.5 text-xs';
+    }
+  };
+
+  const styles = `${getVariantStyles()} ${getSizeStyles()}`;
+
   return (
-    <span 
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${variantClasses[variant]} ${className}`}
-    >
+    <span className={`inline-flex items-center rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ${styles} ${className}`}>
       {children}
     </span>
   );
-};
+}
 
 

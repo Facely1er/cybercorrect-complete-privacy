@@ -526,5 +526,8 @@ class EnhancedLocalStorageService {
 // Create singleton instance
 export const enhancedLocalStorageService = new EnhancedLocalStorageService();
 
+// Export class for testing
+export { EnhancedLocalStorageService };
+
 // Export types for use in other modules
 export type { CacheMetadata, SyncQueueItem, CacheConfig };
