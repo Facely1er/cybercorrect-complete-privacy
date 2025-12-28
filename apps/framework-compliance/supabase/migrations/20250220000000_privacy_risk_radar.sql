@@ -52,34 +52,39 @@ ALTER TABLE cc_privacy_risk_detections ENABLE ROW LEVEL SECURITY;
 -- ============================================================================
 
 -- Drop existing policies if they exist (prevents multiple permissive policies warning)
+-- Drop both descriptive and short-named policies from previous migrations
 DROP POLICY IF EXISTS "Users can view their own risk detections" ON cc_privacy_risk_detections;
+DROP POLICY IF EXISTS "cc_privacy_risk_detections_select_policy" ON cc_privacy_risk_detections;
 CREATE POLICY "Users can view their own risk detections"
   ON cc_privacy_risk_detections
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING (user_id = (select auth.uid()));
 
 DROP POLICY IF EXISTS "Users can insert their own risk detections" ON cc_privacy_risk_detections;
+DROP POLICY IF EXISTS "cc_privacy_risk_detections_insert_policy" ON cc_privacy_risk_detections;
 CREATE POLICY "Users can insert their own risk detections"
   ON cc_privacy_risk_detections
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK (user_id = (select auth.uid()));
 
 DROP POLICY IF EXISTS "Users can update their own risk detections" ON cc_privacy_risk_detections;
+DROP POLICY IF EXISTS "cc_privacy_risk_detections_update_policy" ON cc_privacy_risk_detections;
 CREATE POLICY "Users can update their own risk detections"
   ON cc_privacy_risk_detections
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING (user_id = (select auth.uid()))
+  WITH CHECK (user_id = (select auth.uid()));
 
 DROP POLICY IF EXISTS "Users can delete their own risk detections" ON cc_privacy_risk_detections;
+DROP POLICY IF EXISTS "cc_privacy_risk_detections_delete_policy" ON cc_privacy_risk_detections;
 CREATE POLICY "Users can delete their own risk detections"
   ON cc_privacy_risk_detections
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING (user_id = (select auth.uid()));
 
 -- ============================================================================
 -- Indexes for Performance
