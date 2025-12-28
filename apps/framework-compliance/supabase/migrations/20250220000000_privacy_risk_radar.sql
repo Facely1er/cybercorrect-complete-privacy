@@ -97,6 +97,19 @@ CREATE INDEX IF NOT EXISTS idx_cc_privacy_risk_detections_user_risk_id ON cc_pri
 -- Trigger for updated_at timestamp
 -- ============================================================================
 
+-- Create or replace the function if it doesn't exist (safe for multiple migrations)
+CREATE OR REPLACE FUNCTION update_cc_privacy_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SET search_path = '';
+
+-- Drop trigger if it exists (prevents errors on re-run)
+DROP TRIGGER IF EXISTS update_cc_privacy_risk_detections_updated_at ON cc_privacy_risk_detections;
+
+-- Create the trigger
 CREATE TRIGGER update_cc_privacy_risk_detections_updated_at
   BEFORE UPDATE ON cc_privacy_risk_detections
   FOR EACH ROW
