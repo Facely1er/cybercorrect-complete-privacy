@@ -221,7 +221,7 @@ const OneTimeStore = () => {
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-accent/20 text-primary dark:text-accent rounded-full text-sm font-semibold mb-4">
                 <Sparkles className="w-4 h-4" />
-                Best Value
+                Bundle & Save
               </div>
               <h2 className="text-3xl font-bold text-foreground mb-4">
                 Bundle & Save
@@ -240,7 +240,7 @@ const OneTimeStore = () => {
                   <Card key={bundle.id} className="relative overflow-hidden hover:shadow-2xl transition-shadow duration-300 border-2 border-primary/20 dark:border-accent/30">
                     {bundle.id === 'complete-privacy-suite' && (
                       <div className="absolute top-0 right-0 bg-primary text-primary-foreground px-4 py-1 text-sm font-bold">
-                        BEST VALUE
+                        {bundle.products.length} Products
                       </div>
                     )}
                     <CardContent className="p-8">
@@ -333,12 +333,7 @@ const OneTimeStore = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {subscriptionProducts.map((product) => {
                 return (
-                  <Card key={product.id} className={`hover:shadow-xl transition-shadow duration-300 ${product.popular ? 'border-2 border-primary dark:border-accent' : ''}`}>
-                    {product.popular && (
-                      <div className="absolute top-0 right-0 bg-primary text-primary-foreground px-3 py-1 text-xs font-bold rounded-bl-lg">
-                        POPULAR
-                      </div>
-                    )}
+                  <Card key={product.id} className="hover:shadow-xl transition-shadow duration-300">
                     <CardContent className="p-6">
                       <div className="mb-4">
                         <h3 className="text-xl font-bold mb-2 text-foreground">{product.name}</h3>
@@ -386,7 +381,7 @@ const OneTimeStore = () => {
 
                       <Button
                         onClick={handleSubscriptionClick}
-                        className={`w-full ${product.popular ? 'bg-primary hover:bg-primary/90 text-primary-foreground' : 'bg-primary hover:bg-primary/90 text-primary-foreground'}`}
+                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                       >
                         {product.quarterlyPrice === undefined || product.quarterlyPrice === 0 ? 'Get Started' : 'View Plan'}
                       </Button>

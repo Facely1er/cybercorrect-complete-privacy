@@ -13,7 +13,6 @@ export interface SubscriptionProduct {
   quarterlyPrice: number;
   monthlyEquivalent?: number; // For display purposes
   billing: string; // e.g., "per quarter"
-  popular?: boolean;
   quarterlyDeliverables: string[]; // What they get each quarter
   ongoingAccess: string[]; // Platform access features
   professionalServices?: string[]; // Professional services (Enterprise only)
@@ -95,7 +94,6 @@ export const SUBSCRIPTION_PRODUCTS: SubscriptionProduct[] = [
     quarterlyPrice: 297,
     monthlyEquivalent: 99,
     billing: 'per quarter',
-    popular: true,
     category: 'membership',
     quarterlyDeliverables: [
       'Quarterly comprehensive compliance assessment',
