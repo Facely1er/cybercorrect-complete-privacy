@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberCorrect Alignment Proof — Side-by-Side</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    header { padding: 12px 16px; border-bottom: 1px solid rgba(128,128,128,.3); display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    code { padding: 2px 6px; border: 1px solid rgba(128,128,128,.4); border-radius: 6px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; height: calc(100vh - 58px); }
+    @media (max-width: 980px) { .grid { grid-template-columns: 1fr; height: auto; } iframe { height: 85vh; } }
+    .pane { border-right: 1px solid rgba(128,128,128,.3); }
+    .pane:last-child { border-right: 0; }
+    .label { font-size: 12px; opacity: .85; }
+    iframe { width: 100%; height: 100%; border: 0; background: white; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Side-by-side proof</strong>
+    <span class="label">Left: original <code>index-original.html</code> • Right: aligned <code>index.html</code> (CyberCaution UI)</span>
+    <span class="label">Serve via HTTP (not file://) so shared header/footer loads.</span>
+  </header>
+  <div class="grid">
+    <div class="pane">
+      <iframe title="CyberCorrect original" src="index-original.html"></iframe>
+    </div>
+    <div class="pane">
+      <iframe title="CyberCorrect aligned" src="index.html"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // Theme toggle and mobile menu functionality
+    (function() {
+      // Theme toggle
+      function initThemeToggle() {
+        const toggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        
+        function updateIcons() {
+          const isDark = document.documentElement.classList.contains('dark');
+          if (isDark) {
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+          } else {
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+          }
+        }
+        
+        if (toggle) {
+          toggle.addEventListener('click', function() {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            if (isDark) {
+              html.classList.remove('dark');
+              localStorage.setItem('darkMode', 'false');
+            } else {
+              html.classList.add('dark');
+              localStorage.setItem('darkMode', 'true');
+            }
+            updateIcons();
+          });
+        }
+        
+        updateIcons();
+      }
+      
+      // Mobile menu toggle
+      function initMobileMenu() {
+        const menuButton = document.querySelector('[data-mobile-menu-button]');
+        const menu = document.getElementById('mobileMenu');
+        
+        if (menuButton && menu) {
+          menuButton.addEventListener('click', function() {
+            const isOpen = !menu.classList.contains('hidden');
+            if (isOpen) {
+              menu.classList.add('hidden');
+              menuButton.setAttribute('aria-expanded', 'false');
+            } else {
+              menu.classList.remove('hidden');
+              menuButton.setAttribute('aria-expanded', 'true');
+            }
+          });
+          
+          // Close menu when clicking a link
+          const links = menu.querySelectorAll('a');
+          links.forEach(link => {
+            link.addEventListener('click', function() {
+              menu.classList.add('hidden');
+              menuButton.setAttribute('aria-expanded', 'false');
+            });
+          });
+        }
+      }
+      
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          initThemeToggle();
+          initMobileMenu();
+        });
+      } else {
+        initThemeToggle();
+        initMobileMenu();
+      }
+    })();
+  </script>
+</body>
+</html>
