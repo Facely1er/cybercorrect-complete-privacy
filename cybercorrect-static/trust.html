@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trust — CyberCorrect</title>
+  <meta name="description" content="How CyberCorrect handles data, privacy by design, and defensible outputs." />
+  <!-- CyberCorrect Theme Colors -->
+  <link rel="stylesheet" href="assets/css/cybercorrect-theme.css" />
+  <!-- CyberCaution UI CSS (reused for alignment) -->
+  <link rel="stylesheet" href="assets/css/app.css" />
+  <script>
+    // Apply theme immediately to prevent flash
+    (function() {
+      try {
+        const savedMode = localStorage.getItem('darkMode');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedMode === 'true' || (!savedMode && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  </head>
+<body class="min-h-screen bg-background text-foreground transition-colors duration-200 flex flex-col">
+  <nav class="fixed top-0 left-0 right-0 z-50 shadow-lg border-b transition-all duration-300 glass-nav overflow-visible" style="--nav-height: 64px; height: var(--nav-height,64px);">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 w-full relative z-50 overflow-visible h-full">
+      <div class="flex justify-between items-center h-full gap-1 sm:gap-2 py-1 min-w-0 overflow-visible">
+        <!-- Brand (3 lines like CyberCaution) -->
+        <a href="index.html" class="flex items-center space-x-0.5 sm:space-x-1 flex-shrink-0 hover:opacity-90 transition-all duration-200 group z-10 relative min-w-0">
+          <div class="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 min-w-[40px] min-h-[40px] rounded-2xl bg-background flex items-center justify-center transition-transform duration-300 group-hover:scale-110 flex-shrink-0 p-1">
+            <img src="assets/cybercorrect.png" alt="CyberCorrect Logo" class="w-full h-full object-contain" />
+          </div>
+          <div class="brand-text hidden sm:flex">
+            <div class="brand-name block">CyberCorrect™</div>
+            <div class="brand-tagline block">Privacy Compliance</div>
+            <div class="brand-attribution block">by ERMITS LLC</div>
+          </div>
+        </a>
+
+        <!-- Desktop nav -->
+        <div class="hidden md:flex flex-1 justify-center px-2">
+          <div class="flex items-center space-x-0.5 sm:space-x-1">
+            <a href="index.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground" data-page="index">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 flex-shrink-0"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Home</span>
+    </a>
+            <a href="how-it-works.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground" data-page="how-it-works">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 flex-shrink-0"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"></path><path d="M18 2h-2a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"></path><path d="M6 2H4a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"></path></svg>
+      <span>How It Works</span>
+    </a>
+            <a href="features.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground" data-page="features">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 flex-shrink-0"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+      <span>Features</span>
+    </a>
+            <a href="pricing.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground" data-page="pricing">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 flex-shrink-0"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+      <span>Pricing</span>
+    </a>
+            <a href="trust.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors bg-primary text-primary-foreground" data-page="trust">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 flex-shrink-0"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+      <span>Trust</span>
+    </a>
+            <a href="faq.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground" data-page="faq">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 flex-shrink-0"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+      <span>FAQ</span>
+    </a>
+            <a href="contact.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground" data-page="contact">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 flex-shrink-0"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+      <span>Contact</span>
+    </a>
+          </div>
+        </div>
+
+        <!-- Controls (dual theme + mobile menu) -->
+        <div class="flex items-center space-x-1 flex-shrink-0">
+          <button id="themeToggle" aria-label="Switch theme" class="p-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 bg-muted text-foreground hover:bg-muted/80 flex items-center justify-center min-w-[44px] min-h-[44px]" title="Switch theme">
+            <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-4 h-4 text-primary inline-block">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon w-4 h-4 text-foreground hidden">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+
+          <button data-mobile-menu-button="true" class="md:hidden p-2 rounded-lg transition-all duration-200 flex-shrink-0 relative z-[60] bg-muted text-foreground hover:bg-muted/80 min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Open menu" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu w-5 h-5 text-foreground">
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  
+<div id="mobileMenu" class="md:hidden fixed left-0 right-0 z-50 hidden" style="top: var(--nav-height, 64px);">
+  <div class="bg-background/95 backdrop-blur-sm border-b border-border shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="grid grid-cols-2 gap-2">
+        <!-- Mobile nav will be generated by generateHeader -->
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+
+<!-- Mobile menu panel -->
+<div id="mobileMenu" class="md:hidden fixed left-0 right-0 z-50 hidden" style="top: var(--nav-height, 64px);">
+  <div class="bg-background/95 backdrop-blur-sm border-b border-border shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-3">
+      <div class="grid grid-cols-2 gap-2">
+        <!-- Mobile nav will be generated by generateHeader -->
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+
+  <main class="flex-1 pt-[var(--nav-height,64px)] relative">
+        <div class="relative z-10 w-full">
+<!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb" class="sticky z-40 w-full h-10 sm:h-11 text-sm border-b border-border transition-colors px-4 sm:px-6 lg:px-8 flex items-center backdrop-blur-sm bg-background/95" style="top: var(--nav-height, 64px);">
+            <div class="max-w-7xl mx-auto w-full">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-1">
+                        <div class="flex items-center">
+                            <a class="transition-colors flex items-center text-muted-foreground hover:text-primary" href="index.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home h-4 w-4 mr-1"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>Home</a>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right h-4 w-4 flex-shrink-0 text-muted-foreground"><path d="m9 18 6-6-6-6"></path></svg>
+                        <div class="flex items-center">
+                            <span class="font-medium flex items-center text-primary">Trust</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 ml-4"></div>
+                </div>
+            </div>
+        </nav>        <div class="container py-10">
+        <section class="modern-card p-8 md:p-12">
+          <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+            <div class="max-w-2xl">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-success/10 text-success text-sm font-semibold mb-4">
+                <span class="w-2 h-2 rounded-full bg-success"></span>
+                Trust posture
+              </div>
+              <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">Privacy by design. Outputs you can defend.</h1>
+              <p class="text-lg text-muted-foreground">CyberCorrect is built to minimize data exposure while producing audit-ready artifacts. The goal is operational confidence, not more paperwork.</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a href="https://app.cybercorrect.com" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow transition-all">Start Assessment</a>
+              <a href="contact.html" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-muted hover:bg-muted/80 text-foreground font-semibold transition-colors">Security Contact</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-6 mt-8">
+          <div class="modern-card p-6">
+            <h2 class="text-xl font-bold text-foreground mb-2">Data minimization</h2>
+            <p class="text-muted-foreground">By default, CyberCorrect is designed for client-side processing and minimal collection. Store only what you choose to persist (or keep everything local).</p>
+            <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
+              <li class="flex items-start gap-2"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>No default harvesting of inventories, registers, or evidence</li>
+              <li class="flex items-start gap-2"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Export-first artifacts (CSV/JSON/Markdown/PDF)</li>
+              <li class="flex items-start gap-2"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Clear separation of anonymous scoring vs saved records</li>
+            </ul>
+          </div>
+          <div class="modern-card p-6">
+            <h2 class="text-xl font-bold text-foreground mb-2">Traceability</h2>
+            <p class="text-muted-foreground">Every action ties back to a data flow and an obligation. That’s what makes the outputs defensible and maintainable.</p>
+            <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
+              <li class="flex items-start gap-2"><span class="w-2 h-2 rounded-full bg-accent mt-2"></span>Obligation mapping across multiple frameworks</li>
+              <li class="flex items-start gap-2"><span class="w-2 h-2 rounded-full bg-accent mt-2"></span>Evidence checklist tied to controls and owners</li>
+              <li class="flex items-start gap-2"><span class="w-2 h-2 rounded-full bg-accent mt-2"></span>Change-friendly model for continuous updates</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="modern-card p-8 md:p-10 mt-8">
+          <h2 class="text-2xl font-bold text-foreground mb-3">What we won’t do</h2>
+          <p class="text-muted-foreground mb-6">Trust is as much about constraints as features. CyberCorrect is engineered to avoid common privacy tool failure modes.</p>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="p-6 rounded-xl border border-border bg-card/60">
+              <h3 class="font-bold text-foreground mb-1">No dark-pattern collection</h3>
+              <p class="text-sm text-muted-foreground">No hidden telemetry that captures sensitive inventory details by default.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-border bg-card/60">
+              <h3 class="font-bold text-foreground mb-1">No “checkbox compliance”</h3>
+              <p class="text-sm text-muted-foreground">Outputs are actionable artifacts, not just scores without evidence or ownership.</p>
+            </div>
+            <div class="p-6 rounded-xl border border-border bg-card/60">
+              <h3 class="font-bold text-foreground mb-1">No vendor lock-in</h3>
+              <p class="text-sm text-muted-foreground">Everything important can be exported and maintained in your own systems.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-border bg-background/95 backdrop-blur-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+    <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 mb-2">
+      <div class="flex items-center space-x-0.5 sm:space-x-1 flex-shrink-0">
+        <div class="h-16 w-16 sm:h-20 sm:w-20 min-w-[64px] min-h-[64px] sm:min-w-[80px] sm:min-h-[80px] rounded-2xl bg-background flex items-center justify-center transition-transform duration-300 hover:scale-110 flex-shrink-0 p-1">
+          <img src="assets/cybercorrect.png" alt="CyberCorrect Logo" class="w-full h-full object-contain" />
+        </div>
+        <div class="brand-text">
+          <div class="brand-name block">CyberCorrect™</div>
+          <div class="brand-tagline block">Privacy Compliance</div>
+          <div class="brand-attribution block">by ERMITS LLC</div>
+        </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 flex-1 md:ml-8 lg:ml-12">
+        <div class="flex-1">
+          <h3 class="font-bold mb-3 text-sm text-foreground">Quick Links</h3>
+          <ul class="space-y-0 leading-tight">
+            <li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="how-it-works.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open w-3.5 h-3.5 text-current inline-block"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>How It Works</a></li>
+            <li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="features.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles w-3.5 h-3.5 text-current inline-block"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>Features</a></li>
+            <li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="pricing.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign w-3.5 h-3.5 text-current inline-block"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>Pricing</a></li>
+            <li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="trust.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-3.5 h-3.5 text-current inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>Trust</a></li>
+          </ul>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold mb-2 text-sm text-foreground">Resources</h3>
+          <ul class="space-y-0 leading-tight">
+            <li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="best-practices.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>Best Practices</a></li>
+            <li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-3.5 h-3.5 text-current inline-block"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>Contact</a></li>
+            <li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="faq.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-help-circle w-3.5 h-3.5 text-current inline-block"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>FAQ</a></li>
+          </ul>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold mb-2 text-sm text-foreground">Legal</h3>
+          <ul class="space-y-0 leading-tight">
+            <li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="legal/privacy-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock w-3.5 h-3.5 text-current inline-block"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Privacy Policy</a></li>
+            <li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="legal/cookie-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cookie w-3.5 h-3.5 text-current inline-block"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>Cookie Policy</a></li>
+            <li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="legal/terms.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale w-3.5 h-3.5 text-current inline-block"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>Terms of Service</a></li>
+            <li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="legal/acceptable-use-policy.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check w-3.5 h-3.5 text-current inline-block"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>Acceptable Use</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col lg:flex-row justify-between items-center gap-3 lg:gap-4 pt-1 border-t border-border">
+      <div class="flex flex-col sm:flex-row items-center gap-3 flex-1 justify-center lg:justify-start">
+        <div class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-secure-green/10 border border-secure-green/30 status-badge-secure">
+          <img src="assets/cybercorrect.png" alt="CyberCorrect Logo" class="w-3.5 h-3.5 block opacity-100" loading="eager">
+          <span class="text-[10px] sm:text-xs font-medium text-secure-green">Privacy-First • Local Storage</span>
+        </div>
+        <div class="flex items-center space-x-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle2 w-3.5 h-3.5 text-secure-green"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+          <span class="text-[10px] sm:text-xs text-muted-foreground">Version 1.0</span>
+        </div>
+      </div>
+      <div class="flex flex-col items-center lg:items-end space-y-0 leading-tight text-xs flex-shrink-0">
+        <div class="text-[10px] sm:text-xs text-muted-foreground">© 2025 ERMITS LLC</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+  <script>
+    // Theme toggle and mobile menu functionality
+    (function() {
+      // Theme toggle
+      function initThemeToggle() {
+        const toggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        
+        function updateIcons() {
+          const isDark = document.documentElement.classList.contains('dark');
+          if (isDark) {
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+          } else {
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+          }
+        }
+        
+        if (toggle) {
+          toggle.addEventListener('click', function() {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            if (isDark) {
+              html.classList.remove('dark');
+              localStorage.setItem('darkMode', 'false');
+            } else {
+              html.classList.add('dark');
+              localStorage.setItem('darkMode', 'true');
+            }
+            updateIcons();
+          });
+        }
+        
+        updateIcons();
+      }
+      
+      // Mobile menu toggle
+      function initMobileMenu() {
+        const menuButton = document.querySelector('[data-mobile-menu-button]');
+        const menu = document.getElementById('mobileMenu');
+        
+        if (menuButton && menu) {
+          menuButton.addEventListener('click', function() {
+            const isOpen = !menu.classList.contains('hidden');
+            if (isOpen) {
+              menu.classList.add('hidden');
+              menuButton.setAttribute('aria-expanded', 'false');
+            } else {
+              menu.classList.remove('hidden');
+              menuButton.setAttribute('aria-expanded', 'true');
+            }
+          });
+          
+          // Close menu when clicking a link
+          const links = menu.querySelectorAll('a');
+          links.forEach(link => {
+            link.addEventListener('click', function() {
+              menu.classList.add('hidden');
+              menuButton.setAttribute('aria-expanded', 'false');
+            });
+          });
+        }
+      }
+      
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          initThemeToggle();
+          initMobileMenu();
+        });
+      } else {
+        initThemeToggle();
+        initMobileMenu();
+      }
+    })();
+  </script>
+</body>
+</html>

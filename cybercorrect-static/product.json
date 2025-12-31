@@ -1,0 +1,15 @@
+{
+  "productName":"CyberCorrect",
+  "tagline":"Privacy compliance, made executable.",
+  "kicker":"ERMITS Ecosystem • CyberCorrect",
+  "primaryCTA":{"label":"Start Assessment","href":"https://app.cybercorrect.com"},
+  "secondaryCTA":{"label":"Request Demo","href":"/contact.html"},
+  "appUrl":"https://app.cybercorrect.com",
+  "supportEmail":"contact@ermits.com",
+  "domainRoot":"https://cybercorrect.com",
+  "accent":"#0072C6",
+  "accent2":"#00A3FF",
+  "accentInk":"#08111F",
+  "seo":{"title":"CyberCorrect — Privacy Compliance, Data Mapping, and Execution-Ready Roadmaps",
+         "description":"Map personal data, align privacy controls, and generate execution-ready compliance actions."}
+}

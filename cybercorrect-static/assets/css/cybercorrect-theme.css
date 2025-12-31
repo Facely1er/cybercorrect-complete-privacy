@@ -1,0 +1,375 @@
+/* CyberCorrect Theme Colors for Tailwind CSS */
+/* This file provides Tailwind-compatible CSS variables */
+
+:root {
+  /* Primary Colors - CyberCorrect Teal Based (matching privacy portal) */
+  --primary: rgb(42, 111, 127);    /* #2A6F7F - Primary Teal */
+  --primary-foreground: rgb(255, 255, 255);
+  
+  /* Accent Colors - CyberCorrect Teal Based (matching privacy portal) */
+  --accent: rgb(0, 229, 255);      /* #00E5FF - Accent Cyan */
+  --accent-foreground: rgb(255, 255, 255);
+  
+  /* Background Colors */
+  --background: rgb(255, 255, 255);
+  --foreground: rgb(17, 24, 39);
+  
+  /* Muted Colors */
+  --muted: rgb(156, 163, 175);
+  --muted-foreground: rgb(107, 114, 128);
+  
+  /* Card Colors */
+  --card: rgb(255, 255, 255);
+  --card-foreground: rgb(17, 24, 39);
+  
+  /* Border Colors */
+  --border: rgb(229, 231, 235);
+  
+  /* Popover Colors */
+  --popover: rgb(255, 255, 255);
+  --popover-foreground: rgb(17, 24, 39);
+  
+  /* Success, Warning, Error */
+  --success: rgb(76, 175, 80);
+  --warning: rgb(255, 193, 7);
+  --error: rgb(244, 67, 54);
+  
+  /* Secure Green - Using Teal for consistency */
+  --secure-green: rgb(42, 111, 127);    /* #2A6F7F - Primary Teal */
+}
+
+.dark {
+  /* Primary Colors - Dark Mode Teal Based (matching privacy portal) */
+  --primary: rgb(58, 156, 168);    /* #3A9CA8 - Secondary Teal (lighter for dark mode) */
+  --primary-foreground: rgb(255, 255, 255);
+  
+  /* Accent Colors - Dark Mode Teal Based (matching privacy portal) */
+  --accent: rgb(0, 229, 255);      /* #00E5FF - Accent Cyan (same) */
+  --accent-foreground: rgb(255, 255, 255);
+  
+  /* Background Colors - Dark Mode */
+  --background: rgb(15, 23, 42);
+  --foreground: rgb(226, 232, 240);
+  
+  /* Muted Colors - Dark Mode */
+  --muted: rgb(71, 85, 105);
+  --muted-foreground: rgb(156, 163, 175);
+  
+  /* Card Colors - Dark Mode */
+  --card: rgb(30, 41, 59);
+  --card-foreground: rgb(226, 232, 240);
+  
+  /* Border Colors - Dark Mode */
+  --border: rgb(51, 65, 85);
+  
+  /* Popover Colors - Dark Mode */
+  --popover: rgb(30, 41, 59);
+  --popover-foreground: rgb(226, 232, 240);
+  
+  /* Success, Warning, Error - Dark Mode */
+  --success: rgb(76, 175, 80);
+  --warning: rgb(255, 193, 7);
+  --error: rgb(244, 67, 54);
+  
+  /* Secure Green - Dark Mode - Using Teal for consistency */
+  --secure-green: rgb(58, 156, 168);    /* #3A9CA8 - Secondary Teal */
+}
+
+/* Utility classes for Tailwind compatibility */
+.bg-primary { background-color: var(--primary) !important; }
+.text-primary { color: var(--primary) !important; }
+.text-primary-foreground { color: var(--primary-foreground) !important; }
+.bg-accent { background-color: var(--accent) !important; }
+.text-accent { color: var(--accent) !important; }
+.text-accent-foreground { color: var(--accent-foreground) !important; }
+.bg-background { background-color: var(--background); }
+.text-foreground { color: var(--foreground); }
+.bg-muted { background-color: var(--muted); }
+.text-muted { color: var(--muted); }
+.text-muted-foreground { color: var(--muted-foreground); }
+.bg-card { background-color: var(--card); }
+.text-card-foreground { color: var(--card-foreground); }
+.border-border { border-color: var(--border); }
+.bg-popover { background-color: var(--popover); }
+.text-popover-foreground { color: var(--popover-foreground); }
+
+/* Secure Green utility classes - using teal */
+.bg-secure-green { background-color: var(--secure-green) !important; }
+.text-secure-green { color: var(--secure-green) !important; }
+.border-secure-green { border-color: var(--secure-green) !important; }
+
+/* Palette-based background utilities - ensure all components use theme colors */
+.bg-primary\/10 { background-color: rgba(42, 111, 127, 0.1) !important; }
+.bg-primary\/20 { background-color: rgba(42, 111, 127, 0.2) !important; }
+.bg-accent\/10 { background-color: rgba(0, 229, 255, 0.1) !important; }
+.bg-accent\/20 { background-color: rgba(0, 229, 255, 0.2) !important; }
+.bg-accent\/5 { background-color: rgba(0, 229, 255, 0.05) !important; }
+
+.dark .bg-primary\/10 { background-color: rgba(58, 156, 168, 0.1) !important; }
+.dark .bg-primary\/20 { background-color: rgba(58, 156, 168, 0.2) !important; }
+.dark .bg-accent\/10 { background-color: rgba(0, 229, 255, 0.1) !important; }
+.dark .bg-accent\/20 { background-color: rgba(0, 229, 255, 0.2) !important; }
+.dark .bg-accent\/5 { background-color: rgba(0, 229, 255, 0.05) !important; }
+
+/* Navigation menu styles - teal theme */
+.nav-link {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  background-color: rgba(0, 229, 255, 0.1) !important; /* Accent cyan hover */
+  color: var(--primary) !important;
+}
+
+.dark .nav-link:hover {
+  background-color: rgba(0, 229, 255, 0.15) !important;
+  color: var(--primary) !important;
+}
+
+/* Active menu item - teal background */
+.nav-link.bg-primary,
+.nav-link[class*="bg-primary"] {
+  background-color: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+}
+
+.nav-link.bg-primary:hover {
+  background-color: rgba(42, 111, 127, 0.9) !important;
+  opacity: 1 !important;
+}
+
+.dark .nav-link.bg-primary:hover {
+  background-color: rgba(58, 156, 168, 0.9) !important;
+}
+
+/* Button hover states - ensure proper hover effects */
+button,
+a {
+  transition: all 0.2s ease;
+}
+
+/* Muted background hover states - using opacity filter */
+.bg-muted:hover {
+  opacity: 0.8;
+  background-color: var(--muted) !important;
+}
+
+/* Primary button hover states */
+.bg-primary:hover {
+  opacity: 0.9;
+  filter: brightness(0.95);
+  background-color: var(--primary) !important;
+}
+
+/* Accent button hover states */
+.bg-accent:hover {
+  opacity: 0.9;
+  filter: brightness(0.95);
+  background-color: var(--accent) !important;
+}
+
+/* Theme toggle button specific hover - ensure it works */
+#themeToggle:hover {
+  background-color: var(--muted) !important;
+  opacity: 0.8 !important;
+  transform: scale(1.05);
+}
+
+/* Ensure hover states work with Tailwind classes */
+.hover\:bg-muted\/80:hover {
+  background-color: var(--muted) !important;
+  opacity: 0.8 !important;
+}
+
+.hover\:bg-primary\/90:hover {
+  background-color: var(--primary) !important;
+  opacity: 0.9 !important;
+}
+
+.hover\:bg-accent\/90:hover {
+  background-color: var(--accent) !important;
+  opacity: 0.9 !important;
+}
+
+/* Menu hover states using teal theme */
+.hover\:bg-accent\/10:hover {
+  background-color: rgba(0, 229, 255, 0.1) !important; /* Accent cyan */
+  color: var(--primary) !important;
+}
+
+.dark .hover\:bg-accent\/10:hover {
+  background-color: rgba(0, 229, 255, 0.15) !important;
+  color: var(--primary) !important;
+}
+
+/* Hover text color for menu items */
+.hover\:text-primary:hover {
+  color: var(--primary) !important;
+}
+
+/* Glass nav effect for header */
+.glass-nav {
+  background-color: rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.dark .glass-nav {
+  background-color: rgba(15, 23, 42, 0.8);
+}
+
+/* Modern Card - consistent card styling with teal theme */
+.modern-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  color: var(--card-foreground);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* CSS Variables for gradient colors - using theme palette */
+:root {
+  --gradient-primary-start: rgba(42, 111, 127, 0.1);   /* Primary teal at 10% */
+  --gradient-primary-mid: rgba(0, 229, 255, 0.05);      /* Accent cyan at 5% */
+  --gradient-accent-start: rgba(0, 229, 255, 0.1);       /* Accent cyan at 10% */
+  --gradient-accent-mid: rgba(42, 111, 127, 0.05);       /* Primary teal at 5% */
+  --gradient-muted-start: rgba(156, 163, 175, 0.1);      /* Muted at 10% */
+  --gradient-muted-mid: rgba(42, 111, 127, 0.05);        /* Primary teal at 5% */
+}
+
+.dark {
+  --gradient-primary-start: rgba(58, 156, 168, 0.1);    /* Primary teal (dark) at 10% */
+  --gradient-primary-mid: rgba(0, 229, 255, 0.05);       /* Accent cyan at 5% */
+  --gradient-accent-start: rgba(0, 229, 255, 0.1);       /* Accent cyan at 10% */
+  --gradient-accent-mid: rgba(58, 156, 168, 0.05);        /* Primary teal (dark) at 5% */
+  --gradient-muted-start: rgba(71, 85, 105, 0.1);        /* Muted (dark) at 10% */
+  --gradient-muted-mid: rgba(58, 156, 168, 0.05);        /* Primary teal (dark) at 5% */
+}
+
+/* Cards with gradients should use theme colors - teal/cyan palette */
+.modern-card.bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, 
+    var(--gradient-primary-start), 
+    var(--gradient-primary-mid), 
+    var(--card));
+  background-color: var(--card);
+}
+
+/* Utility classes for gradient backgrounds using theme palette */
+.bg-gradient-primary {
+  background-image: linear-gradient(to bottom right, 
+    var(--gradient-primary-start), 
+    var(--gradient-primary-mid), 
+    var(--card));
+  background-color: var(--card);
+}
+
+.bg-gradient-accent {
+  background-image: linear-gradient(to bottom right, 
+    var(--gradient-accent-start), 
+    var(--gradient-accent-mid), 
+    var(--card));
+  background-color: var(--card);
+}
+
+.bg-gradient-muted {
+  background-image: linear-gradient(to bottom right, 
+    var(--gradient-muted-start), 
+    var(--gradient-muted-mid), 
+    var(--card));
+  background-color: var(--card);
+}
+
+/* Alternative gradient directions using palette */
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, 
+    var(--gradient-primary-start), 
+    var(--gradient-primary-mid), 
+    var(--card));
+  background-color: var(--card);
+}
+
+.bg-gradient-to-bl {
+  background-image: linear-gradient(to bottom left, 
+    var(--gradient-accent-start), 
+    var(--gradient-accent-mid), 
+    var(--card));
+  background-color: var(--card);
+}
+
+/* Cards with background opacity */
+.modern-card.bg-background\/60 {
+  background-color: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.dark .modern-card.bg-background\/60 {
+  background-color: rgba(15, 23, 42, 0.6);
+}
+
+/* Dark mode card shadow adjustment */
+.dark .modern-card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Brand text styles - matching CyberCaution structure */
+.brand-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.08em;
+  color: #2A6F7F !important; /* CyberCorrect Primary Teal (matching privacy portal) */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.brand-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+  color: #1E293B !important;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.brand-attribution {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+  color: #64748B !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/* Dark mode adjustments for brand text */
+.dark .brand-name {
+  color: #3A9CA8 !important; /* Secondary Teal for dark mode (matching privacy portal) */
+}
+
+.dark .brand-tagline {
+  color: #F1F5F9 !important;
+}
+
+.dark .brand-attribution {
+  color: #94A3B8 !important;
+}
+
