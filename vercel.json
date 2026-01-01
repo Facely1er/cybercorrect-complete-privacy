@@ -1,19 +1,9 @@
 {
-  "buildCommand": "npm run build --workspace=@cybercorrect/framework-compliance",
-  "outputDirectory": "apps/framework-compliance/dist",
+  "buildCommand": "node -e \"console.log('Serving prebuilt cybercorrect-static')\"",
+  "outputDirectory": "cybercorrect-static",
   "installCommand": "npm install",
   "framework": null,
   "devCommand": null,
-  "rewrites": [
-    {
-      "source": "/assets/(.*)",
-      "destination": "/assets/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
   "headers": [
     {
       "source": "/assets/(.*\\.js)$",
