@@ -5,41 +5,95 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Terms — CyberCorrect</title>
   <meta name="description" content="CyberCorrect terms of service." />
-  <link rel="stylesheet" href="../assets/css/tokens.css">
-  <link rel="stylesheet" href="../assets/css/base.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
-  <link rel="stylesheet" href="../assets/css/product.css">
-</head>
-<body>
+  <!-- CyberCorrect Theme Colors -->
+  <link rel="stylesheet" href="../assets/css/cybercorrect-theme.css" />
+  <!-- Tailwind utility build for static pages -->
+  <link rel="stylesheet" href="../assets/css/app.css" />
+  <!-- Legal page typography -->
+  <link rel="stylesheet" href="../assets/css/legal.css" />
 
-<header class="nav">
-  <div class="container">
-    <div class="nav-row">
-      <a class="brand" href="../">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <div>
-          <div style="font-weight:900;letter-spacing:.02em">CyberCorrect</div>
-          <div class="small">Privacy compliance, made executable.</div>
+  <script>
+    // Apply theme immediately to prevent flash
+    (function() {
+      try {
+        const savedMode = localStorage.getItem('darkMode');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedMode === 'true' || (!savedMode && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body class="min-h-screen bg-background text-foreground transition-colors duration-200 flex flex-col">
+
+  <!-- Header -->
+  <nav class="fixed top-0 left-0 right-0 z-50 shadow-lg border-b transition-all duration-300 glass-nav overflow-visible" style="--nav-height: 64px; height: var(--nav-height,64px);">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 w-full relative z-50 overflow-visible h-full">
+      <div class="flex justify-between items-center h-full gap-1 sm:gap-2 py-1 min-w-0 overflow-visible">
+        <a href="../index.html" class="flex items-center space-x-0.5 sm:space-x-1 flex-shrink-0 hover:opacity-90 transition-all duration-200 group z-10 relative min-w-0">
+          <div class="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 min-w-[40px] min-h-[40px] rounded-2xl bg-background flex items-center justify-center transition-transform duration-300 group-hover:scale-110 flex-shrink-0 p-1">
+            <img src="../assets/cybercorrect.png" alt="CyberCorrect Logo" class="w-full h-full object-contain" />
+          </div>
+          <div class="brand-text hidden sm:flex">
+            <div class="brand-name block">CyberCorrect™</div>
+            <div class="brand-tagline block">Privacy Compliance</div>
+            <div class="brand-attribution block">by ERMITS LLC</div>
+          </div>
+        </a>
+
+        <div class="hidden md:flex flex-1 justify-center px-2">
+          <div class="flex items-center space-x-0.5 sm:space-x-1">
+            <a href="../index.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground"><span>Home</span></a>
+            <a href="../how-it-works.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground"><span>How It Works</span></a>
+            <a href="../features.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground"><span>Features</span></a>
+            <a href="../pricing.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground"><span>Pricing</span></a>
+            <a href="../trust.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground"><span>Trust</span></a>
+            <a href="index.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors bg-primary text-primary-foreground"><span>Legal</span></a>
+          </div>
         </div>
-      </a>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="../#problem">Problem</a>
-        <a href="../#outcomes">Outcomes</a>
-        <a href="../#solution">Solution</a>
-        <a href="../#proof">Trust</a>
-        <a href="../#pricing">Pricing</a>
-      </nav>
-      <div class="nav-actions">
-        <a class="btn ghost" href="../contact.html">Contact</a>
-        <a class="btn primary" href="../">Back to Site</a>
+
+        <div class="flex items-center space-x-1 flex-shrink-0">
+          <button id="themeToggle" aria-label="Switch theme" class="p-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 bg-muted text-foreground hover:bg-muted/80 flex items-center justify-center min-w-[44px] min-h-[44px]" title="Switch theme">
+            <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun w-4 h-4 text-primary inline-block">
+              <circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon w-4 h-4 text-foreground hidden">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+          <button data-mobile-menu-button="true" class="md:hidden p-2 rounded-lg transition-all duration-200 flex-shrink-0 relative z-[60] bg-muted text-foreground hover:bg-muted/80 min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Open menu" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu w-5 h-5 text-foreground"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile menu panel -->
+  <div id="mobileMenu" class="md:hidden fixed left-0 right-0 z-50 hidden" style="top: var(--nav-height, 64px);">
+    <div class="bg-background/95 backdrop-blur-sm border-b border-border shadow-lg">
+      <div class="max-w-7xl mx-auto px-4 py-3">
+        <div class="grid grid-cols-2 gap-2">
+          <a href="../index.html" class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-primary">Home</a>
+          <a href="../how-it-works.html" class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-primary">How It Works</a>
+          <a href="../features.html" class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-primary">Features</a>
+          <a href="../pricing.html" class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-primary">Pricing</a>
+          <a href="../trust.html" class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-primary">Trust</a>
+          <a href="index.html" class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-primary">Legal</a>
+        </div>
       </div>
     </div>
   </div>
-</header>
 
-<main class="section">
-  <div class="container" style="max-width: 860px">
-    <h1>Master Terms of Service</h1>
+  <main class="flex-1 pt-[var(--nav-height,64px)] relative">
+    <div class="relative z-10 w-full">
+      <div class="container py-10">
+        <section class="modern-card p-8 md:p-12">
+          <div class="legal-shell legal-prose">
+            <h1>Master Terms of Service</h1>
 <p>ERMITS LLC products, platforms, and services</p>
 <p><strong>Effective Date:</strong> October 31, 2025 | <strong>Last Updated:</strong> December 13, 2025</p>
 <p>By accessing or using any ERMITS LLC ("ERMITS," "we," "our," or "us") products, platforms, or services
@@ -682,15 +736,19 @@ United States, without regard to conflict of law principles. The United Nations 
 <p>Email: <a href="mailto:advisory@ermits.com">advisory@ermits.com</a></p>
 <p>Website: <a href="http://www.ermits-advisory.com" target="_blank" rel="noopener noreferrer">www.ermits-advisory.com</a></p>
 <p>Last Updated: December 13, 2025</p>
-    <div class="card" style="margin-top: var(--s-7)">
-      <h3 style="margin:0 0 var(--s-2)">Notes</h3>
-      <p style="margin:0" class="small">
-        This page was exported from the product repository’s legal content and formatted for the static site.
-        Update the source legal text in the repo for authoritative changes.
-      </p>
+
+            <div class="modern-card p-6 mt-8 bg-muted/10">
+              <h3 class="text-lg font-bold text-foreground mb-2">Notes</h3>
+              <p class="text-sm text-muted-foreground mb-0">
+                This page was exported from the product repository’s legal content and formatted for the static site.
+                Update the source legal text in the repo for authoritative changes.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
-  </div>
-</main>
+  </main>
 
 <footer class="border-t border-border bg-background/95 backdrop-blur-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
@@ -759,7 +817,6 @@ United States, without regard to conflict of law principles. The United Nations 
 
 
 
-  <script src="../assets/js/main.js"></script>
 
   <script>
     // Theme toggle and mobile menu functionality

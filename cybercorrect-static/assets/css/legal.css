@@ -1,0 +1,72 @@
+/* Legal pages: lightweight typography + spacing on theme */
+
+.legal-shell {
+  max-width: 860px;
+}
+
+.legal-prose {
+  line-height: 1.7;
+}
+
+.legal-prose h1,
+.legal-prose h2,
+.legal-prose h3,
+.legal-prose h4 {
+  color: var(--foreground);
+  scroll-margin-top: calc(var(--nav-height, 64px) + 16px);
+}
+
+.legal-prose h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+.legal-prose h2 {
+  font-size: 1.25rem;
+  line-height: 1.25;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.legal-prose h3 {
+  font-size: 1.05rem;
+  line-height: 1.3;
+  margin: 1rem 0 0.5rem;
+}
+
+.legal-prose h4 {
+  font-size: 0.95rem;
+  line-height: 1.35;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.legal-prose p {
+  margin: 0 0 0.9rem;
+  color: var(--muted-foreground);
+}
+
+.legal-prose strong {
+  color: var(--foreground);
+}
+
+.legal-prose ul,
+.legal-prose ol {
+  margin: 0.25rem 0 1rem;
+  padding-left: 1.25rem;
+  color: var(--muted-foreground);
+}
+
+.legal-prose li {
+  margin: 0.25rem 0;
+}
+
+.legal-prose a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.legal-prose a:hover {
+  opacity: 0.9;
+}
+
