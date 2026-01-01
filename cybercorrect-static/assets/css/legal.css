@@ -2,10 +2,15 @@
 
 .legal-shell {
   max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .legal-prose {
   line-height: 1.7;
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .legal-prose h1,
@@ -43,6 +48,7 @@
 .legal-prose p {
   margin: 0 0 0.9rem;
   color: var(--muted-foreground);
+  overflow-wrap: anywhere;
 }
 
 .legal-prose strong {
@@ -56,17 +62,94 @@
   color: var(--muted-foreground);
 }
 
+.legal-prose ul {
+  list-style: disc;
+}
+
+.legal-prose ol {
+  list-style: decimal;
+}
+
 .legal-prose li {
   margin: 0.25rem 0;
+  overflow-wrap: anywhere;
 }
 
 .legal-prose a {
   color: var(--primary);
   text-decoration: underline;
   text-underline-offset: 3px;
+  overflow-wrap: anywhere;
 }
 
 .legal-prose a:hover {
   opacity: 0.9;
+}
+
+.legal-prose a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+.legal-prose hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 1.5rem 0;
+}
+
+.legal-prose blockquote {
+  margin: 1rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--border);
+  color: var(--muted-foreground);
+}
+
+.legal-prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 0.95em;
+  padding: 0.125rem 0.35rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background: color-mix(in srgb, var(--muted) 20%, transparent);
+  color: var(--foreground);
+}
+
+.legal-prose pre {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--muted) 18%, transparent);
+  overflow: auto;
+  color: var(--foreground);
+  line-height: 1.6;
+}
+
+.legal-prose pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.legal-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.legal-prose th,
+.legal-prose td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.65rem;
+  vertical-align: top;
+}
+
+.legal-prose th {
+  background: color-mix(in srgb, var(--muted) 14%, transparent);
+  color: var(--foreground);
+  text-align: left;
+  font-weight: 700;
 }
 
