@@ -316,6 +316,13 @@ a {
 }
 
 /* Brand text styles - matching CyberCaution structure */
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
+}
+
 .brand-name {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 0.875rem;

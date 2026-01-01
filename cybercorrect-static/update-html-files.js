@@ -65,7 +65,7 @@ function generateBreadcrumb(activePage) {
 function generateHeader(activePage) {
   const pages = [
     { id: 'index', href: 'index.html', label: 'Home', icon: '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline>' },
-    { id: 'how-it-works', href: 'how-it-works.html', label: 'How It Works', icon: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"></path><path d="M18 2h-2a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"></path><path d="M6 2H4a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"></path>' },
+    { id: 'how-it-works', href: 'how-it-works.html', label: 'How It Works', icon: '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path>' },
     { id: 'features', href: 'features.html', label: 'Features', icon: '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>' },
     { id: 'pricing', href: 'pricing.html', label: 'Pricing', icon: '<line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>' },
     { id: 'trust', href: 'trust.html', label: 'Trust', icon: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>' },
@@ -103,7 +103,7 @@ function generateHeader(activePage) {
           <div class="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 min-w-[40px] min-h-[40px] rounded-2xl bg-background flex items-center justify-center transition-transform duration-300 group-hover:scale-110 flex-shrink-0 p-1">
             <img src="assets/cybercorrect.png" alt="CyberCorrect Logo" class="w-full h-full object-contain" />
           </div>
-          <div class="brand-text hidden sm:flex">
+          <div class="brand-text hidden sm:flex flex-col">
             <div class="brand-name block">CyberCorrect™</div>
             <div class="brand-tagline block">Privacy Compliance</div>
             <div class="brand-attribution block">by ERMITS LLC</div>
@@ -254,7 +254,7 @@ function processFile(filePath) {
   // Remove load-shared.js script
   content = content.replace(/<script src="includes\/load-shared\.js" defer><\/script>\s*/g, '');
   
-  // Ensure theme CSS is included
+  // Ensure theme CSS is included FIRST
   if (!content.includes('cybercorrect-theme.css')) {
     content = content.replace(
       /(<link rel="stylesheet" href="assets\/css\/app\.css" \/>)/g,
@@ -262,20 +262,66 @@ function processFile(filePath) {
     );
   }
   
-  // Remove duplicate mobile menu panels
-  const mobileMenuPattern = /<!-- Mobile menu panel -->[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*(<!-- Mobile menu panel -->)/g;
-  content = content.replace(mobileMenuPattern, '');
+  // Remove Tailwind CDN (replace with compiled CSS)
+  if (content.includes('cdn.tailwindcss.com')) {
+    // Remove Tailwind CDN script and config
+    const tailwindPattern = /<!-- Tailwind CSS[^>]*-->[\s\S]*?<\/script>[\s\S]*?<\/script>/;
+    content = content.replace(tailwindPattern, '');
+  }
   
-  // Replace header placeholder or entire header section
+  // Add compiled Tailwind CSS AFTER other CSS files
+  if (!content.includes('assets/css/tailwind.css')) {
+    // Insert after the last stylesheet link
+    const matches = content.match(/(<link rel="stylesheet" href="[^"]*\.css"[^>]*>\s*)/g);
+    if (matches && matches.length > 0) {
+      const lastStylesheet = matches[matches.length - 1];
+      const lastIndex = content.lastIndexOf(lastStylesheet);
+      if (lastIndex !== -1) {
+        const insertPos = lastIndex + lastStylesheet.length;
+        const tailwindLink = '  <!-- Tailwind CSS (compiled) -->\n  <link rel="stylesheet" href="assets/css/tailwind.css" />\n';
+        content = content.slice(0, insertPos) + tailwindLink + content.slice(insertPos);
+      }
+    } else {
+      // Fallback: add before closing head tag
+      content = content.replace(
+        /(<\/head>)/,
+        `  <!-- Tailwind CSS (compiled) -->\n  <link rel="stylesheet" href="assets/css/tailwind.css" />\n$1`
+      );
+    }
+  }
+  
+  // Remove all existing mobile menu panels (they will be regenerated)
+  content = content.replace(/<div id="mobileMenu"[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<\/div>/g, '');
+  
+  // Remove duplicate empty mobile menu panel comments
+  content = content.replace(/(<!-- Mobile menu panel -->\s*)+/g, '');
+  
+  // Remove orphaned closing divs that might be left after mobile menu removal
+  // Pattern: closing nav followed by one or more closing divs and optional comments
+  content = content.replace(/<\/nav>\s*(<\/div>\s*)+/g, '</nav>\n\n');
+  content = content.replace(/<\/nav>\s*<!-- Mobile menu panel -->[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<\/div>/g, '</nav>');
+  
+  // Replace header placeholder
   content = content.replace(/<div id="shared-header"><\/div>/g, generateHeader(activePage));
-  // Replace entire nav tag and its contents (including mobile menu)
-  const headerRegex = /<nav[^>]*>[\s\S]*?<\/nav>\s*<!-- Mobile menu panel -->[\s\S]*?<\/div>\s*<\/div>/g;
-  content = content.replace(headerRegex, generateHeader(activePage) + '\n\n<!-- Mobile menu panel -->\n<div id="mobileMenu" class="md:hidden fixed left-0 right-0 z-50 hidden" style="top: var(--nav-height, 64px);">\n  <div class="bg-background/95 backdrop-blur-sm border-b border-border shadow-lg">\n    <div class="max-w-7xl mx-auto px-4 py-3">\n      <div class="grid grid-cols-2 gap-2">\n        <!-- Mobile nav will be generated by generateHeader -->\n      </div>\n    </div>\n  </div>\n</div>');
+  
+  // Replace entire nav tag (generateHeader already includes mobile menu, so we need to match carefully)
+  // First, try to match nav tag and any following content until main/footer/body
+  const navPattern = /<nav[^>]*>[\s\S]*?<\/nav>/;
+  if (navPattern.test(content)) {
+    // Replace just the nav tag, the mobile menu will be added by generateHeader
+    content = content.replace(navPattern, generateHeader(activePage));
+  }
   
   // Replace footer placeholder or entire footer section
   content = content.replace(/<div id="shared-footer"><\/div>/g, footerTemplate);
   // Replace entire footer tag and its contents
   content = content.replace(/<footer[^>]*>[\s\S]*?<\/footer>/g, footerTemplate);
+  // Remove orphaned closing footer tags
+  content = content.replace(/<\/footer>\s*/g, '');
+  // Insert footer before closing body tag if footer doesn't exist
+  if (!content.includes('<footer')) {
+    content = content.replace(/<\/body>/g, footerTemplate + '\n</body>');
+  }
   
   // Inject breadcrumb navigation (skip for index pages)
   if (activePage && activePage !== 'index') {
@@ -302,7 +348,11 @@ function processFile(filePath) {
   // Replace secure-green in gradients with primary teal for consistency
   content = content.replace(/from-secure-green\//g, 'from-primary/');
   
-  // Add script before closing body tag
+  // Remove script if it's in the wrong place (between mobile menu and footer)
+  // Pattern: mobile menu closing div, then script tag with content
+  content = content.replace(/<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<script>[\s\S]*?<\/script>/g, '</div>\n  </div>\n</div>\n</div>\n\n');
+  
+  // Add script before closing body tag (after footer)
   if (!content.includes('initThemeToggle')) {
     content = content.replace(/<\/body>/g, scriptContent + '\n</body>');
   }
@@ -346,7 +396,7 @@ if (fs.existsSync(legalDir)) {
     content = content.replace(/<script src="\.\.\/includes\/load-shared\.js" defer><\/script>\s*/g, '');
     content = content.replace(/<script src="includes\/load-shared\.js" defer><\/script>\s*/g, '');
     
-    // Ensure theme CSS is included (for legal pages, use relative path)
+    // Ensure theme CSS is included FIRST (for legal pages, use relative path)
     if (!content.includes('cybercorrect-theme.css')) {
       content = content.replace(
         /(<link rel="stylesheet" href="\.\.\/assets\/css\/[^"]+\.css" \/>)/g,
@@ -354,20 +404,63 @@ if (fs.existsSync(legalDir)) {
       );
     }
     
-    // Remove duplicate mobile menu panels
-    const mobileMenuPattern = /<!-- Mobile menu panel -->[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*(<!-- Mobile menu panel -->)/g;
-    content = content.replace(mobileMenuPattern, '');
+    // Remove Tailwind CDN (replace with compiled CSS)
+    if (content.includes('cdn.tailwindcss.com')) {
+      // Remove Tailwind CDN script and config
+      const tailwindPattern = /<!-- Tailwind CSS[^>]*-->[\s\S]*?<\/script>[\s\S]*?<\/script>/;
+      content = content.replace(tailwindPattern, '');
+    }
     
-    // Replace header placeholder or entire header section (no active page)
+    // Add compiled Tailwind CSS AFTER other CSS files (for legal pages, use relative path)
+    if (!content.includes('../assets/css/tailwind.css')) {
+      // Insert after the last stylesheet link
+      const matches = content.match(/(<link rel="stylesheet" href="[^"]*\.css"[^>]*>\s*)/g);
+      if (matches && matches.length > 0) {
+        const lastStylesheet = matches[matches.length - 1];
+        const lastIndex = content.lastIndexOf(lastStylesheet);
+        if (lastIndex !== -1) {
+          const insertPos = lastIndex + lastStylesheet.length;
+          const tailwindLink = '  <!-- Tailwind CSS (compiled) -->\n  <link rel="stylesheet" href="../assets/css/tailwind.css" />\n';
+          content = content.slice(0, insertPos) + tailwindLink + content.slice(insertPos);
+        }
+      } else {
+        // Fallback: add before closing head tag
+        content = content.replace(
+          /(<\/head>)/,
+          `  <!-- Tailwind CSS (compiled) -->\n  <link rel="stylesheet" href="../assets/css/tailwind.css" />\n$1`
+        );
+      }
+    }
+    
+    // Remove all existing mobile menu panels (they will be regenerated)
+    content = content.replace(/<div id="mobileMenu"[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<\/div>/g, '');
+    
+    // Remove duplicate empty mobile menu panel comments
+    content = content.replace(/(<!-- Mobile menu panel -->\s*)+/g, '');
+    
+    // Remove orphaned closing divs that might be left after mobile menu removal
+    content = content.replace(/<\/nav>\s*(<\/div>\s*)+/g, '</nav>\n\n');
+    content = content.replace(/<\/nav>\s*<!-- Mobile menu panel -->[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<\/div>/g, '</nav>');
+    
+    // Replace header placeholder
     content = content.replace(/<div id="shared-header"><\/div>/g, generateHeader(null));
-    // Replace entire nav tag and its contents (including mobile menu)
-    const headerRegex = /<nav[^>]*>[\s\S]*?<\/nav>\s*<!-- Mobile menu panel -->[\s\S]*?<\/div>\s*<\/div>/g;
-    content = content.replace(headerRegex, generateHeader(null) + '\n\n<!-- Mobile menu panel -->\n<div id="mobileMenu" class="md:hidden fixed left-0 right-0 z-50 hidden" style="top: var(--nav-height, 64px);">\n  <div class="bg-background/95 backdrop-blur-sm border-b border-border shadow-lg">\n    <div class="max-w-7xl mx-auto px-4 py-3">\n      <div class="grid grid-cols-2 gap-2">\n        <!-- Mobile nav will be generated by generateHeader -->\n      </div>\n    </div>\n  </div>\n</div>');
+    
+    // Replace entire nav tag (generateHeader already includes mobile menu)
+    const navPattern = /<nav[^>]*>[\s\S]*?<\/nav>/;
+    if (navPattern.test(content)) {
+      content = content.replace(navPattern, generateHeader(null));
+    }
     
     // Replace footer placeholder or entire footer section
     content = content.replace(/<div id="shared-footer"><\/div>/g, footerTemplate);
     // Replace entire footer tag and its contents
     content = content.replace(/<footer[^>]*>[\s\S]*?<\/footer>/g, footerTemplate);
+    // Remove orphaned closing footer tags
+    content = content.replace(/<\/footer>\s*/g, '');
+    // Insert footer before closing body tag if footer doesn't exist
+    if (!content.includes('<footer')) {
+      content = content.replace(/<\/body>/g, footerTemplate + '\n</body>');
+    }
     
     // Inject breadcrumb navigation for legal pages (if needed)
     // Legal pages typically don't need breadcrumbs, but we can add if required
@@ -378,7 +471,11 @@ if (fs.existsSync(legalDir)) {
     // Replace secure-green in gradients with primary teal for consistency
     content = content.replace(/from-secure-green\//g, 'from-primary/');
     
-    // Add script before closing body tag
+    // Remove script if it's in the wrong place (between mobile menu and footer)
+    // Pattern: mobile menu closing div, then script tag with content
+    content = content.replace(/<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<script>[\s\S]*?<\/script>/g, '</div>\n  </div>\n</div>\n</div>\n\n');
+    
+    // Add script before closing body tag (after footer)
     if (!content.includes('initThemeToggle')) {
       content = content.replace(/<\/body>/g, scriptContent + '\n</body>');
     }
