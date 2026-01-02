@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>CyberCorrect — Privacy Compliance, Data Mapping, and Execution-Ready Roadmaps</title>
+<meta content="Map personal data, align privacy controls, and generate execution-ready compliance actions." name="description"/>
+<script>
+    // Apply theme immediately to prevent flash
+    (function() {
+      try {
+        const savedMode = localStorage.getItem('darkMode');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedMode === 'true' || (!savedMode && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+<!-- Tailwind CSS (compiled) -->
+<link href="assets/css/tailwind.css" rel="stylesheet"/>
+<!-- CyberCaution UI CSS (shared UI system) -->
+<link href="assets/css/app.css" rel="stylesheet"/>
+<!-- CyberCorrect Theme Overrides -->
+<link href="assets/css/cybercorrect-theme.css" rel="stylesheet"/>
+</head>
+<body class="min-h-screen bg-background text-foreground transition-colors duration-200 flex flex-col">
+  <!-- Header -->
+  <nav class="fixed top-0 left-0 right-0 z-50 shadow-lg border-b transition-all duration-300 glass-nav overflow-visible" style="--nav-height: 64px; height: var(--nav-height,64px);">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 w-full relative z-50 overflow-visible h-full">
+      <div class="flex justify-between items-center h-full gap-1 sm:gap-2 py-1 min-w-0 overflow-visible">
+        <!-- Brand (3 lines like CyberCaution) -->
+<a class="flex items-center space-x-0.5 sm:space-x-1 flex-shrink-0 hover:opacity-90 transition-all duration-200 group z-10 relative min-w-0" href="index.html">
+          <div class="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 min-w-[40px] min-h-[40px] rounded-2xl bg-background flex items-center justify-center transition-transform duration-300 group-hover:scale-110 flex-shrink-0 p-1">
+<img alt="CyberCorrect Logo" class="w-full h-full object-contain" src="assets/cybercorrect.png"/>
+          </div>
+          <div class="brand-text hidden sm:flex flex-col">
+            <div class="brand-name block">CyberCorrect™</div>
+            <div class="brand-tagline block">Privacy Compliance</div>
+            <div class="brand-attribution block">by ERMITS LLC</div>
+          </div>
+        </a>
+        <!-- Desktop nav -->
+        <div class="hidden md:flex flex-1 justify-center px-2">
+          <div class="flex items-center space-x-0.5 sm:space-x-1">
+<a class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors bg-primary text-primary-foreground" data-page="index" href="index.html">
+<svg class="w-4 h-4 flex-shrink-0" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Home</span>
+    </a>
+<a class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground" data-page="how-it-works" href="how-it-works.html">
+<svg class="w-4 h-4 flex-shrink-0" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>
+      <span>How It Works</span>
+    </a>
+<a class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground" data-page="features" href="features.html">
+<svg class="w-4 h-4 flex-shrink-0" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+      <span>Features</span>
+    </a>
+          <a href="privacy-risk-radar.html" class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-accent/10 hover:text-primary text-foreground" data-page="privacy-risk-radar">
+            <svg class="lucide lucide-radar w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a10 10 0 1 0 10 10"/>
+              <path d="M12 12l7-3"/>
+              <path d="M12 12a0 0 0 1 0 0 0"/>
+              <path d="M12 2v2"/>
+              <path d="M2 12h2"/>
+              <path d="M12 22v-2"/>
+              <path d="M22 12h-2"/>
+            </svg>
+            <span>Risk Radar</span>
+          </a>
+<a class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground" data-page="pricing" href="pricing.html">
+<svg class="w-4 h-4 flex-shrink-0" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+      <span>Pricing</span>
+    </a>
+<a class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground" data-page="trust" href="trust.html">
+<svg class="w-4 h-4 flex-shrink-0" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+      <span>Trust</span>
+    </a>
+<a class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground" data-page="faq" href="faq.html">
+<svg class="w-4 h-4 flex-shrink-0" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+      <span>FAQ</span>
+    </a>
+<a class="nav-link relative flex items-center justify-center space-x-1.5 px-2 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-accent/10 text-foreground" data-page="contact" href="contact.html">
+<svg class="w-4 h-4 flex-shrink-0" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+      <span>Contact</span>
+    </a>
+          </div>
+        </div>
+        <!-- Controls (dual theme + mobile menu) -->
+        <div class="flex items-center space-x-1 flex-shrink-0">
+<button aria-label="Switch theme" class="p-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 bg-muted text-foreground hover:bg-muted/80 flex items-center justify-center min-w-[44px] min-h-[44px]" id="themeToggle" title="Switch theme">
+<svg class="lucide lucide-sun w-4 h-4 text-primary inline-block" fill="none" height="24" id="sunIcon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+<svg class="lucide lucide-moon w-4 h-4 text-foreground hidden" fill="none" height="24" id="moonIcon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+<button aria-expanded="false" aria-label="Open menu" class="md:hidden p-2 rounded-lg transition-all duration-200 flex-shrink-0 relative z-[60] bg-muted text-foreground hover:bg-muted/80 min-w-[44px] min-h-[44px] flex items-center justify-center" data-mobile-menu-button="true">
+<svg class="lucide lucide-menu w-5 h-5 text-foreground" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <line x1="4" x2="20" y1="12" y2="12"></line>
+              <line x1="4" x2="20" y1="6" y2="6"></line>
+              <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- Mobile menu panel -->
+<div class="md:hidden fixed left-0 right-0 z-50 hidden" id="mobileMenu" style="top: var(--nav-height, 64px);">
+    <div class="bg-background/95 backdrop-blur-sm border-b border-border shadow-lg">
+      <div class="max-w-7xl mx-auto px-4 py-3">
+        <div class="grid grid-cols-2 gap-2">
+<a class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground" data-page="index" href="index.html">
+<svg class="w-4 h-4" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      Home
+    </a>
+<a class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium hover:bg-accent/10" data-page="how-it-works" href="how-it-works.html">
+<svg class="w-4 h-4" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>
+      How It Works
+    </a>
+<a class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium hover:bg-accent/10" data-page="features" href="features.html">
+<svg class="w-4 h-4" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg>
+      Features
+    </a>
+<a class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium hover:bg-accent/10" data-page="pricing" href="pricing.html">
+<svg class="w-4 h-4" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+      Pricing
+    </a>
+<a class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium hover:bg-accent/10" data-page="trust" href="trust.html">
+<svg class="w-4 h-4" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+      Trust
+    </a>
+<a class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium hover:bg-accent/10" data-page="faq" href="faq.html">
+<svg class="w-4 h-4" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+      FAQ
+    </a>
+<a class="nav-link flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium hover:bg-accent/10" data-page="contact" href="contact.html">
+<svg class="w-4 h-4" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+      Contact
+    </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<main class="flex-1 pt-[var(--nav-height,64px)] relative">
+  <div class="absolute inset-0 hero-bg opacity-60 pointer-events-none"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex flex-col gap-6">
+      <!-- Page header -->
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/70 bg-card/50 text-xs">
+              <span class="w-2 h-2 rounded-full bg-primary" id="modeDot"></span>
+              <span class="font-medium" id="modeLabel">SNAPSHOT</span>
+              <span class="text-muted-foreground">•</span>
+              <span class="text-muted-foreground" id="asOfLabel">—</span>
+            </span>
+            <a href="index.html" class="text-xs text-muted-foreground hover:text-foreground underline underline-offset-4">Back to Home</a>
+          </div>
+          <h1 class="mt-4 text-3xl sm:text-4xl font-bold tracking-tight">
+            Privacy Risk Radar
+          </h1>
+          <p class="mt-2 text-muted-foreground max-w-2xl">
+            Execution-ready privacy visibility: explainable scoring, regulation lens, and exportable evidence—built for audits and decisions.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 items-center">
+          <button id="exportBtn" class="btn btn-primary">
+            Export Snapshot (JSON)
+          </button>
+          <button id="refreshBtn" class="btn btn-secondary">
+            Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- Executive summary -->
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="card p-5 lg:col-span-2">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-sm text-muted-foreground">Privacy Posture</div>
+              <div class="mt-1 text-2xl font-semibold" id="postureLabel">—</div>
+              <div class="mt-2 text-sm text-muted-foreground" id="postureDrivers">—</div>
+            </div>
+            <div class="badge" id="postureBadge">—</div>
+          </div>
+
+          <div class="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="kpi">
+              <div class="kpi-label">Critical</div>
+              <div class="kpi-value" id="kpiCritical">0</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">High</div>
+              <div class="kpi-value" id="kpiHigh">0</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Overall Compliance</div>
+              <div class="kpi-value" id="kpiCompliance">—</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Top Driver</div>
+              <div class="kpi-value text-base font-semibold" id="kpiDriver">—</div>
+            </div>
+          </div>
+
+          <div class="mt-5 rounded-xl border border-border/70 bg-card/50 p-4">
+            <div class="text-sm font-medium">Scoring logic (explainable)</div>
+            <div class="mt-2 text-sm text-muted-foreground">
+              Risk Score (0–100) = <span class="mono">Severity Weight</span> + <span class="mono">Impacted Subjects</span> + <span class="mono">Regulatory Scope</span> ± <span class="mono">Trend</span>.
+              Scores are capped and designed to support prioritization—not replace formal risk assessment.
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-5">
+          <div class="text-sm text-muted-foreground">Quick Filters</div>
+          <div class="mt-3 grid grid-cols-1 gap-3">
+            <label class="text-sm">
+              <span class="text-muted-foreground">Category</span>
+              <select id="categoryFilter" class="input mt-1">
+                <option value="all">All categories</option>
+              </select>
+            </label>
+
+            <label class="text-sm">
+              <span class="text-muted-foreground">Regulation</span>
+              <select id="regFilter" class="input mt-1">
+                <option value="all">All regulations</option>
+              </select>
+            </label>
+
+            <label class="text-sm">
+              <span class="text-muted-foreground">Sort</span>
+              <select id="sortBy" class="input mt-1">
+                <option value="score_desc">Risk score (high → low)</option>
+                <option value="severity_desc">Severity (critical → low)</option>
+                <option value="trend_desc">Trend (up → down)</option>
+                <option value="updated_desc">Last updated (new → old)</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tabs -->
+      <section class="card p-0 overflow-hidden">
+        <div class="flex flex-wrap gap-2 p-4 border-b border-border/70 bg-card/40">
+          <button class="tab-btn is-active" data-tab="risks">Risks</button>
+          <button class="tab-btn" data-tab="metrics">Metrics</button>
+          <button class="tab-btn" data-tab="compliance">Compliance</button>
+        </div>
+
+        <div class="p-4 sm:p-6">
+          <!-- Risks -->
+          <div id="tab-risks" class="tab-panel">
+            <div class="grid grid-cols-1 gap-4" id="risksList"></div>
+          </div>
+
+          <!-- Metrics -->
+          <div id="tab-metrics" class="tab-panel hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="metricsGrid"></div>
+          </div>
+
+          <!-- Compliance -->
+          <div id="tab-compliance" class="tab-panel hidden">
+            <div class="grid grid-cols-1 gap-4" id="complianceList"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer note -->
+      <div class="note" id="radarNote">
+        Snapshot mode ensures demo reliability. Replace JSON files in <span class="mono">assets/data/</span> to refresh without code changes.
+      </div>
+    </div>
+  </div>
+</main>
+</main>
+<footer class="border-t border-border bg-background/95 backdrop-blur-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+<div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 mb-2">
+<div class="flex items-center space-x-0.5 sm:space-x-1 flex-shrink-0">
+<div class="h-16 w-16 sm:h-20 sm:w-20 min-w-[64px] min-h-[64px] sm:min-w-[80px] sm:min-h-[80px] rounded-2xl bg-background flex items-center justify-center transition-transform duration-300 hover:scale-110 flex-shrink-0 p-1">
+<img alt="CyberCorrect Logo" class="w-full h-full object-contain" src="assets/cybercorrect.png"/>
+</div>
+<div class="brand-text">
+<div class="brand-name block">CyberCorrect™</div>
+<div class="brand-tagline block">Privacy Compliance</div>
+<div class="brand-attribution block">by ERMITS LLC</div>
+<div class="text-sm mt-2 text-muted-foreground leading-tight">
+<div>Privacy mapping + control alignment</div>
+<div>Execution-ready remediation roadmaps</div>
+<div>Designed for audits and real operations</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row md:items-start gap-8 md:gap-10 flex-1 md:ml-8 lg:ml-12">
+<div class="flex-1">
+<h3 class="font-bold mb-3 text-sm text-foreground">Quick Links</h3>
+<ul class="space-y-0 leading-tight">
+<li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="how-it-works.html"><svg class="lucide lucide-layers w-3.5 h-3.5 text-current inline-block" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>How It Works</a></li>
+<li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="features.html"><svg class="lucide lucide-sparkles w-3.5 h-3.5 text-current inline-block" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path><path d="M5 3v4"></path><path d="M19 17v4"></path><path d="M3 5h4"></path><path d="M17 19h4"></path></svg>Features</a></li>
+<li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="pricing.html"><svg class="lucide lucide-dollar-sign w-3.5 h-3.5 text-current inline-block" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>Pricing</a></li>
+<li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="trust.html"><svg class="lucide lucide-shield w-3.5 h-3.5 text-current inline-block" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>Trust</a></li>
+</ul>
+</div>
+<div class="flex-1">
+<h3 class="font-bold mb-2 text-sm text-foreground">Resources</h3>
+<ul class="space-y-0 leading-tight">
+<li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="best-practices.html"><svg class="lucide lucide-award w-3.5 h-3.5 text-current inline-block" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>Best Practices</a></li>
+<li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="contact.html"><svg class="lucide lucide-mail w-3.5 h-3.5 text-current inline-block" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="16" rx="2" width="20" x="2" y="4"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>Contact</a></li>
+<li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="faq.html"><svg class="lucide lucide-help-circle w-3.5 h-3.5 text-current inline-block" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>FAQ</a></li>
+</ul>
+</div>
+<div class="flex-1">
+<h3 class="font-bold mb-2 text-sm text-foreground">Legal</h3>
+<ul class="space-y-0 leading-tight">
+<li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="legal/privacy-policy.html"><svg class="lucide lucide-lock w-3.5 h-3.5 text-current inline-block" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Privacy Policy</a></li>
+<li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="legal/cookie-policy.html"><svg class="lucide lucide-cookie w-3.5 h-3.5 text-current inline-block" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>Cookie Policy</a></li>
+<li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="legal/terms.html"><svg class="lucide lucide-scale w-3.5 h-3.5 text-current inline-block" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg>Terms of Service</a></li>
+<li><a class="text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors" href="legal/acceptable-use-policy.html"><svg class="lucide lucide-shield-check w-3.5 h-3.5 text-current inline-block" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>Acceptable Use</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row justify-between items-center gap-3 lg:gap-4 pt-1 border-t border-border">
+<div class="flex flex-col sm:flex-row items-center gap-3 flex-1 justify-center lg:justify-start">
+<div class="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-secure-green/10 border border-secure-green/30 status-badge-secure">
+<img alt="CyberCorrect Logo" class="w-3.5 h-3.5 block opacity-100" loading="eager" src="assets/cybercorrect.png"/>
+<span class="text-[10px] sm:text-xs font-medium text-secure-green">Privacy-First • Local Storage</span>
+</div>
+<div class="flex items-center space-x-1.5">
+<svg class="lucide lucide-check-circle2 w-3.5 h-3.5 text-secure-green" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+<span class="text-[10px] sm:text-xs text-muted-foreground">Version 1.0</span>
+</div>
+</div>
+<div class="flex flex-col items-center lg:items-end space-y-0 leading-tight text-xs flex-shrink-0">
+<div class="text-[10px] sm:text-xs text-muted-foreground">© 2025 ERMITS LLC</div>
+</div>
+</div>
+</div>
+<script>
+  // Theme toggle and mobile menu functionality
+    (function() {
+      // Theme toggle
+      function initThemeToggle() {
+        const toggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        
+        function updateIcons() {
+          if (!sunIcon || !moonIcon) return;
+          const isDark = document.documentElement.classList.contains('dark');
+          if (isDark) {
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+          } else {
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+          }
+        }
+        
+        if (toggle && sunIcon && moonIcon) {
+          toggle.addEventListener('click', function() {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            if (isDark) {
+              html.classList.remove('dark');
+              localStorage.setItem('darkMode', 'false');
+            } else {
+              html.classList.add('dark');
+              localStorage.setItem('darkMode', 'true');
+            }
+            updateIcons();
+          });
+          // Update icons after a brief delay to ensure DOM is ready
+          setTimeout(updateIcons, 0);
+        }
+      }
+      
+      // Mobile menu toggle
+      function initMobileMenu() {
+        const menuButton = document.querySelector('[data-mobile-menu-button]');
+        const menu = document.getElementById('mobileMenu');
+        
+        if (menuButton && menu) {
+          menuButton.addEventListener('click', function() {
+            const isOpen = !menu.classList.contains('hidden');
+            if (isOpen) {
+              menu.classList.add('hidden');
+              menuButton.setAttribute('aria-expanded', 'false');
+            } else {
+              menu.classList.remove('hidden');
+              menuButton.setAttribute('aria-expanded', 'true');
+            }
+          });
+          
+          // Close menu when clicking a link
+          const links = menu.querySelectorAll('a');
+          links.forEach(link => {
+            link.addEventListener('click', function() {
+              menu.classList.add('hidden');
+              menuButton.setAttribute('aria-expanded', 'false');
+            });
+          });
+        }
+      }
+      
+      // Initialize on DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          initThemeToggle();
+          initMobileMenu();
+        });
+      } else {
+        initThemeToggle();
+        initMobileMenu();
+      }
+    })();
+  </script>
+</footer>
+<script>
+(function(){
+  const MODE = { SNAPSHOT: "SNAPSHOT" };
+
+  const state = {
+    asOf: null,
+    risks: [],
+    metrics: [],
+    compliance: [],
+    category: "all",
+    reg: "all",
+    sort: "score_desc",
+    tab: "risks",
+  };
+
+  const severityWeight = (sev) => {
+    const s = String(sev||"").toLowerCase();
+    if (s === "critical") return 45;
+    if (s === "high") return 32;
+    if (s === "medium") return 20;
+    if (s === "low") return 10;
+    return 15;
+  };
+
+  const trendDelta = (trend) => {
+    const t = String(trend||"").toLowerCase();
+    if (t === "up") return 6;
+    if (t === "down") return -4;
+    return 0;
+  };
+
+  const subjectPoints = (n) => {
+    const x = Number(n||0);
+    if (x >= 1000000) return 25;
+    if (x >= 250000) return 18;
+    if (x >= 50000) return 12;
+    if (x >= 10000) return 8;
+    if (x > 0) return 4;
+    return 0;
+  };
+
+  const scopePoints = (regs) => {
+    const r = Array.isArray(regs) ? regs : [];
+    // more regs = more scope complexity, cap at 18
+    return Math.min(18, r.length * 6);
+  };
+
+  const calcScore = (risk) => {
+    const score = severityWeight(risk.severity) + subjectPoints(risk.impactedSubjects) + scopePoints(risk.regulations) + trendDelta(risk.trend);
+    return Math.max(0, Math.min(100, score));
+  };
+
+  const postureFrom = ({ critical, high, overallCompliance }) => {
+    // Simple, explainable posture: uses critical/high counts + compliance
+    if (critical >= 1) return { label: "Critical attention required", badge: "CRITICAL", tone: "danger" };
+    if (high >= 2 || (overallCompliance !== null && overallCompliance < 70)) return { label: "Elevated risk", badge: "ELEVATED", tone: "warning" };
+    if (high >= 1 || (overallCompliance !== null && overallCompliance < 80)) return { label: "Moderate risk", badge: "MODERATE", tone: "info" };
+    return { label: "Low-to-moderate risk", badge: "LOW", tone: "success" };
+  };
+
+  const el = (id) => document.getElementById(id);
+
+  function setMode(label, asOf){
+    const modeLabel = el("modeLabel");
+    const asOfLabel = el("asOfLabel");
+    const modeDot = el("modeDot");
+    if(modeLabel) modeLabel.textContent = label;
+    if(asOfLabel) asOfLabel.textContent = asOf ? `As of ${new Date(asOf).toLocaleString()}` : "—";
+    if(modeDot) modeDot.className = "w-2 h-2 rounded-full " + (label === "SNAPSHOT" ? "bg-primary" : "bg-primary");
+  }
+
+  async function loadSnapshots(){
+    // Keep it dead-simple: local JSON only (reliable).
+    const [r, m, c] = await Promise.all([
+      fetch("assets/data/privacy_risks_snapshot.json", { cache: "no-store" }).then(x => x.json()),
+      fetch("assets/data/privacy_metrics_snapshot.json", { cache: "no-store" }).then(x => x.json()),
+      fetch("assets/data/privacy_compliance_snapshot.json", { cache: "no-store" }).then(x => x.json()),
+    ]);
+    state.asOf = r.asOf || m.asOf || c.asOf || null;
+    state.risks = (r.risks || []).map(rr => ({ ...rr, score: calcScore(rr) }));
+    state.metrics = m.metrics || [];
+    state.compliance = c.frameworks || [];
+  }
+
+  function buildFilters(){
+    const catSel = el("categoryFilter");
+    const regSel = el("regFilter");
+    if(!catSel || !regSel) return;
+
+    const categories = Array.from(new Set(state.risks.map(r => r.category).filter(Boolean))).sort();
+    const regs = Array.from(new Set(state.risks.flatMap(r => Array.isArray(r.regulations)? r.regulations : []).filter(Boolean))).sort();
+
+    const opt = (v,t) => {
+      const o = document.createElement("option");
+      o.value=v; o.textContent=t;
+      return o;
+    };
+
+    // reset with defaults
+    catSel.innerHTML = "";
+    catSel.appendChild(opt("all","All categories"));
+    categories.forEach(c => catSel.appendChild(opt(c,c)));
+
+    regSel.innerHTML = "";
+    regSel.appendChild(opt("all","All regulations"));
+    regs.forEach(r => regSel.appendChild(opt(r,r)));
+
+    catSel.value = state.category;
+    regSel.value = state.reg;
+  }
+
+  function renderExecutive(){
+    const critical = state.risks.filter(r => String(r.severity).toLowerCase() === "critical" && String(r.status).toLowerCase() !== "mitigated").length;
+    const high = state.risks.filter(r => String(r.severity).toLowerCase() === "high" && String(r.status).toLowerCase() !== "mitigated").length;
+    const overallCompliance = (() => {
+      const v = state.compliance.find(f => String(f.name).toLowerCase().includes("overall"));
+      if (v && typeof v.score === "number") return v.score;
+      // compute average of provided frameworks
+      const scores = state.compliance.map(f => f.score).filter(x => typeof x === "number");
+      if (!scores.length) return null;
+      return Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);
+    })();
+
+    const posture = postureFrom({ critical, high, overallCompliance });
+    el("postureLabel").textContent = posture.label;
+    el("postureBadge").textContent = posture.badge;
+    el("postureBadge").className = "badge " + (posture.tone ? `badge-${posture.tone}` : "");
+
+    el("kpiCritical").textContent = String(critical);
+    el("kpiHigh").textContent = String(high);
+    el("kpiCompliance").textContent = overallCompliance === null ? "—" : `${overallCompliance}%`;
+
+    // Top driver: highest scoring active/monitoring risk
+    const top = [...state.risks].filter(r => String(r.status).toLowerCase() !== "mitigated").sort((a,b)=>b.score-a.score)[0];
+    el("kpiDriver").textContent = top ? top.category : "—";
+    el("postureDrivers").textContent = top
+      ? `Top driver: ${top.title}. Focus on ${top.recommendations?.[0] || "closing the primary gap"}`
+      : "No active risks found in the snapshot.";
+  }
+
+  function sortRisks(list){
+    const sevRank = (s) => ({critical:4, high:3, medium:2, low:1}[String(s||"").toLowerCase()] || 2);
+    const trendRank = (t) => ({up:3, flat:2, down:1}[String(t||"").toLowerCase()] || 2);
+    const updated = (d) => Date.parse(d||"") || 0;
+
+    const sort = state.sort;
+    return list.sort((a,b)=>{
+      if (sort === "score_desc") return b.score - a.score;
+      if (sort === "severity_desc") return sevRank(b.severity) - sevRank(a.severity) || (b.score-a.score);
+      if (sort === "trend_desc") return trendRank(b.trend) - trendRank(a.trend) || (b.score-a.score);
+      if (sort === "updated_desc") return updated(b.lastUpdated) - updated(a.lastUpdated) || (b.score-a.score);
+      return b.score - a.score;
+    });
+  }
+
+  function chip(text){
+    return `<span class="tag">${escapeHtml(text)}</span>`;
+  }
+
+  function escapeHtml(s){
+    return String(s||"").replace(/[&<>"']/g, (c)=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+  }
+
+  function badgeForSeverity(sev){
+    const s = String(sev||"").toLowerCase();
+    if (s==="critical") return `<span class="badge badge-danger">CRITICAL</span>`;
+    if (s==="high") return `<span class="badge badge-warning">HIGH</span>`;
+    if (s==="medium") return `<span class="badge badge-info">MEDIUM</span>`;
+    return `<span class="badge badge-success">LOW</span>`;
+  }
+
+  function trendIcon(tr){
+    const t = String(tr||"").toLowerCase();
+    if (t==="up") return `<span class="text-danger font-semibold">↑</span>`;
+    if (t==="down") return `<span class="text-success font-semibold">↓</span>`;
+    return `<span class="text-muted-foreground font-semibold">→</span>`;
+  }
+
+  function renderRisks(){
+    const listEl = el("risksList");
+    if(!listEl) return;
+
+    let filtered = state.risks.slice();
+
+    if(state.category !== "all"){
+      filtered = filtered.filter(r => r.category === state.category);
+    }
+    if(state.reg !== "all"){
+      filtered = filtered.filter(r => Array.isArray(r.regulations) && r.regulations.includes(state.reg));
+    }
+
+    filtered = sortRisks(filtered);
+
+    if(!filtered.length){
+      listEl.innerHTML = `<div class="note">No risks match your filters.</div>`;
+      return;
+    }
+
+    listEl.innerHTML = filtered.map(r => {
+      const regs = (r.regulations||[]).map(chip).join(" ");
+      const systems = (r.systems||[]).map(chip).join(" ");
+      const recs = (r.recommendations||[]).slice(0,3).map(x => `<li class="text-sm text-muted-foreground">${escapeHtml(x)}</li>`).join("");
+      const ev = (r.evidence||[]).slice(0,2).map(x => `<li class="text-sm text-muted-foreground">${escapeHtml(x)}</li>`).join("");
+
+      return `
+        <div class="rounded-2xl border border-border/70 bg-card/50 p-5">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+            <div>
+              <div class="flex flex-wrap items-center gap-2">
+                ${badgeForSeverity(r.severity)}
+                <span class="text-xs text-muted-foreground">${escapeHtml(r.status || "—")}</span>
+                <span class="text-xs text-muted-foreground">•</span>
+                <span class="text-xs text-muted-foreground">Score <span class="mono">${r.score}</span>/100</span>
+                <span class="text-xs text-muted-foreground">•</span>
+                <span class="text-xs text-muted-foreground">Trend ${trendIcon(r.trend)}</span>
+              </div>
+              <div class="mt-2 text-lg font-semibold">${escapeHtml(r.title)}</div>
+              <div class="mt-1 text-sm text-muted-foreground">${escapeHtml(r.category || "Uncategorized")}</div>
+            </div>
+            <div class="text-xs text-muted-foreground">
+              Updated <span class="mono">${escapeHtml(r.lastUpdated || "—")}</span>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div class="rounded-xl border border-border/70 bg-background/50 p-3">
+              <div class="text-xs text-muted-foreground">Regulatory Scope</div>
+              <div class="mt-2 flex flex-wrap gap-2">${regs || `<span class="text-sm text-muted-foreground">—</span>`}</div>
+            </div>
+            <div class="rounded-xl border border-border/70 bg-background/50 p-3">
+              <div class="text-xs text-muted-foreground">Systems</div>
+              <div class="mt-2 flex flex-wrap gap-2">${systems || `<span class="text-sm text-muted-foreground">—</span>`}</div>
+            </div>
+            <div class="rounded-xl border border-border/70 bg-background/50 p-3">
+              <div class="text-xs text-muted-foreground">Impacted Subjects</div>
+              <div class="mt-2 text-base font-semibold">${Number(r.impactedSubjects||0).toLocaleString()}</div>
+              <div class="text-xs text-muted-foreground mt-1">Adds ${subjectPoints(r.impactedSubjects)} points</div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="rounded-xl border border-border/70 bg-background/50 p-3">
+              <div class="text-sm font-medium">Evidence</div>
+              <ul class="mt-2 list-disc pl-5 space-y-1">${ev || `<li class="text-sm text-muted-foreground">No evidence captured in snapshot.</li>`}</ul>
+            </div>
+            <div class="rounded-xl border border-border/70 bg-background/50 p-3">
+              <div class="text-sm font-medium">Recommended Actions</div>
+              <ul class="mt-2 list-disc pl-5 space-y-1">${recs || `<li class="text-sm text-muted-foreground">No actions captured in snapshot.</li>`}</ul>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function renderMetrics(){
+    const grid = el("metricsGrid");
+    if(!grid) return;
+    grid.innerHTML = (state.metrics||[]).map(m => {
+      const v = Number(m.value||0);
+      const t = Number(m.target||0);
+      const delta = v - t;
+      const tone = delta >= 0 ? "success" : (v >= t-10 ? "info" : "warning");
+      return `
+        <div class="rounded-2xl border border-border/70 bg-card/50 p-5">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-sm text-muted-foreground">${escapeHtml(m.key)}</div>
+              <div class="mt-1 text-2xl font-semibold">${v}%</div>
+              <div class="mt-2 text-sm text-muted-foreground">${escapeHtml(m.note || "")}</div>
+            </div>
+            <div class="badge badge-${tone}">Target ${t}%</div>
+          </div>
+          <div class="mt-4 h-2 rounded-full bg-border/60 overflow-hidden">
+            <div class="h-full bg-primary" style="width:${Math.max(0, Math.min(100, v))}%"></div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function renderCompliance(){
+    const list = el("complianceList");
+    if(!list) return;
+    list.innerHTML = (state.compliance||[]).map(f => {
+      const score = typeof f.score === "number" ? f.score : null;
+      const tone = score === null ? "info" : (score >= 85 ? "success" : (score >= 75 ? "info" : "warning"));
+      const basis = f.basis || {};
+      const topGaps = (f.topGaps || []).slice(0,3).map(g => `<li class="text-sm text-muted-foreground">${escapeHtml(g)}</li>`).join("");
+      const sources = (basis.evidenceSources||[]).slice(0,4).map(s => `<span class="tag">${escapeHtml(s)}</span>`).join(" ");
+      return `
+        <div class="rounded-2xl border border-border/70 bg-card/50 p-5">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+            <div>
+              <div class="text-lg font-semibold">${escapeHtml(f.name)}</div>
+              <div class="text-sm text-muted-foreground">Controls assessed: <span class="mono">${basis.controlsAssessed ?? "—"}</span> • Gaps: <span class="mono">${basis.gaps ?? "—"}</span></div>
+            </div>
+            <div class="badge badge-${tone}">${score === null ? "—" : `${score}%`}</div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="rounded-xl border border-border/70 bg-background/50 p-3">
+              <div class="text-sm font-medium">Score basis</div>
+              <div class="mt-2 text-sm text-muted-foreground">Evidence sources</div>
+              <div class="mt-2 flex flex-wrap gap-2">${sources || `<span class="text-sm text-muted-foreground">—</span>`}</div>
+            </div>
+            <div class="rounded-xl border border-border/70 bg-background/50 p-3">
+              <div class="text-sm font-medium">Top gaps</div>
+              <ul class="mt-2 list-disc pl-5 space-y-1">${topGaps || `<li class="text-sm text-muted-foreground">No gaps listed in snapshot.</li>`}</ul>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function initTabs(){
+    const btns = document.querySelectorAll(".tab-btn");
+    btns.forEach(b=>{
+      b.addEventListener("click", ()=>{
+        btns.forEach(x=>x.classList.remove("is-active"));
+        b.classList.add("is-active");
+        const t=b.getAttribute("data-tab");
+        ["risks","metrics","compliance"].forEach(name=>{
+          const panel = el("tab-"+name);
+          if(!panel) return;
+          panel.classList.toggle("hidden", name!==t);
+        });
+      });
+    });
+  }
+
+  function initControls(){
+    const cat = el("categoryFilter");
+    const reg = el("regFilter");
+    const sort = el("sortBy");
+
+    if(cat) cat.addEventListener("change", ()=>{ state.category = cat.value; renderRisks(); });
+    if(reg) reg.addEventListener("change", ()=>{ state.reg = reg.value; renderRisks(); });
+    if(sort) sort.addEventListener("change", ()=>{ state.sort = sort.value; renderRisks(); });
+
+    const refresh = el("refreshBtn");
+    if(refresh) refresh.addEventListener("click", async ()=>{
+      await boot();
+    });
+
+    const exportBtn = el("exportBtn");
+    if(exportBtn) exportBtn.addEventListener("click", ()=>{
+      const payload = {
+        ok: true,
+        exportedAt: new Date().toISOString(),
+        asOf: state.asOf,
+        risks: state.risks,
+        metrics: state.metrics,
+        compliance: state.compliance
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"});
+      const a=document.createElement("a");
+      a.href=URL.createObjectURL(blob);
+      a.download=`cybercorrect-privacy-risk-radar-${(state.asOf||"snapshot").replace(/[:\s]/g,'-')}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+    });
+  }
+
+  async function boot(){
+    setMode(MODE.SNAPSHOT, null);
+    await loadSnapshots();
+    setMode(MODE.SNAPSHOT, state.asOf);
+    buildFilters();
+    renderExecutive();
+    renderRisks();
+    renderMetrics();
+    renderCompliance();
+  }
+
+  // Inject some minimal component styles if not present
+  function ensureStyles(){
+    if(document.getElementById("radarInlineStyles")) return;
+    const s=document.createElement("style");
+    s.id="radarInlineStyles";
+    s.textContent = `
+      .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.65rem 1rem;border-radius:9999px;font-weight:600;border:1px solid hsl(var(--border));transition:transform .2s, background .2s, color .2s, border-color .2s; min-height:44px;}
+      .btn:hover{transform:translateY(-1px);}
+      .btn-primary{background:hsl(var(--primary));color:hsl(var(--primary-foreground));border-color:hsl(var(--primary));}
+      .btn-primary:hover{filter:brightness(1.03);}
+      .btn-secondary{background:hsl(var(--card));color:hsl(var(--foreground));}
+      .input{width:100%;padding:.65rem .8rem;border-radius:12px;border:1px solid hsl(var(--border));background:hsl(var(--background));color:hsl(var(--foreground));}
+      .card{border-radius:20px;border:1px solid hsl(var(--border));background: hsl(var(--card));box-shadow: 0 10px 30px rgba(0,0,0,.08);}
+      .note{padding:12px 14px;border-radius:16px;border:1px dashed hsl(var(--border));background:hsl(var(--card));color:hsl(var(--muted-foreground));}
+      .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+      .tag{display:inline-flex;align-items:center;border:1px solid hsl(var(--border));background:hsl(var(--background));border-radius:9999px;padding:.2rem .55rem;font-size:.75rem;color:hsl(var(--muted-foreground));}
+      .badge{display:inline-flex;align-items:center;justify-content:center;border-radius:9999px;padding:.25rem .6rem;font-size:.75rem;font-weight:700;border:1px solid hsl(var(--border));background:hsl(var(--background));}
+      .badge-danger{border-color: hsl(var(--destructive)); color: hsl(var(--destructive));}
+      .badge-warning{border-color: hsl(var(--warning, 38 92% 50%)); color: hsl(var(--warning, 38 92% 50%));}
+      .badge-info{border-color: hsl(var(--primary)); color: hsl(var(--primary));}
+      .badge-success{border-color: hsl(var(--success, 142 76% 36%)); color: hsl(var(--success, 142 76% 36%));}
+      .kpi{border:1px solid hsl(var(--border));background:hsl(var(--background));border-radius:16px;padding:12px;}
+      .kpi-label{font-size:.75rem;color:hsl(var(--muted-foreground));}
+      .kpi-value{font-size:1.25rem;font-weight:800;margin-top:.25rem;}
+      .tab-btn{padding:.5rem .85rem;border-radius:9999px;border:1px solid hsl(var(--border));background:hsl(var(--background));font-weight:700;font-size:.85rem;color:hsl(var(--muted-foreground));}
+      .tab-btn.is-active{background:hsl(var(--primary));border-color:hsl(var(--primary));color:hsl(var(--primary-foreground));}
+    `;
+    document.head.appendChild(s);
+  }
+
+  document.addEventListener("DOMContentLoaded", async ()=>{
+    // Only run on the radar page (guards if someone reuses script)
+    if(!document.body || !document.getElementById("risksList")) return;
+    ensureStyles();
+    initTabs();
+    initControls();
+    await boot();
+  });
+})();
+</script>
+</body>
+</html>

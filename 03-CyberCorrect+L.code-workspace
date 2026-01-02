@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../04-CyberCaution/static-site"
+		},
+		{
+			"path": "../05-vendorsoluce/vendorsoluce-static"
+		}
+	],
+	"settings": {
+		"powershell.cwd": "static-site"
+	}
+}

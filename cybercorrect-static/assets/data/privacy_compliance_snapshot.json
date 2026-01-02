@@ -1,0 +1,71 @@
+{
+  "asOf": "2026-01-01",
+  "frameworks": [
+    {
+      "name": "GDPR",
+      "score": 78,
+      "basis": {
+        "controlsAssessed": 42,
+        "gaps": 9,
+        "evidenceSources": [
+          "Data map v1",
+          "Consent audit",
+          "Vendor DPA register"
+        ]
+      },
+      "topGaps": [
+        "Consent enforcement",
+        "Retention schedule",
+        "Processor SLAs"
+      ]
+    },
+    {
+      "name": "CCPA/CPRA",
+      "score": 82,
+      "basis": {
+        "controlsAssessed": 28,
+        "gaps": 5,
+        "evidenceSources": [
+          "Do Not Sell flow",
+          "Privacy notice review"
+        ]
+      },
+      "topGaps": [
+        "Opt-out propagation",
+        "Sensitive data disclosures"
+      ]
+    },
+    {
+      "name": "ISO/IEC 27701",
+      "score": 74,
+      "basis": {
+        "controlsAssessed": 31,
+        "gaps": 8,
+        "evidenceSources": [
+          "PIMS policy pack",
+          "Vendor assessment"
+        ]
+      },
+      "topGaps": [
+        "Third-party management",
+        "Privacy by design documentation"
+      ]
+    },
+    {
+      "name": "NIST Privacy Framework",
+      "score": 76,
+      "basis": {
+        "controlsAssessed": 36,
+        "gaps": 7,
+        "evidenceSources": [
+          "PF self-assessment",
+          "Risk register"
+        ]
+      },
+      "topGaps": [
+        "Govern-P policies",
+        "Control monitoring"
+      ]
+    }
+  ]
+}

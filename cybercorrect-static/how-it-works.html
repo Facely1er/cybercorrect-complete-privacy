@@ -1,19 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>How It Works — CyberCorrect</title>
-  <meta name="description" content="How CyberCorrect turns privacy requirements into an execution-ready plan." />
-  <!-- CyberCorrect Theme Colors -->
-  <link rel="stylesheet" href="assets/css/cybercorrect-theme.css" />
-  <!-- CyberCaution UI CSS (reused for alignment) -->
-  <link rel="stylesheet" href="assets/css/app.css" />
-    
-  <!-- Tailwind CSS (compiled) -->
-  <link rel="stylesheet" href="assets/css/tailwind.css" />
+<meta content="How CyberCorrect turns privacy requirements into an execution-ready plan." name="description"/>
 <script>
     // Apply theme immediately to prevent flash
     (function() {
@@ -28,7 +20,13 @@
       } catch (e) {}
     })();
   </script>
-  </head>
+<!-- Tailwind CSS (compiled) -->
+<link href="assets/css/tailwind.css" rel="stylesheet"/>
+<!-- CyberCaution UI CSS (shared UI system) -->
+<link href="assets/css/app.css" rel="stylesheet"/>
+<!-- CyberCorrect Theme Overrides -->
+<link href="assets/css/cybercorrect-theme.css" rel="stylesheet"/>
+</head>
 <body class="min-h-screen bg-background text-foreground transition-colors duration-200 flex flex-col">
   <nav class="fixed top-0 left-0 right-0 z-50 shadow-lg border-b transition-all duration-300 glass-nav overflow-visible" style="--nav-height: 64px; height: var(--nav-height,64px);">
     <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 w-full relative z-50 overflow-visible h-full">
@@ -150,6 +148,24 @@
 
   <main class="flex-1 pt-[var(--nav-height,64px)] relative">
     <div class="relative z-10 w-full">
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb" class="sticky z-40 w-full h-10 sm:h-11 text-sm border-b border-border transition-colors px-4 sm:px-6 lg:px-8 flex items-center backdrop-blur-sm bg-background/95" style="top: var(--nav-height, 64px);">
+            <div class="max-w-7xl mx-auto w-full">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-1">
+                        <div class="flex items-center">
+                            <a class="transition-colors flex items-center text-muted-foreground hover:text-primary" href="index.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home h-4 w-4 mr-1"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>Home</a>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right h-4 w-4 flex-shrink-0 text-muted-foreground"><path d="m9 18 6-6-6-6"></path></svg>
+                        <div class="flex items-center">
+                            <span class="font-medium flex items-center text-primary">How It Works</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 ml-4"></div>
+                </div>
+            </div>
+        </nav>
       <div class="container py-10">
         <section class="modern-card p-8 md:p-12">
           <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
@@ -158,54 +174,48 @@
                 <span class="w-2 h-2 rounded-full bg-primary"></span>
                 Execution flow
               </div>
-              <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">From data → obligations → actions.</h1>
-              <p class="text-lg text-muted-foreground">CyberCorrect is a workflow for privacy execution. It produces clear, reusable artifacts you can defend in audits and actually run in operations.</p>
+              <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">A practical privacy execution workflow.</h1>
+              <p class="text-lg text-muted-foreground">CyberCorrect is a structured workflow designed to help teams detect exposure, map data reality, and operationalize remediation — with defensible outputs.</p>
             </div>
             <div class="flex flex-col sm:flex-row gap-3">
-              <a href="https://app.cybercorrect.com" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow transition-all">Start Assessment</a>
+              <a href="https://app.cybercorrect.com" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow transition-all">Start Privacy Exposure Check</a>
               <a href="pricing.html" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-muted hover:bg-muted/80 text-foreground font-semibold transition-colors">View Pricing</a>
             </div>
           </div>
         </section>
 
-        <section class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+        <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           <div class="modern-card p-6">
             <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-primary"><path d="M21 16V8"></path><path d="M18 16H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h13"></path><path d="M7 12h10"></path></svg>
             </div>
-            <h3 class="font-bold text-foreground mb-1">1) Inventory</h3>
-            <p class="text-sm text-muted-foreground">Map data categories, purposes, systems, processors, and retention. Export a processing register structure.</p>
+            <h3 class="font-bold text-foreground mb-1">Privacy Exposure Radar</h3>
+            <p class="text-sm text-muted-foreground">Detect exposure concentration + weak points.</p>
           </div>
           <div class="modern-card p-6">
             <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-accent"><path d="M12 2v20"></path><path d="M2 12h20"></path><path d="m4.93 4.93 14.14 14.14"></path><path d="m19.07 4.93-14.14 14.14"></path></svg>
             </div>
-            <h3 class="font-bold text-foreground mb-1">2) Obligation mapping</h3>
-            <p class="text-sm text-muted-foreground">Attach applicable requirements (GDPR/CCPA/NIST PF/ISO 27701) to the real data flows.</p>
-          </div>
-          <div class="modern-card p-6">
-            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-primary"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
-            </div>
-            <h3 class="font-bold text-foreground mb-1">3) Controls & gaps</h3>
-            <p class="text-sm text-muted-foreground">Score maturity, identify gaps, and prioritize remediation with clear ownership and timelines.</p>
+            <h3 class="font-bold text-foreground mb-1">Data Mapping Platform</h3>
+            <p class="text-sm text-muted-foreground">Map processing activities + flows + ownership + obligations.</p>
           </div>
           <div class="modern-card p-6">
             <div class="w-12 h-12 rounded-xl bg-success/10 flex items-center justify-center mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-success"><path d="M20 6 9 17l-5-5"></path></svg>
             </div>
-            <h3 class="font-bold text-foreground mb-1">4) Roadmap</h3>
-            <p class="text-sm text-muted-foreground">Generate an execution plan: milestones, artifacts, evidence, and continuous update cadence.</p>
+            <h3 class="font-bold text-foreground mb-1">Governance Portal</h3>
+            <p class="text-sm text-muted-foreground">Track actions + evidence + DSAR/audit workflows.</p>
           </div>
         </section>
 
         <section class="modern-card p-8 md:p-10 mt-8">
           <h2 class="text-2xl font-bold text-foreground mb-3">Outputs you can take to procurement, counsel, and auditors</h2>
           <ul class="grid md:grid-cols-2 gap-3 text-muted-foreground">
-            <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Processing register / inventory structure (import/export-ready)</li>
-            <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Obligation-to-data-flow traceability</li>
-            <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Gap list + prioritized remediation plan</li>
-            <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Evidence checklist and repeatable reporting cadence</li>
+            <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Exposure signals</li>
+            <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Processing register</li>
+            <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Data map exports</li>
+            <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Remediation plan</li>
+            <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Evidence pack</li>
           </ul>
         </section>
       </div>
@@ -283,6 +293,7 @@
         const moonIcon = document.getElementById('moonIcon');
         
         function updateIcons() {
+          if (!sunIcon || !moonIcon) return;
           const isDark = document.documentElement.classList.contains('dark');
           if (isDark) {
             sunIcon.classList.add('hidden');
@@ -293,7 +304,7 @@
           }
         }
         
-        if (toggle) {
+        if (toggle && sunIcon && moonIcon) {
           toggle.addEventListener('click', function() {
             const html = document.documentElement;
             const isDark = html.classList.contains('dark');
@@ -306,9 +317,9 @@
             }
             updateIcons();
           });
+          // Update icons after a brief delay to ensure DOM is ready
+          setTimeout(updateIcons, 0);
         }
-        
-        updateIcons();
       }
       
       // Mobile menu toggle
@@ -339,6 +350,7 @@
         }
       }
       
+      // Initialize on DOM ready
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
           initThemeToggle();

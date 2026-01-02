@@ -1,19 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Pricing — CyberCorrect</title>
-  <meta name="description" content="CyberCorrect pricing tiers for individuals, teams, and organizations." />
-  <!-- CyberCorrect Theme Colors -->
-  <link rel="stylesheet" href="assets/css/cybercorrect-theme.css" />
-  <!-- CyberCaution UI CSS (reused for alignment) -->
-  <link rel="stylesheet" href="assets/css/app.css" />
-    
-  <!-- Tailwind CSS (compiled) -->
-  <link rel="stylesheet" href="assets/css/tailwind.css" />
+<meta content="CyberCorrect pricing tiers for individuals, teams, and organizations." name="description"/>
 <script>
     // Apply theme immediately to prevent flash
     (function() {
@@ -28,7 +20,13 @@
       } catch (e) {}
     })();
   </script>
-  </head>
+<!-- Tailwind CSS (compiled) -->
+<link href="assets/css/tailwind.css" rel="stylesheet"/>
+<!-- CyberCaution UI CSS (shared UI system) -->
+<link href="assets/css/app.css" rel="stylesheet"/>
+<!-- CyberCorrect Theme Overrides -->
+<link href="assets/css/cybercorrect-theme.css" rel="stylesheet"/>
+</head>
 <body class="min-h-screen bg-background text-foreground transition-colors duration-200 flex flex-col">
   <nav class="fixed top-0 left-0 right-0 z-50 shadow-lg border-b transition-all duration-300 glass-nav overflow-visible" style="--nav-height: 64px; height: var(--nav-height,64px);">
     <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 w-full relative z-50 overflow-visible h-full">
@@ -150,6 +148,24 @@
 
   <main class="flex-1 pt-[var(--nav-height,64px)] relative">
     <div class="relative z-10 w-full">
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb" class="sticky z-40 w-full h-10 sm:h-11 text-sm border-b border-border transition-colors px-4 sm:px-6 lg:px-8 flex items-center backdrop-blur-sm bg-background/95" style="top: var(--nav-height, 64px);">
+            <div class="max-w-7xl mx-auto w-full">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-1">
+                        <div class="flex items-center">
+                            <a class="transition-colors flex items-center text-muted-foreground hover:text-primary" href="index.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home h-4 w-4 mr-1"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>Home</a>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right h-4 w-4 flex-shrink-0 text-muted-foreground"><path d="m9 18 6-6-6-6"></path></svg>
+                        <div class="flex items-center">
+                            <span class="font-medium flex items-center text-primary">Pricing</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 ml-4"></div>
+                </div>
+            </div>
+        </nav>
       <div class="container py-10">
         <section class="modern-card p-8 md:p-12">
           <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
@@ -162,7 +178,7 @@
               <p class="text-lg text-muted-foreground max-w-2xl">Start free, then upgrade when you need collaboration, evidence automation, or advanced reporting.</p>
             </div>
             <div class="flex flex-col sm:flex-row gap-3">
-              <a href="https://app.cybercorrect.com" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow transition-all">Start Free</a>
+              <a href="https://app.cybercorrect.com" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow transition-all">Start Privacy Exposure Check</a>
               <a href="contact.html" class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-muted hover:bg-muted/80 text-foreground font-semibold transition-colors">Talk to us</a>
             </div>
           </div>
@@ -175,11 +191,11 @@
             <div class="text-3xl font-bold text-foreground mb-1">$0</div>
             <div class="text-sm text-muted-foreground mb-6">No credit card</div>
             <ul class="space-y-3 text-muted-foreground mb-6">
-              <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Basic inventory & mapping</li>
+              <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Baseline Privacy Exposure Radar</li>
               <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Gap list (limited)</li>
               <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Export starter templates</li>
             </ul>
-            <a href="https://app.cybercorrect.com" class="inline-flex w-full items-center justify-center px-5 py-3 rounded-lg bg-muted hover:bg-muted/80 text-foreground font-semibold transition-colors">Get started</a>
+            <a href="https://app.cybercorrect.com" class="inline-flex w-full items-center justify-center px-5 py-3 rounded-lg bg-muted hover:bg-muted/80 text-foreground font-semibold transition-colors">Start Privacy Exposure Check</a>
           </div>
 
           <div class="modern-card p-8 border-primary/30 bg-gradient-to-b from-primary/10 to-background">
@@ -191,7 +207,7 @@
             <div class="text-3xl font-bold text-foreground mb-1">$49<span class="text-base font-semibold text-muted-foreground">/mo</span></div>
             <div class="text-sm text-muted-foreground mb-6">Billed monthly</div>
             <ul class="space-y-3 text-muted-foreground mb-6">
-              <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Full mapping + obligation links</li>
+              <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Full Data Mapping Platform + roadmap exports</li>
               <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Roadmap generator</li>
               <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Reusable evidence checklists</li>
             </ul>
@@ -204,11 +220,11 @@
             <div class="text-3xl font-bold text-foreground mb-1">Custom</div>
             <div class="text-sm text-muted-foreground mb-6">SSO, roles, integrations</div>
             <ul class="space-y-3 text-muted-foreground mb-6">
-              <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Multi-workspace collaboration</li>
+              <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Governance Portal workflows + multi-team governance</li>
               <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Evidence automation & logs</li>
               <li class="flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-primary mt-2"></span>Audit packages + APIs</li>
             </ul>
-            <a href="contact.html" class="inline-flex w-full items-center justify-center px-5 py-3 rounded-lg bg-muted hover:bg-muted/80 text-foreground font-semibold transition-colors">Contact sales</a>
+            <a href="contact.html" class="inline-flex w-full items-center justify-center px-5 py-3 rounded-lg bg-muted hover:bg-muted/80 text-foreground font-semibold transition-colors">Request Demo</a>
           </div>
         </section>
 
@@ -297,6 +313,7 @@
         const moonIcon = document.getElementById('moonIcon');
         
         function updateIcons() {
+          if (!sunIcon || !moonIcon) return;
           const isDark = document.documentElement.classList.contains('dark');
           if (isDark) {
             sunIcon.classList.add('hidden');
@@ -307,7 +324,7 @@
           }
         }
         
-        if (toggle) {
+        if (toggle && sunIcon && moonIcon) {
           toggle.addEventListener('click', function() {
             const html = document.documentElement;
             const isDark = html.classList.contains('dark');
@@ -320,9 +337,9 @@
             }
             updateIcons();
           });
+          // Update icons after a brief delay to ensure DOM is ready
+          setTimeout(updateIcons, 0);
         }
-        
-        updateIcons();
       }
       
       // Mobile menu toggle
@@ -353,6 +370,7 @@
         }
       }
       
+      // Initialize on DOM ready
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
           initThemeToggle();
