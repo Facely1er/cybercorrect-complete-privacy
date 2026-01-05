@@ -27,7 +27,6 @@ const Pricing = () => {
     monthlyEquivalent: product.monthlyEquivalent,
     billing: product.billing,
     free: product.tier === 'free',
-    popular: product.popular || false,
     tier: product.tier,
     quarterlyDeliverables: product.quarterlyDeliverables || [],
     ongoingAccess: product.ongoingAccess || [],
@@ -127,7 +126,7 @@ const Pricing = () => {
           <Card 
             key={index} 
             className={`relative h-full flex flex-col transition-all hover:shadow-xl dark:border-muted ${
-              plan.popular ? 'border-primary border-2 shadow-lg dark:shadow-primary/10 scale-105' : 'hover:border-primary/50'
+              plan.tier === 'professional' ? 'border-primary border-2 shadow-lg dark:shadow-primary/10' : 'hover:border-primary/50'
             }`}
           >
             <CardHeader className="pb-4">
@@ -215,7 +214,7 @@ const Pricing = () => {
 
               <Button
                 className="w-full mt-auto"
-                variant={plan.free ? "default" : (plan.popular ? "default" : "outline")}
+                variant={plan.free ? "default" : (plan.tier === 'professional' ? "default" : "outline")}
                 size="lg"
                 onClick={async () => {
                   if (plan.free) {
@@ -394,10 +393,13 @@ const Pricing = () => {
                   <div className="flex gap-2 mb-3">
                     <span className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold">
                       <Zap className="h-3.5 w-3.5" />
-                      BEST VALUE
+                      Complete Suite
                     </span>
                     <span className="inline-flex items-center bg-success/10 text-success px-3 py-1 rounded-full text-xs font-semibold">
-                      SAVE ${bundle.savings}
+                      Save ${bundle.savings} ({Math.round((bundle.savings / bundle.products.reduce((sum, pid) => {
+                        const product = ONE_TIME_PRODUCTS.find(p => p.id === pid);
+                        return sum + (product?.price || 0);
+                      }, 0)) * 100)}%)
                     </span>
                   </div>
                   <h3 className="text-2xl font-bold mb-2 text-foreground">{bundle.name}</h3>

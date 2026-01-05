@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  ArrowLeft, 
-  Target, 
-  TrendingUp, 
+import {
+  ArrowLeft,
+  Target,
+  TrendingUp,
   TrendingDown,
   Minus,
   CheckCircle,
@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { EmptyState } from '../../components/ui/EmptyState';
 import { complianceHealthMonitor, ScoreTrend } from '../../utils/compliance';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import { toast } from '../../components/ui/Toaster';
@@ -232,7 +233,7 @@ export const ProgressTracking: React.FC = () => {
                     <Line 
                       type="monotone" 
                       dataKey="score" 
-                      stroke="#0088FE" 
+                      stroke="hsl(var(--primary))" 
                       strokeWidth={2}
                       name="Compliance Score"
                     />
@@ -256,9 +257,11 @@ export const ProgressTracking: React.FC = () => {
             </CardHeader>
             <CardContent>
               {milestones.length === 0 ? (
-                <div className="text-center py-8 text-muted-foreground">
-                  No milestones set
-                </div>
+                <EmptyState
+                  icon={Target}
+                  title="No Milestones Set"
+                  description="Track your compliance progress by setting milestones and goals"
+                />
               ) : (
                 <div className="space-y-4">
                   {milestones.map((milestone) => (

@@ -52,34 +52,39 @@ ALTER TABLE cc_privacy_risk_detections ENABLE ROW LEVEL SECURITY;
 -- ============================================================================
 
 -- Drop existing policies if they exist (prevents multiple permissive policies warning)
+-- Drop both descriptive and short-named policies from previous migrations
 DROP POLICY IF EXISTS "Users can view their own risk detections" ON cc_privacy_risk_detections;
+DROP POLICY IF EXISTS "cc_privacy_risk_detections_select_policy" ON cc_privacy_risk_detections;
 CREATE POLICY "Users can view their own risk detections"
   ON cc_privacy_risk_detections
   FOR SELECT
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING (user_id = (select auth.uid()));
 
 DROP POLICY IF EXISTS "Users can insert their own risk detections" ON cc_privacy_risk_detections;
+DROP POLICY IF EXISTS "cc_privacy_risk_detections_insert_policy" ON cc_privacy_risk_detections;
 CREATE POLICY "Users can insert their own risk detections"
   ON cc_privacy_risk_detections
   FOR INSERT
   TO authenticated
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK (user_id = (select auth.uid()));
 
 DROP POLICY IF EXISTS "Users can update their own risk detections" ON cc_privacy_risk_detections;
+DROP POLICY IF EXISTS "cc_privacy_risk_detections_update_policy" ON cc_privacy_risk_detections;
 CREATE POLICY "Users can update their own risk detections"
   ON cc_privacy_risk_detections
   FOR UPDATE
   TO authenticated
-  USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+  USING (user_id = (select auth.uid()))
+  WITH CHECK (user_id = (select auth.uid()));
 
 DROP POLICY IF EXISTS "Users can delete their own risk detections" ON cc_privacy_risk_detections;
+DROP POLICY IF EXISTS "cc_privacy_risk_detections_delete_policy" ON cc_privacy_risk_detections;
 CREATE POLICY "Users can delete their own risk detections"
   ON cc_privacy_risk_detections
   FOR DELETE
   TO authenticated
-  USING (auth.uid() = user_id);
+  USING (user_id = (select auth.uid()));
 
 -- ============================================================================
 -- Indexes for Performance
@@ -97,6 +102,19 @@ CREATE INDEX IF NOT EXISTS idx_cc_privacy_risk_detections_user_risk_id ON cc_pri
 -- Trigger for updated_at timestamp
 -- ============================================================================
 
+-- Create or replace the function if it doesn't exist (safe for multiple migrations)
+CREATE OR REPLACE FUNCTION update_cc_privacy_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SET search_path = '';
+
+-- Drop trigger if it exists (prevents errors on re-run)
+DROP TRIGGER IF EXISTS update_cc_privacy_risk_detections_updated_at ON cc_privacy_risk_detections;
+
+-- Create the trigger
 CREATE TRIGGER update_cc_privacy_risk_detections_updated_at
   BEFORE UPDATE ON cc_privacy_risk_detections
   FOR EACH ROW

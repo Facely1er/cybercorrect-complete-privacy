@@ -577,8 +577,8 @@ const PrivacyGapAnalyzer = () => {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="score" fill="#3b82f6" name="Compliance Score %" />
-                  <Bar dataKey="gaps" fill="#ef4444" name="Gap Count" />
+                  <Bar dataKey="score" fill="hsl(var(--primary))" name="Compliance Score %" />
+                  <Bar dataKey="gaps" fill="hsl(var(--destructive))" name="Gap Count" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>

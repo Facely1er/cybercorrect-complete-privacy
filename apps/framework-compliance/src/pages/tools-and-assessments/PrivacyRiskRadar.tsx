@@ -8,7 +8,6 @@ import { useJourneyTool } from '@/hooks/useJourneyTool';
 import { 
   Shield, 
   AlertTriangle, 
-  CheckCircle, 
   TrendingUp, 
   TrendingDown, 
   Activity, 
@@ -22,7 +21,8 @@ import {
   RefreshCw,
   ArrowLeft,
   Loader2,
-  BarChart3
+  BarChart3,
+  FileCheck
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from '@/components/ui/Toaster';
@@ -30,6 +30,8 @@ import { privacyRiskDetector, type PrivacyRisk, type RiskCategory, type RiskSeve
 import { privacyMetricsCalculator, type PrivacyMetrics } from '@/services/privacyMetricsCalculator';
 import { complianceScoreService, type ComplianceScores } from '@/services/complianceScoreService';
 import { EmptyState } from '@/components/ui/EmptyState';
+import { BreachIntelligenceTab } from '@/components/privacy-radar/tabs/BreachIntelligenceTab';
+import { RegulatoryActionsTab } from '@/components/privacy-radar/tabs/RegulatoryActionsTab';
 
 const PrivacyRiskRadar = () => {
   usePageTitle('Privacy Risk Radar');
@@ -40,7 +42,6 @@ const PrivacyRiskRadar = () => {
   const [metrics, setMetrics] = useState<PrivacyMetrics | null>(null);
   const [complianceScores, setComplianceScores] = useState<ComplianceScores | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [timeRange, setTimeRange] = useState<'24h' | '7d' | '30d' | '90d'>('7d');
   const [autoRefresh, setAutoRefresh] = useState(false);
   const [isScanning, setIsScanning] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -282,10 +283,12 @@ const PrivacyRiskRadar = () => {
 
       {/* Main Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="risks">Active Risks</TabsTrigger>
+          <TabsTrigger value="breaches">Breach Intelligence</TabsTrigger>
           <TabsTrigger value="metrics">Privacy Metrics</TabsTrigger>
           <TabsTrigger value="compliance">Compliance Scores</TabsTrigger>
+          <TabsTrigger value="regulatory">Regulatory Actions</TabsTrigger>
         </TabsList>
 
         {/* Active Risks Tab */}
@@ -462,6 +465,11 @@ const PrivacyRiskRadar = () => {
               ))}
             </div>
           )}
+        </TabsContent>
+
+        {/* Breach Intelligence Tab */}
+        <TabsContent value="breaches" className="space-y-4 mt-4">
+          <BreachIntelligenceTab />
         </TabsContent>
 
         {/* Privacy Metrics Tab */}
@@ -775,6 +783,11 @@ const PrivacyRiskRadar = () => {
               </CardContent>
             </Card>
           )}
+        </TabsContent>
+
+        {/* Regulatory Actions Tab */}
+        <TabsContent value="regulatory" className="space-y-4 mt-4">
+          <RegulatoryActionsTab />
         </TabsContent>
       </Tabs>
     </div>

@@ -13,17 +13,18 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     
-    --primary: 221.2 83.2% 53.3%;
+    /* CyberCorrect Official Color Palette - Teal Based */
+    --primary: 195 50% 33%;      /* rgb(42, 111, 127) - Primary Teal #2A6F7F */
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 210 40% 96%;
+    --secondary: 210 20% 96%;    /* Light Gray */
     --secondary-foreground: 222.2 84% 4.9%;
     
-    --muted: 210 40% 98%;
+    --muted: 210 20% 98%;        /* Very Light Gray */
     --muted-foreground: 215.4 16.3% 46.9%;
     
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
+    --accent: 188 100% 50%;      /* rgb(0, 229, 255) - Accent Cyan #00E5FF */
+    --accent-foreground: 0 0% 100%;
     
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
@@ -36,22 +37,29 @@
     
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --ring: 195 50% 33%;         /* Primary Teal for focus rings */
     
     --radius: 0.5rem;
 
-    /* CyberCorrect theme variables */
-    --cc-primary: 30 64 175;   /* #1E40AF */
-    --cc-accent:  30 58 138;   /* #1E3A8A */
-    --cc-bg:      248 250 255; /* #F8FAFF */
-    --cc-text:    11 18 32;    /* #0B1220 */
-    --cc-ring:    30 64 175;
-    --cc-muted:   226 232 240; /* slate-200 */
-    --cc-card:    255 255 255; /* white */
-    --cc-border:  203 213 225; /* slate-300 */
-    --cc-success: 34 197 94;   /* green-500 */
-    --cc-warning: 245 158 11;  /* amber-500 */
-    --cc-error:   239 68 68;   /* red-500 */
+    /* CyberCorrect theme variables - Official Palette - Teal Based */
+    --cc-primary: 42 111 127;   /* #2A6F7F - Primary Teal */
+    --cc-accent:  0 229 255;     /* #00E5FF - Accent Cyan */
+    --cc-accent-dark: 58 156 168; /* #3A9CA8 - Secondary Teal */
+    --cc-bg:      255 255 255;  /* #FFFFFF - White */
+    --cc-bg-secondary: 249 250 251; /* #F9FAFB - Light Gray */
+    --cc-text:    17 24 39;     /* #111827 - Dark Gray */
+    --cc-text-secondary: 107 114 128; /* #6B7280 - Medium Gray */
+    --cc-ring:    10 35 66;     /* Primary for focus rings */
+    --cc-muted:   156 163 175;  /* #9CA3AF - Muted Gray */
+    --cc-muted-foreground: 107 114 128; /* #6B7280 */
+    --cc-card:    255 255 255;  /* #FFFFFF - White */
+    --cc-card-hover: 243 244 246; /* #F3F4F6 - Light Gray */
+    --cc-border:  229 231 235;  /* #E5E7EB - Border Gray */
+    --cc-success: 76 175 80;    /* #4CAF50 - Green */
+    --cc-warning: 255 193 7;    /* #FFC107 - Amber */
+    --cc-error:   244 67 54;    /* #F44336 - Red */
+    --cc-popover: 255 255 255;  /* #FFFFFF - White */
+    --cc-popover-foreground: 17 24 39; /* #111827 */
   }
   
   .dark {
@@ -64,8 +72,9 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
     
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 84% 4.9%;
+    /* CyberCorrect Dark Theme - Teal Based */
+    --primary: 195 45% 44%;      /* rgb(58, 156, 168) - Secondary Teal #3A9CA8 (lighter for dark mode) */
+    --primary-foreground: 0 0% 100%;
     
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -73,8 +82,8 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 75.1%;
     
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 188 100% 50%;      /* rgb(0, 229, 255) - Accent Cyan #00E5FF (same) */
+    --accent-foreground: 0 0% 100%;
     
     --destructive: 0 85% 65%;
     --destructive-foreground: 0 0% 100%;
@@ -87,20 +96,27 @@
     
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 217.2 91.2% 59.8%;
+    --ring: 188 100% 50%;        /* Accent Cyan for focus rings in dark mode */
 
-    /* CyberCorrect theme variables - dark mode */
-    --cc-primary: 165 180 252;  /* indigo-300 */
-    --cc-accent:  129 140 248;  /* indigo-400 */
-    --cc-bg:      10 12 16;     /* near black */
-    --cc-text:    230 234 242;  /* off white */
-    --cc-ring:    165 180 252;
-    --cc-muted:   45 55 72;     /* slate-600 */
-    --cc-card:    16 18 24;     /* dark card */
-    --cc-border:  55 65 81;     /* slate-600 */
-    --cc-success: 74 222 128;   /* green-400 */
-    --cc-warning: 251 191 36;   /* amber-400 */
-    --cc-error:   248 113 113;  /* red-400 */
+    /* CyberCorrect theme variables - Dark Theme - Teal Based */
+    --cc-primary: 58 156 168;   /* #3A9CA8 - Secondary Teal (lighter for dark mode) */
+    --cc-accent:  0 229 255;     /* #00E5FF - Accent Cyan (same) */
+    --cc-accent-dark: 42 111 127; /* #2A6F7F - Primary Teal */
+    --cc-bg:      15 23 42;     /* #0F172A - Dark Blue */
+    --cc-bg-secondary: 30 41 59; /* #1E293B - Darker Blue */
+    --cc-text:    226 232 240;  /* #E2E8F0 - Light Gray */
+    --cc-text-secondary: 186 193 205; /* #BAC1CD - Medium Light Gray */
+    --cc-ring:    0 229 255;     /* Accent Cyan for focus rings in dark mode */
+    --cc-muted:   71 85 105;    /* #475569 - Dark Muted */
+    --cc-muted-foreground: 156 163 175; /* #9CA3AF */
+    --cc-card:    30 41 59;     /* #1E293B - Dark Card */
+    --cc-card-hover: 51 65 85;  /* #334155 - Darker Card Hover */
+    --cc-border:  51 65 85;     /* #334155 - Dark Border */
+    --cc-success: 76 175 80;    /* #4CAF50 - Green (same) */
+    --cc-warning: 255 193 7;    /* #FFC107 - Amber (same) */
+    --cc-error:   244 67 54;    /* #F44336 - Red (same) */
+    --cc-popover: 30 41 59;     /* #1E293B - Dark Popover */
+    --cc-popover-foreground: 226 232 240; /* #E2E8F0 */
   }
 }
 

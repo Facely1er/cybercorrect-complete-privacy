@@ -1,0 +1,12 @@
+/* CyberCorrect Official Color Palette - Teal Based (matching privacy portal) */
+:root{
+  --accent: #00E5FF;        /* CyberCorrect Accent Cyan */
+  --accent-2: #3A9CA8;      /* CyberCorrect Secondary Teal */
+  --accent-ink: #2A6F7F;   /* CyberCorrect Primary Teal */
+}
+
+.dark {
+  --accent: #00E5FF;        /* CyberCorrect Accent Cyan (same, matching privacy portal) */
+  --accent-2: #3A9CA8;      /* CyberCorrect Secondary Teal (same) */
+  --accent-ink: #E2E8F0;    /* Light text for dark mode */
+}

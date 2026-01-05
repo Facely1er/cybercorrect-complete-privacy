@@ -1,6 +1,7 @@
 // Regulatory intelligence engine for monitoring and impact analysis
 import { supabase } from '../../lib/supabase';
 import { notificationService } from './notificationService';
+import { rssAggregatorService } from '../../services/rssAggregatorService';
 
 export type RegulatoryUpdateType = 'new_regulation' | 'amendment' | 'guidance' | 'enforcement' | 'other';
 export type ImpactLevel = 'low' | 'medium' | 'high' | 'critical';
@@ -42,11 +43,42 @@ export interface FrameworkTracking {
 class RegulatoryIntelligence {
   /**
    * Monitor regulatory changes
+   * Fetches from RSS Aggregator instead of direct source feeds
    */
   async monitorRegulatoryChanges(frameworks?: string[]): Promise<RegulatoryUpdate[]> {
     try {
-      // In a real implementation, this would fetch from external APIs
-      // For now, fetch from database
+      // Fetch from RSS Aggregator service (centralized feed management)
+      const aggregatedUpdates = await rssAggregatorService.fetchAggregatedUpdates(frameworks);
+
+      // Convert aggregated updates to RegulatoryUpdate format
+      return aggregatedUpdates.map(update => ({
+        id: update.guid || `agg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        framework: update.framework,
+        region: update.region,
+        update_type: this.mapUpdateType(update),
+        title: update.title,
+        description: update.description,
+        impact_level: this.mapImpactLevel(update),
+        published_at: update.publishedAt,
+        metadata: {
+          source: update.source,
+          categories: update.categories,
+          link: update.link,
+          aggregated: true,
+        },
+      }));
+    } catch (error) {
+      console.error('Failed to monitor regulatory changes from RSS Aggregator:', error);
+      // Fallback to database if aggregator fails
+      return this.fallbackToDatabase(frameworks);
+    }
+  }
+
+  /**
+   * Fallback to database if RSS Aggregator is unavailable
+   */
+  private async fallbackToDatabase(frameworks?: string[]): Promise<RegulatoryUpdate[]> {
+    try {
       let query = supabase
         .from('regulatory_updates')
         .select('*')
@@ -63,9 +95,50 @@ class RegulatoryIntelligence {
 
       return (data as RegulatoryUpdate[]) || [];
     } catch (error) {
-      console.error('Failed to monitor regulatory changes:', error);
+      console.error('Fallback to database also failed:', error);
       return [];
     }
+  }
+
+  /**
+   * Map aggregated update type to RegulatoryUpdateType
+   */
+  private mapUpdateType(update: { categories?: string[]; title: string; description: string }): RegulatoryUpdateType {
+    const combined = `${update.title} ${update.description}`.toLowerCase();
+    const categories = (update.categories || []).join(' ').toLowerCase();
+
+    if (combined.includes('new regulation') || combined.includes('new law')) {
+      return 'new_regulation';
+    }
+    if (combined.includes('amendment') || combined.includes('amended')) {
+      return 'amendment';
+    }
+    if (combined.includes('guidance') || combined.includes('guidelines')) {
+      return 'guidance';
+    }
+    if (combined.includes('enforcement') || combined.includes('penalty') || combined.includes('fine')) {
+      return 'enforcement';
+    }
+    return 'other';
+  }
+
+  /**
+   * Map aggregated update to impact level
+   */
+  private mapImpactLevel(update: { categories?: string[]; title: string; description: string }): ImpactLevel {
+    const combined = `${update.title} ${update.description}`.toLowerCase();
+    const categories = (update.categories || []).join(' ').toLowerCase();
+
+    if (combined.match(/\b(critical|urgent|immediate|breach|violation)\b/i)) {
+      return 'critical';
+    }
+    if (combined.match(/\b(high|important|significant|major)\b/i)) {
+      return 'high';
+    }
+    if (combined.match(/\b(medium|moderate|standard)\b/i)) {
+      return 'medium';
+    }
+    return 'low';
   }
 
   /**
@@ -174,44 +247,105 @@ class RegulatoryIntelligence {
 
   /**
    * Get framework-specific updates
+   * Fetches from RSS Aggregator instead of direct database queries
    */
   async getFrameworkUpdates(framework: string, limit: number = 20): Promise<RegulatoryUpdate[]> {
     try {
-      const { data, error } = await supabase
-        .from('regulatory_updates')
-        .select('*')
-        .eq('framework', framework)
-        .order('published_at', { ascending: false })
-        .limit(limit);
+      // Fetch from RSS Aggregator with framework filter
+      const aggregatedUpdates = await rssAggregatorService.fetchAggregatedUpdates([framework]);
 
-      if (error) throw error;
-
-      return (data as RegulatoryUpdate[]) || [];
+      // Convert and limit results
+      return aggregatedUpdates
+        .slice(0, limit)
+        .map(update => ({
+          id: update.guid || `agg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+          framework: update.framework,
+          region: update.region,
+          update_type: this.mapUpdateType(update),
+          title: update.title,
+          description: update.description,
+          impact_level: this.mapImpactLevel(update),
+          published_at: update.publishedAt,
+          metadata: {
+            source: update.source,
+            categories: update.categories,
+            link: update.link,
+            aggregated: true,
+          },
+        }));
     } catch (error) {
-      console.error('Failed to get framework updates:', error);
-      return [];
+      console.error('Failed to get framework updates from RSS Aggregator:', error);
+      // Fallback to database
+      try {
+        const { data, error: dbError } = await supabase
+          .from('regulatory_updates')
+          .select('*')
+          .eq('framework', framework)
+          .order('published_at', { ascending: false })
+          .limit(limit);
+
+        if (dbError) throw dbError;
+        return (data as RegulatoryUpdate[]) || [];
+      } catch (dbError) {
+        console.error('Fallback to database also failed:', dbError);
+        return [];
+      }
     }
   }
 
   /**
    * Get industry-specific updates
+   * Fetches from RSS Aggregator and filters by industry metadata
    */
   async getIndustryUpdates(industry: string, limit: number = 20): Promise<RegulatoryUpdate[]> {
     try {
-      // In a real implementation, filter by industry metadata
-      // For now, return all updates
-      const { data, error } = await supabase
-        .from('regulatory_updates')
-        .select('*')
-        .order('published_at', { ascending: false })
-        .limit(limit);
+      // Fetch from RSS Aggregator
+      const aggregatedUpdates = await rssAggregatorService.fetchAggregatedUpdates();
 
-      if (error) throw error;
+      // Filter by industry (check categories and metadata)
+      const industryLower = industry.toLowerCase();
+      const filtered = aggregatedUpdates.filter(update => {
+        const categories = (update.categories || []).join(' ').toLowerCase();
+        const description = update.description.toLowerCase();
+        return categories.includes(industryLower) || description.includes(industryLower);
+      });
 
-      return (data as RegulatoryUpdate[]) || [];
+      // Convert and limit results
+      return filtered
+        .slice(0, limit)
+        .map(update => ({
+          id: update.guid || `agg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+          framework: update.framework,
+          region: update.region,
+          update_type: this.mapUpdateType(update),
+          title: update.title,
+          description: update.description,
+          impact_level: this.mapImpactLevel(update),
+          published_at: update.publishedAt,
+          metadata: {
+            source: update.source,
+            categories: update.categories,
+            link: update.link,
+            aggregated: true,
+            industry,
+          },
+        }));
     } catch (error) {
-      console.error('Failed to get industry updates:', error);
-      return [];
+      console.error('Failed to get industry updates from RSS Aggregator:', error);
+      // Fallback to database
+      try {
+        const { data, error: dbError } = await supabase
+          .from('regulatory_updates')
+          .select('*')
+          .order('published_at', { ascending: false })
+          .limit(limit);
+
+        if (dbError) throw dbError;
+        return (data as RegulatoryUpdate[]) || [];
+      } catch (dbError) {
+        console.error('Fallback to database also failed:', dbError);
+        return [];
+      }
     }
   }
 

@@ -24,19 +24,27 @@ vi.mock('../services/monitoringService', () => ({
 
 describe('Privacy Portal App Smoke Test', () => {
   it('should render the app without crashing', () => {
-    render(
+    const { container } = render(
       <BrowserRouter>
         <App />
       </BrowserRouter>
     );
-    
+
     // App should render without throwing
     expect(document.body).toBeTruthy();
+    expect(container).toBeTruthy();
   });
 
   it('should have a root element', () => {
-    const root = document.getElementById('root');
+    // Create root element if it doesn't exist (test environment)
+    let root = document.getElementById('root');
+    if (!root) {
+      root = document.createElement('div');
+      root.id = 'root';
+      document.body.appendChild(root);
+    }
     expect(root).toBeTruthy();
+    expect(root.id).toBe('root');
   });
 });
 

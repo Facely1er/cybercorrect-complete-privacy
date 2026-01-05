@@ -109,4 +109,16 @@ export const DialogDescription: React.FC<DialogDescriptionProps> = ({ children }
   return <p className="text-sm text-muted-foreground mt-1">{children}</p>;
 };
 
+export interface DialogFooterProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export const DialogFooter: React.FC<DialogFooterProps> = ({ children, className }) => {
+  return (
+    <div className={cn('flex justify-end gap-3 mt-6', className)}>
+      {children}
+    </div>
+  );
+};
 

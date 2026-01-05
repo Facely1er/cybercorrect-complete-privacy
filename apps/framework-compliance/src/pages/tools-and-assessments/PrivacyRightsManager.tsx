@@ -25,6 +25,7 @@ import { secureStorage } from '../../utils/storage';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { ImportDialog } from '../../components/ui/ImportDialog';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../../components/ui/Dialog';
+import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
 import { validators } from '../../utils/import/jsonValidator';
 import { required, email, minLength, combine } from '../../utils/validation';
 import { logError } from '../../utils/common/logger';
@@ -977,76 +978,37 @@ const PrivacyRightsManager = () => {
       </div>
 
       {/* Confirmation Dialog for Rejecting Requests */}
-      {confirmDialog && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="mx-4 max-w-lg w-full">
-            <Card className="border-2 border-destructive/50 shadow-xl">
-              <CardHeader className="pb-3">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-destructive/10">
-                      <AlertTriangle className="w-6 h-6 text-destructive" />
-                    </div>
-                    <CardTitle className="text-xl">Reject Data Subject Request?</CardTitle>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => {
-                      setConfirmDialog(null);
-                      setRejectionReason('');
-                    }}
-                    disabled={saving}
-                    aria-label="Close dialog"
-                  >
-                    <X className="w-5 h-5" />
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-foreground">
-                  Are you sure you want to reject request {confirmDialog.requestId}? This action will mark the request as rejected and notify the requester.
-                </p>
-                <div>
-                  <label className="block text-sm font-medium mb-2">
-                    Rejection Reason (Optional)
-                  </label>
-                  <textarea
-                    className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary min-h-[100px]"
-                    value={rejectionReason}
-                    onChange={(e) => setRejectionReason(e.target.value)}
-                    placeholder="Provide a reason for rejecting this request..."
-                  />
-                  <p className="text-xs text-muted-foreground mt-1">
-                    This reason will be saved in the request notes and can be included in the response to the requester.
-                  </p>
-                </div>
-
-                <div className="flex gap-3 pt-4">
-                  <Button
-                    variant="outline"
-                    className="flex-1"
-                    onClick={() => {
-                      setConfirmDialog(null);
-                      setRejectionReason('');
-                    }}
-                    disabled={saving}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    className="flex-1 bg-destructive hover:bg-destructive/90 text-destructive-foreground"
-                    onClick={handleConfirmStatusChange}
-                    disabled={saving}
-                  >
-                    {saving ? 'Processing...' : 'Reject Request'}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+      <ConfirmDialog
+        open={confirmDialog?.open ?? false}
+        onOpenChange={(open) => {
+          if (!open) {
+            setConfirmDialog(null);
+            setRejectionReason('');
+          }
+        }}
+        title="Reject Data Subject Request?"
+        description={`Are you sure you want to reject request ${confirmDialog?.requestId}? This action will mark the request as rejected and notify the requester.`}
+        confirmLabel="Reject Request"
+        cancelLabel="Cancel"
+        onConfirm={handleConfirmStatusChange}
+        variant="destructive"
+        loading={saving}
+      >
+        <div>
+          <label className="block text-sm font-medium mb-2">
+            Rejection Reason (Optional)
+          </label>
+          <textarea
+            className="w-full px-3 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary min-h-[100px]"
+            value={rejectionReason}
+            onChange={(e) => setRejectionReason(e.target.value)}
+            placeholder="Provide a reason for rejecting this request..."
+          />
+          <p className="text-xs text-muted-foreground mt-1">
+            This reason will be saved in the request notes and can be included in the response to the requester.
+          </p>
         </div>
-      )}
+      </ConfirmDialog>
 
       {/* Import Dialog */}
       <ImportDialog<DataSubjectRequest>

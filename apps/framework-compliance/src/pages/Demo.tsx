@@ -787,7 +787,7 @@ const Demo = () => {
                   duration: 'Q1 2024',
                   progress: 100,
                   milestones: ['Data inventory complete', 'DPO designated', 'Policy framework established'],
-                  borderColor: '#22c55e'
+                  borderColor: 'hsl(var(--success))'
                 },
                 {
                   id: 'phase-2',
@@ -796,7 +796,7 @@ const Demo = () => {
                   duration: 'Q2 2024',
                   progress: 60,
                   milestones: ['DPIA process implemented', 'Rights management deployed', 'Training in progress'],
-                  borderColor: '#3b82f6'
+                  borderColor: 'hsl(var(--primary))'
                 },
                 {
                   id: 'phase-3',
@@ -805,7 +805,7 @@ const Demo = () => {
                   duration: 'Q3 2024',
                   progress: 0,
                   milestones: ['Automation deployment', 'Advanced analytics', 'Continuous monitoring'],
-                  borderColor: '#9ca3af'
+                  borderColor: 'hsl(var(--muted-foreground))'
                 }
               ].map((phase, idx) => {
                 const phaseBorderClass = phase.status === 'completed' ? styles.phaseBorderCompleted :

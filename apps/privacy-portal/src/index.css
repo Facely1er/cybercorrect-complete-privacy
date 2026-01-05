@@ -13,17 +13,18 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     
-    --primary: 221.2 83.2% 53.3%;
+    /* CyberCorrect Official Color Palette - Teal Based */
+    --primary: 195 50% 33%;      /* rgb(42, 111, 127) - Primary Teal #2A6F7F */
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 210 40% 96%;
+    --secondary: 210 20% 96%;    /* Light Gray */
     --secondary-foreground: 222.2 84% 4.9%;
     
-    --muted: 210 40% 98%;
+    --muted: 210 20% 98%;        /* Very Light Gray */
     --muted-foreground: 215.4 16.3% 46.9%;
     
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
+    --accent: 188 100% 50%;      /* rgb(0, 229, 255) - Accent Cyan #00E5FF */
+    --accent-foreground: 0 0% 100%;
     
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
@@ -36,7 +37,7 @@
     
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --ring: 195 50% 33%;         /* Primary Teal for focus rings */
     
     --radius: 0.5rem;
   }
@@ -51,8 +52,9 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
     
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 84% 4.9%;
+    /* CyberCorrect Dark Theme - Teal Based */
+    --primary: 195 45% 44%;      /* rgb(58, 156, 168) - Secondary Teal #3A9CA8 (lighter for dark mode) */
+    --primary-foreground: 0 0% 100%;
     
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -60,8 +62,8 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 188 100% 50%;      /* rgb(0, 229, 255) - Accent Cyan #00E5FF (same) */
+    --accent-foreground: 0 0% 100%;
     
     --destructive: 0 85% 65%;
     --destructive-foreground: 0 0% 100%;
@@ -74,7 +76,7 @@
     
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 217.2 91.2% 59.8%;
+    --ring: 188 100% 50%;        /* Accent Cyan for focus rings in dark mode */
   }
 }
 

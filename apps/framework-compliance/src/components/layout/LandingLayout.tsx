@@ -11,7 +11,8 @@ import {
   ArrowRight,
   Puzzle as PuzzlePiece,
   CreditCard,
-  Route
+  Route,
+  Radar
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
@@ -92,7 +93,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   }, [isLandingPage]);
 
   // Main navigation structure with direct links (no dropdowns)
-  // Order follows customer journey: Assess → Discover Gaps → Close Gaps → Track
+  // Order follows customer journey: Assess → Discover Gaps → Monitor Risks → Close Gaps → Track
   const mainNavItems: NavItem[] = [
     {
       name: 'Home',
@@ -108,6 +109,11 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       name: 'Your Journey',
       path: '/compliance',
       icon: Route
+    },
+    {
+      name: 'Risk Radar',
+      path: '/toolkit/privacy-risk-radar',
+      icon: Radar
     },
     {
       name: 'Toolkit',

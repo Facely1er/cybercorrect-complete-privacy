@@ -24,7 +24,6 @@ const ProfessionalServices: React.FC = () => {
       ],
       icon: <Shield className="w-6 h-6" />,
       color: 'blue',
-      popular: true,
     },
     {
       id: 'dpia-service',
@@ -42,7 +41,6 @@ const ProfessionalServices: React.FC = () => {
       ],
       icon: <FileText className="w-6 h-6" />,
       color: 'green',
-      popular: false,
     },
     {
       id: 'privacy-rights',
@@ -60,7 +58,6 @@ const ProfessionalServices: React.FC = () => {
       ],
       icon: <Users className="w-6 h-6" />,
       color: 'purple',
-      popular: false,
     },
     {
       id: 'ongoing-advisory',
@@ -78,7 +75,6 @@ const ProfessionalServices: React.FC = () => {
       ],
       icon: <Lock className="w-6 h-6" />,
       color: 'orange',
-      popular: false,
     },
   ];
 
@@ -142,17 +138,8 @@ const ProfessionalServices: React.FC = () => {
             return (
               <div
                 key={service.id}
-                className={`bg-white dark:bg-gray-800 rounded-lg shadow-lg border-2 ${
-                  service.popular ? 'border-blue-500 dark:border-blue-600' : 'border-gray-200 dark:border-gray-700'
-                } p-8 relative`}
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-2 border-gray-200 dark:border-gray-700 p-8 relative"
               >
-                {service.popular && (
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
                 <div className={`inline-flex items-center justify-center w-12 h-12 ${colors.bg} rounded-lg mb-4`}>
                   <div className={colors.text}>
                     {service.icon}

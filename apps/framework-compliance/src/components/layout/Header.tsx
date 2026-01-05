@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, User, Settings, LogOut, Users, ExternalLink, FolderKanban, BookOpen, Route } from 'lucide-react';
+import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, User, Settings, LogOut, Users, ExternalLink, FolderKanban, BookOpen, Route, Radar } from 'lucide-react';
 
 import { Button } from '../ui/Button';
 import { NotificationBell } from '../notifications/NotificationBell';
@@ -28,11 +28,12 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Navigation order follows customer journey: Assess → Discover Gaps → Close Gaps → Track
+  // Navigation order follows customer journey: Assess → Discover Gaps → Monitor Risks → Close Gaps → Track
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
     { name: 'Assessment', href: '/assessment', icon: ClipboardCheck },
     { name: 'Your Journey', href: '/compliance', icon: Route },
+    { name: 'Risk Radar', href: '/toolkit/privacy-risk-radar', icon: Radar },
     { name: 'Toolkit', href: '/toolkit', icon: Wrench },
     { name: 'Project', href: '/project', icon: FolderKanban },
     { name: 'Docs & Guides', href: '/resources', icon: BookOpen },
@@ -50,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
         : 'bg-background/80 backdrop-blur-sm border-transparent'
     }`}>
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between gap-2 min-w-0">
+        <div className="flex h-16 items-center gap-2 min-w-0">
           {/* Logo and Brand */}
           <div className="flex items-center flex-shrink-0 min-w-0">
             <Link to="/" className="flex items-center space-x-2 min-w-0">
@@ -59,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
                 alt={brand.logo.alt} 
                 className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 flex-shrink-0"
               />
-              <div className="hidden md:flex md:flex-col font-bold leading-tight min-w-0">
+              <div className="hidden lg:flex lg:flex-col font-bold leading-tight min-w-0">
                 <span className="text-sm truncate">{brand.companyNameWithTM}</span>
                 <span className="text-xs font-medium truncate">{brand.tagline}</span>
                 <span className="text-xs font-normal text-muted-foreground truncate">by {brand.legal.companyName}</span>
@@ -68,21 +69,21 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-2 flex-shrink-0">
+          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 flex-1 min-w-0 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {navigation.map((item) => {
               const Icon = item.icon;
               return (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`flex items-center space-x-1 lg:space-x-2 px-2 lg:px-4 py-2 rounded-lg text-xs lg:text-sm font-medium transition-all duration-200 flex-shrink-0 whitespace-nowrap ${
                     isActivePath(item.href)
                       ? 'bg-primary text-primary-foreground shadow-sm'
                       : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
                   }`}
                 >
-                  <Icon className="w-4 h-4 flex-shrink-0" />
-                  <span className="whitespace-nowrap">{item.name}</span>
+                  <Icon className="w-3.5 h-3.5 lg:w-4 lg:h-4 flex-shrink-0" />
+                  <span>{item.name}</span>
                 </Link>
               );
             })}
@@ -98,7 +99,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
           </button>
 
           {/* Right side actions */}
-          <div className="hidden md:flex items-center space-x-2 flex-shrink-0">
+          <div className="hidden md:flex items-center space-x-2 flex-shrink-0 ml-auto">
             {/* Privacy Portal Link */}
             <a
               href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'}
