@@ -182,7 +182,7 @@ const Footer: React.FC = () => {
                   to="/faq" 
                   className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5"
                 >
-                  <HelpCircle className="h-2.5 w-2.5 flex-shrink-0" />
+                  <HelpCircle className="h-3 w-3 flex-shrink-0" />
                   <span>FAQ</span>
                 </Link>
               </li>
@@ -191,7 +191,7 @@ const Footer: React.FC = () => {
                   to="/resources" 
                   className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5"
                 >
-                  <BookOpen className="h-2.5 w-2.5 flex-shrink-0" />
+                  <BookOpen className="h-3 w-3 flex-shrink-0" />
                   <span>Documentation</span>
                 </Link>
               </li>
@@ -200,7 +200,7 @@ const Footer: React.FC = () => {
                   to="/contact" 
                   className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5"
                 >
-                  <HelpCircle className="h-2.5 w-2.5 flex-shrink-0" />
+                  <HelpCircle className="h-3 w-3 flex-shrink-0" />
                   <span>Contact</span>
                 </Link>
               </li>
@@ -211,7 +211,7 @@ const Footer: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Fingerprint className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Fingerprint className="h-3 w-3 flex-shrink-0" />
                   <span>Privacy Portal</span>
                   <ExternalLink className="h-2 w-2 ml-0.5" />
                 </a>
