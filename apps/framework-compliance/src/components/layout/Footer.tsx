@@ -53,44 +53,44 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4 py-2 sm:py-2.5">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-3">
           {/* Company Info */}
-          <div className="col-span-2 md:col-span-2 space-y-1 md:pr-4 lg:pr-6">
-            <Link to="/" className="flex items-center gap-1 group">
+          <div className="col-span-2 md:col-span-2 space-y-1.5 md:pr-4 lg:pr-6">
+            <Link to="/" className="flex items-center gap-2 group">
               <img 
                 src="/cybercorrect.png" 
                 alt="CyberCorrect" 
-                className="h-5 w-5 flex-shrink-0 rounded-lg"
+                className="h-8 w-8 flex-shrink-0 rounded-lg"
               />
               <div className="flex flex-col leading-tight">
-                <span className="font-bold text-[10px] leading-tight group-hover:text-primary transition-colors">
+                <span className="font-bold text-xs leading-tight group-hover:text-primary transition-colors">
                   CyberCorrect™
                 </span>
-                <span className="font-medium text-[9px] leading-tight text-muted-foreground">
+                <span className="font-medium text-[10px] leading-tight text-muted-foreground">
                   Privacy Platform
                 </span>
-                <span className="text-[8px] leading-tight text-muted-foreground">by ERMITS</span>
+                <span className="text-[9px] leading-tight text-muted-foreground">by ERMITS</span>
               </div>
             </Link>
-            <p className="text-[9px] text-muted-foreground leading-tight line-clamp-2">
+            <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2">
               Comprehensive privacy compliance solutions aligned with GDPR, CCPA, and the NIST Privacy Framework.
             </p>
-            <p className="text-[8px] text-muted-foreground">
+            <p className="text-[9px] text-muted-foreground">
               CyberCorrect™ v1.0 · © {currentYear} ERMITS. All rights reserved.
             </p>
           </div>
           
           {/* Column 1: Platform */}
-          <div className="space-y-0.5 md:ml-2 lg:ml-4">
-            <h3 className="font-semibold text-[9px] text-foreground flex items-center gap-0.5">
-              <Route className="h-2.5 w-2.5 text-primary" />
+          <div className="space-y-1 md:ml-2 lg:ml-4">
+            <h3 className="font-semibold text-[10px] text-foreground flex items-center gap-1">
+              <Route className="h-3 w-3 text-primary" />
               Platform
             </h3>
-            <ul className="space-y-0 text-[9px] leading-tight">
+            <ul className="space-y-0 text-[10px] leading-tight">
               <li className="leading-none">
                 <Link 
                   to="/assessment" 
                   className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5"
                 >
-                  <Target className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Target className="h-3 w-3 flex-shrink-0" />
                   <span>Assessment</span>
                 </Link>
               </li>
@@ -99,7 +99,7 @@ const Footer: React.FC = () => {
                   to="/compliance" 
                   className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5"
                 >
-                  <Route className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Route className="h-3 w-3 flex-shrink-0" />
                   <span>Your Journey</span>
                 </Link>
               </li>
@@ -108,7 +108,7 @@ const Footer: React.FC = () => {
                   to="/project" 
                   className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5"
                 >
-                  <FolderKanban className="h-2.5 w-2.5 flex-shrink-0" />
+                  <FolderKanban className="h-3 w-3 flex-shrink-0" />
                   <span>Project</span>
                 </Link>
               </li>
@@ -117,7 +117,7 @@ const Footer: React.FC = () => {
                   to="/toolkit" 
                   className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5"
                 >
-                  <Wrench className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Wrench className="h-3 w-3 flex-shrink-0" />
                   <span>Toolkit</span>
                 </Link>
               </li>
@@ -125,18 +125,18 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Column 2: Tools */}
-          <div className="space-y-0.5">
-            <h3 className="font-semibold text-[9px] text-foreground flex items-center gap-0.5">
-              <Wrench className="h-2.5 w-2.5 text-primary" />
+          <div className="space-y-1">
+            <h3 className="font-semibold text-[10px] text-foreground flex items-center gap-1">
+              <Wrench className="h-3 w-3 text-primary" />
               Tools
             </h3>
-            <ul className="space-y-0 text-[9px] leading-tight">
+            <ul className="space-y-0 text-[10px] leading-tight">
               <li className="leading-none">
                 <Link 
                   to="/toolkit/privacy-risk-radar" 
                   className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5"
                 >
-                  <Radar className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Radar className="h-3 w-3 flex-shrink-0" />
                   <span>Risk Radar</span>
                 </Link>
               </li>
@@ -145,7 +145,7 @@ const Footer: React.FC = () => {
                   to="/toolkit/privacy-gap-analyzer" 
                   className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5"
                 >
-                  <BarChart3 className="h-2.5 w-2.5 flex-shrink-0" />
+                  <BarChart3 className="h-3 w-3 flex-shrink-0" />
                   <span>Gap Analyzer</span>
                 </Link>
               </li>
@@ -154,7 +154,7 @@ const Footer: React.FC = () => {
                   to="/toolkit/dpia-generator" 
                   className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5"
                 >
-                  <FileCheck className="h-2.5 w-2.5 flex-shrink-0" />
+                  <FileCheck className="h-3 w-3 flex-shrink-0" />
                   <span>DPIA Generator</span>
                 </Link>
               </li>
@@ -163,7 +163,7 @@ const Footer: React.FC = () => {
                   to="/toolkit/gdpr-mapper" 
                   className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5"
                 >
-                  <Database className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Database className="h-3 w-3 flex-shrink-0" />
                   <span>GDPR Mapper</span>
                 </Link>
               </li>
@@ -171,12 +171,12 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Column 3: Support */}
-          <div className="space-y-0.5">
-            <h3 className="font-semibold text-[9px] text-foreground flex items-center gap-0.5">
-              <HelpCircle className="h-2.5 w-2.5 text-primary" />
+          <div className="space-y-1">
+            <h3 className="font-semibold text-[10px] text-foreground flex items-center gap-1">
+              <HelpCircle className="h-3 w-3 text-primary" />
               Support
             </h3>
-            <ul className="space-y-0 text-[9px] leading-tight">
+            <ul className="space-y-0 text-[10px] leading-tight">
               <li className="leading-none">
                 <Link 
                   to="/faq" 
@@ -220,12 +220,12 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Legal */}
-          <div className="space-y-0.5">
-            <h3 className="font-semibold text-[9px] text-foreground flex items-center gap-0.5">
-              <Shield className="h-2.5 w-2.5 text-primary" />
+          <div className="space-y-1">
+            <h3 className="font-semibold text-[10px] text-foreground flex items-center gap-1">
+              <Shield className="h-3 w-3 text-primary" />
               Legal
             </h3>
-            <ul className="space-y-0 text-[9px] leading-tight">
+            <ul className="space-y-0 text-[10px] leading-tight">
               <li className="leading-none">
                 <Link to="/privacy" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5">
                   <Shield className="h-2.5 w-2.5 flex-shrink-0" />
