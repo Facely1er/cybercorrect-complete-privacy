@@ -13,7 +13,11 @@ import {
   Target,
   Cookie,
   Route,
-  CreditCard
+  CreditCard,
+  Radar,
+  FileCheck,
+  Database,
+  ExternalLink
 } from 'lucide-react';
 
 const Footer: React.FC = () => {
@@ -32,10 +36,10 @@ const Footer: React.FC = () => {
               <div className="mt-1">© {currentYear} ERMITS. All rights reserved.</div>
             </div>
             <div className="flex mt-2 md:mt-0 space-x-4">
-              <Link to="/resources" className="text-xs text-muted-foreground hover:text-primary">Docs & Guides</Link>
+              <Link to="/faq" className="text-xs text-muted-foreground hover:text-primary">FAQ</Link>
+              <Link to="/resources" className="text-xs text-muted-foreground hover:text-primary">Docs</Link>
               <Link to="/contact" className="text-xs text-muted-foreground hover:text-primary">Contact</Link>
               <Link to="/privacy" className="text-xs text-muted-foreground hover:text-primary">Privacy</Link>
-              <Link to="/terms" className="text-xs text-muted-foreground hover:text-primary">Terms</Link>
             </div>
           </div>
         </div>
@@ -43,13 +47,13 @@ const Footer: React.FC = () => {
     );
   }
 
-  // Footer with 4 columns (1 branding + 3 vertical menus)
+  // Footer with 3 navigation columns + Legal (5 columns total including company info)
   return (
     <footer className="bg-muted/30 border-t border-border">
-      <div className="container mx-auto px-4 py-3 sm:py-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      <div className="container mx-auto px-4 py-4 sm:py-5">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
           {/* Company Info */}
-          <div className="col-span-2 md:col-span-1 space-y-2 md:pr-4">
+          <div className="col-span-2 md:col-span-2 space-y-2 md:pr-8 lg:pr-12">
             <Link to="/" className="flex items-center gap-2 group">
               <img 
                 src="/cybercorrect.png" 
@@ -57,8 +61,12 @@ const Footer: React.FC = () => {
                 className="h-8 w-8 flex-shrink-0 rounded-lg"
               />
               <div className="flex flex-col leading-tight">
-                <span className="font-bold text-sm leading-tight group-hover:text-primary transition-colors">CyberCorrect™</span>
-                <span className="font-medium text-xs leading-tight text-muted-foreground">Privacy Platform</span>
+                <span className="font-bold text-sm leading-tight group-hover:text-primary transition-colors">
+                  CyberCorrect™
+                </span>
+                <span className="font-medium text-xs leading-tight text-muted-foreground">
+                  Privacy Platform
+                </span>
                 <span className="text-[10px] leading-tight text-muted-foreground">by ERMITS</span>
               </div>
             </Link>
@@ -70,57 +78,130 @@ const Footer: React.FC = () => {
             </p>
           </div>
           
-          {/* Platform */}
-          <div className="space-y-1.5">
-            <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
-              <Wrench className="h-3.5 w-3.5 text-primary" />
+          {/* Column 1: Platform */}
+          <div className="space-y-1.5 md:ml-4 lg:ml-8">
+            <h3 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
+              <Route className="h-3.5 w-3.5 text-primary" />
               Platform
             </h3>
             <ul className="space-y-1 text-xs">
               <li>
-                <Link to="/assessment" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                <Link 
+                  to="/assessment" 
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                >
                   <Target className="h-3 w-3 flex-shrink-0" />
                   <span>Assessment</span>
                 </Link>
               </li>
               <li>
-                <Link to="/project" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <FolderKanban className="h-3 w-3 flex-shrink-0" />
-                  <span>Project</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/compliance" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                <Link 
+                  to="/compliance" 
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                >
                   <Route className="h-3 w-3 flex-shrink-0" />
                   <span>Your Journey</span>
                 </Link>
               </li>
               <li>
-                <Link to="/toolkit" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <BarChart3 className="h-3 w-3 flex-shrink-0" />
+                <Link 
+                  to="/project" 
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                >
+                  <FolderKanban className="h-3 w-3 flex-shrink-0" />
+                  <span>Project</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/toolkit" 
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                >
+                  <Wrench className="h-3 w-3 flex-shrink-0" />
                   <span>Toolkit</span>
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Column 2: Tools */}
           <div className="space-y-1.5">
-            <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
-              <BookOpen className="h-3.5 w-3.5 text-primary" />
-              Resources
+            <h3 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
+              <Wrench className="h-3.5 w-3.5 text-primary" />
+              Tools
             </h3>
             <ul className="space-y-1 text-xs">
               <li>
-                <Link to="/resources" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <BookOpen className="h-3 w-3 flex-shrink-0" />
-                  <span>Docs & Guides</span>
+                <Link 
+                  to="/toolkit/privacy-risk-radar" 
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                >
+                  <Radar className="h-3 w-3 flex-shrink-0" />
+                  <span>Risk Radar</span>
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
+                <Link 
+                  to="/toolkit/privacy-gap-analyzer" 
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                >
+                  <BarChart3 className="h-3 w-3 flex-shrink-0" />
+                  <span>Gap Analyzer</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/toolkit/dpia-generator" 
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                >
+                  <FileCheck className="h-3 w-3 flex-shrink-0" />
+                  <span>DPIA Generator</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/toolkit/gdpr-mapper" 
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                >
+                  <Database className="h-3 w-3 flex-shrink-0" />
+                  <span>GDPR Mapper</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Support */}
+          <div className="space-y-1.5">
+            <h3 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
+              <HelpCircle className="h-3.5 w-3.5 text-primary" />
+              Support
+            </h3>
+            <ul className="space-y-1 text-xs">
+              <li>
+                <Link 
+                  to="/faq" 
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                >
                   <HelpCircle className="h-3 w-3 flex-shrink-0" />
-                  <span>Contact Us</span>
+                  <span>FAQ</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/resources" 
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                >
+                  <BookOpen className="h-3 w-3 flex-shrink-0" />
+                  <span>Documentation</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/contact" 
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                >
+                  <HelpCircle className="h-3 w-3 flex-shrink-0" />
+                  <span>Contact</span>
                 </Link>
               </li>
               <li>
@@ -132,6 +213,7 @@ const Footer: React.FC = () => {
                 >
                   <Fingerprint className="h-3 w-3 flex-shrink-0" />
                   <span>Privacy Portal</span>
+                  <ExternalLink className="h-2.5 w-2.5 ml-1" />
                 </a>
               </li>
             </ul>
@@ -139,7 +221,7 @@ const Footer: React.FC = () => {
 
           {/* Legal */}
           <div className="space-y-1.5">
-            <h3 className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5">
+            <h3 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
               <Shield className="h-3.5 w-3.5 text-primary" />
               Legal
             </h3>

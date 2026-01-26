@@ -92,7 +92,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
     return () => window.removeEventListener('scroll', handleScrollCta);
   }, [isLandingPage]);
 
-  // Main navigation structure with direct links (no dropdowns)
+  // Simplified primary navigation - only essential workflow items
   // Order follows customer journey: Assess → Discover Gaps → Monitor Risks → Close Gaps → Track
   const mainNavItems: NavItem[] = [
     {
@@ -111,24 +111,9 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
       icon: Route
     },
     {
-      name: 'Risk Radar',
-      path: '/toolkit/privacy-risk-radar',
-      icon: Radar
-    },
-    {
       name: 'Toolkit',
       path: '/toolkit',
       icon: PuzzlePiece
-    },
-    {
-      name: 'Project',
-      path: '/project',
-      icon: PuzzlePiece
-    },
-    {
-      name: 'Docs & Guides',
-      path: '/resources',
-      icon: HelpCircle
     },
     {
       name: 'Pricing',

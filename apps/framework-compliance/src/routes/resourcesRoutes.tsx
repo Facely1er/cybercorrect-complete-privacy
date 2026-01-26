@@ -5,6 +5,7 @@ import ChatInterface from '../pages/support/ChatInterface';
 // Resource Landing Pages
 const ResourcesLanding = lazy(() => import('../pages/ResourcesLanding'));
 const Contact = lazy(() => import('../pages/Contact'));
+const FAQ = lazy(() => import('../pages/FAQ'));
 
 // Compliance Hub
 const Compliance = lazy(() => import('../pages/Compliance'));
@@ -57,6 +58,12 @@ export const resourcesRoutes = [
     element: Contact,
     lazy: true,
   },
+  // FAQ page - standalone
+  {
+    path: 'faq',
+    element: FAQ,
+    lazy: true,
+  },
   // Legacy redirects to consolidated Resources page
   {
     path: 'resources-landing',
@@ -84,7 +91,7 @@ export const resourcesRoutes = [
   { path: '/documentation/getting-started', element: GettingStarted },
   { path: '/documentation/platform-overview', element: PlatformOverview },
   { path: '/documentation/understanding-dashboard', element: UnderstandingDashboard },
-  { path: '/documentation/faqs', element: Faqs },
+  { path: '/documentation/faqs', element: () => <Navigate to="/faq" replace /> },
   { path: '/documentation/privacy-framework-guide', element: PrivacyFrameworkGuide },
   // Guide Routes
   { path: '/guides/data-protection', element: DataProtectionGuide },

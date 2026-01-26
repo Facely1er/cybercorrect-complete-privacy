@@ -37,20 +37,20 @@ export const Header = () => {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 w-full border-b transition-all duration-300 ${
+    <header className={`fixed top-0 left-0 right-0 z-50 w-full max-w-full border-b transition-all duration-300 overflow-hidden ${
       isScrolled 
         ? 'bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 shadow-sm border-border/50' 
         : 'bg-background/80 backdrop-blur-sm border-transparent'
     }`}>
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between gap-2 min-w-0">
+      <div className="container mx-auto px-3 sm:px-4 max-w-full overflow-hidden">
+        <div className="flex h-14 sm:h-16 items-center justify-between gap-1.5 sm:gap-2 min-w-0 max-h-full">
           {/* Logo and Brand */}
           <div className="flex items-center flex-shrink-0 min-w-0">
-            <Link to="/" className="flex items-center space-x-2 min-w-0">
+            <Link to="/" className="flex items-center space-x-1.5 sm:space-x-2 min-w-0">
               <img 
                 src="/logos/cybercorrect-logo.png" 
                 alt={brand.logo.alt} 
-                className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 flex-shrink-0"
+                className="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 lg:h-16 lg:w-16 flex-shrink-0"
               />
               <div className="hidden md:flex md:flex-col font-bold leading-tight min-w-0">
                 <span className="text-sm truncate">{brand.companyNameWithTM}</span>
@@ -84,14 +84,14 @@ export const Header = () => {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
+            className="md:hidden p-1.5 sm:p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex-shrink-0 touch-target"
             aria-label="Toggle mobile menu"
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
           </button>
 
           {/* Right side actions */}
-          <div className="hidden md:flex items-center space-x-2 flex-shrink-0">
+          <div className="hidden md:flex items-center space-x-1.5 sm:space-x-2 flex-shrink-0">
             <ThemeToggle />
             <NotificationDropdown />
             
@@ -99,10 +99,10 @@ export const Header = () => {
             <div className="relative">
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="flex items-center space-x-1 p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="flex items-center space-x-1 p-1.5 sm:p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
-                <User className="w-5 h-5" />
-                <span className="hidden sm:inline text-sm">
+                <User className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="hidden lg:inline text-sm">
                   {user ? (String(profile?.full_name || user.email?.split('@')[0] || 'Account')) : 'Account'}
                 </span>
               </button>

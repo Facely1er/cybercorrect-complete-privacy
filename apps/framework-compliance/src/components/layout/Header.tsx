@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, User, Settings, LogOut, Users, ExternalLink, FolderKanban, BookOpen, Route, Radar } from 'lucide-react';
+import { SunMoon, Moon, Menu, X, Home, ClipboardCheck, Wrench, User, Settings, LogOut, Users, ExternalLink, FolderKanban, BookOpen, Route, Radar, HelpCircle, ChevronDown, LayoutGrid, BarChart3, FileCheck, Database, MessageCircle } from 'lucide-react';
 
 import { Button } from '../ui/Button';
 import { NotificationBell } from '../notifications/NotificationBell';
@@ -15,6 +15,8 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isToolkitDropdownOpen, setIsToolkitDropdownOpen] = useState(false);
+  const [isHelpMenuOpen, setIsHelpMenuOpen] = useState(false);
   const location = useLocation();
   const { brand } = useBrand();
 
@@ -28,16 +30,35 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Navigation order follows customer journey: Assess → Discover Gaps → Monitor Risks → Close Gaps → Track
-  const navigation = [
+  // Simplified primary navigation - only essential workflow items
+  const primaryNavigation = [
     { name: 'Home', href: '/', icon: Home },
     { name: 'Assessment', href: '/assessment', icon: ClipboardCheck },
     { name: 'Your Journey', href: '/compliance', icon: Route },
-    { name: 'Risk Radar', href: '/toolkit/privacy-risk-radar', icon: Radar },
-    { name: 'Toolkit', href: '/toolkit', icon: Wrench },
-    { name: 'Project', href: '/project', icon: FolderKanban },
-    { name: 'Docs & Guides', href: '/resources', icon: BookOpen },
+    { 
+      name: 'Toolkit', 
+      href: '/toolkit', 
+      icon: Wrench,
+      dropdown: [
+        { name: 'All Tools', href: '/toolkit', icon: LayoutGrid },
+        { name: 'Privacy Risk Radar', href: '/toolkit/privacy-risk-radar', icon: Radar },
+        { name: 'Privacy Gap Analyzer', href: '/toolkit/privacy-gap-analyzer', icon: BarChart3 },
+        { name: 'DPIA Generator', href: '/toolkit/dpia-generator', icon: FileCheck },
+        { name: 'GDPR Mapper', href: '/toolkit/gdpr-mapper', icon: Database },
+      ]
+    },
   ];
+
+  // Help menu - secondary navigation
+  const helpMenu = {
+    name: 'Help',
+    icon: HelpCircle,
+    items: [
+      { name: 'FAQ', href: '/faq', icon: HelpCircle },
+      { name: 'Documentation', href: '/resources', icon: BookOpen },
+      { name: 'Contact Support', href: '/contact', icon: MessageCircle },
+    ]
+  };
 
   const isActivePath = (path: string) => {
     if (path === '/') return location.pathname === '/';
@@ -50,7 +71,7 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
         ? 'bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80 shadow-sm border-border/50' 
         : 'bg-background/80 backdrop-blur-sm border-transparent'
     }`}>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 pr-6 md:pr-8">
         <div className="flex h-16 items-center gap-2 min-w-0">
           {/* Logo and Brand */}
           <div className="flex items-center flex-shrink-0 min-w-0">
@@ -70,8 +91,52 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 flex-1 min-w-0 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {navigation.map((item) => {
+            {primaryNavigation.map((item) => {
               const Icon = item.icon;
+              
+              if (item.dropdown) {
+                return (
+                  <div 
+                    key={item.name} 
+                    className="relative"
+                    onMouseEnter={() => setIsToolkitDropdownOpen(true)}
+                    onMouseLeave={() => setIsToolkitDropdownOpen(false)}
+                  >
+                    <Link
+                      to={item.href}
+                      className={`flex items-center space-x-1 lg:space-x-2 px-2 lg:px-4 py-2 rounded-lg text-xs lg:text-sm font-medium transition-all duration-200 flex-shrink-0 whitespace-nowrap ${
+                        isActivePath(item.href)
+                          ? 'bg-primary text-primary-foreground shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
+                      }`}
+                    >
+                      <Icon className="w-3.5 h-3.5 lg:w-4 lg:h-4 flex-shrink-0" />
+                      <span>{item.name}</span>
+                      <ChevronDown className="w-3 h-3 ml-1 flex-shrink-0" />
+                    </Link>
+                    
+                    {isToolkitDropdownOpen && (
+                      <div className="absolute top-full left-0 mt-1 w-64 bg-popover border border-border rounded-lg shadow-lg py-2 z-50">
+                        {item.dropdown.map((subItem) => {
+                          const SubIcon = subItem.icon;
+                          return (
+                            <Link
+                              key={subItem.name}
+                              to={subItem.href}
+                              className="flex items-center space-x-2 px-4 py-2 text-sm hover:bg-accent transition-colors"
+                              onClick={() => setIsToolkitDropdownOpen(false)}
+                            >
+                              <SubIcon className="w-4 h-4" />
+                              <span>{subItem.name}</span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+              
               return (
                 <Link
                   key={item.name}
@@ -112,6 +177,37 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
               <span className="hidden lg:inline">Privacy Portal</span>
               <ExternalLink className="w-3 h-3" />
             </a>
+            
+            {/* Help Menu */}
+            <div className="relative">
+              <button
+                onClick={() => setIsHelpMenuOpen(!isHelpMenuOpen)}
+                onBlur={() => setTimeout(() => setIsHelpMenuOpen(false), 200)}
+                className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                aria-label="Help menu"
+              >
+                <HelpCircle className="h-5 w-5" />
+              </button>
+              
+              {isHelpMenuOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-popover border border-border rounded-lg shadow-lg py-2 z-50">
+                  {helpMenu.items.map((item) => {
+                    const ItemIcon = item.icon;
+                    return (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className="flex items-center space-x-2 px-4 py-2 text-sm hover:bg-accent transition-colors"
+                        onClick={() => setIsHelpMenuOpen(false)}
+                      >
+                        <ItemIcon className="w-4 h-4" />
+                        <span>{item.name}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
             
             <NotificationBell />
             <Button
@@ -175,24 +271,61 @@ const Header: React.FC<HeaderProps> = ({ toggleDarkMode, darkMode }) => {
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-border/50 py-4">
             <nav className="flex flex-col space-y-2">
-              {navigation.map((item) => {
+              {primaryNavigation.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                      isActivePath(item.href)
-                        ? 'bg-primary text-primary-foreground shadow-sm'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <Icon className="w-4 h-4 flex-shrink-0" />
-                    <span>{item.name}</span>
-                  </Link>
+                  <div key={item.name}>
+                    <Link
+                      to={item.href}
+                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                        isActivePath(item.href)
+                          ? 'bg-primary text-primary-foreground shadow-sm'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent hover:shadow-sm'
+                      }`}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <Icon className="w-4 h-4 flex-shrink-0" />
+                      <span>{item.name}</span>
+                    </Link>
+                    {item.dropdown && (
+                      <div className="pl-4 mt-1 space-y-1">
+                        {item.dropdown.map((subItem) => {
+                          const SubIcon = subItem.icon;
+                          return (
+                            <Link
+                              key={subItem.name}
+                              to={subItem.href}
+                              className="flex items-center space-x-3 px-4 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              <SubIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                              <span>{subItem.name}</span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
                 );
               })}
+              
+              {/* Help Menu Items in Mobile */}
+              <div className="border-t border-border/50 pt-2 mt-2">
+                {helpMenu.items.map((item) => {
+                  const ItemIcon = item.icon;
+                  return (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className="flex items-center space-x-3 px-4 py-3 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <ItemIcon className="w-4 h-4 flex-shrink-0" />
+                      <span>{item.name}</span>
+                    </Link>
+                  );
+                })}
+              </div>
             </nav>
             
             {/* Privacy Portal - Mobile */}

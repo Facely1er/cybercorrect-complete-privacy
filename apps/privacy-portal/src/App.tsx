@@ -144,7 +144,7 @@ function App() {
             
             <Header />
             
-            <main id="main-content" className="flex-1 focus:outline-none pt-16" tabIndex={-1}>
+            <main id="main-content" className="flex-1 focus:outline-none pt-14 sm:pt-16" tabIndex={-1}>
               <Routes>
                 {/* Public pages */}
                 <Route path="/" element={<HomePage />} />

@@ -348,13 +348,13 @@ export function HomePage() {
             <span className="text-blue-200">Employer Compliance Portal</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-blue-100 max-w-4xl mx-auto mb-10">
+          <div className="text-lg md:text-xl text-blue-100 max-w-4xl mx-auto mb-10 min-h-[4rem] md:min-h-[5rem] flex items-center justify-center">
             <TextCarousel 
               messages={heroMessages}
               interval={4000}
               className="text-lg md:text-xl text-blue-100 max-w-4xl mx-auto"
             />
-          </p>
+          </div>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
             <Button 
