@@ -18,49 +18,49 @@ export function Footer() {
       <div className="container mx-auto px-4 py-2 sm:py-2.5">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-3">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-2 space-y-2 md:pr-4 lg:pr-6">
-            <Link to="/" className="flex items-center gap-2.5 group">
+          <div className="col-span-2 md:col-span-2 space-y-2.5 md:pr-4 lg:pr-6">
+            <Link to="/" className="flex items-center gap-3 group">
               <img 
                 src="/logos/cybercorrect-logo.png" 
                 alt={brand.logo.alt} 
-                className="h-10 w-10 flex-shrink-0 rounded-lg"
+                className="h-12 w-12 flex-shrink-0 rounded-lg"
               />
               <div className="flex flex-col leading-tight">
-                <span className="font-bold text-sm leading-tight group-hover:text-primary transition-colors">CyberCorrect™</span>
-                <span className="font-medium text-xs leading-tight text-muted-foreground">Privacy Portal</span>
-                <span className="text-[10px] leading-tight text-muted-foreground">by ERMITS</span>
+                <span className="font-bold text-base leading-tight group-hover:text-primary transition-colors">CyberCorrect™</span>
+                <span className="font-medium text-sm leading-tight text-muted-foreground">Privacy Portal</span>
+                <span className="text-xs leading-tight text-muted-foreground">by ERMITS</span>
               </div>
             </Link>
-            <p className="text-xs text-muted-foreground leading-snug line-clamp-2">
+            <p className="text-sm text-muted-foreground leading-snug line-clamp-2">
               {brand.description}
             </p>
-            <p className="text-[10px] text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               CyberCorrect™ v1.0 · © {currentYear} ERMITS. All rights reserved.
             </p>
           </div>
 
           {/* Privacy Portal */}
-          <div className="space-y-1.5 md:ml-2 lg:ml-4">
-            <h3 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
-              <Eye className="h-3.5 w-3.5 text-primary" />
+          <div className="space-y-2 md:ml-2 lg:ml-4">
+            <h3 className="font-semibold text-sm text-foreground flex items-center gap-2">
+              <Eye className="h-4 w-4 text-primary" />
               Privacy Portal
             </h3>
-            <ul className="space-y-0 text-xs leading-tight">
+            <ul className="space-y-0 text-sm leading-none">
               <li className="leading-none">
-                <Link to="/data-rights" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5">
-                  <Eye className="h-3.5 w-3.5 flex-shrink-0" />
+                <Link to="/data-rights" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors py-0">
+                  <Eye className="h-4 w-4 flex-shrink-0" />
                   <span>Exercise Data Rights</span>
                 </Link>
               </li>
               <li className="leading-none">
-                <Link to="/stakeholder-duties" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors py-0.5">
-                  <UserCheck className="h-3.5 w-3.5 flex-shrink-0" />
+                <Link to="/stakeholder-duties" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors py-0">
+                  <UserCheck className="h-4 w-4 flex-shrink-0" />
                   <span>My Privacy Duties</span>
                 </Link>
               </li>
               <li className="leading-none">
-                <Link to="/contact" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors py-0.5">
-                  <HelpCircle className="h-3.5 w-3.5 flex-shrink-0" />
+                <Link to="/contact" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors py-0">
+                  <HelpCircle className="h-4 w-4 flex-shrink-0" />
                   <span>Privacy Support</span>
                 </Link>
               </li>
@@ -68,53 +68,53 @@ export function Footer() {
           </div>
             
           {/* Legal */}
-          <div className="space-y-1.5">
-            <h3 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
-              <Shield className="h-3.5 w-3.5 text-primary" />
+          <div className="space-y-2">
+            <h3 className="font-semibold text-sm text-foreground flex items-center gap-2">
+              <Shield className="h-4 w-4 text-primary" />
               Legal
             </h3>
-            <ul className="space-y-0 text-xs leading-tight">
+            <ul className="space-y-0 text-sm leading-none">
               <li className="leading-none">
                 <a 
                   href={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.cybercorrect.com'}/privacy`}
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors py-0"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Shield className="h-3.5 w-3.5 flex-shrink-0" />
+                  <Shield className="h-4 w-4 flex-shrink-0" />
                   <span>Privacy Policy</span>
                 </a>
               </li>
               <li className="leading-none">
                 <a 
                   href={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.cybercorrect.com'}/terms`}
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors py-0.5"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors py-0"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Lock className="h-3.5 w-3.5 flex-shrink-0" />
+                  <Lock className="h-4 w-4 flex-shrink-0" />
                   <span>Terms of Service</span>
                 </a>
               </li>
               <li className="leading-none">
                 <a 
                   href={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.cybercorrect.com'}/cookies`}
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors py-0.5"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors py-0"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Cookie className="h-3.5 w-3.5 flex-shrink-0" />
+                  <Cookie className="h-4 w-4 flex-shrink-0" />
                   <span>Cookie Policy</span>
                 </a>
               </li>
               <li className="leading-none">
                 <a 
                   href={`${import.meta.env.VITE_FRAMEWORK_COMPLIANCE_URL || 'https://www.cybercorrect.com'}/acceptable-use`}
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors py-0.5"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors py-0"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Shield className="h-3.5 w-3.5 flex-shrink-0" />
+                  <Shield className="h-4 w-4 flex-shrink-0" />
                   <span>Acceptable Use</span>
                 </a>
               </li>
@@ -122,21 +122,21 @@ export function Footer() {
           </div>
 
           {/* Support & Resources */}
-          <div className="space-y-1.5">
-            <h3 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
-              <HelpCircle className="h-3.5 w-3.5 text-primary" />
+          <div className="space-y-2">
+            <h3 className="font-semibold text-sm text-foreground flex items-center gap-2">
+              <HelpCircle className="h-4 w-4 text-primary" />
               Support
             </h3>
-            <ul className="space-y-0 text-xs leading-tight">
+            <ul className="space-y-0 text-sm leading-none">
               <li className="leading-none">
-                <Link to="/faq" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5">
-                  <HelpCircle className="h-3.5 w-3.5 flex-shrink-0" />
+                <Link to="/faq" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors py-0">
+                  <HelpCircle className="h-4 w-4 flex-shrink-0" />
                   <span>FAQ</span>
                 </Link>
               </li>
               <li className="leading-none">
-                <Link to="/contact" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors py-0.5">
-                  <Mail className="h-3.5 w-3.5 flex-shrink-0" />
+                <Link to="/contact" className="text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors py-0">
+                  <Mail className="h-4 w-4 flex-shrink-0" />
                   <span>Contact Support</span>
                 </Link>
               </li>
