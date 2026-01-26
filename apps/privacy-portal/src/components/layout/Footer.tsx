@@ -48,19 +48,19 @@ export function Footer() {
             <ul className="space-y-0 text-[10px] leading-tight">
               <li className="leading-none">
                 <Link to="/data-rights" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5">
-                  <Eye className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Eye className="h-3 w-3 flex-shrink-0" />
                   <span>Exercise Data Rights</span>
                 </Link>
               </li>
               <li className="leading-none">
                 <Link to="/stakeholder-duties" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5">
-                  <UserCheck className="h-2.5 w-2.5 flex-shrink-0" />
+                  <UserCheck className="h-3 w-3 flex-shrink-0" />
                   <span>My Privacy Duties</span>
                 </Link>
               </li>
               <li className="leading-none">
                 <Link to="/contact" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5">
-                  <HelpCircle className="h-2.5 w-2.5 flex-shrink-0" />
+                  <HelpCircle className="h-3 w-3 flex-shrink-0" />
                   <span>Privacy Support</span>
                 </Link>
               </li>
@@ -81,7 +81,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Shield className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Shield className="h-3 w-3 flex-shrink-0" />
                   <span>Privacy Policy</span>
                 </a>
               </li>
@@ -92,7 +92,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Lock className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Lock className="h-3 w-3 flex-shrink-0" />
                   <span>Terms of Service</span>
                 </a>
               </li>
@@ -103,7 +103,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Cookie className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Cookie className="h-3 w-3 flex-shrink-0" />
                   <span>Cookie Policy</span>
                 </a>
               </li>
@@ -114,7 +114,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Shield className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Shield className="h-3 w-3 flex-shrink-0" />
                   <span>Acceptable Use</span>
                 </a>
               </li>
@@ -130,13 +130,13 @@ export function Footer() {
             <ul className="space-y-0 text-[10px] leading-tight">
               <li className="leading-none">
                 <Link to="/faq" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5">
-                  <HelpCircle className="h-2.5 w-2.5 flex-shrink-0" />
+                  <HelpCircle className="h-3 w-3 flex-shrink-0" />
                   <span>FAQ</span>
                 </Link>
               </li>
               <li className="leading-none">
                 <Link to="/contact" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5">
-                  <Mail className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Mail className="h-3 w-3 flex-shrink-0" />
                   <span>Contact Support</span>
                 </Link>
               </li>

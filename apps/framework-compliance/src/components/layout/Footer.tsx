@@ -228,31 +228,31 @@ const Footer: React.FC = () => {
             <ul className="space-y-0 text-[10px] leading-tight">
               <li className="leading-none">
                 <Link to="/privacy" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5">
-                  <Shield className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Shield className="h-3 w-3 flex-shrink-0" />
                   <span>Privacy Policy</span>
                 </Link>
               </li>
               <li className="leading-none">
                 <Link to="/terms" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5">
-                  <Lock className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Lock className="h-3 w-3 flex-shrink-0" />
                   <span>Terms of Service</span>
                 </Link>
               </li>
               <li className="leading-none">
                 <Link to="/acceptable-use" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5">
-                  <FileText className="h-2.5 w-2.5 flex-shrink-0" />
+                  <FileText className="h-3 w-3 flex-shrink-0" />
                   <span>Acceptable Use</span>
                 </Link>
               </li>
               <li className="leading-none">
                 <Link to="/cookies" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5">
-                  <Cookie className="h-2.5 w-2.5 flex-shrink-0" />
+                  <Cookie className="h-3 w-3 flex-shrink-0" />
                   <span>Cookies Policy</span>
                 </Link>
               </li>
               <li className="leading-none">
                 <Link to="/ecommerce#refund-policy" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors py-0.5">
-                  <CreditCard className="h-2.5 w-2.5 flex-shrink-0" />
+                  <CreditCard className="h-3 w-3 flex-shrink-0" />
                   <span>Refund Policy</span>
                 </Link>
               </li>
