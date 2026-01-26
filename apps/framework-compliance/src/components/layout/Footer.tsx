@@ -49,7 +49,7 @@ const Footer: React.FC = () => {
 
   // Footer with 3 navigation columns + Legal (5 columns total including company info)
   return (
-    <footer className="bg-muted/30 border-t border-border">
+    <footer className="bg-muted/30 border-t border-border mt-auto">
       <div className="container mx-auto px-4 py-2 sm:py-2.5">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-3">
           {/* Company Info */}

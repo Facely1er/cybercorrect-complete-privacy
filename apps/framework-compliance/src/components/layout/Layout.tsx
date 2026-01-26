@@ -11,7 +11,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ toggleDarkMode, darkMode }) => {
 
   return (
-    <div className="flex flex-col min-h-screen bg-background overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-background overflow-x-hidden" style={{ minHeight: '100vh' }}>
       <Header 
         toggleDarkMode={toggleDarkMode} 
         darkMode={darkMode} 

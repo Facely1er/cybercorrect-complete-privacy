@@ -123,7 +123,7 @@ const LandingLayout = ({ toggleDarkMode, darkMode }: LandingLayoutProps) => {
   ];
 
   return (
-    <div className={`min-h-screen flex flex-col ${darkMode ? 'dark' : ''} bg-background`}>
+    <div className={`min-h-screen flex flex-col ${darkMode ? 'dark' : ''} bg-background`} style={{ minHeight: '100vh' }}>
       <nav className={`fixed top-0 left-0 right-0 z-20 bg-background/90 backdrop-blur-md transition-all duration-300 ${isScrolled ? 'py-1' : 'py-1'}`}>
         <div className="container mx-auto px-4 overflow-visible">
           <div className="flex justify-between items-center h-14 gap-2 sm:gap-4 min-w-0 overflow-visible">
