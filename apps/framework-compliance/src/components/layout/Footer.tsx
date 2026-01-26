@@ -50,74 +50,74 @@ const Footer: React.FC = () => {
   // Footer with 3 navigation columns + Legal (5 columns total including company info)
   return (
     <footer className="bg-muted/30 border-t border-border">
-      <div className="container mx-auto px-4 py-4 sm:py-5">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
+      <div className="container mx-auto px-4 py-3 sm:py-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
           {/* Company Info */}
-          <div className="col-span-2 md:col-span-2 space-y-2 md:pr-8 lg:pr-12">
-            <Link to="/" className="flex items-center gap-2 group">
+          <div className="col-span-2 md:col-span-2 space-y-1.5 md:pr-6 lg:pr-8">
+            <Link to="/" className="flex items-center gap-1.5 group">
               <img 
                 src="/cybercorrect.png" 
                 alt="CyberCorrect" 
-                className="h-8 w-8 flex-shrink-0 rounded-lg"
+                className="h-6 w-6 flex-shrink-0 rounded-lg"
               />
               <div className="flex flex-col leading-tight">
-                <span className="font-bold text-sm leading-tight group-hover:text-primary transition-colors">
+                <span className="font-bold text-xs leading-tight group-hover:text-primary transition-colors">
                   CyberCorrect™
                 </span>
-                <span className="font-medium text-xs leading-tight text-muted-foreground">
+                <span className="font-medium text-[10px] leading-tight text-muted-foreground">
                   Privacy Platform
                 </span>
-                <span className="text-[10px] leading-tight text-muted-foreground">by ERMITS</span>
+                <span className="text-[9px] leading-tight text-muted-foreground">by ERMITS</span>
               </div>
             </Link>
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <p className="text-[10px] text-muted-foreground leading-snug">
               Comprehensive privacy compliance solutions aligned with GDPR, CCPA, and the NIST Privacy Framework.
             </p>
-            <p className="text-[10px] sm:text-xs text-muted-foreground pt-1">
+            <p className="text-[9px] text-muted-foreground">
               CyberCorrect™ v1.0 · © {currentYear} ERMITS. All rights reserved.
             </p>
           </div>
           
           {/* Column 1: Platform */}
-          <div className="space-y-1.5 md:ml-4 lg:ml-8">
-            <h3 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
-              <Route className="h-3.5 w-3.5 text-primary" />
+          <div className="space-y-1 md:ml-2 lg:ml-4">
+            <h3 className="font-semibold text-[10px] text-foreground flex items-center gap-1">
+              <Route className="h-3 w-3 text-primary" />
               Platform
             </h3>
-            <ul className="space-y-1 text-xs">
+            <ul className="space-y-0.5 text-[10px]">
               <li>
                 <Link 
                   to="/assessment" 
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors"
                 >
-                  <Target className="h-3 w-3 flex-shrink-0" />
+                  <Target className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Assessment</span>
                 </Link>
               </li>
               <li>
                 <Link 
                   to="/compliance" 
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors"
                 >
-                  <Route className="h-3 w-3 flex-shrink-0" />
+                  <Route className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Your Journey</span>
                 </Link>
               </li>
               <li>
                 <Link 
                   to="/project" 
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors"
                 >
-                  <FolderKanban className="h-3 w-3 flex-shrink-0" />
+                  <FolderKanban className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Project</span>
                 </Link>
               </li>
               <li>
                 <Link 
                   to="/toolkit" 
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors"
                 >
-                  <Wrench className="h-3 w-3 flex-shrink-0" />
+                  <Wrench className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Toolkit</span>
                 </Link>
               </li>
@@ -125,45 +125,45 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Column 2: Tools */}
-          <div className="space-y-1.5">
-            <h3 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
-              <Wrench className="h-3.5 w-3.5 text-primary" />
+          <div className="space-y-1">
+            <h3 className="font-semibold text-[10px] text-foreground flex items-center gap-1">
+              <Wrench className="h-3 w-3 text-primary" />
               Tools
             </h3>
-            <ul className="space-y-1 text-xs">
+            <ul className="space-y-0.5 text-[10px]">
               <li>
                 <Link 
                   to="/toolkit/privacy-risk-radar" 
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors"
                 >
-                  <Radar className="h-3 w-3 flex-shrink-0" />
+                  <Radar className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Risk Radar</span>
                 </Link>
               </li>
               <li>
                 <Link 
                   to="/toolkit/privacy-gap-analyzer" 
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors"
                 >
-                  <BarChart3 className="h-3 w-3 flex-shrink-0" />
+                  <BarChart3 className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Gap Analyzer</span>
                 </Link>
               </li>
               <li>
                 <Link 
                   to="/toolkit/dpia-generator" 
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors"
                 >
-                  <FileCheck className="h-3 w-3 flex-shrink-0" />
+                  <FileCheck className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>DPIA Generator</span>
                 </Link>
               </li>
               <li>
                 <Link 
                   to="/toolkit/gdpr-mapper" 
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors"
                 >
-                  <Database className="h-3 w-3 flex-shrink-0" />
+                  <Database className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>GDPR Mapper</span>
                 </Link>
               </li>
@@ -171,88 +171,88 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Column 3: Support */}
-          <div className="space-y-1.5">
-            <h3 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
-              <HelpCircle className="h-3.5 w-3.5 text-primary" />
+          <div className="space-y-1">
+            <h3 className="font-semibold text-[10px] text-foreground flex items-center gap-1">
+              <HelpCircle className="h-3 w-3 text-primary" />
               Support
             </h3>
-            <ul className="space-y-1 text-xs">
+            <ul className="space-y-0.5 text-[10px]">
               <li>
                 <Link 
                   to="/faq" 
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors"
                 >
-                  <HelpCircle className="h-3 w-3 flex-shrink-0" />
+                  <HelpCircle className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>FAQ</span>
                 </Link>
               </li>
               <li>
                 <Link 
                   to="/resources" 
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors"
                 >
-                  <BookOpen className="h-3 w-3 flex-shrink-0" />
+                  <BookOpen className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Documentation</span>
                 </Link>
               </li>
               <li>
                 <Link 
                   to="/contact" 
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors"
                 >
-                  <HelpCircle className="h-3 w-3 flex-shrink-0" />
+                  <HelpCircle className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Contact</span>
                 </Link>
               </li>
               <li>
                 <a 
                   href={import.meta.env.VITE_PRIVACY_PORTAL_URL || 'https://www.portal.cybercorrect.com'} 
-                  className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors"
+                  className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Fingerprint className="h-3 w-3 flex-shrink-0" />
+                  <Fingerprint className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Privacy Portal</span>
-                  <ExternalLink className="h-2.5 w-2.5 ml-1" />
+                  <ExternalLink className="h-2 w-2 ml-0.5" />
                 </a>
               </li>
             </ul>
           </div>
 
           {/* Legal */}
-          <div className="space-y-1.5">
-            <h3 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
-              <Shield className="h-3.5 w-3.5 text-primary" />
+          <div className="space-y-1">
+            <h3 className="font-semibold text-[10px] text-foreground flex items-center gap-1">
+              <Shield className="h-3 w-3 text-primary" />
               Legal
             </h3>
-            <ul className="space-y-1 text-xs">
+            <ul className="space-y-0.5 text-[10px]">
               <li>
-                <Link to="/privacy" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <Shield className="h-3 w-3 flex-shrink-0" />
+                <Link to="/privacy" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors">
+                  <Shield className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Privacy Policy</span>
                 </Link>
               </li>
               <li>
-                <Link to="/terms" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <Lock className="h-3 w-3 flex-shrink-0" />
+                <Link to="/terms" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors">
+                  <Lock className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Terms of Service</span>
                 </Link>
               </li>
               <li>
-                <Link to="/acceptable-use" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <FileText className="h-3 w-3 flex-shrink-0" />
+                <Link to="/acceptable-use" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors">
+                  <FileText className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Acceptable Use</span>
                 </Link>
               </li>
               <li>
-                <Link to="/cookies" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <Cookie className="h-3 w-3 flex-shrink-0" />
+                <Link to="/cookies" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors">
+                  <Cookie className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Cookies Policy</span>
                 </Link>
               </li>
               <li>
-                <Link to="/ecommerce#refund-policy" className="text-muted-foreground hover:text-primary flex items-center gap-1.5 transition-colors">
-                  <CreditCard className="h-3 w-3 flex-shrink-0" />
+                <Link to="/ecommerce#refund-policy" className="text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors">
+                  <CreditCard className="h-2.5 w-2.5 flex-shrink-0" />
                   <span>Refund Policy</span>
                 </Link>
               </li>
