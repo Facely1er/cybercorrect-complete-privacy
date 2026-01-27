@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
               <img 
                 src="/cybercorrect.png" 
                 alt="CyberCorrect" 
-                className="h-10 w-10 flex-shrink-0 rounded-lg"
+                className="h-14 w-14 flex-shrink-0 rounded-lg"
               />
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-sm leading-tight group-hover:text-primary transition-colors">

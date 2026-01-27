@@ -23,7 +23,7 @@ export function Footer() {
               <img 
                 src="/logos/cybercorrect-logo.png" 
                 alt={brand.logo.alt} 
-                className="h-12 w-12 flex-shrink-0 rounded-lg"
+                className="h-14 w-14 flex-shrink-0 rounded-lg"
               />
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-base leading-tight group-hover:text-primary transition-colors">CyberCorrect™</span>
