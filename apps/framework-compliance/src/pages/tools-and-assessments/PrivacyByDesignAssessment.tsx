@@ -6,6 +6,11 @@ import { useJourneyTool } from '../../hooks/useJourneyTool';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/Tabs';
 import { toast } from '../../components/ui/Toaster';
 import { storageAdapter } from '../../utils/storage';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '../../components/ui/Dialog';
+import { Input } from '../../components/ui/Input';
+import { Textarea } from '../../components/ui/Textarea';
+import { Select } from '../../components/ui/Select';
+import { Label } from '../../components/ui/Label';
 import { 
   Shield,
   CheckCircle,
@@ -15,7 +20,10 @@ import {
   Download,
   BarChart3,
   Target,
-  Award
+  Award,
+  X,
+  Save,
+  Trash2
 } from 'lucide-react';
 
 // Progress bar component that uses refs to set dynamic width without inline styles in JSX
@@ -71,6 +79,24 @@ const PrivacyByDesignAssessment = () => {
   const [assessments, setAssessments] = useState<PrivacyByDesignAssessment[]>([]);
   const [loading, setLoading] = useState(true);
   const [isExporting, setIsExporting] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
+  const [editingAssessment, setEditingAssessment] = useState<PrivacyByDesignAssessment | null>(null);
+  const [viewingAssessment, setViewingAssessment] = useState<PrivacyByDesignAssessment | null>(null);
+  const [formData, setFormData] = useState<Partial<PrivacyByDesignAssessment>>({
+    name: '',
+    description: '',
+    systemType: 'new_system',
+    assessor: '',
+    principles: {
+      proactive: { score: 0, notes: '' },
+      default: { score: 0, notes: '' },
+      embedded: { score: 0, notes: '' },
+      full: { score: 0, notes: '' },
+      end_to_end: { score: 0, notes: '' },
+      visibility: { score: 0, notes: '' },
+      respect: { score: 0, notes: '' }
+    }
+  });
 
   const privacyPrinciples = [
     {
@@ -134,11 +160,179 @@ const PrivacyByDesignAssessment = () => {
     }
   };
 
-  // Unused for now but kept for future functionality
-  // const saveAssessments = (updated: PrivacyByDesignAssessment[]) => {
-  //   storageAdapter.setPrivacyByDesignAssessments(updated);
-  //   setAssessments(updated);
-  // };
+  // Calculate overall score from principles (weighted average)
+  const calculateOverallScore = (principles: PrivacyByDesignAssessment['principles']): number => {
+    let totalWeightedScore = 0;
+    let totalWeight = 0;
+    
+    privacyPrinciples.forEach(principle => {
+      const score = principles[principle.id as keyof typeof principles]?.score || 0;
+      totalWeightedScore += score * principle.weight;
+      totalWeight += principle.weight;
+    });
+    
+    return totalWeight > 0 ? Math.round(totalWeightedScore / totalWeight) : 0;
+  };
+
+  // Determine compliance status based on score
+  const getComplianceStatus = (score: number): 'compliant' | 'needs_improvement' | 'non_compliant' => {
+    if (score >= 80) return 'compliant';
+    if (score >= 60) return 'needs_improvement';
+    return 'non_compliant';
+  };
+
+  // Generate recommendations based on principle scores
+  const generateRecommendations = (principles: PrivacyByDesignAssessment['principles']): string[] => {
+    const recommendations: string[] = [];
+    
+    privacyPrinciples.forEach(principle => {
+      const principleData = principles[principle.id as keyof typeof principles];
+      const score = principleData?.score || 0;
+      
+      if (score < 60) {
+        recommendations.push(`Improve ${principle.name}: ${principle.description}`);
+      }
+    });
+    
+    if (recommendations.length === 0) {
+      recommendations.push('All principles are well implemented. Continue monitoring and maintaining privacy by design practices.');
+    }
+    
+    return recommendations;
+  };
+
+  // Save assessments to storage
+  const saveAssessments = (updated: PrivacyByDesignAssessment[]) => {
+    try {
+      storageAdapter.setPrivacyByDesignAssessments(updated);
+      setAssessments(updated);
+      return true;
+    } catch (error) {
+      console.error('Error saving assessments:', error);
+      toast.error('Save Failed', 'Failed to save assessments. Please try again.');
+      return false;
+    }
+  };
+
+  // Handle create new assessment
+  const handleCreateNew = () => {
+    setEditingAssessment(null);
+    setViewingAssessment(null);
+    setFormData({
+      name: '',
+      description: '',
+      systemType: 'new_system',
+      assessor: '',
+      principles: {
+        proactive: { score: 0, notes: '' },
+        default: { score: 0, notes: '' },
+        embedded: { score: 0, notes: '' },
+        full: { score: 0, notes: '' },
+        end_to_end: { score: 0, notes: '' },
+        visibility: { score: 0, notes: '' },
+        respect: { score: 0, notes: '' }
+      }
+    });
+    setShowDialog(true);
+  };
+
+  // Handle edit assessment
+  const handleEdit = (assessment: PrivacyByDesignAssessment) => {
+    setEditingAssessment(assessment);
+    setViewingAssessment(null);
+    setFormData({
+      name: assessment.name,
+      description: assessment.description,
+      systemType: assessment.systemType,
+      assessor: assessment.assessor,
+      principles: { ...assessment.principles }
+    });
+    setShowDialog(true);
+  };
+
+  // Handle view assessment
+  const handleView = (assessment: PrivacyByDesignAssessment) => {
+    setViewingAssessment(assessment);
+    setEditingAssessment(null);
+    setFormData({
+      name: assessment.name,
+      description: assessment.description,
+      systemType: assessment.systemType,
+      assessor: assessment.assessor,
+      principles: { ...assessment.principles }
+    });
+    setShowDialog(true);
+  };
+
+  // Handle save assessment
+  const handleSave = () => {
+    // Validation
+    if (!formData.name?.trim()) {
+      toast.error('Validation Error', 'Assessment name is required');
+      return;
+    }
+    if (!formData.description?.trim()) {
+      toast.error('Validation Error', 'Description is required');
+      return;
+    }
+    if (!formData.assessor?.trim()) {
+      toast.error('Validation Error', 'Assessor name is required');
+      return;
+    }
+
+    // Calculate overall score
+    const overallScore = calculateOverallScore(formData.principles!);
+    const complianceStatus = getComplianceStatus(overallScore);
+    const recommendations = generateRecommendations(formData.principles!);
+
+    // Calculate next review date (1 year from now)
+    const nextReviewDate = new Date();
+    nextReviewDate.setFullYear(nextReviewDate.getFullYear() + 1);
+
+    const assessmentData: PrivacyByDesignAssessment = {
+      id: editingAssessment?.id || `PBD-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      name: formData.name.trim(),
+      description: formData.description.trim(),
+      systemType: formData.systemType!,
+      status: editingAssessment?.status || 'draft',
+      assessmentDate: editingAssessment?.assessmentDate || new Date().toISOString().split('T')[0],
+      assessor: formData.assessor.trim(),
+      overallScore,
+      principles: formData.principles!,
+      recommendations,
+      nextReviewDate: editingAssessment?.nextReviewDate || nextReviewDate.toISOString().split('T')[0],
+      complianceStatus
+    };
+
+    // Update or add assessment
+    let updatedAssessments: PrivacyByDesignAssessment[];
+    if (editingAssessment) {
+      updatedAssessments = assessments.map(a => 
+        a.id === editingAssessment.id ? assessmentData : a
+      );
+      toast.success('Assessment Updated', `Assessment "${assessmentData.name}" has been updated`);
+    } else {
+      updatedAssessments = [...assessments, assessmentData];
+      toast.success('Assessment Created', `New assessment "${assessmentData.name}" has been created`);
+    }
+
+    // Save and close
+    if (saveAssessments(updatedAssessments)) {
+      setShowDialog(false);
+      setEditingAssessment(null);
+      setViewingAssessment(null);
+    }
+  };
+
+  // Handle delete assessment
+  const handleDelete = (assessment: PrivacyByDesignAssessment) => {
+    if (window.confirm(`Are you sure you want to delete "${assessment.name}"?`)) {
+      const updatedAssessments = assessments.filter(a => a.id !== assessment.id);
+      if (saveAssessments(updatedAssessments)) {
+        toast.success('Assessment Deleted', `Assessment "${assessment.name}" has been deleted`);
+      }
+    }
+  };
 
   const filteredAssessments = assessments.filter(assessment => {
     const matchesStatus = selectedStatus === 'all' || assessment.status === selectedStatus;
@@ -422,7 +616,7 @@ const PrivacyByDesignAssessment = () => {
                   </select>
                 </div>
                 <div className="flex gap-2">
-                  <Button className="flex-1">
+                  <Button className="flex-1" onClick={handleCreateNew}>
                     <Plus className="h-4 w-4 mr-2" />
                     New Assessment
                   </Button>
@@ -499,13 +693,21 @@ const PrivacyByDesignAssessment = () => {
                       </div>
                       
                       <div className="flex items-center gap-2">
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" onClick={() => handleView(assessment)}>
                           <Eye className="h-4 w-4 mr-2" />
                           View
                         </Button>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" onClick={() => handleEdit(assessment)}>
                           <Edit className="h-4 w-4 mr-2" />
                           Edit
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={() => handleDelete(assessment)}
+                          className="text-red-600 hover:text-red-700 hover:border-red-300"
+                        >
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </div>
@@ -588,6 +790,196 @@ const PrivacyByDesignAssessment = () => {
         </TabsContent>
       </Tabs>
       </div>
+
+      {/* Create/Edit/View Dialog */}
+      <Dialog open={showDialog} onOpenChange={setShowDialog}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center justify-between">
+              <span>
+                {viewingAssessment ? 'View Assessment' : editingAssessment ? 'Edit Assessment' : 'New Assessment'}
+              </span>
+              <Button variant="outline" size="sm" onClick={() => setShowDialog(false)}>
+                <X className="h-4 w-4" />
+              </Button>
+            </DialogTitle>
+            <DialogDescription>
+              {viewingAssessment 
+                ? 'View assessment details and principle scores'
+                : 'Fill in the assessment details and score each Privacy by Design principle'}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6 mt-4">
+            {/* Basic Information */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Input
+                label="Assessment Name"
+                value={formData.name || ''}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="e.g., Customer Portal System"
+                required
+                disabled={!!viewingAssessment}
+              />
+              <Input
+                label="Assessor"
+                value={formData.assessor || ''}
+                onChange={(e) => setFormData({ ...formData, assessor: e.target.value })}
+                placeholder="Name of person conducting assessment"
+                required
+                disabled={!!viewingAssessment}
+              />
+            </div>
+
+            <Textarea
+              label="Description"
+              value={formData.description || ''}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              placeholder="Describe the system, process, or service being assessed"
+              required
+              disabled={!!viewingAssessment}
+            />
+
+            <Select
+              label="System Type"
+              value={formData.systemType || 'new_system'}
+              onChange={(e) => setFormData({ ...formData, systemType: e.target.value as any })}
+              options={[
+                { value: 'new_system', label: 'New System' },
+                { value: 'existing_system', label: 'Existing System' },
+                { value: 'process', label: 'Process' },
+                { value: 'service', label: 'Service' }
+              ]}
+              disabled={!!viewingAssessment}
+            />
+
+            {/* Principles Scoring */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Privacy by Design Principles</h3>
+              <p className="text-sm text-muted-foreground">
+                Score each principle from 0-100 based on implementation level
+              </p>
+              
+              {privacyPrinciples.map((principle) => {
+                const principleData = formData.principles?.[principle.id as keyof typeof formData.principles] || { score: 0, notes: '' };
+                return (
+                  <Card key={principle.id}>
+                    <CardContent className="p-4">
+                      <div className="space-y-3">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <h4 className="font-semibold">{principle.name}</h4>
+                            <p className="text-sm text-muted-foreground mt-1">{principle.description}</p>
+                            <div className="text-xs text-muted-foreground mt-1">Weight: {principle.weight}%</div>
+                          </div>
+                          {!viewingAssessment && (
+                            <div className="ml-4">
+                              <Input
+                                type="number"
+                                min="0"
+                                max="100"
+                                value={principleData.score}
+                                onChange={(e) => {
+                                  const newScore = Math.max(0, Math.min(100, parseInt(e.target.value) || 0));
+                                  setFormData({
+                                    ...formData,
+                                    principles: {
+                                      ...formData.principles!,
+                                      [principle.id]: { ...principleData, score: newScore }
+                                    }
+                                  });
+                                }}
+                                className="w-24"
+                                placeholder="0-100"
+                              />
+                            </div>
+                          )}
+                          {viewingAssessment && (
+                            <div className="ml-4 text-right">
+                              <div className="text-2xl font-bold">{principleData.score}</div>
+                              <div className="text-xs text-muted-foreground">/100</div>
+                            </div>
+                          )}
+                        </div>
+                        
+                        {!viewingAssessment && (
+                          <Textarea
+                            label="Notes"
+                            value={principleData.notes || ''}
+                            onChange={(e) => {
+                              setFormData({
+                                ...formData,
+                                principles: {
+                                  ...formData.principles!,
+                                  [principle.id]: { ...principleData, notes: e.target.value }
+                                }
+                              });
+                            }}
+                            placeholder="Add notes about this principle's implementation"
+                            className="min-h-[60px]"
+                          />
+                        )}
+                        {viewingAssessment && principleData.notes && (
+                          <div className="text-sm text-muted-foreground bg-muted/50 p-2 rounded">
+                            <strong>Notes:</strong> {principleData.notes}
+                          </div>
+                        )}
+                        
+                        <ProgressBar score={principleData.score} />
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+
+            {/* Calculated Results */}
+            {formData.principles && (
+              <Card className="bg-muted/30">
+                <CardContent className="p-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Overall Score</Label>
+                      <div className="text-2xl font-bold text-primary">
+                        {calculateOverallScore(formData.principles)}
+                      </div>
+                      <div className="text-xs text-muted-foreground">/100</div>
+                    </div>
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Compliance Status</Label>
+                      <div className="mt-1">
+                        {getComplianceBadge(getComplianceStatus(calculateOverallScore(formData.principles)))}
+                      </div>
+                    </div>
+                    <div>
+                      <Label className="text-sm text-muted-foreground">Recommendations</Label>
+                      <div className="text-sm mt-1">
+                        {generateRecommendations(formData.principles).length} recommendations
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+
+          <DialogFooter>
+            {viewingAssessment ? (
+              <Button onClick={() => setShowDialog(false)}>Close</Button>
+            ) : (
+              <>
+                <Button variant="outline" onClick={() => setShowDialog(false)}>
+                  Cancel
+                </Button>
+                <Button onClick={handleSave}>
+                  <Save className="h-4 w-4 mr-2" />
+                  {editingAssessment ? 'Update Assessment' : 'Create Assessment'}
+                </Button>
+              </>
+            )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
