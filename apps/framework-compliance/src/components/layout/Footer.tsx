@@ -47,11 +47,11 @@ const Footer: React.FC = () => {
     );
   }
 
-  // Footer with 3 navigation columns + Legal (5 columns total including company info)
+  // Footer with 4 navigation columns + Legal (6 columns total including company info) - all in one row
   return (
     <footer className="bg-muted/30 border-t border-border mt-auto">
       <div className="container mx-auto px-4 py-2 sm:py-2.5">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-2 md:gap-3">
           {/* Company Info */}
           <div className="col-span-2 md:col-span-2 space-y-2 md:pr-4 lg:pr-6">
             <Link to="/" className="flex items-center gap-2.5 group">
@@ -219,7 +219,7 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Legal */}
+          {/* Column 4: Legal - Repositioned after Support */}
           <div className="space-y-1.5">
             <h3 className="font-semibold text-xs text-foreground flex items-center gap-1.5">
               <Shield className="h-3.5 w-3.5 text-primary" />
